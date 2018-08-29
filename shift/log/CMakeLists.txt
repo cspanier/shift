@@ -1,0 +1,12 @@
+shift_add_library(shift.log STATIC
+  VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
+  PUBLICSOURCEDIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/public
+  PRIVATESOURCEDIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/private
+  INCLUDEDIRS
+    ${CMAKE_SOURCE_DIR}/shift/core/public
+    ${CMAKE_SOURCE_DIR}/shift/platform/public
+  DEPENDENCIES
+    Boost::boost
+)

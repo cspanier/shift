@@ -1,0 +1,90 @@
+namescope shift
+{
+  namescope proto
+  {
+    enum BuiltInType : uint8
+    {
+      boolean,
+      char8,
+      char16,
+      char32,
+      int8,
+      uint8,
+      int16,
+      uint16,
+      int32,
+      uint32,
+      int64,
+      uint64,
+      float32,
+      float64,
+      string,
+      datetime,
+      unique_ptr,
+      shared_ptr,
+      weak_ptr,
+      group_ptr,
+      tuple,
+      array,
+      list,
+      vector,
+      set,
+      matrix,
+      map,
+      variant,
+      bitfield
+    }
+
+    message Attribute
+    {
+      string name;
+      variant<string, uint32> value;
+    }
+
+    message TypeReference
+    {
+      string name;
+      variant<BuiltInType, weak_ptr<Enumeration>, weak_ptr<Message>> type;
+      list<variant<weak_ptr<TypeReference>, int32>> arguments;
+    }
+
+    message Enumeration
+    {
+      list<Attribute> attributes;
+      string name;
+      BuiltInType baseType;
+      list<tuple<string, int64>> enumerants;
+    }
+
+    message MessageField
+    {
+      list<Attribute> attributes;
+      string name;
+      TypeReference type;
+    }
+
+    message Message
+    {
+      list<Attribute> attributes;
+      uint32 uniqueId;
+      string name;
+      weak_ptr<Message> baseType;
+      list<MessageField> fields;
+    }
+
+    message Interface
+    {
+      list<Attribute> attributes;
+      string name;
+      list<weak_ptr<Message>> messages;
+    }
+
+    message Service
+    {
+      list<Attribute> attributes;
+      string name;
+      weak_ptr<Interface> serviceInterface;
+      weak_ptr<Interface> callbackInterface;
+    }
+  }
+}

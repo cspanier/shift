@@ -1,0 +1,25 @@
+shift_add_library(shift.math INTERFACE
+  VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
+  PUBLICSOURCEDIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/public
+  INCLUDEDIRS
+    ${CMAKE_SOURCE_DIR}/shift/serialization/public
+  DEPENDENCIES
+    shift.core
+    shift.platform
+    Boost::boost
+)
+
+shift_add_test(test.shift.math
+  VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
+  SOURCEROOTS
+    ${CMAKE_CURRENT_SOURCE_DIR}/test
+  INCLUDEDIRS
+    # ${CMAKE_SOURCE_DIR}/shift/math/public
+    ${CMAKE_SOURCE_DIR}/shift/serialization/public
+  DEPENDENCIES
+    shift.math
+    shift.core
+    shift.platform
+    Boost::unit_test_framework
+)
