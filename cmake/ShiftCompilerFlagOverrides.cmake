@@ -5,16 +5,26 @@
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # General compiler flags:
-  # -O0 Disable optimizations(required for accurate debugging).
-  # -O3 Enable all optimization flags for maximum performance.
-  # -Os Enable all optimization flags of -O2 that don't increase the file size.
-  # -Wall                      # Enables all the warnings about constructions that some users consider questionable, and that are easy to avoid.
-  # -Wextra                    # Enables additional warnings not included in -Wall.
+  # -O0                        # Disable optimizations(required for accurate
+                               # debugging).
+  # -O3                        # Enable all optimization flags for maximum
+                               # performance.
+  # -Os                        # Enable all optimization flags of -O2 that don't
+                               # increase the file size.
+  # -g                         # Add debugging information.
+  # -fPIC                      # Generate position independent code.
+  # -frounding-math            # Support infinities, NaNs, gradual underflow,
+  # -fsignaling-nans           # signed zeros, exception flags and traps,
+                               # setting rounding modes.
+  # -Wall                      # Enables all the warnings about constructions
+                               # that some users consider questionable, and that
+                               # are easy to avoid.
+  # -Wextra                    # Enables additional warnings not included in
+                               # -Wall.
   # -Wno-ignored-attributes    # ToDo: add description
-  # -g Add debugging information.
   set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -ftemplate-backtrace-limit=0 -fvisibility=default -fPIC -Wall -ftemplate-depth=512 -Wno-ignored-attributes") # -stdlib=libc++ -fvisibility=hidden -fvisibility-inlines-hidden
   # Temporarily disable redeclared-class-member warning for Boost 1.59
-  set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -Wno-redeclared-class-member")
+  # set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -Wno-redeclared-class-member")
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
   set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT "-Os -Wextra -fomit-frame-pointer -DBUILD_CONFIG_MINSIZEREL")
   set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -Wextra -fomit-frame-pointer -DBUILD_CONFIG_RELEASE")
@@ -33,14 +43,25 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # endif()
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND NOT MSVC)
   # General compiler flags:
-  # -O0                        # Disable optimizations(required for accurate debugging).
-  # -O3                        # Enable all optimization flags for maximum performance.
-  # -Os                        # Enable all optimization flags of -O2 that don't increase the file size.
+  # -O0                        # Disable optimizations(required for accurate
+                               # debugging).
+  # -O3                        # Enable all optimization flags for maximum
+                               # performance.
+  # -Os                        # Enable all optimization flags of -O2 that don't
+                               # increase the file size.
   # -g                         # Add debugging information.
-  # -Wall                      # Enables all the warnings about constructions that some users consider questionable, and that are easy to avoid.
-  # -Wextra                    # Enables additional warnings not included in -Wall.
-  # -Wno-psabi                 # Disable "parameter passing for argument of type '...' changed in GCC 7.1" warnings
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -Wall -Wno-psabi") # -fvisibility=hidden -fvisibility-inlines-hidden
+  # -fPIC                      # Generate position independent code.
+  # -frounding-math            # Support infinities, NaNs, gradual underflow,
+  # -fsignaling-nans           # signed zeros, exception flags and traps,
+                               # setting rounding modes.
+  # -Wall                      # Enables all the warnings about constructions
+                               # that some users consider questionable, and that
+                               # are easy to avoid.
+  # -Wextra                    # Enables additional warnings not included in
+                               # -Wall.
+  # -Wno-psabi                 # Disable "parameter passing for argument of type
+                               # '...' changed in GCC 7.1" warnings
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -Wno-psabi") # -fvisibility=hidden -fvisibility-inlines-hidden
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
   set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT "-Os -Wextra -fomit-frame-pointer -DBUILD_CONFIG_MINSIZEREL")
   set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -Wextra -fomit-frame-pointer -DBUILD_CONFIG_RELEASE")
