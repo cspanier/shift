@@ -2,6 +2,7 @@
 #define SHIFT_MATH_DETAIL_QUATERNION_IMPL_H
 
 #include <cstdint>
+#include <limits>
 #include <array>
 #include <shift/core/types.h>
 #include <shift/core/algorithm.h>
@@ -24,7 +25,7 @@ template <typename T>
 constexpr quaternion<T> inverse_impl(const quaternion<T>& q,
                                      T squared_magnitude) noexcept
 {
-  return (squared_magnitude >= epsilon<T>)
+  return (squared_magnitude >= std::numeric_limits<T>::min())
            ? mul(quaternion<T>{-q.x, -q.y, -q.z, q.w}, 1 / squared_magnitude)
            : quaternion<T>{T{0}, T{0}, T{0}, T{0}};
 }

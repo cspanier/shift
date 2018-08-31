@@ -1,6 +1,7 @@
 #ifndef SHIFT_MATH_INTERSECTION_H
 #define SHIFT_MATH_INTERSECTION_H
 
+#include <limits>
 #include "shift/math/line.h"
 #include "shift/math/ray.h"
 #include "shift/math/aabb.h"
@@ -284,7 +285,7 @@ struct intersection
   static bool ray_plane(const ray<N, T>& ray, const plane<N, T> plane, float& t)
   {
     T denominator = ray.direction * plane.normal();
-    if (denominator > -epsilon<T>)
+    if (denominator > -std::numeric_limits<T>::min())
       return false;
     t = (plane.normal() * -plane.distance() - ray.origin) * plane.normal() /
         denominator;

@@ -217,9 +217,9 @@ BOOST_AUTO_TEST_CASE(vector_algorithm)
     const auto v2 = make_vector_from(2, 0, 0);
     const auto v3 = make_vector_from(2.0f, 0.0f, 0.0f);
     const auto v4 = make_vector_from(2, 0, 0);
-    BOOST_CHECK_CLOSE(norm(v1), 4.0f, epsilon<float>);
+    BOOST_CHECK(almost_equal(norm(v1), 4.0f));
     BOOST_CHECK_EQUAL(norm(v2), 4);
-    BOOST_CHECK_CLOSE(abs(v3), 2.0f, epsilon<float>);
+    BOOST_CHECK(almost_equal(abs(v3), 2.0f));
     BOOST_CHECK_EQUAL(abs(v4), 2);
   }
 }

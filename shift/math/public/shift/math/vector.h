@@ -24,13 +24,13 @@ inline constexpr bool operator==(const vector<Rows, T>& lhs,
   using std::abs;
   for (std::size_t i = 0; i < Rows; ++i)
   {
-    if (abs(lhs(i) - rhs(i)) > epsilon<T>)
+    if (!almost_equal(lhs(i), rhs(i), 8388608))
       return false;
   }
   return true;
 }
 
-///
+/// Equality operator.
 template <std::size_t Rows, typename T,
           std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
 inline constexpr bool operator==(const vector<Rows, T>& lhs,

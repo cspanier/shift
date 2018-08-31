@@ -845,7 +845,7 @@ inline constexpr bool operator==(const matrix<Rows, Columns, T>& lhs,
   {
     for (std::size_t row = 0; row < Rows; ++row)
     {
-      if (abs(lhs(row, column) - rhs(row, column)) > epsilon<T>)
+      if (!almost_equal(lhs(row, column), rhs(row, column), 8388608))
         return false;
     }
   }

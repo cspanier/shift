@@ -1,6 +1,7 @@
 #ifndef SHIFT_MATH_QUATERNION_H
 #define SHIFT_MATH_QUATERNION_H
 
+#include <limits>
 #include <cmath>
 #include <shift/core/types.h>
 #include "shift/math/utility.h"
@@ -178,7 +179,7 @@ quaternion<T> normalize(const quaternion<T>& quaternion) noexcept
 {
   using std::abs;
   auto magnitude = abs(quaternion);
-  if (magnitude < epsilon<T>)
+  if (magnitude < std::numeric_limits<T>::min())
     return {1, 0, 0, 0};
   auto inv_magnitude = 1 / magnitude;
   return {quaternion.x * inv_magnitude, quaternion.y * inv_magnitude,
@@ -332,7 +333,7 @@ vector3<T> quaternion<T>::normalized_rotation_axis() const
     return math::vector3<float>(1.0f, 0.0f, 0.0f);
   math::vector3<float> result(x, y, z);
   T length = abs(result);
-  if (length < epsilon<T>)
+  if (length < std::numeric_limits<T>::min())
     return math::vector3<float>(1.0f, 0.0f, 0.0f);
   return result * (1 / length);
 }
@@ -365,7 +366,7 @@ quaternion<T> slerp(const quaternion<T>& p, const quaternion<T>& q, T t,
   else
     r = q;
 
-  if (abs<T>(cosine) < 1 - epsilon<T>)
+  if (!almost_equal(abs<T>(cosine), 1))
   {
     T sine = sqrtf(1 - cosine * cosine);
     T angle = atan2f(sine, cosine);
