@@ -119,15 +119,15 @@ macro(shift_add_test target)
     LINKER_LANGUAGE CXX
 
     RUNTIME_OUTPUT_DIRECTORY
-      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin"
+      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/test"
     RUNTIME_OUTPUT_DIRECTORY_DEBUG
-      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.debug"
+      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/test.debug"
     RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL
-      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.minsizerel"
+      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/test.minsizerel"
     RUNTIME_OUTPUT_DIRECTORY_RELEASE
-      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin"
+      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/test"
     RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO
-      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.relwithdeb"
+      "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/test.relwithdeb"
 
     RUNTIME_OUTPUT_NAME
       "${target}${build_file_suffix}"
