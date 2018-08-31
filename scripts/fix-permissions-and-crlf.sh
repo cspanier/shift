@@ -19,13 +19,14 @@ find . -type f -name "*.sh" \
 	-print0 | while read -r -d '' file; do
   chmod 755 $file
 done
-find . -type f \
+find . -type f -\( \
 	-name "*.cpp" -o \
 	-name "*.h" -o \
 	-name "*.sh" -o \
 	-name "*.cmd" -o \
+	-name "*.cmake" -o \
 	-name "CMakeLists.txt" \
-	-not -path "./.git/*" \
+	-\) -not -path "./.git/*" \
 	-print0 | while read -r -d '' file; do
   dos2unix -q $file
   touch $file
