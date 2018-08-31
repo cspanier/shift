@@ -5,6 +5,15 @@
 
 using namespace shift::math;
 
+BOOST_AUTO_TEST_CASE(utility_almost_equal)
+{
+  const auto value1 = 0.2;
+  const auto value2 = 1.0 / std::sqrt(5.0) / std::sqrt(5.0);
+
+  BOOST_CHECK_NE(value1, value2);
+  BOOST_CHECK(almost_equal(value1, value2));
+}
+
 BOOST_AUTO_TEST_CASE(utility_is_power_of_two)
 {
   static_assert(!is_power_of_two(0x00000000u), "Error in is_power_of_two");
@@ -48,11 +57,20 @@ void test_NaNs()
   if constexpr (std::numeric_limits<T>::has_quiet_NaN &&
                 std::numeric_limits<T>::has_signaling_NaN)
   {
-    // Any two NaN values are considered equal, regardless of whether they're
-    // signalling or quiet.
-    BOOST_CHECK_EQUAL(quiet_nan<T>(), signaling_nan<T>());
+    // Comparison of any value with a NaN value returns false.
+    BOOST_CHECK_NE(quiet_nan<T>(), T{0});
+    BOOST_CHECK_NE(signaling_nan<T>(), T{0});
 
-    // However, they should be different in binary form.
+    // Comparison of two identical NaN values should also return false.
+    /// ToDo: Visual C++ fails here. Find the reason why.
+    BOOST_CHECK_NE(quiet_nan<T>(), quiet_nan<T>());
+    BOOST_CHECK_NE(signaling_nan<T>(), signaling_nan<T>());
+
+    // Comparison of different NaN values should return false as well.
+    BOOST_CHECK_NE(quiet_nan<T>(), signaling_nan<T>());
+
+    // Signalling and quiet NaN values should be different in binary
+    // representation.
     auto qnan = quiet_nan<T>();
     auto snan = signaling_nan<T>();
     BOOST_CHECK(std::memcmp(&qnan, &snan, sizeof(T)) != 0);

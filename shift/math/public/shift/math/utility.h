@@ -3,16 +3,25 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <cmath>
 #include <limits>
+#include <type_traits>
+#include <cmath>
 #include <shift/core/types.h>
 
 namespace shift::math
 {
-/// Smallest allowed different between two values a and b such that
-/// a + epsilon assumed to be equal to b.
-template <typename T>
-static constexpr T epsilon = std::numeric_limits<T>::epsilon() * 8;
+template <class T>
+std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+  T lhs, T rhs, int units_in_the_last_place = 2)
+{
+  T diff = std::abs(lhs - rhs);
+  // The machine epsilon has to be scaled to the magnitude of the values used
+  // and multiplied by the desired precision in units in the last place, unless
+  // the difference is subnormal.
+  return diff <= std::numeric_limits<T>::epsilon() * std::abs(lhs + rhs) *
+                   units_in_the_last_place ||
+         diff < std::numeric_limits<T>::min();
+}
 
 template <typename T>
 static constexpr T pi = static_cast<T>(3.14159265358979323846l);
