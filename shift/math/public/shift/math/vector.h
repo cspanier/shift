@@ -2,310 +2,134 @@
 #define SHIFT_MATH_VECTOR_H
 
 #include <cstdint>
+#include <cmath>
 #include <utility>
 #include <array>
-#include <cmath>
-#include <complex>
-#include <iostream>
-#include <shift/core/types.h>
-#include <shift/core/core.h>
 #include "shift/math/math.h"
 #include "shift/math/utility.h"
-#include "shift/math/matrix.h"
+#include "shift/math/vector2.h"
+#include "shift/math/vector3.h"
+#include "shift/math/vector4.h"
 
 namespace shift::math
 {
 /// Equality operator.
-template <std::size_t Rows, typename T,
-          std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-inline constexpr bool operator==(const vector<Rows, T>& lhs,
-                                 const vector<Rows, T>& rhs) noexcept
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator==(const vector<Rows, U>& lhs,
+                          const vector<Rows, V>& rhs) noexcept
 {
-  using std::abs;
-  for (std::size_t i = 0; i < Rows; ++i)
+  for (std::size_t row = 0u; row < Rows; ++row)
   {
-    if (!almost_equal(lhs(i), rhs(i), 8388608))
-      return false;
-  }
-  return true;
-}
-
-/// Equality operator.
-template <std::size_t Rows, typename T,
-          std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-inline constexpr bool operator==(const vector<Rows, T>& lhs,
-                                 const vector<Rows, T>& rhs) noexcept
-{
-  for (std::size_t i = 0; i < Rows; ++i)
-  {
-    if (lhs(i) != rhs(i))
+    if (lhs(row) != rhs(row))
       return false;
   }
   return true;
 }
 
 /// Inequality operator.
-template <std::size_t Rows, typename T>
-inline constexpr bool operator!=(const vector<Rows, T>& lhs,
-                                 const vector<Rows, T>& rhs) noexcept
+/// @remarks
+///   Implemented in terms of !(lhs == rhs).
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator!=(const vector<Rows, U>& lhs,
+                          const vector<Rows, V>& rhs) noexcept
 {
   return !(lhs == rhs);
 }
 
 ///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator+(const vector<Rows, T>& lhs,
-                                const vector<Rows, U>& rhs) noexcept
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator<(const vector<Rows, U>& lhs,
+                         const vector<Rows, V>& rhs) noexcept
 {
-  vector<Rows, decltype(std::declval<T>() + std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) + rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator+(const vector<Rows, T>& lhs, U rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() + std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) + rhs;
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator+(T lhs, const vector<Rows, U>& rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() + std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs + rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator-(const vector<Rows, T>& lhs,
-                                const vector<Rows, U>& rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() - std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) - rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator-(const vector<Rows, T>& lhs, U rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() - std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) - rhs;
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator-(U lhs, const vector<Rows, T>& rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() - std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs - rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T>
-inline constexpr auto operator-(const vector<Rows, T>& value) noexcept
-{
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = -value(row);
-  return result;
-}
-
-/// Component-wise vector multiplication.
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator*(const vector<Rows, T>& lhs,
-                                const vector<Rows, U>& rhs) noexcept
-{
-  vector<Rows, decltype(std::declval<T>() * std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) * rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator%(const vector<Rows, T>& lhs,
-                                const vector<Rows, U>& rhs)
-{
-  vector<Rows, decltype(std::declval<T>() % std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) % rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator%(T lhs, const vector<Rows, U>& rhs)
-{
-  vector<Rows, decltype(std::declval<T>() % std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs % rhs(row);
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T, typename U>
-inline constexpr auto operator%(const vector<Rows, T>& lhs, U rhs)
-{
-  vector<Rows, decltype(std::declval<T>() % std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = lhs(row) % rhs;
-  return result;
-}
-
-///
-template <std::size_t Rows, typename T>
-inline constexpr bool operator<(const vector<Rows, T>& lhs,
-                                const vector<Rows, T>& rhs) noexcept
-{
-  using std::norm;
   return norm(lhs) < norm(rhs);
 }
 
 ///
-template <std::size_t Rows, typename T>
-inline constexpr bool operator>(const vector<Rows, T>& lhs,
-                                const vector<Rows, T>& rhs) noexcept
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator>(const vector<Rows, U>& lhs,
+                         const vector<Rows, V>& rhs) noexcept
 {
-  using std::norm;
   return norm(lhs) > norm(rhs);
 }
 
-///
-template <std::size_t Rows, typename T>
-inline constexpr bool operator<=(const vector<Rows, T>& lhs,
-                                 const vector<Rows, T>& rhs) noexcept
+/// @remarks
+///   Implemented in terms of operator>().
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator<=(const vector<Rows, U>& lhs,
+                          const vector<Rows, V>& rhs) noexcept
 {
   return !(rhs > lhs);
 }
 
-///
-template <std::size_t Rows, typename T>
-inline constexpr bool operator>=(const vector<Rows, T>& lhs,
-                                 const vector<Rows, T>& rhs) noexcept
+/// @remarks
+///   Implemented in terms of operator<().
+template <std::size_t Rows, typename U, typename V>
+constexpr bool operator>=(const vector<Rows, U>& lhs,
+                          const vector<Rows, V>& rhs) noexcept
 {
   return !(rhs < lhs);
 }
 
-/// Vector addition.
-template <std::size_t Rows, typename T, typename U>
-vector<Rows, T>& operator+=(vector<Rows, T>& lhs,
-                            const vector<Rows, U>& rhs) noexcept
-{
-  lhs = static_cast_matrix<T>(lhs + rhs);
-  return lhs;
-}
-
-/// Vector subtraction.
-template <std::size_t Rows, typename T, typename U>
-vector<Rows, T>& operator-=(vector<Rows, T>& lhs,
-                            const vector<Rows, U>& rhs) noexcept
-{
-  lhs = static_cast_matrix<T>(lhs - rhs);
-  return lhs;
-}
-
-/// Scalar product.
-template <std::size_t Rows, typename T, typename U>
-vector<Rows, T>& operator*=(vector<Rows, T>& lhs, U factor) noexcept
-{
-  lhs = static_cast_matrix<T>(lhs * factor);
-  return lhs;
-}
-
-/// Scalar division.
-template <std::size_t Rows, typename T, typename U>
-vector<Rows, T>& operator/=(vector<Rows, T>& lhs, U divisor)
-{
-  lhs = static_cast_matrix<T>(lhs / divisor);
-  return lhs;
-}
-
-/// Component-wise modulus assignment.
-template <std::size_t Rows, typename T, typename U>
-vector<Rows, T>& operator%=(vector<Rows, T>& lhs, U divisor)
-{
-  lhs = static_cast_matrix<T>(lhs % divisor);
-  return lhs;
-}
-
-///
+/// Componentwise comparison using almost_equal.
 template <std::size_t Rows, typename T>
-inline std::ostream& operator<<(std::ostream& stream,
-                                const math::vector<Rows, T>& vector)
+constexpr std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+  const vector<Rows, T>& lhs, const vector<Rows, T>& rhs,
+  int units_in_the_last_place = 2) noexcept
 {
-  stream << "(";
-  for (std::size_t row = 0; row < Rows; ++row)
+  for (std::size_t row = 0u; row < Rows; ++row)
   {
-    if (row != 0)
-      stream << ", ";
-    stream << vector(row);
+    if (!almost_equal(lhs(row), rhs(row), units_in_the_last_place))
+      return false;
   }
-  stream << ")";
-
-  return stream;
-}
-
-///
-template <std::size_t Rows, typename T>
-inline std::istream& operator>>(std::istream& stream,
-                                math::vector<Rows, T>& vector)
-{
-  stream.get();
-  for (std::size_t i = 0; i < Rows; ++i)
-  {
-    if (i != 0)
-      stream.get();
-    typename std::conditional<std::is_same<T, unsigned char>::value,
-                              unsigned short, T>::M component;
-    if ((stream >> component).fail())
-      break;
-    vector(i) = static_cast<T>(component);
-  }
-  stream.get();
-
-  if (stream.fail())
-    vector = math::vector<Rows, T>();
-
-  return stream;
+  return true;
 }
 
 /// Construct a vector by copying fill_value to each component.
 template <std::size_t Rows, typename T>
-inline constexpr auto make_default_vector(const T fill_value) noexcept
+constexpr auto make_default_vector(const T fill_value) noexcept
 {
-  return make_default_matrix<Rows, 1, T>(fill_value);
+  return vector<Rows, T>(fill_value);
 }
 
-/// Constructs a vector filled with either signaling_nan<T>() or T{0}, depending
+/// Constructs a vector filled with either signaling_nan<T>() or T{}, depending
 /// on whether type T does have a signalling NaN value defined.
 template <std::size_t Rows, typename T>
 constexpr vector<Rows, T> make_nan_vector() noexcept
 {
-  return make_nan_matrix<Rows, 1, T>();
+  if constexpr (std::numeric_limits<T>::has_signaling_NaN)
+    return vector<Rows, T>(signaling_nan<T>());
+  else
+    return vector<Rows, T>(T{});
 };
 
-/// Construct a vector from a series of values.
-template <typename... Ts>
-constexpr auto make_vector_from(Ts&&... values) noexcept
+/// Makes a vector from a series of arguments.
+/// @remarks
+///   The resulting vector's dimension is automatically deduced from the sum of
+///   argument components, i.e. passing other vectors as arguments to this
+///   function splits those into components. The function also tries to
+///   automatically deduce the resulting vector's type, which is based on the
+///   result of operator* of the list of components.
+template <typename... Args>
+constexpr auto make_vector_from(Args&&... args) noexcept
 {
-  return make_matrix_from_column_major<
-    detail::count_elements<std::decay_t<Ts>...>::count(), 1,
-    detail::element_type_t<std::decay_t<core::first_in_pack_t<Ts...>>>>(
-    std::forward<Ts>(values)...);
+  return vector<detail::components_count_v<Args...>,
+                detail::select_type_t<Args...>>{}
+    .assign(std::forward<Args>(args)...);
+}
+
+/// Makes a vector from a series of arguments.
+/// @tparam T
+///   The resulting vector's type.
+/// @remarks
+///   The resulting vector's dimension is automatically deduced from the sum of
+///   argument components, i.e. passing other vectors as arguments to this
+///   function splits those into components. All argument's components are cast
+///   to the resulting vector's type.
+template <typename T, typename... Args>
+constexpr auto make_vector_from(Args&&... args) noexcept
+{
+  return vector<detail::components_count_v<Args...>, T>{}.assign(
+    std::forward<Args>(args)...);
 }
 
 /// Construct a vector from a C-style array.
@@ -316,37 +140,14 @@ constexpr auto make_vector_from(Ts&&... values) noexcept
 template <std::size_t Rows, typename T>
 constexpr vector<Rows, T> make_vector_from(const T (&array)[Rows]) noexcept
 {
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = array[row];
-  return result;
+  return vector<Rows, T>{std::begin(array), std::end(array)};
 }
 
 /// Construct a vector from a std::array.
 template <std::size_t Rows, typename T>
 constexpr auto make_vector_from(const std::array<T, Rows>& array) noexcept
 {
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = array[row];
-  return result;
-}
-
-/// Makes a unit vector in the direction of the given axis.
-template <std::size_t Rows, typename T, std::size_t Axis>
-inline constexpr auto make_unit_vector() noexcept
-{
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = (row == Axis) ? T{1} : T{0};
-  return result;
-}
-
-///
-template <typename U, std::size_t Rows, typename T>
-inline constexpr auto static_cast_vector(const vector<Rows, T>& v) noexcept
-{
-  return static_cast_matrix<U>(v);
+  return vector<Rows, T>{std::begin(array), std::end(array)};
 }
 
 /// Returns a vector composed from arbitrary components of another vector or
@@ -355,87 +156,102 @@ inline constexpr auto static_cast_vector(const vector<Rows, T>& v) noexcept
 ///   This is an alternative syntax to the name swizzling known from e.g.
 ///   GLSL, so swizzle<1, 1, 0, 2>(vec) is equal to vec.yyxz.
 template <std::size_t... Components, std::size_t Rows, typename T>
-inline constexpr auto swizzle(const vector<Rows, T>& source) noexcept
+constexpr auto swizzle(const vector<Rows, T>& source) noexcept
 {
   return vector<sizeof...(Components), T>{source(Components)...};
 }
 
 /// Returns the squared length of the vector v (|v|^2).
-template <std::size_t Rows, typename T>
-T norm(const vector<Rows, T>& v) noexcept
+template <std::size_t Rows, typename U>
+constexpr U norm(const vector<Rows, U>& v) noexcept
 {
   return dot(v, v);
 }
 
 /// Returns the length of the vector v (|v|).
-template <std::size_t Rows, typename T,
-          std::enable_if_t<!std::is_integral<T>::value>* = nullptr>
-T abs(const vector<Rows, T>& v) noexcept
+template <std::size_t Rows, typename U>
+constexpr auto abs(const vector<Rows, U>& v) noexcept
 {
   using std::sqrt;
   return sqrt(norm(v));
 }
 
-/// Returns the length of the vector v (|v|).
-/// @remarks
-///   This overload for vectors of integral element data type converts the
-///   argument to a vector of type R first.
-template <typename R = float, std::size_t Rows, typename T,
-          std::enable_if_t<std::is_integral<T>::value>* = nullptr>
-R abs(const vector<Rows, T>& v) noexcept
-{
-  using std::abs;
-  return abs(static_cast_matrix<R>(v));
-}
-
 /// Applies std::floor to each vector component and returns the result.
-template <std::size_t Rows, typename T>
-inline auto floor(vector<Rows, T> v) noexcept
+template <std::size_t Rows, typename U>
+inline auto floor(vector<Rows, U> value) noexcept
 {
   using std::floor;
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = floor(v(row));
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
+    result(row) = floor(value(row));
   return result;
 }
 
 /// Applies std::ceil to each vector component and returns the result.
-template <std::size_t Rows, typename T>
-inline auto ceil(vector<Rows, T> v) noexcept
+template <std::size_t Rows, typename U>
+inline auto ceil(vector<Rows, U> value) noexcept
 {
   using std::ceil;
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = ceil(v(row));
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
+    result(row) = ceil(value(row));
   return result;
 }
 
 /// Applies std::round to each vector component and returns the result.
-template <std::size_t Rows, typename T>
-inline auto round(vector<Rows, T> v) noexcept
+template <std::size_t Rows, typename U>
+inline auto round(vector<Rows, U> value) noexcept
 {
   using std::round;
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = round(v(row));
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
+    result(row) = round(value(row));
   return result;
 }
 
 /// Component-wise clamp function.
-template <std::size_t Rows, typename T>
-inline constexpr auto clamp(const vector<Rows, T>& v,
-                            const vector<Rows, T>& lower_bound,
-                            const vector<Rows, T>& upper_bound) noexcept
+template <std::size_t Rows, typename U>
+constexpr auto clamp(const vector<Rows, U>& value,
+                     const vector<Rows, U>& lower_bound,
+                     const vector<Rows, U>& upper_bound) noexcept
 {
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = core::clamp(v(row), lower_bound(row), upper_bound(row));
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
+    result(row) = core::clamp(value(row), lower_bound(row), upper_bound(row));
+  return result;
+}
+
+/// Reflects a direction vector on a plane with the passed normal.
+template <std::size_t Rows, typename U, typename V>
+constexpr auto reflect(const vector<Rows, U>& direction,
+                       const vector<Rows, V>& normal) noexcept
+{
+  return direction - 2 * dot(direction, normal) * normal;
+}
+
+/// Generates a step function by comparing v(i) to edge.
+template <std::size_t Rows, typename U>
+auto step(U edge, const vector<Rows, U>& value) noexcept
+{
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
+    result(row) = core::step(edge, value(row));
+  return result;
+}
+
+/// Generates a step function by comparing v(i) to edge(i).
+template <std::size_t Rows, typename U>
+auto step(const vector<Rows, U>& edge, const vector<Rows, U>& value) noexcept
+{
+  vector<Rows, U> result{};
+  for (std::size_t row = 00; row < Rows; ++row)
+    result(row) = core::step(edge(row), value(row));
   return result;
 }
 
 /// Normalizes a direction vector.
-template <std::size_t Rows, typename T>
-auto normalize(const vector<Rows, T>& direction) noexcept
+template <std::size_t Rows, typename U>
+auto normalize(const vector<Rows, U>& direction) noexcept
 {
   using std::abs;
   auto magnitude = abs(direction);
@@ -445,105 +261,50 @@ auto normalize(const vector<Rows, T>& direction) noexcept
 }
 
 /// Returns the smallest component of the passed vector.
-template <std::size_t Rows, typename T>
-inline constexpr T min(const vector<Rows, T>& v) noexcept
+template <std::size_t Rows, typename U>
+constexpr U min(const vector<Rows, U>& value) noexcept
 {
-  T result = v(0);
-  for (std::size_t row = 1; row < Rows; ++row)
+  auto result = value(0);
+  for (std::size_t row = 1u; row < Rows; ++row)
   {
-    if (v(row) < result)
-      result = v(row);
+    if (value(row) < result)
+      result = value(row);
   }
   return result;
 }
 
 /// Returns the largest component of the passed vector.
-template <std::size_t Rows, typename T>
-inline constexpr T max(const vector<Rows, T>& v) noexcept
+template <std::size_t Rows, typename U>
+constexpr U max(const vector<Rows, U>& value) noexcept
 {
-  T result = v(0);
-  for (std::size_t row = 1; row < Rows; ++row)
+  auto result = value(0);
+  for (std::size_t row = 1u; row < Rows; ++row)
   {
-    if (v(row) > result)
-      result = v(row);
+    if (value(row) > result)
+      result = value(row);
   }
   return result;
 }
 
 /// Componentwise min function.
-template <std::size_t Rows, typename T>
-inline constexpr auto min(const vector<Rows, T>& v1, const vector<Rows, T>& v2)
+template <std::size_t Rows, typename U>
+constexpr auto min(const vector<Rows, U>& v1,
+                   const vector<Rows, U>& v2) noexcept
 {
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
     result(row) = v1(row) <= v2(row) ? v1(row) : v2(row);
   return result;
 }
 
 /// Componentwise max function.
-template <std::size_t Rows, typename T>
-inline constexpr vector<Rows, T> max(const vector<Rows, T>& v1,
-                                     const vector<Rows, T>& v2)
+template <std::size_t Rows, typename U>
+constexpr auto max(const vector<Rows, U>& v1,
+                   const vector<Rows, U>& v2) noexcept
 {
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
+  vector<Rows, U> result{};
+  for (std::size_t row = 0u; row < Rows; ++row)
     result(row) = v1(row) >= v2(row) ? v1(row) : v2(row);
-  return result;
-}
-
-/// Returns the dot product of lhs and rhs.
-template <std::size_t Rows, typename T, typename U>
-inline auto dot(const vector<Rows, T>& lhs, const vector<Rows, U>& rhs) noexcept
-{
-  decltype(std::declval<T>() * std::declval<U>()) result = 0;
-  for (std::size_t row = 0; row < Rows; ++row)
-    result += lhs(row) * rhs(row);
-  return result;
-}
-
-/// Returns the cross product of the 2 dimensional vectors lhs and rhs.
-template <typename T, typename U>
-inline constexpr auto cross(const vector<2, T>& lhs,
-                            const vector<2, U>& rhs) noexcept
-{
-  return lhs.x * rhs.y - lhs.y * rhs.x;
-}
-
-/// Returns the cross product of the 3 dimensional vectors lhs and rhs.
-template <typename T, typename U>
-inline constexpr auto cross(const vector<3, T>& lhs,
-                            const vector<3, U>& rhs) noexcept
-{
-  using result_t = vector<3, decltype(std::declval<T>() * std::declval<U>())>;
-  return result_t{lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z,
-                  lhs.x * rhs.y - lhs.y * rhs.x};
-}
-
-/// Reflects a direction vector on a plane with the passed normal.
-template <std::size_t Rows, typename T>
-constexpr auto reflect(const vector<Rows, T>& direction,
-                       const vector<Rows, T>& normal) noexcept
-{
-  return direction - 2 * dot(direction, normal) * normal;
-}
-
-/// Generates a step function by comparing v(i) to edge.
-template <std::size_t Rows, typename T>
-auto step(T edge, const vector<Rows, T>& v) noexcept
-{
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = core::step(edge, v(row));
-  return result;
-}
-
-/// Generates a step function by comparing v(i) to edge(i).
-template <std::size_t Rows, typename T>
-auto step(const vector<Rows, T>& edge, const vector<Rows, T>& v) noexcept
-{
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = core::step(edge(row), v(row));
   return result;
 }
 }

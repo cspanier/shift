@@ -10,16 +10,15 @@
 
 namespace shift::math
 {
-template <class T>
+template <typename T>
 std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
   T lhs, T rhs, int units_in_the_last_place = 2)
 {
   T diff = std::abs(lhs - rhs);
-  // The machine epsilon has to be scaled to the magnitude of the values used
-  // and multiplied by the desired precision in units in the last place, unless
-  // the difference is subnormal.
-  return diff <= std::numeric_limits<T>::epsilon() * std::abs(lhs + rhs) *
-                   units_in_the_last_place ||
+  // Return true if the difference is not greater than the machine epsilon
+  // multiplied by the desired precision in units in the last place, or if the
+  // difference is is subnormal.
+  return diff <= std::numeric_limits<T>::epsilon() * units_in_the_last_place ||
          diff < std::numeric_limits<T>::min();
 }
 

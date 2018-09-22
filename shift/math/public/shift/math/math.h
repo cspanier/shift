@@ -2,6 +2,7 @@
 #define SHIFT_MATH_MATH_H
 
 #include <cstddef>
+#include <type_traits>
 
 #if defined(SHIFT_MATH_SHARED)
 #if defined(SHIFT_MATH_EXPORT)
@@ -15,12 +16,17 @@
 
 namespace shift::math
 {
-struct do_not_initialize
-{
-};
+template <std::size_t Rows, typename T>
+struct vector;
+template <typename T>
+using vector2 = vector<2, T>;
+template <typename T>
+using vector3 = vector<3, T>;
+template <typename T>
+using vector4 = vector<4, T>;
 
 template <std::size_t Rows, std::size_t Columns, typename T>
-class matrix;
+struct matrix;
 template <typename T>
 using matrix22 = matrix<2, 2, T>;
 template <typename T>
@@ -28,16 +34,19 @@ using matrix33 = matrix<3, 3, T>;
 template <typename T>
 using matrix44 = matrix<4, 4, T>;
 
-template <std::size_t Rows, typename T>
-using vector = matrix<Rows, 1, T>;
-template <typename T>
-using vector1 = vector<1, T>;
-template <typename T>
-using vector2 = vector<2, T>;
-template <typename T>
-using vector3 = vector<3, T>;
-template <typename T>
-using vector4 = vector<4, T>;
+struct do_not_initialize
+{
+};
+
+/// A simple tag type used to select argument order in matrix construction.
+struct column_major
+{
+};
+
+/// A simple tag type used to select argument order in matrix construction.
+struct row_major
+{
+};
 
 template <typename T>
 class quaternion;
@@ -229,6 +238,76 @@ struct is_matrix44<math::matrix<4, 4, U>> : public std::true_type
 ///
 template <typename T>
 constexpr bool is_matrix44_v = is_matrix44<T>::value;
+}
+
+namespace shift::math::detail
+{
+///
+template <typename... Ts>
+struct components_count
+{
+  static constexpr std::size_t count()
+  {
+    return 0;
+  }
+};
+
+///
+template <typename T, typename... Ts>
+struct components_count<T, Ts...>
+{
+  static constexpr std::size_t count()
+  {
+    if constexpr (is_vector_v<T>)
+      return T::row_count + components_count<Ts...>::count();
+    else
+      return 1 + components_count<Ts...>::count();
+  }
+};
+
+///
+template <typename... Ts>
+constexpr std::size_t components_count_v = components_count<Ts...>::count();
+
+///
+template <typename T>
+struct component_type
+{
+  using type = T;
+};
+
+///
+template <std::size_t Rows, typename T>
+struct component_type<math::vector<Rows, T>>
+{
+  using type = T;
+};
+
+///
+template <typename T>
+using component_type_t = typename component_type<T>::type;
+
+///
+template <typename... Ts>
+struct select_type;
+///
+template <typename T>
+struct select_type<T>
+{
+  using type = component_type_t<T>;
+};
+
+///
+template <typename T, typename... Ts>
+struct select_type<T, Ts...>
+{
+  using type = decltype(std::declval<component_type_t<T>>() *
+                        std::declval<typename select_type<Ts...>::type>());
+};
+
+///
+template <typename... Ts>
+using select_type_t = typename select_type<Ts...>::type;
 }
 
 #endif

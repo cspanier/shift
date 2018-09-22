@@ -69,10 +69,10 @@ constexpr interval<Dimensions, T>::interval(const T x, const T y, const T width,
                                             const T height)
 {
   BOOST_ASSERT(width >= 0 && height >= 0);
-  min.x = x;
-  min.y = y;
-  max.x = x + width;
-  max.y = y + height;
+  min.x() = x;
+  min.y() = y;
+  max.x() = x + width;
+  max.y() = y + height;
 }
 
 template <std::size_t Dimensions, typename T>

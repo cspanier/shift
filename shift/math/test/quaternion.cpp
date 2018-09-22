@@ -56,15 +56,15 @@ BOOST_AUTO_TEST_CASE(quaternion_rotation_r3)
   auto r_y = make_quaternion_from_axis_angle(y, 90_fdeg);
   auto r_z = make_quaternion_from_axis_angle(z, 90_fdeg);
 
-  BOOST_CHECK_EQUAL(rotate(x, r_x), x);
-  BOOST_CHECK_EQUAL(rotate(y, r_x), z);
-  BOOST_CHECK_EQUAL(rotate(z, r_x), -y);
-  BOOST_CHECK_EQUAL(rotate(x, r_y), -z);
-  BOOST_CHECK_EQUAL(rotate(y, r_y), y);
-  BOOST_CHECK_EQUAL(rotate(z, r_y), x);
-  BOOST_CHECK_EQUAL(rotate(x, r_z), y);
-  BOOST_CHECK_EQUAL(rotate(y, r_z), -x);
-  BOOST_CHECK_EQUAL(rotate(z, r_z), z);
+  BOOST_CHECK(almost_equal(rotate(x, r_x), x));
+  BOOST_CHECK(almost_equal(rotate(y, r_x), z));
+  BOOST_CHECK(almost_equal(rotate(z, r_x), -y));
+  BOOST_CHECK(almost_equal(rotate(x, r_y), -z));
+  BOOST_CHECK(almost_equal(rotate(y, r_y), y));
+  BOOST_CHECK(almost_equal(rotate(z, r_y), x));
+  BOOST_CHECK(almost_equal(rotate(x, r_z), y));
+  BOOST_CHECK(almost_equal(rotate(y, r_z), -x));
+  BOOST_CHECK(almost_equal(rotate(z, r_z), z));
 }
 
 BOOST_AUTO_TEST_CASE(quaternion_rotation_r4)
@@ -84,13 +84,13 @@ BOOST_AUTO_TEST_CASE(quaternion_rotation_r4)
   auto r_y = make_quaternion_from_axis_angle(y, 90_fdeg);
   auto r_z = make_quaternion_from_axis_angle(z, 90_fdeg);
 
-  BOOST_CHECK_EQUAL(rotate(p_x, r_x), p_x);
-  BOOST_CHECK_EQUAL(rotate(p_y, r_x), p_z);
-  BOOST_CHECK_EQUAL(rotate(p_z, r_x), n_y);
-  BOOST_CHECK_EQUAL(rotate(p_x, r_y), n_z);
-  BOOST_CHECK_EQUAL(rotate(p_y, r_y), p_y);
-  BOOST_CHECK_EQUAL(rotate(p_z, r_y), p_x);
-  BOOST_CHECK_EQUAL(rotate(p_x, r_z), p_y);
-  BOOST_CHECK_EQUAL(rotate(p_y, r_z), n_x);
-  BOOST_CHECK_EQUAL(rotate(p_z, r_z), p_z);
+  BOOST_CHECK(almost_equal(rotate(p_x, r_x), p_x));
+  BOOST_CHECK(almost_equal(rotate(p_y, r_x), p_z));
+  BOOST_CHECK(almost_equal(rotate(p_z, r_x), n_y));
+  BOOST_CHECK(almost_equal(rotate(p_x, r_y), n_z));
+  BOOST_CHECK(almost_equal(rotate(p_y, r_y), p_y));
+  BOOST_CHECK(almost_equal(rotate(p_z, r_y), p_x));
+  BOOST_CHECK(almost_equal(rotate(p_x, r_z), p_y));
+  BOOST_CHECK(almost_equal(rotate(p_y, r_z), n_x));
+  BOOST_CHECK(almost_equal(rotate(p_z, r_z), p_z));
 }

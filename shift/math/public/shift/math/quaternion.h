@@ -7,7 +7,6 @@
 #include "shift/math/utility.h"
 #include "shift/math/vector.h"
 #include "shift/math/matrix.h"
-#include "shift/math/detail/quaternion_impl.h"
 
 namespace shift::math
 {
@@ -142,25 +141,28 @@ constexpr bool operator!=(const quaternion<T>& lhs,
 ///   magnitude for this function. We use the latter one for performance
 ///   reasons. Please use abs() to get the magnitude of a quaternion.
 template <typename T>
-T norm(const quaternion<T>& quaternion) noexcept
+T norm(const quaternion<T>& any_quaternion) noexcept
 {
-  return quaternion.x * quaternion.x + quaternion.y * quaternion.y +
-         quaternion.z * quaternion.z + quaternion.w * quaternion.w;
+  return any_quaternion.x * any_quaternion.x +
+         any_quaternion.y * any_quaternion.y +
+         any_quaternion.z * any_quaternion.z +
+         any_quaternion.w * any_quaternion.w;
 }
 
 /// Returns the magnitude of a quaternion.
 template <typename T>
-T abs(const quaternion<T>& quaternion) noexcept
+T abs(const quaternion<T>& any_quaternion) noexcept
 {
   using std::sqrt;
-  return sqrt(norm(quaternion));
+  return sqrt(norm(any_quaternion));
 }
 
 /// Returns the conjugate of a quaternion.
 template <typename T>
-constexpr quaternion<T> conjugate(const quaternion<T>& quaternion) noexcept
+constexpr quaternion<T> conjugate(const quaternion<T>& any_quaternion) noexcept
 {
-  return {-quaternion.x, -quaternion.y, -quaternion.z, quaternion.w};
+  return {-any_quaternion.x, -any_quaternion.y, -any_quaternion.z,
+          any_quaternion.w};
 }
 
 /// Returns the inverse of a quaternion.
@@ -168,22 +170,30 @@ constexpr quaternion<T> conjugate(const quaternion<T>& quaternion) noexcept
 ///   Note that the inverse of a unit quaternion is equal to the conjugate of
 ///   that quaternion, which is less costly to compute.
 template <typename T>
-constexpr quaternion<T> inverse(const quaternion<T>& quaternion) noexcept
+constexpr quaternion<T> inverse(const quaternion<T>& any_quaternion) noexcept
 {
-  return detail::inverse_impl(quaternion, norm(quaternion));
+  auto squared_magnitude = norm(any_quaternion);
+  if (squared_magnitude >= std::numeric_limits<T>::min())
+  {
+    return mul(quaternion<T>{-any_quaternion.x, -any_quaternion.y,
+                             -any_quaternion.z, any_quaternion.w},
+               1 / squared_magnitude);
+  }
+  else
+    return quaternion<T>{T{0}, T{0}, T{0}, T{0}};
 }
 
 /// Normalizes a quaternion.
 template <typename T>
-quaternion<T> normalize(const quaternion<T>& quaternion) noexcept
+quaternion<T> normalize(const quaternion<T>& any_quaternion) noexcept
 {
   using std::abs;
-  auto magnitude = abs(quaternion);
+  auto magnitude = abs(any_quaternion);
   if (magnitude < std::numeric_limits<T>::min())
     return {1, 0, 0, 0};
   auto inv_magnitude = 1 / magnitude;
-  return {quaternion.x * inv_magnitude, quaternion.y * inv_magnitude,
-          quaternion.z * inv_magnitude, quaternion.w * inv_magnitude};
+  return {any_quaternion.x * inv_magnitude, any_quaternion.y * inv_magnitude,
+          any_quaternion.z * inv_magnitude, any_quaternion.w * inv_magnitude};
 }
 
 /// Rotates a vector using a quaternion.
@@ -366,7 +376,7 @@ quaternion<T> slerp(const quaternion<T>& p, const quaternion<T>& q, T t,
   else
     r = q;
 
-  if (!almost_equal(abs<T>(cosine), 1))
+  if (!almost_equal(abs(cosine), 1))
   {
     T sine = sqrtf(1 - cosine * cosine);
     T angle = atan2f(sine, cosine);
@@ -450,27 +460,27 @@ constexpr quaternion<T> operator*(const vector<4, T>& vector,
 template <typename T>
 constexpr quaternion<T> operator*(T lhs, const quaternion<T>& rhs) noexcept
 {
-  return detail::mul(rhs, lhs);
+  return {lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.w};
 }
 
 ///
 template <typename T>
 constexpr quaternion<T> operator*(const quaternion<T>& lhs, T rhs) noexcept
 {
-  return detail::mul(lhs, rhs);
+  return {lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs};
 }
 
 ///
 template <typename T>
 inline std::ostream& operator<<(std::ostream& stream,
-                                const quaternion<T>& quaternion)
+                                const quaternion<T>& any_quaternion)
 {
   stream << "(";
   for (std::size_t i = 0; i < 4; ++i)
   {
     if (i != 0)
       stream << ",";
-    stream << quaternion(i);
+    stream << any_quaternion(i);
   }
   stream << ")";
 
@@ -479,14 +489,15 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 ///
 template <typename T>
-inline std::istream& operator>>(std::istream& stream, quaternion<T>& quaternion)
+inline std::istream& operator>>(std::istream& stream,
+                                quaternion<T>& any_quaternion)
 {
   stream.get();
   for (std::size_t i = 0; i < 4; ++i)
   {
     if (i != 0)
       stream.get();
-    if ((stream >> quaternion(i)).fail())
+    if ((stream >> any_quaternion(i)).fail())
       break;
   }
   stream.get();

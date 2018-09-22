@@ -1,250 +1,193 @@
-#ifndef SHIFT_MATH_MATRIX_H
-#define SHIFT_MATH_MATRIX_H
+#ifndef SHIFT_MATH_MATRIX_EX_H
+#define SHIFT_MATH_MATRIX_EX_H
 
-#include <cmath>
-#include <array>
-#include <iostream>
-#include <shift/core/types.h>
-#include <shift/core/algorithm.h>
 #include "shift/math/math.h"
-#include "shift/math/utility.h"
-#include "shift/math/detail/matrix_storage.h"
-
-namespace shift::math::detail
-{
-struct column_major
-{
-};
-
-struct row_major
-{
-};
-
-template <typename... Ts>
-struct count_elements
-{
-  static constexpr std::size_t count()
-  {
-    return 0;
-  }
-};
-
-template <typename T, typename... Ts>
-struct count_elements<T, Ts...>
-{
-  static constexpr std::size_t count()
-  {
-    if constexpr (is_matrix_v<T>)
-      return T::rows * T::columns + count_elements<Ts...>::count();
-    if constexpr (core::is_std_tuple<T>::value)
-      return std::tuple_size_v<T> + count_elements<Ts...>::count();
-    else
-      return 1 + count_elements<Ts...>::count();
-  }
-};
-
-template <typename T>
-struct element_type
-{
-  using type = T;
-};
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-struct element_type<matrix<Rows, Columns, T>>
-{
-  using type = typename element_type<std::decay_t<T>>::type;
-};
-
-template <typename T, typename... Ts>
-struct element_type<std::tuple<T, Ts...>>
-{
-  using type = typename element_type<std::decay_t<T>>::type;
-};
-
-template <typename T>
-using element_type_t = typename element_type<T>::type;
-}
+#include "shift/math/matrix2x2.h"
+#include "shift/math/matrix3x3.h"
+#include "shift/math/matrix4x4.h"
 
 namespace shift::math
 {
-/// Template class for T^(Columns*Rows) matrices in column major order.
-template <std::size_t Rows, std::size_t Columns, typename T>
-class matrix final : public detail::matrix_storage<Rows, Columns, T>
+/// Equality operator.
+template <std::size_t Rows, std::size_t Columns, typename U, typename V>
+constexpr bool operator==(const matrix<Rows, Columns, U>& lhs,
+                          const matrix<Rows, Columns, V>& rhs) noexcept
 {
-public:
-  static_assert(Rows >= 1, "A matrix needs to have at least one row");
-  static_assert(Columns >= 1, "A matrix needs to have at least one column");
-
-  using base_t = detail::matrix_storage<Rows, Columns, T>;
-  using element_t = T;
-
-  static constexpr std::size_t rows = Rows;
-  static constexpr std::size_t columns = Columns;
-
-public:
-  /// Default constructor.
-  constexpr matrix() noexcept = default;
-
-  /// Copy constructor.
-  constexpr matrix(const matrix& /*other*/) noexcept = default;
-
-  /// Move constructor.
-  constexpr matrix(matrix&& /*other*/) noexcept = default;
-
-  /// Constructor initializing the matrix from a list of values in column
-  /// major order.
-  template <typename... Us>
-  constexpr matrix(detail::column_major, Us&&... values) noexcept;
-
-  /// Constructor initializing the matrix from a list of values in row major
-  /// order.
-  template <typename... Us>
-  constexpr matrix(detail::row_major, Us&&... values) noexcept;
-
-  /// Constructor supporting brace-init-lists.
-  template <typename... Us>
-  constexpr matrix(Us... args) noexcept : base_t{args...}
+  for (std::size_t column = 0u; column < Columns; ++column)
   {
+    if (lhs.column_vector(column) != rhs.column_vector(column))
+      return false;
   }
+  return true;
+}
 
-  /// Copy assignment operator.
-  matrix& operator=(const matrix& /*other*/) noexcept = default;
-
-  /// Move assignment operator.
-  constexpr matrix& operator=(matrix&& /*other*/) noexcept = default;
-
-  /// Matrix element-wise addition.
-  matrix& operator+=(const matrix& other) noexcept;
-
-  /// Matrix element-wise subtraction.
-  matrix& operator-=(const matrix& other) noexcept;
-
-  /// Matrix multiplication.
-  matrix& operator*=(const matrix& other) noexcept;
-
-  /// Function call operator to access individual components.
-  T& operator()(std::size_t row);
-
-  /// Function call operator to access individual components.
-  constexpr const T operator()(std::size_t row) const;
-
-  /// Function call operator to access individual components.
-  T& operator()(std::size_t row, std::size_t column);
-
-  /// Function call operator to access individual components.
-  constexpr const T operator()(std::size_t row, std::size_t column) const;
-
-  /// Returns the address of the matrix data.
-  T* data() noexcept;
-
-  /// Returns the address of the matrix data.
-  const T* data() const noexcept;
-
-  /// Expand tuple values and assign them to individual data indices.
-  template <typename Direction, std::size_t Index, std::size_t... Indices,
-            typename U>
-  constexpr void assign_tuple(std::index_sequence<Indices...>, U&& value)
-  {
-    assign<Direction, Index>(std::move(std::get<Indices>(value))...);
-  }
-
-  /// This end of recursion helper for assign(Ts...) is used only to check
-  /// whether the number of total elements passed matches the number of
-  /// matrix elements.
-  template <typename Direction, std::size_t Index>
-  constexpr void assign() noexcept
-  {
-    static_assert(Index == Rows * Columns,
-                  "The number of passed valued does not match the number of "
-                  "matrix elements.");
-  }
-
-  /// Recursively assign various values to this matrix.
-  template <typename Direction, std::size_t Index, typename U, typename... Us>
-  constexpr void assign(U value, Us... other_values) noexcept
-  {
-    if constexpr (is_matrix_v<U>)
-    {
-      constexpr auto count = U::rows * U::columns;
-      for (std::size_t i = 0; i < count; ++i)
-        base_t::array[index<Direction>(Index + i)] = std::move(value.array[i]);
-
-      assign<Direction, Index + count, Us...>(
-        std::forward<Us>(other_values)...);
-    }
-    else if constexpr (core::is_std_tuple_v<U>)
-    {
-      constexpr auto count = std::tuple_size_v<U>;
-      assign_tuple<Direction, Index>(std::make_index_sequence<count>{},
-                                     std::forward<U>(value));
-
-      assign<Direction, Index + count, Us...>(
-        std::forward<Us>(other_values)...);
-    }
-    else
-    {
-      // Assume that U is of scalar type.
-      base_t::array[index<Direction>(Index)] = std::move(value);
-
-      assign<Direction, Index + 1, Us...>(std::forward<Us>(other_values)...);
-    }
-  }
-
-private:
-  /// Helper function to conditionally transform row major matrix indices to
-  /// column major order indices.
-  template <typename Direction>
-  constexpr std::size_t index(std::size_t index)
-  {
-    if constexpr (std::is_same_v<Direction, detail::column_major>)
-      return index;
-    else if constexpr (std::is_same_v<Direction, detail::row_major>)
-    {
-      auto row = index / Columns;
-      auto column = index % Columns;
-      return column * Rows + row;
-    }
-  }
-};
-
-/// Construct a matrix by copying fill_value to each element.
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr auto make_default_matrix(T fill_value)
+/// Inequality operator.
+/// @remarks
+///   Implemented in terms of !(lhs == rhs).
+template <std::size_t Rows, std::size_t Columns, typename U, typename V>
+constexpr bool operator!=(const matrix<Rows, Columns, U>& lhs,
+                          const matrix<Rows, Columns, V>& rhs) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
+  return !(lhs == rhs);
+}
+
+/// Per column vector comparison using almost_equal.
+template <std::size_t Rows, std::size_t Columns, typename T>
+std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+  const matrix<Rows, Columns, T>& lhs, const matrix<Rows, Columns, T>& rhs,
+  int units_in_the_last_place = 2)
+{
+  for (std::size_t column = 0u; column < Columns; ++column)
   {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = fill_value;
+    if (!almost_equal(lhs.column_vector(column), rhs.column_vector(column),
+                      units_in_the_last_place))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+/// Matrix-matrix multiplication
+template <std::size_t Columns1Rows2, std::size_t Rows1, std::size_t Columns2,
+          typename T, typename U, ENABLE_IF(Columns2 > 1)>
+constexpr auto operator*(const matrix<Rows1, Columns1Rows2, T>& lhs,
+                         const matrix<Columns1Rows2, Columns2, U>& rhs) noexcept
+{
+  matrix<Rows1, Columns2, decltype(std::declval<T>() * std::declval<U>())>
+    result{};
+  for (std::size_t column = 0; column < Columns2; ++column)
+  {
+    for (std::size_t row = 0; row < Rows1; ++row)
+      result(row, column) = dot(lhs.row_vector(row), rhs.column_vector(column));
   }
   return result;
 }
 
-/// Constructs a matrix filled with either signaling_nan<T>() or T{0}, depending
-/// on whether type T does have a signalling NaN value defined.
+/// Element-wise matrix-matrix division.
+template <std::size_t Rows, std::size_t Columns, typename T, typename U>
+constexpr auto operator/(const matrix<Rows, Columns, T>& lhs,
+                         const matrix<Rows, Columns, U>& rhs)
+{
+  matrix<Rows, Columns, decltype(std::declval<T>() / std::declval<U>())>
+    result{};
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    for (std::size_t row = 0; row < Rows; ++row)
+      result(row, column) = lhs(row, column) / rhs(row, column);
+  }
+  return result;
+}
+
+/// Element-wise matrix-scalar division.
+template <std::size_t Rows, std::size_t Columns, typename T, typename U,
+          std::enable_if_t<!is_matrix_v<U>>* = nullptr>
+constexpr auto operator/(const matrix<Rows, Columns, T>& lhs, U rhs)
+{
+  matrix<Rows, Columns, decltype(std::declval<T>() / std::declval<U>())>
+    result{};
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    for (std::size_t row = 0; row < Rows; ++row)
+      result(row, column) = lhs(row, column) / rhs;
+  }
+  return result;
+}
+
+/// String serialization.
 template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr matrix<Rows, Columns, T> make_nan_matrix() noexcept
+std::ostream& operator<<(std::ostream& stream,
+                         const matrix<Rows, Columns, T>& matrix)
 {
-  return make_default_matrix<Rows, Columns, T>(
-    std::numeric_limits<T>::has_signaling_NaN ? signaling_nan<T>() : T{0});
+  stream << "(";
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    if (column != 0)
+      stream << ", ";
+    stream << matrix.column_vector(column);
+  }
+  stream << ")";
+
+  return stream;
 }
 
-///
-template <std::size_t Rows, std::size_t Columns, typename T, typename... Ts,
-          std::enable_if_t<(sizeof...(Ts) > 1)>* = nullptr>
-constexpr auto make_matrix_from_column_major(Ts&&... values) noexcept
+/// Returns a (Columns-1)x(Columns-1) sub-matrix of the argument by cutting
+/// one row and one column.
+/// @remarks
+///   This method is only defined for matrices of 3x3 dimension or larger.
+template <std::size_t Rows, std::size_t Columns, typename T,
+          ENABLE_IF((Columns >= 3) && (Rows >= 3))>
+constexpr auto sub_matrix(const matrix<Rows, Columns, T>& any_matrix,
+                          std::size_t cut_row, std::size_t cut_column)
 {
-  return matrix<Rows, Columns, T>(detail::column_major{},
-                                  std::forward<Ts>(values)...);
+  static_assert(
+    (Columns >= 3) && (Rows >= 3),
+    "sub_matrix is defined only for matrices with more than two dimensions.");
+  matrix<Rows - 1, Columns - 1, T> result{};
+  for (std::size_t column = 0; column < Columns - 1; ++column)
+  {
+    for (std::size_t row = 0; row < Rows - 1; ++row)
+    {
+      result(row, column) =
+        any_matrix(row < cut_row ? row : row + 1,
+                   column < cut_column ? column : column + 1);
+    }
+  }
+  return result;
 }
 
-///
-template <std::size_t Rows, std::size_t Columns, typename T, typename... Ts,
-          std::enable_if_t<(sizeof...(Ts) > 1)>* = nullptr>
-constexpr auto make_matrix_from_row_major(Ts&&... values) noexcept
+/// Returns the determinant of a NxN matrix.
+template <std::size_t Rows, std::size_t Columns, typename T>
+constexpr T determinant(const matrix<Rows, Columns, T>& any_matrix) noexcept
 {
-  return matrix<Rows, Columns, T>(detail::row_major{},
-                                  std::forward<Ts>(values)...);
+  auto result = T{0};
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    result += (static_cast<int>(column % 2) * -2 + 1) * any_matrix(0, column) *
+              determinant(sub_matrix(any_matrix, 0, column));
+  }
+  return result;
+}
+
+/// Returns the transposed matrix of the argument.
+template <std::size_t Rows, std::size_t Columns, typename T>
+constexpr matrix<Columns, Rows, T> transpose(
+  const matrix<Rows, Columns, T>& any_matrix) noexcept
+{
+  matrix<Columns, Rows, T> result{};
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    for (std::size_t row = 0; row < Rows; ++row)
+      result(row, column) = any_matrix(column, row);
+  }
+  return result;
+}
+
+/// Returns the inverse of an NxN matrix.
+template <std::size_t Rows, std::size_t Columns, typename T,
+          ENABLE_IF(Rows > 2 && Columns > 2)>
+constexpr auto inverse(const matrix<Rows, Columns, T>& any_matrix) noexcept
+{
+  matrix<Columns, Rows, T> result{};
+  for (std::size_t column = 0; column < Columns; ++column)
+  {
+    for (std::size_t row = 0; row < Rows; ++row)
+    {
+      result(row, column) = (static_cast<int>((row + column + 1) % 2) * 2 - 1) *
+                            determinant(sub_matrix(any_matrix, column, row));
+    }
+  }
+  return result / determinant(any_matrix);
+}
+
+/// Returns an identity matrix.
+template <std::size_t Rows, std::size_t Columns, typename T>
+constexpr auto make_identity_matrix() noexcept
+{
+  matrix<Rows, Columns, T> result{};
+  for (std::size_t i = 0; i < std::min(Rows, Columns); ++i)
+    result(i, i) = T{1};
+  return result;
 }
 
 /// Construct a matrix from a one dimensional C-style array of values stored
@@ -257,13 +200,7 @@ template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_matrix_from_column_major(
   const T (&array)[Rows * Columns]) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = array[column * Rows + row];
-  }
-  return result;
+  return matrix<Rows, Columns, T>(column_major{}, array);
 }
 
 /// Construct a matrix from a one dimensional C-style array of values
@@ -276,13 +213,7 @@ template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_matrix_from_row_major(
   const T (&array)[Rows * Columns]) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = array[row * Columns + column];
-  }
-  return result;
+  return matrix<Rows, Columns, T>(row_major{}, array);
 }
 
 /// Construct a matrix from a std::array of values stored in column major
@@ -291,13 +222,7 @@ template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_matrix_from_column_major(
   const std::array<T, Rows * Columns>& array) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = array[column * Rows + row];
-  }
-  return result;
+  return matrix<Rows, Columns, T>(column_major{}, array);
 }
 
 /// Construct a matrix from a std::array of values stored in row major order.
@@ -305,88 +230,132 @@ template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_matrix_from_row_major(
   const std::array<T, Rows * Columns>& array) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = array[row * Columns + column];
-  }
-  return result;
+  return matrix<Rows, Columns, T>(row_major{}, array);
 }
 
-/// Returns an identity matrix.
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr auto make_identity_matrix() noexcept
+///
+template <std::size_t Rows, std::size_t Columns, typename T, typename... Ts,
+          std::enable_if_t<(sizeof...(Ts) > 1)>* = nullptr>
+constexpr auto make_matrix_from_column_major(Ts&&... values) noexcept
 {
-  // The code used to directly assign
-  // result(row, column) = row == column ? T{1} : T{0};
-  // but MSVC++ (_MSC_VER 1911) doesn't unroll the loop.
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = T{0};
-  }
-  for (std::size_t i = 0; i < std::min(Rows, Columns); ++i)
-    result(i, i) = T{1};
-  return result;
+  return matrix<Rows, Columns, T>(column_major{}, std::forward<Ts>(values)...);
+}
+
+///
+template <std::size_t Rows, std::size_t Columns, typename T, typename... Ts,
+          std::enable_if_t<(sizeof...(Ts) > 1)>* = nullptr>
+constexpr auto make_matrix_from_row_major(Ts&&... values) noexcept
+{
+  return matrix<Rows, Columns, T>(row_major{}, std::forward<Ts>(values)...);
 }
 
 /// Returns a translation matrix.
 template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_translation_matrix(const vector<Rows - 1, T>& v) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
+  if constexpr (Rows == 3 && Columns == 3)
   {
-    for (std::size_t row = 0; row < Rows; ++row)
-    {
-      result(row, column) = ((column == Columns - 1) && (row < Rows - 1))
-                              ? v(row)
-                              : (row == column ? T{1} : T{0});
-    }
+    // clang-format off
+    return matrix<3, 3, T>(column_major{},
+                           1.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f,
+                           v(0), v(1), 1.0f);
+    // clang-format on
   }
-  return result;
+  else if constexpr (Rows == 4 && Columns == 4)
+  {
+    // clang-format off
+    return matrix<4, 4, T>(column_major{},
+                           1.0f, 0.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f, 0.0f,
+                           0.0f, 0.0f, 1.0f, 0.0f,
+                           v(0), v(1), v(2), 1.0f);
+    // clang-format on
+  }
+  else
+  {
+    // Not implemented.
+    return matrix<Rows, Columns, T>{};
+  }
 }
 
 /// Returns a translation matrix.
 template <std::size_t Rows, std::size_t Columns, typename T>
 constexpr auto make_translation_matrix(const vector<Rows, T>& v) noexcept
 {
-  matrix<Rows, Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
+  if constexpr (Rows == 3 && Columns == 3)
   {
-    for (std::size_t row = 0; row < Rows; ++row)
-    {
-      result(row, column) =
-        (column == Columns - 1) ? v(row) : (row == column ? T{1} : T{0});
-    }
+    // clang-format off
+    return matrix<3, 3, T>(column_major{},
+                           1.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f,
+                           v(0), v(1), v(2));
+    // clang-format on
   }
-  return result;
+  else if constexpr (Rows == 4 && Columns == 4)
+  {
+    // clang-format off
+    return matrix<4, 4, T>(column_major{},
+                           1.0f, 0.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f, 0.0f,
+                           0.0f, 0.0f, 1.0f, 0.0f,
+                           v(0), v(1), v(2), v(3));
+    // clang-format on
+  }
+  else
+  {
+    // Not implemented.
+    return matrix<Rows, Columns, T>{};
+  }
 }
 
 /// Returns a translation matrix.
 template <std::size_t Rows, std::size_t Columns, typename T, typename... Ts>
-constexpr auto make_translation_matrix(Ts... axis) noexcept
+constexpr auto make_translation_matrix(Ts&&... axis) noexcept
 {
-  return make_translation_matrix<Rows, Columns>(
-    make_matrix_from_column_major<sizeof...(Ts), 1, T>(
-      static_cast<T>(axis)...));
-}
-
-/// Returns a 4x4 transformation matrix from a translation vector and a 3x3
-/// rotation matrix.
-template <typename T>
-constexpr matrix<4, 4, T> make_transformation_matrix(
-  const vector<3, T>& translation, const matrix<3, 3, T>& rotation) noexcept
-{
-  // clang-format off
-  return make_matrix_from_row_major<4, 4, T>(
-    rotation(0, 0), rotation(0, 1), rotation(0, 2), translation.x,
-    rotation(1, 0), rotation(1, 1), rotation(1, 2), translation.y,
-    rotation(2, 0), rotation(2, 1), rotation(2, 2), translation.z,
-              T{0},           T{0},           T{0}, T{1});
-  // clang-format on
+  if constexpr (Rows == 3 && Columns == 3 && sizeof...(Ts) == 2)
+  {
+    // clang-format off
+    return matrix<3, 3, T>(column_major{},
+                           1.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f,
+                           T{axis}..., 1.0f);
+    // clang-format on
+  }
+  else if constexpr (Rows == 3 && Columns == 3 && sizeof...(Ts) == 3)
+  {
+    // clang-format off
+    return matrix<3, 3, T>(column_major{},
+                           1.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f,
+                           T{axis}...);
+    // clang-format on
+  }
+  else if constexpr (Rows == 4 && Columns == 4 && sizeof...(Ts) == 3)
+  {
+    // clang-format off
+    return matrix<4, 4, T>(column_major{},
+                           1.0f, 0.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f, 0.0f,
+                           0.0f, 0.0f, 1.0f, 0.0f,
+                           T{axis}..., 1.0f);
+    // clang-format on
+  }
+  else if constexpr (Rows == 4 && Columns == 4 && sizeof...(Ts) == 4)
+  {
+    // clang-format off
+    return matrix<4, 4, T>(column_major{},
+                           1.0f, 0.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f, 0.0f, 0.0f,
+                           0.0f, 0.0f, 1.0f, 0.0f,
+                           T{axis}...);
+    // clang-format on
+  }
+  else
+  {
+    // Not implemented.
+    return matrix<Rows, Columns, T>{};
+  }
 }
 
 /// Returns a rotation matrix around the positive X axis.
@@ -832,460 +801,6 @@ matrix<4, 4, T> make_orthographic_projection_matrix(T left, T right, T bottom,
     T{0}, T{0},    c,    f,
     T{0}, T{0}, T{0}, T{1});
   // clang-format on
-}
-
-/// Equality operator for floating point types.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-inline constexpr bool operator==(const matrix<Rows, Columns, T>& lhs,
-                                 const matrix<Rows, Columns, T>& rhs) noexcept
-{
-  using std::abs;
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-    {
-      if (!almost_equal(lhs(row, column), rhs(row, column), 8388608))
-        return false;
-    }
-  }
-  return true;
-}
-
-/// Equality operator for non floating point types.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-inline constexpr bool operator==(const matrix<Rows, Columns, T>& lhs,
-                                 const matrix<Rows, Columns, T>& rhs) noexcept
-{
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-    {
-      if (lhs(row, column) != rhs(row, column))
-        return false;
-    }
-  }
-  return true;
-}
-
-/// Equality operator.
-template <std::size_t Rows1, std::size_t Columns1, std::size_t Rows2,
-          std::size_t Columns2, typename T,
-          std::enable_if_t<(Rows1 != Rows2 || Columns1 != Columns2)>* = nullptr>
-inline constexpr bool operator==(
-  const matrix<Rows1, Columns1, T>& /*lhs*/,
-  const matrix<Rows2, Columns2, T>& /*rhs*/) noexcept
-{
-  return false;
-}
-
-/// Inequality operator.
-template <std::size_t Rows, std::size_t Columns, typename T>
-inline constexpr bool operator!=(const matrix<Rows, Columns, T>& lhs,
-                                 const matrix<Rows, Columns, T>& rhs) noexcept
-{
-  return !(lhs == rhs);
-}
-
-/// Matrix-matrix multiplication
-template <std::size_t Columns1Rows2, std::size_t Rows1, std::size_t Columns2,
-          typename T, typename U, ENABLE_IF(Columns2 > 1)>
-auto operator*(const matrix<Rows1, Columns1Rows2, T>& lhs,
-               const matrix<Columns1Rows2, Columns2, U>& rhs)
-{
-  matrix<Rows1, Columns2, decltype(std::declval<T>() * std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns2; ++column)
-  {
-    for (std::size_t row = 0; row < Rows1; ++row)
-    {
-      result(row, column) =
-        dot(row_vector(lhs, row), column_vector(rhs, column));
-    }
-  }
-  return result;
-}
-
-/// Matrix-vector multiplication
-template <std::size_t Columns1Rows2, std::size_t Rows1, typename T, typename U>
-auto operator*(const matrix<Rows1, Columns1Rows2, T>& lhs,
-               const vector<Columns1Rows2, U>& rhs)
-{
-  vector<Rows1, decltype(std::declval<T>() * std::declval<U>())> result{};
-  for (std::size_t row = 0; row < Rows1; ++row)
-    result(row) = dot(row_vector(lhs, row), rhs);
-  return result;
-}
-
-/// Matrix-scalar multiplication.
-template <std::size_t Rows, std::size_t Columns, typename T, typename U,
-          std::enable_if_t<!is_matrix_v<U>>* = nullptr>
-constexpr auto operator*(const matrix<Rows, Columns, T>& lhs, U rhs)
-{
-  matrix<Rows, Columns, decltype(std::declval<T>() * std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = lhs(row, column) * rhs;
-  }
-  return result;
-}
-
-/// Scalar-matrix multiplication.
-template <std::size_t Rows, std::size_t Columns, typename T, typename U,
-          std::enable_if_t<!is_matrix_v<T>>* = nullptr>
-inline constexpr auto operator*(T lhs, const matrix<Rows, Columns, U>& rhs)
-{
-  matrix<Rows, Columns, decltype(std::declval<T>() * std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = lhs * rhs(row, column);
-  }
-  return result;
-}
-
-/// Element-wise matrix-matrix division.
-template <std::size_t Rows, std::size_t Columns, typename T, typename U>
-constexpr auto operator/(const matrix<Rows, Columns, T>& lhs,
-                         const matrix<Rows, Columns, U>& rhs)
-{
-  matrix<Rows, Columns, decltype(std::declval<T>() / std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = lhs(row, column) / rhs(row, column);
-  }
-  return result;
-}
-
-/// Matrix-scalar division.
-template <std::size_t Rows, std::size_t Columns, typename T, typename U,
-          std::enable_if_t<!is_matrix_v<U>>* = nullptr>
-constexpr auto operator/(const matrix<Rows, Columns, T>& lhs, U rhs)
-{
-  matrix<Rows, Columns, decltype(std::declval<T>() / std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = lhs(row, column) / rhs;
-  }
-  return result;
-}
-
-/// Matrix-scalar division.
-template <std::size_t Rows, std::size_t Columns, typename T, typename U,
-          std::enable_if_t<!is_matrix_v<T>>* = nullptr>
-constexpr auto operator/(T lhs, const matrix<Rows, Columns, U>& rhs)
-{
-  matrix<Rows, Columns, decltype(std::declval<T>() / std::declval<U>())>
-    result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = lhs / rhs(row, column);
-  }
-  return result;
-}
-
-/// String serialization.
-template <std::size_t Rows, std::size_t Columns, typename T>
-inline std::ostream& operator<<(std::ostream& stream,
-                                const math::matrix<Rows, Columns, T>& matrix)
-{
-  stream << "(";
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    if (column != 0)
-      stream << ", ";
-    stream << column_vector(matrix, column);
-  }
-  stream << ")";
-
-  return stream;
-}
-
-/// String deserialization.
-template <std::size_t Rows, std::size_t Columns, typename T>
-inline std::istream& operator>>(std::istream& stream,
-                                math::matrix<Rows, Columns, T>& matrix)
-{
-  stream.get();
-  for (std::size_t i = 0; i < Columns; ++i)
-  {
-    if (i != 0)
-      stream.get();
-    if ((stream >> matrix(i)).fail())
-      break;
-  }
-  stream.get();
-
-  if (stream.fail())
-    matrix = math::matrix<Rows, Columns, T>();
-
-  return stream;
-}
-
-/// An alternative component accessor function particularly useful in
-/// parameter pack expansion context.
-template <std::size_t Row, std::size_t Column, std::size_t Rows,
-          std::size_t Columns, typename T>
-constexpr T get(const matrix<Rows, Columns, T>& m)
-{
-  return m(Row, Column);
-}
-
-/// Returns a reference to a single column vector.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          ENABLE_IF(Columns > 1)>
-vector<Rows, T>& column_vector(matrix<Rows, Columns, T>& matrix,
-                               std::size_t column) noexcept
-{
-  return *reinterpret_cast<vector<Rows, T>*>(&matrix(0, column));
-}
-
-/// Returns a single column vector.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          ENABLE_IF(Columns > 1)>
-constexpr vector<Rows, T> column_vector(const matrix<Rows, Columns, T>& matrix,
-                                        std::size_t column) noexcept
-{
-  vector<Rows, T> result{};
-  for (std::size_t row = 0; row < Rows; ++row)
-    result(row) = matrix(row, column);
-  return result;
-}
-
-/// Returns a single row vector.
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr vector<Columns, T> row_vector(const matrix<Rows, Columns, T>& matrix,
-                                        std::size_t row) noexcept
-{
-  vector<Columns, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-    result(column) = matrix(row, column);
-  return result;
-}
-
-/// Extracts the 3D translation vector from a transformation matrix.
-template <typename T>
-inline constexpr vector<3, T> translation3(
-  const matrix<4, 4, T>& matrix) noexcept
-{
-  return make_matrix_from_column_major<3, 1, T>(matrix(0, 3), matrix(1, 3),
-                                                matrix(2, 3)) /
-         matrix(3, 3);
-}
-
-/// Extracts the 4D translation vector from a transformation matrix.
-template <typename T>
-inline constexpr vector<4, T> translation4(
-  const matrix<4, 4, T>& matrix) noexcept
-{
-  return column_vector(matrix, 3);
-}
-
-///// Returns a scale matrix that scales the X, Y and Z axes.
-///// @remarks
-/////   This is only defined for 4x4 matrices.
-// template <typename M, typename T, ENABLE_IF(is_matrix44<M>::value)>
-// M scale(T factor)
-//{
-//  M result = identity<M>();
-//  for (std::size_t i = 0; i < 3; ++i)
-//    result(i, i) = static_cast<typename M::element_type>(factor);
-//  return result;
-//}
-
-///// Returns a scale matrix that scales the X, Y and Z axes.
-///// @remarks
-/////   This is only defined for 4x4 matrices.
-// template <typename M, typename T, ENABLE_IF(is_matrix44<M>::value)>
-// M scale(const vector3<T>& factor)
-//{
-//  M result = identity<M>();
-//  for (std::size_t i = 0; i < 3; ++i)
-//    result(i, i) = static_cast<typename M::element_type>(factor(i));
-//  return result;
-//}
-
-///
-template <typename U, std::size_t Rows, std::size_t Columns, typename T>
-inline constexpr auto static_cast_matrix(
-  const matrix<Rows, Columns, T>& other) noexcept
-{
-  return matrix<Rows, Columns, U>(detail::column_major{}, other);
-}
-
-/// Returns a (Columns-1)x(Columns-1) sub-matrix of the argument by cutting
-/// one row and one column.
-/// @remarks
-///   This method is only defined for matrices larger than 2x2.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          ENABLE_IF((Columns > 2) && (Rows > 2))>
-constexpr auto sub_matrix(const matrix<Rows, Columns, T>& any_matrix,
-                          std::size_t cut_row, std::size_t cut_column)
-{
-  static_assert(
-    (Columns > 2) && (Rows > 2),
-    "sub_matrix is defined only for matrices with more than two dimensions.");
-  matrix<Rows - 1, Columns - 1, T> result{};
-  for (std::size_t column = 0; column < Columns - 1; ++column)
-  {
-    for (std::size_t row = 0; row < Rows - 1; ++row)
-    {
-      result(row, column) =
-        any_matrix(row < cut_row ? row : row + 1,
-                   column < cut_column ? column : column + 1);
-    }
-  }
-  return result;
-}
-
-/// Returns the transposed matrix of the argument.
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr matrix<Columns, Rows, T> transpose(
-  const matrix<Rows, Columns, T>& any_matrix) noexcept
-{
-  matrix<Columns, Rows, T> result{};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-      result(row, column) = any_matrix(column, row);
-  }
-  return result;
-}
-
-/// Returns the determinant of a 2x2 matrix.
-template <typename T>
-constexpr auto determinant(const matrix<2, 2, T>& matrix) noexcept
-{
-  return matrix(0, 0) * matrix(1, 1) - matrix(1, 0) * matrix(0, 1);
-}
-
-/// Returns the determinant of a NxN matrix.
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr T determinant(const matrix<Rows, Columns, T>& matrix) noexcept
-{
-  auto result = T{0};
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    result += (static_cast<int>(column % 2) * -2 + 1) * matrix(0, column) *
-              determinant(sub_matrix(matrix, 0, column));
-  }
-  return result;
-}
-
-/// Returns the inverse of a 2x2 matrix.
-template <typename T>
-constexpr auto inverse(const matrix<2, 2, T>& matrix) noexcept
-{
-  return make_matrix_from_row_major<2, 2, T>(+matrix(1, 1), -matrix(0, 1),
-                                             -matrix(1, 0), +matrix(0, 0)) /
-         determinant(matrix);
-}
-
-/// Returns the inverse of an NxN matrix.
-template <std::size_t Rows, std::size_t Columns, typename T,
-          ENABLE_IF(Rows > 2 && Columns > 2)>
-constexpr auto inverse(const matrix<Rows, Columns, T>& any_matrix) noexcept
-{
-  matrix<Columns, Rows, T> result{};
-  auto inv_det = 1 / determinant(any_matrix);
-  for (std::size_t column = 0; column < Columns; ++column)
-  {
-    for (std::size_t row = 0; row < Rows; ++row)
-    {
-      result(row, column) = (static_cast<int>((row + column + 1) % 2) * 2 - 1) *
-                            inv_det *
-                            determinant(sub_matrix(any_matrix, column, row));
-    }
-  }
-  return result;
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-template <typename... Us>
-constexpr matrix<Rows, Columns, T>::matrix(detail::column_major,
-                                           Us&&... values) noexcept
-: base_t{}
-{
-  assign<detail::column_major, 0, std::decay_t<Us>...>(values...);
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-template <typename... Us>
-constexpr matrix<Rows, Columns, T>::matrix(detail::row_major,
-                                           Us&&... values) noexcept
-: base_t{}
-{
-  assign<detail::row_major, 0, std::decay_t<Us>...>(values...);
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-matrix<Rows, Columns, T>& matrix<Rows, Columns, T>::operator+=(
-  const matrix<Rows, Columns, T>& other) noexcept
-{
-  *this = static_cast_matrix<T>(*this + other);
-  return *this;
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-matrix<Rows, Columns, T>& matrix<Rows, Columns, T>::operator-=(
-  const matrix<Rows, Columns, T>& other) noexcept
-{
-  *this = static_cast_matrix<T>(*this - other);
-  return *this;
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-matrix<Rows, Columns, T>& matrix<Rows, Columns, T>::operator*=(
-  const matrix<Rows, Columns, T>& other) noexcept
-{
-  *this = static_cast_matrix<T>(*this * other);
-  return *this;
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-T& matrix<Rows, Columns, T>::operator()(std::size_t row)
-{
-  return base_t::array[row];
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr const T matrix<Rows, Columns, T>::operator()(std::size_t row) const
-{
-  return base_t::array[row];
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-T& matrix<Rows, Columns, T>::operator()(std::size_t row, std::size_t column)
-{
-  return base_t::array[column * Rows + row];
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-constexpr const T matrix<Rows, Columns, T>::operator()(std::size_t row,
-                                                       std::size_t column) const
-{
-  return base_t::array[column * Rows + row];
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-T* matrix<Rows, Columns, T>::data() noexcept
-{
-  return base_t::array.data();
-}
-
-template <std::size_t Rows, std::size_t Columns, typename T>
-const T* matrix<Rows, Columns, T>::data() const noexcept
-{
-  return base_t::array.data();
 }
 }
 
