@@ -42,7 +42,10 @@ public:
   ~floating_point_exceptions();
 
 private:
-  unsigned int _old_control_word;
+#if defined(__clang__)
+  [[maybe_unused]]
+#endif
+    unsigned int _old_control_word;
 };
 }
 

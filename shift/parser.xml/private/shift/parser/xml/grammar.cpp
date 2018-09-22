@@ -40,8 +40,8 @@ grammar::grammar() : grammar::base_type(_root, "xml document")
   _tag_name %= lexeme[char_("a-zA-Z") >> *char_("a-zA-Z0-9_:")];
   _attribute %=
     skip(space)[(lexeme[char_("a-zA-Z") >> *char_("a-zA-Z0-9_:")] >> '=') >
-                ('"' > lexeme[*(_entities | (char_ - '"'))] > '"' |
-                 '\'' > lexeme[*(_entities | (char_ - '\''))] > '\'')];
+                (('"' > lexeme[*(_entities | (char_ - '"'))] > '"') |
+                 ('\'' > lexeme[*(_entities | (char_ - '\''))] > '\''))];
 
   _child %= _comment_node | _element_node | _text_node;
   /// ToDo: For some reason the following eps parsers need to be wrapped

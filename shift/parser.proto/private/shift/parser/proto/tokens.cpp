@@ -22,7 +22,7 @@ std::ostream& operator<<(std::ostream& stream, const type_path_token& value)
     {
       stream << "<";
       bool first_argument = true;
-      for (const auto& argument : element.template_arguments)
+      for ([[maybe_unused]] const auto& argument : element.template_arguments)
       {
         if (first_argument)
           first_argument = false;
