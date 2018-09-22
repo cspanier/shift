@@ -87,10 +87,8 @@ struct are_same<T1, T2, Ts...>
     std::is_same<T1, T2>::value && are_same<T1, Ts...>::value;
 };
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1910)
 template <typename... Ts>
 constexpr bool are_same_v = are_same<Ts...>::value;
-#endif
 
 /// Similar to std::remove_reference, but only removes lvalue references.
 template <typename T>
