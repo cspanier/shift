@@ -215,6 +215,19 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     # This includes M_PI, M_PI_2, M_SQRT2, M_E, ...
     # "_USE_MATH_DEFINES"
 
+    # See type_traits header:
+    # You've instantiated std::aligned_storage<Len, Align> with an extended alignment (in other 
+    # words, Align > alignof(max_align_t)). Before VS 2017 15.8, the member type would 
+    # non-conformingly have an alignment of only alignof(max_align_t). VS 2017 15.8 was fixed to 
+    # handle this correctly, but the fix inherently changes layout and breaks binary compatibility 
+    # (*only* for uses of aligned_storage with extended alignments). 
+    # Please define either 
+    # (1) _ENABLE_EXTENDED_ALIGNED_STORAGE to acknowledge that you understand this message and 
+    # that you actually want a type with an extended alignment, or 
+    # (2) _DISABLE_EXTENDED_ALIGNED_STORAGE to silence this message and get the old non-conformant 
+    # behavior.
+    "_ENABLE_EXTENDED_ALIGNED_STORAGE"
+
     # This macro enables use of a pre-compiled Boost stacktrace library. Without
     # Boost stacktrace is a header-only library, but requires additional system
     # dependencies.
