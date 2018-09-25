@@ -43,6 +43,8 @@ public:
 
 private:
 #if defined(__clang__)
+  // GCC does not support this attribute on member variables.
+  // MSVC code path does use the attribute.
   [[maybe_unused]]
 #endif
     unsigned int _old_control_word;
