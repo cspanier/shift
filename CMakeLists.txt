@@ -178,6 +178,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   list(APPEND SHIFT_GLOBAL_DEFINITIONS
     "SHIFT_PLATFORM_LINUX"
 
+    # Rarely used by external code (e.g. AMD Tootle)
+    "_LINUX"
+
     # Compilers supporting auto-tss cleanup may define BOOST_THREAD_USE_LIB.
     # ToDo: This should have no effect because we disabled automatic linking
     # using BOOST_ALL_NO_LIB above.
@@ -189,7 +192,8 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     "BOOST_USE_VALGRIND=1"
 
     # Enable custom assert handlers defined in shift/platform/private/assert.cpp
-    "BOOST_ENABLE_ASSERT_DEBUG_HANDLER")
+    "BOOST_ENABLE_ASSERT_DEBUG_HANDLER"
+  )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   list(APPEND SHIFT_GLOBAL_DEFINITIONS
     "SHIFT_PLATFORM_WINDOWS"
