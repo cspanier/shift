@@ -22,7 +22,7 @@ if (NOT NO_VULKAN)
       Boost::boost
       Boost::filesystem
       GLFW3
-      VULKAN
+      Vulkan::Vulkan
       BZIP2
       ZLIB
   )
