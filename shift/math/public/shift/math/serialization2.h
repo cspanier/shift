@@ -36,9 +36,8 @@ template <boost::endian::order Order, std::size_t Rows, std::size_t Columns,
 compact_input_archive<Order>& operator>>(compact_input_archive<Order>& archive,
                                          math::matrix<Rows, Columns, T>& matrix)
 {
-  using math::column_vector;
   for (std::size_t i = 0; i < Columns; ++i)
-    archive >> column_vector(matrix, i);
+    archive >> matrix.column_vector(i);
   return archive;
 }
 
@@ -49,9 +48,8 @@ compact_output_archive<Order>& operator<<(
   compact_output_archive<Order>& archive,
   const math::matrix<Rows, Columns, T>& matrix)
 {
-  using math::column_vector;
   for (std::size_t i = 0; i < Columns; ++i)
-    archive << column_vector(matrix, i);
+    archive << matrix.column_vector(i);
   return archive;
 }
 

@@ -90,6 +90,21 @@ inline sha256& operator<<(sha256& context, const std::variant<Ts...>& value)
 }
 }
 
+#if __has_include(<shift/math/vector.h>)
+#include <shift/math/vector.h>
+
+namespace shift::crypto
+{
+template <std::size_t Rows, typename T>
+inline sha256& operator<<(sha256& context, const math::vector<Rows, T>& vector)
+{
+  for (auto row = 0u; row < Rows; ++row)
+    context << vector(row);
+  return context;
+}
+}
+#endif
+
 #if __has_include(<shift/math/matrix.h>)
 #include <shift/math/matrix.h>
 
@@ -99,20 +114,9 @@ template <std::size_t Rows, std::size_t Columns, typename T>
 inline sha256& operator<<(sha256& context,
                           const math::matrix<Rows, Columns, T>& matrix)
 {
-  if constexpr (sizeof(matrix) == Rows * Columns * sizeof(T))
-  {
-    return context(reinterpret_cast<const char*>(matrix.data()),
-                   sizeof(matrix));
-  }
-  else
-  {
-    for (auto row = 0u; row < Rows; ++row)
-    {
-      for (auto column = 0u; column < Columns; ++column)
-        context(matrix(column, row));
-    }
-    return context;
-  }
+  for (auto column = 0u; column < Columns; ++column)
+    context << matrix.column_vector(column);
+  return context;
 }
 }
 #endif

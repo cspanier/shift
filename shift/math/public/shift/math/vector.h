@@ -7,6 +7,7 @@
 #include <array>
 #include "shift/math/math.h"
 #include "shift/math/utility.h"
+#include "shift/math/vector1.h"
 #include "shift/math/vector2.h"
 #include "shift/math/vector3.h"
 #include "shift/math/vector4.h"
@@ -148,6 +149,18 @@ template <std::size_t Rows, typename T>
 constexpr auto make_vector_from(const std::array<T, Rows>& array) noexcept
 {
   return vector<Rows, T>{std::begin(array), std::end(array)};
+}
+
+/// Casts a vector<Rows, V> to vector<Rows, U>.
+/// @remarks
+///   There are specialized overloads for 2-, 3-, and 4-dimensional vectors.
+template <typename U, std::size_t Rows, typename V>
+constexpr auto static_cast_vector(const vector<Rows, V>& any_vector) noexcept
+{
+  vector<Rows, U> result;
+  for (auto row = 0u; row < Rows; ++row)
+    result(row) = static_cast<U>(any_vector(row));
+  return result;
 }
 
 /// Returns a vector composed from arbitrary components of another vector or

@@ -13,6 +13,7 @@
 
 namespace shift::math
 {
+/// A two dimensional vector specialization.
 template <typename T>
 struct vector<2, T>
 {
@@ -451,26 +452,12 @@ constexpr void vector<2, T>::assign_impl()
   static_assert(Index == row_count);
 }
 
-/// An overload of make_matrix_from_column_major taking two column vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_column_major(
-  const vector<2, T>& column1, const vector<2, T>& column2) noexcept
+/// Casts a vector<2, V> to vector<2, U>.
+template <typename U, typename V>
+constexpr auto static_cast_vector(const vector<2, V>& any_vector) noexcept
 {
-  return matrix<2, 2, T>(column_major{}, column1, column2);
-}
-
-/// An overload of make_matrix_from_row_major taking two row vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_row_major(const vector<2, T>& row1,
-                                          const vector<2, T>& row2) noexcept
-{
-  return matrix<2, 2, T>(row_major{}, row1, row2);
+  return vector<2, U>{static_cast<U>(any_vector.x),
+                      static_cast<U>(any_vector.y)};
 }
 }
 

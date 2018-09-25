@@ -2,6 +2,7 @@
 #define SHIFT_MATH_MATRIX_EX_H
 
 #include "shift/math/math.h"
+#include "shift/math/matrix1x1.h"
 #include "shift/math/matrix2x2.h"
 #include "shift/math/matrix3x3.h"
 #include "shift/math/matrix4x4.h"

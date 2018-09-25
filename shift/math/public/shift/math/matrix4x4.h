@@ -95,6 +95,18 @@ struct matrix<4, 4, T>
   constexpr T operator()(std::size_t row, std::size_t column) const
     SHIFT_EXPECTS(row < row_count && column < column_count);
 
+  /// Selects a single matrix element by index.
+  /// @pre
+  ///   The index selector must not exceed the number of elements.
+  constexpr T& operator()(std::size_t index)
+    SHIFT_EXPECTS(index < row_count * column_count);
+
+  /// Selects a single matrix element by index.
+  /// @pre
+  ///   The index selector must not exceed the number of elements.
+  constexpr T operator()(std::size_t index) const
+    SHIFT_EXPECTS(index < row_count * column_count);
+
   /// Returns a column vector.
   constexpr column_type& column_vector(std::size_t column);
   /// Returns a column vector.
@@ -237,6 +249,52 @@ constexpr matrix<4, 4, T>::matrix(
 }
 
 template <typename T>
+constexpr matrix<4, 4, T>::matrix(
+  column_major, const T (&array)[matrix<4, 4, T>::row_count *
+                                 matrix<4, 4, T>::column_count]) noexcept
+: _columns{{array[0], array[1], array[2], array[3]},
+           {array[4], array[5], array[6], array[7]},
+           {array[8], array[9], array[10], array[11]},
+           {array[12], array[13], array[14], array[15]}}
+{
+}
+
+template <typename T>
+constexpr matrix<4, 4, T>::matrix(
+  row_major, const T (&array)[matrix<4, 4, T>::row_count *
+                              matrix<4, 4, T>::column_count]) noexcept
+: _columns{{array[0], array[4], array[8], array[12]},
+           {array[1], array[5], array[9], array[13]},
+           {array[2], array[6], array[10], array[14]},
+           {array[3], array[7], array[11], array[15]}}
+{
+}
+
+template <typename T>
+constexpr matrix<4, 4, T>::matrix(
+  column_major,
+  const std::array<T, matrix<4, 4, T>::row_count *
+                        matrix<4, 4, T>::column_count>& array) noexcept
+: _columns{{array[0], array[1], array[2], array[3]},
+           {array[4], array[5], array[6], array[7]},
+           {array[8], array[9], array[10], array[11]},
+           {array[12], array[13], array[14], array[15]}}
+{
+}
+
+template <typename T>
+constexpr matrix<4, 4, T>::matrix(
+  row_major,
+  const std::array<T, matrix<4, 4, T>::row_count *
+                        matrix<4, 4, T>::column_count>& array) noexcept
+: _columns{{array[0], array[4], array[8], array[12]},
+           {array[1], array[5], array[9], array[13]},
+           {array[2], array[6], array[10], array[14]},
+           {array[3], array[7], array[11], array[15]}}
+{
+}
+
+template <typename T>
 template <typename Iterator>
 constexpr matrix<4, 4, T>::matrix(Iterator begin, Iterator end) noexcept
 : _columns{{begin, begin + 4},
@@ -264,6 +322,20 @@ constexpr T matrix<4, 4, T>::operator()(std::size_t row,
 }
 
 template <typename T>
+constexpr T& matrix<4, 4, T>::operator()(std::size_t index)
+{
+  BOOST_ASSERT(index < row_count * column_count);
+  return _columns[index / row_count](index % row_count);
+}
+
+template <typename T>
+constexpr T matrix<4, 4, T>::operator()(std::size_t index) const
+{
+  BOOST_ASSERT(index < row_count * column_count);
+  return _columns[index / row_count](index % row_count);
+}
+
+template <typename T>
 constexpr typename matrix<4, 4, T>::column_type& matrix<4, 4, T>::column_vector(
   std::size_t column)
 {
@@ -283,6 +355,31 @@ constexpr typename matrix<4, 4, T>::column_type matrix<4, 4, T>::row_vector(
 {
   return make_vector_from(_columns[0](row), _columns[1](row), _columns[2](row),
                           _columns[3](row));
+}
+
+/// An overload of make_matrix_from_column_major taking four column vectors.
+/// @remarks
+///   This overload has the benefit that the caller does not need to specify
+///   template parameters explicitely.
+template <typename T>
+constexpr auto make_matrix_from_column_major(
+  const vector<4, T>& column1, const vector<4, T>& column2,
+  const vector<4, T>& column3, const vector<4, T>& column4) noexcept
+{
+  return matrix<4, 4, T>(column_major{}, column1, column2, column3, column4);
+}
+
+/// An overload of make_matrix_from_row_major taking four row vectors.
+/// @remarks
+///   This overload has the benefit that the caller does not need to specify
+///   template parameters explicitely.
+template <typename T>
+constexpr auto make_matrix_from_row_major(const vector<4, T>& row1,
+                                          const vector<4, T>& row2,
+                                          const vector<4, T>& row3,
+                                          const vector<4, T>& row4) noexcept
+{
+  return matrix<4, 4, T>(row_major{}, row1, row2, row3, row4);
 }
 }
 

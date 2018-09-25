@@ -152,28 +152,28 @@ namespace literals
   /// and convert them to radians.
   constexpr double operator""_deg(unsigned long long degree)
   {
-    return degree * math::pi<double> / 180;
+    return static_cast<double>(degree) * math::pi<double> / 180;
   }
 
   /// User-defined literal operator used to clearly identify values in degree
   /// and convert them to radians.
   constexpr double operator""_deg(long double degree)
   {
-    return degree * math::pi<double> / 180;
+    return static_cast<double>(degree) * math::pi<double> / 180;
   }
 
   /// User-defined literal operator used to clearly identify values in degree
   /// and convert them to radians.
   constexpr float operator""_fdeg(unsigned long long degree)
   {
-    return static_cast<float>(degree * math::pi<float> / 180);
+    return static_cast<float>(degree) * math::pi<float> / 180;
   }
 
   /// User-defined literal operator used to clearly identify values in degree
   /// and convert them to radians.
   constexpr float operator""_fdeg(long double degree)
   {
-    return static_cast<float>(degree * math::pi<float> / 180);
+    return static_cast<float>(degree) * math::pi<float> / 180;
   }
 
   /// User-defined literal operator used to clearly identify values in
@@ -181,7 +181,7 @@ namespace literals
   /// and convert them to radians.
   constexpr double operator""_mil(unsigned long long degree)
   {
-    return degree * math::pi<double> / 3200;
+    return static_cast<double>(degree) * math::pi<double> / 3200;
   }
 
   /// User-defined literal operator used to clearly identify values in
@@ -189,7 +189,7 @@ namespace literals
   /// and convert them to radians.
   constexpr double operator""_mil(long double degree)
   {
-    return degree * math::pi<double> / 3200;
+    return static_cast<double>(degree) * math::pi<double> / 3200;
   }
 
   /// User-defined literal operator used to clearly identify values in
@@ -197,7 +197,7 @@ namespace literals
   /// and convert them to radians.
   constexpr float operator""_fmil(unsigned long long degree)
   {
-    return static_cast<float>(degree * math::pi<float> / 3200);
+    return static_cast<float>(degree) * math::pi<float> / 3200;
   }
 
   /// User-defined literal operator used to clearly identify values in
@@ -205,7 +205,7 @@ namespace literals
   /// and convert them to radians.
   constexpr float operator""_fmil(long double degree)
   {
-    return static_cast<float>(degree * math::pi<float> / 3200);
+    return static_cast<float>(degree) * math::pi<float> / 3200;
   }
 }
 }

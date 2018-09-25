@@ -13,6 +13,7 @@
 
 namespace shift::math
 {
+/// A four dimensional vector specialization.
 template <typename T>
 struct vector<4, T>
 {
@@ -498,29 +499,13 @@ constexpr void vector<4, T>::assign_impl()
   static_assert(Index == row_count);
 }
 
-/// An overload of make_matrix_from_column_major taking four column vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_column_major(
-  const vector<4, T>& column1, const vector<4, T>& column2,
-  const vector<4, T>& column3, const vector<4, T>& column4) noexcept
+/// Casts a vector<4, V> to vector<4, U>.
+template <typename U, typename V>
+constexpr auto static_cast_vector(const vector<4, V>& any_vector) noexcept
 {
-  return matrix<4, 4, T>(column_major{}, column1, column2, column3, column4);
-}
-
-/// An overload of make_matrix_from_row_major taking four row vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_row_major(const vector<4, T>& row1,
-                                          const vector<4, T>& row2,
-                                          const vector<4, T>& row3,
-                                          const vector<4, T>& row4) noexcept
-{
-  return matrix<4, 4, T>(row_major{}, row1, row2, row3, row4);
+  return vector<4, U>{
+    static_cast<U>(any_vector.x), static_cast<U>(any_vector.y),
+    static_cast<U>(any_vector.z), static_cast<U>(any_vector.w)};
 }
 }
 

@@ -52,24 +52,33 @@ inline std::size_t hash<shift::parser::json::array>::operator()(
 inline std::size_t hash<shift::parser::json::value>::operator()(
   const shift::parser::json::value& value) const
 {
-  if (auto* null_value = shift::parser::json::get_if<std::nullptr_t>(&value))
+  if (shift::parser::json::get_if<std::nullptr_t>(&value) != nullptr)
     return 0;
-  else if (auto* bool_value = shift::parser::json::get_if<bool>(&value))
+  else if (auto* bool_value = shift::parser::json::get_if<bool>(&value);
+           bool_value != nullptr)
+  {
     return std::hash<bool>{}(*bool_value);
-  else if (auto* double_value = shift::parser::json::get_if<double>(&value))
+  }
+  else if (auto* double_value = shift::parser::json::get_if<double>(&value);
+           double_value != nullptr)
+  {
     return std::hash<double>{}(*double_value);
+  }
   else if (auto* string_value =
-             shift::parser::json::get_if<std::string>(&value))
+             shift::parser::json::get_if<std::string>(&value);
+           string_value != nullptr)
   {
     return std::hash<std::string>{}(*string_value);
   }
   else if (auto* object_value =
-             shift::parser::json::get_if<shift::parser::json::object>(&value))
+             shift::parser::json::get_if<shift::parser::json::object>(&value);
+           object_value != nullptr)
   {
     return std::hash<shift::parser::json::object>{}(*object_value);
   }
   else if (auto* array_value =
-             shift::parser::json::get_if<shift::parser::json::array>(&value))
+             shift::parser::json::get_if<shift::parser::json::array>(&value);
+           array_value != nullptr)
   {
     return std::hash<shift::parser::json::array>{}(*array_value);
   }

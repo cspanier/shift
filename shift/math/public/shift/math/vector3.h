@@ -13,6 +13,7 @@
 
 namespace shift::math
 {
+/// A three dimensional vector specialization.
 template <typename T>
 struct vector<3, T>
 {
@@ -481,28 +482,13 @@ constexpr void vector<3, T>::assign_impl()
   static_assert(Index == row_count);
 }
 
-/// An overload of make_matrix_from_column_major taking three column vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_column_major(
-  const vector<3, T>& column1, const vector<3, T>& column2,
-  const vector<3, T>& column3) noexcept
+/// Casts a vector<3, V> to vector<3, U>.
+template <typename U, typename V>
+constexpr auto static_cast_vector(const vector<3, V>& any_vector) noexcept
 {
-  return matrix<3, 3, T>(column_major{}, column1, column2, column3);
-}
-
-/// An overload of make_matrix_from_row_major taking three row vectors.
-/// @remarks
-///   This overload has the benefit that the caller does not need to specify
-///   template parameters explicitely.
-template <typename T>
-constexpr auto make_matrix_from_row_major(const vector<3, T>& row1,
-                                          const vector<3, T>& row2,
-                                          const vector<3, T>& row3) noexcept
-{
-  return matrix<3, 3, T>(row_major{}, row1, row2, row3);
+  return vector<3, U>{static_cast<U>(any_vector.x),
+                      static_cast<U>(any_vector.y),
+                      static_cast<U>(any_vector.z)};
 }
 }
 
