@@ -38,4 +38,57 @@
 
 #include <shift/platform/assert.h>
 
+/// A separate namespace used only for literal operators, which you may inline
+/// using the 'using namespace' directive.
+namespace shift::core::literals
+{
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr unsigned long long operator""_KiB(unsigned long long value)
+{
+  return value * 1024;
+}
+
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr long double operator""_KiB(long double value)
+{
+  return value * 1024;
+}
+
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr unsigned long long operator""_MiB(unsigned long long value)
+{
+  return value * (1024 * 1024);
+}
+
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr long double operator""_MiB(long double value)
+{
+  return value * (1024 * 1024);
+}
+
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr unsigned long long operator""_GiB(unsigned long long value)
+{
+  return value * (1024 * 1024 * 1024);
+}
+
+/// User-defined literal operator used to clearly identify values in kilo bytes.
+/// @remarks
+///   Note that IEC 80000-13 binary prefixes start with an uppercase letter.
+constexpr long double operator""_GiB(long double value)
+{
+  return value * (1024 * 1024 * 1024);
+}
+}
+
 #endif
