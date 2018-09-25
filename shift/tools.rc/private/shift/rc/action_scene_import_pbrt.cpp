@@ -52,6 +52,17 @@ struct parser_scope
 
 struct action_scene_import_pbrt::parser_context
 {
+  parser_context(resource_compiler_impl& compiler, job_description& job)
+  : compiler(compiler), job(job)
+  {
+  }
+
+  parser_context(const parser_context&) = default;
+  parser_context(parser_context&&) = default;
+  ~parser_context() = default;
+  parser_context& operator=(const parser_context&) = default;
+  parser_context& operator=(parser_context&&) = default;
+
   resource_compiler_impl& compiler;
   job_description& job;
   resource::scene scene;
