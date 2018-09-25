@@ -5,6 +5,7 @@
 #include <cmath>
 #include <utility>
 #include <array>
+#include <complex>
 #include "shift/math/math.h"
 #include "shift/math/utility.h"
 #include "shift/math/vector1.h"
@@ -141,14 +142,42 @@ constexpr auto make_vector_from(Args&&... args) noexcept
 template <std::size_t Rows, typename T>
 constexpr vector<Rows, T> make_vector_from(const T (&array)[Rows]) noexcept
 {
-  return vector<Rows, T>{std::begin(array), std::end(array)};
+  if constexpr (Rows == 1)
+    return vector<Rows, T>{array[0]};
+  else if constexpr (Rows == 2)
+    return vector<Rows, T>{array[0], array[1]};
+  else if constexpr (Rows == 3)
+    return vector<Rows, T>{array[0], array[1], array[2]};
+  else if constexpr (Rows == 4)
+    return vector<Rows, T>{array[0], array[1], array[2], array[3]};
+  else
+  {
+    vector<Rows, T> result;
+    for (auto row = 0u; row < Rows; ++row)
+      result(row) = array[row];
+    return result;
+  }
 }
 
 /// Construct a vector from a std::array.
 template <std::size_t Rows, typename T>
 constexpr auto make_vector_from(const std::array<T, Rows>& array) noexcept
 {
-  return vector<Rows, T>{std::begin(array), std::end(array)};
+  if constexpr (Rows == 1)
+    return vector<Rows, T>{array[0]};
+  else if constexpr (Rows == 2)
+    return vector<Rows, T>{array[0], array[1]};
+  else if constexpr (Rows == 3)
+    return vector<Rows, T>{array[0], array[1], array[2]};
+  else if constexpr (Rows == 4)
+    return vector<Rows, T>{array[0], array[1], array[2], array[3]};
+  else
+  {
+    vector<Rows, T> result;
+    for (auto row = 0u; row < Rows; ++row)
+      result(row) = array[row];
+    return result;
+  }
 }
 
 /// Casts a vector<Rows, V> to vector<Rows, U>.

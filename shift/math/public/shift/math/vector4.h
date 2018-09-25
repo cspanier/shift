@@ -24,13 +24,6 @@ struct vector<4, T>
   constexpr vector(T x, T y, T z, T w) noexcept;
   constexpr vector(T fill_value) noexcept;
 
-  /// @pre
-  ///   The number of elements between begin and end must equal the number of
-  ///   rows of this vector.
-  template <typename Iterator>
-  constexpr vector(Iterator begin, Iterator end) noexcept SHIFT_EXPECTS(
-    std::distance(begin, end) == row_count);
-
   constexpr vector(const vector&) noexcept = default;
   constexpr vector(vector&&) noexcept = default;
   ~vector() noexcept = default;
@@ -330,18 +323,6 @@ template <typename T>
 constexpr vector<4, T>::vector(T fill_value) noexcept
 : x(fill_value), y(fill_value), z(fill_value), w(fill_value)
 {
-}
-
-template <typename T>
-template <typename Iterator>
-constexpr vector<4, T>::vector(Iterator begin, Iterator end) noexcept
-{
-  BOOST_ASSERT(std::distance(begin, end) == row_count);
-  auto next = begin;
-  x = *(next++);
-  y = *(next++);
-  z = *(next++);
-  w = *(next++);
 }
 
 template <typename T>

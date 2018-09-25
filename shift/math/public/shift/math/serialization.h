@@ -32,9 +32,8 @@ template <class InputArchive, std::size_t Rows, std::size_t Columns, typename T>
 InputArchive& operator>>(InputArchive& archive,
                          math::matrix<Rows, Columns, T>& matrix)
 {
-  using math::column_vector;
   for (std::size_t i = 0; i < Columns; ++i)
-    archive >> column_vector(matrix, i);
+    archive >> matrix.column_vector(i);
   return archive;
 }
 
@@ -44,9 +43,8 @@ template <class OutputArchive, std::size_t Rows, std::size_t Columns,
 OutputArchive& operator<<(OutputArchive& archive,
                           const math::matrix<Rows, Columns, T>& matrix)
 {
-  using math::column_vector;
   for (std::size_t i = 0; i < Columns; ++i)
-    archive << column_vector(matrix, i);
+    archive << matrix.column_vector(i);
   return archive;
 }
 

@@ -24,13 +24,6 @@ struct vector<1, T>
   constexpr vector() noexcept = default;
   constexpr vector(T x) noexcept;
 
-  /// @pre
-  ///   The number of elements between begin and end must equal the number of
-  ///   rows of this vector.
-  template <typename Iterator>
-  constexpr vector(Iterator begin, Iterator end) noexcept SHIFT_EXPECTS(
-    std::distance(begin, end) == row_count);
-
   constexpr vector(const vector&) noexcept = default;
   constexpr vector(vector&&) noexcept = default;
   ~vector() noexcept = default;
@@ -286,15 +279,6 @@ std::ostream& operator<<(std::ostream& stream, const vector<1, U>& value)
 template <typename T>
 constexpr vector<1, T>::vector(T x) noexcept : x(x)
 {
-}
-
-template <typename T>
-template <typename Iterator>
-constexpr vector<1, T>::vector(Iterator begin, Iterator end) noexcept
-{
-  BOOST_ASSERT(std::distance(begin, end) == row_count);
-  auto next = begin;
-  x = *(next++);
 }
 
 template <typename T>

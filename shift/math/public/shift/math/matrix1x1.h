@@ -176,34 +176,28 @@ constexpr matrix<1, 1, T>::matrix(
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  column_major, const T (&array)[matrix<1, 1, T>::row_count *
-                                 matrix<1, 1, T>::column_count]) noexcept
+  column_major, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  row_major, const T (&array)[matrix<1, 1, T>::row_count *
-                              matrix<1, 1, T>::column_count]) noexcept
+  row_major, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  column_major,
-  const std::array<T, matrix<1, 1, T>::row_count *
-                        matrix<1, 1, T>::column_count>& array) noexcept
+  column_major, const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  row_major,
-  const std::array<T, matrix<1, 1, T>::row_count *
-                        matrix<1, 1, T>::column_count>& array) noexcept
+  row_major, const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0]}}
 {
 }
