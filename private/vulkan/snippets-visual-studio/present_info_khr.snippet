@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>present_info_khr</Title>
+      <Shortcut>VkPresentInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPresentInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::waitSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphores</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::pWaitSemaphores.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>swapchain_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::swapchainCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>swapchains</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::pSwapchains.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_indices</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::pImageIndices.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>results</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentInfoKHR::pResults.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::present_info_khr(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* swapchain_count */ $swapchain_count$,
+  /* swapchains */ $swapchains$,
+  /* image_indices */ $image_indices$,
+  /* results */ $results$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

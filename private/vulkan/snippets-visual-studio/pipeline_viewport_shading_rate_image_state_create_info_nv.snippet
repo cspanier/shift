@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_viewport_shading_rate_image_state_create_info_nv</Title>
+      <Shortcut>VkPipelineViewportShadingRateImageStateCreateInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineViewportShadingRateImageStateCreateInfoNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportShadingRateImageStateCreateInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_image_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportShadingRateImageStateCreateInfoNV::shadingRateImageEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>viewport_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportShadingRateImageStateCreateInfoNV::viewportCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_palettes</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportShadingRateImageStateCreateInfoNV::pShadingRatePalettes.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_viewport_shading_rate_image_state_create_info_nv(
+  /* next */ $next$,
+  /* shading_rate_image_enable */ $shading_rate_image_enable$,
+  /* viewport_count */ $viewport_count$,
+  /* shading_rate_palettes */ $shading_rate_palettes$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

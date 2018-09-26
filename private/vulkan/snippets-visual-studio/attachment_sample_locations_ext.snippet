@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>attachment_sample_locations_ext</Title>
+      <Shortcut>VkAttachmentSampleLocationsEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkAttachmentSampleLocationsEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>attachment_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentSampleLocationsEXT::attachmentIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentSampleLocationsEXT::sampleLocationsInfo.</ToolTip>
+          <Default>vk::sample_locations_info_ext{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::attachment_sample_locations_ext(
+  /* attachment_index */ $attachment_index$,
+  /* sample_locations_info */ $sample_locations_info$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

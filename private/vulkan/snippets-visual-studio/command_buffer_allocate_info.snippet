@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>command_buffer_allocate_info</Title>
+      <Shortcut>VkCommandBufferAllocateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkCommandBufferAllocateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferAllocateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>command_pool</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferAllocateInfo::commandPool.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>level</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferAllocateInfo::level.</ToolTip>
+          <Default>vk::command_buffer_level::primary</Default>
+        </Literal>
+        <Literal>
+          <ID>command_buffer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferAllocateInfo::commandBufferCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::command_buffer_allocate_info(
+  /* next */ $next$,
+  /* command_pool */ $command_pool$,
+  /* level */ $level$,
+  /* command_buffer_count */ $command_buffer_count$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

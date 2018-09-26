@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_rasterization_state_create_info</Title>
+      <Shortcut>VkPipelineRasterizationStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineRasterizationStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_rasterization_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_clamp_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::depthClampEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>rasterizer_discard_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::rasterizerDiscardEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>polygon_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::polygonMode.</ToolTip>
+          <Default>vk::polygon_mode::fill</Default>
+        </Literal>
+        <Literal>
+          <ID>cull_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::cullMode.</ToolTip>
+          <Default>vk::cull_mode_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>front_face</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::frontFace.</ToolTip>
+          <Default>vk::front_face::counter_clockwise</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_bias_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::depthBiasEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_bias_constant_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::depthBiasConstantFactor.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_bias_clamp</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::depthBiasClamp.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_bias_slope_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::depthBiasSlopeFactor.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>line_width</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateCreateInfo::lineWidth.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_rasterization_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* depth_clamp_enable */ $depth_clamp_enable$,
+  /* rasterizer_discard_enable */ $rasterizer_discard_enable$,
+  /* polygon_mode */ $polygon_mode$,
+  /* cull_mode */ $cull_mode$,
+  /* front_face */ $front_face$,
+  /* depth_bias_enable */ $depth_bias_enable$,
+  /* depth_bias_constant_factor */ $depth_bias_constant_factor$,
+  /* depth_bias_clamp */ $depth_bias_clamp$,
+  /* depth_bias_slope_factor */ $depth_bias_slope_factor$,
+  /* line_width */ $line_width$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

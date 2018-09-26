@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sampler_create_info</Title>
+      <Shortcut>VkSamplerCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSamplerCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::flags.</ToolTip>
+          <Default>vk::sampler_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>mag_filter</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::magFilter.</ToolTip>
+          <Default>vk::filter::nearest</Default>
+        </Literal>
+        <Literal>
+          <ID>min_filter</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::minFilter.</ToolTip>
+          <Default>vk::filter::nearest</Default>
+        </Literal>
+        <Literal>
+          <ID>mipmap_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::mipmapMode.</ToolTip>
+          <Default>vk::sampler_mipmap_mode::nearest</Default>
+        </Literal>
+        <Literal>
+          <ID>address_mode_u</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::addressModeU.</ToolTip>
+          <Default>vk::sampler_address_mode::repeat</Default>
+        </Literal>
+        <Literal>
+          <ID>address_mode_v</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::addressModeV.</ToolTip>
+          <Default>vk::sampler_address_mode::repeat</Default>
+        </Literal>
+        <Literal>
+          <ID>address_mode_w</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::addressModeW.</ToolTip>
+          <Default>vk::sampler_address_mode::repeat</Default>
+        </Literal>
+        <Literal>
+          <ID>mip_lod_bias</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::mipLodBias.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>anisotropy_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::anisotropyEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>max_anisotropy</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::maxAnisotropy.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>compare_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::compareEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>compare_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::compareOp.</ToolTip>
+          <Default>vk::compare_op::never</Default>
+        </Literal>
+        <Literal>
+          <ID>min_lod</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::minLod.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>max_lod</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::maxLod.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>border_color</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::borderColor.</ToolTip>
+          <Default>vk::border_color::float_transparent_black</Default>
+        </Literal>
+        <Literal>
+          <ID>unnormalized_coordinates</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerCreateInfo::unnormalizedCoordinates.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sampler_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* mag_filter */ $mag_filter$,
+  /* min_filter */ $min_filter$,
+  /* mipmap_mode */ $mipmap_mode$,
+  /* address_mode_u */ $address_mode_u$,
+  /* address_mode_v */ $address_mode_v$,
+  /* address_mode_w */ $address_mode_w$,
+  /* mip_lod_bias */ $mip_lod_bias$,
+  /* anisotropy_enable */ $anisotropy_enable$,
+  /* max_anisotropy */ $max_anisotropy$,
+  /* compare_enable */ $compare_enable$,
+  /* compare_op */ $compare_op$,
+  /* min_lod */ $min_lod$,
+  /* max_lod */ $max_lod$,
+  /* border_color */ $border_color$,
+  /* unnormalized_coordinates */ $unnormalized_coordinates$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

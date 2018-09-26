@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_view_astcdecode_mode_ext</Title>
+      <Shortcut>VkImageViewASTCDecodeModeEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageViewASTCDecodeModeEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewASTCDecodeModeEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>decode_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewASTCDecodeModeEXT::decodeMode.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_view_astcdecode_mode_ext(
+  /* next */ $next$,
+  /* decode_mode */ $decode_mode$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

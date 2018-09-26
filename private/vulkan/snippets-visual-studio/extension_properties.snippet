@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>extension_properties</Title>
+      <Shortcut>VkExtensionProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkExtensionProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>extension_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkExtensionProperties::extensionName.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>spec_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkExtensionProperties::specVersion.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::extension_properties(
+  /* extension_name */ $extension_name$,
+  /* spec_version */ $spec_version$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

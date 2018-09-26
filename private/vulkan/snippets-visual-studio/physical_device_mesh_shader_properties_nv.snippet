@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_mesh_shader_properties_nv</Title>
+      <Shortcut>VkPhysicalDeviceMeshShaderPropertiesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceMeshShaderPropertiesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_draw_mesh_tasks_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxDrawMeshTasksCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_task_work_group_invocations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxTaskWorkGroupInvocations.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_task_work_group_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxTaskWorkGroupSize.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_task_total_memory_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxTaskTotalMemorySize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_task_output_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxTaskOutputCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_work_group_invocations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshWorkGroupInvocations.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_work_group_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshWorkGroupSize.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_total_memory_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshTotalMemorySize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_output_vertices</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshOutputVertices.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_output_primitives</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshOutputPrimitives.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mesh_multiview_view_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::maxMeshMultiviewViewCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>mesh_output_per_vertex_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::meshOutputPerVertexGranularity.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>mesh_output_per_primitive_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMeshShaderPropertiesNV::meshOutputPerPrimitiveGranularity.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_mesh_shader_properties_nv(
+  /* next */ $next$,
+  /* max_draw_mesh_tasks_count */ $max_draw_mesh_tasks_count$,
+  /* max_task_work_group_invocations */ $max_task_work_group_invocations$,
+  /* max_task_work_group_size */ $max_task_work_group_size$,
+  /* max_task_total_memory_size */ $max_task_total_memory_size$,
+  /* max_task_output_count */ $max_task_output_count$,
+  /* max_mesh_work_group_invocations */ $max_mesh_work_group_invocations$,
+  /* max_mesh_work_group_size */ $max_mesh_work_group_size$,
+  /* max_mesh_total_memory_size */ $max_mesh_total_memory_size$,
+  /* max_mesh_output_vertices */ $max_mesh_output_vertices$,
+  /* max_mesh_output_primitives */ $max_mesh_output_primitives$,
+  /* max_mesh_multiview_view_count */ $max_mesh_multiview_view_count$,
+  /* mesh_output_per_vertex_granularity */ $mesh_output_per_vertex_granularity$,
+  /* mesh_output_per_primitive_granularity */ $mesh_output_per_primitive_granularity$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

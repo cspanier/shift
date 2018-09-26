@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>geometry_nvx</Title>
+      <Shortcut>VkGeometryNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkGeometryNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>geometry_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryNVX::geometryType.</ToolTip>
+          <Default>vk::geometry_type_nvx::geometry_type_triangles_nvx</Default>
+        </Literal>
+        <Literal>
+          <ID>geometry</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryNVX::geometry.</ToolTip>
+          <Default>vk::geometry_data_nvx{}</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryNVX::flags.</ToolTip>
+          <Default>vk::geometry_flag_nvx::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::geometry_nvx(
+  /* next */ $next$,
+  /* geometry_type */ $geometry_type$,
+  /* geometry */ $geometry$,
+  /* flags */ $flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

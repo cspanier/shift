@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>draw_indirect_command</Title>
+      <Shortcut>VkDrawIndirectCommand</Shortcut>
+      <Description>Code snippet for Vulkan type VkDrawIndirectCommand</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>vertex_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndirectCommand::vertexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>instance_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndirectCommand::instanceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>first_vertex</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndirectCommand::firstVertex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>first_instance</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndirectCommand::firstInstance.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::draw_indirect_command(
+  /* vertex_count */ $vertex_count$,
+  /* instance_count */ $instance_count$,
+  /* first_vertex */ $first_vertex$,
+  /* first_instance */ $first_instance$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

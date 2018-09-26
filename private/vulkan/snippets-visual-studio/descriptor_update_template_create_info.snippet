@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_update_template_create_info</Title>
+      <Shortcut>VkDescriptorUpdateTemplateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorUpdateTemplateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_update_entry_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::descriptorUpdateEntryCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_update_entries</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::pDescriptorUpdateEntries.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>template_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::templateType.</ToolTip>
+          <Default>vk::descriptor_update_template_type::descriptor_set</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_set_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::descriptorSetLayout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_bind_point</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::pipelineBindPoint.</ToolTip>
+          <Default>vk::pipeline_bind_point::graphics</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::pipelineLayout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>set</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateCreateInfo::set.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_update_template_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* descriptor_update_entry_count */ $descriptor_update_entry_count$,
+  /* descriptor_update_entries */ $descriptor_update_entries$,
+  /* template_type */ $template_type$,
+  /* descriptor_set_layout */ $descriptor_set_layout$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* pipeline_layout */ $pipeline_layout$,
+  /* set */ $set$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

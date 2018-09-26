@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>viewport_wscaling_nv</Title>
+      <Shortcut>VkViewportWScalingNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkViewportWScalingNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>xcoeff</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewportWScalingNV::xcoeff.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>ycoeff</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewportWScalingNV::ycoeff.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::viewport_wscaling_nv(
+  /* xcoeff */ $xcoeff$,
+  /* ycoeff */ $ycoeff$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

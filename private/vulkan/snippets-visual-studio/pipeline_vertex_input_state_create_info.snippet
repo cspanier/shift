@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_vertex_input_state_create_info</Title>
+      <Shortcut>VkPipelineVertexInputStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineVertexInputStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_vertex_input_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_binding_description_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::vertexBindingDescriptionCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_binding_descriptions</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::pVertexBindingDescriptions.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_attribute_description_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::vertexAttributeDescriptionCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_attribute_descriptions</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineVertexInputStateCreateInfo::pVertexAttributeDescriptions.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_vertex_input_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* vertex_binding_description_count */ $vertex_binding_description_count$,
+  /* vertex_binding_descriptions */ $vertex_binding_descriptions$,
+  /* vertex_attribute_description_count */ $vertex_attribute_description_count$,
+  /* vertex_attribute_descriptions */ $vertex_attribute_descriptions$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

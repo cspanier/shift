@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_vertex_attribute_divisor_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_attribute_instance_rate_divisor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT::vertexAttributeInstanceRateDivisor.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_attribute_instance_rate_zero_divisor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT::vertexAttributeInstanceRateZeroDivisor.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_vertex_attribute_divisor_features_ext(
+  /* next */ $next$,
+  /* vertex_attribute_instance_rate_divisor */ $vertex_attribute_instance_rate_divisor$,
+  /* vertex_attribute_instance_rate_zero_divisor */ $vertex_attribute_instance_rate_zero_divisor$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

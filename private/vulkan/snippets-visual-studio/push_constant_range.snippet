@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>push_constant_range</Title>
+      <Shortcut>VkPushConstantRange</Shortcut>
+      <Description>Code snippet for Vulkan type VkPushConstantRange</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>stage_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPushConstantRange::stageFlags.</ToolTip>
+          <Default>vk::shader_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkPushConstantRange::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPushConstantRange::size.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::push_constant_range(
+  /* stage_flags */ $stage_flags$,
+  /* offset */ $offset$,
+  /* size */ $size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

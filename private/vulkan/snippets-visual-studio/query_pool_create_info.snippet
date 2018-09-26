@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>query_pool_create_info</Title>
+      <Shortcut>VkQueryPoolCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkQueryPoolCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfo::flags.</ToolTip>
+          <Default>vk::query_pool_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>query_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfo::queryType.</ToolTip>
+          <Default>vk::query_type::occlusion</Default>
+        </Literal>
+        <Literal>
+          <ID>query_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfo::queryCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_statistics</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfo::pipelineStatistics.</ToolTip>
+          <Default>vk::query_pipeline_statistic_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::query_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* query_type */ $query_type$,
+  /* query_count */ $query_count$,
+  /* pipeline_statistics */ $pipeline_statistics$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>vertex_input_binding_description</Title>
+      <Shortcut>VkVertexInputBindingDescription</Shortcut>
+      <Description>Code snippet for Vulkan type VkVertexInputBindingDescription</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputBindingDescription::binding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputBindingDescription::stride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>input_rate</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputBindingDescription::inputRate.</ToolTip>
+          <Default>vk::vertex_input_rate::vertex</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::vertex_input_binding_description(
+  /* binding */ $binding$,
+  /* stride */ $stride$,
+  /* input_rate */ $input_rate$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

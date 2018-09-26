@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_set_layout_support</Title>
+      <Shortcut>VkDescriptorSetLayoutSupport</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorSetLayoutSupport</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutSupport::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>supported</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutSupport::supported.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_set_layout_support(
+  /* next */ $next$,
+  /* supported */ $supported$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_memory_barrier</Title>
+      <Shortcut>VkImageMemoryBarrier</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageMemoryBarrier</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>src_access_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::srcAccessMask.</ToolTip>
+          <Default>vk::access_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_access_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::dstAccessMask.</ToolTip>
+          <Default>vk::access_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>old_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::oldLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>new_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::newLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>src_queue_family_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::srcQueueFamilyIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_queue_family_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::dstQueueFamilyIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::image.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>subresource_range</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageMemoryBarrier::subresourceRange.</ToolTip>
+          <Default>vk::image_subresource_range{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_memory_barrier(
+  /* next */ $next$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* old_layout */ $old_layout$,
+  /* new_layout */ $new_layout$,
+  /* src_queue_family_index */ $src_queue_family_index$,
+  /* dst_queue_family_index */ $dst_queue_family_index$,
+  /* image */ $image$,
+  /* subresource_range */ $subresource_range$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

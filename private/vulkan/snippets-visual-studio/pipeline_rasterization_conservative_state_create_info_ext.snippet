@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_rasterization_conservative_state_create_info_ext</Title>
+      <Shortcut>VkPipelineRasterizationConservativeStateCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineRasterizationConservativeStateCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationConservativeStateCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationConservativeStateCreateInfoEXT::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>conservative_rasterization_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationConservativeStateCreateInfoEXT::conservativeRasterizationMode.</ToolTip>
+          <Default>vk::conservative_rasterization_mode_ext::conservative_rasterization_mode_disabled_ext</Default>
+        </Literal>
+        <Literal>
+          <ID>extra_primitive_overestimation_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationConservativeStateCreateInfoEXT::extraPrimitiveOverestimationSize.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_rasterization_conservative_state_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* conservative_rasterization_mode */ $conservative_rasterization_mode$,
+  /* extra_primitive_overestimation_size */ $extra_primitive_overestimation_size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_format_properties</Title>
+      <Shortcut>VkImageFormatProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageFormatProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>max_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties::maxExtent.</ToolTip>
+          <Default>vk::extent_3d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_mip_levels</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties::maxMipLevels.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_array_layers</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties::maxArrayLayers.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_counts</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties::sampleCounts.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>max_resource_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties::maxResourceSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_format_properties(
+  /* max_extent */ $max_extent$,
+  /* max_mip_levels */ $max_mip_levels$,
+  /* max_array_layers */ $max_array_layers$,
+  /* sample_counts */ $sample_counts$,
+  /* max_resource_size */ $max_resource_size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sample_location_ext</Title>
+      <Shortcut>VkSampleLocationEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkSampleLocationEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>x</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationEXT::x.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>y</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationEXT::y.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sample_location_ext(
+  /* x */ $x$,
+  /* y */ $y$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

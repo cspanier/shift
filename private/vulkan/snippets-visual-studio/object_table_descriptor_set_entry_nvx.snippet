@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>object_table_descriptor_set_entry_nvx</Title>
+      <Shortcut>VkObjectTableDescriptorSetEntryNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkObjectTableDescriptorSetEntryNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableDescriptorSetEntryNVX::type.</ToolTip>
+          <Default>vk::object_entry_type_nvx::object_entry_type_descriptor_set_nvx</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableDescriptorSetEntryNVX::flags.</ToolTip>
+          <Default>vk::object_entry_usage_flag_nvx::none</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableDescriptorSetEntryNVX::pipelineLayout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_set</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableDescriptorSetEntryNVX::descriptorSet.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::object_table_descriptor_set_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* pipeline_layout */ $pipeline_layout$,
+  /* descriptor_set */ $descriptor_set$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

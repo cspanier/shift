@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_allocate_flags_info</Title>
+      <Shortcut>VkMemoryAllocateFlagsInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryAllocateFlagsInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryAllocateFlagsInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryAllocateFlagsInfo::flags.</ToolTip>
+          <Default>vk::memory_allocate_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>device_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryAllocateFlagsInfo::deviceMask.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_allocate_flags_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* device_mask */ $device_mask$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

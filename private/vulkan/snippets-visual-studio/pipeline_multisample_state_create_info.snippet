@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_multisample_state_create_info</Title>
+      <Shortcut>VkPipelineMultisampleStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineMultisampleStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_multisample_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>rasterization_samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::rasterizationSamples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_shading_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::sampleShadingEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>min_sample_shading</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::minSampleShading.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::pSampleMask.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>alpha_to_coverage_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::alphaToCoverageEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>alpha_to_one_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineMultisampleStateCreateInfo::alphaToOneEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_multisample_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* rasterization_samples */ $rasterization_samples$,
+  /* sample_shading_enable */ $sample_shading_enable$,
+  /* min_sample_shading */ $min_sample_shading$,
+  /* sample_mask */ $sample_mask$,
+  /* alpha_to_coverage_enable */ $alpha_to_coverage_enable$,
+  /* alpha_to_one_enable */ $alpha_to_one_enable$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

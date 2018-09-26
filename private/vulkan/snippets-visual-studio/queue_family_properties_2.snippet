@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>queue_family_properties_2</Title>
+      <Shortcut>VkQueueFamilyProperties2</Shortcut>
+      <Description>Code snippet for Vulkan type VkQueueFamilyProperties2</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties2::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_properties</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties2::queueFamilyProperties.</ToolTip>
+          <Default>vk::queue_family_properties{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::queue_family_properties_2(
+  /* next */ $next$,
+  /* queue_family_properties */ $queue_family_properties$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

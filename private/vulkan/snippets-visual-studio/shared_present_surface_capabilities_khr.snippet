@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>shared_present_surface_capabilities_khr</Title>
+      <Shortcut>VkSharedPresentSurfaceCapabilitiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSharedPresentSurfaceCapabilitiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSharedPresentSurfaceCapabilitiesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shared_present_supported_usage_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkSharedPresentSurfaceCapabilitiesKHR::sharedPresentSupportedUsageFlags.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::shared_present_surface_capabilities_khr(
+  /* next */ $next$,
+  /* shared_present_supported_usage_flags */ $shared_present_supported_usage_flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

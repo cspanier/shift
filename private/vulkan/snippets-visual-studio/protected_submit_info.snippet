@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>protected_submit_info</Title>
+      <Shortcut>VkProtectedSubmitInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkProtectedSubmitInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkProtectedSubmitInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>protected_submit</ID>
+          <ToolTip>Equivalent to Vulkan member VkProtectedSubmitInfo::protectedSubmit.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::protected_submit_info(
+  /* next */ $next$,
+  /* protected_submit */ $protected_submit$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

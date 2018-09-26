@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subpass_begin_info_khr</Title>
+      <Shortcut>VkSubpassBeginInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubpassBeginInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassBeginInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>contents</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassBeginInfoKHR::contents.</ToolTip>
+          <Default>vk::subpass_contents::inline_commands</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subpass_begin_info_khr(
+  /* next */ $next$,
+  /* contents */ $contents$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

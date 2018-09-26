@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_surface_create_info_khr</Title>
+      <Shortcut>VkDisplaySurfaceCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplaySurfaceCreateInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>display_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::displayMode.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>plane_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::planeIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>plane_stack_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::planeStackIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>transform</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::transform.</ToolTip>
+          <Default>vk::surface_transform_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>global_alpha</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::globalAlpha.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>alpha_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::alphaMode.</ToolTip>
+          <Default>vk::display_plane_alpha_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>image_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplaySurfaceCreateInfoKHR::imageExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* display_mode */ $display_mode$,
+  /* plane_index */ $plane_index$,
+  /* plane_stack_index */ $plane_stack_index$,
+  /* transform */ $transform$,
+  /* global_alpha */ $global_alpha$,
+  /* alpha_mode */ $alpha_mode$,
+  /* image_extent */ $image_extent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

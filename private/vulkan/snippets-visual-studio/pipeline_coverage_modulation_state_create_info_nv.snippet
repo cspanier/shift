@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_coverage_modulation_state_create_info_nv</Title>
+      <Shortcut>VkPipelineCoverageModulationStateCreateInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineCoverageModulationStateCreateInfoNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_modulation_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::coverageModulationMode.</ToolTip>
+          <Default>vk::coverage_modulation_mode_nv::coverage_modulation_mode_none_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_modulation_table_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::coverageModulationTableEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_modulation_table_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::coverageModulationTableCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_modulation_table</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageModulationStateCreateInfoNV::pCoverageModulationTable.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_coverage_modulation_state_create_info_nv(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* coverage_modulation_mode */ $coverage_modulation_mode$,
+  /* coverage_modulation_table_enable */ $coverage_modulation_table_enable$,
+  /* coverage_modulation_table_count */ $coverage_modulation_table_count$,
+  /* coverage_modulation_table */ $coverage_modulation_table$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

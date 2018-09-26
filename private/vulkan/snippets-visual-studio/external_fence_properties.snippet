@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>external_fence_properties</Title>
+      <Shortcut>VkExternalFenceProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkExternalFenceProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalFenceProperties::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>export_from_imported_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalFenceProperties::exportFromImportedHandleTypes.</ToolTip>
+          <Default>vk::external_fence_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>compatible_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalFenceProperties::compatibleHandleTypes.</ToolTip>
+          <Default>vk::external_fence_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>external_fence_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalFenceProperties::externalFenceFeatures.</ToolTip>
+          <Default>vk::external_fence_feature_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::external_fence_properties(
+  /* next */ $next$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$,
+  /* external_fence_features */ $external_fence_features$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

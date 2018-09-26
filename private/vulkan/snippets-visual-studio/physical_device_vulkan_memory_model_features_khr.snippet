@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_vulkan_memory_model_features_khr</Title>
+      <Shortcut>VkPhysicalDeviceVulkanMemoryModelFeaturesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceVulkanMemoryModelFeaturesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVulkanMemoryModelFeaturesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vulkan_memory_model</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVulkanMemoryModelFeaturesKHR::vulkanMemoryModel.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>vulkan_memory_model_device_scope</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVulkanMemoryModelFeaturesKHR::vulkanMemoryModelDeviceScope.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_vulkan_memory_model_features_khr(
+  /* next */ $next$,
+  /* vulkan_memory_model */ $vulkan_memory_model$,
+  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

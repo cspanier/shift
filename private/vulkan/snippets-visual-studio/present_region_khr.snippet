@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>present_region_khr</Title>
+      <Shortcut>VkPresentRegionKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPresentRegionKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>rectangle_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentRegionKHR::rectangleCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>rectangles</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentRegionKHR::pRectangles.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::present_region_khr(
+  /* rectangle_count */ $rectangle_count$,
+  /* rectangles */ $rectangles$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>present_times_info_google</Title>
+      <Shortcut>VkPresentTimesInfoGOOGLE</Shortcut>
+      <Description>Code snippet for Vulkan type VkPresentTimesInfoGOOGLE</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentTimesInfoGOOGLE::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>swapchain_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentTimesInfoGOOGLE::swapchainCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>times</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentTimesInfoGOOGLE::pTimes.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::present_times_info_google(
+  /* next */ $next$,
+  /* swapchain_count */ $swapchain_count$,
+  /* times */ $times$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

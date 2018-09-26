@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>semaphore_get_fd_info_khr</Title>
+      <Shortcut>VkSemaphoreGetFdInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSemaphoreGetFdInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetFdInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>semaphore</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetFdInfoKHR::semaphore.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetFdInfoKHR::handleType.</ToolTip>
+          <Default>vk::external_semaphore_handle_type_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::semaphore_get_fd_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* handle_type */ $handle_type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>write_descriptor_set</Title>
+      <Shortcut>VkWriteDescriptorSet</Shortcut>
+      <Description>Code snippet for Vulkan type VkWriteDescriptorSet</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_set</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::dstSet.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::dstBinding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_array_element</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::dstArrayElement.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::descriptorCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::descriptorType.</ToolTip>
+          <Default>vk::descriptor_type::sampler</Default>
+        </Literal>
+        <Literal>
+          <ID>image_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::pImageInfo.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::pBufferInfo.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>texel_buffer_view</ID>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSet::pTexelBufferView.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::write_descriptor_set(
+  /* next */ $next$,
+  /* dst_set */ $dst_set$,
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$,
+  /* descriptor_type */ $descriptor_type$,
+  /* image_info */ $image_info$,
+  /* buffer_info */ $buffer_info$,
+  /* texel_buffer_view */ $texel_buffer_view$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

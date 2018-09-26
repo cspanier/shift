@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>input_attachment_aspect_reference</Title>
+      <Shortcut>VkInputAttachmentAspectReference</Shortcut>
+      <Description>Code snippet for Vulkan type VkInputAttachmentAspectReference</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>subpass</ID>
+          <ToolTip>Equivalent to Vulkan member VkInputAttachmentAspectReference::subpass.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>input_attachment_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkInputAttachmentAspectReference::inputAttachmentIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>aspect_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkInputAttachmentAspectReference::aspectMask.</ToolTip>
+          <Default>vk::image_aspect_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::input_attachment_aspect_reference(
+  /* subpass */ $subpass$,
+  /* input_attachment_index */ $input_attachment_index$,
+  /* aspect_mask */ $aspect_mask$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

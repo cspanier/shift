@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_corner_sampled_image_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceCornerSampledImageFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceCornerSampledImageFeaturesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCornerSampledImageFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>corner_sampled_image</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCornerSampledImageFeaturesNV::cornerSampledImage.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_corner_sampled_image_features_nv(
+  /* next */ $next$,
+  /* corner_sampled_image */ $corner_sampled_image$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

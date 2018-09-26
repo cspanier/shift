@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_idproperties</Title>
+      <Shortcut>VkPhysicalDeviceIDProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceIDProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>device_uuid</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::deviceUUID.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>driver_uuid</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::driverUUID.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>device_luid</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::deviceLUID.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>device_node_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::deviceNodeMask.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>device_luidvalid</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceIDProperties::deviceLUIDValid.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_idproperties(
+  /* next */ $next$,
+  /* device_uuid */ $device_uuid$,
+  /* driver_uuid */ $driver_uuid$,
+  /* device_luid */ $device_luid$,
+  /* device_node_mask */ $device_node_mask$,
+  /* device_luidvalid */ $device_luidvalid$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>command_buffer_begin_info</Title>
+      <Shortcut>VkCommandBufferBeginInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkCommandBufferBeginInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferBeginInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferBeginInfo::flags.</ToolTip>
+          <Default>vk::command_buffer_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>inheritance_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferBeginInfo::pInheritanceInfo.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::command_buffer_begin_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* inheritance_info */ $inheritance_info$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

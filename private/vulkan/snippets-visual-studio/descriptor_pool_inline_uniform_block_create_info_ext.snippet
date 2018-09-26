@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_pool_inline_uniform_block_create_info_ext</Title>
+      <Shortcut>VkDescriptorPoolInlineUniformBlockCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorPoolInlineUniformBlockCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolInlineUniformBlockCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_inline_uniform_block_bindings</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolInlineUniformBlockCreateInfoEXT::maxInlineUniformBlockBindings.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_pool_inline_uniform_block_create_info_ext(
+  /* next */ $next$,
+  /* max_inline_uniform_block_bindings */ $max_inline_uniform_block_bindings$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

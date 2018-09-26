@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_mode_create_info_khr</Title>
+      <Shortcut>VkDisplayModeCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayModeCreateInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModeCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModeCreateInfoKHR::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>parameters</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModeCreateInfoKHR::parameters.</ToolTip>
+          <Default>vk::display_mode_parameters_khr{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_mode_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* parameters */ $parameters$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

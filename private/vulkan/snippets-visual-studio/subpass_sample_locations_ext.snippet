@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subpass_sample_locations_ext</Title>
+      <Shortcut>VkSubpassSampleLocationsEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubpassSampleLocationsEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>subpass_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassSampleLocationsEXT::subpassIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassSampleLocationsEXT::sampleLocationsInfo.</ToolTip>
+          <Default>vk::sample_locations_info_ext{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subpass_sample_locations_ext(
+  /* subpass_index */ $subpass_index$,
+  /* sample_locations_info */ $sample_locations_info$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

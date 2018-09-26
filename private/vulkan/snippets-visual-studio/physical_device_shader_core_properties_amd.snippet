@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_shader_core_properties_amd</Title>
+      <Shortcut>VkPhysicalDeviceShaderCorePropertiesAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceShaderCorePropertiesAMD</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_engine_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::shaderEngineCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_arrays_per_engine_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::shaderArraysPerEngineCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>compute_units_per_shader_array</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::computeUnitsPerShaderArray.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>simd_per_compute_unit</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::simdPerComputeUnit.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wavefronts_per_simd</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::wavefrontsPerSimd.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wavefront_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::wavefrontSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sgprs_per_simd</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::sgprsPerSimd.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_sgpr_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::minSgprAllocation.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sgpr_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::maxSgprAllocation.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sgpr_allocation_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::sgprAllocationGranularity.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vgprs_per_simd</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::vgprsPerSimd.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_vgpr_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::minVgprAllocation.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_vgpr_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::maxVgprAllocation.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vgpr_allocation_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCorePropertiesAMD::vgprAllocationGranularity.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_shader_core_properties_amd(
+  /* next */ $next$,
+  /* shader_engine_count */ $shader_engine_count$,
+  /* shader_arrays_per_engine_count */ $shader_arrays_per_engine_count$,
+  /* compute_units_per_shader_array */ $compute_units_per_shader_array$,
+  /* simd_per_compute_unit */ $simd_per_compute_unit$,
+  /* wavefronts_per_simd */ $wavefronts_per_simd$,
+  /* wavefront_size */ $wavefront_size$,
+  /* sgprs_per_simd */ $sgprs_per_simd$,
+  /* min_sgpr_allocation */ $min_sgpr_allocation$,
+  /* max_sgpr_allocation */ $max_sgpr_allocation$,
+  /* sgpr_allocation_granularity */ $sgpr_allocation_granularity$,
+  /* vgprs_per_simd */ $vgprs_per_simd$,
+  /* min_vgpr_allocation */ $min_vgpr_allocation$,
+  /* max_vgpr_allocation */ $max_vgpr_allocation$,
+  /* vgpr_allocation_granularity */ $vgpr_allocation_granularity$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

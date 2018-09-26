@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_multiview_features</Title>
+      <Shortcut>VkPhysicalDeviceMultiviewFeatures</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceMultiviewFeatures</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMultiviewFeatures::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>multiview</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMultiviewFeatures::multiview.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>multiview_geometry_shader</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMultiviewFeatures::multiviewGeometryShader.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>multiview_tessellation_shader</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMultiviewFeatures::multiviewTessellationShader.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_multiview_features(
+  /* next */ $next$,
+  /* multiview */ $multiview$,
+  /* multiview_geometry_shader */ $multiview_geometry_shader$,
+  /* multiview_tessellation_shader */ $multiview_tessellation_shader$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

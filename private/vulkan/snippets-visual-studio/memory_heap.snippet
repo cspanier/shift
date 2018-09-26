@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_heap</Title>
+      <Shortcut>VkMemoryHeap</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryHeap</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>size</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryHeap::size.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryHeap::flags.</ToolTip>
+          <Default>vk::memory_heap_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_heap(
+  /* size */ $size$,
+  /* flags */ $flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

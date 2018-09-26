@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_variable_pointer_features</Title>
+      <Shortcut>VkPhysicalDeviceVariablePointerFeatures</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceVariablePointerFeatures</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>variable_pointers_storage_buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::variablePointersStorageBuffer.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>variable_pointers</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::variablePointers.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_variable_pointer_features(
+  /* next */ $next$,
+  /* variable_pointers_storage_buffer */ $variable_pointers_storage_buffer$,
+  /* variable_pointers */ $variable_pointers$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

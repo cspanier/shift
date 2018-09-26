@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>vertex_input_binding_divisor_description_ext</Title>
+      <Shortcut>VkVertexInputBindingDivisorDescriptionEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkVertexInputBindingDivisorDescriptionEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputBindingDivisorDescriptionEXT::binding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>divisor</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputBindingDivisorDescriptionEXT::divisor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::vertex_input_binding_divisor_description_ext(
+  /* binding */ $binding$,
+  /* divisor */ $divisor$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

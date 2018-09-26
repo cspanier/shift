@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sparse_buffer_memory_bind_info</Title>
+      <Shortcut>VkSparseBufferMemoryBindInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSparseBufferMemoryBindInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseBufferMemoryBindInfo::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>bind_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseBufferMemoryBindInfo::bindCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>binds</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseBufferMemoryBindInfo::pBinds.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sparse_buffer_memory_bind_info(
+  /* buffer */ $buffer$,
+  /* bind_count */ $bind_count$,
+  /* binds */ $binds$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

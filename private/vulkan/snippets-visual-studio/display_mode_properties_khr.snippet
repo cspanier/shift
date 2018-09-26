@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_mode_properties_khr</Title>
+      <Shortcut>VkDisplayModePropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayModePropertiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>display_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModePropertiesKHR::displayMode.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>parameters</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModePropertiesKHR::parameters.</ToolTip>
+          <Default>vk::display_mode_parameters_khr{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_mode_properties_khr(
+  /* display_mode */ $display_mode$,
+  /* parameters */ $parameters$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

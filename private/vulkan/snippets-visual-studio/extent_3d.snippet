@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>extent_3d</Title>
+      <Shortcut>VkExtent3D</Shortcut>
+      <Description>Code snippet for Vulkan type VkExtent3D</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>width</ID>
+          <ToolTip>Equivalent to Vulkan member VkExtent3D::width.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>height</ID>
+          <ToolTip>Equivalent to Vulkan member VkExtent3D::height.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>depth</ID>
+          <ToolTip>Equivalent to Vulkan member VkExtent3D::depth.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::extent_3d(
+  /* width */ $width$,
+  /* height */ $height$,
+  /* depth */ $depth$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

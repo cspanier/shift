@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>surface_capabilities_khr</Title>
+      <Shortcut>VkSurfaceCapabilitiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSurfaceCapabilitiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>min_image_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::minImageCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_image_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::maxImageCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>current_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::currentExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>min_image_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::minImageExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_image_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::maxImageExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_image_array_layers</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::maxImageArrayLayers.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_transforms</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::supportedTransforms.</ToolTip>
+          <Default>vk::surface_transform_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>current_transform</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::currentTransform.</ToolTip>
+          <Default>vk::surface_transform_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_composite_alpha</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::supportedCompositeAlpha.</ToolTip>
+          <Default>vk::composite_alpha_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_usage_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceCapabilitiesKHR::supportedUsageFlags.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::surface_capabilities_khr(
+  /* min_image_count */ $min_image_count$,
+  /* max_image_count */ $max_image_count$,
+  /* current_extent */ $current_extent$,
+  /* min_image_extent */ $min_image_extent$,
+  /* max_image_extent */ $max_image_extent$,
+  /* max_image_array_layers */ $max_image_array_layers$,
+  /* supported_transforms */ $supported_transforms$,
+  /* current_transform */ $current_transform$,
+  /* supported_composite_alpha */ $supported_composite_alpha$,
+  /* supported_usage_flags */ $supported_usage_flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>command_pool_create_info</Title>
+      <Shortcut>VkCommandPoolCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkCommandPoolCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandPoolCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandPoolCreateInfo::flags.</ToolTip>
+          <Default>vk::command_pool_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandPoolCreateInfo::queueFamilyIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::command_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_family_index */ $queue_family_index$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

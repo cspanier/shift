@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_external_buffer_info</Title>
+      <Shortcut>VkPhysicalDeviceExternalBufferInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceExternalBufferInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalBufferInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalBufferInfo::flags.</ToolTip>
+          <Default>vk::buffer_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalBufferInfo::usage.</ToolTip>
+          <Default>vk::buffer_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalBufferInfo::handleType.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_external_buffer_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* usage */ $usage$,
+  /* handle_type */ $handle_type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

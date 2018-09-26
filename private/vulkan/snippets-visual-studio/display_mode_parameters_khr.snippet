@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_mode_parameters_khr</Title>
+      <Shortcut>VkDisplayModeParametersKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayModeParametersKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>visible_region</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModeParametersKHR::visibleRegion.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>refresh_rate</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayModeParametersKHR::refreshRate.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_mode_parameters_khr(
+  /* visible_region */ $visible_region$,
+  /* refresh_rate */ $refresh_rate$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

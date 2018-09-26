@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_set_layout_create_info</Title>
+      <Shortcut>VkDescriptorSetLayoutCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorSetLayoutCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutCreateInfo::flags.</ToolTip>
+          <Default>vk::descriptor_set_layout_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>binding_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutCreateInfo::bindingCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>bindings</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetLayoutCreateInfo::pBindings.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_set_layout_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* binding_count */ $binding_count$,
+  /* bindings */ $bindings$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

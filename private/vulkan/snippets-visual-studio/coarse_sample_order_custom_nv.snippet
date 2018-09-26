@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>coarse_sample_order_custom_nv</Title>
+      <Shortcut>VkCoarseSampleOrderCustomNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkCoarseSampleOrderCustomNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>shading_rate</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleOrderCustomNV::shadingRate.</ToolTip>
+          <Default>vk::shading_rate_palette_entry_nv::shading_rate_palette_entry_no_invocations_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleOrderCustomNV::sampleCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_location_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleOrderCustomNV::sampleLocationCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleOrderCustomNV::pSampleLocations.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::coarse_sample_order_custom_nv(
+  /* shading_rate */ $shading_rate$,
+  /* sample_count */ $sample_count$,
+  /* sample_location_count */ $sample_location_count$,
+  /* sample_locations */ $sample_locations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

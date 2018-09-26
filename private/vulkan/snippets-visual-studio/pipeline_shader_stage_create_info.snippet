@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_shader_stage_create_info</Title>
+      <Shortcut>VkPipelineShaderStageCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineShaderStageCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_shader_stage_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>stage</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::stage.</ToolTip>
+          <Default>vk::shader_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>module</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::module.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::pName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>specialization_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineShaderStageCreateInfo::pSpecializationInfo.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_shader_stage_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage */ $stage$,
+  /* module */ $module$,
+  /* name */ $name$,
+  /* specialization_info */ $specialization_info$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

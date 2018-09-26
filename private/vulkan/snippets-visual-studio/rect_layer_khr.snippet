@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>rect_layer_khr</Title>
+      <Shortcut>VkRectLayerKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkRectLayerKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkRectLayerKHR::offset.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkRectLayerKHR::extent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>layer</ID>
+          <ToolTip>Equivalent to Vulkan member VkRectLayerKHR::layer.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::rect_layer_khr(
+  /* offset */ $offset$,
+  /* extent */ $extent$,
+  /* layer */ $layer$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

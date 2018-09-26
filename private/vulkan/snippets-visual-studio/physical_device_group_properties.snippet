@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_group_properties</Title>
+      <Shortcut>VkPhysicalDeviceGroupProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceGroupProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceGroupProperties::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>physical_device_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceGroupProperties::physicalDeviceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>physical_devices</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceGroupProperties::physicalDevices.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>subset_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceGroupProperties::subsetAllocation.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_group_properties(
+  /* next */ $next$,
+  /* physical_device_count */ $physical_device_count$,
+  /* physical_devices */ $physical_devices$,
+  /* subset_allocation */ $subset_allocation$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

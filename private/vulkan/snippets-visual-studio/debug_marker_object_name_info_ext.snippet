@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_marker_object_name_info_ext</Title>
+      <Shortcut>VkDebugMarkerObjectNameInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugMarkerObjectNameInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectNameInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectNameInfoEXT::objectType.</ToolTip>
+          <Default>vk::debug_report_object_type_ext::debug_report_object_type_unknown_ext</Default>
+        </Literal>
+        <Literal>
+          <ID>object</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectNameInfoEXT::object.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>object_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectNameInfoEXT::pObjectName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_marker_object_name_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object */ $object$,
+  /* object_name */ $object_name$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

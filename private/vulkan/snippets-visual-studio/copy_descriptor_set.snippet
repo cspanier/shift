@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>copy_descriptor_set</Title>
+      <Shortcut>VkCopyDescriptorSet</Shortcut>
+      <Description>Code snippet for Vulkan type VkCopyDescriptorSet</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>src_set</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::srcSet.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>src_binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::srcBinding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>src_array_element</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::srcArrayElement.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_set</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::dstSet.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::dstBinding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_array_element</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::dstArrayElement.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCopyDescriptorSet::descriptorCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::copy_descriptor_set(
+  /* next */ $next$,
+  /* src_set */ $src_set$,
+  /* src_binding */ $src_binding$,
+  /* src_array_element */ $src_array_element$,
+  /* dst_set */ $dst_set$,
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cmd_process_commands_info_nvx</Title>
+      <Shortcut>VkCmdProcessCommandsInfoNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkCmdProcessCommandsInfoNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_table</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::objectTable.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>indirect_commands_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::indirectCommandsLayout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>indirect_commands_token_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::indirectCommandsTokenCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>indirect_commands_tokens</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::pIndirectCommandsTokens.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sequences_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::maxSequencesCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>target_command_buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::targetCommandBuffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>sequences_count_buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::sequencesCountBuffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>sequences_count_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::sequencesCountOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sequences_index_buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::sequencesIndexBuffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>sequences_index_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdProcessCommandsInfoNVX::sequencesIndexOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::cmd_process_commands_info_nvx(
+  /* next */ $next$,
+  /* object_table */ $object_table$,
+  /* indirect_commands_layout */ $indirect_commands_layout$,
+  /* indirect_commands_token_count */ $indirect_commands_token_count$,
+  /* indirect_commands_tokens */ $indirect_commands_tokens$,
+  /* max_sequences_count */ $max_sequences_count$,
+  /* target_command_buffer */ $target_command_buffer$,
+  /* sequences_count_buffer */ $sequences_count_buffer$,
+  /* sequences_count_offset */ $sequences_count_offset$,
+  /* sequences_index_buffer */ $sequences_index_buffer$,
+  /* sequences_index_offset */ $sequences_index_offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

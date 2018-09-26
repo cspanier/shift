@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>object_table_create_info_nvx</Title>
+      <Shortcut>VkObjectTableCreateInfoNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkObjectTableCreateInfoNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::objectCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>object_entry_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::pObjectEntryTypes.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_entry_counts</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::pObjectEntryCounts.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_entry_usage_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::pObjectEntryUsageFlags.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_uniform_buffers_per_descriptor</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::maxUniformBuffersPerDescriptor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_storage_buffers_per_descriptor</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::maxStorageBuffersPerDescriptor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_storage_images_per_descriptor</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::maxStorageImagesPerDescriptor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sampled_images_per_descriptor</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::maxSampledImagesPerDescriptor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_pipeline_layouts</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableCreateInfoNVX::maxPipelineLayouts.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::object_table_create_info_nvx(
+  /* next */ $next$,
+  /* object_count */ $object_count$,
+  /* object_entry_types */ $object_entry_types$,
+  /* object_entry_counts */ $object_entry_counts$,
+  /* object_entry_usage_flags */ $object_entry_usage_flags$,
+  /* max_uniform_buffers_per_descriptor */ $max_uniform_buffers_per_descriptor$,
+  /* max_storage_buffers_per_descriptor */ $max_storage_buffers_per_descriptor$,
+  /* max_storage_images_per_descriptor */ $max_storage_images_per_descriptor$,
+  /* max_sampled_images_per_descriptor */ $max_sampled_images_per_descriptor$,
+  /* max_pipeline_layouts */ $max_pipeline_layouts$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

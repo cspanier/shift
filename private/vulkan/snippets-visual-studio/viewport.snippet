@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>viewport</Title>
+      <Shortcut>VkViewport</Shortcut>
+      <Description>Code snippet for Vulkan type VkViewport</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>x</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::x.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>y</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::y.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>width</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::width.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>height</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::height.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>min_depth</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::minDepth.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>max_depth</ID>
+          <ToolTip>Equivalent to Vulkan member VkViewport::maxDepth.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::viewport(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* width */ $width$,
+  /* height */ $height$,
+  /* min_depth */ $min_depth$,
+  /* max_depth */ $max_depth$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

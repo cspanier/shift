@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_report_callback_create_info_ext</Title>
+      <Shortcut>VkDebugReportCallbackCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugReportCallbackCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugReportCallbackCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugReportCallbackCreateInfoEXT::flags.</ToolTip>
+          <Default>vk::debug_report_flag_ext::none</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_callback</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugReportCallbackCreateInfoEXT::pfnCallback.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>user_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugReportCallbackCreateInfoEXT::pUserData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_report_callback_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* pfn_callback */ $pfn_callback$,
+  /* user_data */ $user_data$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

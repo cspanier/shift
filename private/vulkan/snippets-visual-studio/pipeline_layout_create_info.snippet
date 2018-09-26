@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_layout_create_info</Title>
+      <Shortcut>VkPipelineLayoutCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineLayoutCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_layout_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>set_layout_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::setLayoutCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>set_layouts</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::pSetLayouts.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>push_constant_range_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::pushConstantRangeCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>push_constant_ranges</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineLayoutCreateInfo::pPushConstantRanges.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_layout_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* set_layout_count */ $set_layout_count$,
+  /* set_layouts */ $set_layouts$,
+  /* push_constant_range_count */ $push_constant_range_count$,
+  /* push_constant_ranges */ $push_constant_ranges$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

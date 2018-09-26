@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>command_buffer_inheritance_info</Title>
+      <Shortcut>VkCommandBufferInheritanceInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkCommandBufferInheritanceInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>render_pass</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::renderPass.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>subpass</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::subpass.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>framebuffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::framebuffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>occlusion_query_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::occlusionQueryEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>query_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::queryFlags.</ToolTip>
+          <Default>vk::query_control_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_statistics</ID>
+          <ToolTip>Equivalent to Vulkan member VkCommandBufferInheritanceInfo::pipelineStatistics.</ToolTip>
+          <Default>vk::query_pipeline_statistic_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::command_buffer_inheritance_info(
+  /* next */ $next$,
+  /* render_pass */ $render_pass$,
+  /* subpass */ $subpass$,
+  /* framebuffer */ $framebuffer$,
+  /* occlusion_query_enable */ $occlusion_query_enable$,
+  /* query_flags */ $query_flags$,
+  /* pipeline_statistics */ $pipeline_statistics$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

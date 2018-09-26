@@ -1,0 +1,2645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- merge content of this file with ~/.config/QtProject/qtcreator/snippets/snippets.xml -->
+<snippets>
+  <snippet group="C++" trigger="_VkOffset2D" id="" complement="" removed="false" modified="false">vk::offset_2d(
+  /* x */ $x$,
+  /* y */ $y$)
+</snippet>
+  <snippet group="C++" trigger="_VkOffset3D" id="" complement="" removed="false" modified="false">vk::offset_3d(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* z */ $z$)
+</snippet>
+  <snippet group="C++" trigger="_VkExtent2D" id="" complement="" removed="false" modified="false">vk::extent_2d(
+  /* width */ $width$,
+  /* height */ $height$)
+</snippet>
+  <snippet group="C++" trigger="_VkExtent3D" id="" complement="" removed="false" modified="false">vk::extent_3d(
+  /* width */ $width$,
+  /* height */ $height$,
+  /* depth */ $depth$)
+</snippet>
+  <snippet group="C++" trigger="_VkViewport" id="" complement="" removed="false" modified="false">vk::viewport(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* width */ $width$,
+  /* height */ $height$,
+  /* min_depth */ $min_depth$,
+  /* max_depth */ $max_depth$)
+</snippet>
+  <snippet group="C++" trigger="_VkRect2D" id="" complement="" removed="false" modified="false">vk::rect_2d(
+  /* offset */ $offset$,
+  /* extent */ $extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkClearRect" id="" complement="" removed="false" modified="false">vk::clear_rect(
+  /* rect */ $rect$,
+  /* base_array_layer */ $base_array_layer$,
+  /* layer_count */ $layer_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkComponentMapping" id="" complement="" removed="false" modified="false">vk::component_mapping(
+  /* r */ $r$,
+  /* g */ $g$,
+  /* b */ $b$,
+  /* a */ $a$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceProperties" id="" complement="" removed="false" modified="false">vk::physical_device_properties(
+  /* api_version */ $api_version$,
+  /* driver_version */ $driver_version$,
+  /* vendor_id */ $vendor_id$,
+  /* device_id */ $device_id$,
+  /* device_type */ $device_type$,
+  /* device_name */ $device_name$,
+  /* pipeline_cache_uuid */ $pipeline_cache_uuid$,
+  /* limits */ $limits$,
+  /* sparse_properties */ $sparse_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkExtensionProperties" id="" complement="" removed="false" modified="false">vk::extension_properties(
+  /* extension_name */ $extension_name$,
+  /* spec_version */ $spec_version$)
+</snippet>
+  <snippet group="C++" trigger="_VkLayerProperties" id="" complement="" removed="false" modified="false">vk::layer_properties(
+  /* layer_name */ $layer_name$,
+  /* spec_version */ $spec_version$,
+  /* implementation_version */ $implementation_version$,
+  /* description */ $description$)
+</snippet>
+  <snippet group="C++" trigger="_VkApplicationInfo" id="" complement="" removed="false" modified="false">vk::application_info(
+  /* next */ $next$,
+  /* application_name */ $application_name$,
+  /* application_version */ $application_version$,
+  /* engine_name */ $engine_name$,
+  /* engine_version */ $engine_version$,
+  /* api_version */ $api_version$)
+</snippet>
+  <snippet group="C++" trigger="_VkAllocationCallbacks" id="" complement="" removed="false" modified="false">vk::allocation_callbacks(
+  /* user_data */ $user_data$,
+  /* pfn_allocation */ $pfn_allocation$,
+  /* pfn_reallocation */ $pfn_reallocation$,
+  /* pfn_free */ $pfn_free$,
+  /* pfn_internal_allocation */ $pfn_internal_allocation$,
+  /* pfn_internal_free */ $pfn_internal_free$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceQueueCreateInfo" id="" complement="" removed="false" modified="false">vk::device_queue_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_family_index */ $queue_family_index$,
+  /* queue_count */ $queue_count$,
+  /* queue_priorities */ $queue_priorities$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceCreateInfo" id="" complement="" removed="false" modified="false">vk::device_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_create_info_count */ $queue_create_info_count$,
+  /* queue_create_infos */ $queue_create_infos$,
+  /* enabled_layer_count */ $enabled_layer_count$,
+  /* enabled_layer_names */ $enabled_layer_names$,
+  /* enabled_extension_count */ $enabled_extension_count$,
+  /* enabled_extension_names */ $enabled_extension_names$,
+  /* enabled_features */ $enabled_features$)
+</snippet>
+  <snippet group="C++" trigger="_VkInstanceCreateInfo" id="" complement="" removed="false" modified="false">vk::instance_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* application_info */ $application_info$,
+  /* enabled_layer_count */ $enabled_layer_count$,
+  /* enabled_layer_names */ $enabled_layer_names$,
+  /* enabled_extension_count */ $enabled_extension_count$,
+  /* enabled_extension_names */ $enabled_extension_names$)
+</snippet>
+  <snippet group="C++" trigger="_VkQueueFamilyProperties" id="" complement="" removed="false" modified="false">vk::queue_family_properties(
+  /* queue_flags */ $queue_flags$,
+  /* queue_count */ $queue_count$,
+  /* timestamp_valid_bits */ $timestamp_valid_bits$,
+  /* min_image_transfer_granularity */ $min_image_transfer_granularity$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMemoryProperties" id="" complement="" removed="false" modified="false">vk::physical_device_memory_properties(
+  /* memory_type_count */ $memory_type_count$,
+  /* memory_types */ $memory_types$,
+  /* memory_heap_count */ $memory_heap_count$,
+  /* memory_heaps */ $memory_heaps$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryAllocateInfo" id="" complement="" removed="false" modified="false">vk::memory_allocate_info(
+  /* next */ $next$,
+  /* allocation_size */ $allocation_size$,
+  /* memory_type_index */ $memory_type_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryRequirements" id="" complement="" removed="false" modified="false">vk::memory_requirements(
+  /* size */ $size$,
+  /* alignment */ $alignment$,
+  /* memory_type_bits */ $memory_type_bits$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageFormatProperties" id="" complement="" removed="false" modified="false">vk::sparse_image_format_properties(
+  /* aspect_mask */ $aspect_mask$,
+  /* image_granularity */ $image_granularity$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageMemoryRequirements" id="" complement="" removed="false" modified="false">vk::sparse_image_memory_requirements(
+  /* format_properties */ $format_properties$,
+  /* image_mip_tail_first_lod */ $image_mip_tail_first_lod$,
+  /* image_mip_tail_size */ $image_mip_tail_size$,
+  /* image_mip_tail_offset */ $image_mip_tail_offset$,
+  /* image_mip_tail_stride */ $image_mip_tail_stride$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryType" id="" complement="" removed="false" modified="false">vk::memory_type(
+  /* property_flags */ $property_flags$,
+  /* heap_index */ $heap_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryHeap" id="" complement="" removed="false" modified="false">vk::memory_heap(
+  /* size */ $size$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkMappedMemoryRange" id="" complement="" removed="false" modified="false">vk::mapped_memory_range(
+  /* next */ $next$,
+  /* memory */ $memory$,
+  /* offset */ $offset$,
+  /* size */ $size$)
+</snippet>
+  <snippet group="C++" trigger="_VkFormatProperties" id="" complement="" removed="false" modified="false">vk::format_properties(
+  /* linear_tiling_features */ $linear_tiling_features$,
+  /* optimal_tiling_features */ $optimal_tiling_features$,
+  /* buffer_features */ $buffer_features$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageFormatProperties" id="" complement="" removed="false" modified="false">vk::image_format_properties(
+  /* max_extent */ $max_extent$,
+  /* max_mip_levels */ $max_mip_levels$,
+  /* max_array_layers */ $max_array_layers$,
+  /* sample_counts */ $sample_counts$,
+  /* max_resource_size */ $max_resource_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorBufferInfo" id="" complement="" removed="false" modified="false">vk::descriptor_buffer_info(
+  /* buffer */ $buffer$,
+  /* offset */ $offset$,
+  /* range */ $range$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorImageInfo" id="" complement="" removed="false" modified="false">vk::descriptor_image_info(
+  /* sampler */ $sampler$,
+  /* image_view */ $image_view$,
+  /* image_layout */ $image_layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkWriteDescriptorSet" id="" complement="" removed="false" modified="false">vk::write_descriptor_set(
+  /* next */ $next$,
+  /* dst_set */ $dst_set$,
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$,
+  /* descriptor_type */ $descriptor_type$,
+  /* image_info */ $image_info$,
+  /* buffer_info */ $buffer_info$,
+  /* texel_buffer_view */ $texel_buffer_view$)
+</snippet>
+  <snippet group="C++" trigger="_VkCopyDescriptorSet" id="" complement="" removed="false" modified="false">vk::copy_descriptor_set(
+  /* next */ $next$,
+  /* src_set */ $src_set$,
+  /* src_binding */ $src_binding$,
+  /* src_array_element */ $src_array_element$,
+  /* dst_set */ $dst_set$,
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferCreateInfo" id="" complement="" removed="false" modified="false">vk::buffer_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* size */ $size$,
+  /* usage */ $usage$,
+  /* sharing_mode */ $sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferViewCreateInfo" id="" complement="" removed="false" modified="false">vk::buffer_view_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* buffer */ $buffer$,
+  /* format */ $format$,
+  /* offset */ $offset$,
+  /* range */ $range$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageSubresource" id="" complement="" removed="false" modified="false">vk::image_subresource(
+  /* aspect_mask */ $aspect_mask$,
+  /* mip_level */ $mip_level$,
+  /* array_layer */ $array_layer$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageSubresourceLayers" id="" complement="" removed="false" modified="false">vk::image_subresource_layers(
+  /* aspect_mask */ $aspect_mask$,
+  /* mip_level */ $mip_level$,
+  /* base_array_layer */ $base_array_layer$,
+  /* layer_count */ $layer_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageSubresourceRange" id="" complement="" removed="false" modified="false">vk::image_subresource_range(
+  /* aspect_mask */ $aspect_mask$,
+  /* base_mip_level */ $base_mip_level$,
+  /* level_count */ $level_count$,
+  /* base_array_layer */ $base_array_layer$,
+  /* layer_count */ $layer_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryBarrier" id="" complement="" removed="false" modified="false">vk::memory_barrier(
+  /* next */ $next$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferMemoryBarrier" id="" complement="" removed="false" modified="false">vk::buffer_memory_barrier(
+  /* next */ $next$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* src_queue_family_index */ $src_queue_family_index$,
+  /* dst_queue_family_index */ $dst_queue_family_index$,
+  /* buffer */ $buffer$,
+  /* offset */ $offset$,
+  /* size */ $size$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageMemoryBarrier" id="" complement="" removed="false" modified="false">vk::image_memory_barrier(
+  /* next */ $next$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* old_layout */ $old_layout$,
+  /* new_layout */ $new_layout$,
+  /* src_queue_family_index */ $src_queue_family_index$,
+  /* dst_queue_family_index */ $dst_queue_family_index$,
+  /* image */ $image$,
+  /* subresource_range */ $subresource_range$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageCreateInfo" id="" complement="" removed="false" modified="false">vk::image_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* image_type */ $image_type$,
+  /* format */ $format$,
+  /* extent */ $extent$,
+  /* mip_levels */ $mip_levels$,
+  /* array_layers */ $array_layers$,
+  /* samples */ $samples$,
+  /* tiling */ $tiling$,
+  /* usage */ $usage$,
+  /* sharing_mode */ $sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$,
+  /* initial_layout */ $initial_layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubresourceLayout" id="" complement="" removed="false" modified="false">vk::subresource_layout(
+  /* offset */ $offset$,
+  /* size */ $size$,
+  /* row_pitch */ $row_pitch$,
+  /* array_pitch */ $array_pitch$,
+  /* depth_pitch */ $depth_pitch$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageViewCreateInfo" id="" complement="" removed="false" modified="false">vk::image_view_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* image */ $image$,
+  /* view_type */ $view_type$,
+  /* format */ $format$,
+  /* components */ $components$,
+  /* subresource_range */ $subresource_range$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferCopy" id="" complement="" removed="false" modified="false">vk::buffer_copy(
+  /* src_offset */ $src_offset$,
+  /* dst_offset */ $dst_offset$,
+  /* size */ $size$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseMemoryBind" id="" complement="" removed="false" modified="false">vk::sparse_memory_bind(
+  /* resource_offset */ $resource_offset$,
+  /* size */ $size$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageMemoryBind" id="" complement="" removed="false" modified="false">vk::sparse_image_memory_bind(
+  /* subresource */ $subresource$,
+  /* offset */ $offset$,
+  /* extent */ $extent$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseBufferMemoryBindInfo" id="" complement="" removed="false" modified="false">vk::sparse_buffer_memory_bind_info(
+  /* buffer */ $buffer$,
+  /* bind_count */ $bind_count$,
+  /* binds */ $binds$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageOpaqueMemoryBindInfo" id="" complement="" removed="false" modified="false">vk::sparse_image_opaque_memory_bind_info(
+  /* image */ $image$,
+  /* bind_count */ $bind_count$,
+  /* binds */ $binds$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageMemoryBindInfo" id="" complement="" removed="false" modified="false">vk::sparse_image_memory_bind_info(
+  /* image */ $image$,
+  /* bind_count */ $bind_count$,
+  /* binds */ $binds$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindSparseInfo" id="" complement="" removed="false" modified="false">vk::bind_sparse_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* buffer_bind_count */ $buffer_bind_count$,
+  /* buffer_binds */ $buffer_binds$,
+  /* image_opaque_bind_count */ $image_opaque_bind_count$,
+  /* image_opaque_binds */ $image_opaque_binds$,
+  /* image_bind_count */ $image_bind_count$,
+  /* image_binds */ $image_binds$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphores */ $signal_semaphores$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageCopy" id="" complement="" removed="false" modified="false">vk::image_copy(
+  /* src_subresource */ $src_subresource$,
+  /* src_offset */ $src_offset$,
+  /* dst_subresource */ $dst_subresource$,
+  /* dst_offset */ $dst_offset$,
+  /* extent */ $extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageBlit" id="" complement="" removed="false" modified="false">vk::image_blit(
+  /* src_subresource */ $src_subresource$,
+  /* src_offsets */ $src_offsets$,
+  /* dst_subresource */ $dst_subresource$,
+  /* dst_offsets */ $dst_offsets$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferImageCopy" id="" complement="" removed="false" modified="false">vk::buffer_image_copy(
+  /* buffer_offset */ $buffer_offset$,
+  /* buffer_row_length */ $buffer_row_length$,
+  /* buffer_image_height */ $buffer_image_height$,
+  /* image_subresource */ $image_subresource$,
+  /* image_offset */ $image_offset$,
+  /* image_extent */ $image_extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageResolve" id="" complement="" removed="false" modified="false">vk::image_resolve(
+  /* src_subresource */ $src_subresource$,
+  /* src_offset */ $src_offset$,
+  /* dst_subresource */ $dst_subresource$,
+  /* dst_offset */ $dst_offset$,
+  /* extent */ $extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkShaderModuleCreateInfo" id="" complement="" removed="false" modified="false">vk::shader_module_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* code_size */ $code_size$,
+  /* code */ $code$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetLayoutBinding" id="" complement="" removed="false" modified="false">vk::descriptor_set_layout_binding(
+  /* binding */ $binding$,
+  /* descriptor_type */ $descriptor_type$,
+  /* descriptor_count */ $descriptor_count$,
+  /* stage_flags */ $stage_flags$,
+  /* immutable_samplers */ $immutable_samplers$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetLayoutCreateInfo" id="" complement="" removed="false" modified="false">vk::descriptor_set_layout_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* binding_count */ $binding_count$,
+  /* bindings */ $bindings$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorPoolSize" id="" complement="" removed="false" modified="false">vk::descriptor_pool_size(
+  /* type */ $type$,
+  /* descriptor_count */ $descriptor_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorPoolCreateInfo" id="" complement="" removed="false" modified="false">vk::descriptor_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* max_sets */ $max_sets$,
+  /* pool_size_count */ $pool_size_count$,
+  /* pool_sizes */ $pool_sizes$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetAllocateInfo" id="" complement="" removed="false" modified="false">vk::descriptor_set_allocate_info(
+  /* next */ $next$,
+  /* descriptor_pool */ $descriptor_pool$,
+  /* descriptor_set_count */ $descriptor_set_count$,
+  /* set_layouts */ $set_layouts$)
+</snippet>
+  <snippet group="C++" trigger="_VkSpecializationMapEntry" id="" complement="" removed="false" modified="false">vk::specialization_map_entry(
+  /* constant_id */ $constant_id$,
+  /* offset */ $offset$,
+  /* size */ $size$)
+</snippet>
+  <snippet group="C++" trigger="_VkSpecializationInfo" id="" complement="" removed="false" modified="false">vk::specialization_info(
+  /* map_entry_count */ $map_entry_count$,
+  /* map_entries */ $map_entries$,
+  /* data_size */ $data_size$,
+  /* data */ $data$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineShaderStageCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_shader_stage_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage */ $stage$,
+  /* module */ $module$,
+  /* name */ $name$,
+  /* specialization_info */ $specialization_info$)
+</snippet>
+  <snippet group="C++" trigger="_VkComputePipelineCreateInfo" id="" complement="" removed="false" modified="false">vk::compute_pipeline_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage */ $stage$,
+  /* layout */ $layout$,
+  /* base_pipeline_handle */ $base_pipeline_handle$,
+  /* base_pipeline_index */ $base_pipeline_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkVertexInputBindingDescription" id="" complement="" removed="false" modified="false">vk::vertex_input_binding_description(
+  /* binding */ $binding$,
+  /* stride */ $stride$,
+  /* input_rate */ $input_rate$)
+</snippet>
+  <snippet group="C++" trigger="_VkVertexInputAttributeDescription" id="" complement="" removed="false" modified="false">vk::vertex_input_attribute_description(
+  /* location */ $location$,
+  /* binding */ $binding$,
+  /* format */ $format$,
+  /* offset */ $offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineVertexInputStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_vertex_input_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* vertex_binding_description_count */ $vertex_binding_description_count$,
+  /* vertex_binding_descriptions */ $vertex_binding_descriptions$,
+  /* vertex_attribute_description_count */ $vertex_attribute_description_count$,
+  /* vertex_attribute_descriptions */ $vertex_attribute_descriptions$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineInputAssemblyStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_input_assembly_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* topology */ $topology$,
+  /* primitive_restart_enable */ $primitive_restart_enable$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineTessellationStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_tessellation_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* patch_control_points */ $patch_control_points$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* viewport_count */ $viewport_count$,
+  /* viewports */ $viewports$,
+  /* scissor_count */ $scissor_count$,
+  /* scissors */ $scissors$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineRasterizationStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_rasterization_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* depth_clamp_enable */ $depth_clamp_enable$,
+  /* rasterizer_discard_enable */ $rasterizer_discard_enable$,
+  /* polygon_mode */ $polygon_mode$,
+  /* cull_mode */ $cull_mode$,
+  /* front_face */ $front_face$,
+  /* depth_bias_enable */ $depth_bias_enable$,
+  /* depth_bias_constant_factor */ $depth_bias_constant_factor$,
+  /* depth_bias_clamp */ $depth_bias_clamp$,
+  /* depth_bias_slope_factor */ $depth_bias_slope_factor$,
+  /* line_width */ $line_width$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineMultisampleStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_multisample_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* rasterization_samples */ $rasterization_samples$,
+  /* sample_shading_enable */ $sample_shading_enable$,
+  /* min_sample_shading */ $min_sample_shading$,
+  /* sample_mask */ $sample_mask$,
+  /* alpha_to_coverage_enable */ $alpha_to_coverage_enable$,
+  /* alpha_to_one_enable */ $alpha_to_one_enable$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineColorBlendAttachmentState" id="" complement="" removed="false" modified="false">vk::pipeline_color_blend_attachment_state(
+  /* blend_enable */ $blend_enable$,
+  /* src_color_blend_factor */ $src_color_blend_factor$,
+  /* dst_color_blend_factor */ $dst_color_blend_factor$,
+  /* color_blend_op */ $color_blend_op$,
+  /* src_alpha_blend_factor */ $src_alpha_blend_factor$,
+  /* dst_alpha_blend_factor */ $dst_alpha_blend_factor$,
+  /* alpha_blend_op */ $alpha_blend_op$,
+  /* color_write_mask */ $color_write_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineColorBlendStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_color_blend_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* logic_op_enable */ $logic_op_enable$,
+  /* logic_op */ $logic_op$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* blend_constants */ $blend_constants$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineDynamicStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_dynamic_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* dynamic_state_count */ $dynamic_state_count$,
+  /* dynamic_states */ $dynamic_states$)
+</snippet>
+  <snippet group="C++" trigger="_VkStencilOpState" id="" complement="" removed="false" modified="false">vk::stencil_op_state(
+  /* fail_op */ $fail_op$,
+  /* pass_op */ $pass_op$,
+  /* depth_fail_op */ $depth_fail_op$,
+  /* compare_op */ $compare_op$,
+  /* compare_mask */ $compare_mask$,
+  /* write_mask */ $write_mask$,
+  /* reference */ $reference$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineDepthStencilStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_depth_stencil_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* depth_test_enable */ $depth_test_enable$,
+  /* depth_write_enable */ $depth_write_enable$,
+  /* depth_compare_op */ $depth_compare_op$,
+  /* depth_bounds_test_enable */ $depth_bounds_test_enable$,
+  /* stencil_test_enable */ $stencil_test_enable$,
+  /* front */ $front$,
+  /* back */ $back$,
+  /* min_depth_bounds */ $min_depth_bounds$,
+  /* max_depth_bounds */ $max_depth_bounds$)
+</snippet>
+  <snippet group="C++" trigger="_VkGraphicsPipelineCreateInfo" id="" complement="" removed="false" modified="false">vk::graphics_pipeline_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage_count */ $stage_count$,
+  /* stages */ $stages$,
+  /* vertex_input_state */ $vertex_input_state$,
+  /* input_assembly_state */ $input_assembly_state$,
+  /* tessellation_state */ $tessellation_state$,
+  /* viewport_state */ $viewport_state$,
+  /* rasterization_state */ $rasterization_state$,
+  /* multisample_state */ $multisample_state$,
+  /* depth_stencil_state */ $depth_stencil_state$,
+  /* color_blend_state */ $color_blend_state$,
+  /* dynamic_state */ $dynamic_state$,
+  /* layout */ $layout$,
+  /* render_pass */ $render_pass$,
+  /* subpass */ $subpass$,
+  /* base_pipeline_handle */ $base_pipeline_handle$,
+  /* base_pipeline_index */ $base_pipeline_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineCacheCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_cache_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* initial_data_size */ $initial_data_size$,
+  /* initial_data */ $initial_data$)
+</snippet>
+  <snippet group="C++" trigger="_VkPushConstantRange" id="" complement="" removed="false" modified="false">vk::push_constant_range(
+  /* stage_flags */ $stage_flags$,
+  /* offset */ $offset$,
+  /* size */ $size$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineLayoutCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_layout_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* set_layout_count */ $set_layout_count$,
+  /* set_layouts */ $set_layouts$,
+  /* push_constant_range_count */ $push_constant_range_count$,
+  /* push_constant_ranges */ $push_constant_ranges$)
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerCreateInfo" id="" complement="" removed="false" modified="false">vk::sampler_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* mag_filter */ $mag_filter$,
+  /* min_filter */ $min_filter$,
+  /* mipmap_mode */ $mipmap_mode$,
+  /* address_mode_u */ $address_mode_u$,
+  /* address_mode_v */ $address_mode_v$,
+  /* address_mode_w */ $address_mode_w$,
+  /* mip_lod_bias */ $mip_lod_bias$,
+  /* anisotropy_enable */ $anisotropy_enable$,
+  /* max_anisotropy */ $max_anisotropy$,
+  /* compare_enable */ $compare_enable$,
+  /* compare_op */ $compare_op$,
+  /* min_lod */ $min_lod$,
+  /* max_lod */ $max_lod$,
+  /* border_color */ $border_color$,
+  /* unnormalized_coordinates */ $unnormalized_coordinates$)
+</snippet>
+  <snippet group="C++" trigger="_VkCommandPoolCreateInfo" id="" complement="" removed="false" modified="false">vk::command_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_family_index */ $queue_family_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkCommandBufferAllocateInfo" id="" complement="" removed="false" modified="false">vk::command_buffer_allocate_info(
+  /* next */ $next$,
+  /* command_pool */ $command_pool$,
+  /* level */ $level$,
+  /* command_buffer_count */ $command_buffer_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkCommandBufferInheritanceInfo" id="" complement="" removed="false" modified="false">vk::command_buffer_inheritance_info(
+  /* next */ $next$,
+  /* render_pass */ $render_pass$,
+  /* subpass */ $subpass$,
+  /* framebuffer */ $framebuffer$,
+  /* occlusion_query_enable */ $occlusion_query_enable$,
+  /* query_flags */ $query_flags$,
+  /* pipeline_statistics */ $pipeline_statistics$)
+</snippet>
+  <snippet group="C++" trigger="_VkCommandBufferBeginInfo" id="" complement="" removed="false" modified="false">vk::command_buffer_begin_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* inheritance_info */ $inheritance_info$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassBeginInfo" id="" complement="" removed="false" modified="false">vk::render_pass_begin_info(
+  /* next */ $next$,
+  /* render_pass */ $render_pass$,
+  /* framebuffer */ $framebuffer$,
+  /* render_area */ $render_area$,
+  /* clear_value_count */ $clear_value_count$,
+  /* clear_values */ $clear_values$)
+</snippet>
+  <snippet group="C++" trigger="_VkClearDepthStencilValue" id="" complement="" removed="false" modified="false">vk::clear_depth_stencil_value(
+  /* depth */ $depth$,
+  /* stencil */ $stencil$)
+</snippet>
+  <snippet group="C++" trigger="_VkClearAttachment" id="" complement="" removed="false" modified="false">vk::clear_attachment(
+  /* aspect_mask */ $aspect_mask$,
+  /* color_attachment */ $color_attachment$,
+  /* clear_value */ $clear_value$)
+</snippet>
+  <snippet group="C++" trigger="_VkAttachmentDescription" id="" complement="" removed="false" modified="false">vk::attachment_description(
+  /* flags */ $flags$,
+  /* format */ $format$,
+  /* samples */ $samples$,
+  /* load_op */ $load_op$,
+  /* store_op */ $store_op$,
+  /* stencil_load_op */ $stencil_load_op$,
+  /* stencil_store_op */ $stencil_store_op$,
+  /* initial_layout */ $initial_layout$,
+  /* final_layout */ $final_layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkAttachmentReference" id="" complement="" removed="false" modified="false">vk::attachment_reference(
+  /* attachment */ $attachment$,
+  /* layout */ $layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassDescription" id="" complement="" removed="false" modified="false">vk::subpass_description(
+  /* flags */ $flags$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* input_attachment_count */ $input_attachment_count$,
+  /* input_attachments */ $input_attachments$,
+  /* color_attachment_count */ $color_attachment_count$,
+  /* color_attachments */ $color_attachments$,
+  /* resolve_attachments */ $resolve_attachments$,
+  /* depth_stencil_attachment */ $depth_stencil_attachment$,
+  /* preserve_attachment_count */ $preserve_attachment_count$,
+  /* preserve_attachments */ $preserve_attachments$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassDependency" id="" complement="" removed="false" modified="false">vk::subpass_dependency(
+  /* src_subpass */ $src_subpass$,
+  /* dst_subpass */ $dst_subpass$,
+  /* src_stage_mask */ $src_stage_mask$,
+  /* dst_stage_mask */ $dst_stage_mask$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* dependency_flags */ $dependency_flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassCreateInfo" id="" complement="" removed="false" modified="false">vk::render_pass_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* subpass_count */ $subpass_count$,
+  /* subpasses */ $subpasses$,
+  /* dependency_count */ $dependency_count$,
+  /* dependencies */ $dependencies$)
+</snippet>
+  <snippet group="C++" trigger="_VkEventCreateInfo" id="" complement="" removed="false" modified="false">vk::event_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkFenceCreateInfo" id="" complement="" removed="false" modified="false">vk::fence_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_features(
+  /* robust_buffer_access */ $robust_buffer_access$,
+  /* full_draw_index_uint32 */ $full_draw_index_uint32$,
+  /* image_cube_array */ $image_cube_array$,
+  /* independent_blend */ $independent_blend$,
+  /* geometry_shader */ $geometry_shader$,
+  /* tessellation_shader */ $tessellation_shader$,
+  /* sample_rate_shading */ $sample_rate_shading$,
+  /* dual_src_blend */ $dual_src_blend$,
+  /* logic_op */ $logic_op$,
+  /* multi_draw_indirect */ $multi_draw_indirect$,
+  /* draw_indirect_first_instance */ $draw_indirect_first_instance$,
+  /* depth_clamp */ $depth_clamp$,
+  /* depth_bias_clamp */ $depth_bias_clamp$,
+  /* fill_mode_non_solid */ $fill_mode_non_solid$,
+  /* depth_bounds */ $depth_bounds$,
+  /* wide_lines */ $wide_lines$,
+  /* large_points */ $large_points$,
+  /* alpha_to_one */ $alpha_to_one$,
+  /* multi_viewport */ $multi_viewport$,
+  /* sampler_anisotropy */ $sampler_anisotropy$,
+  /* texture_compression_etc2 */ $texture_compression_etc2$,
+  /* texture_compression_astc_ldr */ $texture_compression_astc_ldr$,
+  /* texture_compression_bc */ $texture_compression_bc$,
+  /* occlusion_query_precise */ $occlusion_query_precise$,
+  /* pipeline_statistics_query */ $pipeline_statistics_query$,
+  /* vertex_pipeline_stores_and_atomics */ $vertex_pipeline_stores_and_atomics$,
+  /* fragment_stores_and_atomics */ $fragment_stores_and_atomics$,
+  /* shader_tessellation_and_geometry_point_size */ $shader_tessellation_and_geometry_point_size$,
+  /* shader_image_gather_extended */ $shader_image_gather_extended$,
+  /* shader_storage_image_extended_formats */ $shader_storage_image_extended_formats$,
+  /* shader_storage_image_multisample */ $shader_storage_image_multisample$,
+  /* shader_storage_image_read_without_format */ $shader_storage_image_read_without_format$,
+  /* shader_storage_image_write_without_format */ $shader_storage_image_write_without_format$,
+  /* shader_uniform_buffer_array_dynamic_indexing */ $shader_uniform_buffer_array_dynamic_indexing$,
+  /* shader_sampled_image_array_dynamic_indexing */ $shader_sampled_image_array_dynamic_indexing$,
+  /* shader_storage_buffer_array_dynamic_indexing */ $shader_storage_buffer_array_dynamic_indexing$,
+  /* shader_storage_image_array_dynamic_indexing */ $shader_storage_image_array_dynamic_indexing$,
+  /* shader_clip_distance */ $shader_clip_distance$,
+  /* shader_cull_distance */ $shader_cull_distance$,
+  /* shader_float64 */ $shader_float64$,
+  /* shader_int64 */ $shader_int64$,
+  /* shader_int16 */ $shader_int16$,
+  /* shader_resource_residency */ $shader_resource_residency$,
+  /* shader_resource_min_lod */ $shader_resource_min_lod$,
+  /* sparse_binding */ $sparse_binding$,
+  /* sparse_residency_buffer */ $sparse_residency_buffer$,
+  /* sparse_residency_image_2d */ $sparse_residency_image_2d$,
+  /* sparse_residency_image_3d */ $sparse_residency_image_3d$,
+  /* sparse_residency_2_samples */ $sparse_residency_2_samples$,
+  /* sparse_residency_4_samples */ $sparse_residency_4_samples$,
+  /* sparse_residency_8_samples */ $sparse_residency_8_samples$,
+  /* sparse_residency_16_samples */ $sparse_residency_16_samples$,
+  /* sparse_residency_aliased */ $sparse_residency_aliased$,
+  /* variable_multisample_rate */ $variable_multisample_rate$,
+  /* inherited_queries */ $inherited_queries$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSparseProperties" id="" complement="" removed="false" modified="false">vk::physical_device_sparse_properties(
+  /* residency_standard_2d_block_shape */ $residency_standard_2d_block_shape$,
+  /* residency_standard_2d_multisample_block_shape */ $residency_standard_2d_multisample_block_shape$,
+  /* residency_standard_3d_block_shape */ $residency_standard_3d_block_shape$,
+  /* residency_aligned_mip_size */ $residency_aligned_mip_size$,
+  /* residency_non_resident_strict */ $residency_non_resident_strict$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceLimits" id="" complement="" removed="false" modified="false">vk::physical_device_limits(
+  /* max_image_dimension_1d */ $max_image_dimension_1d$,
+  /* max_image_dimension_2d */ $max_image_dimension_2d$,
+  /* max_image_dimension_3d */ $max_image_dimension_3d$,
+  /* max_image_dimension_cube */ $max_image_dimension_cube$,
+  /* max_image_array_layers */ $max_image_array_layers$,
+  /* max_texel_buffer_elements */ $max_texel_buffer_elements$,
+  /* max_uniform_buffer_range */ $max_uniform_buffer_range$,
+  /* max_storage_buffer_range */ $max_storage_buffer_range$,
+  /* max_push_constants_size */ $max_push_constants_size$,
+  /* max_memory_allocation_count */ $max_memory_allocation_count$,
+  /* max_sampler_allocation_count */ $max_sampler_allocation_count$,
+  /* buffer_image_granularity */ $buffer_image_granularity$,
+  /* sparse_address_space_size */ $sparse_address_space_size$,
+  /* max_bound_descriptor_sets */ $max_bound_descriptor_sets$,
+  /* max_per_stage_descriptor_samplers */ $max_per_stage_descriptor_samplers$,
+  /* max_per_stage_descriptor_uniform_buffers */ $max_per_stage_descriptor_uniform_buffers$,
+  /* max_per_stage_descriptor_storage_buffers */ $max_per_stage_descriptor_storage_buffers$,
+  /* max_per_stage_descriptor_sampled_images */ $max_per_stage_descriptor_sampled_images$,
+  /* max_per_stage_descriptor_storage_images */ $max_per_stage_descriptor_storage_images$,
+  /* max_per_stage_descriptor_input_attachments */ $max_per_stage_descriptor_input_attachments$,
+  /* max_per_stage_resources */ $max_per_stage_resources$,
+  /* max_descriptor_set_samplers */ $max_descriptor_set_samplers$,
+  /* max_descriptor_set_uniform_buffers */ $max_descriptor_set_uniform_buffers$,
+  /* max_descriptor_set_uniform_buffers_dynamic */ $max_descriptor_set_uniform_buffers_dynamic$,
+  /* max_descriptor_set_storage_buffers */ $max_descriptor_set_storage_buffers$,
+  /* max_descriptor_set_storage_buffers_dynamic */ $max_descriptor_set_storage_buffers_dynamic$,
+  /* max_descriptor_set_sampled_images */ $max_descriptor_set_sampled_images$,
+  /* max_descriptor_set_storage_images */ $max_descriptor_set_storage_images$,
+  /* max_descriptor_set_input_attachments */ $max_descriptor_set_input_attachments$,
+  /* max_vertex_input_attributes */ $max_vertex_input_attributes$,
+  /* max_vertex_input_bindings */ $max_vertex_input_bindings$,
+  /* max_vertex_input_attribute_offset */ $max_vertex_input_attribute_offset$,
+  /* max_vertex_input_binding_stride */ $max_vertex_input_binding_stride$,
+  /* max_vertex_output_components */ $max_vertex_output_components$,
+  /* max_tessellation_generation_level */ $max_tessellation_generation_level$,
+  /* max_tessellation_patch_size */ $max_tessellation_patch_size$,
+  /* max_tessellation_control_per_vertex_input_components */ $max_tessellation_control_per_vertex_input_components$,
+  /* max_tessellation_control_per_vertex_output_components */ $max_tessellation_control_per_vertex_output_components$,
+  /* max_tessellation_control_per_patch_output_components */ $max_tessellation_control_per_patch_output_components$,
+  /* max_tessellation_control_total_output_components */ $max_tessellation_control_total_output_components$,
+  /* max_tessellation_evaluation_input_components */ $max_tessellation_evaluation_input_components$,
+  /* max_tessellation_evaluation_output_components */ $max_tessellation_evaluation_output_components$,
+  /* max_geometry_shader_invocations */ $max_geometry_shader_invocations$,
+  /* max_geometry_input_components */ $max_geometry_input_components$,
+  /* max_geometry_output_components */ $max_geometry_output_components$,
+  /* max_geometry_output_vertices */ $max_geometry_output_vertices$,
+  /* max_geometry_total_output_components */ $max_geometry_total_output_components$,
+  /* max_fragment_input_components */ $max_fragment_input_components$,
+  /* max_fragment_output_attachments */ $max_fragment_output_attachments$,
+  /* max_fragment_dual_src_attachments */ $max_fragment_dual_src_attachments$,
+  /* max_fragment_combined_output_resources */ $max_fragment_combined_output_resources$,
+  /* max_compute_shared_memory_size */ $max_compute_shared_memory_size$,
+  /* max_compute_work_group_count */ $max_compute_work_group_count$,
+  /* max_compute_work_group_invocations */ $max_compute_work_group_invocations$,
+  /* max_compute_work_group_size */ $max_compute_work_group_size$,
+  /* sub_pixel_precision_bits */ $sub_pixel_precision_bits$,
+  /* sub_texel_precision_bits */ $sub_texel_precision_bits$,
+  /* mipmap_precision_bits */ $mipmap_precision_bits$,
+  /* max_draw_indexed_index_value */ $max_draw_indexed_index_value$,
+  /* max_draw_indirect_count */ $max_draw_indirect_count$,
+  /* max_sampler_lod_bias */ $max_sampler_lod_bias$,
+  /* max_sampler_anisotropy */ $max_sampler_anisotropy$,
+  /* max_viewports */ $max_viewports$,
+  /* max_viewport_dimensions */ $max_viewport_dimensions$,
+  /* viewport_bounds_range */ $viewport_bounds_range$,
+  /* viewport_sub_pixel_bits */ $viewport_sub_pixel_bits$,
+  /* min_memory_map_alignment */ $min_memory_map_alignment$,
+  /* min_texel_buffer_offset_alignment */ $min_texel_buffer_offset_alignment$,
+  /* min_uniform_buffer_offset_alignment */ $min_uniform_buffer_offset_alignment$,
+  /* min_storage_buffer_offset_alignment */ $min_storage_buffer_offset_alignment$,
+  /* min_texel_offset */ $min_texel_offset$,
+  /* max_texel_offset */ $max_texel_offset$,
+  /* min_texel_gather_offset */ $min_texel_gather_offset$,
+  /* max_texel_gather_offset */ $max_texel_gather_offset$,
+  /* min_interpolation_offset */ $min_interpolation_offset$,
+  /* max_interpolation_offset */ $max_interpolation_offset$,
+  /* sub_pixel_interpolation_offset_bits */ $sub_pixel_interpolation_offset_bits$,
+  /* max_framebuffer_width */ $max_framebuffer_width$,
+  /* max_framebuffer_height */ $max_framebuffer_height$,
+  /* max_framebuffer_layers */ $max_framebuffer_layers$,
+  /* framebuffer_color_sample_counts */ $framebuffer_color_sample_counts$,
+  /* framebuffer_depth_sample_counts */ $framebuffer_depth_sample_counts$,
+  /* framebuffer_stencil_sample_counts */ $framebuffer_stencil_sample_counts$,
+  /* framebuffer_no_attachments_sample_counts */ $framebuffer_no_attachments_sample_counts$,
+  /* max_color_attachments */ $max_color_attachments$,
+  /* sampled_image_color_sample_counts */ $sampled_image_color_sample_counts$,
+  /* sampled_image_integer_sample_counts */ $sampled_image_integer_sample_counts$,
+  /* sampled_image_depth_sample_counts */ $sampled_image_depth_sample_counts$,
+  /* sampled_image_stencil_sample_counts */ $sampled_image_stencil_sample_counts$,
+  /* storage_image_sample_counts */ $storage_image_sample_counts$,
+  /* max_sample_mask_words */ $max_sample_mask_words$,
+  /* timestamp_compute_and_graphics */ $timestamp_compute_and_graphics$,
+  /* timestamp_period */ $timestamp_period$,
+  /* max_clip_distances */ $max_clip_distances$,
+  /* max_cull_distances */ $max_cull_distances$,
+  /* max_combined_clip_and_cull_distances */ $max_combined_clip_and_cull_distances$,
+  /* discrete_queue_priorities */ $discrete_queue_priorities$,
+  /* point_size_range */ $point_size_range$,
+  /* line_width_range */ $line_width_range$,
+  /* point_size_granularity */ $point_size_granularity$,
+  /* line_width_granularity */ $line_width_granularity$,
+  /* strict_lines */ $strict_lines$,
+  /* standard_sample_locations */ $standard_sample_locations$,
+  /* optimal_buffer_copy_offset_alignment */ $optimal_buffer_copy_offset_alignment$,
+  /* optimal_buffer_copy_row_pitch_alignment */ $optimal_buffer_copy_row_pitch_alignment$,
+  /* non_coherent_atom_size */ $non_coherent_atom_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkSemaphoreCreateInfo" id="" complement="" removed="false" modified="false">vk::semaphore_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkQueryPoolCreateInfo" id="" complement="" removed="false" modified="false">vk::query_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* query_type */ $query_type$,
+  /* query_count */ $query_count$,
+  /* pipeline_statistics */ $pipeline_statistics$)
+</snippet>
+  <snippet group="C++" trigger="_VkFramebufferCreateInfo" id="" complement="" removed="false" modified="false">vk::framebuffer_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* render_pass */ $render_pass$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* width */ $width$,
+  /* height */ $height$,
+  /* layers */ $layers$)
+</snippet>
+  <snippet group="C++" trigger="_VkDrawIndirectCommand" id="" complement="" removed="false" modified="false">vk::draw_indirect_command(
+  /* vertex_count */ $vertex_count$,
+  /* instance_count */ $instance_count$,
+  /* first_vertex */ $first_vertex$,
+  /* first_instance */ $first_instance$)
+</snippet>
+  <snippet group="C++" trigger="_VkDrawIndexedIndirectCommand" id="" complement="" removed="false" modified="false">vk::draw_indexed_indirect_command(
+  /* index_count */ $index_count$,
+  /* instance_count */ $instance_count$,
+  /* first_index */ $first_index$,
+  /* vertex_offset */ $vertex_offset$,
+  /* first_instance */ $first_instance$)
+</snippet>
+  <snippet group="C++" trigger="_VkDispatchIndirectCommand" id="" complement="" removed="false" modified="false">vk::dispatch_indirect_command(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* z */ $z$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubmitInfo" id="" complement="" removed="false" modified="false">vk::submit_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* wait_dst_stage_mask */ $wait_dst_stage_mask$,
+  /* command_buffer_count */ $command_buffer_count$,
+  /* command_buffers */ $command_buffers$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphores */ $signal_semaphores$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPropertiesKHR" id="" complement="" removed="false" modified="false">vk::display_properties_khr(
+  /* display */ $display$,
+  /* display_name */ $display_name$,
+  /* physical_dimensions */ $physical_dimensions$,
+  /* physical_resolution */ $physical_resolution$,
+  /* supported_transforms */ $supported_transforms$,
+  /* plane_reorder_possible */ $plane_reorder_possible$,
+  /* persistent_content */ $persistent_content$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPlanePropertiesKHR" id="" complement="" removed="false" modified="false">vk::display_plane_properties_khr(
+  /* current_display */ $current_display$,
+  /* current_stack_index */ $current_stack_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayModeParametersKHR" id="" complement="" removed="false" modified="false">vk::display_mode_parameters_khr(
+  /* visible_region */ $visible_region$,
+  /* refresh_rate */ $refresh_rate$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayModePropertiesKHR" id="" complement="" removed="false" modified="false">vk::display_mode_properties_khr(
+  /* display_mode */ $display_mode$,
+  /* parameters */ $parameters$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayModeCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::display_mode_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* parameters */ $parameters$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPlaneCapabilitiesKHR" id="" complement="" removed="false" modified="false">vk::display_plane_capabilities_khr(
+  /* supported_alpha */ $supported_alpha$,
+  /* min_src_position */ $min_src_position$,
+  /* max_src_position */ $max_src_position$,
+  /* min_src_extent */ $min_src_extent$,
+  /* max_src_extent */ $max_src_extent$,
+  /* min_dst_position */ $min_dst_position$,
+  /* max_dst_position */ $max_dst_position$,
+  /* min_dst_extent */ $min_dst_extent$,
+  /* max_dst_extent */ $max_dst_extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplaySurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::display_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* display_mode */ $display_mode$,
+  /* plane_index */ $plane_index$,
+  /* plane_stack_index */ $plane_stack_index$,
+  /* transform */ $transform$,
+  /* global_alpha */ $global_alpha$,
+  /* alpha_mode */ $alpha_mode$,
+  /* image_extent */ $image_extent$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPresentInfoKHR" id="" complement="" removed="false" modified="false">vk::display_present_info_khr(
+  /* next */ $next$,
+  /* src_rect */ $src_rect$,
+  /* dst_rect */ $dst_rect$,
+  /* persistent */ $persistent$)
+</snippet>
+  <snippet group="C++" trigger="_VkSurfaceCapabilitiesKHR" id="" complement="" removed="false" modified="false">vk::surface_capabilities_khr(
+  /* min_image_count */ $min_image_count$,
+  /* max_image_count */ $max_image_count$,
+  /* current_extent */ $current_extent$,
+  /* min_image_extent */ $min_image_extent$,
+  /* max_image_extent */ $max_image_extent$,
+  /* max_image_array_layers */ $max_image_array_layers$,
+  /* supported_transforms */ $supported_transforms$,
+  /* current_transform */ $current_transform$,
+  /* supported_composite_alpha */ $supported_composite_alpha$,
+  /* supported_usage_flags */ $supported_usage_flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkAndroidSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::android_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* window */ $window$)
+</snippet>
+  <snippet group="C++" trigger="_VkMirSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::mir_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* connection */ $connection$,
+  /* mir_surface */ $mir_surface$)
+</snippet>
+  <snippet group="C++" trigger="_VkViSurfaceCreateInfoNN" id="" complement="" removed="false" modified="false">vk::vi_surface_create_info_nn(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* window */ $window$)
+</snippet>
+  <snippet group="C++" trigger="_VkWaylandSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::wayland_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* display */ $display$,
+  /* surface */ $surface$)
+</snippet>
+  <snippet group="C++" trigger="_VkWin32SurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::win32_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* hinstance */ $hinstance$,
+  /* hwnd */ $hwnd$)
+</snippet>
+  <snippet group="C++" trigger="_VkXlibSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::xlib_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* dpy */ $dpy$,
+  /* window */ $window$)
+</snippet>
+  <snippet group="C++" trigger="_VkXcbSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::xcb_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* connection */ $connection$,
+  /* window */ $window$)
+</snippet>
+  <snippet group="C++" trigger="_VkSurfaceFormatKHR" id="" complement="" removed="false" modified="false">vk::surface_format_khr(
+  /* format */ $format$,
+  /* color_space */ $color_space$)
+</snippet>
+  <snippet group="C++" trigger="_VkSwapchainCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::swapchain_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* surface */ $surface$,
+  /* min_image_count */ $min_image_count$,
+  /* image_format */ $image_format$,
+  /* image_color_space */ $image_color_space$,
+  /* image_extent */ $image_extent$,
+  /* image_array_layers */ $image_array_layers$,
+  /* image_usage */ $image_usage$,
+  /* image_sharing_mode */ $image_sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$,
+  /* pre_transform */ $pre_transform$,
+  /* composite_alpha */ $composite_alpha$,
+  /* present_mode */ $present_mode$,
+  /* clipped */ $clipped$,
+  /* old_swapchain */ $old_swapchain$)
+</snippet>
+  <snippet group="C++" trigger="_VkPresentInfoKHR" id="" complement="" removed="false" modified="false">vk::present_info_khr(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* swapchain_count */ $swapchain_count$,
+  /* swapchains */ $swapchains$,
+  /* image_indices */ $image_indices$,
+  /* results */ $results$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugReportCallbackCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_report_callback_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* pfn_callback */ $pfn_callback$,
+  /* user_data */ $user_data$)
+</snippet>
+  <snippet group="C++" trigger="_VkValidationFlagsEXT" id="" complement="" removed="false" modified="false">vk::validation_flags_ext(
+  /* next */ $next$,
+  /* disabled_validation_check_count */ $disabled_validation_check_count$,
+  /* disabled_validation_checks */ $disabled_validation_checks$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineRasterizationStateRasterizationOrderAMD" id="" complement="" removed="false" modified="false">vk::pipeline_rasterization_state_rasterization_order_amd(
+  /* next */ $next$,
+  /* rasterization_order */ $rasterization_order$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugMarkerObjectNameInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_marker_object_name_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object */ $object$,
+  /* object_name */ $object_name$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugMarkerObjectTagInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_marker_object_tag_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object */ $object$,
+  /* tag_name */ $tag_name$,
+  /* tag_size */ $tag_size$,
+  /* tag */ $tag$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugMarkerMarkerInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_marker_marker_info_ext(
+  /* next */ $next$,
+  /* marker_name */ $marker_name$,
+  /* color */ $color$)
+</snippet>
+  <snippet group="C++" trigger="_VkDedicatedAllocationImageCreateInfoNV" id="" complement="" removed="false" modified="false">vk::dedicated_allocation_image_create_info_nv(
+  /* next */ $next$,
+  /* dedicated_allocation */ $dedicated_allocation$)
+</snippet>
+  <snippet group="C++" trigger="_VkDedicatedAllocationBufferCreateInfoNV" id="" complement="" removed="false" modified="false">vk::dedicated_allocation_buffer_create_info_nv(
+  /* next */ $next$,
+  /* dedicated_allocation */ $dedicated_allocation$)
+</snippet>
+  <snippet group="C++" trigger="_VkDedicatedAllocationMemoryAllocateInfoNV" id="" complement="" removed="false" modified="false">vk::dedicated_allocation_memory_allocate_info_nv(
+  /* next */ $next$,
+  /* image */ $image$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalImageFormatPropertiesNV" id="" complement="" removed="false" modified="false">vk::external_image_format_properties_nv(
+  /* image_format_properties */ $image_format_properties$,
+  /* external_memory_features */ $external_memory_features$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryImageCreateInfoNV" id="" complement="" removed="false" modified="false">vk::external_memory_image_create_info_nv(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportMemoryAllocateInfoNV" id="" complement="" removed="false" modified="false">vk::export_memory_allocate_info_nv(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportMemoryWin32HandleInfoNV" id="" complement="" removed="false" modified="false">vk::import_memory_win32_handle_info_nv(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportMemoryWin32HandleInfoNV" id="" complement="" removed="false" modified="false">vk::export_memory_win32_handle_info_nv(
+  /* next */ $next$,
+  /* attributes */ $attributes$,
+  /* dw_access */ $dw_access$)
+</snippet>
+  <snippet group="C++" trigger="_VkWin32KeyedMutexAcquireReleaseInfoNV" id="" complement="" removed="false" modified="false">vk::win32_keyed_mutex_acquire_release_info_nv(
+  /* next */ $next$,
+  /* acquire_count */ $acquire_count$,
+  /* acquire_syncs */ $acquire_syncs$,
+  /* acquire_keys */ $acquire_keys$,
+  /* acquire_timeout_milliseconds */ $acquire_timeout_milliseconds$,
+  /* release_count */ $release_count$,
+  /* release_syncs */ $release_syncs$,
+  /* release_keys */ $release_keys$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGeneratedCommandsFeaturesNVX" id="" complement="" removed="false" modified="false">vk::device_generated_commands_features_nvx(
+  /* next */ $next$,
+  /* compute_binding_point_support */ $compute_binding_point_support$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGeneratedCommandsLimitsNVX" id="" complement="" removed="false" modified="false">vk::device_generated_commands_limits_nvx(
+  /* next */ $next$,
+  /* max_indirect_commands_layout_token_count */ $max_indirect_commands_layout_token_count$,
+  /* max_object_entry_counts */ $max_object_entry_counts$,
+  /* min_sequence_count_buffer_offset_alignment */ $min_sequence_count_buffer_offset_alignment$,
+  /* min_sequence_index_buffer_offset_alignment */ $min_sequence_index_buffer_offset_alignment$,
+  /* min_commands_token_buffer_offset_alignment */ $min_commands_token_buffer_offset_alignment$)
+</snippet>
+  <snippet group="C++" trigger="_VkIndirectCommandsTokenNVX" id="" complement="" removed="false" modified="false">vk::indirect_commands_token_nvx(
+  /* token_type */ $token_type$,
+  /* buffer */ $buffer$,
+  /* offset */ $offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkIndirectCommandsLayoutTokenNVX" id="" complement="" removed="false" modified="false">vk::indirect_commands_layout_token_nvx(
+  /* token_type */ $token_type$,
+  /* binding_unit */ $binding_unit$,
+  /* dynamic_count */ $dynamic_count$,
+  /* divisor */ $divisor$)
+</snippet>
+  <snippet group="C++" trigger="_VkIndirectCommandsLayoutCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::indirect_commands_layout_create_info_nvx(
+  /* next */ $next$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* flags */ $flags$,
+  /* token_count */ $token_count$,
+  /* tokens */ $tokens$)
+</snippet>
+  <snippet group="C++" trigger="_VkCmdProcessCommandsInfoNVX" id="" complement="" removed="false" modified="false">vk::cmd_process_commands_info_nvx(
+  /* next */ $next$,
+  /* object_table */ $object_table$,
+  /* indirect_commands_layout */ $indirect_commands_layout$,
+  /* indirect_commands_token_count */ $indirect_commands_token_count$,
+  /* indirect_commands_tokens */ $indirect_commands_tokens$,
+  /* max_sequences_count */ $max_sequences_count$,
+  /* target_command_buffer */ $target_command_buffer$,
+  /* sequences_count_buffer */ $sequences_count_buffer$,
+  /* sequences_count_offset */ $sequences_count_offset$,
+  /* sequences_index_buffer */ $sequences_index_buffer$,
+  /* sequences_index_offset */ $sequences_index_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkCmdReserveSpaceForCommandsInfoNVX" id="" complement="" removed="false" modified="false">vk::cmd_reserve_space_for_commands_info_nvx(
+  /* next */ $next$,
+  /* object_table */ $object_table$,
+  /* indirect_commands_layout */ $indirect_commands_layout$,
+  /* max_sequences_count */ $max_sequences_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTableCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::object_table_create_info_nvx(
+  /* next */ $next$,
+  /* object_count */ $object_count$,
+  /* object_entry_types */ $object_entry_types$,
+  /* object_entry_counts */ $object_entry_counts$,
+  /* object_entry_usage_flags */ $object_entry_usage_flags$,
+  /* max_uniform_buffers_per_descriptor */ $max_uniform_buffers_per_descriptor$,
+  /* max_storage_buffers_per_descriptor */ $max_storage_buffers_per_descriptor$,
+  /* max_storage_images_per_descriptor */ $max_storage_images_per_descriptor$,
+  /* max_sampled_images_per_descriptor */ $max_sampled_images_per_descriptor$,
+  /* max_pipeline_layouts */ $max_pipeline_layouts$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTableEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTablePipelineEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_pipeline_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* pipeline */ $pipeline$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTableDescriptorSetEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_descriptor_set_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* pipeline_layout */ $pipeline_layout$,
+  /* descriptor_set */ $descriptor_set$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTableVertexBufferEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_vertex_buffer_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTableIndexBufferEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_index_buffer_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* buffer */ $buffer$,
+  /* index_type */ $index_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkObjectTablePushConstantEntryNVX" id="" complement="" removed="false" modified="false">vk::object_table_push_constant_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* pipeline_layout */ $pipeline_layout$,
+  /* stage_flags */ $stage_flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFeatures2" id="" complement="" removed="false" modified="false">vk::physical_device_features_2(
+  /* next */ $next$,
+  /* features */ $features$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFeatures2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_features_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceProperties2" id="" complement="" removed="false" modified="false">vk::physical_device_properties_2(
+  /* next */ $next$,
+  /* properties */ $properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceProperties2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkFormatProperties2" id="" complement="" removed="false" modified="false">vk::format_properties_2(
+  /* next */ $next$,
+  /* format_properties */ $format_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkFormatProperties2KHR" id="" complement="" removed="false" modified="false">vk::format_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImageFormatProperties2" id="" complement="" removed="false" modified="false">vk::image_format_properties_2(
+  /* next */ $next$,
+  /* image_format_properties */ $image_format_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageFormatProperties2KHR" id="" complement="" removed="false" modified="false">vk::image_format_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceImageFormatInfo2" id="" complement="" removed="false" modified="false">vk::physical_device_image_format_info_2(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* type */ $type$,
+  /* tiling */ $tiling$,
+  /* usage */ $usage$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceImageFormatInfo2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_image_format_info_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkQueueFamilyProperties2" id="" complement="" removed="false" modified="false">vk::queue_family_properties_2(
+  /* next */ $next$,
+  /* queue_family_properties */ $queue_family_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkQueueFamilyProperties2KHR" id="" complement="" removed="false" modified="false">vk::queue_family_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMemoryProperties2" id="" complement="" removed="false" modified="false">vk::physical_device_memory_properties_2(
+  /* next */ $next$,
+  /* memory_properties */ $memory_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMemoryProperties2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_memory_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageFormatProperties2" id="" complement="" removed="false" modified="false">vk::sparse_image_format_properties_2(
+  /* next */ $next$,
+  /* properties */ $properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageFormatProperties2KHR" id="" complement="" removed="false" modified="false">vk::sparse_image_format_properties_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSparseImageFormatInfo2" id="" complement="" removed="false" modified="false">vk::physical_device_sparse_image_format_info_2(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* type */ $type$,
+  /* samples */ $samples$,
+  /* usage */ $usage$,
+  /* tiling */ $tiling$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSparseImageFormatInfo2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_sparse_image_format_info_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevicePushDescriptorPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_push_descriptor_properties_khr(
+  /* next */ $next$,
+  /* max_push_descriptors */ $max_push_descriptors$)
+</snippet>
+  <snippet group="C++" trigger="_VkPresentRegionsKHR" id="" complement="" removed="false" modified="false">vk::present_regions_khr(
+  /* next */ $next$,
+  /* swapchain_count */ $swapchain_count$,
+  /* regions */ $regions$)
+</snippet>
+  <snippet group="C++" trigger="_VkPresentRegionKHR" id="" complement="" removed="false" modified="false">vk::present_region_khr(
+  /* rectangle_count */ $rectangle_count$,
+  /* rectangles */ $rectangles$)
+</snippet>
+  <snippet group="C++" trigger="_VkRectLayerKHR" id="" complement="" removed="false" modified="false">vk::rect_layer_khr(
+  /* offset */ $offset$,
+  /* extent */ $extent$,
+  /* layer */ $layer$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceVariablePointerFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_variable_pointer_features(
+  /* next */ $next$,
+  /* variable_pointers_storage_buffer */ $variable_pointers_storage_buffer$,
+  /* variable_pointers */ $variable_pointers$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceVariablePointerFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_variable_pointer_features_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryProperties" id="" complement="" removed="false" modified="false">vk::external_memory_properties(
+  /* external_memory_features */ $external_memory_features$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryPropertiesKHR" id="" complement="" removed="false" modified="false">vk::external_memory_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalImageFormatInfo" id="" complement="" removed="false" modified="false">vk::physical_device_external_image_format_info(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalImageFormatInfoKHR" id="" complement="" removed="false" modified="false">vk::physical_device_external_image_format_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalImageFormatProperties" id="" complement="" removed="false" modified="false">vk::external_image_format_properties(
+  /* next */ $next$,
+  /* external_memory_properties */ $external_memory_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalImageFormatPropertiesKHR" id="" complement="" removed="false" modified="false">vk::external_image_format_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalBufferInfo" id="" complement="" removed="false" modified="false">vk::physical_device_external_buffer_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* usage */ $usage$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalBufferInfoKHR" id="" complement="" removed="false" modified="false">vk::physical_device_external_buffer_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalBufferProperties" id="" complement="" removed="false" modified="false">vk::external_buffer_properties(
+  /* next */ $next$,
+  /* external_memory_properties */ $external_memory_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalBufferPropertiesKHR" id="" complement="" removed="false" modified="false">vk::external_buffer_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceIDProperties" id="" complement="" removed="false" modified="false">vk::physical_device_idproperties(
+  /* next */ $next$,
+  /* device_uuid */ $device_uuid$,
+  /* driver_uuid */ $driver_uuid$,
+  /* device_luid */ $device_luid$,
+  /* device_node_mask */ $device_node_mask$,
+  /* device_luidvalid */ $device_luidvalid$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceIDPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_idproperties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryImageCreateInfo" id="" complement="" removed="false" modified="false">vk::external_memory_image_create_info(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryImageCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::external_memory_image_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryBufferCreateInfo" id="" complement="" removed="false" modified="false">vk::external_memory_buffer_create_info(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalMemoryBufferCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::external_memory_buffer_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExportMemoryAllocateInfo" id="" complement="" removed="false" modified="false">vk::export_memory_allocate_info(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportMemoryAllocateInfoKHR" id="" complement="" removed="false" modified="false">vk::export_memory_allocate_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImportMemoryWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::import_memory_win32_handle_info_khr(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportMemoryWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::export_memory_win32_handle_info_khr(
+  /* next */ $next$,
+  /* attributes */ $attributes$,
+  /* dw_access */ $dw_access$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryWin32HandlePropertiesKHR" id="" complement="" removed="false" modified="false">vk::memory_win32_handle_properties_khr(
+  /* next */ $next$,
+  /* memory_type_bits */ $memory_type_bits$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryGetWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::memory_get_win32_handle_info_khr(
+  /* next */ $next$,
+  /* memory */ $memory$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportMemoryFdInfoKHR" id="" complement="" removed="false" modified="false">vk::import_memory_fd_info_khr(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* fd */ $fd$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryFdPropertiesKHR" id="" complement="" removed="false" modified="false">vk::memory_fd_properties_khr(
+  /* next */ $next$,
+  /* memory_type_bits */ $memory_type_bits$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryGetFdInfoKHR" id="" complement="" removed="false" modified="false">vk::memory_get_fd_info_khr(
+  /* next */ $next$,
+  /* memory */ $memory$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkWin32KeyedMutexAcquireReleaseInfoKHR" id="" complement="" removed="false" modified="false">vk::win32_keyed_mutex_acquire_release_info_khr(
+  /* next */ $next$,
+  /* acquire_count */ $acquire_count$,
+  /* acquire_syncs */ $acquire_syncs$,
+  /* acquire_keys */ $acquire_keys$,
+  /* acquire_timeouts */ $acquire_timeouts$,
+  /* release_count */ $release_count$,
+  /* release_syncs */ $release_syncs$,
+  /* release_keys */ $release_keys$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalSemaphoreInfo" id="" complement="" removed="false" modified="false">vk::physical_device_external_semaphore_info(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalSemaphoreInfoKHR" id="" complement="" removed="false" modified="false">vk::physical_device_external_semaphore_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalSemaphoreProperties" id="" complement="" removed="false" modified="false">vk::external_semaphore_properties(
+  /* next */ $next$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$,
+  /* external_semaphore_features */ $external_semaphore_features$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalSemaphorePropertiesKHR" id="" complement="" removed="false" modified="false">vk::external_semaphore_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExportSemaphoreCreateInfo" id="" complement="" removed="false" modified="false">vk::export_semaphore_create_info(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportSemaphoreCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::export_semaphore_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImportSemaphoreWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::import_semaphore_win32_handle_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* flags */ $flags$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportSemaphoreWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::export_semaphore_win32_handle_info_khr(
+  /* next */ $next$,
+  /* attributes */ $attributes$,
+  /* dw_access */ $dw_access$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkD3D12FenceSubmitInfoKHR" id="" complement="" removed="false" modified="false">vk::d3d_12_fence_submit_info_khr(
+  /* next */ $next$,
+  /* wait_semaphore_values_count */ $wait_semaphore_values_count$,
+  /* wait_semaphore_values */ $wait_semaphore_values$,
+  /* signal_semaphore_values_count */ $signal_semaphore_values_count$,
+  /* signal_semaphore_values */ $signal_semaphore_values$)
+</snippet>
+  <snippet group="C++" trigger="_VkSemaphoreGetWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::semaphore_get_win32_handle_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportSemaphoreFdInfoKHR" id="" complement="" removed="false" modified="false">vk::import_semaphore_fd_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* flags */ $flags$,
+  /* handle_type */ $handle_type$,
+  /* fd */ $fd$)
+</snippet>
+  <snippet group="C++" trigger="_VkSemaphoreGetFdInfoKHR" id="" complement="" removed="false" modified="false">vk::semaphore_get_fd_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalFenceInfo" id="" complement="" removed="false" modified="false">vk::physical_device_external_fence_info(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalFenceInfoKHR" id="" complement="" removed="false" modified="false">vk::physical_device_external_fence_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExternalFenceProperties" id="" complement="" removed="false" modified="false">vk::external_fence_properties(
+  /* next */ $next$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$,
+  /* external_fence_features */ $external_fence_features$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalFencePropertiesKHR" id="" complement="" removed="false" modified="false">vk::external_fence_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkExportFenceCreateInfo" id="" complement="" removed="false" modified="false">vk::export_fence_create_info(
+  /* next */ $next$,
+  /* handle_types */ $handle_types$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportFenceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::export_fence_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImportFenceWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::import_fence_win32_handle_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* flags */ $flags$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkExportFenceWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::export_fence_win32_handle_info_khr(
+  /* next */ $next$,
+  /* attributes */ $attributes$,
+  /* dw_access */ $dw_access$,
+  /* name */ $name$)
+</snippet>
+  <snippet group="C++" trigger="_VkFenceGetWin32HandleInfoKHR" id="" complement="" removed="false" modified="false">vk::fence_get_win32_handle_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportFenceFdInfoKHR" id="" complement="" removed="false" modified="false">vk::import_fence_fd_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* flags */ $flags$,
+  /* handle_type */ $handle_type$,
+  /* fd */ $fd$)
+</snippet>
+  <snippet group="C++" trigger="_VkFenceGetFdInfoKHR" id="" complement="" removed="false" modified="false">vk::fence_get_fd_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* handle_type */ $handle_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMultiviewFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_multiview_features(
+  /* next */ $next$,
+  /* multiview */ $multiview$,
+  /* multiview_geometry_shader */ $multiview_geometry_shader$,
+  /* multiview_tessellation_shader */ $multiview_tessellation_shader$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMultiviewFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_multiview_features_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMultiviewProperties" id="" complement="" removed="false" modified="false">vk::physical_device_multiview_properties(
+  /* next */ $next$,
+  /* max_multiview_view_count */ $max_multiview_view_count$,
+  /* max_multiview_instance_index */ $max_multiview_instance_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMultiviewPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_multiview_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassMultiviewCreateInfo" id="" complement="" removed="false" modified="false">vk::render_pass_multiview_create_info(
+  /* next */ $next$,
+  /* subpass_count */ $subpass_count$,
+  /* view_masks */ $view_masks$,
+  /* dependency_count */ $dependency_count$,
+  /* view_offsets */ $view_offsets$,
+  /* correlation_mask_count */ $correlation_mask_count$,
+  /* correlation_masks */ $correlation_masks$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassMultiviewCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::render_pass_multiview_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSurfaceCapabilities2EXT" id="" complement="" removed="false" modified="false">vk::surface_capabilities_2_ext(
+  /* next */ $next$,
+  /* min_image_count */ $min_image_count$,
+  /* max_image_count */ $max_image_count$,
+  /* current_extent */ $current_extent$,
+  /* min_image_extent */ $min_image_extent$,
+  /* max_image_extent */ $max_image_extent$,
+  /* max_image_array_layers */ $max_image_array_layers$,
+  /* supported_transforms */ $supported_transforms$,
+  /* current_transform */ $current_transform$,
+  /* supported_composite_alpha */ $supported_composite_alpha$,
+  /* supported_usage_flags */ $supported_usage_flags$,
+  /* supported_surface_counters */ $supported_surface_counters$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPowerInfoEXT" id="" complement="" removed="false" modified="false">vk::display_power_info_ext(
+  /* next */ $next$,
+  /* power_state */ $power_state$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceEventInfoEXT" id="" complement="" removed="false" modified="false">vk::device_event_info_ext(
+  /* next */ $next$,
+  /* device_event */ $device_event$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayEventInfoEXT" id="" complement="" removed="false" modified="false">vk::display_event_info_ext(
+  /* next */ $next$,
+  /* display_event */ $display_event$)
+</snippet>
+  <snippet group="C++" trigger="_VkSwapchainCounterCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::swapchain_counter_create_info_ext(
+  /* next */ $next$,
+  /* surface_counters */ $surface_counters$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceGroupProperties" id="" complement="" removed="false" modified="false">vk::physical_device_group_properties(
+  /* next */ $next$,
+  /* physical_device_count */ $physical_device_count$,
+  /* physical_devices */ $physical_devices$,
+  /* subset_allocation */ $subset_allocation$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceGroupPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_group_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryAllocateFlagsInfo" id="" complement="" removed="false" modified="false">vk::memory_allocate_flags_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* device_mask */ $device_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryAllocateFlagsInfoKHR" id="" complement="" removed="false" modified="false">vk::memory_allocate_flags_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkBindBufferMemoryInfo" id="" complement="" removed="false" modified="false">vk::bind_buffer_memory_info(
+  /* next */ $next$,
+  /* buffer */ $buffer$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindBufferMemoryInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_buffer_memory_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkBindBufferMemoryDeviceGroupInfo" id="" complement="" removed="false" modified="false">vk::bind_buffer_memory_device_group_info(
+  /* next */ $next$,
+  /* device_index_count */ $device_index_count$,
+  /* device_indices */ $device_indices$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindBufferMemoryDeviceGroupInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_buffer_memory_device_group_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkBindImageMemoryInfo" id="" complement="" removed="false" modified="false">vk::bind_image_memory_info(
+  /* next */ $next$,
+  /* image */ $image$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindImageMemoryInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_image_memory_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkBindImageMemoryDeviceGroupInfo" id="" complement="" removed="false" modified="false">vk::bind_image_memory_device_group_info(
+  /* next */ $next$,
+  /* device_index_count */ $device_index_count$,
+  /* device_indices */ $device_indices$,
+  /* split_instance_bind_region_count */ $split_instance_bind_region_count$,
+  /* split_instance_bind_regions */ $split_instance_bind_regions$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindImageMemoryDeviceGroupInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_image_memory_device_group_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupRenderPassBeginInfo" id="" complement="" removed="false" modified="false">vk::device_group_render_pass_begin_info(
+  /* next */ $next$,
+  /* device_mask */ $device_mask$,
+  /* device_render_area_count */ $device_render_area_count$,
+  /* device_render_areas */ $device_render_areas$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupRenderPassBeginInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_render_pass_begin_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupCommandBufferBeginInfo" id="" complement="" removed="false" modified="false">vk::device_group_command_buffer_begin_info(
+  /* next */ $next$,
+  /* device_mask */ $device_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupCommandBufferBeginInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_command_buffer_begin_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupSubmitInfo" id="" complement="" removed="false" modified="false">vk::device_group_submit_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphore_device_indices */ $wait_semaphore_device_indices$,
+  /* command_buffer_count */ $command_buffer_count$,
+  /* command_buffer_device_masks */ $command_buffer_device_masks$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphore_device_indices */ $signal_semaphore_device_indices$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupSubmitInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_submit_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupBindSparseInfo" id="" complement="" removed="false" modified="false">vk::device_group_bind_sparse_info(
+  /* next */ $next$,
+  /* resource_device_index */ $resource_device_index$,
+  /* memory_device_index */ $memory_device_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupBindSparseInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_bind_sparse_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupPresentCapabilitiesKHR" id="" complement="" removed="false" modified="false">vk::device_group_present_capabilities_khr(
+  /* next */ $next$,
+  /* present_mask */ $present_mask$,
+  /* modes */ $modes$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageSwapchainCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::image_swapchain_create_info_khr(
+  /* next */ $next$,
+  /* swapchain */ $swapchain$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindImageMemorySwapchainInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_image_memory_swapchain_info_khr(
+  /* next */ $next$,
+  /* swapchain */ $swapchain$,
+  /* image_index */ $image_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkAcquireNextImageInfoKHR" id="" complement="" removed="false" modified="false">vk::acquire_next_image_info_khr(
+  /* next */ $next$,
+  /* swapchain */ $swapchain$,
+  /* timeout */ $timeout$,
+  /* semaphore */ $semaphore$,
+  /* fence */ $fence$,
+  /* device_mask */ $device_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupPresentInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_present_info_khr(
+  /* next */ $next$,
+  /* swapchain_count */ $swapchain_count$,
+  /* device_masks */ $device_masks$,
+  /* mode */ $mode$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupDeviceCreateInfo" id="" complement="" removed="false" modified="false">vk::device_group_device_create_info(
+  /* next */ $next$,
+  /* physical_device_count */ $physical_device_count$,
+  /* physical_devices */ $physical_devices$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupDeviceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_device_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceGroupSwapchainCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::device_group_swapchain_create_info_khr(
+  /* next */ $next$,
+  /* modes */ $modes$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorUpdateTemplateEntry" id="" complement="" removed="false" modified="false">vk::descriptor_update_template_entry(
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$,
+  /* descriptor_type */ $descriptor_type$,
+  /* offset */ $offset$,
+  /* stride */ $stride$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorUpdateTemplateEntryKHR" id="" complement="" removed="false" modified="false">vk::descriptor_update_template_entry_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorUpdateTemplateCreateInfo" id="" complement="" removed="false" modified="false">vk::descriptor_update_template_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* descriptor_update_entry_count */ $descriptor_update_entry_count$,
+  /* descriptor_update_entries */ $descriptor_update_entries$,
+  /* template_type */ $template_type$,
+  /* descriptor_set_layout */ $descriptor_set_layout$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* pipeline_layout */ $pipeline_layout$,
+  /* set */ $set$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorUpdateTemplateCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::descriptor_update_template_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkXYColorEXT" id="" complement="" removed="false" modified="false">vk::xycolor_ext(
+  /* x */ $x$,
+  /* y */ $y$)
+</snippet>
+  <snippet group="C++" trigger="_VkHdrMetadataEXT" id="" complement="" removed="false" modified="false">vk::hdr_metadata_ext(
+  /* next */ $next$,
+  /* display_primary_red */ $display_primary_red$,
+  /* display_primary_green */ $display_primary_green$,
+  /* display_primary_blue */ $display_primary_blue$,
+  /* white_point */ $white_point$,
+  /* max_luminance */ $max_luminance$,
+  /* min_luminance */ $min_luminance$,
+  /* max_content_light_level */ $max_content_light_level$,
+  /* max_frame_average_light_level */ $max_frame_average_light_level$)
+</snippet>
+  <snippet group="C++" trigger="_VkRefreshCycleDurationGOOGLE" id="" complement="" removed="false" modified="false">vk::refresh_cycle_duration_google(
+  /* refresh_duration */ $refresh_duration$)
+</snippet>
+  <snippet group="C++" trigger="_VkPastPresentationTimingGOOGLE" id="" complement="" removed="false" modified="false">vk::past_presentation_timing_google(
+  /* present_id */ $present_id$,
+  /* desired_present_time */ $desired_present_time$,
+  /* actual_present_time */ $actual_present_time$,
+  /* earliest_present_time */ $earliest_present_time$,
+  /* present_margin */ $present_margin$)
+</snippet>
+  <snippet group="C++" trigger="_VkPresentTimesInfoGOOGLE" id="" complement="" removed="false" modified="false">vk::present_times_info_google(
+  /* next */ $next$,
+  /* swapchain_count */ $swapchain_count$,
+  /* times */ $times$)
+</snippet>
+  <snippet group="C++" trigger="_VkPresentTimeGOOGLE" id="" complement="" removed="false" modified="false">vk::present_time_google(
+  /* present_id */ $present_id$,
+  /* desired_present_time */ $desired_present_time$)
+</snippet>
+  <snippet group="C++" trigger="_VkIOSSurfaceCreateInfoMVK" id="" complement="" removed="false" modified="false">vk::iossurface_create_info_mvk(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* view */ $view$)
+</snippet>
+  <snippet group="C++" trigger="_VkMacOSSurfaceCreateInfoMVK" id="" complement="" removed="false" modified="false">vk::mac_ossurface_create_info_mvk(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* view */ $view$)
+</snippet>
+  <snippet group="C++" trigger="_VkViewportWScalingNV" id="" complement="" removed="false" modified="false">vk::viewport_wscaling_nv(
+  /* xcoeff */ $xcoeff$,
+  /* ycoeff */ $ycoeff$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportWScalingStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_wscaling_state_create_info_nv(
+  /* next */ $next$,
+  /* viewport_wscaling_enable */ $viewport_wscaling_enable$,
+  /* viewport_count */ $viewport_count$,
+  /* viewport_wscalings */ $viewport_wscalings$)
+</snippet>
+  <snippet group="C++" trigger="_VkViewportSwizzleNV" id="" complement="" removed="false" modified="false">vk::viewport_swizzle_nv(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* z */ $z$,
+  /* w */ $w$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportSwizzleStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_swizzle_state_create_info_nv(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* viewport_count */ $viewport_count$,
+  /* viewport_swizzles */ $viewport_swizzles$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDiscardRectanglePropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_discard_rectangle_properties_ext(
+  /* next */ $next$,
+  /* max_discard_rectangles */ $max_discard_rectangles$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineDiscardRectangleStateCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_discard_rectangle_state_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* discard_rectangle_mode */ $discard_rectangle_mode$,
+  /* discard_rectangle_count */ $discard_rectangle_count$,
+  /* discard_rectangles */ $discard_rectangles$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX" id="" complement="" removed="false" modified="false">vk::physical_device_multiview_per_view_attributes_properties_nvx(
+  /* next */ $next$,
+  /* per_view_position_all_components */ $per_view_position_all_components$)
+</snippet>
+  <snippet group="C++" trigger="_VkInputAttachmentAspectReference" id="" complement="" removed="false" modified="false">vk::input_attachment_aspect_reference(
+  /* subpass */ $subpass$,
+  /* input_attachment_index */ $input_attachment_index$,
+  /* aspect_mask */ $aspect_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkInputAttachmentAspectReferenceKHR" id="" complement="" removed="false" modified="false">vk::input_attachment_aspect_reference_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassInputAttachmentAspectCreateInfo" id="" complement="" removed="false" modified="false">vk::render_pass_input_attachment_aspect_create_info(
+  /* next */ $next$,
+  /* aspect_reference_count */ $aspect_reference_count$,
+  /* aspect_references */ $aspect_references$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassInputAttachmentAspectCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::render_pass_input_attachment_aspect_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSurfaceInfo2KHR" id="" complement="" removed="false" modified="false">vk::physical_device_surface_info_2_khr(
+  /* next */ $next$,
+  /* surface */ $surface$)
+</snippet>
+  <snippet group="C++" trigger="_VkSurfaceCapabilities2KHR" id="" complement="" removed="false" modified="false">vk::surface_capabilities_2_khr(
+  /* next */ $next$,
+  /* surface_capabilities */ $surface_capabilities$)
+</snippet>
+  <snippet group="C++" trigger="_VkSurfaceFormat2KHR" id="" complement="" removed="false" modified="false">vk::surface_format_2_khr(
+  /* next */ $next$,
+  /* surface_format */ $surface_format$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayProperties2KHR" id="" complement="" removed="false" modified="false">vk::display_properties_2_khr(
+  /* next */ $next$,
+  /* display_properties */ $display_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPlaneProperties2KHR" id="" complement="" removed="false" modified="false">vk::display_plane_properties_2_khr(
+  /* next */ $next$,
+  /* display_plane_properties */ $display_plane_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayModeProperties2KHR" id="" complement="" removed="false" modified="false">vk::display_mode_properties_2_khr(
+  /* next */ $next$,
+  /* display_mode_properties */ $display_mode_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPlaneInfo2KHR" id="" complement="" removed="false" modified="false">vk::display_plane_info_2_khr(
+  /* next */ $next$,
+  /* mode */ $mode$,
+  /* plane_index */ $plane_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkDisplayPlaneCapabilities2KHR" id="" complement="" removed="false" modified="false">vk::display_plane_capabilities_2_khr(
+  /* next */ $next$,
+  /* capabilities */ $capabilities$)
+</snippet>
+  <snippet group="C++" trigger="_VkSharedPresentSurfaceCapabilitiesKHR" id="" complement="" removed="false" modified="false">vk::shared_present_surface_capabilities_khr(
+  /* next */ $next$,
+  /* shared_present_supported_usage_flags */ $shared_present_supported_usage_flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevice16BitStorageFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_16_bit_storage_features(
+  /* next */ $next$,
+  /* storage_buffer_16_bit_access */ $storage_buffer_16_bit_access$,
+  /* uniform_and_storage_buffer_16_bit_access */ $uniform_and_storage_buffer_16_bit_access$,
+  /* storage_push_constant_16 */ $storage_push_constant_16$,
+  /* storage_input_output_16 */ $storage_input_output_16$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevice16BitStorageFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_16_bit_storage_features_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSubgroupProperties" id="" complement="" removed="false" modified="false">vk::physical_device_subgroup_properties(
+  /* next */ $next$,
+  /* subgroup_size */ $subgroup_size$,
+  /* supported_stages */ $supported_stages$,
+  /* supported_operations */ $supported_operations$,
+  /* quad_operations_in_all_stages */ $quad_operations_in_all_stages$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferMemoryRequirementsInfo2" id="" complement="" removed="false" modified="false">vk::buffer_memory_requirements_info_2(
+  /* next */ $next$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferMemoryRequirementsInfo2KHR" id="" complement="" removed="false" modified="false">vk::buffer_memory_requirements_info_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImageMemoryRequirementsInfo2" id="" complement="" removed="false" modified="false">vk::image_memory_requirements_info_2(
+  /* next */ $next$,
+  /* image */ $image$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageMemoryRequirementsInfo2KHR" id="" complement="" removed="false" modified="false">vk::image_memory_requirements_info_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImageSparseMemoryRequirementsInfo2" id="" complement="" removed="false" modified="false">vk::image_sparse_memory_requirements_info_2(
+  /* next */ $next$,
+  /* image */ $image$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageSparseMemoryRequirementsInfo2KHR" id="" complement="" removed="false" modified="false">vk::image_sparse_memory_requirements_info_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryRequirements2" id="" complement="" removed="false" modified="false">vk::memory_requirements_2(
+  /* next */ $next$,
+  /* memory_requirements */ $memory_requirements$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryRequirements2KHR" id="" complement="" removed="false" modified="false">vk::memory_requirements_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageMemoryRequirements2" id="" complement="" removed="false" modified="false">vk::sparse_image_memory_requirements_2(
+  /* next */ $next$,
+  /* memory_requirements */ $memory_requirements$)
+</snippet>
+  <snippet group="C++" trigger="_VkSparseImageMemoryRequirements2KHR" id="" complement="" removed="false" modified="false">vk::sparse_image_memory_requirements_2_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevicePointClippingProperties" id="" complement="" removed="false" modified="false">vk::physical_device_point_clipping_properties(
+  /* next */ $next$,
+  /* point_clipping_behavior */ $point_clipping_behavior$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevicePointClippingPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_point_clipping_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryDedicatedRequirements" id="" complement="" removed="false" modified="false">vk::memory_dedicated_requirements(
+  /* next */ $next$,
+  /* prefers_dedicated_allocation */ $prefers_dedicated_allocation$,
+  /* requires_dedicated_allocation */ $requires_dedicated_allocation$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryDedicatedRequirementsKHR" id="" complement="" removed="false" modified="false">vk::memory_dedicated_requirements_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryDedicatedAllocateInfo" id="" complement="" removed="false" modified="false">vk::memory_dedicated_allocate_info(
+  /* next */ $next$,
+  /* image */ $image$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryDedicatedAllocateInfoKHR" id="" complement="" removed="false" modified="false">vk::memory_dedicated_allocate_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImageViewUsageCreateInfo" id="" complement="" removed="false" modified="false">vk::image_view_usage_create_info(
+  /* next */ $next$,
+  /* usage */ $usage$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageViewUsageCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::image_view_usage_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineTessellationDomainOriginStateCreateInfo" id="" complement="" removed="false" modified="false">vk::pipeline_tessellation_domain_origin_state_create_info(
+  /* next */ $next$,
+  /* domain_origin */ $domain_origin$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineTessellationDomainOriginStateCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::pipeline_tessellation_domain_origin_state_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionInfo" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_info(
+  /* next */ $next$,
+  /* conversion */ $conversion$)
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionInfoKHR" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionCreateInfo" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_create_info(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* ycbcr_model */ $ycbcr_model$,
+  /* ycbcr_range */ $ycbcr_range$,
+  /* components */ $components$,
+  /* x_chroma_offset */ $x_chroma_offset$,
+  /* y_chroma_offset */ $y_chroma_offset$,
+  /* chroma_filter */ $chroma_filter$,
+  /* force_explicit_reconstruction */ $force_explicit_reconstruction$)
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_create_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkBindImagePlaneMemoryInfo" id="" complement="" removed="false" modified="false">vk::bind_image_plane_memory_info(
+  /* next */ $next$,
+  /* plane_aspect */ $plane_aspect$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindImagePlaneMemoryInfoKHR" id="" complement="" removed="false" modified="false">vk::bind_image_plane_memory_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkImagePlaneMemoryRequirementsInfo" id="" complement="" removed="false" modified="false">vk::image_plane_memory_requirements_info(
+  /* next */ $next$,
+  /* plane_aspect */ $plane_aspect$)
+</snippet>
+  <snippet group="C++" trigger="_VkImagePlaneMemoryRequirementsInfoKHR" id="" complement="" removed="false" modified="false">vk::image_plane_memory_requirements_info_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSamplerYcbcrConversionFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_sampler_ycbcr_conversion_features(
+  /* next */ $next$,
+  /* sampler_ycbcr_conversion */ $sampler_ycbcr_conversion$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_sampler_ycbcr_conversion_features_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionImageFormatProperties" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_image_format_properties(
+  /* next */ $next$,
+  /* combined_image_sampler_descriptor_count */ $combined_image_sampler_descriptor_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerYcbcrConversionImageFormatPropertiesKHR" id="" complement="" removed="false" modified="false">vk::sampler_ycbcr_conversion_image_format_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkTextureLODGatherFormatPropertiesAMD" id="" complement="" removed="false" modified="false">vk::texture_lodgather_format_properties_amd(
+  /* next */ $next$,
+  /* supports_texture_gather_lodbias_amd */ $supports_texture_gather_lodbias_amd$)
+</snippet>
+  <snippet group="C++" trigger="_VkConditionalRenderingBeginInfoEXT" id="" complement="" removed="false" modified="false">vk::conditional_rendering_begin_info_ext(
+  /* next */ $next$,
+  /* buffer */ $buffer$,
+  /* offset */ $offset$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkProtectedSubmitInfo" id="" complement="" removed="false" modified="false">vk::protected_submit_info(
+  /* next */ $next$,
+  /* protected_submit */ $protected_submit$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceProtectedMemoryFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_protected_memory_features(
+  /* next */ $next$,
+  /* protected_memory */ $protected_memory$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceProtectedMemoryProperties" id="" complement="" removed="false" modified="false">vk::physical_device_protected_memory_properties(
+  /* next */ $next$,
+  /* protected_no_fault */ $protected_no_fault$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceQueueInfo2" id="" complement="" removed="false" modified="false">vk::device_queue_info_2(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_family_index */ $queue_family_index$,
+  /* queue_index */ $queue_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineCoverageToColorStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_coverage_to_color_state_create_info_nv(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* coverage_to_color_enable */ $coverage_to_color_enable$,
+  /* coverage_to_color_location */ $coverage_to_color_location$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_sampler_filter_minmax_properties_ext(
+  /* next */ $next$,
+  /* filter_minmax_single_component_formats */ $filter_minmax_single_component_formats$,
+  /* filter_minmax_image_component_mapping */ $filter_minmax_image_component_mapping$)
+</snippet>
+  <snippet group="C++" trigger="_VkSampleLocationEXT" id="" complement="" removed="false" modified="false">vk::sample_location_ext(
+  /* x */ $x$,
+  /* y */ $y$)
+</snippet>
+  <snippet group="C++" trigger="_VkSampleLocationsInfoEXT" id="" complement="" removed="false" modified="false">vk::sample_locations_info_ext(
+  /* next */ $next$,
+  /* sample_locations_per_pixel */ $sample_locations_per_pixel$,
+  /* sample_location_grid_size */ $sample_location_grid_size$,
+  /* sample_locations_count */ $sample_locations_count$,
+  /* sample_locations */ $sample_locations$)
+</snippet>
+  <snippet group="C++" trigger="_VkAttachmentSampleLocationsEXT" id="" complement="" removed="false" modified="false">vk::attachment_sample_locations_ext(
+  /* attachment_index */ $attachment_index$,
+  /* sample_locations_info */ $sample_locations_info$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassSampleLocationsEXT" id="" complement="" removed="false" modified="false">vk::subpass_sample_locations_ext(
+  /* subpass_index */ $subpass_index$,
+  /* sample_locations_info */ $sample_locations_info$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassSampleLocationsBeginInfoEXT" id="" complement="" removed="false" modified="false">vk::render_pass_sample_locations_begin_info_ext(
+  /* next */ $next$,
+  /* attachment_initial_sample_locations_count */ $attachment_initial_sample_locations_count$,
+  /* attachment_initial_sample_locations */ $attachment_initial_sample_locations$,
+  /* post_subpass_sample_locations_count */ $post_subpass_sample_locations_count$,
+  /* post_subpass_sample_locations */ $post_subpass_sample_locations$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineSampleLocationsStateCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_sample_locations_state_create_info_ext(
+  /* next */ $next$,
+  /* sample_locations_enable */ $sample_locations_enable$,
+  /* sample_locations_info */ $sample_locations_info$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceSampleLocationsPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_sample_locations_properties_ext(
+  /* next */ $next$,
+  /* sample_location_sample_counts */ $sample_location_sample_counts$,
+  /* max_sample_location_grid_size */ $max_sample_location_grid_size$,
+  /* sample_location_coordinate_range */ $sample_location_coordinate_range$,
+  /* sample_location_sub_pixel_bits */ $sample_location_sub_pixel_bits$,
+  /* variable_sample_locations */ $variable_sample_locations$)
+</snippet>
+  <snippet group="C++" trigger="_VkMultisamplePropertiesEXT" id="" complement="" removed="false" modified="false">vk::multisample_properties_ext(
+  /* next */ $next$,
+  /* max_sample_location_grid_size */ $max_sample_location_grid_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkSamplerReductionModeCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::sampler_reduction_mode_create_info_ext(
+  /* next */ $next$,
+  /* reduction_mode */ $reduction_mode$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_blend_operation_advanced_features_ext(
+  /* next */ $next$,
+  /* advanced_blend_coherent_operations */ $advanced_blend_coherent_operations$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_blend_operation_advanced_properties_ext(
+  /* next */ $next$,
+  /* advanced_blend_max_color_attachments */ $advanced_blend_max_color_attachments$,
+  /* advanced_blend_independent_blend */ $advanced_blend_independent_blend$,
+  /* advanced_blend_non_premultiplied_src_color */ $advanced_blend_non_premultiplied_src_color$,
+  /* advanced_blend_non_premultiplied_dst_color */ $advanced_blend_non_premultiplied_dst_color$,
+  /* advanced_blend_correlated_overlap */ $advanced_blend_correlated_overlap$,
+  /* advanced_blend_all_operations */ $advanced_blend_all_operations$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineColorBlendAdvancedStateCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_color_blend_advanced_state_create_info_ext(
+  /* next */ $next$,
+  /* src_premultiplied */ $src_premultiplied$,
+  /* dst_premultiplied */ $dst_premultiplied$,
+  /* blend_overlap */ $blend_overlap$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceInlineUniformBlockFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_inline_uniform_block_features_ext(
+  /* next */ $next$,
+  /* inline_uniform_block */ $inline_uniform_block$,
+  /* descriptor_binding_inline_uniform_block_update_after_bind */ $descriptor_binding_inline_uniform_block_update_after_bind$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceInlineUniformBlockPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_inline_uniform_block_properties_ext(
+  /* next */ $next$,
+  /* max_inline_uniform_block_size */ $max_inline_uniform_block_size$,
+  /* max_per_stage_descriptor_inline_uniform_blocks */ $max_per_stage_descriptor_inline_uniform_blocks$,
+  /* max_per_stage_descriptor_update_after_bind_inline_uniform_blocks */ $max_per_stage_descriptor_update_after_bind_inline_uniform_blocks$,
+  /* max_descriptor_set_inline_uniform_blocks */ $max_descriptor_set_inline_uniform_blocks$,
+  /* max_descriptor_set_update_after_bind_inline_uniform_blocks */ $max_descriptor_set_update_after_bind_inline_uniform_blocks$)
+</snippet>
+  <snippet group="C++" trigger="_VkWriteDescriptorSetInlineUniformBlockEXT" id="" complement="" removed="false" modified="false">vk::write_descriptor_set_inline_uniform_block_ext(
+  /* next */ $next$,
+  /* data_size */ $data_size$,
+  /* data */ $data$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorPoolInlineUniformBlockCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::descriptor_pool_inline_uniform_block_create_info_ext(
+  /* next */ $next$,
+  /* max_inline_uniform_block_bindings */ $max_inline_uniform_block_bindings$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineCoverageModulationStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_coverage_modulation_state_create_info_nv(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* coverage_modulation_mode */ $coverage_modulation_mode$,
+  /* coverage_modulation_table_enable */ $coverage_modulation_table_enable$,
+  /* coverage_modulation_table_count */ $coverage_modulation_table_count$,
+  /* coverage_modulation_table */ $coverage_modulation_table$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageFormatListCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::image_format_list_create_info_khr(
+  /* next */ $next$,
+  /* view_format_count */ $view_format_count$,
+  /* view_formats */ $view_formats$)
+</snippet>
+  <snippet group="C++" trigger="_VkValidationCacheCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::validation_cache_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* initial_data_size */ $initial_data_size$,
+  /* initial_data */ $initial_data$)
+</snippet>
+  <snippet group="C++" trigger="_VkShaderModuleValidationCacheCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::shader_module_validation_cache_create_info_ext(
+  /* next */ $next$,
+  /* validation_cache */ $validation_cache$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMaintenance3Properties" id="" complement="" removed="false" modified="false">vk::physical_device_maintenance_3_properties(
+  /* next */ $next$,
+  /* max_per_set_descriptors */ $max_per_set_descriptors$,
+  /* max_memory_allocation_size */ $max_memory_allocation_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMaintenance3PropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_maintenance_3_properties_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetLayoutSupport" id="" complement="" removed="false" modified="false">vk::descriptor_set_layout_support(
+  /* next */ $next$,
+  /* supported */ $supported$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetLayoutSupportKHR" id="" complement="" removed="false" modified="false">vk::descriptor_set_layout_support_khr()
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShaderDrawParameterFeatures" id="" complement="" removed="false" modified="false">vk::physical_device_shader_draw_parameter_features(
+  /* next */ $next$,
+  /* shader_draw_parameters */ $shader_draw_parameters$)
+</snippet>
+  <snippet group="C++" trigger="_VkNativeBufferANDROID" id="" complement="" removed="false" modified="false">vk::native_buffer_android(
+  /* next */ $next$,
+  /* handle */ $handle$,
+  /* stride */ $stride$,
+  /* format */ $format$,
+  /* usage */ $usage$)
+</snippet>
+  <snippet group="C++" trigger="_VkShaderResourceUsageAMD" id="" complement="" removed="false" modified="false">vk::shader_resource_usage_amd(
+  /* num_used_vgprs */ $num_used_vgprs$,
+  /* num_used_sgprs */ $num_used_sgprs$,
+  /* lds_size_per_local_work_group */ $lds_size_per_local_work_group$,
+  /* lds_usage_size_in_bytes */ $lds_usage_size_in_bytes$,
+  /* scratch_mem_usage_in_bytes */ $scratch_mem_usage_in_bytes$)
+</snippet>
+  <snippet group="C++" trigger="_VkShaderStatisticsInfoAMD" id="" complement="" removed="false" modified="false">vk::shader_statistics_info_amd(
+  /* shader_stage_mask */ $shader_stage_mask$,
+  /* resource_usage */ $resource_usage$,
+  /* num_physical_vgprs */ $num_physical_vgprs$,
+  /* num_physical_sgprs */ $num_physical_sgprs$,
+  /* num_available_vgprs */ $num_available_vgprs$,
+  /* num_available_sgprs */ $num_available_sgprs$,
+  /* compute_work_group_size */ $compute_work_group_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceQueueGlobalPriorityCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::device_queue_global_priority_create_info_ext(
+  /* next */ $next$,
+  /* global_priority */ $global_priority$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugUtilsObjectNameInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_utils_object_name_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object_handle */ $object_handle$,
+  /* object_name */ $object_name$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugUtilsObjectTagInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_utils_object_tag_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object_handle */ $object_handle$,
+  /* tag_name */ $tag_name$,
+  /* tag_size */ $tag_size$,
+  /* tag */ $tag$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugUtilsLabelEXT" id="" complement="" removed="false" modified="false">vk::debug_utils_label_ext(
+  /* next */ $next$,
+  /* label_name */ $label_name$,
+  /* color */ $color$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugUtilsMessengerCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::debug_utils_messenger_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* message_severity */ $message_severity$,
+  /* message_type */ $message_type$,
+  /* pfn_user_callback */ $pfn_user_callback$,
+  /* user_data */ $user_data$)
+</snippet>
+  <snippet group="C++" trigger="_VkDebugUtilsMessengerCallbackDataEXT" id="" complement="" removed="false" modified="false">vk::debug_utils_messenger_callback_data_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* message_id_name */ $message_id_name$,
+  /* message_id_number */ $message_id_number$,
+  /* message */ $message$,
+  /* queue_label_count */ $queue_label_count$,
+  /* queue_labels */ $queue_labels$,
+  /* cmd_buf_label_count */ $cmd_buf_label_count$,
+  /* cmd_buf_labels */ $cmd_buf_labels$,
+  /* object_count */ $object_count$,
+  /* objects */ $objects$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportMemoryHostPointerInfoEXT" id="" complement="" removed="false" modified="false">vk::import_memory_host_pointer_info_ext(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* host_pointer */ $host_pointer$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryHostPointerPropertiesEXT" id="" complement="" removed="false" modified="false">vk::memory_host_pointer_properties_ext(
+  /* next */ $next$,
+  /* memory_type_bits */ $memory_type_bits$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExternalMemoryHostPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_external_memory_host_properties_ext(
+  /* next */ $next$,
+  /* min_imported_host_pointer_alignment */ $min_imported_host_pointer_alignment$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceConservativeRasterizationPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_conservative_rasterization_properties_ext(
+  /* next */ $next$,
+  /* primitive_overestimation_size */ $primitive_overestimation_size$,
+  /* max_extra_primitive_overestimation_size */ $max_extra_primitive_overestimation_size$,
+  /* extra_primitive_overestimation_size_granularity */ $extra_primitive_overestimation_size_granularity$,
+  /* primitive_underestimation */ $primitive_underestimation$,
+  /* conservative_point_and_line_rasterization */ $conservative_point_and_line_rasterization$,
+  /* degenerate_triangles_rasterized */ $degenerate_triangles_rasterized$,
+  /* degenerate_lines_rasterized */ $degenerate_lines_rasterized$,
+  /* fully_covered_fragment_shader_input_variable */ $fully_covered_fragment_shader_input_variable$,
+  /* conservative_rasterization_post_depth_coverage */ $conservative_rasterization_post_depth_coverage$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShaderCorePropertiesAMD" id="" complement="" removed="false" modified="false">vk::physical_device_shader_core_properties_amd(
+  /* next */ $next$,
+  /* shader_engine_count */ $shader_engine_count$,
+  /* shader_arrays_per_engine_count */ $shader_arrays_per_engine_count$,
+  /* compute_units_per_shader_array */ $compute_units_per_shader_array$,
+  /* simd_per_compute_unit */ $simd_per_compute_unit$,
+  /* wavefronts_per_simd */ $wavefronts_per_simd$,
+  /* wavefront_size */ $wavefront_size$,
+  /* sgprs_per_simd */ $sgprs_per_simd$,
+  /* min_sgpr_allocation */ $min_sgpr_allocation$,
+  /* max_sgpr_allocation */ $max_sgpr_allocation$,
+  /* sgpr_allocation_granularity */ $sgpr_allocation_granularity$,
+  /* vgprs_per_simd */ $vgprs_per_simd$,
+  /* min_vgpr_allocation */ $min_vgpr_allocation$,
+  /* max_vgpr_allocation */ $max_vgpr_allocation$,
+  /* vgpr_allocation_granularity */ $vgpr_allocation_granularity$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineRasterizationConservativeStateCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_rasterization_conservative_state_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* conservative_rasterization_mode */ $conservative_rasterization_mode$,
+  /* extra_primitive_overestimation_size */ $extra_primitive_overestimation_size$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDescriptorIndexingFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_descriptor_indexing_features_ext(
+  /* next */ $next$,
+  /* shader_input_attachment_array_dynamic_indexing */ $shader_input_attachment_array_dynamic_indexing$,
+  /* shader_uniform_texel_buffer_array_dynamic_indexing */ $shader_uniform_texel_buffer_array_dynamic_indexing$,
+  /* shader_storage_texel_buffer_array_dynamic_indexing */ $shader_storage_texel_buffer_array_dynamic_indexing$,
+  /* shader_uniform_buffer_array_non_uniform_indexing */ $shader_uniform_buffer_array_non_uniform_indexing$,
+  /* shader_sampled_image_array_non_uniform_indexing */ $shader_sampled_image_array_non_uniform_indexing$,
+  /* shader_storage_buffer_array_non_uniform_indexing */ $shader_storage_buffer_array_non_uniform_indexing$,
+  /* shader_storage_image_array_non_uniform_indexing */ $shader_storage_image_array_non_uniform_indexing$,
+  /* shader_input_attachment_array_non_uniform_indexing */ $shader_input_attachment_array_non_uniform_indexing$,
+  /* shader_uniform_texel_buffer_array_non_uniform_indexing */ $shader_uniform_texel_buffer_array_non_uniform_indexing$,
+  /* shader_storage_texel_buffer_array_non_uniform_indexing */ $shader_storage_texel_buffer_array_non_uniform_indexing$,
+  /* descriptor_binding_uniform_buffer_update_after_bind */ $descriptor_binding_uniform_buffer_update_after_bind$,
+  /* descriptor_binding_sampled_image_update_after_bind */ $descriptor_binding_sampled_image_update_after_bind$,
+  /* descriptor_binding_storage_image_update_after_bind */ $descriptor_binding_storage_image_update_after_bind$,
+  /* descriptor_binding_storage_buffer_update_after_bind */ $descriptor_binding_storage_buffer_update_after_bind$,
+  /* descriptor_binding_uniform_texel_buffer_update_after_bind */ $descriptor_binding_uniform_texel_buffer_update_after_bind$,
+  /* descriptor_binding_storage_texel_buffer_update_after_bind */ $descriptor_binding_storage_texel_buffer_update_after_bind$,
+  /* descriptor_binding_update_unused_while_pending */ $descriptor_binding_update_unused_while_pending$,
+  /* descriptor_binding_partially_bound */ $descriptor_binding_partially_bound$,
+  /* descriptor_binding_variable_descriptor_count */ $descriptor_binding_variable_descriptor_count$,
+  /* runtime_descriptor_array */ $runtime_descriptor_array$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDescriptorIndexingPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_descriptor_indexing_properties_ext(
+  /* next */ $next$,
+  /* max_update_after_bind_descriptors_in_all_pools */ $max_update_after_bind_descriptors_in_all_pools$,
+  /* shader_uniform_buffer_array_non_uniform_indexing_native */ $shader_uniform_buffer_array_non_uniform_indexing_native$,
+  /* shader_sampled_image_array_non_uniform_indexing_native */ $shader_sampled_image_array_non_uniform_indexing_native$,
+  /* shader_storage_buffer_array_non_uniform_indexing_native */ $shader_storage_buffer_array_non_uniform_indexing_native$,
+  /* shader_storage_image_array_non_uniform_indexing_native */ $shader_storage_image_array_non_uniform_indexing_native$,
+  /* shader_input_attachment_array_non_uniform_indexing_native */ $shader_input_attachment_array_non_uniform_indexing_native$,
+  /* robust_buffer_access_update_after_bind */ $robust_buffer_access_update_after_bind$,
+  /* quad_divergent_implicit_lod */ $quad_divergent_implicit_lod$,
+  /* max_per_stage_descriptor_update_after_bind_samplers */ $max_per_stage_descriptor_update_after_bind_samplers$,
+  /* max_per_stage_descriptor_update_after_bind_uniform_buffers */ $max_per_stage_descriptor_update_after_bind_uniform_buffers$,
+  /* max_per_stage_descriptor_update_after_bind_storage_buffers */ $max_per_stage_descriptor_update_after_bind_storage_buffers$,
+  /* max_per_stage_descriptor_update_after_bind_sampled_images */ $max_per_stage_descriptor_update_after_bind_sampled_images$,
+  /* max_per_stage_descriptor_update_after_bind_storage_images */ $max_per_stage_descriptor_update_after_bind_storage_images$,
+  /* max_per_stage_descriptor_update_after_bind_input_attachments */ $max_per_stage_descriptor_update_after_bind_input_attachments$,
+  /* max_per_stage_update_after_bind_resources */ $max_per_stage_update_after_bind_resources$,
+  /* max_descriptor_set_update_after_bind_samplers */ $max_descriptor_set_update_after_bind_samplers$,
+  /* max_descriptor_set_update_after_bind_uniform_buffers */ $max_descriptor_set_update_after_bind_uniform_buffers$,
+  /* max_descriptor_set_update_after_bind_uniform_buffers_dynamic */ $max_descriptor_set_update_after_bind_uniform_buffers_dynamic$,
+  /* max_descriptor_set_update_after_bind_storage_buffers */ $max_descriptor_set_update_after_bind_storage_buffers$,
+  /* max_descriptor_set_update_after_bind_storage_buffers_dynamic */ $max_descriptor_set_update_after_bind_storage_buffers_dynamic$,
+  /* max_descriptor_set_update_after_bind_sampled_images */ $max_descriptor_set_update_after_bind_sampled_images$,
+  /* max_descriptor_set_update_after_bind_storage_images */ $max_descriptor_set_update_after_bind_storage_images$,
+  /* max_descriptor_set_update_after_bind_input_attachments */ $max_descriptor_set_update_after_bind_input_attachments$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetLayoutBindingFlagsCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::descriptor_set_layout_binding_flags_create_info_ext(
+  /* next */ $next$,
+  /* binding_count */ $binding_count$,
+  /* binding_flags */ $binding_flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetVariableDescriptorCountAllocateInfoEXT" id="" complement="" removed="false" modified="false">vk::descriptor_set_variable_descriptor_count_allocate_info_ext(
+  /* next */ $next$,
+  /* descriptor_set_count */ $descriptor_set_count$,
+  /* descriptor_counts */ $descriptor_counts$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorSetVariableDescriptorCountLayoutSupportEXT" id="" complement="" removed="false" modified="false">vk::descriptor_set_variable_descriptor_count_layout_support_ext(
+  /* next */ $next$,
+  /* max_variable_descriptor_count */ $max_variable_descriptor_count$)
+</snippet>
+  <snippet group="C++" trigger="_VkAttachmentDescription2KHR" id="" complement="" removed="false" modified="false">vk::attachment_description_2_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* format */ $format$,
+  /* samples */ $samples$,
+  /* load_op */ $load_op$,
+  /* store_op */ $store_op$,
+  /* stencil_load_op */ $stencil_load_op$,
+  /* stencil_store_op */ $stencil_store_op$,
+  /* initial_layout */ $initial_layout$,
+  /* final_layout */ $final_layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkAttachmentReference2KHR" id="" complement="" removed="false" modified="false">vk::attachment_reference_2_khr(
+  /* next */ $next$,
+  /* attachment */ $attachment$,
+  /* layout */ $layout$,
+  /* aspect_mask */ $aspect_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassDescription2KHR" id="" complement="" removed="false" modified="false">vk::subpass_description_2_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* view_mask */ $view_mask$,
+  /* input_attachment_count */ $input_attachment_count$,
+  /* input_attachments */ $input_attachments$,
+  /* color_attachment_count */ $color_attachment_count$,
+  /* color_attachments */ $color_attachments$,
+  /* resolve_attachments */ $resolve_attachments$,
+  /* depth_stencil_attachment */ $depth_stencil_attachment$,
+  /* preserve_attachment_count */ $preserve_attachment_count$,
+  /* preserve_attachments */ $preserve_attachments$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassDependency2KHR" id="" complement="" removed="false" modified="false">vk::subpass_dependency_2_khr(
+  /* next */ $next$,
+  /* src_subpass */ $src_subpass$,
+  /* dst_subpass */ $dst_subpass$,
+  /* src_stage_mask */ $src_stage_mask$,
+  /* dst_stage_mask */ $dst_stage_mask$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* dependency_flags */ $dependency_flags$,
+  /* view_offset */ $view_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassCreateInfo2KHR" id="" complement="" removed="false" modified="false">vk::render_pass_create_info_2_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* subpass_count */ $subpass_count$,
+  /* subpasses */ $subpasses$,
+  /* dependency_count */ $dependency_count$,
+  /* dependencies */ $dependencies$,
+  /* correlated_view_mask_count */ $correlated_view_mask_count$,
+  /* correlated_view_masks */ $correlated_view_masks$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassBeginInfoKHR" id="" complement="" removed="false" modified="false">vk::subpass_begin_info_khr(
+  /* next */ $next$,
+  /* contents */ $contents$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassEndInfoKHR" id="" complement="" removed="false" modified="false">vk::subpass_end_info_khr(
+  /* next */ $next$)
+</snippet>
+  <snippet group="C++" trigger="_VkVertexInputBindingDivisorDescriptionEXT" id="" complement="" removed="false" modified="false">vk::vertex_input_binding_divisor_description_ext(
+  /* binding */ $binding$,
+  /* divisor */ $divisor$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineVertexInputDivisorStateCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_vertex_input_divisor_state_create_info_ext(
+  /* next */ $next$,
+  /* vertex_binding_divisor_count */ $vertex_binding_divisor_count$,
+  /* vertex_binding_divisors */ $vertex_binding_divisors$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_vertex_attribute_divisor_properties_ext(
+  /* next */ $next$,
+  /* max_vertex_attrib_divisor */ $max_vertex_attrib_divisor$)
+</snippet>
+  <snippet group="C++" trigger="_VkImportAndroidHardwareBufferInfoANDROID" id="" complement="" removed="false" modified="false">vk::import_android_hardware_buffer_info_android(
+  /* next */ $next$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkAndroidHardwareBufferUsageANDROID" id="" complement="" removed="false" modified="false">vk::android_hardware_buffer_usage_android(
+  /* next */ $next$,
+  /* android_hardware_buffer_usage */ $android_hardware_buffer_usage$)
+</snippet>
+  <snippet group="C++" trigger="_VkAndroidHardwareBufferPropertiesANDROID" id="" complement="" removed="false" modified="false">vk::android_hardware_buffer_properties_android(
+  /* next */ $next$,
+  /* allocation_size */ $allocation_size$,
+  /* memory_type_bits */ $memory_type_bits$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryGetAndroidHardwareBufferInfoANDROID" id="" complement="" removed="false" modified="false">vk::memory_get_android_hardware_buffer_info_android(
+  /* next */ $next$,
+  /* memory */ $memory$)
+</snippet>
+  <snippet group="C++" trigger="_VkAndroidHardwareBufferFormatPropertiesANDROID" id="" complement="" removed="false" modified="false">vk::android_hardware_buffer_format_properties_android(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* external_format */ $external_format$,
+  /* format_features */ $format_features$,
+  /* sampler_ycbcr_conversion_components */ $sampler_ycbcr_conversion_components$,
+  /* suggested_ycbcr_model */ $suggested_ycbcr_model$,
+  /* suggested_ycbcr_range */ $suggested_ycbcr_range$,
+  /* suggested_xchroma_offset */ $suggested_xchroma_offset$,
+  /* suggested_ychroma_offset */ $suggested_ychroma_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkCommandBufferInheritanceConditionalRenderingInfoEXT" id="" complement="" removed="false" modified="false">vk::command_buffer_inheritance_conditional_rendering_info_ext(
+  /* next */ $next$,
+  /* conditional_rendering_enable */ $conditional_rendering_enable$)
+</snippet>
+  <snippet group="C++" trigger="_VkExternalFormatANDROID" id="" complement="" removed="false" modified="false">vk::external_format_android(
+  /* next */ $next$,
+  /* external_format */ $external_format$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevice8BitStorageFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_8_bit_storage_features_khr(
+  /* next */ $next$,
+  /* storage_buffer_8_bit_access */ $storage_buffer_8_bit_access$,
+  /* uniform_and_storage_buffer_8_bit_access */ $uniform_and_storage_buffer_8_bit_access$,
+  /* storage_push_constant_8 */ $storage_push_constant_8$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceConditionalRenderingFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_conditional_rendering_features_ext(
+  /* next */ $next$,
+  /* conditional_rendering */ $conditional_rendering$,
+  /* inherited_conditional_rendering */ $inherited_conditional_rendering$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceVulkanMemoryModelFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_vulkan_memory_model_features_khr(
+  /* next */ $next$,
+  /* vulkan_memory_model */ $vulkan_memory_model$,
+  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_vertex_attribute_divisor_features_ext(
+  /* next */ $next$,
+  /* vertex_attribute_instance_rate_divisor */ $vertex_attribute_instance_rate_divisor$,
+  /* vertex_attribute_instance_rate_zero_divisor */ $vertex_attribute_instance_rate_zero_divisor$)
+</snippet>
+  <snippet group="C++" trigger="_VkQueueFamilyCheckpointPropertiesNV" id="" complement="" removed="false" modified="false">vk::queue_family_checkpoint_properties_nv(
+  /* next */ $next$,
+  /* checkpoint_execution_stage_mask */ $checkpoint_execution_stage_mask$)
+</snippet>
+  <snippet group="C++" trigger="_VkCheckpointDataNV" id="" complement="" removed="false" modified="false">vk::checkpoint_data_nv(
+  /* next */ $next$,
+  /* stage */ $stage$,
+  /* checkpoint_marker */ $checkpoint_marker$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageViewASTCDecodeModeEXT" id="" complement="" removed="false" modified="false">vk::image_view_astcdecode_mode_ext(
+  /* next */ $next$,
+  /* decode_mode */ $decode_mode$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceASTCDecodeFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_astcdecode_features_ext(
+  /* next */ $next$,
+  /* decode_mode_shared_exponent */ $decode_mode_shared_exponent$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_representative_fragment_test_features_nv(
+  /* next */ $next$,
+  /* representative_fragment_test */ $representative_fragment_test$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineRepresentativeFragmentTestStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_representative_fragment_test_state_create_info_nv(
+  /* next */ $next$,
+  /* representative_fragment_test_enable */ $representative_fragment_test_enable$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceExclusiveScissorFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_exclusive_scissor_features_nv(
+  /* next */ $next$,
+  /* exclusive_scissor */ $exclusive_scissor$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportExclusiveScissorStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_exclusive_scissor_state_create_info_nv(
+  /* next */ $next$,
+  /* exclusive_scissor_count */ $exclusive_scissor_count$,
+  /* exclusive_scissors */ $exclusive_scissors$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceCornerSampledImageFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_corner_sampled_image_features_nv(
+  /* next */ $next$,
+  /* corner_sampled_image */ $corner_sampled_image$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceComputeShaderDerivativesFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_compute_shader_derivatives_features_nv(
+  /* next */ $next$,
+  /* compute_derivative_group_quads */ $compute_derivative_group_quads$,
+  /* compute_derivative_group_linear */ $compute_derivative_group_linear$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_fragment_shader_barycentric_features_nv(
+  /* next */ $next$,
+  /* fragment_shader_barycentric */ $fragment_shader_barycentric$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShaderImageFootprintFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_shader_image_footprint_features_nv(
+  /* next */ $next$,
+  /* image_footprint */ $image_footprint$)
+</snippet>
+  <snippet group="C++" trigger="_VkShadingRatePaletteNV" id="" complement="" removed="false" modified="false">vk::shading_rate_palette_nv(
+  /* shading_rate_palette_entry_count */ $shading_rate_palette_entry_count$,
+  /* shading_rate_palette_entries */ $shading_rate_palette_entries$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportShadingRateImageStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_shading_rate_image_state_create_info_nv(
+  /* next */ $next$,
+  /* shading_rate_image_enable */ $shading_rate_image_enable$,
+  /* viewport_count */ $viewport_count$,
+  /* shading_rate_palettes */ $shading_rate_palettes$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShadingRateImageFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_shading_rate_image_features_nv(
+  /* next */ $next$,
+  /* shading_rate_image */ $shading_rate_image$,
+  /* shading_rate_coarse_sample_order */ $shading_rate_coarse_sample_order$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShadingRateImagePropertiesNV" id="" complement="" removed="false" modified="false">vk::physical_device_shading_rate_image_properties_nv(
+  /* next */ $next$,
+  /* shading_rate_texel_size */ $shading_rate_texel_size$,
+  /* shading_rate_palette_size */ $shading_rate_palette_size$,
+  /* shading_rate_max_coarse_samples */ $shading_rate_max_coarse_samples$)
+</snippet>
+  <snippet group="C++" trigger="_VkCoarseSampleLocationNV" id="" complement="" removed="false" modified="false">vk::coarse_sample_location_nv(
+  /* pixel_x */ $pixel_x$,
+  /* pixel_y */ $pixel_y$,
+  /* sample */ $sample$)
+</snippet>
+  <snippet group="C++" trigger="_VkCoarseSampleOrderCustomNV" id="" complement="" removed="false" modified="false">vk::coarse_sample_order_custom_nv(
+  /* shading_rate */ $shading_rate$,
+  /* sample_count */ $sample_count$,
+  /* sample_location_count */ $sample_location_count$,
+  /* sample_locations */ $sample_locations$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineViewportCoarseSampleOrderStateCreateInfoNV" id="" complement="" removed="false" modified="false">vk::pipeline_viewport_coarse_sample_order_state_create_info_nv(
+  /* next */ $next$,
+  /* sample_order_type */ $sample_order_type$,
+  /* custom_sample_order_count */ $custom_sample_order_count$,
+  /* custom_sample_orders */ $custom_sample_orders$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMeshShaderFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_mesh_shader_features_nv(
+  /* next */ $next$,
+  /* task_shader */ $task_shader$,
+  /* mesh_shader */ $mesh_shader$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMeshShaderPropertiesNV" id="" complement="" removed="false" modified="false">vk::physical_device_mesh_shader_properties_nv(
+  /* next */ $next$,
+  /* max_draw_mesh_tasks_count */ $max_draw_mesh_tasks_count$,
+  /* max_task_work_group_invocations */ $max_task_work_group_invocations$,
+  /* max_task_work_group_size */ $max_task_work_group_size$,
+  /* max_task_total_memory_size */ $max_task_total_memory_size$,
+  /* max_task_output_count */ $max_task_output_count$,
+  /* max_mesh_work_group_invocations */ $max_mesh_work_group_invocations$,
+  /* max_mesh_work_group_size */ $max_mesh_work_group_size$,
+  /* max_mesh_total_memory_size */ $max_mesh_total_memory_size$,
+  /* max_mesh_output_vertices */ $max_mesh_output_vertices$,
+  /* max_mesh_output_primitives */ $max_mesh_output_primitives$,
+  /* max_mesh_multiview_view_count */ $max_mesh_multiview_view_count$,
+  /* mesh_output_per_vertex_granularity */ $mesh_output_per_vertex_granularity$,
+  /* mesh_output_per_primitive_granularity */ $mesh_output_per_primitive_granularity$)
+</snippet>
+  <snippet group="C++" trigger="_VkDrawMeshTasksIndirectCommandNV" id="" complement="" removed="false" modified="false">vk::draw_mesh_tasks_indirect_command_nv(
+  /* task_count */ $task_count$,
+  /* first_task */ $first_task$)
+</snippet>
+  <snippet group="C++" trigger="_VkRaytracingPipelineCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::raytracing_pipeline_create_info_nvx(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage_count */ $stage_count$,
+  /* stages */ $stages$,
+  /* group_numbers */ $group_numbers$,
+  /* max_recursion_depth */ $max_recursion_depth$,
+  /* layout */ $layout$,
+  /* base_pipeline_handle */ $base_pipeline_handle$,
+  /* base_pipeline_index */ $base_pipeline_index$)
+</snippet>
+  <snippet group="C++" trigger="_VkGeometryTrianglesNVX" id="" complement="" removed="false" modified="false">vk::geometry_triangles_nvx(
+  /* next */ $next$,
+  /* vertex_data */ $vertex_data$,
+  /* vertex_offset */ $vertex_offset$,
+  /* vertex_count */ $vertex_count$,
+  /* vertex_stride */ $vertex_stride$,
+  /* vertex_format */ $vertex_format$,
+  /* index_data */ $index_data$,
+  /* index_offset */ $index_offset$,
+  /* index_count */ $index_count$,
+  /* index_type */ $index_type$,
+  /* transform_data */ $transform_data$,
+  /* transform_offset */ $transform_offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkGeometryAABBNVX" id="" complement="" removed="false" modified="false">vk::geometry_aabbnvx(
+  /* next */ $next$,
+  /* aabb_data */ $aabb_data$,
+  /* num_aabbs */ $num_aabbs$,
+  /* stride */ $stride$,
+  /* offset */ $offset$)
+</snippet>
+  <snippet group="C++" trigger="_VkGeometryDataNVX" id="" complement="" removed="false" modified="false">vk::geometry_data_nvx(
+  /* triangles */ $triangles$,
+  /* aabbs */ $aabbs$)
+</snippet>
+  <snippet group="C++" trigger="_VkGeometryNVX" id="" complement="" removed="false" modified="false">vk::geometry_nvx(
+  /* next */ $next$,
+  /* geometry_type */ $geometry_type$,
+  /* geometry */ $geometry$,
+  /* flags */ $flags$)
+</snippet>
+  <snippet group="C++" trigger="_VkAccelerationStructureCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::acceleration_structure_create_info_nvx(
+  /* next */ $next$,
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* compacted_size */ $compacted_size$,
+  /* instance_count */ $instance_count$,
+  /* geometry_count */ $geometry_count$,
+  /* geometries */ $geometries$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindAccelerationStructureMemoryInfoNVX" id="" complement="" removed="false" modified="false">vk::bind_acceleration_structure_memory_info_nvx(
+  /* next */ $next$,
+  /* acceleration_structure */ $acceleration_structure$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$,
+  /* device_index_count */ $device_index_count$,
+  /* device_indices */ $device_indices$)
+</snippet>
+  <snippet group="C++" trigger="_VkDescriptorAccelerationStructureInfoNVX" id="" complement="" removed="false" modified="false">vk::descriptor_acceleration_structure_info_nvx(
+  /* next */ $next$,
+  /* acceleration_structure_count */ $acceleration_structure_count$,
+  /* acceleration_structures */ $acceleration_structures$)
+</snippet>
+  <snippet group="C++" trigger="_VkAccelerationStructureMemoryRequirementsInfoNVX" id="" complement="" removed="false" modified="false">vk::acceleration_structure_memory_requirements_info_nvx(
+  /* next */ $next$,
+  /* acceleration_structure */ $acceleration_structure$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceRaytracingPropertiesNVX" id="" complement="" removed="false" modified="false">vk::physical_device_raytracing_properties_nvx(
+  /* next */ $next$,
+  /* shader_header_size */ $shader_header_size$,
+  /* max_recursion_depth */ $max_recursion_depth$,
+  /* max_geometry_count */ $max_geometry_count$)
+</snippet>
+</snippets>

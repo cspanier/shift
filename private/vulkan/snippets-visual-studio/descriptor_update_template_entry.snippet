@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_update_template_entry</Title>
+      <Shortcut>VkDescriptorUpdateTemplateEntry</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorUpdateTemplateEntry</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>dst_binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::dstBinding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_array_element</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::dstArrayElement.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::descriptorCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::descriptorType.</ToolTip>
+          <Default>vk::descriptor_type::sampler</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorUpdateTemplateEntry::stride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_update_template_entry(
+  /* dst_binding */ $dst_binding$,
+  /* dst_array_element */ $dst_array_element$,
+  /* descriptor_count */ $descriptor_count$,
+  /* descriptor_type */ $descriptor_type$,
+  /* offset */ $offset$,
+  /* stride */ $stride$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

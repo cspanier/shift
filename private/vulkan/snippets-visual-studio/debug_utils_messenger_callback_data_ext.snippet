@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_utils_messenger_callback_data_ext</Title>
+      <Shortcut>VkDebugUtilsMessengerCallbackDataEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugUtilsMessengerCallbackDataEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>message_id_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pMessageIdName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>message_id_number</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::messageIdNumber.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>message</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pMessage.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_label_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::queueLabelCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_labels</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pQueueLabels.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>cmd_buf_label_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::cmdBufLabelCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>cmd_buf_labels</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pCmdBufLabels.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::objectCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>objects</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsMessengerCallbackDataEXT::pObjects.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_utils_messenger_callback_data_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* message_id_name */ $message_id_name$,
+  /* message_id_number */ $message_id_number$,
+  /* message */ $message$,
+  /* queue_label_count */ $queue_label_count$,
+  /* queue_labels */ $queue_labels$,
+  /* cmd_buf_label_count */ $cmd_buf_label_count$,
+  /* cmd_buf_labels */ $cmd_buf_labels$,
+  /* object_count */ $object_count$,
+  /* objects */ $objects$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

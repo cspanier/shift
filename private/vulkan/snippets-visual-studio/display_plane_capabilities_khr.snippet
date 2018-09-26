@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_plane_capabilities_khr</Title>
+      <Shortcut>VkDisplayPlaneCapabilitiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayPlaneCapabilitiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>supported_alpha</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::supportedAlpha.</ToolTip>
+          <Default>vk::display_plane_alpha_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>min_src_position</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::minSrcPosition.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_src_position</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::maxSrcPosition.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>min_src_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::minSrcExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_src_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::maxSrcExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>min_dst_position</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::minDstPosition.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_dst_position</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::maxDstPosition.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>min_dst_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::minDstExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_dst_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlaneCapabilitiesKHR::maxDstExtent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_plane_capabilities_khr(
+  /* supported_alpha */ $supported_alpha$,
+  /* min_src_position */ $min_src_position$,
+  /* max_src_position */ $max_src_position$,
+  /* min_src_extent */ $min_src_extent$,
+  /* max_src_extent */ $max_src_extent$,
+  /* min_dst_position */ $min_dst_position$,
+  /* max_dst_position */ $max_dst_position$,
+  /* min_dst_extent */ $min_dst_extent$,
+  /* max_dst_extent */ $max_dst_extent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

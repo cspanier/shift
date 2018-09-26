@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>android_hardware_buffer_properties_android</Title>
+      <Shortcut>VkAndroidHardwareBufferPropertiesANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkAndroidHardwareBufferPropertiesANDROID</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferPropertiesANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>allocation_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferPropertiesANDROID::allocationSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>memory_type_bits</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferPropertiesANDROID::memoryTypeBits.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::android_hardware_buffer_properties_android(
+  /* next */ $next$,
+  /* allocation_size */ $allocation_size$,
+  /* memory_type_bits */ $memory_type_bits$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

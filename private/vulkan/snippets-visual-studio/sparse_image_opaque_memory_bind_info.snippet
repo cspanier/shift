@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sparse_image_opaque_memory_bind_info</Title>
+      <Shortcut>VkSparseImageOpaqueMemoryBindInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSparseImageOpaqueMemoryBindInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>image</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageOpaqueMemoryBindInfo::image.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>bind_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageOpaqueMemoryBindInfo::bindCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>binds</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageOpaqueMemoryBindInfo::pBinds.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sparse_image_opaque_memory_bind_info(
+  /* image */ $image$,
+  /* bind_count */ $bind_count$,
+  /* binds */ $binds$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

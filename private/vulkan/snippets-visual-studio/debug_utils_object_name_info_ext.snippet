@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_utils_object_name_info_ext</Title>
+      <Shortcut>VkDebugUtilsObjectNameInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugUtilsObjectNameInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsObjectNameInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsObjectNameInfoEXT::objectType.</ToolTip>
+          <Default>vk::object_type::unknown</Default>
+        </Literal>
+        <Literal>
+          <ID>object_handle</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsObjectNameInfoEXT::objectHandle.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>object_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsObjectNameInfoEXT::pObjectName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_utils_object_name_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object_handle */ $object_handle$,
+  /* object_name */ $object_name$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

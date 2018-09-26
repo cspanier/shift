@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>surface_format_khr</Title>
+      <Shortcut>VkSurfaceFormatKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSurfaceFormatKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceFormatKHR::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>color_space</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceFormatKHR::colorSpace.</ToolTip>
+          <Default>vk::color_space_khr::color_space_srgb_nonlinear_khr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::surface_format_khr(
+  /* format */ $format$,
+  /* color_space */ $color_space$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

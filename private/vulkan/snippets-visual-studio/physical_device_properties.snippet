@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_properties</Title>
+      <Shortcut>VkPhysicalDeviceProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>api_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::apiVersion.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>driver_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::driverVersion.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vendor_id</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::vendorID.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>device_id</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::deviceID.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>device_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::deviceType.</ToolTip>
+          <Default>vk::physical_device_type::other</Default>
+        </Literal>
+        <Literal>
+          <ID>device_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::deviceName.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_cache_uuid</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::pipelineCacheUUID.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>limits</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::limits.</ToolTip>
+          <Default>vk::physical_device_limits{}</Default>
+        </Literal>
+        <Literal>
+          <ID>sparse_properties</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceProperties::sparseProperties.</ToolTip>
+          <Default>vk::physical_device_sparse_properties{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_properties(
+  /* api_version */ $api_version$,
+  /* driver_version */ $driver_version$,
+  /* vendor_id */ $vendor_id$,
+  /* device_id */ $device_id$,
+  /* device_type */ $device_type$,
+  /* device_name */ $device_name$,
+  /* pipeline_cache_uuid */ $pipeline_cache_uuid$,
+  /* limits */ $limits$,
+  /* sparse_properties */ $sparse_properties$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

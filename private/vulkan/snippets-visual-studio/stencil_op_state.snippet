@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>stencil_op_state</Title>
+      <Shortcut>VkStencilOpState</Shortcut>
+      <Description>Code snippet for Vulkan type VkStencilOpState</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>fail_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::failOp.</ToolTip>
+          <Default>vk::stencil_op::keep</Default>
+        </Literal>
+        <Literal>
+          <ID>pass_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::passOp.</ToolTip>
+          <Default>vk::stencil_op::keep</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_fail_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::depthFailOp.</ToolTip>
+          <Default>vk::stencil_op::keep</Default>
+        </Literal>
+        <Literal>
+          <ID>compare_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::compareOp.</ToolTip>
+          <Default>vk::compare_op::never</Default>
+        </Literal>
+        <Literal>
+          <ID>compare_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::compareMask.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>write_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::writeMask.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>reference</ID>
+          <ToolTip>Equivalent to Vulkan member VkStencilOpState::reference.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::stencil_op_state(
+  /* fail_op */ $fail_op$,
+  /* pass_op */ $pass_op$,
+  /* depth_fail_op */ $depth_fail_op$,
+  /* compare_op */ $compare_op$,
+  /* compare_mask */ $compare_mask$,
+  /* write_mask */ $write_mask$,
+  /* reference */ $reference$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>render_pass_multiview_create_info</Title>
+      <Shortcut>VkRenderPassMultiviewCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkRenderPassMultiviewCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>subpass_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::subpassCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>view_masks</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::pViewMasks.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dependency_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::dependencyCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>view_offsets</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::pViewOffsets.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>correlation_mask_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::correlationMaskCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>correlation_masks</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassMultiviewCreateInfo::pCorrelationMasks.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::render_pass_multiview_create_info(
+  /* next */ $next$,
+  /* subpass_count */ $subpass_count$,
+  /* view_masks */ $view_masks$,
+  /* dependency_count */ $dependency_count$,
+  /* view_offsets */ $view_offsets$,
+  /* correlation_mask_count */ $correlation_mask_count$,
+  /* correlation_masks */ $correlation_masks$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

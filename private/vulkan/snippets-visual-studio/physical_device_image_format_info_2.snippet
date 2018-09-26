@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_image_format_info_2</Title>
+      <Shortcut>VkPhysicalDeviceImageFormatInfo2</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceImageFormatInfo2</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::type.</ToolTip>
+          <Default>vk::image_type::_1d</Default>
+        </Literal>
+        <Literal>
+          <ID>tiling</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::tiling.</ToolTip>
+          <Default>vk::image_tiling::optimal</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::usage.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceImageFormatInfo2::flags.</ToolTip>
+          <Default>vk::image_create_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_image_format_info_2(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* type */ $type$,
+  /* tiling */ $tiling$,
+  /* usage */ $usage$,
+  /* flags */ $flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_view_create_info</Title>
+      <Shortcut>VkImageViewCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageViewCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::image.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>view_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::viewType.</ToolTip>
+          <Default>vk::image_view_type::_1d</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>components</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::components.</ToolTip>
+          <Default>vk::component_mapping{}</Default>
+        </Literal>
+        <Literal>
+          <ID>subresource_range</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewCreateInfo::subresourceRange.</ToolTip>
+          <Default>vk::image_subresource_range{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_view_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* image */ $image$,
+  /* view_type */ $view_type$,
+  /* format */ $format$,
+  /* components */ $components$,
+  /* subresource_range */ $subresource_range$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

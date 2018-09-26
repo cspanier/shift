@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_conservative_rasterization_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceConservativeRasterizationPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceConservativeRasterizationPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>primitive_overestimation_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::primitiveOverestimationSize.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>max_extra_primitive_overestimation_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::maxExtraPrimitiveOverestimationSize.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>extra_primitive_overestimation_size_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::extraPrimitiveOverestimationSizeGranularity.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>primitive_underestimation</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::primitiveUnderestimation.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>conservative_point_and_line_rasterization</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::conservativePointAndLineRasterization.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>degenerate_triangles_rasterized</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::degenerateTrianglesRasterized.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>degenerate_lines_rasterized</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::degenerateLinesRasterized.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>fully_covered_fragment_shader_input_variable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::fullyCoveredFragmentShaderInputVariable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>conservative_rasterization_post_depth_coverage</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConservativeRasterizationPropertiesEXT::conservativeRasterizationPostDepthCoverage.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_conservative_rasterization_properties_ext(
+  /* next */ $next$,
+  /* primitive_overestimation_size */ $primitive_overestimation_size$,
+  /* max_extra_primitive_overestimation_size */ $max_extra_primitive_overestimation_size$,
+  /* extra_primitive_overestimation_size_granularity */ $extra_primitive_overestimation_size_granularity$,
+  /* primitive_underestimation */ $primitive_underestimation$,
+  /* conservative_point_and_line_rasterization */ $conservative_point_and_line_rasterization$,
+  /* degenerate_triangles_rasterized */ $degenerate_triangles_rasterized$,
+  /* degenerate_lines_rasterized */ $degenerate_lines_rasterized$,
+  /* fully_covered_fragment_shader_input_variable */ $fully_covered_fragment_shader_input_variable$,
+  /* conservative_rasterization_post_depth_coverage */ $conservative_rasterization_post_depth_coverage$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

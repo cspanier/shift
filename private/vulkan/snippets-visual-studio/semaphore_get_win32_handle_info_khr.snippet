@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>semaphore_get_win32_handle_info_khr</Title>
+      <Shortcut>VkSemaphoreGetWin32HandleInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSemaphoreGetWin32HandleInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetWin32HandleInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>semaphore</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetWin32HandleInfoKHR::semaphore.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkSemaphoreGetWin32HandleInfoKHR::handleType.</ToolTip>
+          <Default>vk::external_semaphore_handle_type_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::semaphore_get_win32_handle_info_khr(
+  /* next */ $next$,
+  /* semaphore */ $semaphore$,
+  /* handle_type */ $handle_type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

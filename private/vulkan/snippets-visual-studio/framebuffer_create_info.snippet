@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>framebuffer_create_info</Title>
+      <Shortcut>VkFramebufferCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkFramebufferCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::flags.</ToolTip>
+          <Default>vk::framebuffer_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>render_pass</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::renderPass.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::attachmentCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::pAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>width</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::width.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>height</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::height.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>layers</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferCreateInfo::layers.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::framebuffer_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* render_pass */ $render_pass$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* width */ $width$,
+  /* height */ $height$,
+  /* layers */ $layers$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

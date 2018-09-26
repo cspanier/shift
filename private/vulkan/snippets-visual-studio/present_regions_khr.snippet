@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>present_regions_khr</Title>
+      <Shortcut>VkPresentRegionsKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPresentRegionsKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentRegionsKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>swapchain_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentRegionsKHR::swapchainCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>regions</ID>
+          <ToolTip>Equivalent to Vulkan member VkPresentRegionsKHR::pRegions.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::present_regions_khr(
+  /* next */ $next$,
+  /* swapchain_count */ $swapchain_count$,
+  /* regions */ $regions$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

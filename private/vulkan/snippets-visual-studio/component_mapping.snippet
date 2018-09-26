@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>component_mapping</Title>
+      <Shortcut>VkComponentMapping</Shortcut>
+      <Description>Code snippet for Vulkan type VkComponentMapping</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>r</ID>
+          <ToolTip>Equivalent to Vulkan member VkComponentMapping::r.</ToolTip>
+          <Default>vk::component_swizzle::identity</Default>
+        </Literal>
+        <Literal>
+          <ID>g</ID>
+          <ToolTip>Equivalent to Vulkan member VkComponentMapping::g.</ToolTip>
+          <Default>vk::component_swizzle::identity</Default>
+        </Literal>
+        <Literal>
+          <ID>b</ID>
+          <ToolTip>Equivalent to Vulkan member VkComponentMapping::b.</ToolTip>
+          <Default>vk::component_swizzle::identity</Default>
+        </Literal>
+        <Literal>
+          <ID>a</ID>
+          <ToolTip>Equivalent to Vulkan member VkComponentMapping::a.</ToolTip>
+          <Default>vk::component_swizzle::identity</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::component_mapping(
+  /* r */ $r$,
+  /* g */ $g$,
+  /* b */ $b$,
+  /* a */ $a$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

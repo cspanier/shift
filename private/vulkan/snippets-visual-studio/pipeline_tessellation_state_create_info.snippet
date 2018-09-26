@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_tessellation_state_create_info</Title>
+      <Shortcut>VkPipelineTessellationStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineTessellationStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineTessellationStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineTessellationStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_tessellation_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>patch_control_points</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineTessellationStateCreateInfo::patchControlPoints.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_tessellation_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* patch_control_points */ $patch_control_points$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>draw_indexed_indirect_command</Title>
+      <Shortcut>VkDrawIndexedIndirectCommand</Shortcut>
+      <Description>Code snippet for Vulkan type VkDrawIndexedIndirectCommand</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>index_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndexedIndirectCommand::indexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>instance_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndexedIndirectCommand::instanceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>first_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndexedIndirectCommand::firstIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndexedIndirectCommand::vertexOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>first_instance</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawIndexedIndirectCommand::firstInstance.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::draw_indexed_indirect_command(
+  /* index_count */ $index_count$,
+  /* instance_count */ $instance_count$,
+  /* first_index */ $first_index$,
+  /* vertex_offset */ $vertex_offset$,
+  /* first_instance */ $first_instance$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

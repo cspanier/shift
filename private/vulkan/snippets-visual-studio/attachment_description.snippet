@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>attachment_description</Title>
+      <Shortcut>VkAttachmentDescription</Shortcut>
+      <Description>Code snippet for Vulkan type VkAttachmentDescription</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::flags.</ToolTip>
+          <Default>vk::attachment_description_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::samples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>load_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::loadOp.</ToolTip>
+          <Default>vk::attachment_load_op::load</Default>
+        </Literal>
+        <Literal>
+          <ID>store_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::storeOp.</ToolTip>
+          <Default>vk::attachment_store_op::store</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil_load_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::stencilLoadOp.</ToolTip>
+          <Default>vk::attachment_load_op::load</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil_store_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::stencilStoreOp.</ToolTip>
+          <Default>vk::attachment_store_op::store</Default>
+        </Literal>
+        <Literal>
+          <ID>initial_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::initialLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>final_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentDescription::finalLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::attachment_description(
+  /* flags */ $flags$,
+  /* format */ $format$,
+  /* samples */ $samples$,
+  /* load_op */ $load_op$,
+  /* store_op */ $store_op$,
+  /* stencil_load_op */ $stencil_load_op$,
+  /* stencil_store_op */ $stencil_store_op$,
+  /* initial_layout */ $initial_layout$,
+  /* final_layout */ $final_layout$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

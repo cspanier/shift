@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>clear_depth_stencil_value</Title>
+      <Shortcut>VkClearDepthStencilValue</Shortcut>
+      <Description>Code snippet for Vulkan type VkClearDepthStencilValue</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>depth</ID>
+          <ToolTip>Equivalent to Vulkan member VkClearDepthStencilValue::depth.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil</ID>
+          <ToolTip>Equivalent to Vulkan member VkClearDepthStencilValue::stencil.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::clear_depth_stencil_value(
+  /* depth */ $depth$,
+  /* stencil */ $stencil$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

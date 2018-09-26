@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sparse_image_memory_requirements_2</Title>
+      <Shortcut>VkSparseImageMemoryRequirements2</Shortcut>
+      <Description>Code snippet for Vulkan type VkSparseImageMemoryRequirements2</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements2::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>memory_requirements</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements2::memoryRequirements.</ToolTip>
+          <Default>vk::sparse_image_memory_requirements{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sparse_image_memory_requirements_2(
+  /* next */ $next$,
+  /* memory_requirements */ $memory_requirements$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>clear_rect</Title>
+      <Shortcut>VkClearRect</Shortcut>
+      <Description>Code snippet for Vulkan type VkClearRect</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>rect</ID>
+          <ToolTip>Equivalent to Vulkan member VkClearRect::rect.</ToolTip>
+          <Default>vk::rect_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>base_array_layer</ID>
+          <ToolTip>Equivalent to Vulkan member VkClearRect::baseArrayLayer.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>layer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkClearRect::layerCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::clear_rect(
+  /* rect */ $rect$,
+  /* base_array_layer */ $base_array_layer$,
+  /* layer_count */ $layer_count$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

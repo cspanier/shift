@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buffer_create_info</Title>
+      <Shortcut>VkBufferCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkBufferCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::flags.</ToolTip>
+          <Default>vk::buffer_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>size</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::size.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::usage.</ToolTip>
+          <Default>vk::buffer_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>sharing_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::sharingMode.</ToolTip>
+          <Default>vk::sharing_mode::exclusive</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_index_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::queueFamilyIndexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_indices</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferCreateInfo::pQueueFamilyIndices.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::buffer_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* size */ $size$,
+  /* usage */ $usage$,
+  /* sharing_mode */ $sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

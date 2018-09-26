@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>shader_module_validation_cache_create_info_ext</Title>
+      <Shortcut>VkShaderModuleValidationCacheCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkShaderModuleValidationCacheCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleValidationCacheCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>validation_cache</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleValidationCacheCreateInfoEXT::validationCache.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::shader_module_validation_cache_create_info_ext(
+  /* next */ $next$,
+  /* validation_cache */ $validation_cache$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

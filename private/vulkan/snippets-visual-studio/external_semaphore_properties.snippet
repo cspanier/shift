@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>external_semaphore_properties</Title>
+      <Shortcut>VkExternalSemaphoreProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkExternalSemaphoreProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalSemaphoreProperties::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>export_from_imported_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalSemaphoreProperties::exportFromImportedHandleTypes.</ToolTip>
+          <Default>vk::external_semaphore_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>compatible_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalSemaphoreProperties::compatibleHandleTypes.</ToolTip>
+          <Default>vk::external_semaphore_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>external_semaphore_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalSemaphoreProperties::externalSemaphoreFeatures.</ToolTip>
+          <Default>vk::external_semaphore_feature_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::external_semaphore_properties(
+  /* next */ $next$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$,
+  /* external_semaphore_features */ $external_semaphore_features$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

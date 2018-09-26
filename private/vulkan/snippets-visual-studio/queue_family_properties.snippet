@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>queue_family_properties</Title>
+      <Shortcut>VkQueueFamilyProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkQueueFamilyProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>queue_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties::queueFlags.</ToolTip>
+          <Default>vk::queue_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties::queueCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>timestamp_valid_bits</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties::timestampValidBits.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_image_transfer_granularity</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueueFamilyProperties::minImageTransferGranularity.</ToolTip>
+          <Default>vk::extent_3d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::queue_family_properties(
+  /* queue_flags */ $queue_flags$,
+  /* queue_count */ $queue_count$,
+  /* timestamp_valid_bits */ $timestamp_valid_bits$,
+  /* min_image_transfer_granularity */ $min_image_transfer_granularity$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

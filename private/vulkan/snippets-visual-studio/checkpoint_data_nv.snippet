@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkpoint_data_nv</Title>
+      <Shortcut>VkCheckpointDataNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkCheckpointDataNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCheckpointDataNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>stage</ID>
+          <ToolTip>Equivalent to Vulkan member VkCheckpointDataNV::stage.</ToolTip>
+          <Default>vk::pipeline_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>checkpoint_marker</ID>
+          <ToolTip>Equivalent to Vulkan member VkCheckpointDataNV::pCheckpointMarker.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::checkpoint_data_nv(
+  /* next */ $next$,
+  /* stage */ $stage$,
+  /* checkpoint_marker */ $checkpoint_marker$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

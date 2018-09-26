@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_pool_create_info</Title>
+      <Shortcut>VkDescriptorPoolCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorPoolCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolCreateInfo::flags.</ToolTip>
+          <Default>vk::descriptor_pool_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sets</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolCreateInfo::maxSets.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>pool_size_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolCreateInfo::poolSizeCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>pool_sizes</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorPoolCreateInfo::pPoolSizes.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_pool_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* max_sets */ $max_sets$,
+  /* pool_size_count */ $pool_size_count$,
+  /* pool_sizes */ $pool_sizes$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

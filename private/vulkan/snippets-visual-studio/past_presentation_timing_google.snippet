@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>past_presentation_timing_google</Title>
+      <Shortcut>VkPastPresentationTimingGOOGLE</Shortcut>
+      <Description>Code snippet for Vulkan type VkPastPresentationTimingGOOGLE</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>present_id</ID>
+          <ToolTip>Equivalent to Vulkan member VkPastPresentationTimingGOOGLE::presentID.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>desired_present_time</ID>
+          <ToolTip>Equivalent to Vulkan member VkPastPresentationTimingGOOGLE::desiredPresentTime.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>actual_present_time</ID>
+          <ToolTip>Equivalent to Vulkan member VkPastPresentationTimingGOOGLE::actualPresentTime.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>earliest_present_time</ID>
+          <ToolTip>Equivalent to Vulkan member VkPastPresentationTimingGOOGLE::earliestPresentTime.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>present_margin</ID>
+          <ToolTip>Equivalent to Vulkan member VkPastPresentationTimingGOOGLE::presentMargin.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::past_presentation_timing_google(
+  /* present_id */ $present_id$,
+  /* desired_present_time */ $desired_present_time$,
+  /* actual_present_time */ $actual_present_time$,
+  /* earliest_present_time */ $earliest_present_time$,
+  /* present_margin */ $present_margin$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

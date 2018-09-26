@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_generated_commands_limits_nvx</Title>
+      <Shortcut>VkDeviceGeneratedCommandsLimitsNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceGeneratedCommandsLimitsNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_indirect_commands_layout_token_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::maxIndirectCommandsLayoutTokenCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_object_entry_counts</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::maxObjectEntryCounts.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_sequence_count_buffer_offset_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::minSequenceCountBufferOffsetAlignment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_sequence_index_buffer_offset_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::minSequenceIndexBufferOffsetAlignment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>min_commands_token_buffer_offset_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGeneratedCommandsLimitsNVX::minCommandsTokenBufferOffsetAlignment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_generated_commands_limits_nvx(
+  /* next */ $next$,
+  /* max_indirect_commands_layout_token_count */ $max_indirect_commands_layout_token_count$,
+  /* max_object_entry_counts */ $max_object_entry_counts$,
+  /* min_sequence_count_buffer_offset_alignment */ $min_sequence_count_buffer_offset_alignment$,
+  /* min_sequence_index_buffer_offset_alignment */ $min_sequence_index_buffer_offset_alignment$,
+  /* min_commands_token_buffer_offset_alignment */ $min_commands_token_buffer_offset_alignment$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buffer_image_copy</Title>
+      <Shortcut>VkBufferImageCopy</Shortcut>
+      <Description>Code snippet for Vulkan type VkBufferImageCopy</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>buffer_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::bufferOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_row_length</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::bufferRowLength.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_image_height</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::bufferImageHeight.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_subresource</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::imageSubresource.</ToolTip>
+          <Default>vk::image_subresource_layers{}</Default>
+        </Literal>
+        <Literal>
+          <ID>image_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::imageOffset.</ToolTip>
+          <Default>vk::offset_3d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>image_extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferImageCopy::imageExtent.</ToolTip>
+          <Default>vk::extent_3d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::buffer_image_copy(
+  /* buffer_offset */ $buffer_offset$,
+  /* buffer_row_length */ $buffer_row_length$,
+  /* buffer_image_height */ $buffer_image_height$,
+  /* image_subresource */ $image_subresource$,
+  /* image_offset */ $image_offset$,
+  /* image_extent */ $image_extent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

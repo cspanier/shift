@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>conditional_rendering_begin_info_ext</Title>
+      <Shortcut>VkConditionalRenderingBeginInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkConditionalRenderingBeginInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkConditionalRenderingBeginInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkConditionalRenderingBeginInfoEXT::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkConditionalRenderingBeginInfoEXT::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkConditionalRenderingBeginInfoEXT::flags.</ToolTip>
+          <Default>vk::conditional_rendering_flag_ext::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::conditional_rendering_begin_info_ext(
+  /* next */ $next$,
+  /* buffer */ $buffer$,
+  /* offset */ $offset$,
+  /* flags */ $flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

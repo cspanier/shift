@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>shader_statistics_info_amd</Title>
+      <Shortcut>VkShaderStatisticsInfoAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkShaderStatisticsInfoAMD</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>shader_stage_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::shaderStageMask.</ToolTip>
+          <Default>vk::shader_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>resource_usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::resourceUsage.</ToolTip>
+          <Default>vk::shader_resource_usage_amd{}</Default>
+        </Literal>
+        <Literal>
+          <ID>num_physical_vgprs</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::numPhysicalVgprs.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>num_physical_sgprs</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::numPhysicalSgprs.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>num_available_vgprs</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::numAvailableVgprs.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>num_available_sgprs</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::numAvailableSgprs.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>compute_work_group_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderStatisticsInfoAMD::computeWorkGroupSize.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::shader_statistics_info_amd(
+  /* shader_stage_mask */ $shader_stage_mask$,
+  /* resource_usage */ $resource_usage$,
+  /* num_physical_vgprs */ $num_physical_vgprs$,
+  /* num_physical_sgprs */ $num_physical_sgprs$,
+  /* num_available_vgprs */ $num_available_vgprs$,
+  /* num_available_sgprs */ $num_available_sgprs$,
+  /* compute_work_group_size */ $compute_work_group_size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

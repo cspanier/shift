@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_astcdecode_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceASTCDecodeFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceASTCDecodeFeaturesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceASTCDecodeFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>decode_mode_shared_exponent</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceASTCDecodeFeaturesEXT::decodeModeSharedExponent.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_astcdecode_features_ext(
+  /* next */ $next$,
+  /* decode_mode_shared_exponent */ $decode_mode_shared_exponent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

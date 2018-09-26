@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_color_blend_attachment_state</Title>
+      <Shortcut>VkPipelineColorBlendAttachmentState</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineColorBlendAttachmentState</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>blend_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::blendEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>src_color_blend_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::srcColorBlendFactor.</ToolTip>
+          <Default>vk::blend_factor::zero</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_color_blend_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::dstColorBlendFactor.</ToolTip>
+          <Default>vk::blend_factor::zero</Default>
+        </Literal>
+        <Literal>
+          <ID>color_blend_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::colorBlendOp.</ToolTip>
+          <Default>vk::blend_op::add</Default>
+        </Literal>
+        <Literal>
+          <ID>src_alpha_blend_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::srcAlphaBlendFactor.</ToolTip>
+          <Default>vk::blend_factor::zero</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_alpha_blend_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::dstAlphaBlendFactor.</ToolTip>
+          <Default>vk::blend_factor::zero</Default>
+        </Literal>
+        <Literal>
+          <ID>alpha_blend_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::alphaBlendOp.</ToolTip>
+          <Default>vk::blend_op::add</Default>
+        </Literal>
+        <Literal>
+          <ID>color_write_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAttachmentState::colorWriteMask.</ToolTip>
+          <Default>vk::color_component_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_color_blend_attachment_state(
+  /* blend_enable */ $blend_enable$,
+  /* src_color_blend_factor */ $src_color_blend_factor$,
+  /* dst_color_blend_factor */ $dst_color_blend_factor$,
+  /* color_blend_op */ $color_blend_op$,
+  /* src_alpha_blend_factor */ $src_alpha_blend_factor$,
+  /* dst_alpha_blend_factor */ $dst_alpha_blend_factor$,
+  /* alpha_blend_op */ $alpha_blend_op$,
+  /* color_write_mask */ $color_write_mask$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

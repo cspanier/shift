@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_discard_rectangle_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceDiscardRectanglePropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceDiscardRectanglePropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDiscardRectanglePropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_discard_rectangles</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDiscardRectanglePropertiesEXT::maxDiscardRectangles.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_discard_rectangle_properties_ext(
+  /* next */ $next$,
+  /* max_discard_rectangles */ $max_discard_rectangles$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

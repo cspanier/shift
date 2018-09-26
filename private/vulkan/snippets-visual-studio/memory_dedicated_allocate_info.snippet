@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_dedicated_allocate_info</Title>
+      <Shortcut>VkMemoryDedicatedAllocateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryDedicatedAllocateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedAllocateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedAllocateInfo::image.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedAllocateInfo::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_dedicated_allocate_info(
+  /* next */ $next$,
+  /* image */ $image$,
+  /* buffer */ $buffer$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>bind_sparse_info</Title>
+      <Shortcut>VkBindSparseInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkBindSparseInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::waitSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphores</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pWaitSemaphores.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_bind_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::bufferBindCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_binds</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pBufferBinds.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_opaque_bind_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::imageOpaqueBindCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_opaque_binds</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pImageOpaqueBinds.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_bind_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::imageBindCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_binds</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pImageBinds.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::signalSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphores</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindSparseInfo::pSignalSemaphores.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::bind_sparse_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* buffer_bind_count */ $buffer_bind_count$,
+  /* buffer_binds */ $buffer_binds$,
+  /* image_opaque_bind_count */ $image_opaque_bind_count$,
+  /* image_opaque_binds */ $image_opaque_binds$,
+  /* image_bind_count */ $image_bind_count$,
+  /* image_binds */ $image_binds$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphores */ $signal_semaphores$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

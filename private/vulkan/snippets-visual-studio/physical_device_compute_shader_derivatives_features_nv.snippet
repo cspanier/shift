@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_compute_shader_derivatives_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceComputeShaderDerivativesFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceComputeShaderDerivativesFeaturesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceComputeShaderDerivativesFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>compute_derivative_group_quads</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceComputeShaderDerivativesFeaturesNV::computeDerivativeGroupQuads.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>compute_derivative_group_linear</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceComputeShaderDerivativesFeaturesNV::computeDerivativeGroupLinear.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_compute_shader_derivatives_features_nv(
+  /* next */ $next$,
+  /* compute_derivative_group_quads */ $compute_derivative_group_quads$,
+  /* compute_derivative_group_linear */ $compute_derivative_group_linear$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

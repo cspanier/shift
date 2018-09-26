@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sparse_image_memory_requirements</Title>
+      <Shortcut>VkSparseImageMemoryRequirements</Shortcut>
+      <Description>Code snippet for Vulkan type VkSparseImageMemoryRequirements</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>format_properties</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements::formatProperties.</ToolTip>
+          <Default>vk::sparse_image_format_properties{}</Default>
+        </Literal>
+        <Literal>
+          <ID>image_mip_tail_first_lod</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements::imageMipTailFirstLod.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_mip_tail_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements::imageMipTailSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_mip_tail_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements::imageMipTailOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>image_mip_tail_stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkSparseImageMemoryRequirements::imageMipTailStride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sparse_image_memory_requirements(
+  /* format_properties */ $format_properties$,
+  /* image_mip_tail_first_lod */ $image_mip_tail_first_lod$,
+  /* image_mip_tail_size */ $image_mip_tail_size$,
+  /* image_mip_tail_offset */ $image_mip_tail_offset$,
+  /* image_mip_tail_stride */ $image_mip_tail_stride$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

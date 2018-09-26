@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_inline_uniform_block_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceInlineUniformBlockPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceInlineUniformBlockPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_inline_uniform_block_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::maxInlineUniformBlockSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_per_stage_descriptor_inline_uniform_blocks</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::maxPerStageDescriptorInlineUniformBlocks.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_per_stage_descriptor_update_after_bind_inline_uniform_blocks</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_descriptor_set_inline_uniform_blocks</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::maxDescriptorSetInlineUniformBlocks.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_descriptor_set_update_after_bind_inline_uniform_blocks</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockPropertiesEXT::maxDescriptorSetUpdateAfterBindInlineUniformBlocks.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_inline_uniform_block_properties_ext(
+  /* next */ $next$,
+  /* max_inline_uniform_block_size */ $max_inline_uniform_block_size$,
+  /* max_per_stage_descriptor_inline_uniform_blocks */ $max_per_stage_descriptor_inline_uniform_blocks$,
+  /* max_per_stage_descriptor_update_after_bind_inline_uniform_blocks */ $max_per_stage_descriptor_update_after_bind_inline_uniform_blocks$,
+  /* max_descriptor_set_inline_uniform_blocks */ $max_descriptor_set_inline_uniform_blocks$,
+  /* max_descriptor_set_update_after_bind_inline_uniform_blocks */ $max_descriptor_set_update_after_bind_inline_uniform_blocks$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

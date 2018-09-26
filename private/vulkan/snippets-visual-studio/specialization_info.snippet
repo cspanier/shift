@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>specialization_info</Title>
+      <Shortcut>VkSpecializationInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSpecializationInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>map_entry_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSpecializationInfo::mapEntryCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>map_entries</ID>
+          <ToolTip>Equivalent to Vulkan member VkSpecializationInfo::pMapEntries.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>data_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkSpecializationInfo::dataSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>data</ID>
+          <ToolTip>Equivalent to Vulkan member VkSpecializationInfo::pData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::specialization_info(
+  /* map_entry_count */ $map_entry_count$,
+  /* map_entries */ $map_entries$,
+  /* data_size */ $data_size$,
+  /* data */ $data$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

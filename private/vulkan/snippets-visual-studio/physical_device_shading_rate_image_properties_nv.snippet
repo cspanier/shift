@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_shading_rate_image_properties_nv</Title>
+      <Shortcut>VkPhysicalDeviceShadingRateImagePropertiesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceShadingRateImagePropertiesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImagePropertiesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_texel_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImagePropertiesNV::shadingRateTexelSize.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_palette_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImagePropertiesNV::shadingRatePaletteSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_max_coarse_samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImagePropertiesNV::shadingRateMaxCoarseSamples.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_shading_rate_image_properties_nv(
+  /* next */ $next$,
+  /* shading_rate_texel_size */ $shading_rate_texel_size$,
+  /* shading_rate_palette_size */ $shading_rate_palette_size$,
+  /* shading_rate_max_coarse_samples */ $shading_rate_max_coarse_samples$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>wayland_surface_create_info_khr</Title>
+      <Shortcut>VkWaylandSurfaceCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkWaylandSurfaceCreateInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkWaylandSurfaceCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkWaylandSurfaceCreateInfoKHR::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>display</ID>
+          <ToolTip>Equivalent to Vulkan member VkWaylandSurfaceCreateInfoKHR::display.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>surface</ID>
+          <ToolTip>Equivalent to Vulkan member VkWaylandSurfaceCreateInfoKHR::surface.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::wayland_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* display */ $display$,
+  /* surface */ $surface$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

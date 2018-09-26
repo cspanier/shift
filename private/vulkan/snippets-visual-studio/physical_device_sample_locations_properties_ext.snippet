@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_sample_locations_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceSampleLocationsPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceSampleLocationsPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_location_sample_counts</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::sampleLocationSampleCounts.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sample_location_grid_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::maxSampleLocationGridSize.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_location_coordinate_range</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::sampleLocationCoordinateRange.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_location_sub_pixel_bits</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::sampleLocationSubPixelBits.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>variable_sample_locations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSampleLocationsPropertiesEXT::variableSampleLocations.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_sample_locations_properties_ext(
+  /* next */ $next$,
+  /* sample_location_sample_counts */ $sample_location_sample_counts$,
+  /* max_sample_location_grid_size */ $max_sample_location_grid_size$,
+  /* sample_location_coordinate_range */ $sample_location_coordinate_range$,
+  /* sample_location_sub_pixel_bits */ $sample_location_sub_pixel_bits$,
+  /* variable_sample_locations */ $variable_sample_locations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

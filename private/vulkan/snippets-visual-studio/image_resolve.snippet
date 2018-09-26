@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_resolve</Title>
+      <Shortcut>VkImageResolve</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageResolve</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>src_subresource</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageResolve::srcSubresource.</ToolTip>
+          <Default>vk::image_subresource_layers{}</Default>
+        </Literal>
+        <Literal>
+          <ID>src_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageResolve::srcOffset.</ToolTip>
+          <Default>vk::offset_3d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_subresource</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageResolve::dstSubresource.</ToolTip>
+          <Default>vk::image_subresource_layers{}</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageResolve::dstOffset.</ToolTip>
+          <Default>vk::offset_3d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageResolve::extent.</ToolTip>
+          <Default>vk::extent_3d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_resolve(
+  /* src_subresource */ $src_subresource$,
+  /* src_offset */ $src_offset$,
+  /* dst_subresource */ $dst_subresource$,
+  /* dst_offset */ $dst_offset$,
+  /* extent */ $extent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

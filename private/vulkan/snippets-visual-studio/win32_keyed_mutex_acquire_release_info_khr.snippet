@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>win32_keyed_mutex_acquire_release_info_khr</Title>
+      <Shortcut>VkWin32KeyedMutexAcquireReleaseInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkWin32KeyedMutexAcquireReleaseInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>acquire_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::acquireCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>acquire_syncs</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pAcquireSyncs.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>acquire_keys</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pAcquireKeys.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>acquire_timeouts</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pAcquireTimeouts.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>release_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::releaseCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>release_syncs</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pReleaseSyncs.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>release_keys</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32KeyedMutexAcquireReleaseInfoKHR::pReleaseKeys.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::win32_keyed_mutex_acquire_release_info_khr(
+  /* next */ $next$,
+  /* acquire_count */ $acquire_count$,
+  /* acquire_syncs */ $acquire_syncs$,
+  /* acquire_keys */ $acquire_keys$,
+  /* acquire_timeouts */ $acquire_timeouts$,
+  /* release_count */ $release_count$,
+  /* release_syncs */ $release_syncs$,
+  /* release_keys */ $release_keys$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

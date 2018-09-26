@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>offset_3d</Title>
+      <Shortcut>VkOffset3D</Shortcut>
+      <Description>Code snippet for Vulkan type VkOffset3D</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>x</ID>
+          <ToolTip>Equivalent to Vulkan member VkOffset3D::x.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>y</ID>
+          <ToolTip>Equivalent to Vulkan member VkOffset3D::y.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>z</ID>
+          <ToolTip>Equivalent to Vulkan member VkOffset3D::z.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::offset_3d(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* z */ $z$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>external_image_format_properties_nv</Title>
+      <Shortcut>VkExternalImageFormatPropertiesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkExternalImageFormatPropertiesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>image_format_properties</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalImageFormatPropertiesNV::imageFormatProperties.</ToolTip>
+          <Default>vk::image_format_properties{}</Default>
+        </Literal>
+        <Literal>
+          <ID>external_memory_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalImageFormatPropertiesNV::externalMemoryFeatures.</ToolTip>
+          <Default>vk::external_memory_feature_flag_nv::none</Default>
+        </Literal>
+        <Literal>
+          <ID>export_from_imported_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalImageFormatPropertiesNV::exportFromImportedHandleTypes.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag_nv::none</Default>
+        </Literal>
+        <Literal>
+          <ID>compatible_handle_types</ID>
+          <ToolTip>Equivalent to Vulkan member VkExternalImageFormatPropertiesNV::compatibleHandleTypes.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag_nv::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::external_image_format_properties_nv(
+  /* image_format_properties */ $image_format_properties$,
+  /* external_memory_features */ $external_memory_features$,
+  /* export_from_imported_handle_types */ $export_from_imported_handle_types$,
+  /* compatible_handle_types */ $compatible_handle_types$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_sparse_properties</Title>
+      <Shortcut>VkPhysicalDeviceSparseProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceSparseProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>residency_standard_2d_block_shape</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSparseProperties::residencyStandard2DBlockShape.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>residency_standard_2d_multisample_block_shape</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSparseProperties::residencyStandard2DMultisampleBlockShape.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>residency_standard_3d_block_shape</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSparseProperties::residencyStandard3DBlockShape.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>residency_aligned_mip_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSparseProperties::residencyAlignedMipSize.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>residency_non_resident_strict</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceSparseProperties::residencyNonResidentStrict.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_sparse_properties(
+  /* residency_standard_2d_block_shape */ $residency_standard_2d_block_shape$,
+  /* residency_standard_2d_multisample_block_shape */ $residency_standard_2d_multisample_block_shape$,
+  /* residency_standard_3d_block_shape */ $residency_standard_3d_block_shape$,
+  /* residency_aligned_mip_size */ $residency_aligned_mip_size$,
+  /* residency_non_resident_strict */ $residency_non_resident_strict$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

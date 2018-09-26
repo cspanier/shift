@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>instance_create_info</Title>
+      <Shortcut>VkInstanceCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkInstanceCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::flags.</ToolTip>
+          <Default>vk::instance_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>application_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::pApplicationInfo.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>enabled_layer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::enabledLayerCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>enabled_layer_names</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::ppEnabledLayerNames.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>enabled_extension_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::enabledExtensionCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>enabled_extension_names</ID>
+          <ToolTip>Equivalent to Vulkan member VkInstanceCreateInfo::ppEnabledExtensionNames.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::instance_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* application_info */ $application_info$,
+  /* enabled_layer_count */ $enabled_layer_count$,
+  /* enabled_layer_names */ $enabled_layer_names$,
+  /* enabled_extension_count */ $enabled_extension_count$,
+  /* enabled_extension_names */ $enabled_extension_names$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

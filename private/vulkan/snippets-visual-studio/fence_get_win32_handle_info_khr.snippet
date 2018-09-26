@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fence_get_win32_handle_info_khr</Title>
+      <Shortcut>VkFenceGetWin32HandleInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkFenceGetWin32HandleInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFenceGetWin32HandleInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>fence</ID>
+          <ToolTip>Equivalent to Vulkan member VkFenceGetWin32HandleInfoKHR::fence.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkFenceGetWin32HandleInfoKHR::handleType.</ToolTip>
+          <Default>vk::external_fence_handle_type_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::fence_get_win32_handle_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* handle_type */ $handle_type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

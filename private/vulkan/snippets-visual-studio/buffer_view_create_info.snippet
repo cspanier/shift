@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buffer_view_create_info</Title>
+      <Shortcut>VkBufferViewCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkBufferViewCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::flags.</ToolTip>
+          <Default>vk::buffer_view_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>range</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferViewCreateInfo::range.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::buffer_view_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* buffer */ $buffer$,
+  /* format */ $format$,
+  /* offset */ $offset$,
+  /* range */ $range$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>geometry_triangles_nvx</Title>
+      <Shortcut>VkGeometryTrianglesNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkGeometryTrianglesNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::vertexData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::vertexOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::vertexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::vertexStride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_format</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::vertexFormat.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>index_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::indexData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>index_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::indexOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>index_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::indexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>index_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::indexType.</ToolTip>
+          <Default>vk::index_type::uint16</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::transformData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkGeometryTrianglesNVX::transformOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::geometry_triangles_nvx(
+  /* next */ $next$,
+  /* vertex_data */ $vertex_data$,
+  /* vertex_offset */ $vertex_offset$,
+  /* vertex_count */ $vertex_count$,
+  /* vertex_stride */ $vertex_stride$,
+  /* vertex_format */ $vertex_format$,
+  /* index_data */ $index_data$,
+  /* index_offset */ $index_offset$,
+  /* index_count */ $index_count$,
+  /* index_type */ $index_type$,
+  /* transform_data */ $transform_data$,
+  /* transform_offset */ $transform_offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

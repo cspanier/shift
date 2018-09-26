@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subresource_layout</Title>
+      <Shortcut>VkSubresourceLayout</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubresourceLayout</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubresourceLayout::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>size</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubresourceLayout::size.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>row_pitch</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubresourceLayout::rowPitch.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>array_pitch</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubresourceLayout::arrayPitch.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_pitch</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubresourceLayout::depthPitch.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subresource_layout(
+  /* offset */ $offset$,
+  /* size */ $size$,
+  /* row_pitch */ $row_pitch$,
+  /* array_pitch */ $array_pitch$,
+  /* depth_pitch */ $depth_pitch$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>rect_2d</Title>
+      <Shortcut>VkRect2D</Shortcut>
+      <Description>Code snippet for Vulkan type VkRect2D</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkRect2D::offset.</ToolTip>
+          <Default>vk::offset_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkRect2D::extent.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::rect_2d(
+  /* offset */ $offset$,
+  /* extent */ $extent$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

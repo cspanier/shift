@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>bind_image_memory_info</Title>
+      <Shortcut>VkBindImageMemoryInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkBindImageMemoryInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindImageMemoryInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindImageMemoryInfo::image.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>memory</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindImageMemoryInfo::memory.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>memory_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkBindImageMemoryInfo::memoryOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::bind_image_memory_info(
+  /* next */ $next$,
+  /* image */ $image$,
+  /* memory */ $memory$,
+  /* memory_offset */ $memory_offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

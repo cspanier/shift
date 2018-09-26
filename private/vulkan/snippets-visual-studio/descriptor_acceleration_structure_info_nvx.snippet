@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_acceleration_structure_info_nvx</Title>
+      <Shortcut>VkDescriptorAccelerationStructureInfoNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorAccelerationStructureInfoNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>acceleration_structure_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::accelerationStructureCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>acceleration_structures</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::pAccelerationStructures.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_acceleration_structure_info_nvx(
+  /* next */ $next$,
+  /* acceleration_structure_count */ $acceleration_structure_count$,
+  /* acceleration_structures */ $acceleration_structures$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

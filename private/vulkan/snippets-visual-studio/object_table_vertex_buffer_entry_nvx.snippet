@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>object_table_vertex_buffer_entry_nvx</Title>
+      <Shortcut>VkObjectTableVertexBufferEntryNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkObjectTableVertexBufferEntryNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableVertexBufferEntryNVX::type.</ToolTip>
+          <Default>vk::object_entry_type_nvx::object_entry_type_descriptor_set_nvx</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableVertexBufferEntryNVX::flags.</ToolTip>
+          <Default>vk::object_entry_usage_flag_nvx::none</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkObjectTableVertexBufferEntryNVX::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::object_table_vertex_buffer_entry_nvx(
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* buffer */ $buffer$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

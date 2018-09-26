@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_shading_rate_image_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceShadingRateImageFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceShadingRateImageFeaturesNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImageFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_image</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImageFeaturesNV::shadingRateImage.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shading_rate_coarse_sample_order</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShadingRateImageFeaturesNV::shadingRateCoarseSampleOrder.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_shading_rate_image_features_nv(
+  /* next */ $next$,
+  /* shading_rate_image */ $shading_rate_image$,
+  /* shading_rate_coarse_sample_order */ $shading_rate_coarse_sample_order$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

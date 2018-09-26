@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_maintenance_3_properties</Title>
+      <Shortcut>VkPhysicalDeviceMaintenance3Properties</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceMaintenance3Properties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMaintenance3Properties::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_per_set_descriptors</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMaintenance3Properties::maxPerSetDescriptors.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_memory_allocation_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceMaintenance3Properties::maxMemoryAllocationSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_maintenance_3_properties(
+  /* next */ $next$,
+  /* max_per_set_descriptors */ $max_per_set_descriptors$,
+  /* max_memory_allocation_size */ $max_memory_allocation_size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>coarse_sample_location_nv</Title>
+      <Shortcut>VkCoarseSampleLocationNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkCoarseSampleLocationNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>pixel_x</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleLocationNV::pixelX.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>pixel_y</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleLocationNV::pixelY.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample</ID>
+          <ToolTip>Equivalent to Vulkan member VkCoarseSampleLocationNV::sample.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::coarse_sample_location_nv(
+  /* pixel_x */ $pixel_x$,
+  /* pixel_y */ $pixel_y$,
+  /* sample */ $sample$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

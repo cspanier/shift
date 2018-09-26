@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>native_buffer_android</Title>
+      <Shortcut>VkNativeBufferANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkNativeBufferANDROID</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::handle.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::stride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::format.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::usage.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::native_buffer_android(
+  /* next */ $next$,
+  /* handle */ $handle$,
+  /* stride */ $stride$,
+  /* format */ $format$,
+  /* usage */ $usage$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

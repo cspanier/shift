@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subpass_dependency_2_khr</Title>
+      <Shortcut>VkSubpassDependency2KHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubpassDependency2KHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>src_subpass</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::srcSubpass.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_subpass</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::dstSubpass.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>src_stage_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::srcStageMask.</ToolTip>
+          <Default>vk::pipeline_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_stage_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::dstStageMask.</ToolTip>
+          <Default>vk::pipeline_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>src_access_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::srcAccessMask.</ToolTip>
+          <Default>vk::access_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_access_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::dstAccessMask.</ToolTip>
+          <Default>vk::access_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>dependency_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::dependencyFlags.</ToolTip>
+          <Default>vk::dependency_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>view_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDependency2KHR::viewOffset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subpass_dependency_2_khr(
+  /* next */ $next$,
+  /* src_subpass */ $src_subpass$,
+  /* dst_subpass */ $dst_subpass$,
+  /* src_stage_mask */ $src_stage_mask$,
+  /* dst_stage_mask */ $dst_stage_mask$,
+  /* src_access_mask */ $src_access_mask$,
+  /* dst_access_mask */ $dst_access_mask$,
+  /* dependency_flags */ $dependency_flags$,
+  /* view_offset */ $view_offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

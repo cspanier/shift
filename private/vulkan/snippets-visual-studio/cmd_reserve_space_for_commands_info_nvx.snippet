@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cmd_reserve_space_for_commands_info_nvx</Title>
+      <Shortcut>VkCmdReserveSpaceForCommandsInfoNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkCmdReserveSpaceForCommandsInfoNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdReserveSpaceForCommandsInfoNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_table</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdReserveSpaceForCommandsInfoNVX::objectTable.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>indirect_commands_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdReserveSpaceForCommandsInfoNVX::indirectCommandsLayout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_sequences_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkCmdReserveSpaceForCommandsInfoNVX::maxSequencesCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::cmd_reserve_space_for_commands_info_nvx(
+  /* next */ $next$,
+  /* object_table */ $object_table$,
+  /* indirect_commands_layout */ $indirect_commands_layout$,
+  /* max_sequences_count */ $max_sequences_count$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

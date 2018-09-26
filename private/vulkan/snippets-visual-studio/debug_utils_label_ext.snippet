@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_utils_label_ext</Title>
+      <Shortcut>VkDebugUtilsLabelEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugUtilsLabelEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsLabelEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>label_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsLabelEXT::pLabelName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>color</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugUtilsLabelEXT::color.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_utils_label_ext(
+  /* next */ $next$,
+  /* label_name */ $label_name$,
+  /* color */ $color$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

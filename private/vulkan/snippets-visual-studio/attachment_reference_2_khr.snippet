@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>attachment_reference_2_khr</Title>
+      <Shortcut>VkAttachmentReference2KHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkAttachmentReference2KHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference2KHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference2KHR::attachment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference2KHR::layout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>aspect_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference2KHR::aspectMask.</ToolTip>
+          <Default>vk::image_aspect_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::attachment_reference_2_khr(
+  /* next */ $next$,
+  /* attachment */ $attachment$,
+  /* layout */ $layout$,
+  /* aspect_mask */ $aspect_mask$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

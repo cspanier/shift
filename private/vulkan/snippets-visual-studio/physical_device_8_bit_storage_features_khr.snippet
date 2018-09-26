@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_8_bit_storage_features_khr</Title>
+      <Shortcut>VkPhysicalDevice8BitStorageFeaturesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDevice8BitStorageFeaturesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevice8BitStorageFeaturesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>storage_buffer_8_bit_access</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevice8BitStorageFeaturesKHR::storageBuffer8BitAccess.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>uniform_and_storage_buffer_8_bit_access</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevice8BitStorageFeaturesKHR::uniformAndStorageBuffer8BitAccess.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>storage_push_constant_8</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevice8BitStorageFeaturesKHR::storagePushConstant8.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_8_bit_storage_features_khr(
+  /* next */ $next$,
+  /* storage_buffer_8_bit_access */ $storage_buffer_8_bit_access$,
+  /* uniform_and_storage_buffer_8_bit_access */ $uniform_and_storage_buffer_8_bit_access$,
+  /* storage_push_constant_8 */ $storage_push_constant_8$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

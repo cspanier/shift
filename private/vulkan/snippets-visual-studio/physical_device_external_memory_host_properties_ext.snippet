@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_external_memory_host_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceExternalMemoryHostPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceExternalMemoryHostPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalMemoryHostPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>min_imported_host_pointer_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceExternalMemoryHostPropertiesEXT::minImportedHostPointerAlignment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_external_memory_host_properties_ext(
+  /* next */ $next$,
+  /* min_imported_host_pointer_alignment */ $min_imported_host_pointer_alignment$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

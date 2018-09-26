@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_set_allocate_info</Title>
+      <Shortcut>VkDescriptorSetAllocateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorSetAllocateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetAllocateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_pool</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetAllocateInfo::descriptorPool.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_set_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetAllocateInfo::descriptorSetCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>set_layouts</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorSetAllocateInfo::pSetLayouts.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_set_allocate_info(
+  /* next */ $next$,
+  /* descriptor_pool */ $descriptor_pool$,
+  /* descriptor_set_count */ $descriptor_set_count$,
+  /* set_layouts */ $set_layouts$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

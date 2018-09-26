@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_queue_global_priority_create_info_ext</Title>
+      <Shortcut>VkDeviceQueueGlobalPriorityCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceQueueGlobalPriorityCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueGlobalPriorityCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>global_priority</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueGlobalPriorityCreateInfoEXT::globalPriority.</ToolTip>
+          <Default>vk::queue_global_priority_ext::queue_global_priority_low_ext</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_queue_global_priority_create_info_ext(
+  /* next */ $next$,
+  /* global_priority */ $global_priority$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

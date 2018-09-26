@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sample_locations_info_ext</Title>
+      <Shortcut>VkSampleLocationsInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkSampleLocationsInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationsInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations_per_pixel</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationsInfoEXT::sampleLocationsPerPixel.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_location_grid_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationsInfoEXT::sampleLocationGridSize.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationsInfoEXT::sampleLocationsCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>sample_locations</ID>
+          <ToolTip>Equivalent to Vulkan member VkSampleLocationsInfoEXT::pSampleLocations.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sample_locations_info_ext(
+  /* next */ $next$,
+  /* sample_locations_per_pixel */ $sample_locations_per_pixel$,
+  /* sample_location_grid_size */ $sample_location_grid_size$,
+  /* sample_locations_count */ $sample_locations_count$,
+  /* sample_locations */ $sample_locations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

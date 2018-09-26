@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_color_blend_state_create_info</Title>
+      <Shortcut>VkPipelineColorBlendStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineColorBlendStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_color_blend_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>logic_op_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::logicOpEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>logic_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::logicOp.</ToolTip>
+          <Default>vk::logic_op::clear_op</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::attachmentCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::pAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>blend_constants</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendStateCreateInfo::blendConstants.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_color_blend_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* logic_op_enable */ $logic_op_enable$,
+  /* logic_op */ $logic_op$,
+  /* attachment_count */ $attachment_count$,
+  /* attachments */ $attachments$,
+  /* blend_constants */ $blend_constants$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_viewport_exclusive_scissor_state_create_info_nv</Title>
+      <Shortcut>VkPipelineViewportExclusiveScissorStateCreateInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineViewportExclusiveScissorStateCreateInfoNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportExclusiveScissorStateCreateInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>exclusive_scissor_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportExclusiveScissorStateCreateInfoNV::exclusiveScissorCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>exclusive_scissors</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineViewportExclusiveScissorStateCreateInfoNV::pExclusiveScissors.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_viewport_exclusive_scissor_state_create_info_nv(
+  /* next */ $next$,
+  /* exclusive_scissor_count */ $exclusive_scissor_count$,
+  /* exclusive_scissors */ $exclusive_scissors$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

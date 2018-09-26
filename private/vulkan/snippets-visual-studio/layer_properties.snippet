@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>layer_properties</Title>
+      <Shortcut>VkLayerProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkLayerProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>layer_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkLayerProperties::layerName.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>spec_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkLayerProperties::specVersion.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>implementation_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkLayerProperties::implementationVersion.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>description</ID>
+          <ToolTip>Equivalent to Vulkan member VkLayerProperties::description.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::layer_properties(
+  /* layer_name */ $layer_name$,
+  /* spec_version */ $spec_version$,
+  /* implementation_version */ $implementation_version$,
+  /* description */ $description$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_format_list_create_info_khr</Title>
+      <Shortcut>VkImageFormatListCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageFormatListCreateInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatListCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>view_format_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatListCreateInfoKHR::viewFormatCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>view_formats</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatListCreateInfoKHR::pViewFormats.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_format_list_create_info_khr(
+  /* next */ $next$,
+  /* view_format_count */ $view_format_count$,
+  /* view_formats */ $view_formats$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

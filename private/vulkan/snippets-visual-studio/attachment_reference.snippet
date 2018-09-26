@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>attachment_reference</Title>
+      <Shortcut>VkAttachmentReference</Shortcut>
+      <Description>Code snippet for Vulkan type VkAttachmentReference</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>attachment</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference::attachment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkAttachmentReference::layout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::attachment_reference(
+  /* attachment */ $attachment$,
+  /* layout */ $layout$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

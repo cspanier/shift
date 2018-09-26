@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sampler_ycbcr_conversion_create_info</Title>
+      <Shortcut>VkSamplerYcbcrConversionCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSamplerYcbcrConversionCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>ycbcr_model</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::ycbcrModel.</ToolTip>
+          <Default>vk::sampler_ycbcr_model_conversion::rgb_identity</Default>
+        </Literal>
+        <Literal>
+          <ID>ycbcr_range</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::ycbcrRange.</ToolTip>
+          <Default>vk::sampler_ycbcr_range::itu_full</Default>
+        </Literal>
+        <Literal>
+          <ID>components</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::components.</ToolTip>
+          <Default>vk::component_mapping{}</Default>
+        </Literal>
+        <Literal>
+          <ID>x_chroma_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::xChromaOffset.</ToolTip>
+          <Default>vk::chroma_location::cosited_even</Default>
+        </Literal>
+        <Literal>
+          <ID>y_chroma_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::yChromaOffset.</ToolTip>
+          <Default>vk::chroma_location::cosited_even</Default>
+        </Literal>
+        <Literal>
+          <ID>chroma_filter</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::chromaFilter.</ToolTip>
+          <Default>vk::filter::nearest</Default>
+        </Literal>
+        <Literal>
+          <ID>force_explicit_reconstruction</ID>
+          <ToolTip>Equivalent to Vulkan member VkSamplerYcbcrConversionCreateInfo::forceExplicitReconstruction.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::sampler_ycbcr_conversion_create_info(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* ycbcr_model */ $ycbcr_model$,
+  /* ycbcr_range */ $ycbcr_range$,
+  /* components */ $components$,
+  /* x_chroma_offset */ $x_chroma_offset$,
+  /* y_chroma_offset */ $y_chroma_offset$,
+  /* chroma_filter */ $chroma_filter$,
+  /* force_explicit_reconstruction */ $force_explicit_reconstruction$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

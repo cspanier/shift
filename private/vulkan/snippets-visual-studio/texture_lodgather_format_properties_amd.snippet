@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>texture_lodgather_format_properties_amd</Title>
+      <Shortcut>VkTextureLODGatherFormatPropertiesAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkTextureLODGatherFormatPropertiesAMD</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkTextureLODGatherFormatPropertiesAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>supports_texture_gather_lodbias_amd</ID>
+          <ToolTip>Equivalent to Vulkan member VkTextureLODGatherFormatPropertiesAMD::supportsTextureGatherLODBiasAMD.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::texture_lodgather_format_properties_amd(
+  /* next */ $next$,
+  /* supports_texture_gather_lodbias_amd */ $supports_texture_gather_lodbias_amd$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

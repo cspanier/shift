@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_dedicated_requirements</Title>
+      <Shortcut>VkMemoryDedicatedRequirements</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryDedicatedRequirements</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedRequirements::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>prefers_dedicated_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedRequirements::prefersDedicatedAllocation.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>requires_dedicated_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryDedicatedRequirements::requiresDedicatedAllocation.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_dedicated_requirements(
+  /* next */ $next$,
+  /* prefers_dedicated_allocation */ $prefers_dedicated_allocation$,
+  /* requires_dedicated_allocation */ $requires_dedicated_allocation$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

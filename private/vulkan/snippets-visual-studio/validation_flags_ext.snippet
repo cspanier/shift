@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>validation_flags_ext</Title>
+      <Shortcut>VkValidationFlagsEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkValidationFlagsEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationFlagsEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>disabled_validation_check_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationFlagsEXT::disabledValidationCheckCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>disabled_validation_checks</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationFlagsEXT::pDisabledValidationChecks.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::validation_flags_ext(
+  /* next */ $next$,
+  /* disabled_validation_check_count */ $disabled_validation_check_count$,
+  /* disabled_validation_checks */ $disabled_validation_checks$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

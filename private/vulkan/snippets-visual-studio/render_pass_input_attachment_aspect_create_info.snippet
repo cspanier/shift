@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>render_pass_input_attachment_aspect_create_info</Title>
+      <Shortcut>VkRenderPassInputAttachmentAspectCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkRenderPassInputAttachmentAspectCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassInputAttachmentAspectCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>aspect_reference_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassInputAttachmentAspectCreateInfo::aspectReferenceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>aspect_references</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassInputAttachmentAspectCreateInfo::pAspectReferences.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::render_pass_input_attachment_aspect_create_info(
+  /* next */ $next$,
+  /* aspect_reference_count */ $aspect_reference_count$,
+  /* aspect_references */ $aspect_references$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

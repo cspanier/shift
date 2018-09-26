@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>import_memory_host_pointer_info_ext</Title>
+      <Shortcut>VkImportMemoryHostPointerInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImportMemoryHostPointerInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryHostPointerInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryHostPointerInfoEXT::handleType.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>host_pointer</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryHostPointerInfoEXT::pHostPointer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::import_memory_host_pointer_info_ext(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* host_pointer */ $host_pointer$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

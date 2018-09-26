@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_format_properties_2</Title>
+      <Shortcut>VkImageFormatProperties2</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageFormatProperties2</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties2::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_format_properties</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageFormatProperties2::imageFormatProperties.</ToolTip>
+          <Default>vk::image_format_properties{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_format_properties_2(
+  /* next */ $next$,
+  /* image_format_properties */ $image_format_properties$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

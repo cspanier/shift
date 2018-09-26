@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dispatch_indirect_command</Title>
+      <Shortcut>VkDispatchIndirectCommand</Shortcut>
+      <Description>Code snippet for Vulkan type VkDispatchIndirectCommand</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>x</ID>
+          <ToolTip>Equivalent to Vulkan member VkDispatchIndirectCommand::x.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>y</ID>
+          <ToolTip>Equivalent to Vulkan member VkDispatchIndirectCommand::y.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>z</ID>
+          <ToolTip>Equivalent to Vulkan member VkDispatchIndirectCommand::z.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::dispatch_indirect_command(
+  /* x */ $x$,
+  /* y */ $y$,
+  /* z */ $z$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

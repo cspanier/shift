@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_plane_properties_khr</Title>
+      <Shortcut>VkDisplayPlanePropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayPlanePropertiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>current_display</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlanePropertiesKHR::currentDisplay.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>current_stack_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPlanePropertiesKHR::currentStackIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_plane_properties_khr(
+  /* current_display */ $current_display$,
+  /* current_stack_index */ $current_stack_index$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

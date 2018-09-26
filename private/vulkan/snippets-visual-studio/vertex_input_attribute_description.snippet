@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>vertex_input_attribute_description</Title>
+      <Shortcut>VkVertexInputAttributeDescription</Shortcut>
+      <Description>Code snippet for Vulkan type VkVertexInputAttributeDescription</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>location</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputAttributeDescription::location.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>binding</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputAttributeDescription::binding.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputAttributeDescription::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkVertexInputAttributeDescription::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::vertex_input_attribute_description(
+  /* location */ $location$,
+  /* binding */ $binding$,
+  /* format */ $format$,
+  /* offset */ $offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

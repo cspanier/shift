@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_get_fd_info_khr</Title>
+      <Shortcut>VkMemoryGetFdInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryGetFdInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryGetFdInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>memory</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryGetFdInfoKHR::memory.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryGetFdInfoKHR::handleType.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_get_fd_info_khr(
+  /* next */ $next$,
+  /* memory */ $memory$,
+  /* handle_type */ $handle_type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

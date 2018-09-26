@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>memory_type</Title>
+      <Shortcut>VkMemoryType</Shortcut>
+      <Description>Code snippet for Vulkan type VkMemoryType</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>property_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryType::propertyFlags.</ToolTip>
+          <Default>vk::memory_property_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>heap_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkMemoryType::heapIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::memory_type(
+  /* property_flags */ $property_flags$,
+  /* heap_index */ $heap_index$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

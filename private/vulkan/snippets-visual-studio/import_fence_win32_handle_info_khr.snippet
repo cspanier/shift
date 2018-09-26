@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>import_fence_win32_handle_info_khr</Title>
+      <Shortcut>VkImportFenceWin32HandleInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkImportFenceWin32HandleInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>fence</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::fence.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::flags.</ToolTip>
+          <Default>vk::fence_import_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::handleType.</ToolTip>
+          <Default>vk::external_fence_handle_type_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>handle</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::handle.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportFenceWin32HandleInfoKHR::name.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::import_fence_win32_handle_info_khr(
+  /* next */ $next$,
+  /* fence */ $fence$,
+  /* flags */ $flags$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$,
+  /* name */ $name$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

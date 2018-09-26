@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>shader_module_create_info</Title>
+      <Shortcut>VkShaderModuleCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkShaderModuleCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleCreateInfo::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>code_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleCreateInfo::codeSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>code</ID>
+          <ToolTip>Equivalent to Vulkan member VkShaderModuleCreateInfo::pCode.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::shader_module_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* code_size */ $code_size$,
+  /* code */ $code$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

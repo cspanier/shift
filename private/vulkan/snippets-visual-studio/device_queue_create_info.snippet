@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_queue_create_info</Title>
+      <Shortcut>VkDeviceQueueCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceQueueCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueCreateInfo::flags.</ToolTip>
+          <Default>vk::device_queue_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueCreateInfo::queueFamilyIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueCreateInfo::queueCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_priorities</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceQueueCreateInfo::pQueuePriorities.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_queue_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* queue_family_index */ $queue_family_index$,
+  /* queue_count */ $queue_count$,
+  /* queue_priorities */ $queue_priorities$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

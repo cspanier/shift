@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_blend_operation_advanced_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_coherent_operations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT::advancedBlendCoherentOperations.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_blend_operation_advanced_features_ext(
+  /* next */ $next$,
+  /* advanced_blend_coherent_operations */ $advanced_blend_coherent_operations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_inline_uniform_block_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceInlineUniformBlockFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceInlineUniformBlockFeaturesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>inline_uniform_block</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockFeaturesEXT::inlineUniformBlock.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_binding_inline_uniform_block_update_after_bind</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceInlineUniformBlockFeaturesEXT::descriptorBindingInlineUniformBlockUpdateAfterBind.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_inline_uniform_block_features_ext(
+  /* next */ $next$,
+  /* inline_uniform_block */ $inline_uniform_block$,
+  /* descriptor_binding_inline_uniform_block_update_after_bind */ $descriptor_binding_inline_uniform_block_update_after_bind$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

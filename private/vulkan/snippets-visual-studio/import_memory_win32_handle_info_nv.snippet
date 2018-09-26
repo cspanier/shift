@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>import_memory_win32_handle_info_nv</Title>
+      <Shortcut>VkImportMemoryWin32HandleInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkImportMemoryWin32HandleInfoNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryWin32HandleInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>handle_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryWin32HandleInfoNV::handleType.</ToolTip>
+          <Default>vk::external_memory_handle_type_flag_nv::none</Default>
+        </Literal>
+        <Literal>
+          <ID>handle</ID>
+          <ToolTip>Equivalent to Vulkan member VkImportMemoryWin32HandleInfoNV::handle.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::import_memory_win32_handle_info_nv(
+  /* next */ $next$,
+  /* handle_type */ $handle_type$,
+  /* handle */ $handle$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

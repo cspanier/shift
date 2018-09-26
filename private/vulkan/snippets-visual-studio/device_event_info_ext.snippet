@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_event_info_ext</Title>
+      <Shortcut>VkDeviceEventInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceEventInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceEventInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>device_event</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceEventInfoEXT::deviceEvent.</ToolTip>
+          <Default>vk::device_event_type_ext::device_event_type_display_hotplug_ext</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_event_info_ext(
+  /* next */ $next$,
+  /* device_event */ $device_event$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

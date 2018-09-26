@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subpass_description</Title>
+      <Shortcut>VkSubpassDescription</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubpassDescription</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::flags.</ToolTip>
+          <Default>vk::subpass_description_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_bind_point</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pipelineBindPoint.</ToolTip>
+          <Default>vk::pipeline_bind_point::graphics</Default>
+        </Literal>
+        <Literal>
+          <ID>input_attachment_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::inputAttachmentCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>input_attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pInputAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>color_attachment_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::colorAttachmentCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>color_attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pColorAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>resolve_attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pResolveAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_stencil_attachment</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pDepthStencilAttachment.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>preserve_attachment_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::preserveAttachmentCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>preserve_attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescription::pPreserveAttachments.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subpass_description(
+  /* flags */ $flags$,
+  /* pipeline_bind_point */ $pipeline_bind_point$,
+  /* input_attachment_count */ $input_attachment_count$,
+  /* input_attachments */ $input_attachments$,
+  /* color_attachment_count */ $color_attachment_count$,
+  /* color_attachments */ $color_attachments$,
+  /* resolve_attachments */ $resolve_attachments$,
+  /* depth_stencil_attachment */ $depth_stencil_attachment$,
+  /* preserve_attachment_count */ $preserve_attachment_count$,
+  /* preserve_attachments */ $preserve_attachments$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

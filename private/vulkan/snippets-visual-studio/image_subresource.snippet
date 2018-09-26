@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_subresource</Title>
+      <Shortcut>VkImageSubresource</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageSubresource</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>aspect_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageSubresource::aspectMask.</ToolTip>
+          <Default>vk::image_aspect_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>mip_level</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageSubresource::mipLevel.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>array_layer</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageSubresource::arrayLayer.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_subresource(
+  /* aspect_mask */ $aspect_mask$,
+  /* mip_level */ $mip_level$,
+  /* array_layer */ $array_layer$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

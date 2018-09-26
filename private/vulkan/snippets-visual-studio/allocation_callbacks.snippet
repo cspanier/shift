@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>allocation_callbacks</Title>
+      <Shortcut>VkAllocationCallbacks</Shortcut>
+      <Description>Code snippet for Vulkan type VkAllocationCallbacks</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>user_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pUserData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pfnAllocation.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_reallocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pfnReallocation.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_free</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pfnFree.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_internal_allocation</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pfnInternalAllocation.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pfn_internal_free</ID>
+          <ToolTip>Equivalent to Vulkan member VkAllocationCallbacks::pfnInternalFree.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::allocation_callbacks(
+  /* user_data */ $user_data$,
+  /* pfn_allocation */ $pfn_allocation$,
+  /* pfn_reallocation */ $pfn_reallocation$,
+  /* pfn_free */ $pfn_free$,
+  /* pfn_internal_allocation */ $pfn_internal_allocation$,
+  /* pfn_internal_free */ $pfn_internal_free$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

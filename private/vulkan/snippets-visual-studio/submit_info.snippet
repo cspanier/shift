@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>submit_info</Title>
+      <Shortcut>VkSubmitInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubmitInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::waitSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphores</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::pWaitSemaphores.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_dst_stage_mask</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::pWaitDstStageMask.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>command_buffer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::commandBufferCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>command_buffers</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::pCommandBuffers.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::signalSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphores</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubmitInfo::pSignalSemaphores.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::submit_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphores */ $wait_semaphores$,
+  /* wait_dst_stage_mask */ $wait_dst_stage_mask$,
+  /* command_buffer_count */ $command_buffer_count$,
+  /* command_buffers */ $command_buffers$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphores */ $signal_semaphores$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

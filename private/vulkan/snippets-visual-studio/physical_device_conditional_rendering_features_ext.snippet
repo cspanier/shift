@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_conditional_rendering_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceConditionalRenderingFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceConditionalRenderingFeaturesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConditionalRenderingFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>conditional_rendering</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConditionalRenderingFeaturesEXT::conditionalRendering.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>inherited_conditional_rendering</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceConditionalRenderingFeaturesEXT::inheritedConditionalRendering.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_conditional_rendering_features_ext(
+  /* next */ $next$,
+  /* conditional_rendering */ $conditional_rendering$,
+  /* inherited_conditional_rendering */ $inherited_conditional_rendering$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

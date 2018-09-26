@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debug_marker_object_tag_info_ext</Title>
+      <Shortcut>VkDebugMarkerObjectTagInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDebugMarkerObjectTagInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>object_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::objectType.</ToolTip>
+          <Default>vk::debug_report_object_type_ext::debug_report_object_type_unknown_ext</Default>
+        </Literal>
+        <Literal>
+          <ID>object</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::object.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>tag_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::tagName.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>tag_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::tagSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>tag</ID>
+          <ToolTip>Equivalent to Vulkan member VkDebugMarkerObjectTagInfoEXT::pTag.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::debug_marker_object_tag_info_ext(
+  /* next */ $next$,
+  /* object_type */ $object_type$,
+  /* object */ $object$,
+  /* tag_name */ $tag_name$,
+  /* tag_size */ $tag_size$,
+  /* tag */ $tag$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

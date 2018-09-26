@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_group_bind_sparse_info</Title>
+      <Shortcut>VkDeviceGroupBindSparseInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceGroupBindSparseInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupBindSparseInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>resource_device_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupBindSparseInfo::resourceDeviceIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>memory_device_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupBindSparseInfo::memoryDeviceIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_group_bind_sparse_info(
+  /* next */ $next$,
+  /* resource_device_index */ $resource_device_index$,
+  /* memory_device_index */ $memory_device_index$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

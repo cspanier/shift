@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>render_pass_begin_info</Title>
+      <Shortcut>VkRenderPassBeginInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkRenderPassBeginInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>render_pass</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::renderPass.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>framebuffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::framebuffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>render_area</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::renderArea.</ToolTip>
+          <Default>vk::rect_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>clear_value_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::clearValueCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>clear_values</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassBeginInfo::pClearValues.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::render_pass_begin_info(
+  /* next */ $next$,
+  /* render_pass */ $render_pass$,
+  /* framebuffer */ $framebuffer$,
+  /* render_area */ $render_area$,
+  /* clear_value_count */ $clear_value_count$,
+  /* clear_values */ $clear_values$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

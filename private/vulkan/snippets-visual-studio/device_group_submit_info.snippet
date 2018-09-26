@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_group_submit_info</Title>
+      <Shortcut>VkDeviceGroupSubmitInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceGroupSubmitInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::waitSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_device_indices</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::pWaitSemaphoreDeviceIndices.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>command_buffer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::commandBufferCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>command_buffer_device_masks</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::pCommandBufferDeviceMasks.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::signalSemaphoreCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_device_indices</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceGroupSubmitInfo::pSignalSemaphoreDeviceIndices.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_group_submit_info(
+  /* next */ $next$,
+  /* wait_semaphore_count */ $wait_semaphore_count$,
+  /* wait_semaphore_device_indices */ $wait_semaphore_device_indices$,
+  /* command_buffer_count */ $command_buffer_count$,
+  /* command_buffer_device_masks */ $command_buffer_device_masks$,
+  /* signal_semaphore_count */ $signal_semaphore_count$,
+  /* signal_semaphore_device_indices */ $signal_semaphore_device_indices$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

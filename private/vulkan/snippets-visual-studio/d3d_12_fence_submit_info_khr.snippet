@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>d3d_12_fence_submit_info_khr</Title>
+      <Shortcut>VkD3D12FenceSubmitInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkD3D12FenceSubmitInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkD3D12FenceSubmitInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_values_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkD3D12FenceSubmitInfoKHR::waitSemaphoreValuesCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>wait_semaphore_values</ID>
+          <ToolTip>Equivalent to Vulkan member VkD3D12FenceSubmitInfoKHR::pWaitSemaphoreValues.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_values_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkD3D12FenceSubmitInfoKHR::signalSemaphoreValuesCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>signal_semaphore_values</ID>
+          <ToolTip>Equivalent to Vulkan member VkD3D12FenceSubmitInfoKHR::pSignalSemaphoreValues.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::d3d_12_fence_submit_info_khr(
+  /* next */ $next$,
+  /* wait_semaphore_values_count */ $wait_semaphore_values_count$,
+  /* wait_semaphore_values */ $wait_semaphore_values$,
+  /* signal_semaphore_values_count */ $signal_semaphore_values_count$,
+  /* signal_semaphore_values */ $signal_semaphore_values$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

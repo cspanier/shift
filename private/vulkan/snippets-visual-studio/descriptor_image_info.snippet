@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>descriptor_image_info</Title>
+      <Shortcut>VkDescriptorImageInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkDescriptorImageInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>sampler</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorImageInfo::sampler.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_view</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorImageInfo::imageView.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkDescriptorImageInfo::imageLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::descriptor_image_info(
+  /* sampler */ $sampler$,
+  /* image_view */ $image_view$,
+  /* image_layout */ $image_layout$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

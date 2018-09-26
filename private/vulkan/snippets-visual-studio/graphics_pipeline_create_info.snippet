@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>graphics_pipeline_create_info</Title>
+      <Shortcut>VkGraphicsPipelineCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkGraphicsPipelineCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>stage_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::stageCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>stages</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pStages.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>vertex_input_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pVertexInputState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>input_assembly_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pInputAssemblyState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>tessellation_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pTessellationState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>viewport_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pViewportState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>rasterization_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pRasterizationState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>multisample_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pMultisampleState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_stencil_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pDepthStencilState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>color_blend_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pColorBlendState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dynamic_state</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::pDynamicState.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::layout.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>render_pass</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::renderPass.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>subpass</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::subpass.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>base_pipeline_handle</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::basePipelineHandle.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>base_pipeline_index</ID>
+          <ToolTip>Equivalent to Vulkan member VkGraphicsPipelineCreateInfo::basePipelineIndex.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::graphics_pipeline_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* stage_count */ $stage_count$,
+  /* stages */ $stages$,
+  /* vertex_input_state */ $vertex_input_state$,
+  /* input_assembly_state */ $input_assembly_state$,
+  /* tessellation_state */ $tessellation_state$,
+  /* viewport_state */ $viewport_state$,
+  /* rasterization_state */ $rasterization_state$,
+  /* multisample_state */ $multisample_state$,
+  /* depth_stencil_state */ $depth_stencil_state$,
+  /* color_blend_state */ $color_blend_state$,
+  /* dynamic_state */ $dynamic_state$,
+  /* layout */ $layout$,
+  /* render_pass */ $render_pass$,
+  /* subpass */ $subpass$,
+  /* base_pipeline_handle */ $base_pipeline_handle$,
+  /* base_pipeline_index */ $base_pipeline_index$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

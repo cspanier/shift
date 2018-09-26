@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>export_memory_win32_handle_info_nv</Title>
+      <Shortcut>VkExportMemoryWin32HandleInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkExportMemoryWin32HandleInfoNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkExportMemoryWin32HandleInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>attributes</ID>
+          <ToolTip>Equivalent to Vulkan member VkExportMemoryWin32HandleInfoNV::pAttributes.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>dw_access</ID>
+          <ToolTip>Equivalent to Vulkan member VkExportMemoryWin32HandleInfoNV::dwAccess.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::export_memory_win32_handle_info_nv(
+  /* next */ $next$,
+  /* attributes */ $attributes$,
+  /* dw_access */ $dw_access$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

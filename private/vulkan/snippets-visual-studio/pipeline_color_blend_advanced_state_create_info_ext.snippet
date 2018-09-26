@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_color_blend_advanced_state_create_info_ext</Title>
+      <Shortcut>VkPipelineColorBlendAdvancedStateCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineColorBlendAdvancedStateCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAdvancedStateCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>src_premultiplied</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAdvancedStateCreateInfoEXT::srcPremultiplied.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>dst_premultiplied</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAdvancedStateCreateInfoEXT::dstPremultiplied.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>blend_overlap</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineColorBlendAdvancedStateCreateInfoEXT::blendOverlap.</ToolTip>
+          <Default>vk::blend_overlap_ext::blend_overlap_uncorrelated_ext</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_color_blend_advanced_state_create_info_ext(
+  /* next */ $next$,
+  /* src_premultiplied */ $src_premultiplied$,
+  /* dst_premultiplied */ $dst_premultiplied$,
+  /* blend_overlap */ $blend_overlap$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_depth_stencil_state_create_info</Title>
+      <Shortcut>VkPipelineDepthStencilStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineDepthStencilStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_depth_stencil_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_test_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::depthTestEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_write_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::depthWriteEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_compare_op</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::depthCompareOp.</ToolTip>
+          <Default>vk::compare_op::never</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_bounds_test_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::depthBoundsTestEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil_test_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::stencilTestEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>front</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::front.</ToolTip>
+          <Default>vk::stencil_op_state{}</Default>
+        </Literal>
+        <Literal>
+          <ID>back</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::back.</ToolTip>
+          <Default>vk::stencil_op_state{}</Default>
+        </Literal>
+        <Literal>
+          <ID>min_depth_bounds</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::minDepthBounds.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+        <Literal>
+          <ID>max_depth_bounds</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDepthStencilStateCreateInfo::maxDepthBounds.</ToolTip>
+          <Default>0.0f</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_depth_stencil_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* depth_test_enable */ $depth_test_enable$,
+  /* depth_write_enable */ $depth_write_enable$,
+  /* depth_compare_op */ $depth_compare_op$,
+  /* depth_bounds_test_enable */ $depth_bounds_test_enable$,
+  /* stencil_test_enable */ $stencil_test_enable$,
+  /* front */ $front$,
+  /* back */ $back$,
+  /* min_depth_bounds */ $min_depth_bounds$,
+  /* max_depth_bounds */ $max_depth_bounds$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

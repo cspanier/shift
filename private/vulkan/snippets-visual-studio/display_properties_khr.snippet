@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_properties_khr</Title>
+      <Shortcut>VkDisplayPropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayPropertiesKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>display</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::display.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>display_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::displayName.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>physical_dimensions</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::physicalDimensions.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>physical_resolution</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::physicalResolution.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_transforms</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::supportedTransforms.</ToolTip>
+          <Default>vk::surface_transform_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>plane_reorder_possible</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::planeReorderPossible.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>persistent_content</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayPropertiesKHR::persistentContent.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_properties_khr(
+  /* display */ $display$,
+  /* display_name */ $display_name$,
+  /* physical_dimensions */ $physical_dimensions$,
+  /* physical_resolution */ $physical_resolution$,
+  /* supported_transforms */ $supported_transforms$,
+  /* plane_reorder_possible */ $plane_reorder_possible$,
+  /* persistent_content */ $persistent_content$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

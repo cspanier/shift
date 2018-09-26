@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>win32_surface_create_info_khr</Title>
+      <Shortcut>VkWin32SurfaceCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkWin32SurfaceCreateInfoKHR</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32SurfaceCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32SurfaceCreateInfoKHR::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>hinstance</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32SurfaceCreateInfoKHR::hinstance.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>hwnd</ID>
+          <ToolTip>Equivalent to Vulkan member VkWin32SurfaceCreateInfoKHR::hwnd.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::win32_surface_create_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* hinstance */ $hinstance$,
+  /* hwnd */ $hwnd$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

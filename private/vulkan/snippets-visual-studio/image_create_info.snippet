@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_create_info</Title>
+      <Shortcut>VkImageCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::flags.</ToolTip>
+          <Default>vk::image_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>image_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::imageType.</ToolTip>
+          <Default>vk::image_type::_1d</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>extent</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::extent.</ToolTip>
+          <Default>vk::extent_3d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>mip_levels</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::mipLevels.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>array_layers</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::arrayLayers.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::samples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>tiling</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::tiling.</ToolTip>
+          <Default>vk::image_tiling::optimal</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::usage.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>sharing_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::sharingMode.</ToolTip>
+          <Default>vk::sharing_mode::exclusive</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_index_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::queueFamilyIndexCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>queue_family_indices</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::pQueueFamilyIndices.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>initial_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageCreateInfo::initialLayout.</ToolTip>
+          <Default>vk::image_layout::undefined</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* image_type */ $image_type$,
+  /* format */ $format$,
+  /* extent */ $extent$,
+  /* mip_levels */ $mip_levels$,
+  /* array_layers */ $array_layers$,
+  /* samples */ $samples$,
+  /* tiling */ $tiling$,
+  /* usage */ $usage$,
+  /* sharing_mode */ $sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$,
+  /* initial_layout */ $initial_layout$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

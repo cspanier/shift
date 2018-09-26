@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_vertex_attribute_divisor_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_vertex_attrib_divisor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT::maxVertexAttribDivisor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_vertex_attribute_divisor_properties_ext(
+  /* next */ $next$,
+  /* max_vertex_attrib_divisor */ $max_vertex_attrib_divisor$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>android_hardware_buffer_usage_android</Title>
+      <Shortcut>VkAndroidHardwareBufferUsageANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkAndroidHardwareBufferUsageANDROID</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferUsageANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>android_hardware_buffer_usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferUsageANDROID::androidHardwareBufferUsage.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::android_hardware_buffer_usage_android(
+  /* next */ $next$,
+  /* android_hardware_buffer_usage */ $android_hardware_buffer_usage$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

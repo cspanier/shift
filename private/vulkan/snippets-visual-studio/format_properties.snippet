@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>format_properties</Title>
+      <Shortcut>VkFormatProperties</Shortcut>
+      <Description>Code snippet for Vulkan type VkFormatProperties</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>linear_tiling_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkFormatProperties::linearTilingFeatures.</ToolTip>
+          <Default>vk::format_feature_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>optimal_tiling_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkFormatProperties::optimalTilingFeatures.</ToolTip>
+          <Default>vk::format_feature_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkFormatProperties::bufferFeatures.</ToolTip>
+          <Default>vk::format_feature_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::format_properties(
+  /* linear_tiling_features */ $linear_tiling_features$,
+  /* optimal_tiling_features */ $optimal_tiling_features$,
+  /* buffer_features */ $buffer_features$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

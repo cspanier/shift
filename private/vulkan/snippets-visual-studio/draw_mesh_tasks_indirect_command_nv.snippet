@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>draw_mesh_tasks_indirect_command_nv</Title>
+      <Shortcut>VkDrawMeshTasksIndirectCommandNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkDrawMeshTasksIndirectCommandNV</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>task_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawMeshTasksIndirectCommandNV::taskCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>first_task</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrawMeshTasksIndirectCommandNV::firstTask.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::draw_mesh_tasks_indirect_command_nv(
+  /* task_count */ $task_count$,
+  /* first_task */ $first_task$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

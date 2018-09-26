@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_blend_operation_advanced_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_max_color_attachments</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendMaxColorAttachments.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_independent_blend</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendIndependentBlend.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_non_premultiplied_src_color</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendNonPremultipliedSrcColor.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_non_premultiplied_dst_color</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendNonPremultipliedDstColor.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_correlated_overlap</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendCorrelatedOverlap.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>advanced_blend_all_operations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT::advancedBlendAllOperations.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_blend_operation_advanced_properties_ext(
+  /* next */ $next$,
+  /* advanced_blend_max_color_attachments */ $advanced_blend_max_color_attachments$,
+  /* advanced_blend_independent_blend */ $advanced_blend_independent_blend$,
+  /* advanced_blend_non_premultiplied_src_color */ $advanced_blend_non_premultiplied_src_color$,
+  /* advanced_blend_non_premultiplied_dst_color */ $advanced_blend_non_premultiplied_dst_color$,
+  /* advanced_blend_correlated_overlap */ $advanced_blend_correlated_overlap$,
+  /* advanced_blend_all_operations */ $advanced_blend_all_operations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

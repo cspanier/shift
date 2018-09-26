@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_dynamic_state_create_info</Title>
+      <Shortcut>VkPipelineDynamicStateCreateInfo</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineDynamicStateCreateInfo</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDynamicStateCreateInfo::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDynamicStateCreateInfo::flags.</ToolTip>
+          <Default>vk::pipeline_dynamic_state_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>dynamic_state_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDynamicStateCreateInfo::dynamicStateCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>dynamic_states</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineDynamicStateCreateInfo::pDynamicStates.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_dynamic_state_create_info(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* dynamic_state_count */ $dynamic_state_count$,
+  /* dynamic_states */ $dynamic_states$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

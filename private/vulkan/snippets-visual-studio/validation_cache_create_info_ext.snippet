@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>validation_cache_create_info_ext</Title>
+      <Shortcut>VkValidationCacheCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkValidationCacheCreateInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationCacheCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationCacheCreateInfoEXT::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>initial_data_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationCacheCreateInfoEXT::initialDataSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>initial_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkValidationCacheCreateInfoEXT::pInitialData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::validation_cache_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* initial_data_size */ $initial_data_size$,
+  /* initial_data */ $initial_data$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

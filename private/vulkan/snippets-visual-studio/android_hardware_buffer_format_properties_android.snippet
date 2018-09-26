@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>android_hardware_buffer_format_properties_android</Title>
+      <Shortcut>VkAndroidHardwareBufferFormatPropertiesANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkAndroidHardwareBufferFormatPropertiesANDROID</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::format.</ToolTip>
+          <Default>vk::format::undefined</Default>
+        </Literal>
+        <Literal>
+          <ID>external_format</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::externalFormat.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>format_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::formatFeatures.</ToolTip>
+          <Default>vk::format_feature_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>sampler_ycbcr_conversion_components</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::samplerYcbcrConversionComponents.</ToolTip>
+          <Default>vk::component_mapping{}</Default>
+        </Literal>
+        <Literal>
+          <ID>suggested_ycbcr_model</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::suggestedYcbcrModel.</ToolTip>
+          <Default>vk::sampler_ycbcr_model_conversion::rgb_identity</Default>
+        </Literal>
+        <Literal>
+          <ID>suggested_ycbcr_range</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::suggestedYcbcrRange.</ToolTip>
+          <Default>vk::sampler_ycbcr_range::itu_full</Default>
+        </Literal>
+        <Literal>
+          <ID>suggested_xchroma_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::suggestedXChromaOffset.</ToolTip>
+          <Default>vk::chroma_location::cosited_even</Default>
+        </Literal>
+        <Literal>
+          <ID>suggested_ychroma_offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkAndroidHardwareBufferFormatPropertiesANDROID::suggestedYChromaOffset.</ToolTip>
+          <Default>vk::chroma_location::cosited_even</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::android_hardware_buffer_format_properties_android(
+  /* next */ $next$,
+  /* format */ $format$,
+  /* external_format */ $external_format$,
+  /* format_features */ $format_features$,
+  /* sampler_ycbcr_conversion_components */ $sampler_ycbcr_conversion_components$,
+  /* suggested_ycbcr_model */ $suggested_ycbcr_model$,
+  /* suggested_ycbcr_range */ $suggested_ycbcr_range$,
+  /* suggested_xchroma_offset */ $suggested_xchroma_offset$,
+  /* suggested_ychroma_offset */ $suggested_ychroma_offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>render_pass_sample_locations_begin_info_ext</Title>
+      <Shortcut>VkRenderPassSampleLocationsBeginInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkRenderPassSampleLocationsBeginInfoEXT</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassSampleLocationsBeginInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_initial_sample_locations_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassSampleLocationsBeginInfoEXT::attachmentInitialSampleLocationsCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_initial_sample_locations</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassSampleLocationsBeginInfoEXT::pAttachmentInitialSampleLocations.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>post_subpass_sample_locations_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassSampleLocationsBeginInfoEXT::postSubpassSampleLocationsCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>post_subpass_sample_locations</ID>
+          <ToolTip>Equivalent to Vulkan member VkRenderPassSampleLocationsBeginInfoEXT::pPostSubpassSampleLocations.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::render_pass_sample_locations_begin_info_ext(
+  /* next */ $next$,
+  /* attachment_initial_sample_locations_count */ $attachment_initial_sample_locations_count$,
+  /* attachment_initial_sample_locations */ $attachment_initial_sample_locations$,
+  /* post_subpass_sample_locations_count */ $post_subpass_sample_locations_count$,
+  /* post_subpass_sample_locations */ $post_subpass_sample_locations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

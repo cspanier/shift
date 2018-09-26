@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>indirect_commands_token_nvx</Title>
+      <Shortcut>VkIndirectCommandsTokenNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkIndirectCommandsTokenNVX</Description>
+      <Author>Christian Maaser</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>token_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkIndirectCommandsTokenNVX::tokenType.</ToolTip>
+          <Default>vk::indirect_commands_token_type_nvx::indirect_commands_token_type_pipeline_nvx</Default>
+        </Literal>
+        <Literal>
+          <ID>buffer</ID>
+          <ToolTip>Equivalent to Vulkan member VkIndirectCommandsTokenNVX::buffer.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>offset</ID>
+          <ToolTip>Equivalent to Vulkan member VkIndirectCommandsTokenNVX::offset.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::indirect_commands_token_nvx(
+  /* token_type */ $token_type$,
+  /* buffer */ $buffer$,
+  /* offset */ $offset$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
