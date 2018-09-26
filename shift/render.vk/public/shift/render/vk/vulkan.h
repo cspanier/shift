@@ -336,6 +336,8 @@ enum class structure_type
   dedicated_allocation_memory_allocate_info_nv = 1000026002,
   /// @see VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD
   texture_lod_gather_format_properties_amd = 1000041000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV
+  physical_device_corner_sampled_image_features_nv = 1000050000,
   /// @see VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV
   external_memory_image_create_info_nv = 1000056000,
   /// @see VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO_NV
@@ -350,6 +352,10 @@ enum class structure_type
   validation_flags_ext = 1000061000,
   /// @see VK_STRUCTURE_TYPE_VI_SURFACE_CREATE_INFO_NN
   vi_surface_create_info_nn = 1000062000,
+  /// @see VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT
+  image_view_astc_decode_mode_ext = 1000067000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT
+  physical_device_astc_decode_features_ext = 1000067001,
   /// @see VK_STRUCTURE_TYPE_IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR
   import_memory_win32_handle_info_khr = 1000073000,
   /// @see VK_STRUCTURE_TYPE_EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR
@@ -380,6 +386,13 @@ enum class structure_type
   semaphore_get_fd_info_khr = 1000079001,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES_KHR
   physical_device_push_descriptor_properties_khr = 1000080000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT
+  command_buffer_inheritance_conditional_rendering_info_ext = 1000081000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT
+  physical_device_conditional_rendering_features_ext = 1000081001,
+  /// @see VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT
+  conditional_rendering_begin_info_ext = 1000081002,
   /// @see VK_STRUCTURE_TYPE_PRESENT_REGIONS_KHR
   present_regions_khr = 1000084000,
   /// @see VK_STRUCTURE_TYPE_OBJECT_TABLE_CREATE_INFO_NVX
@@ -425,6 +438,20 @@ enum class structure_type
   pipeline_rasterization_conservative_state_create_info_ext = 1000101001,
   /// @see VK_STRUCTURE_TYPE_HDR_METADATA_EXT
   hdr_metadata_ext = 1000105000,
+  /// @see VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2_KHR
+  attachment_description_2_khr = 1000109000,
+  /// @see VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2_KHR
+  attachment_reference_2_khr = 1000109001,
+  /// @see VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2_KHR
+  subpass_description_2_khr = 1000109002,
+  /// @see VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2_KHR
+  subpass_dependency_2_khr = 1000109003,
+  /// @see VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2_KHR
+  render_pass_create_info_2_khr = 1000109004,
+  /// @see VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO_KHR
+  subpass_begin_info_khr = 1000109005,
+  /// @see VK_STRUCTURE_TYPE_SUBPASS_END_INFO_KHR
+  subpass_end_info_khr = 1000109006,
   /// @see VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR
   shared_present_surface_capabilities_khr = 1000111000,
   /// @see VK_STRUCTURE_TYPE_IMPORT_FENCE_WIN32_HANDLE_INFO_KHR
@@ -484,6 +511,15 @@ enum class structure_type
   physical_device_sampler_filter_minmax_properties_ext = 1000130000,
   /// @see VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO_EXT
   sampler_reduction_mode_create_info_ext = 1000130001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES_EXT
+  physical_device_inline_uniform_block_features_ext = 1000138000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES_EXT
+  physical_device_inline_uniform_block_properties_ext = 1000138001,
+  /// @see VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK_EXT
+  write_descriptor_set_inline_uniform_block_ext = 1000138002,
+  /// @see
+  /// VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO_EXT
+  descriptor_pool_inline_uniform_block_create_info_ext = 1000138003,
   /// @see VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT
   sample_locations_info_ext = 1000143000,
   /// @see VK_STRUCTURE_TYPE_RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT
@@ -524,8 +560,48 @@ enum class structure_type
   /// @see
   /// VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT_EXT
   descriptor_set_variable_descriptor_count_layout_support_ext = 1000161004,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV
+  pipeline_viewport_shading_rate_image_state_create_info_nv = 1000164000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV
+  physical_device_shading_rate_image_features_nv = 1000164001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV
+  physical_device_shading_rate_image_properties_nv = 1000164002,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV
+  pipeline_viewport_coarse_sample_order_state_create_info_nv = 1000164005,
+  /// @see VK_STRUCTURE_TYPE_RAYTRACING_PIPELINE_CREATE_INFO_NVX
+  raytracing_pipeline_create_info_nvx = 1000165000,
+  /// @see VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_NVX
+  acceleration_structure_create_info_nvx = 1000165001,
+  /// @see VK_STRUCTURE_TYPE_GEOMETRY_INSTANCE_NVX
+  geometry_instance_nvx = 1000165002,
+  /// @see VK_STRUCTURE_TYPE_GEOMETRY_NVX
+  geometry_nvx = 1000165003,
+  /// @see VK_STRUCTURE_TYPE_GEOMETRY_TRIANGLES_NVX
+  geometry_triangles_nvx = 1000165004,
+  /// @see VK_STRUCTURE_TYPE_GEOMETRY_AABB_NVX
+  geometry_aabb_nvx = 1000165005,
+  /// @see VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NVX
+  bind_acceleration_structure_memory_info_nvx = 1000165006,
+  /// @see VK_STRUCTURE_TYPE_DESCRIPTOR_ACCELERATION_STRUCTURE_INFO_NVX
+  descriptor_acceleration_structure_info_nvx = 1000165007,
+  /// @see VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NVX
+  acceleration_structure_memory_requirements_info_nvx = 1000165008,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAYTRACING_PROPERTIES_NVX
+  physical_device_raytracing_properties_nvx = 1000165009,
+  /// @see VK_STRUCTURE_TYPE_HIT_SHADER_MODULE_CREATE_INFO_NVX
+  hit_shader_module_create_info_nvx = 1000165010,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV
+  physical_device_representative_fragment_test_features_nv = 1000166000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV
+  pipeline_representative_fragment_test_state_create_info_nv = 1000166001,
   /// @see VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT
   device_queue_global_priority_create_info_ext = 1000174000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES_KHR
+  physical_device_8_bit_storage_features_khr = 1000177000,
   /// @see VK_STRUCTURE_TYPE_IMPORT_MEMORY_HOST_POINTER_INFO_EXT
   import_memory_host_pointer_info_ext = 1000178000,
   /// @see VK_STRUCTURE_TYPE_MEMORY_HOST_POINTER_PROPERTIES_EXT
@@ -539,6 +615,32 @@ enum class structure_type
   physical_device_vertex_attribute_divisor_properties_ext = 1000190000,
   /// @see VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_EXT
   pipeline_vertex_input_divisor_state_create_info_ext = 1000190001,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT
+  physical_device_vertex_attribute_divisor_features_ext = 1000190002,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_NV
+  physical_device_compute_shader_derivatives_features_nv = 1000201000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV
+  physical_device_mesh_shader_features_nv = 1000202000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV
+  physical_device_mesh_shader_properties_nv = 1000202001,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_NV
+  physical_device_fragment_shader_barycentric_features_nv = 1000203000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV
+  physical_device_shader_image_footprint_features_nv = 1000204000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV
+  pipeline_viewport_exclusive_scissor_state_create_info_nv = 1000205000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV
+  physical_device_exclusive_scissor_features_nv = 1000205002,
+  /// @see VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV
+  checkpoint_data_nv = 1000206000,
+  /// @see VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV
+  queue_family_checkpoint_properties_nv = 1000206001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR
+  physical_device_vulkan_memory_model_features_khr = 1000211000,
 };
 enum class access_flag
 {
@@ -595,12 +697,21 @@ enum class access_flag
   /// Controls coherency of memory writes
   /// @see VK_ACCESS_MEMORY_WRITE_BIT
   memory_write_bit = 1 << 16,
+  /// read access flag for reading conditional rendering predicate
+  /// @see VK_ACCESS_CONDITIONAL_RENDERING_READ_BIT_EXT
+  conditional_rendering_read_bit_ext = 1 << 20,
   /// @see VK_ACCESS_COMMAND_PROCESS_READ_BIT_NVX
   command_process_read_bit_nvx = 1 << 17,
   /// @see VK_ACCESS_COMMAND_PROCESS_WRITE_BIT_NVX
   command_process_write_bit_nvx = 1 << 18,
   /// @see VK_ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT
   color_attachment_read_noncoherent_bit_ext = 1 << 19,
+  /// @see VK_ACCESS_SHADING_RATE_IMAGE_READ_BIT_NV
+  shading_rate_image_read_bit_nv = 1 << 23,
+  /// @see VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_NVX
+  acceleration_structure_read_bit_nvx = 1 << 21,
+  /// @see VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_NVX
+  acceleration_structure_write_bit_nvx = 1 << 22,
 };
 using access_flags = shift::core::bit_field<access_flag, VkAccessFlags>;
 inline constexpr access_flags operator|(access_flag lhs, access_flag rhs)
@@ -1210,6 +1321,8 @@ enum class image_layout
   present_src_khr = 1000001002,
   /// @see VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR
   shared_present_khr = 1000111000,
+  /// @see VK_IMAGE_LAYOUT_SHADING_RATE_OPTIMAL_NV
+  shading_rate_optimal_nv = 1000164003,
 };
 enum class image_aspect_flag
 {
@@ -1836,9 +1949,6 @@ enum class object_type
   /// VkDisplayModeKHR
   /// @see VK_OBJECT_TYPE_DISPLAY_MODE_KHR
   display_mode_khr = 1000002001,
-  /// VkDebugReportCallbackEXT
-  /// @see VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT
-  debug_report_callback_ext = 1000011000,
   /// VkobjectTableNVX
   /// @see VK_OBJECT_TYPE_OBJECT_TABLE_NVX
   object_table_nvx = 1000086000,
@@ -1851,6 +1961,20 @@ enum class object_type
   /// VkValidationCacheEXT
   /// @see VK_OBJECT_TYPE_VALIDATION_CACHE_EXT
   validation_cache_ext = 1000160000,
+  /// @see VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NVX
+  acceleration_structure_nvx = 1000165000,
+};
+enum class vendor_id
+{
+  /// Vivante vendor ID
+  /// @see VK_VENDOR_ID_VIV
+  viv = 0x10001,
+  /// VeriSilicon vendor ID
+  /// @see VK_VENDOR_ID_VSI
+  vsi = 0x10002,
+  /// Kazan Software Renderer
+  /// @see VK_VENDOR_ID_KAZAN
+  kazan = 0x10003,
 };
 enum class result
 {
@@ -1923,8 +2047,6 @@ enum class result
   error_out_of_date_khr = -1000001004,
   /// @see VK_ERROR_INCOMPATIBLE_DISPLAY_KHR
   error_incompatible_display_khr = -1000003001,
-  /// @see VK_ERROR_VALIDATION_FAILED_EXT
-  error_validation_failed_ext = -1000011001,
   /// @see VK_ERROR_INVALID_SHADER_NV
   error_invalid_shader_nv = -1000012000,
   /// @see VK_ERROR_FRAGMENTATION_EXT
@@ -4362,6 +4484,8 @@ enum class image_usage_flag
   /// Can be used as framebuffer input attachment
   /// @see VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT
   input_attachment_bit = 1 << 7,
+  /// @see VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV
+  shading_rate_image_bit_nv = 1 << 8,
 };
 using image_usage_flags =
   shift::core::bit_field<image_usage_flag, VkImageUsageFlags>;
@@ -4408,6 +4532,8 @@ enum class image_create_flag
   protected_bit = 1 << 11,
   /// @see VK_IMAGE_CREATE_DISJOINT_BIT
   disjoint_bit = 1 << 9,
+  /// @see VK_IMAGE_CREATE_CORNER_SAMPLED_BIT_NV
+  corner_sampled_bit_nv = 1 << 13,
   /// @see VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT
   sample_locations_compatible_depth_bit_ext = 1 << 12,
 };
@@ -8565,8 +8691,19 @@ enum class pipeline_stage_flag
   /// All stages supported on the queue
   /// @see VK_PIPELINE_STAGE_ALL_COMMANDS_BIT
   all_commands_bit = 1 << 16,
+  /// A pipeline stage for conditional rendering predicate fetch
+  /// @see VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT
+  conditional_rendering_bit_ext = 1 << 18,
   /// @see VK_PIPELINE_STAGE_COMMAND_PROCESS_BIT_NVX
   command_process_bit_nvx = 1 << 17,
+  /// @see VK_PIPELINE_STAGE_SHADING_RATE_IMAGE_BIT_NV
+  shading_rate_image_bit_nv = 1 << 22,
+  /// @see VK_PIPELINE_STAGE_RAYTRACING_BIT_NVX
+  raytracing_bit_nvx = 1 << 21,
+  /// @see VK_PIPELINE_STAGE_TASK_SHADER_BIT_NV
+  task_shader_bit_nv = 1 << 19,
+  /// @see VK_PIPELINE_STAGE_MESH_SHADER_BIT_NV
+  mesh_shader_bit_nv = 1 << 20,
 };
 using pipeline_stage_flags =
   shift::core::bit_field<pipeline_stage_flag, VkPipelineStageFlags>;
@@ -11183,6 +11320,8 @@ enum class query_type
   pipeline_statistics = 1,
   /// @see VK_QUERY_TYPE_TIMESTAMP
   timestamp = 2,
+  /// @see VK_QUERY_TYPE_COMPACTED_SIZE_NVX
+  compacted_size_nvx = 1000165000,
 };
 enum class query_pipeline_statistic_flag
 {
@@ -11512,6 +11651,11 @@ enum class buffer_usage_flag
   /// buffer)
   /// @see VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT
   indirect_buffer_bit = 1 << 8,
+  /// Specifies the buffer can be used as predicate in conditional rendering
+  /// @see VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT
+  conditional_rendering_bit_ext = 1 << 9,
+  /// @see VK_BUFFER_USAGE_RAYTRACING_BIT_NVX
+  raytracing_bit_nvx = 1 << 10,
 };
 using buffer_usage_flags =
   shift::core::bit_field<buffer_usage_flag, VkBufferUsageFlags>;
@@ -13264,6 +13408,8 @@ enum class pipeline_create_flag
   view_index_from_device_index_bit = 1 << 3,
   /// @see VK_PIPELINE_CREATE_DISPATCH_BASE
   dispatch_base = 1 << 4,
+  /// @see VK_PIPELINE_CREATE_DEFER_COMPILE_BIT_NVX
+  defer_compile_bit_nvx = 1 << 5,
 };
 using pipeline_create_flags =
   shift::core::bit_field<pipeline_create_flag, VkPipelineCreateFlags>;
@@ -13305,6 +13451,22 @@ enum class shader_stage_flag
   all_graphics = 0x0000001F,
   /// @see VK_SHADER_STAGE_ALL
   all = 0x7FFFFFFF,
+  /// @see VK_SHADER_STAGE_RAYGEN_BIT_NVX
+  raygen_bit_nvx = 1 << 8,
+  /// @see VK_SHADER_STAGE_ANY_HIT_BIT_NVX
+  any_hit_bit_nvx = 1 << 9,
+  /// @see VK_SHADER_STAGE_CLOSEST_HIT_BIT_NVX
+  closest_hit_bit_nvx = 1 << 10,
+  /// @see VK_SHADER_STAGE_MISS_BIT_NVX
+  miss_bit_nvx = 1 << 11,
+  /// @see VK_SHADER_STAGE_INTERSECTION_BIT_NVX
+  intersection_bit_nvx = 1 << 12,
+  /// @see VK_SHADER_STAGE_CALLABLE_BIT_NVX
+  callable_bit_nvx = 1 << 13,
+  /// @see VK_SHADER_STAGE_TASK_BIT_NV
+  task_bit_nv = 1 << 6,
+  /// @see VK_SHADER_STAGE_MESH_BIT_NV
+  mesh_bit_nv = 1 << 7,
 };
 
 /// Enhanced replacement type for VkSpecializationMapEntry.
@@ -16912,6 +17074,12 @@ enum class dynamic_state
   discard_rectangle_ext = 1000099000,
   /// @see VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_EXT
   sample_locations_ext = 1000143000,
+  /// @see VK_DYNAMIC_STATE_VIEWPORT_SHADING_RATE_PALETTE_NV
+  viewport_shading_rate_palette_nv = 1000164004,
+  /// @see VK_DYNAMIC_STATE_VIEWPORT_COARSE_SAMPLE_ORDER_NV
+  viewport_coarse_sample_order_nv = 1000164006,
+  /// @see VK_DYNAMIC_STATE_EXCLUSIVE_SCISSOR_NV
+  exclusive_scissor_nv = 1000205001,
 };
 
 /// Enhanced replacement type for VkPipelineDynamicStateCreateInfo.
@@ -18708,6 +18876,10 @@ enum class descriptor_type
   storage_buffer_dynamic = 9,
   /// @see VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT
   input_attachment = 10,
+  /// @see VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK_EXT
+  inline_uniform_block_ext = 1000138000,
+  /// @see VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NVX
+  acceleration_structure_nvx = 1000165000,
 };
 
 /// Enhanced replacement type for VkDescriptorSetLayoutBinding.
@@ -19702,9 +19874,7 @@ public:
   }
 
 private:
-  /// Buffer used for this descriptor slot when the descriptor is
-  /// UNIFORM_BUFFER[_DYNAMIC] or STORAGE_BUFFER[_DYNAMIC]. VK_NULL_HANDLE
-  /// otherwise.
+  /// Buffer used for this descriptor slot.
   VkBuffer _buffer = nullptr;
   /// Base offset from buffer start in bytes to update in the descriptor set.
   VkDeviceSize _offset = 0;
@@ -20813,6 +20983,8 @@ enum class pipeline_bind_point
   graphics = 0,
   /// @see VK_PIPELINE_BIND_POINT_COMPUTE
   compute = 1,
+  /// @see VK_PIPELINE_BIND_POINT_RAYTRACING_NVX
+  raytracing_nvx = 1000165000,
 };
 
 /// Enhanced replacement type for VkAttachmentReference.
@@ -26884,6 +27056,8 @@ private:
 };
 static_assert(sizeof(memory_requirements_2) == sizeof(::VkMemoryRequirements2),
               "struct and wrapper have different size!");
+
+using memory_requirements_2_khr = memory_requirements_2;
 
 /// Enhanced replacement type for VkSparseImageMemoryRequirements2.
 class sparse_image_memory_requirements_2
@@ -33785,6 +33959,9 @@ enum class color_space_khr
 {
   /// @see VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
   color_space_srgb_nonlinear_khr = 0,
+  /// Backwards-compatible alias containing a typo
+  /// @see VK_COLORSPACE_SRGB_NONLINEAR_KHR
+  colorspace_srgb_nonlinear_khr = color_space_srgb_nonlinear_khr,
   /// @see VK_COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT
   color_space_display_p_3_nonlinear_ext = 1000104001,
   /// @see VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT
@@ -36827,1275 +37004,6 @@ inline vk::result create_shared_swapchains_khr(
     reinterpret_cast<const VkAllocationCallbacks*>(allocator),
     reinterpret_cast<VkSwapchainKHR*>(swapchains)));
 }
-#if defined(VK_USE_PLATFORM_XLIB_KHR)
-using xlib_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_XLIB_KHR)
-
-/// Enhanced replacement type for VkXlibSurfaceCreateInfoKHR.
-class xlib_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr xlib_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr xlib_surface_create_info_khr(
-    const void* initial_next, vk::xlib_surface_create_flags_khr initial_flags,
-    Display* initial_dpy, Window initial_window) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _dpy(std::move(initial_dpy)),
-    _window(std::move(initial_window))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr xlib_surface_create_info_khr(
-    const xlib_surface_create_info_khr& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _dpy(other._dpy),
-    _window(other._window)
-  {
-  }
-
-  /// Move constructor.
-  constexpr xlib_surface_create_info_khr(
-    xlib_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _dpy(std::move(other._dpy)),
-    _window(std::move(other._window))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr xlib_surface_create_info_khr& operator=(
-    const xlib_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _dpy = other._dpy;
-    _window = other._window;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr xlib_surface_create_info_khr& operator=(
-    xlib_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _dpy = std::move(other._dpy);
-    _window = std::move(other._window);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkXlibSurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkXlibSurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::xlib_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::xlib_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::xlib_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  Display* dpy()
-  {
-    return _dpy;
-  }
-
-  constexpr Display* dpy() const
-  {
-    return _dpy;
-  }
-
-  void dpy(Display* new_dpy)
-  {
-    _dpy = new_dpy;
-  }
-
-  Window& window()
-  {
-    return _window;
-  }
-
-  constexpr const Window& window() const
-  {
-    return _window;
-  }
-
-  void window(Window new_window)
-  {
-    _window = new_window;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::xlib_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::xlib_surface_create_flags_khr _flags = 0;
-  Display* _dpy = nullptr;
-  Window _window = 0;
-};
-static_assert(sizeof(xlib_surface_create_info_khr) ==
-                sizeof(::VkXlibSurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_XLIB_KHR)
-inline vk::result create_xlib_surface_khr(
-  VkInstance instance, const vk::xlib_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateXlibSurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkXlibSurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-inline VkBool32 get_physical_device_xlib_presentation_support_khr(
-  VkPhysicalDevice physical_device, uint32_t queue_family_index, Display* dpy,
-  VisualID visual_id)
-{
-  return static_cast<VkBool32>(vkGetPhysicalDeviceXlibPresentationSupportKHR(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<uint32_t>(queue_family_index), reinterpret_cast<Display*>(dpy),
-    static_cast<VisualID>(visual_id)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_XCB_KHR)
-using xcb_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_XCB_KHR)
-
-/// Enhanced replacement type for VkXcbSurfaceCreateInfoKHR.
-class xcb_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr xcb_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr xcb_surface_create_info_khr(
-    const void* initial_next, vk::xcb_surface_create_flags_khr initial_flags,
-    xcb_connection_t* initial_connection, xcb_window_t initial_window) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _connection(std::move(initial_connection)),
-    _window(std::move(initial_window))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr xcb_surface_create_info_khr(
-    const xcb_surface_create_info_khr& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _connection(other._connection),
-    _window(other._window)
-  {
-  }
-
-  /// Move constructor.
-  constexpr xcb_surface_create_info_khr(
-    xcb_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _connection(std::move(other._connection)),
-    _window(std::move(other._window))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr xcb_surface_create_info_khr& operator=(
-    const xcb_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _connection = other._connection;
-    _window = other._window;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr xcb_surface_create_info_khr& operator=(
-    xcb_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _connection = std::move(other._connection);
-    _window = std::move(other._window);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkXcbSurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkXcbSurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::xcb_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::xcb_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::xcb_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  xcb_connection_t* connection()
-  {
-    return _connection;
-  }
-
-  constexpr xcb_connection_t* connection() const
-  {
-    return _connection;
-  }
-
-  void connection(xcb_connection_t* new_connection)
-  {
-    _connection = new_connection;
-  }
-
-  xcb_window_t& window()
-  {
-    return _window;
-  }
-
-  constexpr const xcb_window_t& window() const
-  {
-    return _window;
-  }
-
-  void window(xcb_window_t new_window)
-  {
-    _window = new_window;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::xcb_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::xcb_surface_create_flags_khr _flags = 0;
-  xcb_connection_t* _connection = nullptr;
-  xcb_window_t _window = 0;
-};
-static_assert(sizeof(xcb_surface_create_info_khr) ==
-                sizeof(::VkXcbSurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_XCB_KHR)
-inline vk::result create_xcb_surface_khr(
-  VkInstance instance, const vk::xcb_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateXcbSurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkXcbSurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-inline VkBool32 get_physical_device_xcb_presentation_support_khr(
-  VkPhysicalDevice physical_device, uint32_t queue_family_index,
-  xcb_connection_t* connection, xcb_visualid_t visual_id)
-{
-  return static_cast<VkBool32>(vkGetPhysicalDeviceXcbPresentationSupportKHR(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<uint32_t>(queue_family_index),
-    reinterpret_cast<xcb_connection_t*>(connection),
-    static_cast<xcb_visualid_t>(visual_id)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
-using wayland_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
-
-/// Enhanced replacement type for VkWaylandSurfaceCreateInfoKHR.
-class wayland_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr wayland_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr wayland_surface_create_info_khr(
-    const void* initial_next,
-    vk::wayland_surface_create_flags_khr initial_flags,
-    struct wl_display* initial_display,
-    struct wl_surface* initial_surface) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _display(std::move(initial_display)),
-    _surface(std::move(initial_surface))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr wayland_surface_create_info_khr(
-    const wayland_surface_create_info_khr& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _display(other._display),
-    _surface(other._surface)
-  {
-  }
-
-  /// Move constructor.
-  constexpr wayland_surface_create_info_khr(
-    wayland_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _display(std::move(other._display)),
-    _surface(std::move(other._surface))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr wayland_surface_create_info_khr& operator=(
-    const wayland_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _display = other._display;
-    _surface = other._surface;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr wayland_surface_create_info_khr& operator=(
-    wayland_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _display = std::move(other._display);
-    _surface = std::move(other._surface);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkWaylandSurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkWaylandSurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::wayland_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::wayland_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::wayland_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  struct wl_display* display()
-  {
-    return _display;
-  }
-
-  constexpr struct wl_display* display() const
-  {
-    return _display;
-  }
-
-  void display(struct wl_display* new_display)
-  {
-    _display = new_display;
-  }
-
-  struct wl_surface* surface()
-  {
-    return _surface;
-  }
-
-  constexpr struct wl_surface* surface() const
-  {
-    return _surface;
-  }
-
-  void surface(struct wl_surface* new_surface)
-  {
-    _surface = new_surface;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::wayland_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::wayland_surface_create_flags_khr _flags = 0;
-  struct wl_display* _display = nullptr;
-  struct wl_surface* _surface = nullptr;
-};
-static_assert(sizeof(wayland_surface_create_info_khr) ==
-                sizeof(::VkWaylandSurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
-inline vk::result create_wayland_surface_khr(
-  VkInstance instance, const vk::wayland_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateWaylandSurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkWaylandSurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-inline VkBool32 get_physical_device_wayland_presentation_support_khr(
-  VkPhysicalDevice physical_device, uint32_t queue_family_index,
-  struct wl_display* display)
-{
-  return static_cast<VkBool32>(vkGetPhysicalDeviceWaylandPresentationSupportKHR(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<uint32_t>(queue_family_index),
-    reinterpret_cast<wl_display*>(display)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_MIR_KHR)
-using mir_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_MIR_KHR)
-
-/// Enhanced replacement type for VkMirSurfaceCreateInfoKHR.
-class mir_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr mir_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr mir_surface_create_info_khr(
-    const void* initial_next, vk::mir_surface_create_flags_khr initial_flags,
-    MirConnection* initial_connection, MirSurface* initial_mir_surface) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _connection(std::move(initial_connection)),
-    _mir_surface(std::move(initial_mir_surface))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr mir_surface_create_info_khr(
-    const mir_surface_create_info_khr& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _connection(other._connection),
-    _mir_surface(other._mir_surface)
-  {
-  }
-
-  /// Move constructor.
-  constexpr mir_surface_create_info_khr(
-    mir_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _connection(std::move(other._connection)),
-    _mir_surface(std::move(other._mir_surface))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr mir_surface_create_info_khr& operator=(
-    const mir_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _connection = other._connection;
-    _mir_surface = other._mir_surface;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr mir_surface_create_info_khr& operator=(
-    mir_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _connection = std::move(other._connection);
-    _mir_surface = std::move(other._mir_surface);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkMirSurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkMirSurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::mir_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::mir_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::mir_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  MirConnection* connection()
-  {
-    return _connection;
-  }
-
-  constexpr MirConnection* connection() const
-  {
-    return _connection;
-  }
-
-  void connection(MirConnection* new_connection)
-  {
-    _connection = new_connection;
-  }
-
-  MirSurface* mir_surface()
-  {
-    return _mir_surface;
-  }
-
-  constexpr MirSurface* mir_surface() const
-  {
-    return _mir_surface;
-  }
-
-  void mir_surface(MirSurface* new_mir_surface)
-  {
-    _mir_surface = new_mir_surface;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::mir_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::mir_surface_create_flags_khr _flags = 0;
-  MirConnection* _connection = nullptr;
-  MirSurface* _mir_surface = nullptr;
-};
-static_assert(sizeof(mir_surface_create_info_khr) ==
-                sizeof(::VkMirSurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_MIR_KHR)
-inline vk::result create_mir_surface_khr(
-  VkInstance instance, const vk::mir_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateMirSurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkMirSurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-inline VkBool32 get_physical_device_mir_presentation_support_khr(
-  VkPhysicalDevice physical_device, uint32_t queue_family_index,
-  MirConnection* connection)
-{
-  return static_cast<VkBool32>(vkGetPhysicalDeviceMirPresentationSupportKHR(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<uint32_t>(queue_family_index),
-    reinterpret_cast<MirConnection*>(connection)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-using android_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkAndroidSurfaceCreateInfoKHR.
-class android_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr android_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr android_surface_create_info_khr(
-    const void* initial_next,
-    vk::android_surface_create_flags_khr initial_flags,
-    struct ANativeWindow* initial_window) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _window(std::move(initial_window))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr android_surface_create_info_khr(
-    const android_surface_create_info_khr& other) noexcept
-  : _next(other._next), _flags(other._flags), _window(other._window)
-  {
-  }
-
-  /// Move constructor.
-  constexpr android_surface_create_info_khr(
-    android_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _window(std::move(other._window))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr android_surface_create_info_khr& operator=(
-    const android_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _window = other._window;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr android_surface_create_info_khr& operator=(
-    android_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _window = std::move(other._window);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkAndroidSurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkAndroidSurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::android_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::android_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::android_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  struct ANativeWindow* window()
-  {
-    return _window;
-  }
-
-  constexpr struct ANativeWindow* window() const
-  {
-    return _window;
-  }
-
-  void window(struct ANativeWindow* new_window)
-  {
-    _window = new_window;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::android_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::android_surface_create_flags_khr _flags = 0;
-  struct ANativeWindow* _window = nullptr;
-};
-static_assert(sizeof(android_surface_create_info_khr) ==
-                sizeof(::VkAndroidSurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-inline vk::result create_android_surface_khr(
-  VkInstance instance, const vk::android_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateAndroidSurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkAndroidSurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-using win32_surface_create_flags_khr = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkWin32SurfaceCreateInfoKHR.
-class win32_surface_create_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr win32_surface_create_info_khr() = default;
-
-  /// Constructor.
-  constexpr win32_surface_create_info_khr(
-    const void* initial_next, vk::win32_surface_create_flags_khr initial_flags,
-    HINSTANCE initial_hinstance, HWND initial_hwnd) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _hinstance(std::move(initial_hinstance)),
-    _hwnd(std::move(initial_hwnd))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr win32_surface_create_info_khr(
-    const win32_surface_create_info_khr& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _hinstance(other._hinstance),
-    _hwnd(other._hwnd)
-  {
-  }
-
-  /// Move constructor.
-  constexpr win32_surface_create_info_khr(
-    win32_surface_create_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _hinstance(std::move(other._hinstance)),
-    _hwnd(std::move(other._hwnd))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr win32_surface_create_info_khr& operator=(
-    const win32_surface_create_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _hinstance = other._hinstance;
-    _hwnd = other._hwnd;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr win32_surface_create_info_khr& operator=(
-    win32_surface_create_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _hinstance = std::move(other._hinstance);
-    _hwnd = std::move(other._hwnd);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkWin32SurfaceCreateInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkWin32SurfaceCreateInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::win32_surface_create_flags_khr& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::win32_surface_create_flags_khr& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::win32_surface_create_flags_khr new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  HINSTANCE& hinstance()
-  {
-    return _hinstance;
-  }
-
-  constexpr const HINSTANCE& hinstance() const
-  {
-    return _hinstance;
-  }
-
-  void hinstance(HINSTANCE new_hinstance)
-  {
-    _hinstance = new_hinstance;
-  }
-
-  HWND& hwnd()
-  {
-    return _hwnd;
-  }
-
-  constexpr const HWND& hwnd() const
-  {
-    return _hwnd;
-  }
-
-  void hwnd(HWND new_hwnd)
-  {
-    _hwnd = new_hwnd;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::win32_surface_create_info_khr;
-  const void* _next = nullptr;
-  vk::win32_surface_create_flags_khr _flags = 0;
-  HINSTANCE _hinstance = 0;
-  HWND _hwnd = 0;
-};
-static_assert(sizeof(win32_surface_create_info_khr) ==
-                sizeof(::VkWin32SurfaceCreateInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-inline vk::result create_win32_surface_khr(
-  VkInstance instance, const vk::win32_surface_create_info_khr* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateWin32SurfaceKHR(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkWin32SurfaceCreateInfoKHR*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-inline VkBool32 get_physical_device_win32_presentation_support_khr(
-  VkPhysicalDevice physical_device, uint32_t queue_family_index)
-{
-  return static_cast<VkBool32>(vkGetPhysicalDeviceWin32PresentationSupportKHR(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<uint32_t>(queue_family_index)));
-}
-#endif
-enum class debug_report_object_type_ext
-{
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT
-  debug_report_object_type_unknown_ext = 0,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT
-  debug_report_object_type_instance_ext = 1,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PHYSICAL_DEVICE_EXT
-  debug_report_object_type_physical_device_ext = 2,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT
-  debug_report_object_type_device_ext = 3,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_QUEUE_EXT
-  debug_report_object_type_queue_ext = 4,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SEMAPHORE_EXT
-  debug_report_object_type_semaphore_ext = 5,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_BUFFER_EXT
-  debug_report_object_type_command_buffer_ext = 6,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_FENCE_EXT
-  debug_report_object_type_fence_ext = 7,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT
-  debug_report_object_type_device_memory_ext = 8,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT
-  debug_report_object_type_buffer_ext = 9,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_EXT
-  debug_report_object_type_image_ext = 10,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_EVENT_EXT
-  debug_report_object_type_event_ext = 11,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_QUERY_POOL_EXT
-  debug_report_object_type_query_pool_ext = 12,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_VIEW_EXT
-  debug_report_object_type_buffer_view_ext = 13,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_VIEW_EXT
-  debug_report_object_type_image_view_ext = 14,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SHADER_MODULE_EXT
-  debug_report_object_type_shader_module_ext = 15,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_CACHE_EXT
-  debug_report_object_type_pipeline_cache_ext = 16,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_LAYOUT_EXT
-  debug_report_object_type_pipeline_layout_ext = 17,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_RENDER_PASS_EXT
-  debug_report_object_type_render_pass_ext = 18,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_EXT
-  debug_report_object_type_pipeline_ext = 19,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT_EXT
-  debug_report_object_type_descriptor_set_layout_ext = 20,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_EXT
-  debug_report_object_type_sampler_ext = 21,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_POOL_EXT
-  debug_report_object_type_descriptor_pool_ext = 22,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_EXT
-  debug_report_object_type_descriptor_set_ext = 23,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_FRAMEBUFFER_EXT
-  debug_report_object_type_framebuffer_ext = 24,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_POOL_EXT
-  debug_report_object_type_command_pool_ext = 25,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SURFACE_KHR_EXT
-  debug_report_object_type_surface_khr_ext = 26,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SWAPCHAIN_KHR_EXT
-  debug_report_object_type_swapchain_khr_ext = 27,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT
-  debug_report_object_type_debug_report_callback_ext_ext = 28,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT
-  debug_report_object_type_display_khr_ext = 29,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT
-  debug_report_object_type_display_mode_khr_ext = 30,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_OBJECT_TABLE_NVX_EXT
-  debug_report_object_type_object_table_nvx_ext = 31,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NVX_EXT
-  debug_report_object_type_indirect_commands_layout_nvx_ext = 32,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT
-  debug_report_object_type_validation_cache_ext_ext = 33,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT
-  debug_report_object_type_sampler_ycbcr_conversion_ext = 1000011000,
-  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT
-  debug_report_object_type_descriptor_update_template_ext = 1000011000,
-};
-enum class debug_report_flag_ext
-{
-  /// Custom enumerant not available in Vulkan.
-  none = 0,
-  /// @see VK_DEBUG_REPORT_INFORMATION_BIT_EXT
-  information_bit_ext = 1 << 0,
-  /// @see VK_DEBUG_REPORT_WARNING_BIT_EXT
-  warning_bit_ext = 1 << 1,
-  /// @see VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT
-  performance_warning_bit_ext = 1 << 2,
-  /// @see VK_DEBUG_REPORT_ERROR_BIT_EXT
-  error_bit_ext = 1 << 3,
-  /// @see VK_DEBUG_REPORT_DEBUG_BIT_EXT
-  debug_bit_ext = 1 << 4,
-};
-using debug_report_flags_ext =
-  shift::core::bit_field<debug_report_flag_ext, VkDebugReportFlagsEXT>;
-inline constexpr debug_report_flags_ext operator|(debug_report_flag_ext lhs,
-                                                  debug_report_flag_ext rhs)
-{
-  return debug_report_flags_ext{lhs} | rhs;
-}
-/// Enhanced replacement type for VkDebugReportCallbackCreateInfoEXT.
-class debug_report_callback_create_info_ext
-{
-public:
-  /// Default constructor.
-  constexpr debug_report_callback_create_info_ext() = default;
-
-  /// Constructor.
-  constexpr debug_report_callback_create_info_ext(
-    const void* initial_next, vk::debug_report_flags_ext initial_flags,
-    PFN_vkDebugReportCallbackEXT initial_pfn_callback,
-    void* initial_user_data) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _pfn_callback(std::move(initial_pfn_callback)),
-    _user_data(std::move(initial_user_data))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr debug_report_callback_create_info_ext(
-    const debug_report_callback_create_info_ext& other) noexcept
-  : _next(other._next),
-    _flags(other._flags),
-    _pfn_callback(other._pfn_callback),
-    _user_data(other._user_data)
-  {
-  }
-
-  /// Move constructor.
-  constexpr debug_report_callback_create_info_ext(
-    debug_report_callback_create_info_ext&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _pfn_callback(std::move(other._pfn_callback)),
-    _user_data(std::move(other._user_data))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr debug_report_callback_create_info_ext& operator=(
-    const debug_report_callback_create_info_ext& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _pfn_callback = other._pfn_callback;
-    _user_data = other._user_data;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr debug_report_callback_create_info_ext& operator=(
-    debug_report_callback_create_info_ext&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _pfn_callback = std::move(other._pfn_callback);
-    _user_data = std::move(other._user_data);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkDebugReportCallbackCreateInfoEXT&() const
-  {
-    return *reinterpret_cast<const VkDebugReportCallbackCreateInfoEXT*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::debug_report_flags_ext& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::debug_report_flags_ext& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::debug_report_flags_ext new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  PFN_vkDebugReportCallbackEXT& pfn_callback()
-  {
-    return _pfn_callback;
-  }
-
-  constexpr const PFN_vkDebugReportCallbackEXT& pfn_callback() const
-  {
-    return _pfn_callback;
-  }
-
-  void pfn_callback(PFN_vkDebugReportCallbackEXT new_pfn_callback)
-  {
-    _pfn_callback = new_pfn_callback;
-  }
-
-  void* user_data()
-  {
-    return _user_data;
-  }
-
-  constexpr void* user_data() const
-  {
-    return _user_data;
-  }
-
-  void user_data(void* new_user_data)
-  {
-    _user_data = new_user_data;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::debug_report_callback_create_info_ext;
-  const void* _next = nullptr;
-  /// Indicates which events call this callback
-  vk::debug_report_flags_ext _flags = vk::debug_report_flag_ext::none;
-  /// Function pointer of a callback function
-  PFN_vkDebugReportCallbackEXT _pfn_callback = nullptr;
-  /// User data provided to callback function
-  void* _user_data = nullptr;
-};
-static_assert(sizeof(debug_report_callback_create_info_ext) ==
-                sizeof(::VkDebugReportCallbackCreateInfoEXT),
-              "struct and wrapper have different size!");
-
-inline vk::result create_debug_report_callback_ext(
-  VkInstance instance,
-  const vk::debug_report_callback_create_info_ext* create_info,
-  const vk::allocation_callbacks* allocator, VkDebugReportCallbackEXT* callback)
-{
-  return static_cast<vk::result>(vkCreateDebugReportCallbackEXT(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkDebugReportCallbackCreateInfoEXT*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkDebugReportCallbackEXT*>(callback)));
-}
-inline void destroy_debug_report_callback_ext(
-  VkInstance instance, VkDebugReportCallbackEXT callback,
-  const vk::allocation_callbacks* allocator)
-{
-  vkDestroyDebugReportCallbackEXT(
-    static_cast<VkInstance>(instance),
-    static_cast<VkDebugReportCallbackEXT>(callback),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator));
-}
-inline void debug_report_message_ext(
-  VkInstance instance, vk::debug_report_flags_ext flags,
-  vk::debug_report_object_type_ext object_type, uint64_t object,
-  size_t location, int32_t message_code, const char* layer_prefix,
-  const char* message)
-{
-  vkDebugReportMessageEXT(static_cast<VkInstance>(instance),
-                          static_cast<VkDebugReportFlagsEXT>(flags),
-                          static_cast<VkDebugReportObjectTypeEXT>(object_type),
-                          static_cast<uint64_t>(object),
-                          static_cast<size_t>(location),
-                          static_cast<int32_t>(message_code),
-                          reinterpret_cast<const char*>(layer_prefix),
-                          reinterpret_cast<const char*>(message));
-}
 enum class rasterization_order_amd
 {
   /// @see VK_RASTERIZATION_ORDER_STRICT_AMD
@@ -38207,6 +37115,88 @@ private:
 static_assert(sizeof(pipeline_rasterization_state_rasterization_order_amd) ==
                 sizeof(::VkPipelineRasterizationStateRasterizationOrderAMD),
               "struct and wrapper have different size!");
+
+enum class debug_report_object_type_ext
+{
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT
+  debug_report_object_type_unknown_ext = 0,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT
+  debug_report_object_type_instance_ext = 1,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PHYSICAL_DEVICE_EXT
+  debug_report_object_type_physical_device_ext = 2,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT
+  debug_report_object_type_device_ext = 3,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_QUEUE_EXT
+  debug_report_object_type_queue_ext = 4,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SEMAPHORE_EXT
+  debug_report_object_type_semaphore_ext = 5,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_BUFFER_EXT
+  debug_report_object_type_command_buffer_ext = 6,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_FENCE_EXT
+  debug_report_object_type_fence_ext = 7,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT
+  debug_report_object_type_device_memory_ext = 8,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT
+  debug_report_object_type_buffer_ext = 9,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_EXT
+  debug_report_object_type_image_ext = 10,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_EVENT_EXT
+  debug_report_object_type_event_ext = 11,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_QUERY_POOL_EXT
+  debug_report_object_type_query_pool_ext = 12,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_VIEW_EXT
+  debug_report_object_type_buffer_view_ext = 13,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_VIEW_EXT
+  debug_report_object_type_image_view_ext = 14,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SHADER_MODULE_EXT
+  debug_report_object_type_shader_module_ext = 15,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_CACHE_EXT
+  debug_report_object_type_pipeline_cache_ext = 16,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_LAYOUT_EXT
+  debug_report_object_type_pipeline_layout_ext = 17,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_RENDER_PASS_EXT
+  debug_report_object_type_render_pass_ext = 18,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_EXT
+  debug_report_object_type_pipeline_ext = 19,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT_EXT
+  debug_report_object_type_descriptor_set_layout_ext = 20,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_EXT
+  debug_report_object_type_sampler_ext = 21,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_POOL_EXT
+  debug_report_object_type_descriptor_pool_ext = 22,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_EXT
+  debug_report_object_type_descriptor_set_ext = 23,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_FRAMEBUFFER_EXT
+  debug_report_object_type_framebuffer_ext = 24,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_POOL_EXT
+  debug_report_object_type_command_pool_ext = 25,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SURFACE_KHR_EXT
+  debug_report_object_type_surface_khr_ext = 26,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_SWAPCHAIN_KHR_EXT
+  debug_report_object_type_swapchain_khr_ext = 27,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT
+  debug_report_object_type_debug_report_callback_ext_ext = 28,
+  /// Backwards-compatible alias containing a typo
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT
+  debug_report_object_type_debug_report_ext =
+    debug_report_object_type_debug_report_callback_ext_ext,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT
+  debug_report_object_type_display_khr_ext = 29,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT
+  debug_report_object_type_display_mode_khr_ext = 30,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_OBJECT_TABLE_NVX_EXT
+  debug_report_object_type_object_table_nvx_ext = 31,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NVX_EXT
+  debug_report_object_type_indirect_commands_layout_nvx_ext = 32,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT
+  debug_report_object_type_validation_cache_ext_ext = 33,
+  /// Backwards-compatible alias containing a typo
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT
+  debug_report_object_type_validation_cache_ext =
+    debug_report_object_type_validation_cache_ext_ext,
+  /// @see VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_NVX_EXT
+  debug_report_object_type_acceleration_structure_nvx_ext = 1000165000,
+};
 
 /// Enhanced replacement type for VkDebugMarkerObjectNameInfoEXT.
 class debug_marker_object_name_info_ext
@@ -39482,6 +38472,107 @@ inline vk::result get_shader_info_amd(VkDevice device, VkPipeline pipeline,
     static_cast<VkShaderInfoTypeAMD>(info_type),
     reinterpret_cast<size_t*>(info_size), reinterpret_cast<void*>(info)));
 }
+
+/// Enhanced replacement type for VkPhysicalDeviceCornerSampledImageFeaturesNV.
+class physical_device_corner_sampled_image_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_corner_sampled_image_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_corner_sampled_image_features_nv(
+    void* initial_next, VkBool32 initial_corner_sampled_image) noexcept
+  : _next(std::move(initial_next)),
+    _corner_sampled_image(std::move(initial_corner_sampled_image))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_corner_sampled_image_features_nv(
+    const physical_device_corner_sampled_image_features_nv& other) noexcept
+  : _next(other._next), _corner_sampled_image(other._corner_sampled_image)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_corner_sampled_image_features_nv(
+    physical_device_corner_sampled_image_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _corner_sampled_image(std::move(other._corner_sampled_image))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_corner_sampled_image_features_nv& operator=(
+    const physical_device_corner_sampled_image_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _corner_sampled_image = other._corner_sampled_image;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_corner_sampled_image_features_nv& operator=(
+    physical_device_corner_sampled_image_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _corner_sampled_image = std::move(other._corner_sampled_image);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceCornerSampledImageFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceCornerSampledImageFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& corner_sampled_image()
+  {
+    return _corner_sampled_image;
+  }
+
+  constexpr const VkBool32& corner_sampled_image() const
+  {
+    return _corner_sampled_image;
+  }
+
+  void corner_sampled_image(VkBool32 new_corner_sampled_image)
+  {
+    _corner_sampled_image = new_corner_sampled_image;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_corner_sampled_image_features_nv;
+  void* _next = nullptr;
+  VkBool32 _corner_sampled_image = VK_FALSE;
+};
+static_assert(sizeof(physical_device_corner_sampled_image_features_nv) ==
+                sizeof(::VkPhysicalDeviceCornerSampledImageFeaturesNV),
+              "struct and wrapper have different size!");
+
 enum class external_memory_handle_type_flag_nv
 {
   /// Custom enumerant not available in Vulkan.
@@ -39868,577 +38959,6 @@ static_assert(sizeof(export_memory_allocate_info_nv) ==
                 sizeof(::VkExportMemoryAllocateInfoNV),
               "struct and wrapper have different size!");
 
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkImportMemoryWin32HandleInfoNV.
-class import_memory_win32_handle_info_nv
-{
-public:
-  /// Default constructor.
-  constexpr import_memory_win32_handle_info_nv() = default;
-
-  /// Constructor.
-  constexpr import_memory_win32_handle_info_nv(
-    const void* initial_next,
-    vk::external_memory_handle_type_flags_nv initial_handle_type,
-    HANDLE initial_handle) noexcept
-  : _next(std::move(initial_next)),
-    _handle_type(std::move(initial_handle_type)),
-    _handle(std::move(initial_handle))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr import_memory_win32_handle_info_nv(
-    const import_memory_win32_handle_info_nv& other) noexcept
-  : _next(other._next), _handle_type(other._handle_type), _handle(other._handle)
-  {
-  }
-
-  /// Move constructor.
-  constexpr import_memory_win32_handle_info_nv(
-    import_memory_win32_handle_info_nv&& other) noexcept
-  : _next(std::move(other._next)),
-    _handle_type(std::move(other._handle_type)),
-    _handle(std::move(other._handle))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr import_memory_win32_handle_info_nv& operator=(
-    const import_memory_win32_handle_info_nv& other) noexcept
-  {
-    _next = other._next;
-    _handle_type = other._handle_type;
-    _handle = other._handle;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr import_memory_win32_handle_info_nv& operator=(
-    import_memory_win32_handle_info_nv&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _handle_type = std::move(other._handle_type);
-    _handle = std::move(other._handle);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkImportMemoryWin32HandleInfoNV&() const
-  {
-    return *reinterpret_cast<const VkImportMemoryWin32HandleInfoNV*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::external_memory_handle_type_flags_nv& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_memory_handle_type_flags_nv& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_memory_handle_type_flags_nv new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-  HANDLE& handle()
-  {
-    return _handle;
-  }
-
-  constexpr const HANDLE& handle() const
-  {
-    return _handle;
-  }
-
-  void handle(HANDLE new_handle)
-  {
-    _handle = new_handle;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::import_memory_win32_handle_info_nv;
-  const void* _next = nullptr;
-  vk::external_memory_handle_type_flags_nv _handle_type =
-    vk::external_memory_handle_type_flag_nv::none;
-  HANDLE _handle = 0;
-};
-static_assert(sizeof(import_memory_win32_handle_info_nv) ==
-                sizeof(::VkImportMemoryWin32HandleInfoNV),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkExportMemoryWin32HandleInfoNV.
-class export_memory_win32_handle_info_nv
-{
-public:
-  /// Default constructor.
-  constexpr export_memory_win32_handle_info_nv() = default;
-
-  /// Constructor.
-  constexpr export_memory_win32_handle_info_nv(
-    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
-    DWORD initial_dw_access) noexcept
-  : _next(std::move(initial_next)),
-    _attributes(std::move(initial_attributes)),
-    _dw_access(std::move(initial_dw_access))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr export_memory_win32_handle_info_nv(
-    const export_memory_win32_handle_info_nv& other) noexcept
-  : _next(other._next),
-    _attributes(other._attributes),
-    _dw_access(other._dw_access)
-  {
-  }
-
-  /// Move constructor.
-  constexpr export_memory_win32_handle_info_nv(
-    export_memory_win32_handle_info_nv&& other) noexcept
-  : _next(std::move(other._next)),
-    _attributes(std::move(other._attributes)),
-    _dw_access(std::move(other._dw_access))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr export_memory_win32_handle_info_nv& operator=(
-    const export_memory_win32_handle_info_nv& other) noexcept
-  {
-    _next = other._next;
-    _attributes = other._attributes;
-    _dw_access = other._dw_access;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr export_memory_win32_handle_info_nv& operator=(
-    export_memory_win32_handle_info_nv&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _attributes = std::move(other._attributes);
-    _dw_access = std::move(other._dw_access);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkExportMemoryWin32HandleInfoNV&() const
-  {
-    return *reinterpret_cast<const VkExportMemoryWin32HandleInfoNV*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  const SECURITY_ATTRIBUTES* attributes()
-  {
-    return _attributes;
-  }
-
-  constexpr const SECURITY_ATTRIBUTES* attributes() const
-  {
-    return _attributes;
-  }
-
-  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
-  {
-    _attributes = new_attributes;
-  }
-
-  DWORD& dw_access()
-  {
-    return _dw_access;
-  }
-
-  constexpr const DWORD& dw_access() const
-  {
-    return _dw_access;
-  }
-
-  void dw_access(DWORD new_dw_access)
-  {
-    _dw_access = new_dw_access;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::export_memory_win32_handle_info_nv;
-  const void* _next = nullptr;
-  const SECURITY_ATTRIBUTES* _attributes = nullptr;
-  DWORD _dw_access = 0;
-};
-static_assert(sizeof(export_memory_win32_handle_info_nv) ==
-                sizeof(::VkExportMemoryWin32HandleInfoNV),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-inline vk::result get_memory_win32_handle_nv(
-  VkDevice device, VkDeviceMemory memory,
-  vk::external_memory_handle_type_flags_nv handle_type, HANDLE* handle)
-{
-  return static_cast<vk::result>(vkGetMemoryWin32HandleNV(
-    static_cast<VkDevice>(device), static_cast<VkDeviceMemory>(memory),
-    static_cast<VkExternalMemoryHandleTypeFlagsNV>(handle_type),
-    reinterpret_cast<HANDLE*>(handle)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkWin32KeyedMutexAcquireReleaseInfoNV.
-class win32_keyed_mutex_acquire_release_info_nv
-{
-public:
-  /// Default constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_nv() = default;
-
-  /// Constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_nv(
-    const void* initial_next, uint32_t initial_acquire_count,
-    const VkDeviceMemory* initial_acquire_syncs,
-    const uint64_t* initial_acquire_keys,
-    const uint32_t* initial_acquire_timeout_milliseconds,
-    uint32_t initial_release_count, const VkDeviceMemory* initial_release_syncs,
-    const uint64_t* initial_release_keys) noexcept
-  : _next(std::move(initial_next)),
-    _acquire_count(std::move(initial_acquire_count)),
-    _acquire_syncs(std::move(initial_acquire_syncs)),
-    _acquire_keys(std::move(initial_acquire_keys)),
-    _acquire_timeout_milliseconds(
-      std::move(initial_acquire_timeout_milliseconds)),
-    _release_count(std::move(initial_release_count)),
-    _release_syncs(std::move(initial_release_syncs)),
-    _release_keys(std::move(initial_release_keys))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_nv(
-    const win32_keyed_mutex_acquire_release_info_nv& other) noexcept
-  : _next(other._next),
-    _acquire_count(other._acquire_count),
-    _acquire_syncs(other._acquire_syncs),
-    _acquire_keys(other._acquire_keys),
-    _acquire_timeout_milliseconds(other._acquire_timeout_milliseconds),
-    _release_count(other._release_count),
-    _release_syncs(other._release_syncs),
-    _release_keys(other._release_keys)
-  {
-  }
-
-  /// Move constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_nv(
-    win32_keyed_mutex_acquire_release_info_nv&& other) noexcept
-  : _next(std::move(other._next)),
-    _acquire_count(std::move(other._acquire_count)),
-    _acquire_syncs(std::move(other._acquire_syncs)),
-    _acquire_keys(std::move(other._acquire_keys)),
-    _acquire_timeout_milliseconds(
-      std::move(other._acquire_timeout_milliseconds)),
-    _release_count(std::move(other._release_count)),
-    _release_syncs(std::move(other._release_syncs)),
-    _release_keys(std::move(other._release_keys))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr win32_keyed_mutex_acquire_release_info_nv& operator=(
-    const win32_keyed_mutex_acquire_release_info_nv& other) noexcept
-  {
-    _next = other._next;
-    _acquire_count = other._acquire_count;
-    _acquire_syncs = other._acquire_syncs;
-    _acquire_keys = other._acquire_keys;
-    _acquire_timeout_milliseconds = other._acquire_timeout_milliseconds;
-    _release_count = other._release_count;
-    _release_syncs = other._release_syncs;
-    _release_keys = other._release_keys;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr win32_keyed_mutex_acquire_release_info_nv& operator=(
-    win32_keyed_mutex_acquire_release_info_nv&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _acquire_count = std::move(other._acquire_count);
-    _acquire_syncs = std::move(other._acquire_syncs);
-    _acquire_keys = std::move(other._acquire_keys);
-    _acquire_timeout_milliseconds =
-      std::move(other._acquire_timeout_milliseconds);
-    _release_count = std::move(other._release_count);
-    _release_syncs = std::move(other._release_syncs);
-    _release_keys = std::move(other._release_keys);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkWin32KeyedMutexAcquireReleaseInfoNV&() const
-  {
-    return *reinterpret_cast<const VkWin32KeyedMutexAcquireReleaseInfoNV*>(
-      this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint32_t& acquire_count()
-  {
-    return _acquire_count;
-  }
-
-  constexpr const uint32_t& acquire_count() const
-  {
-    return _acquire_count;
-  }
-
-  void acquire_count(uint32_t new_acquire_count)
-  {
-    _acquire_count = new_acquire_count;
-  }
-
-  const VkDeviceMemory* acquire_syncs()
-  {
-    return _acquire_syncs;
-  }
-
-  constexpr const VkDeviceMemory* acquire_syncs() const
-  {
-    return _acquire_syncs;
-  }
-
-  void acquire_syncs(const VkDeviceMemory* new_acquire_syncs)
-  {
-    _acquire_syncs = new_acquire_syncs;
-  }
-
-  template <std::size_t Count>
-  void acquire_syncs(const std::array<VkDeviceMemory, Count>& new_acquire_syncs)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
-    _acquire_syncs = new_acquire_syncs.data();
-  }
-
-  void acquire_syncs(const std::vector<VkDeviceMemory>& new_acquire_syncs)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
-    _acquire_syncs = new_acquire_syncs.data();
-  }
-
-  const uint64_t* acquire_keys()
-  {
-    return _acquire_keys;
-  }
-
-  constexpr const uint64_t* acquire_keys() const
-  {
-    return _acquire_keys;
-  }
-
-  void acquire_keys(const uint64_t* new_acquire_keys)
-  {
-    _acquire_keys = new_acquire_keys;
-  }
-
-  template <std::size_t Count>
-  void acquire_keys(const std::array<uint64_t, Count>& new_acquire_keys)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
-    _acquire_keys = new_acquire_keys.data();
-  }
-
-  void acquire_keys(const std::vector<uint64_t>& new_acquire_keys)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
-    _acquire_keys = new_acquire_keys.data();
-  }
-
-  const uint32_t* acquire_timeout_milliseconds()
-  {
-    return _acquire_timeout_milliseconds;
-  }
-
-  constexpr const uint32_t* acquire_timeout_milliseconds() const
-  {
-    return _acquire_timeout_milliseconds;
-  }
-
-  void acquire_timeout_milliseconds(
-    const uint32_t* new_acquire_timeout_milliseconds)
-  {
-    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds;
-  }
-
-  template <std::size_t Count>
-  void acquire_timeout_milliseconds(
-    const std::array<uint32_t, Count>& new_acquire_timeout_milliseconds)
-  {
-    _acquire_count =
-      static_cast<uint32_t>(new_acquire_timeout_milliseconds.size());
-    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds.data();
-  }
-
-  void acquire_timeout_milliseconds(
-    const std::vector<uint32_t>& new_acquire_timeout_milliseconds)
-  {
-    _acquire_count =
-      static_cast<uint32_t>(new_acquire_timeout_milliseconds.size());
-    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds.data();
-  }
-
-  uint32_t& release_count()
-  {
-    return _release_count;
-  }
-
-  constexpr const uint32_t& release_count() const
-  {
-    return _release_count;
-  }
-
-  void release_count(uint32_t new_release_count)
-  {
-    _release_count = new_release_count;
-  }
-
-  const VkDeviceMemory* release_syncs()
-  {
-    return _release_syncs;
-  }
-
-  constexpr const VkDeviceMemory* release_syncs() const
-  {
-    return _release_syncs;
-  }
-
-  void release_syncs(const VkDeviceMemory* new_release_syncs)
-  {
-    _release_syncs = new_release_syncs;
-  }
-
-  template <std::size_t Count>
-  void release_syncs(const std::array<VkDeviceMemory, Count>& new_release_syncs)
-  {
-    _release_count = static_cast<uint32_t>(new_release_syncs.size());
-    _release_syncs = new_release_syncs.data();
-  }
-
-  void release_syncs(const std::vector<VkDeviceMemory>& new_release_syncs)
-  {
-    _release_count = static_cast<uint32_t>(new_release_syncs.size());
-    _release_syncs = new_release_syncs.data();
-  }
-
-  const uint64_t* release_keys()
-  {
-    return _release_keys;
-  }
-
-  constexpr const uint64_t* release_keys() const
-  {
-    return _release_keys;
-  }
-
-  void release_keys(const uint64_t* new_release_keys)
-  {
-    _release_keys = new_release_keys;
-  }
-
-  template <std::size_t Count>
-  void release_keys(const std::array<uint64_t, Count>& new_release_keys)
-  {
-    _release_count = static_cast<uint32_t>(new_release_keys.size());
-    _release_keys = new_release_keys.data();
-  }
-
-  void release_keys(const std::vector<uint64_t>& new_release_keys)
-  {
-    _release_count = static_cast<uint32_t>(new_release_keys.size());
-    _release_keys = new_release_keys.data();
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::win32_keyed_mutex_acquire_release_info_nv;
-  const void* _next = nullptr;
-  uint32_t _acquire_count = 0;
-  const VkDeviceMemory* _acquire_syncs = nullptr;
-  const uint64_t* _acquire_keys = nullptr;
-  const uint32_t* _acquire_timeout_milliseconds = nullptr;
-  uint32_t _release_count = 0;
-  const VkDeviceMemory* _release_syncs = nullptr;
-  const uint64_t* _release_keys = nullptr;
-};
-static_assert(sizeof(win32_keyed_mutex_acquire_release_info_nv) ==
-                sizeof(::VkWin32KeyedMutexAcquireReleaseInfoNV),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-#endif
 enum class validation_check_ext
 {
   /// @see VK_VALIDATION_CHECK_ALL_EXT
@@ -40457,7 +38977,7 @@ public:
   /// Constructor.
   constexpr validation_flags_ext(
     const void* initial_next, uint32_t initial_disabled_validation_check_count,
-    vk::validation_check_ext* initial_disabled_validation_checks) noexcept
+    const vk::validation_check_ext* initial_disabled_validation_checks) noexcept
   : _next(std::move(initial_next)),
     _disabled_validation_check_count(
       std::move(initial_disabled_validation_check_count)),
@@ -40545,25 +39065,26 @@ public:
     _disabled_validation_check_count = new_disabled_validation_check_count;
   }
 
-  vk::validation_check_ext* disabled_validation_checks()
+  const vk::validation_check_ext* disabled_validation_checks()
   {
     return _disabled_validation_checks;
   }
 
-  constexpr vk::validation_check_ext* disabled_validation_checks() const
+  constexpr const vk::validation_check_ext* disabled_validation_checks() const
   {
     return _disabled_validation_checks;
   }
 
   void disabled_validation_checks(
-    vk::validation_check_ext* new_disabled_validation_checks)
+    const vk::validation_check_ext* new_disabled_validation_checks)
   {
     _disabled_validation_checks = new_disabled_validation_checks;
   }
 
   template <std::size_t Count>
   void disabled_validation_checks(
-    std::array<vk::validation_check_ext, Count>& new_disabled_validation_checks)
+    const std::array<vk::validation_check_ext, Count>&
+      new_disabled_validation_checks)
   {
     _disabled_validation_check_count =
       static_cast<uint32_t>(new_disabled_validation_checks.size());
@@ -40571,7 +39092,7 @@ public:
   }
 
   void disabled_validation_checks(
-    std::vector<vk::validation_check_ext>& new_disabled_validation_checks)
+    const std::vector<vk::validation_check_ext>& new_disabled_validation_checks)
   {
     _disabled_validation_check_count =
       static_cast<uint32_t>(new_disabled_validation_checks.size());
@@ -40586,73 +39107,61 @@ private:
   /// Number of validation checks to disable
   uint32_t _disabled_validation_check_count = 0;
   /// Validation checks to disable
-  vk::validation_check_ext* _disabled_validation_checks = nullptr;
+  const vk::validation_check_ext* _disabled_validation_checks = nullptr;
 };
 static_assert(sizeof(validation_flags_ext) == sizeof(::VkValidationFlagsEXT),
               "struct and wrapper have different size!");
 
-#if defined(VK_USE_PLATFORM_VI_NN)
-using vi_surface_create_flags_nn = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_VI_NN)
-
-/// Enhanced replacement type for VkViSurfaceCreateInfoNN.
-class vi_surface_create_info_nn
+/// Enhanced replacement type for VkImageViewASTCDecodeModeEXT.
+class image_view_astcdecode_mode_ext
 {
 public:
   /// Default constructor.
-  constexpr vi_surface_create_info_nn() = default;
+  constexpr image_view_astcdecode_mode_ext() = default;
 
   /// Constructor.
-  constexpr vi_surface_create_info_nn(
-    const void* initial_next, vk::vi_surface_create_flags_nn initial_flags,
-    void* initial_window) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _window(std::move(initial_window))
+  constexpr image_view_astcdecode_mode_ext(
+    const void* initial_next, vk::format initial_decode_mode) noexcept
+  : _next(std::move(initial_next)), _decode_mode(std::move(initial_decode_mode))
   {
   }
 
   /// Copy constructor.
-  constexpr vi_surface_create_info_nn(
-    const vi_surface_create_info_nn& other) noexcept
-  : _next(other._next), _flags(other._flags), _window(other._window)
+  constexpr image_view_astcdecode_mode_ext(
+    const image_view_astcdecode_mode_ext& other) noexcept
+  : _next(other._next), _decode_mode(other._decode_mode)
   {
   }
 
   /// Move constructor.
-  constexpr vi_surface_create_info_nn(
-    vi_surface_create_info_nn&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _window(std::move(other._window))
+  constexpr image_view_astcdecode_mode_ext(
+    image_view_astcdecode_mode_ext&& other) noexcept
+  : _next(std::move(other._next)), _decode_mode(std::move(other._decode_mode))
   {
   }
 
   /// Copy assignment operator.
-  constexpr vi_surface_create_info_nn& operator=(
-    const vi_surface_create_info_nn& other) noexcept
+  constexpr image_view_astcdecode_mode_ext& operator=(
+    const image_view_astcdecode_mode_ext& other) noexcept
   {
     _next = other._next;
-    _flags = other._flags;
-    _window = other._window;
+    _decode_mode = other._decode_mode;
     return *this;
   }
 
   /// Move assignment operator.
-  constexpr vi_surface_create_info_nn& operator=(
-    vi_surface_create_info_nn&& other) noexcept
+  constexpr image_view_astcdecode_mode_ext& operator=(
+    image_view_astcdecode_mode_ext&& other) noexcept
   {
     _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _window = std::move(other._window);
+    _decode_mode = std::move(other._decode_mode);
     return *this;
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkViSurfaceCreateInfoNN&() const
+  operator const VkImageViewASTCDecodeModeEXT&() const
   {
-    return *reinterpret_cast<const VkViSurfaceCreateInfoNN*>(this);
+    return *reinterpret_cast<const VkImageViewASTCDecodeModeEXT*>(this);
   }
 
   constexpr const vk::structure_type& structure_type() const
@@ -40675,408 +39184,86 @@ public:
     _next = new_next;
   }
 
-  vk::vi_surface_create_flags_nn& flags()
+  vk::format& decode_mode()
   {
-    return _flags;
+    return _decode_mode;
   }
 
-  constexpr const vk::vi_surface_create_flags_nn& flags() const
+  constexpr const vk::format& decode_mode() const
   {
-    return _flags;
+    return _decode_mode;
   }
 
-  void flags(vk::vi_surface_create_flags_nn new_flags)
+  void decode_mode(vk::format new_decode_mode)
   {
-    _flags = new_flags;
-  }
-
-  void* window()
-  {
-    return _window;
-  }
-
-  constexpr void* window() const
-  {
-    return _window;
-  }
-
-  void window(void* new_window)
-  {
-    _window = new_window;
+    _decode_mode = new_decode_mode;
   }
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::vi_surface_create_info_nn;
+    vk::structure_type::image_view_astc_decode_mode_ext;
   const void* _next = nullptr;
-  vk::vi_surface_create_flags_nn _flags = 0;
-  void* _window = nullptr;
+  vk::format _decode_mode = vk::format::undefined;
 };
-static_assert(sizeof(vi_surface_create_info_nn) ==
-                sizeof(::VkViSurfaceCreateInfoNN),
+static_assert(sizeof(image_view_astcdecode_mode_ext) ==
+                sizeof(::VkImageViewASTCDecodeModeEXT),
               "struct and wrapper have different size!");
 
-#endif
-#if defined(VK_USE_PLATFORM_VI_NN)
-inline vk::result create_vi_surface_nn(
-  VkInstance instance, const vk::vi_surface_create_info_nn* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateViSurfaceNN(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkViSurfaceCreateInfoNN*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkImportMemoryWin32HandleInfoKHR.
-class import_memory_win32_handle_info_khr
+/// Enhanced replacement type for VkPhysicalDeviceASTCDecodeFeaturesEXT.
+class physical_device_astcdecode_features_ext
 {
 public:
   /// Default constructor.
-  constexpr import_memory_win32_handle_info_khr() = default;
+  constexpr physical_device_astcdecode_features_ext() = default;
 
   /// Constructor.
-  constexpr import_memory_win32_handle_info_khr(
-    const void* initial_next,
-    vk::external_memory_handle_type_flag initial_handle_type,
-    HANDLE initial_handle, LPCWSTR initial_name) noexcept
+  constexpr physical_device_astcdecode_features_ext(
+    void* initial_next, VkBool32 initial_decode_mode_shared_exponent) noexcept
   : _next(std::move(initial_next)),
-    _handle_type(std::move(initial_handle_type)),
-    _handle(std::move(initial_handle)),
-    _name(std::move(initial_name))
+    _decode_mode_shared_exponent(std::move(initial_decode_mode_shared_exponent))
   {
   }
 
   /// Copy constructor.
-  constexpr import_memory_win32_handle_info_khr(
-    const import_memory_win32_handle_info_khr& other) noexcept
+  constexpr physical_device_astcdecode_features_ext(
+    const physical_device_astcdecode_features_ext& other) noexcept
   : _next(other._next),
-    _handle_type(other._handle_type),
-    _handle(other._handle),
-    _name(other._name)
+    _decode_mode_shared_exponent(other._decode_mode_shared_exponent)
   {
   }
 
   /// Move constructor.
-  constexpr import_memory_win32_handle_info_khr(
-    import_memory_win32_handle_info_khr&& other) noexcept
+  constexpr physical_device_astcdecode_features_ext(
+    physical_device_astcdecode_features_ext&& other) noexcept
   : _next(std::move(other._next)),
-    _handle_type(std::move(other._handle_type)),
-    _handle(std::move(other._handle)),
-    _name(std::move(other._name))
+    _decode_mode_shared_exponent(std::move(other._decode_mode_shared_exponent))
   {
   }
 
   /// Copy assignment operator.
-  constexpr import_memory_win32_handle_info_khr& operator=(
-    const import_memory_win32_handle_info_khr& other) noexcept
+  constexpr physical_device_astcdecode_features_ext& operator=(
+    const physical_device_astcdecode_features_ext& other) noexcept
   {
     _next = other._next;
-    _handle_type = other._handle_type;
-    _handle = other._handle;
-    _name = other._name;
+    _decode_mode_shared_exponent = other._decode_mode_shared_exponent;
     return *this;
   }
 
   /// Move assignment operator.
-  constexpr import_memory_win32_handle_info_khr& operator=(
-    import_memory_win32_handle_info_khr&& other) noexcept
+  constexpr physical_device_astcdecode_features_ext& operator=(
+    physical_device_astcdecode_features_ext&& other) noexcept
   {
     _next = std::move(other._next);
-    _handle_type = std::move(other._handle_type);
-    _handle = std::move(other._handle);
-    _name = std::move(other._name);
+    _decode_mode_shared_exponent =
+      std::move(other._decode_mode_shared_exponent);
     return *this;
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkImportMemoryWin32HandleInfoKHR&() const
+  operator const VkPhysicalDeviceASTCDecodeFeaturesEXT&() const
   {
-    return *reinterpret_cast<const VkImportMemoryWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::external_memory_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_memory_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_memory_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-  HANDLE& handle()
-  {
-    return _handle;
-  }
-
-  constexpr const HANDLE& handle() const
-  {
-    return _handle;
-  }
-
-  void handle(HANDLE new_handle)
-  {
-    _handle = new_handle;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::import_memory_win32_handle_info_khr;
-  const void* _next = nullptr;
-  vk::external_memory_handle_type_flag _handle_type =
-    vk::external_memory_handle_type_flag::none;
-  HANDLE _handle = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(import_memory_win32_handle_info_khr) ==
-                sizeof(::VkImportMemoryWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkExportMemoryWin32HandleInfoKHR.
-class export_memory_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr export_memory_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr export_memory_win32_handle_info_khr(
-    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
-    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
-  : _next(std::move(initial_next)),
-    _attributes(std::move(initial_attributes)),
-    _dw_access(std::move(initial_dw_access)),
-    _name(std::move(initial_name))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr export_memory_win32_handle_info_khr(
-    const export_memory_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _attributes(other._attributes),
-    _dw_access(other._dw_access),
-    _name(other._name)
-  {
-  }
-
-  /// Move constructor.
-  constexpr export_memory_win32_handle_info_khr(
-    export_memory_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _attributes(std::move(other._attributes)),
-    _dw_access(std::move(other._dw_access)),
-    _name(std::move(other._name))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr export_memory_win32_handle_info_khr& operator=(
-    const export_memory_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _attributes = other._attributes;
-    _dw_access = other._dw_access;
-    _name = other._name;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr export_memory_win32_handle_info_khr& operator=(
-    export_memory_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _attributes = std::move(other._attributes);
-    _dw_access = std::move(other._dw_access);
-    _name = std::move(other._name);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkExportMemoryWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkExportMemoryWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  const SECURITY_ATTRIBUTES* attributes()
-  {
-    return _attributes;
-  }
-
-  constexpr const SECURITY_ATTRIBUTES* attributes() const
-  {
-    return _attributes;
-  }
-
-  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
-  {
-    _attributes = new_attributes;
-  }
-
-  DWORD& dw_access()
-  {
-    return _dw_access;
-  }
-
-  constexpr const DWORD& dw_access() const
-  {
-    return _dw_access;
-  }
-
-  void dw_access(DWORD new_dw_access)
-  {
-    _dw_access = new_dw_access;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::export_memory_win32_handle_info_khr;
-  const void* _next = nullptr;
-  const SECURITY_ATTRIBUTES* _attributes = nullptr;
-  DWORD _dw_access = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(export_memory_win32_handle_info_khr) ==
-                sizeof(::VkExportMemoryWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkMemoryWin32HandlePropertiesKHR.
-class memory_win32_handle_properties_khr
-{
-public:
-  /// Default constructor.
-  constexpr memory_win32_handle_properties_khr() = default;
-
-  /// Constructor.
-  constexpr memory_win32_handle_properties_khr(
-    void* initial_next, uint32_t initial_memory_type_bits) noexcept
-  : _next(std::move(initial_next)),
-    _memory_type_bits(std::move(initial_memory_type_bits))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr memory_win32_handle_properties_khr(
-    const memory_win32_handle_properties_khr& other) noexcept
-  : _next(other._next), _memory_type_bits(other._memory_type_bits)
-  {
-  }
-
-  /// Move constructor.
-  constexpr memory_win32_handle_properties_khr(
-    memory_win32_handle_properties_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _memory_type_bits(std::move(other._memory_type_bits))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr memory_win32_handle_properties_khr& operator=(
-    const memory_win32_handle_properties_khr& other) noexcept
-  {
-    _next = other._next;
-    _memory_type_bits = other._memory_type_bits;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr memory_win32_handle_properties_khr& operator=(
-    memory_win32_handle_properties_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _memory_type_bits = std::move(other._memory_type_bits);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkMemoryWin32HandlePropertiesKHR&() const
-  {
-    return *reinterpret_cast<const VkMemoryWin32HandlePropertiesKHR*>(this);
+    return *reinterpret_cast<const VkPhysicalDeviceASTCDecodeFeaturesEXT*>(
+      this);
   }
 
   constexpr const vk::structure_type& structure_type() const
@@ -41099,181 +39286,30 @@ public:
     _next = new_next;
   }
 
-  uint32_t& memory_type_bits()
+  VkBool32& decode_mode_shared_exponent()
   {
-    return _memory_type_bits;
+    return _decode_mode_shared_exponent;
   }
 
-  constexpr const uint32_t& memory_type_bits() const
+  constexpr const VkBool32& decode_mode_shared_exponent() const
   {
-    return _memory_type_bits;
+    return _decode_mode_shared_exponent;
   }
 
-  void memory_type_bits(uint32_t new_memory_type_bits)
+  void decode_mode_shared_exponent(VkBool32 new_decode_mode_shared_exponent)
   {
-    _memory_type_bits = new_memory_type_bits;
+    _decode_mode_shared_exponent = new_decode_mode_shared_exponent;
   }
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::memory_win32_handle_properties_khr;
+    vk::structure_type::physical_device_astc_decode_features_ext;
   void* _next = nullptr;
-  uint32_t _memory_type_bits = 0;
+  VkBool32 _decode_mode_shared_exponent = VK_FALSE;
 };
-static_assert(sizeof(memory_win32_handle_properties_khr) ==
-                sizeof(::VkMemoryWin32HandlePropertiesKHR),
+static_assert(sizeof(physical_device_astcdecode_features_ext) ==
+                sizeof(::VkPhysicalDeviceASTCDecodeFeaturesEXT),
               "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkMemoryGetWin32HandleInfoKHR.
-class memory_get_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr memory_get_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr memory_get_win32_handle_info_khr(
-    const void* initial_next, VkDeviceMemory initial_memory,
-    vk::external_memory_handle_type_flag initial_handle_type) noexcept
-  : _next(std::move(initial_next)),
-    _memory(std::move(initial_memory)),
-    _handle_type(std::move(initial_handle_type))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr memory_get_win32_handle_info_khr(
-    const memory_get_win32_handle_info_khr& other) noexcept
-  : _next(other._next), _memory(other._memory), _handle_type(other._handle_type)
-  {
-  }
-
-  /// Move constructor.
-  constexpr memory_get_win32_handle_info_khr(
-    memory_get_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _memory(std::move(other._memory)),
-    _handle_type(std::move(other._handle_type))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr memory_get_win32_handle_info_khr& operator=(
-    const memory_get_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _memory = other._memory;
-    _handle_type = other._handle_type;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr memory_get_win32_handle_info_khr& operator=(
-    memory_get_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _memory = std::move(other._memory);
-    _handle_type = std::move(other._handle_type);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkMemoryGetWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkMemoryGetWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkDeviceMemory& memory()
-  {
-    return _memory;
-  }
-
-  constexpr const VkDeviceMemory& memory() const
-  {
-    return _memory;
-  }
-
-  void memory(VkDeviceMemory new_memory)
-  {
-    _memory = new_memory;
-  }
-
-  vk::external_memory_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_memory_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_memory_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::memory_get_win32_handle_info_khr;
-  const void* _next = nullptr;
-  VkDeviceMemory _memory = nullptr;
-  vk::external_memory_handle_type_flag _handle_type =
-    vk::external_memory_handle_type_flag::none;
-};
-static_assert(sizeof(memory_get_win32_handle_info_khr) ==
-                sizeof(::VkMemoryGetWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-inline vk::result get_memory_win32_handle_khr(
-  VkDevice device,
-  const vk::memory_get_win32_handle_info_khr* get_win32_handle_info,
-  HANDLE* handle)
-{
-  return static_cast<vk::result>(vkGetMemoryWin32HandleKHR(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkMemoryGetWin32HandleInfoKHR*>(
-      get_win32_handle_info),
-    reinterpret_cast<HANDLE*>(handle)));
-}
-inline vk::result get_memory_win32_handle_properties_khr(
-  VkDevice device, vk::external_memory_handle_type_flag handle_type,
-  HANDLE handle,
-  vk::memory_win32_handle_properties_khr* memory_win32_handle_properties)
-{
-  return static_cast<vk::result>(vkGetMemoryWin32HandlePropertiesKHR(
-    static_cast<VkDevice>(device),
-    static_cast<VkExternalMemoryHandleTypeFlagBits>(handle_type),
-    static_cast<HANDLE>(handle),
-    reinterpret_cast<VkMemoryWin32HandlePropertiesKHR*>(
-      memory_win32_handle_properties)));
-}
-#endif
 
 /// Enhanced replacement type for VkImportMemoryFdInfoKHR.
 class import_memory_fd_info_khr
@@ -41631,1001 +39667,6 @@ inline vk::result get_memory_fd_properties_khr(
     static_cast<int>(fd),
     reinterpret_cast<VkMemoryFdPropertiesKHR*>(memory_fd_properties)));
 }
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkWin32KeyedMutexAcquireReleaseInfoKHR.
-class win32_keyed_mutex_acquire_release_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_khr() = default;
-
-  /// Constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_khr(
-    const void* initial_next, uint32_t initial_acquire_count,
-    const VkDeviceMemory* initial_acquire_syncs,
-    const uint64_t* initial_acquire_keys,
-    const uint32_t* initial_acquire_timeouts, uint32_t initial_release_count,
-    const VkDeviceMemory* initial_release_syncs,
-    const uint64_t* initial_release_keys) noexcept
-  : _next(std::move(initial_next)),
-    _acquire_count(std::move(initial_acquire_count)),
-    _acquire_syncs(std::move(initial_acquire_syncs)),
-    _acquire_keys(std::move(initial_acquire_keys)),
-    _acquire_timeouts(std::move(initial_acquire_timeouts)),
-    _release_count(std::move(initial_release_count)),
-    _release_syncs(std::move(initial_release_syncs)),
-    _release_keys(std::move(initial_release_keys))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_khr(
-    const win32_keyed_mutex_acquire_release_info_khr& other) noexcept
-  : _next(other._next),
-    _acquire_count(other._acquire_count),
-    _acquire_syncs(other._acquire_syncs),
-    _acquire_keys(other._acquire_keys),
-    _acquire_timeouts(other._acquire_timeouts),
-    _release_count(other._release_count),
-    _release_syncs(other._release_syncs),
-    _release_keys(other._release_keys)
-  {
-  }
-
-  /// Move constructor.
-  constexpr win32_keyed_mutex_acquire_release_info_khr(
-    win32_keyed_mutex_acquire_release_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _acquire_count(std::move(other._acquire_count)),
-    _acquire_syncs(std::move(other._acquire_syncs)),
-    _acquire_keys(std::move(other._acquire_keys)),
-    _acquire_timeouts(std::move(other._acquire_timeouts)),
-    _release_count(std::move(other._release_count)),
-    _release_syncs(std::move(other._release_syncs)),
-    _release_keys(std::move(other._release_keys))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr win32_keyed_mutex_acquire_release_info_khr& operator=(
-    const win32_keyed_mutex_acquire_release_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _acquire_count = other._acquire_count;
-    _acquire_syncs = other._acquire_syncs;
-    _acquire_keys = other._acquire_keys;
-    _acquire_timeouts = other._acquire_timeouts;
-    _release_count = other._release_count;
-    _release_syncs = other._release_syncs;
-    _release_keys = other._release_keys;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr win32_keyed_mutex_acquire_release_info_khr& operator=(
-    win32_keyed_mutex_acquire_release_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _acquire_count = std::move(other._acquire_count);
-    _acquire_syncs = std::move(other._acquire_syncs);
-    _acquire_keys = std::move(other._acquire_keys);
-    _acquire_timeouts = std::move(other._acquire_timeouts);
-    _release_count = std::move(other._release_count);
-    _release_syncs = std::move(other._release_syncs);
-    _release_keys = std::move(other._release_keys);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkWin32KeyedMutexAcquireReleaseInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkWin32KeyedMutexAcquireReleaseInfoKHR*>(
-      this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint32_t& acquire_count()
-  {
-    return _acquire_count;
-  }
-
-  constexpr const uint32_t& acquire_count() const
-  {
-    return _acquire_count;
-  }
-
-  void acquire_count(uint32_t new_acquire_count)
-  {
-    _acquire_count = new_acquire_count;
-  }
-
-  const VkDeviceMemory* acquire_syncs()
-  {
-    return _acquire_syncs;
-  }
-
-  constexpr const VkDeviceMemory* acquire_syncs() const
-  {
-    return _acquire_syncs;
-  }
-
-  void acquire_syncs(const VkDeviceMemory* new_acquire_syncs)
-  {
-    _acquire_syncs = new_acquire_syncs;
-  }
-
-  template <std::size_t Count>
-  void acquire_syncs(const std::array<VkDeviceMemory, Count>& new_acquire_syncs)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
-    _acquire_syncs = new_acquire_syncs.data();
-  }
-
-  void acquire_syncs(const std::vector<VkDeviceMemory>& new_acquire_syncs)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
-    _acquire_syncs = new_acquire_syncs.data();
-  }
-
-  const uint64_t* acquire_keys()
-  {
-    return _acquire_keys;
-  }
-
-  constexpr const uint64_t* acquire_keys() const
-  {
-    return _acquire_keys;
-  }
-
-  void acquire_keys(const uint64_t* new_acquire_keys)
-  {
-    _acquire_keys = new_acquire_keys;
-  }
-
-  template <std::size_t Count>
-  void acquire_keys(const std::array<uint64_t, Count>& new_acquire_keys)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
-    _acquire_keys = new_acquire_keys.data();
-  }
-
-  void acquire_keys(const std::vector<uint64_t>& new_acquire_keys)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
-    _acquire_keys = new_acquire_keys.data();
-  }
-
-  const uint32_t* acquire_timeouts()
-  {
-    return _acquire_timeouts;
-  }
-
-  constexpr const uint32_t* acquire_timeouts() const
-  {
-    return _acquire_timeouts;
-  }
-
-  void acquire_timeouts(const uint32_t* new_acquire_timeouts)
-  {
-    _acquire_timeouts = new_acquire_timeouts;
-  }
-
-  template <std::size_t Count>
-  void acquire_timeouts(const std::array<uint32_t, Count>& new_acquire_timeouts)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_timeouts.size());
-    _acquire_timeouts = new_acquire_timeouts.data();
-  }
-
-  void acquire_timeouts(const std::vector<uint32_t>& new_acquire_timeouts)
-  {
-    _acquire_count = static_cast<uint32_t>(new_acquire_timeouts.size());
-    _acquire_timeouts = new_acquire_timeouts.data();
-  }
-
-  uint32_t& release_count()
-  {
-    return _release_count;
-  }
-
-  constexpr const uint32_t& release_count() const
-  {
-    return _release_count;
-  }
-
-  void release_count(uint32_t new_release_count)
-  {
-    _release_count = new_release_count;
-  }
-
-  const VkDeviceMemory* release_syncs()
-  {
-    return _release_syncs;
-  }
-
-  constexpr const VkDeviceMemory* release_syncs() const
-  {
-    return _release_syncs;
-  }
-
-  void release_syncs(const VkDeviceMemory* new_release_syncs)
-  {
-    _release_syncs = new_release_syncs;
-  }
-
-  template <std::size_t Count>
-  void release_syncs(const std::array<VkDeviceMemory, Count>& new_release_syncs)
-  {
-    _release_count = static_cast<uint32_t>(new_release_syncs.size());
-    _release_syncs = new_release_syncs.data();
-  }
-
-  void release_syncs(const std::vector<VkDeviceMemory>& new_release_syncs)
-  {
-    _release_count = static_cast<uint32_t>(new_release_syncs.size());
-    _release_syncs = new_release_syncs.data();
-  }
-
-  const uint64_t* release_keys()
-  {
-    return _release_keys;
-  }
-
-  constexpr const uint64_t* release_keys() const
-  {
-    return _release_keys;
-  }
-
-  void release_keys(const uint64_t* new_release_keys)
-  {
-    _release_keys = new_release_keys;
-  }
-
-  template <std::size_t Count>
-  void release_keys(const std::array<uint64_t, Count>& new_release_keys)
-  {
-    _release_count = static_cast<uint32_t>(new_release_keys.size());
-    _release_keys = new_release_keys.data();
-  }
-
-  void release_keys(const std::vector<uint64_t>& new_release_keys)
-  {
-    _release_count = static_cast<uint32_t>(new_release_keys.size());
-    _release_keys = new_release_keys.data();
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::win32_keyed_mutex_acquire_release_info_khr;
-  const void* _next = nullptr;
-  uint32_t _acquire_count = 0;
-  const VkDeviceMemory* _acquire_syncs = nullptr;
-  const uint64_t* _acquire_keys = nullptr;
-  const uint32_t* _acquire_timeouts = nullptr;
-  uint32_t _release_count = 0;
-  const VkDeviceMemory* _release_syncs = nullptr;
-  const uint64_t* _release_keys = nullptr;
-};
-static_assert(sizeof(win32_keyed_mutex_acquire_release_info_khr) ==
-                sizeof(::VkWin32KeyedMutexAcquireReleaseInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkImportSemaphoreWin32HandleInfoKHR.
-class import_semaphore_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr import_semaphore_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr import_semaphore_win32_handle_info_khr(
-    const void* initial_next, VkSemaphore initial_semaphore,
-    vk::semaphore_import_flags initial_flags,
-    vk::external_semaphore_handle_type_flag initial_handle_type,
-    HANDLE initial_handle, LPCWSTR initial_name) noexcept
-  : _next(std::move(initial_next)),
-    _semaphore(std::move(initial_semaphore)),
-    _flags(std::move(initial_flags)),
-    _handle_type(std::move(initial_handle_type)),
-    _handle(std::move(initial_handle)),
-    _name(std::move(initial_name))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr import_semaphore_win32_handle_info_khr(
-    const import_semaphore_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _semaphore(other._semaphore),
-    _flags(other._flags),
-    _handle_type(other._handle_type),
-    _handle(other._handle),
-    _name(other._name)
-  {
-  }
-
-  /// Move constructor.
-  constexpr import_semaphore_win32_handle_info_khr(
-    import_semaphore_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _semaphore(std::move(other._semaphore)),
-    _flags(std::move(other._flags)),
-    _handle_type(std::move(other._handle_type)),
-    _handle(std::move(other._handle)),
-    _name(std::move(other._name))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr import_semaphore_win32_handle_info_khr& operator=(
-    const import_semaphore_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _semaphore = other._semaphore;
-    _flags = other._flags;
-    _handle_type = other._handle_type;
-    _handle = other._handle;
-    _name = other._name;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr import_semaphore_win32_handle_info_khr& operator=(
-    import_semaphore_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _semaphore = std::move(other._semaphore);
-    _flags = std::move(other._flags);
-    _handle_type = std::move(other._handle_type);
-    _handle = std::move(other._handle);
-    _name = std::move(other._name);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkImportSemaphoreWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkImportSemaphoreWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkSemaphore& semaphore()
-  {
-    return _semaphore;
-  }
-
-  constexpr const VkSemaphore& semaphore() const
-  {
-    return _semaphore;
-  }
-
-  void semaphore(VkSemaphore new_semaphore)
-  {
-    _semaphore = new_semaphore;
-  }
-
-  vk::semaphore_import_flags& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::semaphore_import_flags& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::semaphore_import_flags new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  vk::external_semaphore_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_semaphore_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_semaphore_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-  HANDLE& handle()
-  {
-    return _handle;
-  }
-
-  constexpr const HANDLE& handle() const
-  {
-    return _handle;
-  }
-
-  void handle(HANDLE new_handle)
-  {
-    _handle = new_handle;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::import_semaphore_win32_handle_info_khr;
-  const void* _next = nullptr;
-  VkSemaphore _semaphore = nullptr;
-  vk::semaphore_import_flags _flags = vk::semaphore_import_flag::none;
-  vk::external_semaphore_handle_type_flag _handle_type =
-    vk::external_semaphore_handle_type_flag::none;
-  HANDLE _handle = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(import_semaphore_win32_handle_info_khr) ==
-                sizeof(::VkImportSemaphoreWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkExportSemaphoreWin32HandleInfoKHR.
-class export_semaphore_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr export_semaphore_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr export_semaphore_win32_handle_info_khr(
-    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
-    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
-  : _next(std::move(initial_next)),
-    _attributes(std::move(initial_attributes)),
-    _dw_access(std::move(initial_dw_access)),
-    _name(std::move(initial_name))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr export_semaphore_win32_handle_info_khr(
-    const export_semaphore_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _attributes(other._attributes),
-    _dw_access(other._dw_access),
-    _name(other._name)
-  {
-  }
-
-  /// Move constructor.
-  constexpr export_semaphore_win32_handle_info_khr(
-    export_semaphore_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _attributes(std::move(other._attributes)),
-    _dw_access(std::move(other._dw_access)),
-    _name(std::move(other._name))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr export_semaphore_win32_handle_info_khr& operator=(
-    const export_semaphore_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _attributes = other._attributes;
-    _dw_access = other._dw_access;
-    _name = other._name;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr export_semaphore_win32_handle_info_khr& operator=(
-    export_semaphore_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _attributes = std::move(other._attributes);
-    _dw_access = std::move(other._dw_access);
-    _name = std::move(other._name);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkExportSemaphoreWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkExportSemaphoreWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  const SECURITY_ATTRIBUTES* attributes()
-  {
-    return _attributes;
-  }
-
-  constexpr const SECURITY_ATTRIBUTES* attributes() const
-  {
-    return _attributes;
-  }
-
-  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
-  {
-    _attributes = new_attributes;
-  }
-
-  DWORD& dw_access()
-  {
-    return _dw_access;
-  }
-
-  constexpr const DWORD& dw_access() const
-  {
-    return _dw_access;
-  }
-
-  void dw_access(DWORD new_dw_access)
-  {
-    _dw_access = new_dw_access;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::export_semaphore_win32_handle_info_khr;
-  const void* _next = nullptr;
-  const SECURITY_ATTRIBUTES* _attributes = nullptr;
-  DWORD _dw_access = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(export_semaphore_win32_handle_info_khr) ==
-                sizeof(::VkExportSemaphoreWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkD3D12FenceSubmitInfoKHR.
-class d3d_12_fence_submit_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr d3d_12_fence_submit_info_khr() = default;
-
-  /// Constructor.
-  constexpr d3d_12_fence_submit_info_khr(
-    const void* initial_next, uint32_t initial_wait_semaphore_values_count,
-    const uint64_t* initial_wait_semaphore_values,
-    uint32_t initial_signal_semaphore_values_count,
-    const uint64_t* initial_signal_semaphore_values) noexcept
-  : _next(std::move(initial_next)),
-    _wait_semaphore_values_count(
-      std::move(initial_wait_semaphore_values_count)),
-    _wait_semaphore_values(std::move(initial_wait_semaphore_values)),
-    _signal_semaphore_values_count(
-      std::move(initial_signal_semaphore_values_count)),
-    _signal_semaphore_values(std::move(initial_signal_semaphore_values))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr d3d_12_fence_submit_info_khr(
-    const d3d_12_fence_submit_info_khr& other) noexcept
-  : _next(other._next),
-    _wait_semaphore_values_count(other._wait_semaphore_values_count),
-    _wait_semaphore_values(other._wait_semaphore_values),
-    _signal_semaphore_values_count(other._signal_semaphore_values_count),
-    _signal_semaphore_values(other._signal_semaphore_values)
-  {
-  }
-
-  /// Move constructor.
-  constexpr d3d_12_fence_submit_info_khr(
-    d3d_12_fence_submit_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _wait_semaphore_values_count(std::move(other._wait_semaphore_values_count)),
-    _wait_semaphore_values(std::move(other._wait_semaphore_values)),
-    _signal_semaphore_values_count(
-      std::move(other._signal_semaphore_values_count)),
-    _signal_semaphore_values(std::move(other._signal_semaphore_values))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr d3d_12_fence_submit_info_khr& operator=(
-    const d3d_12_fence_submit_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _wait_semaphore_values_count = other._wait_semaphore_values_count;
-    _wait_semaphore_values = other._wait_semaphore_values;
-    _signal_semaphore_values_count = other._signal_semaphore_values_count;
-    _signal_semaphore_values = other._signal_semaphore_values;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr d3d_12_fence_submit_info_khr& operator=(
-    d3d_12_fence_submit_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _wait_semaphore_values_count =
-      std::move(other._wait_semaphore_values_count);
-    _wait_semaphore_values = std::move(other._wait_semaphore_values);
-    _signal_semaphore_values_count =
-      std::move(other._signal_semaphore_values_count);
-    _signal_semaphore_values = std::move(other._signal_semaphore_values);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkD3D12FenceSubmitInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkD3D12FenceSubmitInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint32_t& wait_semaphore_values_count()
-  {
-    return _wait_semaphore_values_count;
-  }
-
-  constexpr const uint32_t& wait_semaphore_values_count() const
-  {
-    return _wait_semaphore_values_count;
-  }
-
-  void wait_semaphore_values_count(uint32_t new_wait_semaphore_values_count)
-  {
-    _wait_semaphore_values_count = new_wait_semaphore_values_count;
-  }
-
-  const uint64_t* wait_semaphore_values()
-  {
-    return _wait_semaphore_values;
-  }
-
-  constexpr const uint64_t* wait_semaphore_values() const
-  {
-    return _wait_semaphore_values;
-  }
-
-  void wait_semaphore_values(const uint64_t* new_wait_semaphore_values)
-  {
-    _wait_semaphore_values = new_wait_semaphore_values;
-  }
-
-  template <std::size_t Count>
-  void wait_semaphore_values(
-    const std::array<uint64_t, Count>& new_wait_semaphore_values)
-  {
-    _wait_semaphore_values_count =
-      static_cast<uint32_t>(new_wait_semaphore_values.size());
-    _wait_semaphore_values = new_wait_semaphore_values.data();
-  }
-
-  void wait_semaphore_values(
-    const std::vector<uint64_t>& new_wait_semaphore_values)
-  {
-    _wait_semaphore_values_count =
-      static_cast<uint32_t>(new_wait_semaphore_values.size());
-    _wait_semaphore_values = new_wait_semaphore_values.data();
-  }
-
-  uint32_t& signal_semaphore_values_count()
-  {
-    return _signal_semaphore_values_count;
-  }
-
-  constexpr const uint32_t& signal_semaphore_values_count() const
-  {
-    return _signal_semaphore_values_count;
-  }
-
-  void signal_semaphore_values_count(uint32_t new_signal_semaphore_values_count)
-  {
-    _signal_semaphore_values_count = new_signal_semaphore_values_count;
-  }
-
-  const uint64_t* signal_semaphore_values()
-  {
-    return _signal_semaphore_values;
-  }
-
-  constexpr const uint64_t* signal_semaphore_values() const
-  {
-    return _signal_semaphore_values;
-  }
-
-  void signal_semaphore_values(const uint64_t* new_signal_semaphore_values)
-  {
-    _signal_semaphore_values = new_signal_semaphore_values;
-  }
-
-  template <std::size_t Count>
-  void signal_semaphore_values(
-    const std::array<uint64_t, Count>& new_signal_semaphore_values)
-  {
-    _signal_semaphore_values_count =
-      static_cast<uint32_t>(new_signal_semaphore_values.size());
-    _signal_semaphore_values = new_signal_semaphore_values.data();
-  }
-
-  void signal_semaphore_values(
-    const std::vector<uint64_t>& new_signal_semaphore_values)
-  {
-    _signal_semaphore_values_count =
-      static_cast<uint32_t>(new_signal_semaphore_values.size());
-    _signal_semaphore_values = new_signal_semaphore_values.data();
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::d3d_12_fence_submit_info_khr;
-  const void* _next = nullptr;
-  uint32_t _wait_semaphore_values_count = 0;
-  const uint64_t* _wait_semaphore_values = nullptr;
-  uint32_t _signal_semaphore_values_count = 0;
-  const uint64_t* _signal_semaphore_values = nullptr;
-};
-static_assert(sizeof(d3d_12_fence_submit_info_khr) ==
-                sizeof(::VkD3D12FenceSubmitInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkSemaphoreGetWin32HandleInfoKHR.
-class semaphore_get_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr semaphore_get_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr semaphore_get_win32_handle_info_khr(
-    const void* initial_next, VkSemaphore initial_semaphore,
-    vk::external_semaphore_handle_type_flag initial_handle_type) noexcept
-  : _next(std::move(initial_next)),
-    _semaphore(std::move(initial_semaphore)),
-    _handle_type(std::move(initial_handle_type))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr semaphore_get_win32_handle_info_khr(
-    const semaphore_get_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _semaphore(other._semaphore),
-    _handle_type(other._handle_type)
-  {
-  }
-
-  /// Move constructor.
-  constexpr semaphore_get_win32_handle_info_khr(
-    semaphore_get_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _semaphore(std::move(other._semaphore)),
-    _handle_type(std::move(other._handle_type))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr semaphore_get_win32_handle_info_khr& operator=(
-    const semaphore_get_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _semaphore = other._semaphore;
-    _handle_type = other._handle_type;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr semaphore_get_win32_handle_info_khr& operator=(
-    semaphore_get_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _semaphore = std::move(other._semaphore);
-    _handle_type = std::move(other._handle_type);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkSemaphoreGetWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkSemaphoreGetWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkSemaphore& semaphore()
-  {
-    return _semaphore;
-  }
-
-  constexpr const VkSemaphore& semaphore() const
-  {
-    return _semaphore;
-  }
-
-  void semaphore(VkSemaphore new_semaphore)
-  {
-    _semaphore = new_semaphore;
-  }
-
-  vk::external_semaphore_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_semaphore_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_semaphore_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::semaphore_get_win32_handle_info_khr;
-  const void* _next = nullptr;
-  VkSemaphore _semaphore = nullptr;
-  vk::external_semaphore_handle_type_flag _handle_type =
-    vk::external_semaphore_handle_type_flag::none;
-};
-static_assert(sizeof(semaphore_get_win32_handle_info_khr) ==
-                sizeof(::VkSemaphoreGetWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-inline vk::result import_semaphore_win32_handle_khr(
-  VkDevice device, const vk::import_semaphore_win32_handle_info_khr*
-                     import_semaphore_win32_handle_info)
-{
-  return static_cast<vk::result>(vkImportSemaphoreWin32HandleKHR(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkImportSemaphoreWin32HandleInfoKHR*>(
-      import_semaphore_win32_handle_info)));
-}
-inline vk::result get_semaphore_win32_handle_khr(
-  VkDevice device,
-  const vk::semaphore_get_win32_handle_info_khr* get_win32_handle_info,
-  HANDLE* handle)
-{
-  return static_cast<vk::result>(vkGetSemaphoreWin32HandleKHR(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkSemaphoreGetWin32HandleInfoKHR*>(
-      get_win32_handle_info),
-    reinterpret_cast<HANDLE*>(handle)));
-}
-#endif
 
 /// Enhanced replacement type for VkImportSemaphoreFdInfoKHR.
 class import_semaphore_fd_info_khr
@@ -43057,6 +40098,420 @@ inline void cmd_push_descriptor_set_with_template_khr(
     static_cast<VkDescriptorUpdateTemplate>(descriptor_update_template),
     static_cast<VkPipelineLayout>(layout), static_cast<uint32_t>(set),
     reinterpret_cast<const void*>(data));
+}
+enum class conditional_rendering_flag_ext
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_CONDITIONAL_RENDERING_INVERTED_BIT_EXT
+  inverted_bit_ext = 1 << 0,
+};
+using conditional_rendering_flags_ext =
+  shift::core::bit_field<conditional_rendering_flag_ext,
+                         VkConditionalRenderingFlagsEXT>;
+inline constexpr conditional_rendering_flags_ext operator|(
+  conditional_rendering_flag_ext lhs, conditional_rendering_flag_ext rhs)
+{
+  return conditional_rendering_flags_ext{lhs} | rhs;
+}
+/// Enhanced replacement type for VkConditionalRenderingBeginInfoEXT.
+class conditional_rendering_begin_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr conditional_rendering_begin_info_ext() = default;
+
+  /// Constructor.
+  constexpr conditional_rendering_begin_info_ext(
+    const void* initial_next, VkBuffer initial_buffer,
+    VkDeviceSize initial_offset,
+    vk::conditional_rendering_flags_ext initial_flags) noexcept
+  : _next(std::move(initial_next)),
+    _buffer(std::move(initial_buffer)),
+    _offset(std::move(initial_offset)),
+    _flags(std::move(initial_flags))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr conditional_rendering_begin_info_ext(
+    const conditional_rendering_begin_info_ext& other) noexcept
+  : _next(other._next),
+    _buffer(other._buffer),
+    _offset(other._offset),
+    _flags(other._flags)
+  {
+  }
+
+  /// Move constructor.
+  constexpr conditional_rendering_begin_info_ext(
+    conditional_rendering_begin_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _buffer(std::move(other._buffer)),
+    _offset(std::move(other._offset)),
+    _flags(std::move(other._flags))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr conditional_rendering_begin_info_ext& operator=(
+    const conditional_rendering_begin_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _buffer = other._buffer;
+    _offset = other._offset;
+    _flags = other._flags;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr conditional_rendering_begin_info_ext& operator=(
+    conditional_rendering_begin_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _buffer = std::move(other._buffer);
+    _offset = std::move(other._offset);
+    _flags = std::move(other._flags);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkConditionalRenderingBeginInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkConditionalRenderingBeginInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBuffer& buffer()
+  {
+    return _buffer;
+  }
+
+  constexpr const VkBuffer& buffer() const
+  {
+    return _buffer;
+  }
+
+  void buffer(VkBuffer new_buffer)
+  {
+    _buffer = new_buffer;
+  }
+
+  VkDeviceSize& offset()
+  {
+    return _offset;
+  }
+
+  constexpr const VkDeviceSize& offset() const
+  {
+    return _offset;
+  }
+
+  void offset(VkDeviceSize new_offset)
+  {
+    _offset = new_offset;
+  }
+
+  vk::conditional_rendering_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::conditional_rendering_flags_ext& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::conditional_rendering_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::conditional_rendering_begin_info_ext;
+  const void* _next = nullptr;
+  VkBuffer _buffer = nullptr;
+  VkDeviceSize _offset = 0;
+  vk::conditional_rendering_flags_ext _flags =
+    vk::conditional_rendering_flag_ext::none;
+};
+static_assert(sizeof(conditional_rendering_begin_info_ext) ==
+                sizeof(::VkConditionalRenderingBeginInfoEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceConditionalRenderingFeaturesEXT.
+class physical_device_conditional_rendering_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_conditional_rendering_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_conditional_rendering_features_ext(
+    void* initial_next, VkBool32 initial_conditional_rendering,
+    VkBool32 initial_inherited_conditional_rendering) noexcept
+  : _next(std::move(initial_next)),
+    _conditional_rendering(std::move(initial_conditional_rendering)),
+    _inherited_conditional_rendering(
+      std::move(initial_inherited_conditional_rendering))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_conditional_rendering_features_ext(
+    const physical_device_conditional_rendering_features_ext& other) noexcept
+  : _next(other._next),
+    _conditional_rendering(other._conditional_rendering),
+    _inherited_conditional_rendering(other._inherited_conditional_rendering)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_conditional_rendering_features_ext(
+    physical_device_conditional_rendering_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _conditional_rendering(std::move(other._conditional_rendering)),
+    _inherited_conditional_rendering(
+      std::move(other._inherited_conditional_rendering))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_conditional_rendering_features_ext& operator=(
+    const physical_device_conditional_rendering_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _conditional_rendering = other._conditional_rendering;
+    _inherited_conditional_rendering = other._inherited_conditional_rendering;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_conditional_rendering_features_ext& operator=(
+    physical_device_conditional_rendering_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _conditional_rendering = std::move(other._conditional_rendering);
+    _inherited_conditional_rendering =
+      std::move(other._inherited_conditional_rendering);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceConditionalRenderingFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceConditionalRenderingFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& conditional_rendering()
+  {
+    return _conditional_rendering;
+  }
+
+  constexpr const VkBool32& conditional_rendering() const
+  {
+    return _conditional_rendering;
+  }
+
+  void conditional_rendering(VkBool32 new_conditional_rendering)
+  {
+    _conditional_rendering = new_conditional_rendering;
+  }
+
+  VkBool32& inherited_conditional_rendering()
+  {
+    return _inherited_conditional_rendering;
+  }
+
+  constexpr const VkBool32& inherited_conditional_rendering() const
+  {
+    return _inherited_conditional_rendering;
+  }
+
+  void inherited_conditional_rendering(
+    VkBool32 new_inherited_conditional_rendering)
+  {
+    _inherited_conditional_rendering = new_inherited_conditional_rendering;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_conditional_rendering_features_ext;
+  void* _next = nullptr;
+  VkBool32 _conditional_rendering = VK_FALSE;
+  VkBool32 _inherited_conditional_rendering = VK_FALSE;
+};
+static_assert(sizeof(physical_device_conditional_rendering_features_ext) ==
+                sizeof(::VkPhysicalDeviceConditionalRenderingFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkCommandBufferInheritanceConditionalRenderingInfoEXT.
+class command_buffer_inheritance_conditional_rendering_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext() =
+    default;
+
+  /// Constructor.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext(
+    const void* initial_next,
+    VkBool32 initial_conditional_rendering_enable) noexcept
+  : _next(std::move(initial_next)),
+    _conditional_rendering_enable(
+      std::move(initial_conditional_rendering_enable))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext(
+    const command_buffer_inheritance_conditional_rendering_info_ext&
+      other) noexcept
+  : _next(other._next),
+    _conditional_rendering_enable(other._conditional_rendering_enable)
+  {
+  }
+
+  /// Move constructor.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext(
+    command_buffer_inheritance_conditional_rendering_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _conditional_rendering_enable(
+      std::move(other._conditional_rendering_enable))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext&
+  operator=(const command_buffer_inheritance_conditional_rendering_info_ext&
+              other) noexcept
+  {
+    _next = other._next;
+    _conditional_rendering_enable = other._conditional_rendering_enable;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr command_buffer_inheritance_conditional_rendering_info_ext&
+  operator=(
+    command_buffer_inheritance_conditional_rendering_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _conditional_rendering_enable =
+      std::move(other._conditional_rendering_enable);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkCommandBufferInheritanceConditionalRenderingInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkCommandBufferInheritanceConditionalRenderingInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& conditional_rendering_enable()
+  {
+    return _conditional_rendering_enable;
+  }
+
+  constexpr const VkBool32& conditional_rendering_enable() const
+  {
+    return _conditional_rendering_enable;
+  }
+
+  void conditional_rendering_enable(VkBool32 new_conditional_rendering_enable)
+  {
+    _conditional_rendering_enable = new_conditional_rendering_enable;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    command_buffer_inheritance_conditional_rendering_info_ext;
+  const void* _next = nullptr;
+  /// Whether this secondary command buffer may be executed during an active
+  /// conditional rendering
+  VkBool32 _conditional_rendering_enable = VK_FALSE;
+};
+static_assert(
+  sizeof(command_buffer_inheritance_conditional_rendering_info_ext) ==
+    sizeof(::VkCommandBufferInheritanceConditionalRenderingInfoEXT),
+  "struct and wrapper have different size!");
+
+inline void cmd_begin_conditional_rendering_ext(
+  VkCommandBuffer command_buffer,
+  const vk::conditional_rendering_begin_info_ext* conditional_rendering_begin)
+{
+  vkCmdBeginConditionalRenderingEXT(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkConditionalRenderingBeginInfoEXT*>(
+      conditional_rendering_begin));
+}
+inline void cmd_end_conditional_rendering_ext(VkCommandBuffer command_buffer)
+{
+  vkCmdEndConditionalRenderingEXT(static_cast<VkCommandBuffer>(command_buffer));
 }
 
 /// Enhanced replacement type for VkRectLayerKHR.
@@ -45928,386 +43383,6 @@ inline vk::result release_display_ext(VkPhysicalDevice physical_device,
     vkReleaseDisplayEXT(static_cast<VkPhysicalDevice>(physical_device),
                         static_cast<VkDisplayKHR>(display)));
 }
-#if defined(VK_USE_PLATFORM_XLIB_XRANDR_EXT)
-inline vk::result acquire_xlib_display_ext(VkPhysicalDevice physical_device,
-                                           Display* dpy, VkDisplayKHR display)
-{
-  return static_cast<vk::result>(vkAcquireXlibDisplayEXT(
-    static_cast<VkPhysicalDevice>(physical_device),
-    reinterpret_cast<Display*>(dpy), static_cast<VkDisplayKHR>(display)));
-}
-inline vk::result get_rand_routput_display_ext(VkPhysicalDevice physical_device,
-                                               Display* dpy, RROutput rr_output,
-                                               VkDisplayKHR* display)
-{
-  return static_cast<vk::result>(vkGetRandROutputDisplayEXT(
-    static_cast<VkPhysicalDevice>(physical_device),
-    reinterpret_cast<Display*>(dpy), static_cast<RROutput>(rr_output),
-    reinterpret_cast<VkDisplayKHR*>(display)));
-}
-#endif
-enum class surface_counter_flag_ext
-{
-  /// Custom enumerant not available in Vulkan.
-  none = 0,
-  /// @see VK_SURFACE_COUNTER_VBLANK_EXT
-  vblank_ext = 1 << 0,
-};
-using surface_counter_flags_ext =
-  shift::core::bit_field<surface_counter_flag_ext, VkSurfaceCounterFlagsEXT>;
-inline constexpr surface_counter_flags_ext operator|(
-  surface_counter_flag_ext lhs, surface_counter_flag_ext rhs)
-{
-  return surface_counter_flags_ext{lhs} | rhs;
-}
-/// Enhanced replacement type for VkSurfaceCapabilities2EXT.
-class surface_capabilities_2_ext
-{
-public:
-  /// Default constructor.
-  constexpr surface_capabilities_2_ext() = default;
-
-  /// Constructor.
-  constexpr surface_capabilities_2_ext(
-    void* initial_next, uint32_t initial_min_image_count,
-    uint32_t initial_max_image_count, vk::extent_2d initial_current_extent,
-    vk::extent_2d initial_min_image_extent,
-    vk::extent_2d initial_max_image_extent,
-    uint32_t initial_max_image_array_layers,
-    vk::surface_transform_flags_khr initial_supported_transforms,
-    vk::surface_transform_flag_khr initial_current_transform,
-    vk::composite_alpha_flags_khr initial_supported_composite_alpha,
-    vk::image_usage_flags initial_supported_usage_flags,
-    vk::surface_counter_flags_ext initial_supported_surface_counters) noexcept
-  : _next(std::move(initial_next)),
-    _min_image_count(std::move(initial_min_image_count)),
-    _max_image_count(std::move(initial_max_image_count)),
-    _current_extent(std::move(initial_current_extent)),
-    _min_image_extent(std::move(initial_min_image_extent)),
-    _max_image_extent(std::move(initial_max_image_extent)),
-    _max_image_array_layers(std::move(initial_max_image_array_layers)),
-    _supported_transforms(std::move(initial_supported_transforms)),
-    _current_transform(std::move(initial_current_transform)),
-    _supported_composite_alpha(std::move(initial_supported_composite_alpha)),
-    _supported_usage_flags(std::move(initial_supported_usage_flags)),
-    _supported_surface_counters(std::move(initial_supported_surface_counters))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr surface_capabilities_2_ext(
-    const surface_capabilities_2_ext& other) noexcept
-  : _next(other._next),
-    _min_image_count(other._min_image_count),
-    _max_image_count(other._max_image_count),
-    _current_extent(other._current_extent),
-    _min_image_extent(other._min_image_extent),
-    _max_image_extent(other._max_image_extent),
-    _max_image_array_layers(other._max_image_array_layers),
-    _supported_transforms(other._supported_transforms),
-    _current_transform(other._current_transform),
-    _supported_composite_alpha(other._supported_composite_alpha),
-    _supported_usage_flags(other._supported_usage_flags),
-    _supported_surface_counters(other._supported_surface_counters)
-  {
-  }
-
-  /// Move constructor.
-  constexpr surface_capabilities_2_ext(
-    surface_capabilities_2_ext&& other) noexcept
-  : _next(std::move(other._next)),
-    _min_image_count(std::move(other._min_image_count)),
-    _max_image_count(std::move(other._max_image_count)),
-    _current_extent(std::move(other._current_extent)),
-    _min_image_extent(std::move(other._min_image_extent)),
-    _max_image_extent(std::move(other._max_image_extent)),
-    _max_image_array_layers(std::move(other._max_image_array_layers)),
-    _supported_transforms(std::move(other._supported_transforms)),
-    _current_transform(std::move(other._current_transform)),
-    _supported_composite_alpha(std::move(other._supported_composite_alpha)),
-    _supported_usage_flags(std::move(other._supported_usage_flags)),
-    _supported_surface_counters(std::move(other._supported_surface_counters))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr surface_capabilities_2_ext& operator=(
-    const surface_capabilities_2_ext& other) noexcept
-  {
-    _next = other._next;
-    _min_image_count = other._min_image_count;
-    _max_image_count = other._max_image_count;
-    _current_extent = other._current_extent;
-    _min_image_extent = other._min_image_extent;
-    _max_image_extent = other._max_image_extent;
-    _max_image_array_layers = other._max_image_array_layers;
-    _supported_transforms = other._supported_transforms;
-    _current_transform = other._current_transform;
-    _supported_composite_alpha = other._supported_composite_alpha;
-    _supported_usage_flags = other._supported_usage_flags;
-    _supported_surface_counters = other._supported_surface_counters;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr surface_capabilities_2_ext& operator=(
-    surface_capabilities_2_ext&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _min_image_count = std::move(other._min_image_count);
-    _max_image_count = std::move(other._max_image_count);
-    _current_extent = std::move(other._current_extent);
-    _min_image_extent = std::move(other._min_image_extent);
-    _max_image_extent = std::move(other._max_image_extent);
-    _max_image_array_layers = std::move(other._max_image_array_layers);
-    _supported_transforms = std::move(other._supported_transforms);
-    _current_transform = std::move(other._current_transform);
-    _supported_composite_alpha = std::move(other._supported_composite_alpha);
-    _supported_usage_flags = std::move(other._supported_usage_flags);
-    _supported_surface_counters = std::move(other._supported_surface_counters);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkSurfaceCapabilities2EXT&() const
-  {
-    return *reinterpret_cast<const VkSurfaceCapabilities2EXT*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  void* next()
-  {
-    return _next;
-  }
-
-  constexpr void* next() const
-  {
-    return _next;
-  }
-
-  void next(void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint32_t& min_image_count()
-  {
-    return _min_image_count;
-  }
-
-  constexpr const uint32_t& min_image_count() const
-  {
-    return _min_image_count;
-  }
-
-  void min_image_count(uint32_t new_min_image_count)
-  {
-    _min_image_count = new_min_image_count;
-  }
-
-  uint32_t& max_image_count()
-  {
-    return _max_image_count;
-  }
-
-  constexpr const uint32_t& max_image_count() const
-  {
-    return _max_image_count;
-  }
-
-  void max_image_count(uint32_t new_max_image_count)
-  {
-    _max_image_count = new_max_image_count;
-  }
-
-  vk::extent_2d& current_extent()
-  {
-    return _current_extent;
-  }
-
-  constexpr const vk::extent_2d& current_extent() const
-  {
-    return _current_extent;
-  }
-
-  void current_extent(vk::extent_2d new_current_extent)
-  {
-    _current_extent = new_current_extent;
-  }
-
-  vk::extent_2d& min_image_extent()
-  {
-    return _min_image_extent;
-  }
-
-  constexpr const vk::extent_2d& min_image_extent() const
-  {
-    return _min_image_extent;
-  }
-
-  void min_image_extent(vk::extent_2d new_min_image_extent)
-  {
-    _min_image_extent = new_min_image_extent;
-  }
-
-  vk::extent_2d& max_image_extent()
-  {
-    return _max_image_extent;
-  }
-
-  constexpr const vk::extent_2d& max_image_extent() const
-  {
-    return _max_image_extent;
-  }
-
-  void max_image_extent(vk::extent_2d new_max_image_extent)
-  {
-    _max_image_extent = new_max_image_extent;
-  }
-
-  uint32_t& max_image_array_layers()
-  {
-    return _max_image_array_layers;
-  }
-
-  constexpr const uint32_t& max_image_array_layers() const
-  {
-    return _max_image_array_layers;
-  }
-
-  void max_image_array_layers(uint32_t new_max_image_array_layers)
-  {
-    _max_image_array_layers = new_max_image_array_layers;
-  }
-
-  vk::surface_transform_flags_khr& supported_transforms()
-  {
-    return _supported_transforms;
-  }
-
-  constexpr const vk::surface_transform_flags_khr& supported_transforms() const
-  {
-    return _supported_transforms;
-  }
-
-  void supported_transforms(
-    vk::surface_transform_flags_khr new_supported_transforms)
-  {
-    _supported_transforms = new_supported_transforms;
-  }
-
-  vk::surface_transform_flag_khr& current_transform()
-  {
-    return _current_transform;
-  }
-
-  constexpr const vk::surface_transform_flag_khr& current_transform() const
-  {
-    return _current_transform;
-  }
-
-  void current_transform(vk::surface_transform_flag_khr new_current_transform)
-  {
-    _current_transform = new_current_transform;
-  }
-
-  vk::composite_alpha_flags_khr& supported_composite_alpha()
-  {
-    return _supported_composite_alpha;
-  }
-
-  constexpr const vk::composite_alpha_flags_khr& supported_composite_alpha()
-    const
-  {
-    return _supported_composite_alpha;
-  }
-
-  void supported_composite_alpha(
-    vk::composite_alpha_flags_khr new_supported_composite_alpha)
-  {
-    _supported_composite_alpha = new_supported_composite_alpha;
-  }
-
-  vk::image_usage_flags& supported_usage_flags()
-  {
-    return _supported_usage_flags;
-  }
-
-  constexpr const vk::image_usage_flags& supported_usage_flags() const
-  {
-    return _supported_usage_flags;
-  }
-
-  void supported_usage_flags(vk::image_usage_flags new_supported_usage_flags)
-  {
-    _supported_usage_flags = new_supported_usage_flags;
-  }
-
-  vk::surface_counter_flags_ext& supported_surface_counters()
-  {
-    return _supported_surface_counters;
-  }
-
-  constexpr const vk::surface_counter_flags_ext& supported_surface_counters()
-    const
-  {
-    return _supported_surface_counters;
-  }
-
-  void supported_surface_counters(
-    vk::surface_counter_flags_ext new_supported_surface_counters)
-  {
-    _supported_surface_counters = new_supported_surface_counters;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::surface_capabilities_2_ext;
-  void* _next = nullptr;
-  /// Supported minimum number of images for the surface
-  uint32_t _min_image_count = 0;
-  /// Supported maximum number of images for the surface, 0 for unlimited
-  uint32_t _max_image_count = 0;
-  /// Current image width and height for the surface, (0, 0) if undefined
-  vk::extent_2d _current_extent = vk::extent_2d{};
-  /// Supported minimum image width and height for the surface
-  vk::extent_2d _min_image_extent = vk::extent_2d{};
-  /// Supported maximum image width and height for the surface
-  vk::extent_2d _max_image_extent = vk::extent_2d{};
-  /// Supported maximum number of image layers for the surface
-  uint32_t _max_image_array_layers = 0;
-  /// 1 or more bits representing the transforms supported
-  vk::surface_transform_flags_khr _supported_transforms =
-    vk::surface_transform_flag_khr::none;
-  /// The surface's current transform relative to the device's natural
-  /// orientation
-  vk::surface_transform_flag_khr _current_transform =
-    vk::surface_transform_flag_khr::none;
-  /// 1 or more bits representing the alpha compositing modes supported
-  vk::composite_alpha_flags_khr _supported_composite_alpha =
-    vk::composite_alpha_flag_khr::none;
-  /// Supported image usage flags for the surface
-  vk::image_usage_flags _supported_usage_flags = vk::image_usage_flag::none;
-  vk::surface_counter_flags_ext _supported_surface_counters =
-    vk::surface_counter_flag_ext::none;
-};
-static_assert(sizeof(surface_capabilities_2_ext) ==
-                sizeof(::VkSurfaceCapabilities2EXT),
-              "struct and wrapper have different size!");
-
-inline vk::result get_physical_device_surface_capabilities_2_ext(
-  VkPhysicalDevice physical_device, VkSurfaceKHR surface,
-  vk::surface_capabilities_2_ext* surface_capabilities)
-{
-  return static_cast<vk::result>(vkGetPhysicalDeviceSurfaceCapabilities2EXT(
-    static_cast<VkPhysicalDevice>(physical_device),
-    static_cast<VkSurfaceKHR>(surface),
-    reinterpret_cast<VkSurfaceCapabilities2EXT*>(surface_capabilities)));
-}
 enum class display_power_state_ext
 {
   /// @see VK_DISPLAY_POWER_STATE_OFF_EXT
@@ -46619,6 +43694,20 @@ private:
 static_assert(sizeof(display_event_info_ext) == sizeof(::VkDisplayEventInfoEXT),
               "struct and wrapper have different size!");
 
+enum class surface_counter_flag_ext
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_SURFACE_COUNTER_VBLANK_EXT
+  vblank_ext = 1 << 0,
+};
+using surface_counter_flags_ext =
+  shift::core::bit_field<surface_counter_flag_ext, VkSurfaceCounterFlagsEXT>;
+inline constexpr surface_counter_flags_ext operator|(
+  surface_counter_flag_ext lhs, surface_counter_flag_ext rhs)
+{
+  return surface_counter_flags_ext{lhs} | rhs;
+}
 /// Enhanced replacement type for VkSwapchainCounterCreateInfoEXT.
 class swapchain_counter_create_info_ext
 {
@@ -48773,6 +45862,1624 @@ inline void set_hdr_metadata_ext(VkDevice device, uint32_t swapchain_count,
                       reinterpret_cast<const VkHdrMetadataEXT*>(metadata));
 }
 
+/// Enhanced replacement type for VkAttachmentDescription2KHR.
+class attachment_description_2_khr
+{
+public:
+  /// Default constructor.
+  constexpr attachment_description_2_khr() = default;
+
+  /// Constructor.
+  constexpr attachment_description_2_khr(
+    const void* initial_next, vk::attachment_description_flags initial_flags,
+    vk::format initial_format, vk::sample_count_flag initial_samples,
+    vk::attachment_load_op initial_load_op,
+    vk::attachment_store_op initial_store_op,
+    vk::attachment_load_op initial_stencil_load_op,
+    vk::attachment_store_op initial_stencil_store_op,
+    vk::image_layout initial_initial_layout,
+    vk::image_layout initial_final_layout) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _format(std::move(initial_format)),
+    _samples(std::move(initial_samples)),
+    _load_op(std::move(initial_load_op)),
+    _store_op(std::move(initial_store_op)),
+    _stencil_load_op(std::move(initial_stencil_load_op)),
+    _stencil_store_op(std::move(initial_stencil_store_op)),
+    _initial_layout(std::move(initial_initial_layout)),
+    _final_layout(std::move(initial_final_layout))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr attachment_description_2_khr(
+    const attachment_description_2_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _format(other._format),
+    _samples(other._samples),
+    _load_op(other._load_op),
+    _store_op(other._store_op),
+    _stencil_load_op(other._stencil_load_op),
+    _stencil_store_op(other._stencil_store_op),
+    _initial_layout(other._initial_layout),
+    _final_layout(other._final_layout)
+  {
+  }
+
+  /// Move constructor.
+  constexpr attachment_description_2_khr(
+    attachment_description_2_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _format(std::move(other._format)),
+    _samples(std::move(other._samples)),
+    _load_op(std::move(other._load_op)),
+    _store_op(std::move(other._store_op)),
+    _stencil_load_op(std::move(other._stencil_load_op)),
+    _stencil_store_op(std::move(other._stencil_store_op)),
+    _initial_layout(std::move(other._initial_layout)),
+    _final_layout(std::move(other._final_layout))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr attachment_description_2_khr& operator=(
+    const attachment_description_2_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _format = other._format;
+    _samples = other._samples;
+    _load_op = other._load_op;
+    _store_op = other._store_op;
+    _stencil_load_op = other._stencil_load_op;
+    _stencil_store_op = other._stencil_store_op;
+    _initial_layout = other._initial_layout;
+    _final_layout = other._final_layout;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr attachment_description_2_khr& operator=(
+    attachment_description_2_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _format = std::move(other._format);
+    _samples = std::move(other._samples);
+    _load_op = std::move(other._load_op);
+    _store_op = std::move(other._store_op);
+    _stencil_load_op = std::move(other._stencil_load_op);
+    _stencil_store_op = std::move(other._stencil_store_op);
+    _initial_layout = std::move(other._initial_layout);
+    _final_layout = std::move(other._final_layout);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAttachmentDescription2KHR&() const
+  {
+    return *reinterpret_cast<const VkAttachmentDescription2KHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::attachment_description_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::attachment_description_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::attachment_description_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::format& format()
+  {
+    return _format;
+  }
+
+  constexpr const vk::format& format() const
+  {
+    return _format;
+  }
+
+  void format(vk::format new_format)
+  {
+    _format = new_format;
+  }
+
+  vk::sample_count_flag& samples()
+  {
+    return _samples;
+  }
+
+  constexpr const vk::sample_count_flag& samples() const
+  {
+    return _samples;
+  }
+
+  void samples(vk::sample_count_flag new_samples)
+  {
+    _samples = new_samples;
+  }
+
+  vk::attachment_load_op& load_op()
+  {
+    return _load_op;
+  }
+
+  constexpr const vk::attachment_load_op& load_op() const
+  {
+    return _load_op;
+  }
+
+  void load_op(vk::attachment_load_op new_load_op)
+  {
+    _load_op = new_load_op;
+  }
+
+  vk::attachment_store_op& store_op()
+  {
+    return _store_op;
+  }
+
+  constexpr const vk::attachment_store_op& store_op() const
+  {
+    return _store_op;
+  }
+
+  void store_op(vk::attachment_store_op new_store_op)
+  {
+    _store_op = new_store_op;
+  }
+
+  vk::attachment_load_op& stencil_load_op()
+  {
+    return _stencil_load_op;
+  }
+
+  constexpr const vk::attachment_load_op& stencil_load_op() const
+  {
+    return _stencil_load_op;
+  }
+
+  void stencil_load_op(vk::attachment_load_op new_stencil_load_op)
+  {
+    _stencil_load_op = new_stencil_load_op;
+  }
+
+  vk::attachment_store_op& stencil_store_op()
+  {
+    return _stencil_store_op;
+  }
+
+  constexpr const vk::attachment_store_op& stencil_store_op() const
+  {
+    return _stencil_store_op;
+  }
+
+  void stencil_store_op(vk::attachment_store_op new_stencil_store_op)
+  {
+    _stencil_store_op = new_stencil_store_op;
+  }
+
+  vk::image_layout& initial_layout()
+  {
+    return _initial_layout;
+  }
+
+  constexpr const vk::image_layout& initial_layout() const
+  {
+    return _initial_layout;
+  }
+
+  void initial_layout(vk::image_layout new_initial_layout)
+  {
+    _initial_layout = new_initial_layout;
+  }
+
+  vk::image_layout& final_layout()
+  {
+    return _final_layout;
+  }
+
+  constexpr const vk::image_layout& final_layout() const
+  {
+    return _final_layout;
+  }
+
+  void final_layout(vk::image_layout new_final_layout)
+  {
+    _final_layout = new_final_layout;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::attachment_description_2_khr;
+  const void* _next = nullptr;
+  vk::attachment_description_flags _flags =
+    vk::attachment_description_flag::none;
+  vk::format _format = vk::format::undefined;
+  vk::sample_count_flag _samples = vk::sample_count_flag::none;
+  /// Load operation for color or depth data
+  vk::attachment_load_op _load_op = vk::attachment_load_op::load;
+  /// Store operation for color or depth data
+  vk::attachment_store_op _store_op = vk::attachment_store_op::store;
+  /// Load operation for stencil data
+  vk::attachment_load_op _stencil_load_op = vk::attachment_load_op::load;
+  /// Store operation for stencil data
+  vk::attachment_store_op _stencil_store_op = vk::attachment_store_op::store;
+  vk::image_layout _initial_layout = vk::image_layout::undefined;
+  vk::image_layout _final_layout = vk::image_layout::undefined;
+};
+static_assert(sizeof(attachment_description_2_khr) ==
+                sizeof(::VkAttachmentDescription2KHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkAttachmentReference2KHR.
+class attachment_reference_2_khr
+{
+public:
+  /// Default constructor.
+  constexpr attachment_reference_2_khr() = default;
+
+  /// Constructor.
+  constexpr attachment_reference_2_khr(
+    const void* initial_next, uint32_t initial_attachment,
+    vk::image_layout initial_layout,
+    vk::image_aspect_flags initial_aspect_mask) noexcept
+  : _next(std::move(initial_next)),
+    _attachment(std::move(initial_attachment)),
+    _layout(std::move(initial_layout)),
+    _aspect_mask(std::move(initial_aspect_mask))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr attachment_reference_2_khr(
+    const attachment_reference_2_khr& other) noexcept
+  : _next(other._next),
+    _attachment(other._attachment),
+    _layout(other._layout),
+    _aspect_mask(other._aspect_mask)
+  {
+  }
+
+  /// Move constructor.
+  constexpr attachment_reference_2_khr(
+    attachment_reference_2_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attachment(std::move(other._attachment)),
+    _layout(std::move(other._layout)),
+    _aspect_mask(std::move(other._aspect_mask))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr attachment_reference_2_khr& operator=(
+    const attachment_reference_2_khr& other) noexcept
+  {
+    _next = other._next;
+    _attachment = other._attachment;
+    _layout = other._layout;
+    _aspect_mask = other._aspect_mask;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr attachment_reference_2_khr& operator=(
+    attachment_reference_2_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attachment = std::move(other._attachment);
+    _layout = std::move(other._layout);
+    _aspect_mask = std::move(other._aspect_mask);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAttachmentReference2KHR&() const
+  {
+    return *reinterpret_cast<const VkAttachmentReference2KHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& attachment()
+  {
+    return _attachment;
+  }
+
+  constexpr const uint32_t& attachment() const
+  {
+    return _attachment;
+  }
+
+  void attachment(uint32_t new_attachment)
+  {
+    _attachment = new_attachment;
+  }
+
+  vk::image_layout& layout()
+  {
+    return _layout;
+  }
+
+  constexpr const vk::image_layout& layout() const
+  {
+    return _layout;
+  }
+
+  void layout(vk::image_layout new_layout)
+  {
+    _layout = new_layout;
+  }
+
+  vk::image_aspect_flags& aspect_mask()
+  {
+    return _aspect_mask;
+  }
+
+  constexpr const vk::image_aspect_flags& aspect_mask() const
+  {
+    return _aspect_mask;
+  }
+
+  void aspect_mask(vk::image_aspect_flags new_aspect_mask)
+  {
+    _aspect_mask = new_aspect_mask;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::attachment_reference_2_khr;
+  const void* _next = nullptr;
+  uint32_t _attachment = 0;
+  vk::image_layout _layout = vk::image_layout::undefined;
+  vk::image_aspect_flags _aspect_mask = vk::image_aspect_flag::none;
+};
+static_assert(sizeof(attachment_reference_2_khr) ==
+                sizeof(::VkAttachmentReference2KHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkSubpassDescription2KHR.
+class subpass_description_2_khr
+{
+public:
+  /// Default constructor.
+  constexpr subpass_description_2_khr() = default;
+
+  /// Constructor.
+  constexpr subpass_description_2_khr(
+    const void* initial_next, vk::subpass_description_flags initial_flags,
+    vk::pipeline_bind_point initial_pipeline_bind_point,
+    uint32_t initial_view_mask, uint32_t initial_input_attachment_count,
+    const vk::attachment_reference_2_khr* initial_input_attachments,
+    uint32_t initial_color_attachment_count,
+    const vk::attachment_reference_2_khr* initial_color_attachments,
+    const vk::attachment_reference_2_khr* initial_resolve_attachments,
+    const vk::attachment_reference_2_khr* initial_depth_stencil_attachment,
+    uint32_t initial_preserve_attachment_count,
+    const uint32_t* initial_preserve_attachments) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _pipeline_bind_point(std::move(initial_pipeline_bind_point)),
+    _view_mask(std::move(initial_view_mask)),
+    _input_attachment_count(std::move(initial_input_attachment_count)),
+    _input_attachments(std::move(initial_input_attachments)),
+    _color_attachment_count(std::move(initial_color_attachment_count)),
+    _color_attachments(std::move(initial_color_attachments)),
+    _resolve_attachments(std::move(initial_resolve_attachments)),
+    _depth_stencil_attachment(std::move(initial_depth_stencil_attachment)),
+    _preserve_attachment_count(std::move(initial_preserve_attachment_count)),
+    _preserve_attachments(std::move(initial_preserve_attachments))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr subpass_description_2_khr(
+    const subpass_description_2_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _pipeline_bind_point(other._pipeline_bind_point),
+    _view_mask(other._view_mask),
+    _input_attachment_count(other._input_attachment_count),
+    _input_attachments(other._input_attachments),
+    _color_attachment_count(other._color_attachment_count),
+    _color_attachments(other._color_attachments),
+    _resolve_attachments(other._resolve_attachments),
+    _depth_stencil_attachment(other._depth_stencil_attachment),
+    _preserve_attachment_count(other._preserve_attachment_count),
+    _preserve_attachments(other._preserve_attachments)
+  {
+  }
+
+  /// Move constructor.
+  constexpr subpass_description_2_khr(
+    subpass_description_2_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _pipeline_bind_point(std::move(other._pipeline_bind_point)),
+    _view_mask(std::move(other._view_mask)),
+    _input_attachment_count(std::move(other._input_attachment_count)),
+    _input_attachments(std::move(other._input_attachments)),
+    _color_attachment_count(std::move(other._color_attachment_count)),
+    _color_attachments(std::move(other._color_attachments)),
+    _resolve_attachments(std::move(other._resolve_attachments)),
+    _depth_stencil_attachment(std::move(other._depth_stencil_attachment)),
+    _preserve_attachment_count(std::move(other._preserve_attachment_count)),
+    _preserve_attachments(std::move(other._preserve_attachments))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr subpass_description_2_khr& operator=(
+    const subpass_description_2_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _pipeline_bind_point = other._pipeline_bind_point;
+    _view_mask = other._view_mask;
+    _input_attachment_count = other._input_attachment_count;
+    _input_attachments = other._input_attachments;
+    _color_attachment_count = other._color_attachment_count;
+    _color_attachments = other._color_attachments;
+    _resolve_attachments = other._resolve_attachments;
+    _depth_stencil_attachment = other._depth_stencil_attachment;
+    _preserve_attachment_count = other._preserve_attachment_count;
+    _preserve_attachments = other._preserve_attachments;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr subpass_description_2_khr& operator=(
+    subpass_description_2_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _pipeline_bind_point = std::move(other._pipeline_bind_point);
+    _view_mask = std::move(other._view_mask);
+    _input_attachment_count = std::move(other._input_attachment_count);
+    _input_attachments = std::move(other._input_attachments);
+    _color_attachment_count = std::move(other._color_attachment_count);
+    _color_attachments = std::move(other._color_attachments);
+    _resolve_attachments = std::move(other._resolve_attachments);
+    _depth_stencil_attachment = std::move(other._depth_stencil_attachment);
+    _preserve_attachment_count = std::move(other._preserve_attachment_count);
+    _preserve_attachments = std::move(other._preserve_attachments);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSubpassDescription2KHR&() const
+  {
+    return *reinterpret_cast<const VkSubpassDescription2KHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::subpass_description_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::subpass_description_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::subpass_description_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::pipeline_bind_point& pipeline_bind_point()
+  {
+    return _pipeline_bind_point;
+  }
+
+  constexpr const vk::pipeline_bind_point& pipeline_bind_point() const
+  {
+    return _pipeline_bind_point;
+  }
+
+  void pipeline_bind_point(vk::pipeline_bind_point new_pipeline_bind_point)
+  {
+    _pipeline_bind_point = new_pipeline_bind_point;
+  }
+
+  uint32_t& view_mask()
+  {
+    return _view_mask;
+  }
+
+  constexpr const uint32_t& view_mask() const
+  {
+    return _view_mask;
+  }
+
+  void view_mask(uint32_t new_view_mask)
+  {
+    _view_mask = new_view_mask;
+  }
+
+  uint32_t& input_attachment_count()
+  {
+    return _input_attachment_count;
+  }
+
+  constexpr const uint32_t& input_attachment_count() const
+  {
+    return _input_attachment_count;
+  }
+
+  void input_attachment_count(uint32_t new_input_attachment_count)
+  {
+    _input_attachment_count = new_input_attachment_count;
+  }
+
+  const vk::attachment_reference_2_khr* input_attachments()
+  {
+    return _input_attachments;
+  }
+
+  constexpr const vk::attachment_reference_2_khr* input_attachments() const
+  {
+    return _input_attachments;
+  }
+
+  void input_attachments(
+    const vk::attachment_reference_2_khr* new_input_attachments)
+  {
+    _input_attachments = new_input_attachments;
+  }
+
+  template <std::size_t Count>
+  void input_attachments(const std::array<vk::attachment_reference_2_khr,
+                                          Count>& new_input_attachments)
+  {
+    _input_attachment_count =
+      static_cast<uint32_t>(new_input_attachments.size());
+    _input_attachments = new_input_attachments.data();
+  }
+
+  void input_attachments(
+    const std::vector<vk::attachment_reference_2_khr>& new_input_attachments)
+  {
+    _input_attachment_count =
+      static_cast<uint32_t>(new_input_attachments.size());
+    _input_attachments = new_input_attachments.data();
+  }
+
+  uint32_t& color_attachment_count()
+  {
+    return _color_attachment_count;
+  }
+
+  constexpr const uint32_t& color_attachment_count() const
+  {
+    return _color_attachment_count;
+  }
+
+  void color_attachment_count(uint32_t new_color_attachment_count)
+  {
+    _color_attachment_count = new_color_attachment_count;
+  }
+
+  const vk::attachment_reference_2_khr* color_attachments()
+  {
+    return _color_attachments;
+  }
+
+  constexpr const vk::attachment_reference_2_khr* color_attachments() const
+  {
+    return _color_attachments;
+  }
+
+  void color_attachments(
+    const vk::attachment_reference_2_khr* new_color_attachments)
+  {
+    _color_attachments = new_color_attachments;
+  }
+
+  template <std::size_t Count>
+  void color_attachments(const std::array<vk::attachment_reference_2_khr,
+                                          Count>& new_color_attachments)
+  {
+    _color_attachment_count =
+      static_cast<uint32_t>(new_color_attachments.size());
+    _color_attachments = new_color_attachments.data();
+  }
+
+  void color_attachments(
+    const std::vector<vk::attachment_reference_2_khr>& new_color_attachments)
+  {
+    _color_attachment_count =
+      static_cast<uint32_t>(new_color_attachments.size());
+    _color_attachments = new_color_attachments.data();
+  }
+
+  const vk::attachment_reference_2_khr* resolve_attachments()
+  {
+    return _resolve_attachments;
+  }
+
+  constexpr const vk::attachment_reference_2_khr* resolve_attachments() const
+  {
+    return _resolve_attachments;
+  }
+
+  void resolve_attachments(
+    const vk::attachment_reference_2_khr* new_resolve_attachments)
+  {
+    _resolve_attachments = new_resolve_attachments;
+  }
+
+  template <std::size_t Count>
+  void resolve_attachments(const std::array<vk::attachment_reference_2_khr,
+                                            Count>& new_resolve_attachments)
+  {
+    _color_attachment_count =
+      static_cast<uint32_t>(new_resolve_attachments.size());
+    _resolve_attachments = new_resolve_attachments.data();
+  }
+
+  void resolve_attachments(
+    const std::vector<vk::attachment_reference_2_khr>& new_resolve_attachments)
+  {
+    _color_attachment_count =
+      static_cast<uint32_t>(new_resolve_attachments.size());
+    _resolve_attachments = new_resolve_attachments.data();
+  }
+
+  const vk::attachment_reference_2_khr* depth_stencil_attachment()
+  {
+    return _depth_stencil_attachment;
+  }
+
+  constexpr const vk::attachment_reference_2_khr* depth_stencil_attachment()
+    const
+  {
+    return _depth_stencil_attachment;
+  }
+
+  void depth_stencil_attachment(
+    const vk::attachment_reference_2_khr* new_depth_stencil_attachment)
+  {
+    _depth_stencil_attachment = new_depth_stencil_attachment;
+  }
+
+  uint32_t& preserve_attachment_count()
+  {
+    return _preserve_attachment_count;
+  }
+
+  constexpr const uint32_t& preserve_attachment_count() const
+  {
+    return _preserve_attachment_count;
+  }
+
+  void preserve_attachment_count(uint32_t new_preserve_attachment_count)
+  {
+    _preserve_attachment_count = new_preserve_attachment_count;
+  }
+
+  const uint32_t* preserve_attachments()
+  {
+    return _preserve_attachments;
+  }
+
+  constexpr const uint32_t* preserve_attachments() const
+  {
+    return _preserve_attachments;
+  }
+
+  void preserve_attachments(const uint32_t* new_preserve_attachments)
+  {
+    _preserve_attachments = new_preserve_attachments;
+  }
+
+  template <std::size_t Count>
+  void preserve_attachments(
+    const std::array<uint32_t, Count>& new_preserve_attachments)
+  {
+    _preserve_attachment_count =
+      static_cast<uint32_t>(new_preserve_attachments.size());
+    _preserve_attachments = new_preserve_attachments.data();
+  }
+
+  void preserve_attachments(
+    const std::vector<uint32_t>& new_preserve_attachments)
+  {
+    _preserve_attachment_count =
+      static_cast<uint32_t>(new_preserve_attachments.size());
+    _preserve_attachments = new_preserve_attachments.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::subpass_description_2_khr;
+  const void* _next = nullptr;
+  vk::subpass_description_flags _flags = vk::subpass_description_flag::none;
+  vk::pipeline_bind_point _pipeline_bind_point =
+    vk::pipeline_bind_point::graphics;
+  uint32_t _view_mask = 0;
+  uint32_t _input_attachment_count = 0;
+  const vk::attachment_reference_2_khr* _input_attachments = nullptr;
+  uint32_t _color_attachment_count = 0;
+  const vk::attachment_reference_2_khr* _color_attachments = nullptr;
+  const vk::attachment_reference_2_khr* _resolve_attachments = nullptr;
+  const vk::attachment_reference_2_khr* _depth_stencil_attachment = nullptr;
+  uint32_t _preserve_attachment_count = 0;
+  const uint32_t* _preserve_attachments = nullptr;
+};
+static_assert(sizeof(subpass_description_2_khr) ==
+                sizeof(::VkSubpassDescription2KHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkSubpassDependency2KHR.
+class subpass_dependency_2_khr
+{
+public:
+  /// Default constructor.
+  constexpr subpass_dependency_2_khr() = default;
+
+  /// Constructor.
+  constexpr subpass_dependency_2_khr(
+    const void* initial_next, uint32_t initial_src_subpass,
+    uint32_t initial_dst_subpass,
+    vk::pipeline_stage_flags initial_src_stage_mask,
+    vk::pipeline_stage_flags initial_dst_stage_mask,
+    vk::access_flags initial_src_access_mask,
+    vk::access_flags initial_dst_access_mask,
+    vk::dependency_flags initial_dependency_flags,
+    int32_t initial_view_offset) noexcept
+  : _next(std::move(initial_next)),
+    _src_subpass(std::move(initial_src_subpass)),
+    _dst_subpass(std::move(initial_dst_subpass)),
+    _src_stage_mask(std::move(initial_src_stage_mask)),
+    _dst_stage_mask(std::move(initial_dst_stage_mask)),
+    _src_access_mask(std::move(initial_src_access_mask)),
+    _dst_access_mask(std::move(initial_dst_access_mask)),
+    _dependency_flags(std::move(initial_dependency_flags)),
+    _view_offset(std::move(initial_view_offset))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr subpass_dependency_2_khr(
+    const subpass_dependency_2_khr& other) noexcept
+  : _next(other._next),
+    _src_subpass(other._src_subpass),
+    _dst_subpass(other._dst_subpass),
+    _src_stage_mask(other._src_stage_mask),
+    _dst_stage_mask(other._dst_stage_mask),
+    _src_access_mask(other._src_access_mask),
+    _dst_access_mask(other._dst_access_mask),
+    _dependency_flags(other._dependency_flags),
+    _view_offset(other._view_offset)
+  {
+  }
+
+  /// Move constructor.
+  constexpr subpass_dependency_2_khr(subpass_dependency_2_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _src_subpass(std::move(other._src_subpass)),
+    _dst_subpass(std::move(other._dst_subpass)),
+    _src_stage_mask(std::move(other._src_stage_mask)),
+    _dst_stage_mask(std::move(other._dst_stage_mask)),
+    _src_access_mask(std::move(other._src_access_mask)),
+    _dst_access_mask(std::move(other._dst_access_mask)),
+    _dependency_flags(std::move(other._dependency_flags)),
+    _view_offset(std::move(other._view_offset))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr subpass_dependency_2_khr& operator=(
+    const subpass_dependency_2_khr& other) noexcept
+  {
+    _next = other._next;
+    _src_subpass = other._src_subpass;
+    _dst_subpass = other._dst_subpass;
+    _src_stage_mask = other._src_stage_mask;
+    _dst_stage_mask = other._dst_stage_mask;
+    _src_access_mask = other._src_access_mask;
+    _dst_access_mask = other._dst_access_mask;
+    _dependency_flags = other._dependency_flags;
+    _view_offset = other._view_offset;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr subpass_dependency_2_khr& operator=(
+    subpass_dependency_2_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _src_subpass = std::move(other._src_subpass);
+    _dst_subpass = std::move(other._dst_subpass);
+    _src_stage_mask = std::move(other._src_stage_mask);
+    _dst_stage_mask = std::move(other._dst_stage_mask);
+    _src_access_mask = std::move(other._src_access_mask);
+    _dst_access_mask = std::move(other._dst_access_mask);
+    _dependency_flags = std::move(other._dependency_flags);
+    _view_offset = std::move(other._view_offset);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSubpassDependency2KHR&() const
+  {
+    return *reinterpret_cast<const VkSubpassDependency2KHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& src_subpass()
+  {
+    return _src_subpass;
+  }
+
+  constexpr const uint32_t& src_subpass() const
+  {
+    return _src_subpass;
+  }
+
+  void src_subpass(uint32_t new_src_subpass)
+  {
+    _src_subpass = new_src_subpass;
+  }
+
+  uint32_t& dst_subpass()
+  {
+    return _dst_subpass;
+  }
+
+  constexpr const uint32_t& dst_subpass() const
+  {
+    return _dst_subpass;
+  }
+
+  void dst_subpass(uint32_t new_dst_subpass)
+  {
+    _dst_subpass = new_dst_subpass;
+  }
+
+  vk::pipeline_stage_flags& src_stage_mask()
+  {
+    return _src_stage_mask;
+  }
+
+  constexpr const vk::pipeline_stage_flags& src_stage_mask() const
+  {
+    return _src_stage_mask;
+  }
+
+  void src_stage_mask(vk::pipeline_stage_flags new_src_stage_mask)
+  {
+    _src_stage_mask = new_src_stage_mask;
+  }
+
+  vk::pipeline_stage_flags& dst_stage_mask()
+  {
+    return _dst_stage_mask;
+  }
+
+  constexpr const vk::pipeline_stage_flags& dst_stage_mask() const
+  {
+    return _dst_stage_mask;
+  }
+
+  void dst_stage_mask(vk::pipeline_stage_flags new_dst_stage_mask)
+  {
+    _dst_stage_mask = new_dst_stage_mask;
+  }
+
+  vk::access_flags& src_access_mask()
+  {
+    return _src_access_mask;
+  }
+
+  constexpr const vk::access_flags& src_access_mask() const
+  {
+    return _src_access_mask;
+  }
+
+  void src_access_mask(vk::access_flags new_src_access_mask)
+  {
+    _src_access_mask = new_src_access_mask;
+  }
+
+  vk::access_flags& dst_access_mask()
+  {
+    return _dst_access_mask;
+  }
+
+  constexpr const vk::access_flags& dst_access_mask() const
+  {
+    return _dst_access_mask;
+  }
+
+  void dst_access_mask(vk::access_flags new_dst_access_mask)
+  {
+    _dst_access_mask = new_dst_access_mask;
+  }
+
+  vk::dependency_flags& dependency_flags()
+  {
+    return _dependency_flags;
+  }
+
+  constexpr const vk::dependency_flags& dependency_flags() const
+  {
+    return _dependency_flags;
+  }
+
+  void dependency_flags(vk::dependency_flags new_dependency_flags)
+  {
+    _dependency_flags = new_dependency_flags;
+  }
+
+  int32_t& view_offset()
+  {
+    return _view_offset;
+  }
+
+  constexpr const int32_t& view_offset() const
+  {
+    return _view_offset;
+  }
+
+  void view_offset(int32_t new_view_offset)
+  {
+    _view_offset = new_view_offset;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::subpass_dependency_2_khr;
+  const void* _next = nullptr;
+  uint32_t _src_subpass = 0;
+  uint32_t _dst_subpass = 0;
+  vk::pipeline_stage_flags _src_stage_mask = vk::pipeline_stage_flag::none;
+  vk::pipeline_stage_flags _dst_stage_mask = vk::pipeline_stage_flag::none;
+  vk::access_flags _src_access_mask = vk::access_flag::none;
+  vk::access_flags _dst_access_mask = vk::access_flag::none;
+  vk::dependency_flags _dependency_flags = vk::dependency_flag::none;
+  int32_t _view_offset = 0;
+};
+static_assert(sizeof(subpass_dependency_2_khr) ==
+                sizeof(::VkSubpassDependency2KHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkRenderPassCreateInfo2KHR.
+class render_pass_create_info_2_khr
+{
+public:
+  /// Default constructor.
+  constexpr render_pass_create_info_2_khr() = default;
+
+  /// Constructor.
+  constexpr render_pass_create_info_2_khr(
+    const void* initial_next, vk::render_pass_create_flags initial_flags,
+    uint32_t initial_attachment_count,
+    const vk::attachment_description_2_khr* initial_attachments,
+    uint32_t initial_subpass_count,
+    const vk::subpass_description_2_khr* initial_subpasses,
+    uint32_t initial_dependency_count,
+    const vk::subpass_dependency_2_khr* initial_dependencies,
+    uint32_t initial_correlated_view_mask_count,
+    const uint32_t* initial_correlated_view_masks) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _attachment_count(std::move(initial_attachment_count)),
+    _attachments(std::move(initial_attachments)),
+    _subpass_count(std::move(initial_subpass_count)),
+    _subpasses(std::move(initial_subpasses)),
+    _dependency_count(std::move(initial_dependency_count)),
+    _dependencies(std::move(initial_dependencies)),
+    _correlated_view_mask_count(std::move(initial_correlated_view_mask_count)),
+    _correlated_view_masks(std::move(initial_correlated_view_masks))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr render_pass_create_info_2_khr(
+    const render_pass_create_info_2_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _attachment_count(other._attachment_count),
+    _attachments(other._attachments),
+    _subpass_count(other._subpass_count),
+    _subpasses(other._subpasses),
+    _dependency_count(other._dependency_count),
+    _dependencies(other._dependencies),
+    _correlated_view_mask_count(other._correlated_view_mask_count),
+    _correlated_view_masks(other._correlated_view_masks)
+  {
+  }
+
+  /// Move constructor.
+  constexpr render_pass_create_info_2_khr(
+    render_pass_create_info_2_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _attachment_count(std::move(other._attachment_count)),
+    _attachments(std::move(other._attachments)),
+    _subpass_count(std::move(other._subpass_count)),
+    _subpasses(std::move(other._subpasses)),
+    _dependency_count(std::move(other._dependency_count)),
+    _dependencies(std::move(other._dependencies)),
+    _correlated_view_mask_count(std::move(other._correlated_view_mask_count)),
+    _correlated_view_masks(std::move(other._correlated_view_masks))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr render_pass_create_info_2_khr& operator=(
+    const render_pass_create_info_2_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _attachment_count = other._attachment_count;
+    _attachments = other._attachments;
+    _subpass_count = other._subpass_count;
+    _subpasses = other._subpasses;
+    _dependency_count = other._dependency_count;
+    _dependencies = other._dependencies;
+    _correlated_view_mask_count = other._correlated_view_mask_count;
+    _correlated_view_masks = other._correlated_view_masks;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr render_pass_create_info_2_khr& operator=(
+    render_pass_create_info_2_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _attachment_count = std::move(other._attachment_count);
+    _attachments = std::move(other._attachments);
+    _subpass_count = std::move(other._subpass_count);
+    _subpasses = std::move(other._subpasses);
+    _dependency_count = std::move(other._dependency_count);
+    _dependencies = std::move(other._dependencies);
+    _correlated_view_mask_count = std::move(other._correlated_view_mask_count);
+    _correlated_view_masks = std::move(other._correlated_view_masks);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkRenderPassCreateInfo2KHR&() const
+  {
+    return *reinterpret_cast<const VkRenderPassCreateInfo2KHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::render_pass_create_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::render_pass_create_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::render_pass_create_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  uint32_t& attachment_count()
+  {
+    return _attachment_count;
+  }
+
+  constexpr const uint32_t& attachment_count() const
+  {
+    return _attachment_count;
+  }
+
+  void attachment_count(uint32_t new_attachment_count)
+  {
+    _attachment_count = new_attachment_count;
+  }
+
+  const vk::attachment_description_2_khr* attachments()
+  {
+    return _attachments;
+  }
+
+  constexpr const vk::attachment_description_2_khr* attachments() const
+  {
+    return _attachments;
+  }
+
+  void attachments(const vk::attachment_description_2_khr* new_attachments)
+  {
+    _attachments = new_attachments;
+  }
+
+  template <std::size_t Count>
+  void attachments(
+    const std::array<vk::attachment_description_2_khr, Count>& new_attachments)
+  {
+    _attachment_count = static_cast<uint32_t>(new_attachments.size());
+    _attachments = new_attachments.data();
+  }
+
+  void attachments(
+    const std::vector<vk::attachment_description_2_khr>& new_attachments)
+  {
+    _attachment_count = static_cast<uint32_t>(new_attachments.size());
+    _attachments = new_attachments.data();
+  }
+
+  uint32_t& subpass_count()
+  {
+    return _subpass_count;
+  }
+
+  constexpr const uint32_t& subpass_count() const
+  {
+    return _subpass_count;
+  }
+
+  void subpass_count(uint32_t new_subpass_count)
+  {
+    _subpass_count = new_subpass_count;
+  }
+
+  const vk::subpass_description_2_khr* subpasses()
+  {
+    return _subpasses;
+  }
+
+  constexpr const vk::subpass_description_2_khr* subpasses() const
+  {
+    return _subpasses;
+  }
+
+  void subpasses(const vk::subpass_description_2_khr* new_subpasses)
+  {
+    _subpasses = new_subpasses;
+  }
+
+  template <std::size_t Count>
+  void subpasses(
+    const std::array<vk::subpass_description_2_khr, Count>& new_subpasses)
+  {
+    _subpass_count = static_cast<uint32_t>(new_subpasses.size());
+    _subpasses = new_subpasses.data();
+  }
+
+  void subpasses(
+    const std::vector<vk::subpass_description_2_khr>& new_subpasses)
+  {
+    _subpass_count = static_cast<uint32_t>(new_subpasses.size());
+    _subpasses = new_subpasses.data();
+  }
+
+  uint32_t& dependency_count()
+  {
+    return _dependency_count;
+  }
+
+  constexpr const uint32_t& dependency_count() const
+  {
+    return _dependency_count;
+  }
+
+  void dependency_count(uint32_t new_dependency_count)
+  {
+    _dependency_count = new_dependency_count;
+  }
+
+  const vk::subpass_dependency_2_khr* dependencies()
+  {
+    return _dependencies;
+  }
+
+  constexpr const vk::subpass_dependency_2_khr* dependencies() const
+  {
+    return _dependencies;
+  }
+
+  void dependencies(const vk::subpass_dependency_2_khr* new_dependencies)
+  {
+    _dependencies = new_dependencies;
+  }
+
+  template <std::size_t Count>
+  void dependencies(
+    const std::array<vk::subpass_dependency_2_khr, Count>& new_dependencies)
+  {
+    _dependency_count = static_cast<uint32_t>(new_dependencies.size());
+    _dependencies = new_dependencies.data();
+  }
+
+  void dependencies(
+    const std::vector<vk::subpass_dependency_2_khr>& new_dependencies)
+  {
+    _dependency_count = static_cast<uint32_t>(new_dependencies.size());
+    _dependencies = new_dependencies.data();
+  }
+
+  uint32_t& correlated_view_mask_count()
+  {
+    return _correlated_view_mask_count;
+  }
+
+  constexpr const uint32_t& correlated_view_mask_count() const
+  {
+    return _correlated_view_mask_count;
+  }
+
+  void correlated_view_mask_count(uint32_t new_correlated_view_mask_count)
+  {
+    _correlated_view_mask_count = new_correlated_view_mask_count;
+  }
+
+  const uint32_t* correlated_view_masks()
+  {
+    return _correlated_view_masks;
+  }
+
+  constexpr const uint32_t* correlated_view_masks() const
+  {
+    return _correlated_view_masks;
+  }
+
+  void correlated_view_masks(const uint32_t* new_correlated_view_masks)
+  {
+    _correlated_view_masks = new_correlated_view_masks;
+  }
+
+  template <std::size_t Count>
+  void correlated_view_masks(
+    const std::array<uint32_t, Count>& new_correlated_view_masks)
+  {
+    _correlated_view_mask_count =
+      static_cast<uint32_t>(new_correlated_view_masks.size());
+    _correlated_view_masks = new_correlated_view_masks.data();
+  }
+
+  void correlated_view_masks(
+    const std::vector<uint32_t>& new_correlated_view_masks)
+  {
+    _correlated_view_mask_count =
+      static_cast<uint32_t>(new_correlated_view_masks.size());
+    _correlated_view_masks = new_correlated_view_masks.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::render_pass_create_info_2_khr;
+  const void* _next = nullptr;
+  vk::render_pass_create_flags _flags = vk::render_pass_create_flag::none;
+  uint32_t _attachment_count = 0;
+  const vk::attachment_description_2_khr* _attachments = nullptr;
+  uint32_t _subpass_count = 0;
+  const vk::subpass_description_2_khr* _subpasses = nullptr;
+  uint32_t _dependency_count = 0;
+  const vk::subpass_dependency_2_khr* _dependencies = nullptr;
+  uint32_t _correlated_view_mask_count = 0;
+  const uint32_t* _correlated_view_masks = nullptr;
+};
+static_assert(sizeof(render_pass_create_info_2_khr) ==
+                sizeof(::VkRenderPassCreateInfo2KHR),
+              "struct and wrapper have different size!");
+
+inline vk::result create_render_pass_2_khr(
+  VkDevice device, const vk::render_pass_create_info_2_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkRenderPass* render_pass)
+{
+  return static_cast<vk::result>(vkCreateRenderPass2KHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkRenderPassCreateInfo2KHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkRenderPass*>(render_pass)));
+}
+
+/// Enhanced replacement type for VkSubpassBeginInfoKHR.
+class subpass_begin_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr subpass_begin_info_khr() = default;
+
+  /// Constructor.
+  constexpr subpass_begin_info_khr(
+    const void* initial_next, vk::subpass_contents initial_contents) noexcept
+  : _next(std::move(initial_next)), _contents(std::move(initial_contents))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr subpass_begin_info_khr(const subpass_begin_info_khr& other) noexcept
+  : _next(other._next), _contents(other._contents)
+  {
+  }
+
+  /// Move constructor.
+  constexpr subpass_begin_info_khr(subpass_begin_info_khr&& other) noexcept
+  : _next(std::move(other._next)), _contents(std::move(other._contents))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr subpass_begin_info_khr& operator=(
+    const subpass_begin_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _contents = other._contents;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr subpass_begin_info_khr& operator=(
+    subpass_begin_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _contents = std::move(other._contents);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSubpassBeginInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkSubpassBeginInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::subpass_contents& contents()
+  {
+    return _contents;
+  }
+
+  constexpr const vk::subpass_contents& contents() const
+  {
+    return _contents;
+  }
+
+  void contents(vk::subpass_contents new_contents)
+  {
+    _contents = new_contents;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::subpass_begin_info_khr;
+  const void* _next = nullptr;
+  vk::subpass_contents _contents = vk::subpass_contents::inline_commands;
+};
+static_assert(sizeof(subpass_begin_info_khr) == sizeof(::VkSubpassBeginInfoKHR),
+              "struct and wrapper have different size!");
+
+inline void cmd_begin_render_pass_2_khr(
+  VkCommandBuffer command_buffer,
+  const vk::render_pass_begin_info* render_pass_begin,
+  const vk::subpass_begin_info_khr* subpass_begin_info)
+{
+  vkCmdBeginRenderPass2KHR(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkRenderPassBeginInfo*>(render_pass_begin),
+    reinterpret_cast<const VkSubpassBeginInfoKHR*>(subpass_begin_info));
+}
+
+/// Enhanced replacement type for VkSubpassEndInfoKHR.
+class subpass_end_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr subpass_end_info_khr() = default;
+
+  /// Constructor.
+  constexpr subpass_end_info_khr(const void* initial_next) noexcept
+  : _next(std::move(initial_next))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr subpass_end_info_khr(const subpass_end_info_khr& other) noexcept
+  : _next(other._next)
+  {
+  }
+
+  /// Move constructor.
+  constexpr subpass_end_info_khr(subpass_end_info_khr&& other) noexcept
+  : _next(std::move(other._next))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr subpass_end_info_khr& operator=(
+    const subpass_end_info_khr& other) noexcept
+  {
+    _next = other._next;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr subpass_end_info_khr& operator=(
+    subpass_end_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSubpassEndInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkSubpassEndInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::subpass_end_info_khr;
+  const void* _next = nullptr;
+};
+static_assert(sizeof(subpass_end_info_khr) == sizeof(::VkSubpassEndInfoKHR),
+              "struct and wrapper have different size!");
+
+inline void cmd_next_subpass_2_khr(
+  VkCommandBuffer command_buffer,
+  const vk::subpass_begin_info_khr* subpass_begin_info,
+  const vk::subpass_end_info_khr* subpass_end_info)
+{
+  vkCmdNextSubpass2KHR(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkSubpassBeginInfoKHR*>(subpass_begin_info),
+    reinterpret_cast<const VkSubpassEndInfoKHR*>(subpass_end_info));
+}
+inline void cmd_end_render_pass_2_khr(
+  VkCommandBuffer command_buffer,
+  const vk::subpass_end_info_khr* subpass_end_info)
+{
+  vkCmdEndRenderPass2KHR(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkSubpassEndInfoKHR*>(subpass_end_info));
+}
+
 /// Enhanced replacement type for VkSharedPresentSurfaceCapabilitiesKHR.
 class shared_present_surface_capabilities_khr
 {
@@ -48892,489 +47599,6 @@ inline vk::result get_swapchain_status_khr(VkDevice device,
   return static_cast<vk::result>(vkGetSwapchainStatusKHR(
     static_cast<VkDevice>(device), static_cast<VkSwapchainKHR>(swapchain)));
 }
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkImportFenceWin32HandleInfoKHR.
-class import_fence_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr import_fence_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr import_fence_win32_handle_info_khr(
-    const void* initial_next, VkFence initial_fence,
-    vk::fence_import_flags initial_flags,
-    vk::external_fence_handle_type_flag initial_handle_type,
-    HANDLE initial_handle, LPCWSTR initial_name) noexcept
-  : _next(std::move(initial_next)),
-    _fence(std::move(initial_fence)),
-    _flags(std::move(initial_flags)),
-    _handle_type(std::move(initial_handle_type)),
-    _handle(std::move(initial_handle)),
-    _name(std::move(initial_name))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr import_fence_win32_handle_info_khr(
-    const import_fence_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _fence(other._fence),
-    _flags(other._flags),
-    _handle_type(other._handle_type),
-    _handle(other._handle),
-    _name(other._name)
-  {
-  }
-
-  /// Move constructor.
-  constexpr import_fence_win32_handle_info_khr(
-    import_fence_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _fence(std::move(other._fence)),
-    _flags(std::move(other._flags)),
-    _handle_type(std::move(other._handle_type)),
-    _handle(std::move(other._handle)),
-    _name(std::move(other._name))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr import_fence_win32_handle_info_khr& operator=(
-    const import_fence_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _fence = other._fence;
-    _flags = other._flags;
-    _handle_type = other._handle_type;
-    _handle = other._handle;
-    _name = other._name;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr import_fence_win32_handle_info_khr& operator=(
-    import_fence_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _fence = std::move(other._fence);
-    _flags = std::move(other._flags);
-    _handle_type = std::move(other._handle_type);
-    _handle = std::move(other._handle);
-    _name = std::move(other._name);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkImportFenceWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkImportFenceWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkFence& fence()
-  {
-    return _fence;
-  }
-
-  constexpr const VkFence& fence() const
-  {
-    return _fence;
-  }
-
-  void fence(VkFence new_fence)
-  {
-    _fence = new_fence;
-  }
-
-  vk::fence_import_flags& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::fence_import_flags& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::fence_import_flags new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  vk::external_fence_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_fence_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_fence_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-  HANDLE& handle()
-  {
-    return _handle;
-  }
-
-  constexpr const HANDLE& handle() const
-  {
-    return _handle;
-  }
-
-  void handle(HANDLE new_handle)
-  {
-    _handle = new_handle;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::import_fence_win32_handle_info_khr;
-  const void* _next = nullptr;
-  VkFence _fence = nullptr;
-  vk::fence_import_flags _flags = vk::fence_import_flag::none;
-  vk::external_fence_handle_type_flag _handle_type =
-    vk::external_fence_handle_type_flag::none;
-  HANDLE _handle = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(import_fence_win32_handle_info_khr) ==
-                sizeof(::VkImportFenceWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkExportFenceWin32HandleInfoKHR.
-class export_fence_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr export_fence_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr export_fence_win32_handle_info_khr(
-    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
-    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
-  : _next(std::move(initial_next)),
-    _attributes(std::move(initial_attributes)),
-    _dw_access(std::move(initial_dw_access)),
-    _name(std::move(initial_name))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr export_fence_win32_handle_info_khr(
-    const export_fence_win32_handle_info_khr& other) noexcept
-  : _next(other._next),
-    _attributes(other._attributes),
-    _dw_access(other._dw_access),
-    _name(other._name)
-  {
-  }
-
-  /// Move constructor.
-  constexpr export_fence_win32_handle_info_khr(
-    export_fence_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _attributes(std::move(other._attributes)),
-    _dw_access(std::move(other._dw_access)),
-    _name(std::move(other._name))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr export_fence_win32_handle_info_khr& operator=(
-    const export_fence_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _attributes = other._attributes;
-    _dw_access = other._dw_access;
-    _name = other._name;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr export_fence_win32_handle_info_khr& operator=(
-    export_fence_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _attributes = std::move(other._attributes);
-    _dw_access = std::move(other._dw_access);
-    _name = std::move(other._name);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkExportFenceWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkExportFenceWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  const SECURITY_ATTRIBUTES* attributes()
-  {
-    return _attributes;
-  }
-
-  constexpr const SECURITY_ATTRIBUTES* attributes() const
-  {
-    return _attributes;
-  }
-
-  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
-  {
-    _attributes = new_attributes;
-  }
-
-  DWORD& dw_access()
-  {
-    return _dw_access;
-  }
-
-  constexpr const DWORD& dw_access() const
-  {
-    return _dw_access;
-  }
-
-  void dw_access(DWORD new_dw_access)
-  {
-    _dw_access = new_dw_access;
-  }
-
-  LPCWSTR& name()
-  {
-    return _name;
-  }
-
-  constexpr const LPCWSTR& name() const
-  {
-    return _name;
-  }
-
-  void name(LPCWSTR new_name)
-  {
-    _name = new_name;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::export_fence_win32_handle_info_khr;
-  const void* _next = nullptr;
-  const SECURITY_ATTRIBUTES* _attributes = nullptr;
-  DWORD _dw_access = 0;
-  LPCWSTR _name = 0;
-};
-static_assert(sizeof(export_fence_win32_handle_info_khr) ==
-                sizeof(::VkExportFenceWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-
-/// Enhanced replacement type for VkFenceGetWin32HandleInfoKHR.
-class fence_get_win32_handle_info_khr
-{
-public:
-  /// Default constructor.
-  constexpr fence_get_win32_handle_info_khr() = default;
-
-  /// Constructor.
-  constexpr fence_get_win32_handle_info_khr(
-    const void* initial_next, VkFence initial_fence,
-    vk::external_fence_handle_type_flag initial_handle_type) noexcept
-  : _next(std::move(initial_next)),
-    _fence(std::move(initial_fence)),
-    _handle_type(std::move(initial_handle_type))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr fence_get_win32_handle_info_khr(
-    const fence_get_win32_handle_info_khr& other) noexcept
-  : _next(other._next), _fence(other._fence), _handle_type(other._handle_type)
-  {
-  }
-
-  /// Move constructor.
-  constexpr fence_get_win32_handle_info_khr(
-    fence_get_win32_handle_info_khr&& other) noexcept
-  : _next(std::move(other._next)),
-    _fence(std::move(other._fence)),
-    _handle_type(std::move(other._handle_type))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr fence_get_win32_handle_info_khr& operator=(
-    const fence_get_win32_handle_info_khr& other) noexcept
-  {
-    _next = other._next;
-    _fence = other._fence;
-    _handle_type = other._handle_type;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr fence_get_win32_handle_info_khr& operator=(
-    fence_get_win32_handle_info_khr&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _fence = std::move(other._fence);
-    _handle_type = std::move(other._handle_type);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkFenceGetWin32HandleInfoKHR&() const
-  {
-    return *reinterpret_cast<const VkFenceGetWin32HandleInfoKHR*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkFence& fence()
-  {
-    return _fence;
-  }
-
-  constexpr const VkFence& fence() const
-  {
-    return _fence;
-  }
-
-  void fence(VkFence new_fence)
-  {
-    _fence = new_fence;
-  }
-
-  vk::external_fence_handle_type_flag& handle_type()
-  {
-    return _handle_type;
-  }
-
-  constexpr const vk::external_fence_handle_type_flag& handle_type() const
-  {
-    return _handle_type;
-  }
-
-  void handle_type(vk::external_fence_handle_type_flag new_handle_type)
-  {
-    _handle_type = new_handle_type;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::fence_get_win32_handle_info_khr;
-  const void* _next = nullptr;
-  VkFence _fence = nullptr;
-  vk::external_fence_handle_type_flag _handle_type =
-    vk::external_fence_handle_type_flag::none;
-};
-static_assert(sizeof(fence_get_win32_handle_info_khr) ==
-                sizeof(::VkFenceGetWin32HandleInfoKHR),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
-inline vk::result import_fence_win32_handle_khr(
-  VkDevice device,
-  const vk::import_fence_win32_handle_info_khr* import_fence_win32_handle_info)
-{
-  return static_cast<vk::result>(vkImportFenceWin32HandleKHR(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkImportFenceWin32HandleInfoKHR*>(
-      import_fence_win32_handle_info)));
-}
-inline vk::result get_fence_win32_handle_khr(
-  VkDevice device,
-  const vk::fence_get_win32_handle_info_khr* get_win32_handle_info,
-  HANDLE* handle)
-{
-  return static_cast<vk::result>(vkGetFenceWin32HandleKHR(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkFenceGetWin32HandleInfoKHR*>(
-      get_win32_handle_info),
-    reinterpret_cast<HANDLE*>(handle)));
-}
-#endif
 
 /// Enhanced replacement type for VkImportFenceFdInfoKHR.
 class import_fence_fd_info_khr
@@ -50557,282 +48781,6 @@ inline vk::result get_display_plane_capabilities_2_khr(
     reinterpret_cast<const VkDisplayPlaneInfo2KHR*>(display_plane_info),
     reinterpret_cast<VkDisplayPlaneCapabilities2KHR*>(capabilities)));
 }
-#if defined(VK_USE_PLATFORM_IOS_MVK)
-using iossurface_create_flags_mvk = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_IOS_MVK)
-
-/// Enhanced replacement type for VkIOSSurfaceCreateInfoMVK.
-class iossurface_create_info_mvk
-{
-public:
-  /// Default constructor.
-  constexpr iossurface_create_info_mvk() = default;
-
-  /// Constructor.
-  constexpr iossurface_create_info_mvk(
-    const void* initial_next, vk::iossurface_create_flags_mvk initial_flags,
-    const void* initial_view) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _view(std::move(initial_view))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr iossurface_create_info_mvk(
-    const iossurface_create_info_mvk& other) noexcept
-  : _next(other._next), _flags(other._flags), _view(other._view)
-  {
-  }
-
-  /// Move constructor.
-  constexpr iossurface_create_info_mvk(
-    iossurface_create_info_mvk&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _view(std::move(other._view))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr iossurface_create_info_mvk& operator=(
-    const iossurface_create_info_mvk& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _view = other._view;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr iossurface_create_info_mvk& operator=(
-    iossurface_create_info_mvk&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _view = std::move(other._view);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkIOSSurfaceCreateInfoMVK&() const
-  {
-    return *reinterpret_cast<const VkIOSSurfaceCreateInfoMVK*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::iossurface_create_flags_mvk& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::iossurface_create_flags_mvk& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::iossurface_create_flags_mvk new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  const void* view()
-  {
-    return _view;
-  }
-
-  constexpr const void* view() const
-  {
-    return _view;
-  }
-
-  void view(const void* new_view)
-  {
-    _view = new_view;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::ios_surface_create_info_mvk;
-  const void* _next = nullptr;
-  vk::iossurface_create_flags_mvk _flags = 0;
-  const void* _view = nullptr;
-};
-static_assert(sizeof(iossurface_create_info_mvk) ==
-                sizeof(::VkIOSSurfaceCreateInfoMVK),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_IOS_MVK)
-inline vk::result create_iossurface_mvk(
-  VkInstance instance, const vk::iossurface_create_info_mvk* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateIOSSurfaceMVK(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkIOSSurfaceCreateInfoMVK*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-#endif
-#if defined(VK_USE_PLATFORM_MACOS_MVK)
-using mac_ossurface_create_flags_mvk = VkFlags;
-#endif
-#if defined(VK_USE_PLATFORM_MACOS_MVK)
-
-/// Enhanced replacement type for VkMacOSSurfaceCreateInfoMVK.
-class mac_ossurface_create_info_mvk
-{
-public:
-  /// Default constructor.
-  constexpr mac_ossurface_create_info_mvk() = default;
-
-  /// Constructor.
-  constexpr mac_ossurface_create_info_mvk(
-    const void* initial_next, vk::mac_ossurface_create_flags_mvk initial_flags,
-    const void* initial_view) noexcept
-  : _next(std::move(initial_next)),
-    _flags(std::move(initial_flags)),
-    _view(std::move(initial_view))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr mac_ossurface_create_info_mvk(
-    const mac_ossurface_create_info_mvk& other) noexcept
-  : _next(other._next), _flags(other._flags), _view(other._view)
-  {
-  }
-
-  /// Move constructor.
-  constexpr mac_ossurface_create_info_mvk(
-    mac_ossurface_create_info_mvk&& other) noexcept
-  : _next(std::move(other._next)),
-    _flags(std::move(other._flags)),
-    _view(std::move(other._view))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr mac_ossurface_create_info_mvk& operator=(
-    const mac_ossurface_create_info_mvk& other) noexcept
-  {
-    _next = other._next;
-    _flags = other._flags;
-    _view = other._view;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr mac_ossurface_create_info_mvk& operator=(
-    mac_ossurface_create_info_mvk&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _flags = std::move(other._flags);
-    _view = std::move(other._view);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkMacOSSurfaceCreateInfoMVK&() const
-  {
-    return *reinterpret_cast<const VkMacOSSurfaceCreateInfoMVK*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::mac_ossurface_create_flags_mvk& flags()
-  {
-    return _flags;
-  }
-
-  constexpr const vk::mac_ossurface_create_flags_mvk& flags() const
-  {
-    return _flags;
-  }
-
-  void flags(vk::mac_ossurface_create_flags_mvk new_flags)
-  {
-    _flags = new_flags;
-  }
-
-  const void* view()
-  {
-    return _view;
-  }
-
-  constexpr const void* view() const
-  {
-    return _view;
-  }
-
-  void view(const void* new_view)
-  {
-    _view = new_view;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::macos_surface_create_info_mvk;
-  const void* _next = nullptr;
-  vk::mac_ossurface_create_flags_mvk _flags = 0;
-  const void* _view = nullptr;
-};
-static_assert(sizeof(mac_ossurface_create_info_mvk) ==
-                sizeof(::VkMacOSSurfaceCreateInfoMVK),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_MACOS_MVK)
-inline vk::result create_mac_ossurface_mvk(
-  VkInstance instance, const vk::mac_ossurface_create_info_mvk* create_info,
-  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
-{
-  return static_cast<vk::result>(vkCreateMacOSSurfaceMVK(
-    static_cast<VkInstance>(instance),
-    reinterpret_cast<const VkMacOSSurfaceCreateInfoMVK*>(create_info),
-    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
-    reinterpret_cast<VkSurfaceKHR*>(surface)));
-}
-#endif
 
 /// Enhanced replacement type for VkDebugUtilsObjectNameInfoEXT.
 class debug_utils_object_name_info_ext
@@ -51946,838 +49894,6 @@ inline void submit_debug_utils_message_ext(
     reinterpret_cast<const VkDebugUtilsMessengerCallbackDataEXT*>(
       callback_data));
 }
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkAndroidHardwareBufferUsageANDROID.
-class android_hardware_buffer_usage_android
-{
-public:
-  /// Default constructor.
-  constexpr android_hardware_buffer_usage_android() = default;
-
-  /// Constructor.
-  constexpr android_hardware_buffer_usage_android(
-    void* initial_next, uint64_t initial_android_hardware_buffer_usage) noexcept
-  : _next(std::move(initial_next)),
-    _android_hardware_buffer_usage(
-      std::move(initial_android_hardware_buffer_usage))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr android_hardware_buffer_usage_android(
-    const android_hardware_buffer_usage_android& other) noexcept
-  : _next(other._next),
-    _android_hardware_buffer_usage(other._android_hardware_buffer_usage)
-  {
-  }
-
-  /// Move constructor.
-  constexpr android_hardware_buffer_usage_android(
-    android_hardware_buffer_usage_android&& other) noexcept
-  : _next(std::move(other._next)),
-    _android_hardware_buffer_usage(
-      std::move(other._android_hardware_buffer_usage))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr android_hardware_buffer_usage_android& operator=(
-    const android_hardware_buffer_usage_android& other) noexcept
-  {
-    _next = other._next;
-    _android_hardware_buffer_usage = other._android_hardware_buffer_usage;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr android_hardware_buffer_usage_android& operator=(
-    android_hardware_buffer_usage_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _android_hardware_buffer_usage =
-      std::move(other._android_hardware_buffer_usage);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkAndroidHardwareBufferUsageANDROID&() const
-  {
-    return *reinterpret_cast<const VkAndroidHardwareBufferUsageANDROID*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  void* next()
-  {
-    return _next;
-  }
-
-  constexpr void* next() const
-  {
-    return _next;
-  }
-
-  void next(void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint64_t& android_hardware_buffer_usage()
-  {
-    return _android_hardware_buffer_usage;
-  }
-
-  constexpr const uint64_t& android_hardware_buffer_usage() const
-  {
-    return _android_hardware_buffer_usage;
-  }
-
-  void android_hardware_buffer_usage(uint64_t new_android_hardware_buffer_usage)
-  {
-    _android_hardware_buffer_usage = new_android_hardware_buffer_usage;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::android_hardware_buffer_usage_android;
-  void* _next = nullptr;
-  uint64_t _android_hardware_buffer_usage = 0;
-};
-static_assert(sizeof(android_hardware_buffer_usage_android) ==
-                sizeof(::VkAndroidHardwareBufferUsageANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkAndroidHardwareBufferPropertiesANDROID.
-class android_hardware_buffer_properties_android
-{
-public:
-  /// Default constructor.
-  constexpr android_hardware_buffer_properties_android() = default;
-
-  /// Constructor.
-  constexpr android_hardware_buffer_properties_android(
-    void* initial_next, VkDeviceSize initial_allocation_size,
-    uint32_t initial_memory_type_bits) noexcept
-  : _next(std::move(initial_next)),
-    _allocation_size(std::move(initial_allocation_size)),
-    _memory_type_bits(std::move(initial_memory_type_bits))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr android_hardware_buffer_properties_android(
-    const android_hardware_buffer_properties_android& other) noexcept
-  : _next(other._next),
-    _allocation_size(other._allocation_size),
-    _memory_type_bits(other._memory_type_bits)
-  {
-  }
-
-  /// Move constructor.
-  constexpr android_hardware_buffer_properties_android(
-    android_hardware_buffer_properties_android&& other) noexcept
-  : _next(std::move(other._next)),
-    _allocation_size(std::move(other._allocation_size)),
-    _memory_type_bits(std::move(other._memory_type_bits))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr android_hardware_buffer_properties_android& operator=(
-    const android_hardware_buffer_properties_android& other) noexcept
-  {
-    _next = other._next;
-    _allocation_size = other._allocation_size;
-    _memory_type_bits = other._memory_type_bits;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr android_hardware_buffer_properties_android& operator=(
-    android_hardware_buffer_properties_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _allocation_size = std::move(other._allocation_size);
-    _memory_type_bits = std::move(other._memory_type_bits);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkAndroidHardwareBufferPropertiesANDROID&() const
-  {
-    return *reinterpret_cast<const VkAndroidHardwareBufferPropertiesANDROID*>(
-      this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  void* next()
-  {
-    return _next;
-  }
-
-  constexpr void* next() const
-  {
-    return _next;
-  }
-
-  void next(void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkDeviceSize& allocation_size()
-  {
-    return _allocation_size;
-  }
-
-  constexpr const VkDeviceSize& allocation_size() const
-  {
-    return _allocation_size;
-  }
-
-  void allocation_size(VkDeviceSize new_allocation_size)
-  {
-    _allocation_size = new_allocation_size;
-  }
-
-  uint32_t& memory_type_bits()
-  {
-    return _memory_type_bits;
-  }
-
-  constexpr const uint32_t& memory_type_bits() const
-  {
-    return _memory_type_bits;
-  }
-
-  void memory_type_bits(uint32_t new_memory_type_bits)
-  {
-    _memory_type_bits = new_memory_type_bits;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::android_hardware_buffer_properties_android;
-  void* _next = nullptr;
-  VkDeviceSize _allocation_size = 0;
-  uint32_t _memory_type_bits = 0;
-};
-static_assert(sizeof(android_hardware_buffer_properties_android) ==
-                sizeof(::VkAndroidHardwareBufferPropertiesANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for
-/// VkAndroidHardwareBufferFormatPropertiesANDROID.
-class android_hardware_buffer_format_properties_android
-{
-public:
-  /// Default constructor.
-  constexpr android_hardware_buffer_format_properties_android() = default;
-
-  /// Constructor.
-  constexpr android_hardware_buffer_format_properties_android(
-    void* initial_next, vk::format initial_format,
-    uint64_t initial_external_format,
-    vk::format_feature_flags initial_format_features,
-    vk::component_mapping initial_sampler_ycbcr_conversion_components,
-    vk::sampler_ycbcr_model_conversion initial_suggested_ycbcr_model,
-    vk::sampler_ycbcr_range initial_suggested_ycbcr_range,
-    vk::chroma_location initial_suggested_xchroma_offset,
-    vk::chroma_location initial_suggested_ychroma_offset) noexcept
-  : _next(std::move(initial_next)),
-    _format(std::move(initial_format)),
-    _external_format(std::move(initial_external_format)),
-    _format_features(std::move(initial_format_features)),
-    _sampler_ycbcr_conversion_components(
-      std::move(initial_sampler_ycbcr_conversion_components)),
-    _suggested_ycbcr_model(std::move(initial_suggested_ycbcr_model)),
-    _suggested_ycbcr_range(std::move(initial_suggested_ycbcr_range)),
-    _suggested_xchroma_offset(std::move(initial_suggested_xchroma_offset)),
-    _suggested_ychroma_offset(std::move(initial_suggested_ychroma_offset))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr android_hardware_buffer_format_properties_android(
-    const android_hardware_buffer_format_properties_android& other) noexcept
-  : _next(other._next),
-    _format(other._format),
-    _external_format(other._external_format),
-    _format_features(other._format_features),
-    _sampler_ycbcr_conversion_components(
-      other._sampler_ycbcr_conversion_components),
-    _suggested_ycbcr_model(other._suggested_ycbcr_model),
-    _suggested_ycbcr_range(other._suggested_ycbcr_range),
-    _suggested_xchroma_offset(other._suggested_xchroma_offset),
-    _suggested_ychroma_offset(other._suggested_ychroma_offset)
-  {
-  }
-
-  /// Move constructor.
-  constexpr android_hardware_buffer_format_properties_android(
-    android_hardware_buffer_format_properties_android&& other) noexcept
-  : _next(std::move(other._next)),
-    _format(std::move(other._format)),
-    _external_format(std::move(other._external_format)),
-    _format_features(std::move(other._format_features)),
-    _sampler_ycbcr_conversion_components(
-      std::move(other._sampler_ycbcr_conversion_components)),
-    _suggested_ycbcr_model(std::move(other._suggested_ycbcr_model)),
-    _suggested_ycbcr_range(std::move(other._suggested_ycbcr_range)),
-    _suggested_xchroma_offset(std::move(other._suggested_xchroma_offset)),
-    _suggested_ychroma_offset(std::move(other._suggested_ychroma_offset))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr android_hardware_buffer_format_properties_android& operator=(
-    const android_hardware_buffer_format_properties_android& other) noexcept
-  {
-    _next = other._next;
-    _format = other._format;
-    _external_format = other._external_format;
-    _format_features = other._format_features;
-    _sampler_ycbcr_conversion_components =
-      other._sampler_ycbcr_conversion_components;
-    _suggested_ycbcr_model = other._suggested_ycbcr_model;
-    _suggested_ycbcr_range = other._suggested_ycbcr_range;
-    _suggested_xchroma_offset = other._suggested_xchroma_offset;
-    _suggested_ychroma_offset = other._suggested_ychroma_offset;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr android_hardware_buffer_format_properties_android& operator=(
-    android_hardware_buffer_format_properties_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _format = std::move(other._format);
-    _external_format = std::move(other._external_format);
-    _format_features = std::move(other._format_features);
-    _sampler_ycbcr_conversion_components =
-      std::move(other._sampler_ycbcr_conversion_components);
-    _suggested_ycbcr_model = std::move(other._suggested_ycbcr_model);
-    _suggested_ycbcr_range = std::move(other._suggested_ycbcr_range);
-    _suggested_xchroma_offset = std::move(other._suggested_xchroma_offset);
-    _suggested_ychroma_offset = std::move(other._suggested_ychroma_offset);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkAndroidHardwareBufferFormatPropertiesANDROID&() const
-  {
-    return *reinterpret_cast<
-      const VkAndroidHardwareBufferFormatPropertiesANDROID*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  void* next()
-  {
-    return _next;
-  }
-
-  constexpr void* next() const
-  {
-    return _next;
-  }
-
-  void next(void* new_next)
-  {
-    _next = new_next;
-  }
-
-  vk::format& format()
-  {
-    return _format;
-  }
-
-  constexpr const vk::format& format() const
-  {
-    return _format;
-  }
-
-  void format(vk::format new_format)
-  {
-    _format = new_format;
-  }
-
-  uint64_t& external_format()
-  {
-    return _external_format;
-  }
-
-  constexpr const uint64_t& external_format() const
-  {
-    return _external_format;
-  }
-
-  void external_format(uint64_t new_external_format)
-  {
-    _external_format = new_external_format;
-  }
-
-  vk::format_feature_flags& format_features()
-  {
-    return _format_features;
-  }
-
-  constexpr const vk::format_feature_flags& format_features() const
-  {
-    return _format_features;
-  }
-
-  void format_features(vk::format_feature_flags new_format_features)
-  {
-    _format_features = new_format_features;
-  }
-
-  vk::component_mapping& sampler_ycbcr_conversion_components()
-  {
-    return _sampler_ycbcr_conversion_components;
-  }
-
-  constexpr const vk::component_mapping& sampler_ycbcr_conversion_components()
-    const
-  {
-    return _sampler_ycbcr_conversion_components;
-  }
-
-  void sampler_ycbcr_conversion_components(
-    vk::component_mapping new_sampler_ycbcr_conversion_components)
-  {
-    _sampler_ycbcr_conversion_components =
-      new_sampler_ycbcr_conversion_components;
-  }
-
-  vk::sampler_ycbcr_model_conversion& suggested_ycbcr_model()
-  {
-    return _suggested_ycbcr_model;
-  }
-
-  constexpr const vk::sampler_ycbcr_model_conversion& suggested_ycbcr_model()
-    const
-  {
-    return _suggested_ycbcr_model;
-  }
-
-  void suggested_ycbcr_model(
-    vk::sampler_ycbcr_model_conversion new_suggested_ycbcr_model)
-  {
-    _suggested_ycbcr_model = new_suggested_ycbcr_model;
-  }
-
-  vk::sampler_ycbcr_range& suggested_ycbcr_range()
-  {
-    return _suggested_ycbcr_range;
-  }
-
-  constexpr const vk::sampler_ycbcr_range& suggested_ycbcr_range() const
-  {
-    return _suggested_ycbcr_range;
-  }
-
-  void suggested_ycbcr_range(vk::sampler_ycbcr_range new_suggested_ycbcr_range)
-  {
-    _suggested_ycbcr_range = new_suggested_ycbcr_range;
-  }
-
-  vk::chroma_location& suggested_xchroma_offset()
-  {
-    return _suggested_xchroma_offset;
-  }
-
-  constexpr const vk::chroma_location& suggested_xchroma_offset() const
-  {
-    return _suggested_xchroma_offset;
-  }
-
-  void suggested_xchroma_offset(
-    vk::chroma_location new_suggested_xchroma_offset)
-  {
-    _suggested_xchroma_offset = new_suggested_xchroma_offset;
-  }
-
-  vk::chroma_location& suggested_ychroma_offset()
-  {
-    return _suggested_ychroma_offset;
-  }
-
-  constexpr const vk::chroma_location& suggested_ychroma_offset() const
-  {
-    return _suggested_ychroma_offset;
-  }
-
-  void suggested_ychroma_offset(
-    vk::chroma_location new_suggested_ychroma_offset)
-  {
-    _suggested_ychroma_offset = new_suggested_ychroma_offset;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::android_hardware_buffer_format_properties_android;
-  void* _next = nullptr;
-  vk::format _format = vk::format::undefined;
-  uint64_t _external_format = 0;
-  vk::format_feature_flags _format_features = vk::format_feature_flag::none;
-  vk::component_mapping _sampler_ycbcr_conversion_components =
-    vk::component_mapping{};
-  vk::sampler_ycbcr_model_conversion _suggested_ycbcr_model =
-    vk::sampler_ycbcr_model_conversion::rgb_identity;
-  vk::sampler_ycbcr_range _suggested_ycbcr_range =
-    vk::sampler_ycbcr_range::itu_full;
-  vk::chroma_location _suggested_xchroma_offset =
-    vk::chroma_location::cosited_even;
-  vk::chroma_location _suggested_ychroma_offset =
-    vk::chroma_location::cosited_even;
-};
-static_assert(sizeof(android_hardware_buffer_format_properties_android) ==
-                sizeof(::VkAndroidHardwareBufferFormatPropertiesANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkImportAndroidHardwareBufferInfoANDROID.
-class import_android_hardware_buffer_info_android
-{
-public:
-  /// Default constructor.
-  constexpr import_android_hardware_buffer_info_android() = default;
-
-  /// Constructor.
-  constexpr import_android_hardware_buffer_info_android(
-    const void* initial_next, struct AHardwareBuffer* initial_buffer) noexcept
-  : _next(std::move(initial_next)), _buffer(std::move(initial_buffer))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr import_android_hardware_buffer_info_android(
-    const import_android_hardware_buffer_info_android& other) noexcept
-  : _next(other._next), _buffer(other._buffer)
-  {
-  }
-
-  /// Move constructor.
-  constexpr import_android_hardware_buffer_info_android(
-    import_android_hardware_buffer_info_android&& other) noexcept
-  : _next(std::move(other._next)), _buffer(std::move(other._buffer))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr import_android_hardware_buffer_info_android& operator=(
-    const import_android_hardware_buffer_info_android& other) noexcept
-  {
-    _next = other._next;
-    _buffer = other._buffer;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr import_android_hardware_buffer_info_android& operator=(
-    import_android_hardware_buffer_info_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _buffer = std::move(other._buffer);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkImportAndroidHardwareBufferInfoANDROID&() const
-  {
-    return *reinterpret_cast<const VkImportAndroidHardwareBufferInfoANDROID*>(
-      this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  struct AHardwareBuffer* buffer()
-  {
-    return _buffer;
-  }
-
-  constexpr struct AHardwareBuffer* buffer() const
-  {
-    return _buffer;
-  }
-
-  void buffer(struct AHardwareBuffer* new_buffer)
-  {
-    _buffer = new_buffer;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::import_android_hardware_buffer_info_android;
-  const void* _next = nullptr;
-  struct AHardwareBuffer* _buffer = nullptr;
-};
-static_assert(sizeof(import_android_hardware_buffer_info_android) ==
-                sizeof(::VkImportAndroidHardwareBufferInfoANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkMemoryGetAndroidHardwareBufferInfoANDROID.
-class memory_get_android_hardware_buffer_info_android
-{
-public:
-  /// Default constructor.
-  constexpr memory_get_android_hardware_buffer_info_android() = default;
-
-  /// Constructor.
-  constexpr memory_get_android_hardware_buffer_info_android(
-    const void* initial_next, VkDeviceMemory initial_memory) noexcept
-  : _next(std::move(initial_next)), _memory(std::move(initial_memory))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr memory_get_android_hardware_buffer_info_android(
-    const memory_get_android_hardware_buffer_info_android& other) noexcept
-  : _next(other._next), _memory(other._memory)
-  {
-  }
-
-  /// Move constructor.
-  constexpr memory_get_android_hardware_buffer_info_android(
-    memory_get_android_hardware_buffer_info_android&& other) noexcept
-  : _next(std::move(other._next)), _memory(std::move(other._memory))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr memory_get_android_hardware_buffer_info_android& operator=(
-    const memory_get_android_hardware_buffer_info_android& other) noexcept
-  {
-    _next = other._next;
-    _memory = other._memory;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr memory_get_android_hardware_buffer_info_android& operator=(
-    memory_get_android_hardware_buffer_info_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _memory = std::move(other._memory);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkMemoryGetAndroidHardwareBufferInfoANDROID&() const
-  {
-    return *reinterpret_cast<
-      const VkMemoryGetAndroidHardwareBufferInfoANDROID*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  const void* next()
-  {
-    return _next;
-  }
-
-  constexpr const void* next() const
-  {
-    return _next;
-  }
-
-  void next(const void* new_next)
-  {
-    _next = new_next;
-  }
-
-  VkDeviceMemory& memory()
-  {
-    return _memory;
-  }
-
-  constexpr const VkDeviceMemory& memory() const
-  {
-    return _memory;
-  }
-
-  void memory(VkDeviceMemory new_memory)
-  {
-    _memory = new_memory;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::memory_get_android_hardware_buffer_info_android;
-  const void* _next = nullptr;
-  VkDeviceMemory _memory = nullptr;
-};
-static_assert(sizeof(memory_get_android_hardware_buffer_info_android) ==
-                sizeof(::VkMemoryGetAndroidHardwareBufferInfoANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-
-/// Enhanced replacement type for VkExternalFormatANDROID.
-class external_format_android
-{
-public:
-  /// Default constructor.
-  constexpr external_format_android() = default;
-
-  /// Constructor.
-  constexpr external_format_android(void* initial_next,
-                                    uint64_t initial_external_format) noexcept
-  : _next(std::move(initial_next)),
-    _external_format(std::move(initial_external_format))
-  {
-  }
-
-  /// Copy constructor.
-  constexpr external_format_android(
-    const external_format_android& other) noexcept
-  : _next(other._next), _external_format(other._external_format)
-  {
-  }
-
-  /// Move constructor.
-  constexpr external_format_android(external_format_android&& other) noexcept
-  : _next(std::move(other._next)),
-    _external_format(std::move(other._external_format))
-  {
-  }
-
-  /// Copy assignment operator.
-  constexpr external_format_android& operator=(
-    const external_format_android& other) noexcept
-  {
-    _next = other._next;
-    _external_format = other._external_format;
-    return *this;
-  }
-
-  /// Move assignment operator.
-  constexpr external_format_android& operator=(
-    external_format_android&& other) noexcept
-  {
-    _next = std::move(other._next);
-    _external_format = std::move(other._external_format);
-    return *this;
-  }
-
-  /// Conversion operator to original Vulkan type.
-  operator const VkExternalFormatANDROID&() const
-  {
-    return *reinterpret_cast<const VkExternalFormatANDROID*>(this);
-  }
-
-  constexpr const vk::structure_type& structure_type() const
-  {
-    return _structure_type;
-  }
-
-  void* next()
-  {
-    return _next;
-  }
-
-  constexpr void* next() const
-  {
-    return _next;
-  }
-
-  void next(void* new_next)
-  {
-    _next = new_next;
-  }
-
-  uint64_t& external_format()
-  {
-    return _external_format;
-  }
-
-  constexpr const uint64_t& external_format() const
-  {
-    return _external_format;
-  }
-
-  void external_format(uint64_t new_external_format)
-  {
-    _external_format = new_external_format;
-  }
-
-private:
-  const vk::structure_type _structure_type =
-    vk::structure_type::external_format_android;
-  void* _next = nullptr;
-  uint64_t _external_format = 0;
-};
-static_assert(sizeof(external_format_android) ==
-                sizeof(::VkExternalFormatANDROID),
-              "struct and wrapper have different size!");
-
-#endif
-#if defined(VK_USE_PLATFORM_ANDROID_KHR)
-inline vk::result get_android_hardware_buffer_properties_android(
-  VkDevice device, const struct AHardwareBuffer* buffer,
-  vk::android_hardware_buffer_properties_android* properties)
-{
-  return static_cast<vk::result>(vkGetAndroidHardwareBufferPropertiesANDROID(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const AHardwareBuffer*>(buffer),
-    reinterpret_cast<VkAndroidHardwareBufferPropertiesANDROID*>(properties)));
-}
-inline vk::result get_memory_android_hardware_buffer_android(
-  VkDevice device,
-  const vk::memory_get_android_hardware_buffer_info_android* info,
-  struct AHardwareBuffer** buffer)
-{
-  return static_cast<vk::result>(vkGetMemoryAndroidHardwareBufferANDROID(
-    static_cast<VkDevice>(device),
-    reinterpret_cast<const VkMemoryGetAndroidHardwareBufferInfoANDROID*>(info),
-    reinterpret_cast<AHardwareBuffer**>(buffer)));
-}
-#endif
 enum class sampler_reduction_mode_ext
 {
   /// @see VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_EXT
@@ -53025,6 +50141,598 @@ private:
 };
 static_assert(sizeof(physical_device_sampler_filter_minmax_properties_ext) ==
                 sizeof(::VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceInlineUniformBlockFeaturesEXT.
+class physical_device_inline_uniform_block_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_inline_uniform_block_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_inline_uniform_block_features_ext(
+    void* initial_next, VkBool32 initial_inline_uniform_block,
+    VkBool32
+      initial_descriptor_binding_inline_uniform_block_update_after_bind) noexcept
+  : _next(std::move(initial_next)),
+    _inline_uniform_block(std::move(initial_inline_uniform_block)),
+    _descriptor_binding_inline_uniform_block_update_after_bind(std::move(
+      initial_descriptor_binding_inline_uniform_block_update_after_bind))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_inline_uniform_block_features_ext(
+    const physical_device_inline_uniform_block_features_ext& other) noexcept
+  : _next(other._next),
+    _inline_uniform_block(other._inline_uniform_block),
+    _descriptor_binding_inline_uniform_block_update_after_bind(
+      other._descriptor_binding_inline_uniform_block_update_after_bind)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_inline_uniform_block_features_ext(
+    physical_device_inline_uniform_block_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _inline_uniform_block(std::move(other._inline_uniform_block)),
+    _descriptor_binding_inline_uniform_block_update_after_bind(std::move(
+      other._descriptor_binding_inline_uniform_block_update_after_bind))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_inline_uniform_block_features_ext& operator=(
+    const physical_device_inline_uniform_block_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _inline_uniform_block = other._inline_uniform_block;
+    _descriptor_binding_inline_uniform_block_update_after_bind =
+      other._descriptor_binding_inline_uniform_block_update_after_bind;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_inline_uniform_block_features_ext& operator=(
+    physical_device_inline_uniform_block_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _inline_uniform_block = std::move(other._inline_uniform_block);
+    _descriptor_binding_inline_uniform_block_update_after_bind = std::move(
+      other._descriptor_binding_inline_uniform_block_update_after_bind);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceInlineUniformBlockFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceInlineUniformBlockFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& inline_uniform_block()
+  {
+    return _inline_uniform_block;
+  }
+
+  constexpr const VkBool32& inline_uniform_block() const
+  {
+    return _inline_uniform_block;
+  }
+
+  void inline_uniform_block(VkBool32 new_inline_uniform_block)
+  {
+    _inline_uniform_block = new_inline_uniform_block;
+  }
+
+  VkBool32& descriptor_binding_inline_uniform_block_update_after_bind()
+  {
+    return _descriptor_binding_inline_uniform_block_update_after_bind;
+  }
+
+  constexpr const VkBool32&
+  descriptor_binding_inline_uniform_block_update_after_bind() const
+  {
+    return _descriptor_binding_inline_uniform_block_update_after_bind;
+  }
+
+  void descriptor_binding_inline_uniform_block_update_after_bind(
+    VkBool32 new_descriptor_binding_inline_uniform_block_update_after_bind)
+  {
+    _descriptor_binding_inline_uniform_block_update_after_bind =
+      new_descriptor_binding_inline_uniform_block_update_after_bind;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_inline_uniform_block_features_ext;
+  void* _next = nullptr;
+  VkBool32 _inline_uniform_block = VK_FALSE;
+  VkBool32 _descriptor_binding_inline_uniform_block_update_after_bind =
+    VK_FALSE;
+};
+static_assert(sizeof(physical_device_inline_uniform_block_features_ext) ==
+                sizeof(::VkPhysicalDeviceInlineUniformBlockFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceInlineUniformBlockPropertiesEXT.
+class physical_device_inline_uniform_block_properties_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_inline_uniform_block_properties_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_inline_uniform_block_properties_ext(
+    void* initial_next, uint32_t initial_max_inline_uniform_block_size,
+    uint32_t initial_max_per_stage_descriptor_inline_uniform_blocks,
+    uint32_t
+      initial_max_per_stage_descriptor_update_after_bind_inline_uniform_blocks,
+    uint32_t initial_max_descriptor_set_inline_uniform_blocks,
+    uint32_t
+      initial_max_descriptor_set_update_after_bind_inline_uniform_blocks) noexcept
+  : _next(std::move(initial_next)),
+    _max_inline_uniform_block_size(
+      std::move(initial_max_inline_uniform_block_size)),
+    _max_per_stage_descriptor_inline_uniform_blocks(
+      std::move(initial_max_per_stage_descriptor_inline_uniform_blocks)),
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(std::move(
+      initial_max_per_stage_descriptor_update_after_bind_inline_uniform_blocks)),
+    _max_descriptor_set_inline_uniform_blocks(
+      std::move(initial_max_descriptor_set_inline_uniform_blocks)),
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks(std::move(
+      initial_max_descriptor_set_update_after_bind_inline_uniform_blocks))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_inline_uniform_block_properties_ext(
+    const physical_device_inline_uniform_block_properties_ext& other) noexcept
+  : _next(other._next),
+    _max_inline_uniform_block_size(other._max_inline_uniform_block_size),
+    _max_per_stage_descriptor_inline_uniform_blocks(
+      other._max_per_stage_descriptor_inline_uniform_blocks),
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
+      other._max_per_stage_descriptor_update_after_bind_inline_uniform_blocks),
+    _max_descriptor_set_inline_uniform_blocks(
+      other._max_descriptor_set_inline_uniform_blocks),
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks(
+      other._max_descriptor_set_update_after_bind_inline_uniform_blocks)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_inline_uniform_block_properties_ext(
+    physical_device_inline_uniform_block_properties_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _max_inline_uniform_block_size(
+      std::move(other._max_inline_uniform_block_size)),
+    _max_per_stage_descriptor_inline_uniform_blocks(
+      std::move(other._max_per_stage_descriptor_inline_uniform_blocks)),
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(std::move(
+      other._max_per_stage_descriptor_update_after_bind_inline_uniform_blocks)),
+    _max_descriptor_set_inline_uniform_blocks(
+      std::move(other._max_descriptor_set_inline_uniform_blocks)),
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks(std::move(
+      other._max_descriptor_set_update_after_bind_inline_uniform_blocks))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_inline_uniform_block_properties_ext& operator=(
+    const physical_device_inline_uniform_block_properties_ext& other) noexcept
+  {
+    _next = other._next;
+    _max_inline_uniform_block_size = other._max_inline_uniform_block_size;
+    _max_per_stage_descriptor_inline_uniform_blocks =
+      other._max_per_stage_descriptor_inline_uniform_blocks;
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+      other._max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+    _max_descriptor_set_inline_uniform_blocks =
+      other._max_descriptor_set_inline_uniform_blocks;
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks =
+      other._max_descriptor_set_update_after_bind_inline_uniform_blocks;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_inline_uniform_block_properties_ext& operator=(
+    physical_device_inline_uniform_block_properties_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _max_inline_uniform_block_size =
+      std::move(other._max_inline_uniform_block_size);
+    _max_per_stage_descriptor_inline_uniform_blocks =
+      std::move(other._max_per_stage_descriptor_inline_uniform_blocks);
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+      std::move(
+        other
+          ._max_per_stage_descriptor_update_after_bind_inline_uniform_blocks);
+    _max_descriptor_set_inline_uniform_blocks =
+      std::move(other._max_descriptor_set_inline_uniform_blocks);
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks = std::move(
+      other._max_descriptor_set_update_after_bind_inline_uniform_blocks);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceInlineUniformBlockPropertiesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceInlineUniformBlockPropertiesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& max_inline_uniform_block_size()
+  {
+    return _max_inline_uniform_block_size;
+  }
+
+  constexpr const uint32_t& max_inline_uniform_block_size() const
+  {
+    return _max_inline_uniform_block_size;
+  }
+
+  void max_inline_uniform_block_size(uint32_t new_max_inline_uniform_block_size)
+  {
+    _max_inline_uniform_block_size = new_max_inline_uniform_block_size;
+  }
+
+  uint32_t& max_per_stage_descriptor_inline_uniform_blocks()
+  {
+    return _max_per_stage_descriptor_inline_uniform_blocks;
+  }
+
+  constexpr const uint32_t& max_per_stage_descriptor_inline_uniform_blocks()
+    const
+  {
+    return _max_per_stage_descriptor_inline_uniform_blocks;
+  }
+
+  void max_per_stage_descriptor_inline_uniform_blocks(
+    uint32_t new_max_per_stage_descriptor_inline_uniform_blocks)
+  {
+    _max_per_stage_descriptor_inline_uniform_blocks =
+      new_max_per_stage_descriptor_inline_uniform_blocks;
+  }
+
+  uint32_t& max_per_stage_descriptor_update_after_bind_inline_uniform_blocks()
+  {
+    return _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+  }
+
+  constexpr const uint32_t&
+  max_per_stage_descriptor_update_after_bind_inline_uniform_blocks() const
+  {
+    return _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+  }
+
+  void max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
+    uint32_t
+      new_max_per_stage_descriptor_update_after_bind_inline_uniform_blocks)
+  {
+    _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+      new_max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+  }
+
+  uint32_t& max_descriptor_set_inline_uniform_blocks()
+  {
+    return _max_descriptor_set_inline_uniform_blocks;
+  }
+
+  constexpr const uint32_t& max_descriptor_set_inline_uniform_blocks() const
+  {
+    return _max_descriptor_set_inline_uniform_blocks;
+  }
+
+  void max_descriptor_set_inline_uniform_blocks(
+    uint32_t new_max_descriptor_set_inline_uniform_blocks)
+  {
+    _max_descriptor_set_inline_uniform_blocks =
+      new_max_descriptor_set_inline_uniform_blocks;
+  }
+
+  uint32_t& max_descriptor_set_update_after_bind_inline_uniform_blocks()
+  {
+    return _max_descriptor_set_update_after_bind_inline_uniform_blocks;
+  }
+
+  constexpr const uint32_t&
+  max_descriptor_set_update_after_bind_inline_uniform_blocks() const
+  {
+    return _max_descriptor_set_update_after_bind_inline_uniform_blocks;
+  }
+
+  void max_descriptor_set_update_after_bind_inline_uniform_blocks(
+    uint32_t new_max_descriptor_set_update_after_bind_inline_uniform_blocks)
+  {
+    _max_descriptor_set_update_after_bind_inline_uniform_blocks =
+      new_max_descriptor_set_update_after_bind_inline_uniform_blocks;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_inline_uniform_block_properties_ext;
+  void* _next = nullptr;
+  uint32_t _max_inline_uniform_block_size = 0;
+  uint32_t _max_per_stage_descriptor_inline_uniform_blocks = 0;
+  uint32_t _max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+    0;
+  uint32_t _max_descriptor_set_inline_uniform_blocks = 0;
+  uint32_t _max_descriptor_set_update_after_bind_inline_uniform_blocks = 0;
+};
+static_assert(sizeof(physical_device_inline_uniform_block_properties_ext) ==
+                sizeof(::VkPhysicalDeviceInlineUniformBlockPropertiesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkWriteDescriptorSetInlineUniformBlockEXT.
+class write_descriptor_set_inline_uniform_block_ext
+{
+public:
+  /// Default constructor.
+  constexpr write_descriptor_set_inline_uniform_block_ext() = default;
+
+  /// Constructor.
+  constexpr write_descriptor_set_inline_uniform_block_ext(
+    const void* initial_next, uint32_t initial_data_size,
+    const void* initial_data) noexcept
+  : _next(std::move(initial_next)),
+    _data_size(std::move(initial_data_size)),
+    _data(std::move(initial_data))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr write_descriptor_set_inline_uniform_block_ext(
+    const write_descriptor_set_inline_uniform_block_ext& other) noexcept
+  : _next(other._next), _data_size(other._data_size), _data(other._data)
+  {
+  }
+
+  /// Move constructor.
+  constexpr write_descriptor_set_inline_uniform_block_ext(
+    write_descriptor_set_inline_uniform_block_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _data_size(std::move(other._data_size)),
+    _data(std::move(other._data))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr write_descriptor_set_inline_uniform_block_ext& operator=(
+    const write_descriptor_set_inline_uniform_block_ext& other) noexcept
+  {
+    _next = other._next;
+    _data_size = other._data_size;
+    _data = other._data;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr write_descriptor_set_inline_uniform_block_ext& operator=(
+    write_descriptor_set_inline_uniform_block_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _data_size = std::move(other._data_size);
+    _data = std::move(other._data);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkWriteDescriptorSetInlineUniformBlockEXT&() const
+  {
+    return *reinterpret_cast<const VkWriteDescriptorSetInlineUniformBlockEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& data_size()
+  {
+    return _data_size;
+  }
+
+  constexpr const uint32_t& data_size() const
+  {
+    return _data_size;
+  }
+
+  void data_size(uint32_t new_data_size)
+  {
+    _data_size = new_data_size;
+  }
+
+  const void* data()
+  {
+    return _data;
+  }
+
+  constexpr const void* data() const
+  {
+    return _data;
+  }
+
+  void data(const void* new_data)
+  {
+    _data = new_data;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::write_descriptor_set_inline_uniform_block_ext;
+  const void* _next = nullptr;
+  uint32_t _data_size = 0;
+  const void* _data = nullptr;
+};
+static_assert(sizeof(write_descriptor_set_inline_uniform_block_ext) ==
+                sizeof(::VkWriteDescriptorSetInlineUniformBlockEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkDescriptorPoolInlineUniformBlockCreateInfoEXT.
+class descriptor_pool_inline_uniform_block_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext(
+    const void* initial_next,
+    uint32_t initial_max_inline_uniform_block_bindings) noexcept
+  : _next(std::move(initial_next)),
+    _max_inline_uniform_block_bindings(
+      std::move(initial_max_inline_uniform_block_bindings))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext(
+    const descriptor_pool_inline_uniform_block_create_info_ext& other) noexcept
+  : _next(other._next),
+    _max_inline_uniform_block_bindings(other._max_inline_uniform_block_bindings)
+  {
+  }
+
+  /// Move constructor.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext(
+    descriptor_pool_inline_uniform_block_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _max_inline_uniform_block_bindings(
+      std::move(other._max_inline_uniform_block_bindings))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext& operator=(
+    const descriptor_pool_inline_uniform_block_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _max_inline_uniform_block_bindings =
+      other._max_inline_uniform_block_bindings;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr descriptor_pool_inline_uniform_block_create_info_ext& operator=(
+    descriptor_pool_inline_uniform_block_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _max_inline_uniform_block_bindings =
+      std::move(other._max_inline_uniform_block_bindings);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkDescriptorPoolInlineUniformBlockCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkDescriptorPoolInlineUniformBlockCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& max_inline_uniform_block_bindings()
+  {
+    return _max_inline_uniform_block_bindings;
+  }
+
+  constexpr const uint32_t& max_inline_uniform_block_bindings() const
+  {
+    return _max_inline_uniform_block_bindings;
+  }
+
+  void max_inline_uniform_block_bindings(
+    uint32_t new_max_inline_uniform_block_bindings)
+  {
+    _max_inline_uniform_block_bindings = new_max_inline_uniform_block_bindings;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::descriptor_pool_inline_uniform_block_create_info_ext;
+  const void* _next = nullptr;
+  uint32_t _max_inline_uniform_block_bindings = 0;
+};
+static_assert(sizeof(descriptor_pool_inline_uniform_block_create_info_ext) ==
+                sizeof(::VkDescriptorPoolInlineUniformBlockCreateInfoEXT),
               "struct and wrapper have different size!");
 
 /// Enhanced replacement type for VkSampleLocationEXT.
@@ -57310,6 +55018,3276 @@ static_assert(
     sizeof(::VkDescriptorSetVariableDescriptorCountLayoutSupportEXT),
   "struct and wrapper have different size!");
 
+enum class shading_rate_palette_entry_nv
+{
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV
+  shading_rate_palette_entry_no_invocations_nv = 0,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV
+  shading_rate_palette_entry_16_invocations_per_pixel_nv = 1,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_8_INVOCATIONS_PER_PIXEL_NV
+  shading_rate_palette_entry_8_invocations_per_pixel_nv = 2,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_4_INVOCATIONS_PER_PIXEL_NV
+  shading_rate_palette_entry_4_invocations_per_pixel_nv = 3,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_2_INVOCATIONS_PER_PIXEL_NV
+  shading_rate_palette_entry_2_invocations_per_pixel_nv = 4,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_PIXEL_NV
+  shading_rate_palette_entry_1_invocation_per_pixel_nv = 5,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X1_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_2_x1_pixels_nv = 6,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_1X2_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_1_x2_pixels_nv = 7,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X2_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_2_x2_pixels_nv = 8,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X2_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_4_x2_pixels_nv = 9,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X4_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_2_x4_pixels_nv = 10,
+  /// @see VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X4_PIXELS_NV
+  shading_rate_palette_entry_1_invocation_per_4_x4_pixels_nv = 11,
+};
+
+/// Enhanced replacement type for VkShadingRatePaletteNV.
+class shading_rate_palette_nv
+{
+public:
+  /// Default constructor.
+  constexpr shading_rate_palette_nv() = default;
+
+  /// Constructor.
+  constexpr shading_rate_palette_nv(
+    uint32_t initial_shading_rate_palette_entry_count,
+    const vk::shading_rate_palette_entry_nv*
+      initial_shading_rate_palette_entries) noexcept
+  : _shading_rate_palette_entry_count(
+      std::move(initial_shading_rate_palette_entry_count)),
+    _shading_rate_palette_entries(
+      std::move(initial_shading_rate_palette_entries))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr shading_rate_palette_nv(const shading_rate_palette_nv& other) =
+    default;
+
+  /// Move constructor.
+  constexpr shading_rate_palette_nv(shading_rate_palette_nv&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr shading_rate_palette_nv& operator=(
+    const shading_rate_palette_nv& other) = default;
+
+  /// Move assignment operator.
+  constexpr shading_rate_palette_nv& operator=(
+    shading_rate_palette_nv&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkShadingRatePaletteNV&() const
+  {
+    return *reinterpret_cast<const VkShadingRatePaletteNV*>(this);
+  }
+
+  uint32_t& shading_rate_palette_entry_count()
+  {
+    return _shading_rate_palette_entry_count;
+  }
+
+  constexpr const uint32_t& shading_rate_palette_entry_count() const
+  {
+    return _shading_rate_palette_entry_count;
+  }
+
+  void shading_rate_palette_entry_count(
+    uint32_t new_shading_rate_palette_entry_count)
+  {
+    _shading_rate_palette_entry_count = new_shading_rate_palette_entry_count;
+  }
+
+  const vk::shading_rate_palette_entry_nv* shading_rate_palette_entries()
+  {
+    return _shading_rate_palette_entries;
+  }
+
+  constexpr const vk::shading_rate_palette_entry_nv*
+  shading_rate_palette_entries() const
+  {
+    return _shading_rate_palette_entries;
+  }
+
+  void shading_rate_palette_entries(
+    const vk::shading_rate_palette_entry_nv* new_shading_rate_palette_entries)
+  {
+    _shading_rate_palette_entries = new_shading_rate_palette_entries;
+  }
+
+  template <std::size_t Count>
+  void shading_rate_palette_entries(
+    const std::array<vk::shading_rate_palette_entry_nv, Count>&
+      new_shading_rate_palette_entries)
+  {
+    _shading_rate_palette_entry_count =
+      static_cast<uint32_t>(new_shading_rate_palette_entries.size());
+    _shading_rate_palette_entries = new_shading_rate_palette_entries.data();
+  }
+
+  void shading_rate_palette_entries(
+    const std::vector<vk::shading_rate_palette_entry_nv>&
+      new_shading_rate_palette_entries)
+  {
+    _shading_rate_palette_entry_count =
+      static_cast<uint32_t>(new_shading_rate_palette_entries.size());
+    _shading_rate_palette_entries = new_shading_rate_palette_entries.data();
+  }
+
+private:
+  uint32_t _shading_rate_palette_entry_count = 0;
+  const vk::shading_rate_palette_entry_nv* _shading_rate_palette_entries =
+    nullptr;
+};
+static_assert(sizeof(shading_rate_palette_nv) ==
+                sizeof(::VkShadingRatePaletteNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPipelineViewportShadingRateImageStateCreateInfoNV.
+class pipeline_viewport_shading_rate_image_state_create_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv() =
+    default;
+
+  /// Constructor.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv(
+    const void* initial_next, VkBool32 initial_shading_rate_image_enable,
+    uint32_t initial_viewport_count,
+    const vk::shading_rate_palette_nv* initial_shading_rate_palettes) noexcept
+  : _next(std::move(initial_next)),
+    _shading_rate_image_enable(std::move(initial_shading_rate_image_enable)),
+    _viewport_count(std::move(initial_viewport_count)),
+    _shading_rate_palettes(std::move(initial_shading_rate_palettes))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv(
+    const pipeline_viewport_shading_rate_image_state_create_info_nv&
+      other) noexcept
+  : _next(other._next),
+    _shading_rate_image_enable(other._shading_rate_image_enable),
+    _viewport_count(other._viewport_count),
+    _shading_rate_palettes(other._shading_rate_palettes)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv(
+    pipeline_viewport_shading_rate_image_state_create_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _shading_rate_image_enable(std::move(other._shading_rate_image_enable)),
+    _viewport_count(std::move(other._viewport_count)),
+    _shading_rate_palettes(std::move(other._shading_rate_palettes))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv&
+  operator=(const pipeline_viewport_shading_rate_image_state_create_info_nv&
+              other) noexcept
+  {
+    _next = other._next;
+    _shading_rate_image_enable = other._shading_rate_image_enable;
+    _viewport_count = other._viewport_count;
+    _shading_rate_palettes = other._shading_rate_palettes;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_viewport_shading_rate_image_state_create_info_nv&
+  operator=(
+    pipeline_viewport_shading_rate_image_state_create_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shading_rate_image_enable = std::move(other._shading_rate_image_enable);
+    _viewport_count = std::move(other._viewport_count);
+    _shading_rate_palettes = std::move(other._shading_rate_palettes);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineViewportShadingRateImageStateCreateInfoNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineViewportShadingRateImageStateCreateInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shading_rate_image_enable()
+  {
+    return _shading_rate_image_enable;
+  }
+
+  constexpr const VkBool32& shading_rate_image_enable() const
+  {
+    return _shading_rate_image_enable;
+  }
+
+  void shading_rate_image_enable(VkBool32 new_shading_rate_image_enable)
+  {
+    _shading_rate_image_enable = new_shading_rate_image_enable;
+  }
+
+  uint32_t& viewport_count()
+  {
+    return _viewport_count;
+  }
+
+  constexpr const uint32_t& viewport_count() const
+  {
+    return _viewport_count;
+  }
+
+  void viewport_count(uint32_t new_viewport_count)
+  {
+    _viewport_count = new_viewport_count;
+  }
+
+  const vk::shading_rate_palette_nv* shading_rate_palettes()
+  {
+    return _shading_rate_palettes;
+  }
+
+  constexpr const vk::shading_rate_palette_nv* shading_rate_palettes() const
+  {
+    return _shading_rate_palettes;
+  }
+
+  void shading_rate_palettes(
+    const vk::shading_rate_palette_nv* new_shading_rate_palettes)
+  {
+    _shading_rate_palettes = new_shading_rate_palettes;
+  }
+
+  template <std::size_t Count>
+  void shading_rate_palettes(const std::array<vk::shading_rate_palette_nv,
+                                              Count>& new_shading_rate_palettes)
+  {
+    _viewport_count = static_cast<uint32_t>(new_shading_rate_palettes.size());
+    _shading_rate_palettes = new_shading_rate_palettes.data();
+  }
+
+  void shading_rate_palettes(
+    const std::vector<vk::shading_rate_palette_nv>& new_shading_rate_palettes)
+  {
+    _viewport_count = static_cast<uint32_t>(new_shading_rate_palettes.size());
+    _shading_rate_palettes = new_shading_rate_palettes.data();
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    pipeline_viewport_shading_rate_image_state_create_info_nv;
+  const void* _next = nullptr;
+  VkBool32 _shading_rate_image_enable = VK_FALSE;
+  uint32_t _viewport_count = 0;
+  const vk::shading_rate_palette_nv* _shading_rate_palettes = nullptr;
+};
+static_assert(
+  sizeof(pipeline_viewport_shading_rate_image_state_create_info_nv) ==
+    sizeof(::VkPipelineViewportShadingRateImageStateCreateInfoNV),
+  "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceShadingRateImageFeaturesNV.
+class physical_device_shading_rate_image_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shading_rate_image_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_shading_rate_image_features_nv(
+    void* initial_next, VkBool32 initial_shading_rate_image,
+    VkBool32 initial_shading_rate_coarse_sample_order) noexcept
+  : _next(std::move(initial_next)),
+    _shading_rate_image(std::move(initial_shading_rate_image)),
+    _shading_rate_coarse_sample_order(
+      std::move(initial_shading_rate_coarse_sample_order))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shading_rate_image_features_nv(
+    const physical_device_shading_rate_image_features_nv& other) noexcept
+  : _next(other._next),
+    _shading_rate_image(other._shading_rate_image),
+    _shading_rate_coarse_sample_order(other._shading_rate_coarse_sample_order)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shading_rate_image_features_nv(
+    physical_device_shading_rate_image_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _shading_rate_image(std::move(other._shading_rate_image)),
+    _shading_rate_coarse_sample_order(
+      std::move(other._shading_rate_coarse_sample_order))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shading_rate_image_features_nv& operator=(
+    const physical_device_shading_rate_image_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _shading_rate_image = other._shading_rate_image;
+    _shading_rate_coarse_sample_order = other._shading_rate_coarse_sample_order;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shading_rate_image_features_nv& operator=(
+    physical_device_shading_rate_image_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shading_rate_image = std::move(other._shading_rate_image);
+    _shading_rate_coarse_sample_order =
+      std::move(other._shading_rate_coarse_sample_order);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShadingRateImageFeaturesNV&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceShadingRateImageFeaturesNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shading_rate_image()
+  {
+    return _shading_rate_image;
+  }
+
+  constexpr const VkBool32& shading_rate_image() const
+  {
+    return _shading_rate_image;
+  }
+
+  void shading_rate_image(VkBool32 new_shading_rate_image)
+  {
+    _shading_rate_image = new_shading_rate_image;
+  }
+
+  VkBool32& shading_rate_coarse_sample_order()
+  {
+    return _shading_rate_coarse_sample_order;
+  }
+
+  constexpr const VkBool32& shading_rate_coarse_sample_order() const
+  {
+    return _shading_rate_coarse_sample_order;
+  }
+
+  void shading_rate_coarse_sample_order(
+    VkBool32 new_shading_rate_coarse_sample_order)
+  {
+    _shading_rate_coarse_sample_order = new_shading_rate_coarse_sample_order;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shading_rate_image_features_nv;
+  void* _next = nullptr;
+  VkBool32 _shading_rate_image = VK_FALSE;
+  VkBool32 _shading_rate_coarse_sample_order = VK_FALSE;
+};
+static_assert(sizeof(physical_device_shading_rate_image_features_nv) ==
+                sizeof(::VkPhysicalDeviceShadingRateImageFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceShadingRateImagePropertiesNV.
+class physical_device_shading_rate_image_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shading_rate_image_properties_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_shading_rate_image_properties_nv(
+    void* initial_next, vk::extent_2d initial_shading_rate_texel_size,
+    uint32_t initial_shading_rate_palette_size,
+    uint32_t initial_shading_rate_max_coarse_samples) noexcept
+  : _next(std::move(initial_next)),
+    _shading_rate_texel_size(std::move(initial_shading_rate_texel_size)),
+    _shading_rate_palette_size(std::move(initial_shading_rate_palette_size)),
+    _shading_rate_max_coarse_samples(
+      std::move(initial_shading_rate_max_coarse_samples))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shading_rate_image_properties_nv(
+    const physical_device_shading_rate_image_properties_nv& other) noexcept
+  : _next(other._next),
+    _shading_rate_texel_size(other._shading_rate_texel_size),
+    _shading_rate_palette_size(other._shading_rate_palette_size),
+    _shading_rate_max_coarse_samples(other._shading_rate_max_coarse_samples)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shading_rate_image_properties_nv(
+    physical_device_shading_rate_image_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _shading_rate_texel_size(std::move(other._shading_rate_texel_size)),
+    _shading_rate_palette_size(std::move(other._shading_rate_palette_size)),
+    _shading_rate_max_coarse_samples(
+      std::move(other._shading_rate_max_coarse_samples))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shading_rate_image_properties_nv& operator=(
+    const physical_device_shading_rate_image_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _shading_rate_texel_size = other._shading_rate_texel_size;
+    _shading_rate_palette_size = other._shading_rate_palette_size;
+    _shading_rate_max_coarse_samples = other._shading_rate_max_coarse_samples;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shading_rate_image_properties_nv& operator=(
+    physical_device_shading_rate_image_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shading_rate_texel_size = std::move(other._shading_rate_texel_size);
+    _shading_rate_palette_size = std::move(other._shading_rate_palette_size);
+    _shading_rate_max_coarse_samples =
+      std::move(other._shading_rate_max_coarse_samples);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShadingRateImagePropertiesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShadingRateImagePropertiesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::extent_2d& shading_rate_texel_size()
+  {
+    return _shading_rate_texel_size;
+  }
+
+  constexpr const vk::extent_2d& shading_rate_texel_size() const
+  {
+    return _shading_rate_texel_size;
+  }
+
+  void shading_rate_texel_size(vk::extent_2d new_shading_rate_texel_size)
+  {
+    _shading_rate_texel_size = new_shading_rate_texel_size;
+  }
+
+  uint32_t& shading_rate_palette_size()
+  {
+    return _shading_rate_palette_size;
+  }
+
+  constexpr const uint32_t& shading_rate_palette_size() const
+  {
+    return _shading_rate_palette_size;
+  }
+
+  void shading_rate_palette_size(uint32_t new_shading_rate_palette_size)
+  {
+    _shading_rate_palette_size = new_shading_rate_palette_size;
+  }
+
+  uint32_t& shading_rate_max_coarse_samples()
+  {
+    return _shading_rate_max_coarse_samples;
+  }
+
+  constexpr const uint32_t& shading_rate_max_coarse_samples() const
+  {
+    return _shading_rate_max_coarse_samples;
+  }
+
+  void shading_rate_max_coarse_samples(
+    uint32_t new_shading_rate_max_coarse_samples)
+  {
+    _shading_rate_max_coarse_samples = new_shading_rate_max_coarse_samples;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shading_rate_image_properties_nv;
+  void* _next = nullptr;
+  vk::extent_2d _shading_rate_texel_size = vk::extent_2d{};
+  uint32_t _shading_rate_palette_size = 0;
+  uint32_t _shading_rate_max_coarse_samples = 0;
+};
+static_assert(sizeof(physical_device_shading_rate_image_properties_nv) ==
+                sizeof(::VkPhysicalDeviceShadingRateImagePropertiesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkCoarseSampleLocationNV.
+class coarse_sample_location_nv
+{
+public:
+  /// Default constructor.
+  constexpr coarse_sample_location_nv() = default;
+
+  /// Constructor.
+  constexpr coarse_sample_location_nv(uint32_t initial_pixel_x,
+                                      uint32_t initial_pixel_y,
+                                      uint32_t initial_sample) noexcept
+  : _pixel_x(std::move(initial_pixel_x)),
+    _pixel_y(std::move(initial_pixel_y)),
+    _sample(std::move(initial_sample))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr coarse_sample_location_nv(const coarse_sample_location_nv& other) =
+    default;
+
+  /// Move constructor.
+  constexpr coarse_sample_location_nv(coarse_sample_location_nv&& other) =
+    default;
+
+  /// Copy assignment operator.
+  constexpr coarse_sample_location_nv& operator=(
+    const coarse_sample_location_nv& other) = default;
+
+  /// Move assignment operator.
+  constexpr coarse_sample_location_nv& operator=(
+    coarse_sample_location_nv&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkCoarseSampleLocationNV&() const
+  {
+    return *reinterpret_cast<const VkCoarseSampleLocationNV*>(this);
+  }
+
+  uint32_t& pixel_x()
+  {
+    return _pixel_x;
+  }
+
+  constexpr const uint32_t& pixel_x() const
+  {
+    return _pixel_x;
+  }
+
+  void pixel_x(uint32_t new_pixel_x)
+  {
+    _pixel_x = new_pixel_x;
+  }
+
+  uint32_t& pixel_y()
+  {
+    return _pixel_y;
+  }
+
+  constexpr const uint32_t& pixel_y() const
+  {
+    return _pixel_y;
+  }
+
+  void pixel_y(uint32_t new_pixel_y)
+  {
+    _pixel_y = new_pixel_y;
+  }
+
+  uint32_t& sample()
+  {
+    return _sample;
+  }
+
+  constexpr const uint32_t& sample() const
+  {
+    return _sample;
+  }
+
+  void sample(uint32_t new_sample)
+  {
+    _sample = new_sample;
+  }
+
+private:
+  uint32_t _pixel_x = 0;
+  uint32_t _pixel_y = 0;
+  uint32_t _sample = 0;
+};
+static_assert(sizeof(coarse_sample_location_nv) ==
+                sizeof(::VkCoarseSampleLocationNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkCoarseSampleOrderCustomNV.
+class coarse_sample_order_custom_nv
+{
+public:
+  /// Default constructor.
+  constexpr coarse_sample_order_custom_nv() = default;
+
+  /// Constructor.
+  constexpr coarse_sample_order_custom_nv(
+    vk::shading_rate_palette_entry_nv initial_shading_rate,
+    uint32_t initial_sample_count, uint32_t initial_sample_location_count,
+    const vk::coarse_sample_location_nv* initial_sample_locations) noexcept
+  : _shading_rate(std::move(initial_shading_rate)),
+    _sample_count(std::move(initial_sample_count)),
+    _sample_location_count(std::move(initial_sample_location_count)),
+    _sample_locations(std::move(initial_sample_locations))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr coarse_sample_order_custom_nv(
+    const coarse_sample_order_custom_nv& other) = default;
+
+  /// Move constructor.
+  constexpr coarse_sample_order_custom_nv(
+    coarse_sample_order_custom_nv&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr coarse_sample_order_custom_nv& operator=(
+    const coarse_sample_order_custom_nv& other) = default;
+
+  /// Move assignment operator.
+  constexpr coarse_sample_order_custom_nv& operator=(
+    coarse_sample_order_custom_nv&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkCoarseSampleOrderCustomNV&() const
+  {
+    return *reinterpret_cast<const VkCoarseSampleOrderCustomNV*>(this);
+  }
+
+  vk::shading_rate_palette_entry_nv& shading_rate()
+  {
+    return _shading_rate;
+  }
+
+  constexpr const vk::shading_rate_palette_entry_nv& shading_rate() const
+  {
+    return _shading_rate;
+  }
+
+  void shading_rate(vk::shading_rate_palette_entry_nv new_shading_rate)
+  {
+    _shading_rate = new_shading_rate;
+  }
+
+  uint32_t& sample_count()
+  {
+    return _sample_count;
+  }
+
+  constexpr const uint32_t& sample_count() const
+  {
+    return _sample_count;
+  }
+
+  void sample_count(uint32_t new_sample_count)
+  {
+    _sample_count = new_sample_count;
+  }
+
+  uint32_t& sample_location_count()
+  {
+    return _sample_location_count;
+  }
+
+  constexpr const uint32_t& sample_location_count() const
+  {
+    return _sample_location_count;
+  }
+
+  void sample_location_count(uint32_t new_sample_location_count)
+  {
+    _sample_location_count = new_sample_location_count;
+  }
+
+  const vk::coarse_sample_location_nv* sample_locations()
+  {
+    return _sample_locations;
+  }
+
+  constexpr const vk::coarse_sample_location_nv* sample_locations() const
+  {
+    return _sample_locations;
+  }
+
+  void sample_locations(
+    const vk::coarse_sample_location_nv* new_sample_locations)
+  {
+    _sample_locations = new_sample_locations;
+  }
+
+  template <std::size_t Count>
+  void sample_locations(const std::array<vk::coarse_sample_location_nv, Count>&
+                          new_sample_locations)
+  {
+    _sample_location_count = static_cast<uint32_t>(new_sample_locations.size());
+    _sample_locations = new_sample_locations.data();
+  }
+
+  void sample_locations(
+    const std::vector<vk::coarse_sample_location_nv>& new_sample_locations)
+  {
+    _sample_location_count = static_cast<uint32_t>(new_sample_locations.size());
+    _sample_locations = new_sample_locations.data();
+  }
+
+private:
+  vk::shading_rate_palette_entry_nv _shading_rate = vk::
+    shading_rate_palette_entry_nv::shading_rate_palette_entry_no_invocations_nv;
+  uint32_t _sample_count = 0;
+  uint32_t _sample_location_count = 0;
+  const vk::coarse_sample_location_nv* _sample_locations = nullptr;
+};
+static_assert(sizeof(coarse_sample_order_custom_nv) ==
+                sizeof(::VkCoarseSampleOrderCustomNV),
+              "struct and wrapper have different size!");
+
+enum class coarse_sample_order_type_nv
+{
+  /// @see VK_COARSE_SAMPLE_ORDER_TYPE_DEFAULT_NV
+  coarse_sample_order_type_default_nv = 0,
+  /// @see VK_COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV
+  coarse_sample_order_type_custom_nv = 1,
+  /// @see VK_COARSE_SAMPLE_ORDER_TYPE_PIXEL_MAJOR_NV
+  coarse_sample_order_type_pixel_major_nv = 2,
+  /// @see VK_COARSE_SAMPLE_ORDER_TYPE_SAMPLE_MAJOR_NV
+  coarse_sample_order_type_sample_major_nv = 3,
+};
+
+/// Enhanced replacement type for
+/// VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.
+class pipeline_viewport_coarse_sample_order_state_create_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv() =
+    default;
+
+  /// Constructor.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv(
+    const void* initial_next,
+    vk::coarse_sample_order_type_nv initial_sample_order_type,
+    uint32_t initial_custom_sample_order_count,
+    const vk::coarse_sample_order_custom_nv*
+      initial_custom_sample_orders) noexcept
+  : _next(std::move(initial_next)),
+    _sample_order_type(std::move(initial_sample_order_type)),
+    _custom_sample_order_count(std::move(initial_custom_sample_order_count)),
+    _custom_sample_orders(std::move(initial_custom_sample_orders))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv(
+    const pipeline_viewport_coarse_sample_order_state_create_info_nv&
+      other) noexcept
+  : _next(other._next),
+    _sample_order_type(other._sample_order_type),
+    _custom_sample_order_count(other._custom_sample_order_count),
+    _custom_sample_orders(other._custom_sample_orders)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv(
+    pipeline_viewport_coarse_sample_order_state_create_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _sample_order_type(std::move(other._sample_order_type)),
+    _custom_sample_order_count(std::move(other._custom_sample_order_count)),
+    _custom_sample_orders(std::move(other._custom_sample_orders))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv&
+  operator=(const pipeline_viewport_coarse_sample_order_state_create_info_nv&
+              other) noexcept
+  {
+    _next = other._next;
+    _sample_order_type = other._sample_order_type;
+    _custom_sample_order_count = other._custom_sample_order_count;
+    _custom_sample_orders = other._custom_sample_orders;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_viewport_coarse_sample_order_state_create_info_nv&
+  operator=(
+    pipeline_viewport_coarse_sample_order_state_create_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _sample_order_type = std::move(other._sample_order_type);
+    _custom_sample_order_count = std::move(other._custom_sample_order_count);
+    _custom_sample_orders = std::move(other._custom_sample_orders);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineViewportCoarseSampleOrderStateCreateInfoNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::coarse_sample_order_type_nv& sample_order_type()
+  {
+    return _sample_order_type;
+  }
+
+  constexpr const vk::coarse_sample_order_type_nv& sample_order_type() const
+  {
+    return _sample_order_type;
+  }
+
+  void sample_order_type(vk::coarse_sample_order_type_nv new_sample_order_type)
+  {
+    _sample_order_type = new_sample_order_type;
+  }
+
+  uint32_t& custom_sample_order_count()
+  {
+    return _custom_sample_order_count;
+  }
+
+  constexpr const uint32_t& custom_sample_order_count() const
+  {
+    return _custom_sample_order_count;
+  }
+
+  void custom_sample_order_count(uint32_t new_custom_sample_order_count)
+  {
+    _custom_sample_order_count = new_custom_sample_order_count;
+  }
+
+  const vk::coarse_sample_order_custom_nv* custom_sample_orders()
+  {
+    return _custom_sample_orders;
+  }
+
+  constexpr const vk::coarse_sample_order_custom_nv* custom_sample_orders()
+    const
+  {
+    return _custom_sample_orders;
+  }
+
+  void custom_sample_orders(
+    const vk::coarse_sample_order_custom_nv* new_custom_sample_orders)
+  {
+    _custom_sample_orders = new_custom_sample_orders;
+  }
+
+  template <std::size_t Count>
+  void custom_sample_orders(const std::array<vk::coarse_sample_order_custom_nv,
+                                             Count>& new_custom_sample_orders)
+  {
+    _custom_sample_order_count =
+      static_cast<uint32_t>(new_custom_sample_orders.size());
+    _custom_sample_orders = new_custom_sample_orders.data();
+  }
+
+  void custom_sample_orders(
+    const std::vector<vk::coarse_sample_order_custom_nv>&
+      new_custom_sample_orders)
+  {
+    _custom_sample_order_count =
+      static_cast<uint32_t>(new_custom_sample_orders.size());
+    _custom_sample_orders = new_custom_sample_orders.data();
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    pipeline_viewport_coarse_sample_order_state_create_info_nv;
+  const void* _next = nullptr;
+  vk::coarse_sample_order_type_nv _sample_order_type =
+    vk::coarse_sample_order_type_nv::coarse_sample_order_type_default_nv;
+  uint32_t _custom_sample_order_count = 0;
+  const vk::coarse_sample_order_custom_nv* _custom_sample_orders = nullptr;
+};
+static_assert(
+  sizeof(pipeline_viewport_coarse_sample_order_state_create_info_nv) ==
+    sizeof(::VkPipelineViewportCoarseSampleOrderStateCreateInfoNV),
+  "struct and wrapper have different size!");
+
+inline void cmd_bind_shading_rate_image_nv(VkCommandBuffer command_buffer,
+                                           VkImageView image_view,
+                                           vk::image_layout image_layout)
+{
+  vkCmdBindShadingRateImageNV(static_cast<VkCommandBuffer>(command_buffer),
+                              static_cast<VkImageView>(image_view),
+                              static_cast<VkImageLayout>(image_layout));
+}
+inline void cmd_set_viewport_shading_rate_palette_nv(
+  VkCommandBuffer command_buffer, uint32_t first_viewport,
+  uint32_t viewport_count,
+  const vk::shading_rate_palette_nv* shading_rate_palettes)
+{
+  vkCmdSetViewportShadingRatePaletteNV(
+    static_cast<VkCommandBuffer>(command_buffer),
+    static_cast<uint32_t>(first_viewport),
+    static_cast<uint32_t>(viewport_count),
+    reinterpret_cast<const VkShadingRatePaletteNV*>(shading_rate_palettes));
+}
+inline void cmd_set_coarse_sample_order_nv(
+  VkCommandBuffer command_buffer,
+  vk::coarse_sample_order_type_nv sample_order_type,
+  uint32_t custom_sample_order_count,
+  const vk::coarse_sample_order_custom_nv* custom_sample_orders)
+{
+  vkCmdSetCoarseSampleOrderNV(
+    static_cast<VkCommandBuffer>(command_buffer),
+    static_cast<VkCoarseSampleOrderTypeNV>(sample_order_type),
+    static_cast<uint32_t>(custom_sample_order_count),
+    reinterpret_cast<const VkCoarseSampleOrderCustomNV*>(custom_sample_orders));
+}
+
+/// Enhanced replacement type for VkRaytracingPipelineCreateInfoNVX.
+class raytracing_pipeline_create_info_nvx
+{
+public:
+  /// Default constructor.
+  constexpr raytracing_pipeline_create_info_nvx() = default;
+
+  /// Constructor.
+  constexpr raytracing_pipeline_create_info_nvx(
+    const void* initial_next, vk::pipeline_create_flags initial_flags,
+    uint32_t initial_stage_count,
+    const vk::pipeline_shader_stage_create_info* initial_stages,
+    const uint32_t* initial_group_numbers, uint32_t initial_max_recursion_depth,
+    VkPipelineLayout initial_layout, VkPipeline initial_base_pipeline_handle,
+    int32_t initial_base_pipeline_index) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _stage_count(std::move(initial_stage_count)),
+    _stages(std::move(initial_stages)),
+    _group_numbers(std::move(initial_group_numbers)),
+    _max_recursion_depth(std::move(initial_max_recursion_depth)),
+    _layout(std::move(initial_layout)),
+    _base_pipeline_handle(std::move(initial_base_pipeline_handle)),
+    _base_pipeline_index(std::move(initial_base_pipeline_index))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr raytracing_pipeline_create_info_nvx(
+    const raytracing_pipeline_create_info_nvx& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _stage_count(other._stage_count),
+    _stages(other._stages),
+    _group_numbers(other._group_numbers),
+    _max_recursion_depth(other._max_recursion_depth),
+    _layout(other._layout),
+    _base_pipeline_handle(other._base_pipeline_handle),
+    _base_pipeline_index(other._base_pipeline_index)
+  {
+  }
+
+  /// Move constructor.
+  constexpr raytracing_pipeline_create_info_nvx(
+    raytracing_pipeline_create_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _stage_count(std::move(other._stage_count)),
+    _stages(std::move(other._stages)),
+    _group_numbers(std::move(other._group_numbers)),
+    _max_recursion_depth(std::move(other._max_recursion_depth)),
+    _layout(std::move(other._layout)),
+    _base_pipeline_handle(std::move(other._base_pipeline_handle)),
+    _base_pipeline_index(std::move(other._base_pipeline_index))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr raytracing_pipeline_create_info_nvx& operator=(
+    const raytracing_pipeline_create_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _stage_count = other._stage_count;
+    _stages = other._stages;
+    _group_numbers = other._group_numbers;
+    _max_recursion_depth = other._max_recursion_depth;
+    _layout = other._layout;
+    _base_pipeline_handle = other._base_pipeline_handle;
+    _base_pipeline_index = other._base_pipeline_index;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr raytracing_pipeline_create_info_nvx& operator=(
+    raytracing_pipeline_create_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _stage_count = std::move(other._stage_count);
+    _stages = std::move(other._stages);
+    _group_numbers = std::move(other._group_numbers);
+    _max_recursion_depth = std::move(other._max_recursion_depth);
+    _layout = std::move(other._layout);
+    _base_pipeline_handle = std::move(other._base_pipeline_handle);
+    _base_pipeline_index = std::move(other._base_pipeline_index);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkRaytracingPipelineCreateInfoNVX&() const
+  {
+    return *reinterpret_cast<const VkRaytracingPipelineCreateInfoNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_create_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::pipeline_create_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::pipeline_create_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  uint32_t& stage_count()
+  {
+    return _stage_count;
+  }
+
+  constexpr const uint32_t& stage_count() const
+  {
+    return _stage_count;
+  }
+
+  void stage_count(uint32_t new_stage_count)
+  {
+    _stage_count = new_stage_count;
+  }
+
+  const vk::pipeline_shader_stage_create_info* stages()
+  {
+    return _stages;
+  }
+
+  constexpr const vk::pipeline_shader_stage_create_info* stages() const
+  {
+    return _stages;
+  }
+
+  void stages(const vk::pipeline_shader_stage_create_info* new_stages)
+  {
+    _stages = new_stages;
+  }
+
+  template <std::size_t Count>
+  void stages(
+    const std::array<vk::pipeline_shader_stage_create_info, Count>& new_stages)
+  {
+    _stage_count = static_cast<uint32_t>(new_stages.size());
+    _stages = new_stages.data();
+  }
+
+  void stages(
+    const std::vector<vk::pipeline_shader_stage_create_info>& new_stages)
+  {
+    _stage_count = static_cast<uint32_t>(new_stages.size());
+    _stages = new_stages.data();
+  }
+
+  const uint32_t* group_numbers()
+  {
+    return _group_numbers;
+  }
+
+  constexpr const uint32_t* group_numbers() const
+  {
+    return _group_numbers;
+  }
+
+  void group_numbers(const uint32_t* new_group_numbers)
+  {
+    _group_numbers = new_group_numbers;
+  }
+
+  template <std::size_t Count>
+  void group_numbers(const std::array<uint32_t, Count>& new_group_numbers)
+  {
+    _stage_count = static_cast<uint32_t>(new_group_numbers.size());
+    _group_numbers = new_group_numbers.data();
+  }
+
+  void group_numbers(const std::vector<uint32_t>& new_group_numbers)
+  {
+    _stage_count = static_cast<uint32_t>(new_group_numbers.size());
+    _group_numbers = new_group_numbers.data();
+  }
+
+  uint32_t& max_recursion_depth()
+  {
+    return _max_recursion_depth;
+  }
+
+  constexpr const uint32_t& max_recursion_depth() const
+  {
+    return _max_recursion_depth;
+  }
+
+  void max_recursion_depth(uint32_t new_max_recursion_depth)
+  {
+    _max_recursion_depth = new_max_recursion_depth;
+  }
+
+  VkPipelineLayout& layout()
+  {
+    return _layout;
+  }
+
+  constexpr const VkPipelineLayout& layout() const
+  {
+    return _layout;
+  }
+
+  void layout(VkPipelineLayout new_layout)
+  {
+    _layout = new_layout;
+  }
+
+  VkPipeline& base_pipeline_handle()
+  {
+    return _base_pipeline_handle;
+  }
+
+  constexpr const VkPipeline& base_pipeline_handle() const
+  {
+    return _base_pipeline_handle;
+  }
+
+  void base_pipeline_handle(VkPipeline new_base_pipeline_handle)
+  {
+    _base_pipeline_handle = new_base_pipeline_handle;
+  }
+
+  int32_t& base_pipeline_index()
+  {
+    return _base_pipeline_index;
+  }
+
+  constexpr const int32_t& base_pipeline_index() const
+  {
+    return _base_pipeline_index;
+  }
+
+  void base_pipeline_index(int32_t new_base_pipeline_index)
+  {
+    _base_pipeline_index = new_base_pipeline_index;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::raytracing_pipeline_create_info_nvx;
+  const void* _next = nullptr;
+  /// Pipeline creation flags
+  vk::pipeline_create_flags _flags = vk::pipeline_create_flag::none;
+  uint32_t _stage_count = 0;
+  /// One entry for each active shader stage
+  const vk::pipeline_shader_stage_create_info* _stages = nullptr;
+  /// One entry for each stage used as the query index and for grouping
+  const uint32_t* _group_numbers = nullptr;
+  uint32_t _max_recursion_depth = 0;
+  /// Interface layout of the pipeline
+  VkPipelineLayout _layout = nullptr;
+  /// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it
+  /// specifies the handle of the base pipeline this is a derivative of
+  VkPipeline _base_pipeline_handle = nullptr;
+  /// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it
+  /// specifies an index into pCreateInfos of the base pipeline this is a
+  /// derivative of
+  int32_t _base_pipeline_index = 0;
+};
+static_assert(sizeof(raytracing_pipeline_create_info_nvx) ==
+                sizeof(::VkRaytracingPipelineCreateInfoNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkGeometryTrianglesNVX.
+class geometry_triangles_nvx
+{
+public:
+  /// Default constructor.
+  constexpr geometry_triangles_nvx() = default;
+
+  /// Constructor.
+  constexpr geometry_triangles_nvx(
+    const void* initial_next, VkBuffer initial_vertex_data,
+    VkDeviceSize initial_vertex_offset, uint32_t initial_vertex_count,
+    VkDeviceSize initial_vertex_stride, vk::format initial_vertex_format,
+    VkBuffer initial_index_data, VkDeviceSize initial_index_offset,
+    uint32_t initial_index_count, vk::index_type initial_index_type,
+    VkBuffer initial_transform_data,
+    VkDeviceSize initial_transform_offset) noexcept
+  : _next(std::move(initial_next)),
+    _vertex_data(std::move(initial_vertex_data)),
+    _vertex_offset(std::move(initial_vertex_offset)),
+    _vertex_count(std::move(initial_vertex_count)),
+    _vertex_stride(std::move(initial_vertex_stride)),
+    _vertex_format(std::move(initial_vertex_format)),
+    _index_data(std::move(initial_index_data)),
+    _index_offset(std::move(initial_index_offset)),
+    _index_count(std::move(initial_index_count)),
+    _index_type(std::move(initial_index_type)),
+    _transform_data(std::move(initial_transform_data)),
+    _transform_offset(std::move(initial_transform_offset))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr geometry_triangles_nvx(const geometry_triangles_nvx& other) noexcept
+  : _next(other._next),
+    _vertex_data(other._vertex_data),
+    _vertex_offset(other._vertex_offset),
+    _vertex_count(other._vertex_count),
+    _vertex_stride(other._vertex_stride),
+    _vertex_format(other._vertex_format),
+    _index_data(other._index_data),
+    _index_offset(other._index_offset),
+    _index_count(other._index_count),
+    _index_type(other._index_type),
+    _transform_data(other._transform_data),
+    _transform_offset(other._transform_offset)
+  {
+  }
+
+  /// Move constructor.
+  constexpr geometry_triangles_nvx(geometry_triangles_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _vertex_data(std::move(other._vertex_data)),
+    _vertex_offset(std::move(other._vertex_offset)),
+    _vertex_count(std::move(other._vertex_count)),
+    _vertex_stride(std::move(other._vertex_stride)),
+    _vertex_format(std::move(other._vertex_format)),
+    _index_data(std::move(other._index_data)),
+    _index_offset(std::move(other._index_offset)),
+    _index_count(std::move(other._index_count)),
+    _index_type(std::move(other._index_type)),
+    _transform_data(std::move(other._transform_data)),
+    _transform_offset(std::move(other._transform_offset))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr geometry_triangles_nvx& operator=(
+    const geometry_triangles_nvx& other) noexcept
+  {
+    _next = other._next;
+    _vertex_data = other._vertex_data;
+    _vertex_offset = other._vertex_offset;
+    _vertex_count = other._vertex_count;
+    _vertex_stride = other._vertex_stride;
+    _vertex_format = other._vertex_format;
+    _index_data = other._index_data;
+    _index_offset = other._index_offset;
+    _index_count = other._index_count;
+    _index_type = other._index_type;
+    _transform_data = other._transform_data;
+    _transform_offset = other._transform_offset;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr geometry_triangles_nvx& operator=(
+    geometry_triangles_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _vertex_data = std::move(other._vertex_data);
+    _vertex_offset = std::move(other._vertex_offset);
+    _vertex_count = std::move(other._vertex_count);
+    _vertex_stride = std::move(other._vertex_stride);
+    _vertex_format = std::move(other._vertex_format);
+    _index_data = std::move(other._index_data);
+    _index_offset = std::move(other._index_offset);
+    _index_count = std::move(other._index_count);
+    _index_type = std::move(other._index_type);
+    _transform_data = std::move(other._transform_data);
+    _transform_offset = std::move(other._transform_offset);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkGeometryTrianglesNVX&() const
+  {
+    return *reinterpret_cast<const VkGeometryTrianglesNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBuffer& vertex_data()
+  {
+    return _vertex_data;
+  }
+
+  constexpr const VkBuffer& vertex_data() const
+  {
+    return _vertex_data;
+  }
+
+  void vertex_data(VkBuffer new_vertex_data)
+  {
+    _vertex_data = new_vertex_data;
+  }
+
+  VkDeviceSize& vertex_offset()
+  {
+    return _vertex_offset;
+  }
+
+  constexpr const VkDeviceSize& vertex_offset() const
+  {
+    return _vertex_offset;
+  }
+
+  void vertex_offset(VkDeviceSize new_vertex_offset)
+  {
+    _vertex_offset = new_vertex_offset;
+  }
+
+  uint32_t& vertex_count()
+  {
+    return _vertex_count;
+  }
+
+  constexpr const uint32_t& vertex_count() const
+  {
+    return _vertex_count;
+  }
+
+  void vertex_count(uint32_t new_vertex_count)
+  {
+    _vertex_count = new_vertex_count;
+  }
+
+  VkDeviceSize& vertex_stride()
+  {
+    return _vertex_stride;
+  }
+
+  constexpr const VkDeviceSize& vertex_stride() const
+  {
+    return _vertex_stride;
+  }
+
+  void vertex_stride(VkDeviceSize new_vertex_stride)
+  {
+    _vertex_stride = new_vertex_stride;
+  }
+
+  vk::format& vertex_format()
+  {
+    return _vertex_format;
+  }
+
+  constexpr const vk::format& vertex_format() const
+  {
+    return _vertex_format;
+  }
+
+  void vertex_format(vk::format new_vertex_format)
+  {
+    _vertex_format = new_vertex_format;
+  }
+
+  VkBuffer& index_data()
+  {
+    return _index_data;
+  }
+
+  constexpr const VkBuffer& index_data() const
+  {
+    return _index_data;
+  }
+
+  void index_data(VkBuffer new_index_data)
+  {
+    _index_data = new_index_data;
+  }
+
+  VkDeviceSize& index_offset()
+  {
+    return _index_offset;
+  }
+
+  constexpr const VkDeviceSize& index_offset() const
+  {
+    return _index_offset;
+  }
+
+  void index_offset(VkDeviceSize new_index_offset)
+  {
+    _index_offset = new_index_offset;
+  }
+
+  uint32_t& index_count()
+  {
+    return _index_count;
+  }
+
+  constexpr const uint32_t& index_count() const
+  {
+    return _index_count;
+  }
+
+  void index_count(uint32_t new_index_count)
+  {
+    _index_count = new_index_count;
+  }
+
+  vk::index_type& index_type()
+  {
+    return _index_type;
+  }
+
+  constexpr const vk::index_type& index_type() const
+  {
+    return _index_type;
+  }
+
+  void index_type(vk::index_type new_index_type)
+  {
+    _index_type = new_index_type;
+  }
+
+  VkBuffer& transform_data()
+  {
+    return _transform_data;
+  }
+
+  constexpr const VkBuffer& transform_data() const
+  {
+    return _transform_data;
+  }
+
+  void transform_data(VkBuffer new_transform_data)
+  {
+    _transform_data = new_transform_data;
+  }
+
+  VkDeviceSize& transform_offset()
+  {
+    return _transform_offset;
+  }
+
+  constexpr const VkDeviceSize& transform_offset() const
+  {
+    return _transform_offset;
+  }
+
+  void transform_offset(VkDeviceSize new_transform_offset)
+  {
+    _transform_offset = new_transform_offset;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::geometry_triangles_nvx;
+  const void* _next = nullptr;
+  VkBuffer _vertex_data = nullptr;
+  VkDeviceSize _vertex_offset = 0;
+  uint32_t _vertex_count = 0;
+  VkDeviceSize _vertex_stride = 0;
+  /// VK_FORMAT_R32G32B32_SFLOAT, VK_FORMAT_R32G32B32A32_SFLOAT,
+  /// VK_FORMAT_R16G16B16_SFLOAT, or VK_FORMAT_R16G16B16A16_SFLOAT
+  vk::format _vertex_format = vk::format::undefined;
+  VkBuffer _index_data = nullptr;
+  VkDeviceSize _index_offset = 0;
+  uint32_t _index_count = 0;
+  vk::index_type _index_type = vk::index_type::uint16;
+  /// Optional reference to array of floats representing a 3x4 row major affine
+  /// transformation matrix.
+  VkBuffer _transform_data = nullptr;
+  VkDeviceSize _transform_offset = 0;
+};
+static_assert(sizeof(geometry_triangles_nvx) ==
+                sizeof(::VkGeometryTrianglesNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkGeometryAABBNVX.
+class geometry_aabbnvx
+{
+public:
+  /// Default constructor.
+  constexpr geometry_aabbnvx() = default;
+
+  /// Constructor.
+  constexpr geometry_aabbnvx(const void* initial_next,
+                             VkBuffer initial_aabb_data,
+                             uint32_t initial_num_aabbs,
+                             uint32_t initial_stride,
+                             VkDeviceSize initial_offset) noexcept
+  : _next(std::move(initial_next)),
+    _aabb_data(std::move(initial_aabb_data)),
+    _num_aabbs(std::move(initial_num_aabbs)),
+    _stride(std::move(initial_stride)),
+    _offset(std::move(initial_offset))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr geometry_aabbnvx(const geometry_aabbnvx& other) noexcept
+  : _next(other._next),
+    _aabb_data(other._aabb_data),
+    _num_aabbs(other._num_aabbs),
+    _stride(other._stride),
+    _offset(other._offset)
+  {
+  }
+
+  /// Move constructor.
+  constexpr geometry_aabbnvx(geometry_aabbnvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _aabb_data(std::move(other._aabb_data)),
+    _num_aabbs(std::move(other._num_aabbs)),
+    _stride(std::move(other._stride)),
+    _offset(std::move(other._offset))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr geometry_aabbnvx& operator=(const geometry_aabbnvx& other) noexcept
+  {
+    _next = other._next;
+    _aabb_data = other._aabb_data;
+    _num_aabbs = other._num_aabbs;
+    _stride = other._stride;
+    _offset = other._offset;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr geometry_aabbnvx& operator=(geometry_aabbnvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _aabb_data = std::move(other._aabb_data);
+    _num_aabbs = std::move(other._num_aabbs);
+    _stride = std::move(other._stride);
+    _offset = std::move(other._offset);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkGeometryAABBNVX&() const
+  {
+    return *reinterpret_cast<const VkGeometryAABBNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBuffer& aabb_data()
+  {
+    return _aabb_data;
+  }
+
+  constexpr const VkBuffer& aabb_data() const
+  {
+    return _aabb_data;
+  }
+
+  void aabb_data(VkBuffer new_aabb_data)
+  {
+    _aabb_data = new_aabb_data;
+  }
+
+  uint32_t& num_aabbs()
+  {
+    return _num_aabbs;
+  }
+
+  constexpr const uint32_t& num_aabbs() const
+  {
+    return _num_aabbs;
+  }
+
+  void num_aabbs(uint32_t new_num_aabbs)
+  {
+    _num_aabbs = new_num_aabbs;
+  }
+
+  uint32_t& stride()
+  {
+    return _stride;
+  }
+
+  constexpr const uint32_t& stride() const
+  {
+    return _stride;
+  }
+
+  void stride(uint32_t new_stride)
+  {
+    _stride = new_stride;
+  }
+
+  VkDeviceSize& offset()
+  {
+    return _offset;
+  }
+
+  constexpr const VkDeviceSize& offset() const
+  {
+    return _offset;
+  }
+
+  void offset(VkDeviceSize new_offset)
+  {
+    _offset = new_offset;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::geometry_aabb_nvx;
+  const void* _next = nullptr;
+  VkBuffer _aabb_data = nullptr;
+  uint32_t _num_aabbs = 0;
+  /// Stride in bytes between AABBs
+  uint32_t _stride = 0;
+  /// Offset in bytes of the first AABB in aabbData
+  VkDeviceSize _offset = 0;
+};
+static_assert(sizeof(geometry_aabbnvx) == sizeof(::VkGeometryAABBNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkGeometryDataNVX.
+class geometry_data_nvx
+{
+public:
+  /// Default constructor.
+  constexpr geometry_data_nvx() = default;
+
+  /// Constructor.
+  constexpr geometry_data_nvx(vk::geometry_triangles_nvx initial_triangles,
+                              vk::geometry_aabbnvx initial_aabbs) noexcept
+  : _triangles(std::move(initial_triangles)), _aabbs(std::move(initial_aabbs))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr geometry_data_nvx(const geometry_data_nvx& other) = default;
+
+  /// Move constructor.
+  constexpr geometry_data_nvx(geometry_data_nvx&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr geometry_data_nvx& operator=(const geometry_data_nvx& other) =
+    default;
+
+  /// Move assignment operator.
+  constexpr geometry_data_nvx& operator=(geometry_data_nvx&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkGeometryDataNVX&() const
+  {
+    return *reinterpret_cast<const VkGeometryDataNVX*>(this);
+  }
+
+  vk::geometry_triangles_nvx& triangles()
+  {
+    return _triangles;
+  }
+
+  constexpr const vk::geometry_triangles_nvx& triangles() const
+  {
+    return _triangles;
+  }
+
+  void triangles(vk::geometry_triangles_nvx new_triangles)
+  {
+    _triangles = new_triangles;
+  }
+
+  vk::geometry_aabbnvx& aabbs()
+  {
+    return _aabbs;
+  }
+
+  constexpr const vk::geometry_aabbnvx& aabbs() const
+  {
+    return _aabbs;
+  }
+
+  void aabbs(vk::geometry_aabbnvx new_aabbs)
+  {
+    _aabbs = new_aabbs;
+  }
+
+private:
+  vk::geometry_triangles_nvx _triangles = vk::geometry_triangles_nvx{};
+  vk::geometry_aabbnvx _aabbs = vk::geometry_aabbnvx{};
+};
+static_assert(sizeof(geometry_data_nvx) == sizeof(::VkGeometryDataNVX),
+              "struct and wrapper have different size!");
+
+enum class geometry_type_nvx
+{
+  /// @see VK_GEOMETRY_TYPE_TRIANGLES_NVX
+  geometry_type_triangles_nvx = 0,
+  /// @see VK_GEOMETRY_TYPE_AABBS_NVX
+  geometry_type_aabbs_nvx = 1,
+};
+enum class geometry_flag_nvx
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_GEOMETRY_OPAQUE_BIT_NVX
+  opaque_bit_nvx = 1 << 0,
+  /// @see VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_NVX
+  no_duplicate_any_hit_invocation_bit_nvx = 1 << 1,
+};
+using geometry_flags_nvx =
+  shift::core::bit_field<geometry_flag_nvx, VkGeometryFlagsNVX>;
+inline constexpr geometry_flags_nvx operator|(geometry_flag_nvx lhs,
+                                              geometry_flag_nvx rhs)
+{
+  return geometry_flags_nvx{lhs} | rhs;
+}
+/// Enhanced replacement type for VkGeometryNVX.
+class geometry_nvx
+{
+public:
+  /// Default constructor.
+  constexpr geometry_nvx() = default;
+
+  /// Constructor.
+  constexpr geometry_nvx(const void* initial_next,
+                         vk::geometry_type_nvx initial_geometry_type,
+                         vk::geometry_data_nvx initial_geometry,
+                         vk::geometry_flags_nvx initial_flags) noexcept
+  : _next(std::move(initial_next)),
+    _geometry_type(std::move(initial_geometry_type)),
+    _geometry(std::move(initial_geometry)),
+    _flags(std::move(initial_flags))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr geometry_nvx(const geometry_nvx& other) noexcept
+  : _next(other._next),
+    _geometry_type(other._geometry_type),
+    _geometry(other._geometry),
+    _flags(other._flags)
+  {
+  }
+
+  /// Move constructor.
+  constexpr geometry_nvx(geometry_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _geometry_type(std::move(other._geometry_type)),
+    _geometry(std::move(other._geometry)),
+    _flags(std::move(other._flags))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr geometry_nvx& operator=(const geometry_nvx& other) noexcept
+  {
+    _next = other._next;
+    _geometry_type = other._geometry_type;
+    _geometry = other._geometry;
+    _flags = other._flags;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr geometry_nvx& operator=(geometry_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _geometry_type = std::move(other._geometry_type);
+    _geometry = std::move(other._geometry);
+    _flags = std::move(other._flags);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkGeometryNVX&() const
+  {
+    return *reinterpret_cast<const VkGeometryNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::geometry_type_nvx& geometry_type()
+  {
+    return _geometry_type;
+  }
+
+  constexpr const vk::geometry_type_nvx& geometry_type() const
+  {
+    return _geometry_type;
+  }
+
+  void geometry_type(vk::geometry_type_nvx new_geometry_type)
+  {
+    _geometry_type = new_geometry_type;
+  }
+
+  vk::geometry_data_nvx& geometry()
+  {
+    return _geometry;
+  }
+
+  constexpr const vk::geometry_data_nvx& geometry() const
+  {
+    return _geometry;
+  }
+
+  void geometry(vk::geometry_data_nvx new_geometry)
+  {
+    _geometry = new_geometry;
+  }
+
+  vk::geometry_flags_nvx& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::geometry_flags_nvx& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::geometry_flags_nvx new_flags)
+  {
+    _flags = new_flags;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::geometry_nvx;
+  const void* _next = nullptr;
+  vk::geometry_type_nvx _geometry_type =
+    vk::geometry_type_nvx::geometry_type_triangles_nvx;
+  vk::geometry_data_nvx _geometry = vk::geometry_data_nvx{};
+  vk::geometry_flags_nvx _flags = vk::geometry_flag_nvx::none;
+};
+static_assert(sizeof(geometry_nvx) == sizeof(::VkGeometryNVX),
+              "struct and wrapper have different size!");
+
+enum class geometry_instance_flag_nvx
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_GEOMETRY_INSTANCE_TRIANGLE_CULL_DISABLE_BIT_NVX
+  triangle_cull_disable_bit_nvx = 1 << 0,
+  /// @see VK_GEOMETRY_INSTANCE_TRIANGLE_CULL_FLIP_WINDING_BIT_NVX
+  triangle_cull_flip_winding_bit_nvx = 1 << 1,
+  /// @see VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_NVX
+  force_opaque_bit_nvx = 1 << 2,
+  /// @see VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_NVX
+  force_no_opaque_bit_nvx = 1 << 3,
+};
+using geometry_instance_flags_nvx =
+  shift::core::bit_field<geometry_instance_flag_nvx,
+                         VkGeometryInstanceFlagsNVX>;
+inline constexpr geometry_instance_flags_nvx operator|(
+  geometry_instance_flag_nvx lhs, geometry_instance_flag_nvx rhs)
+{
+  return geometry_instance_flags_nvx{lhs} | rhs;
+}
+enum class acceleration_structure_type_nvx
+{
+  /// @see VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NVX
+  acceleration_structure_type_top_level_nvx = 0,
+  /// @see VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NVX
+  acceleration_structure_type_bottom_level_nvx = 1,
+};
+enum class build_acceleration_structure_flag_nvx
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_NVX
+  allow_update_bit_nvx = 1 << 0,
+  /// @see VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_NVX
+  allow_compaction_bit_nvx = 1 << 1,
+  /// @see VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_NVX
+  prefer_fast_trace_bit_nvx = 1 << 2,
+  /// @see VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_NVX
+  prefer_fast_build_bit_nvx = 1 << 3,
+  /// @see VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_NVX
+  low_memory_bit_nvx = 1 << 4,
+};
+using build_acceleration_structure_flags_nvx =
+  shift::core::bit_field<build_acceleration_structure_flag_nvx,
+                         VkBuildAccelerationStructureFlagsNVX>;
+inline constexpr build_acceleration_structure_flags_nvx operator|(
+  build_acceleration_structure_flag_nvx lhs,
+  build_acceleration_structure_flag_nvx rhs)
+{
+  return build_acceleration_structure_flags_nvx{lhs} | rhs;
+}
+/// Enhanced replacement type for VkAccelerationStructureCreateInfoNVX.
+class acceleration_structure_create_info_nvx
+{
+public:
+  /// Default constructor.
+  constexpr acceleration_structure_create_info_nvx() = default;
+
+  /// Constructor.
+  constexpr acceleration_structure_create_info_nvx(
+    const void* initial_next, vk::acceleration_structure_type_nvx initial_type,
+    vk::build_acceleration_structure_flags_nvx initial_flags,
+    VkDeviceSize initial_compacted_size, uint32_t initial_instance_count,
+    uint32_t initial_geometry_count,
+    const vk::geometry_nvx* initial_geometries) noexcept
+  : _next(std::move(initial_next)),
+    _type(std::move(initial_type)),
+    _flags(std::move(initial_flags)),
+    _compacted_size(std::move(initial_compacted_size)),
+    _instance_count(std::move(initial_instance_count)),
+    _geometry_count(std::move(initial_geometry_count)),
+    _geometries(std::move(initial_geometries))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr acceleration_structure_create_info_nvx(
+    const acceleration_structure_create_info_nvx& other) noexcept
+  : _next(other._next),
+    _type(other._type),
+    _flags(other._flags),
+    _compacted_size(other._compacted_size),
+    _instance_count(other._instance_count),
+    _geometry_count(other._geometry_count),
+    _geometries(other._geometries)
+  {
+  }
+
+  /// Move constructor.
+  constexpr acceleration_structure_create_info_nvx(
+    acceleration_structure_create_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _type(std::move(other._type)),
+    _flags(std::move(other._flags)),
+    _compacted_size(std::move(other._compacted_size)),
+    _instance_count(std::move(other._instance_count)),
+    _geometry_count(std::move(other._geometry_count)),
+    _geometries(std::move(other._geometries))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr acceleration_structure_create_info_nvx& operator=(
+    const acceleration_structure_create_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _type = other._type;
+    _flags = other._flags;
+    _compacted_size = other._compacted_size;
+    _instance_count = other._instance_count;
+    _geometry_count = other._geometry_count;
+    _geometries = other._geometries;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr acceleration_structure_create_info_nvx& operator=(
+    acceleration_structure_create_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _type = std::move(other._type);
+    _flags = std::move(other._flags);
+    _compacted_size = std::move(other._compacted_size);
+    _instance_count = std::move(other._instance_count);
+    _geometry_count = std::move(other._geometry_count);
+    _geometries = std::move(other._geometries);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAccelerationStructureCreateInfoNVX&() const
+  {
+    return *reinterpret_cast<const VkAccelerationStructureCreateInfoNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::acceleration_structure_type_nvx& type()
+  {
+    return _type;
+  }
+
+  constexpr const vk::acceleration_structure_type_nvx& type() const
+  {
+    return _type;
+  }
+
+  void type(vk::acceleration_structure_type_nvx new_type)
+  {
+    _type = new_type;
+  }
+
+  vk::build_acceleration_structure_flags_nvx& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::build_acceleration_structure_flags_nvx& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::build_acceleration_structure_flags_nvx new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  VkDeviceSize& compacted_size()
+  {
+    return _compacted_size;
+  }
+
+  constexpr const VkDeviceSize& compacted_size() const
+  {
+    return _compacted_size;
+  }
+
+  void compacted_size(VkDeviceSize new_compacted_size)
+  {
+    _compacted_size = new_compacted_size;
+  }
+
+  uint32_t& instance_count()
+  {
+    return _instance_count;
+  }
+
+  constexpr const uint32_t& instance_count() const
+  {
+    return _instance_count;
+  }
+
+  void instance_count(uint32_t new_instance_count)
+  {
+    _instance_count = new_instance_count;
+  }
+
+  uint32_t& geometry_count()
+  {
+    return _geometry_count;
+  }
+
+  constexpr const uint32_t& geometry_count() const
+  {
+    return _geometry_count;
+  }
+
+  void geometry_count(uint32_t new_geometry_count)
+  {
+    _geometry_count = new_geometry_count;
+  }
+
+  const vk::geometry_nvx* geometries()
+  {
+    return _geometries;
+  }
+
+  constexpr const vk::geometry_nvx* geometries() const
+  {
+    return _geometries;
+  }
+
+  void geometries(const vk::geometry_nvx* new_geometries)
+  {
+    _geometries = new_geometries;
+  }
+
+  template <std::size_t Count>
+  void geometries(const std::array<vk::geometry_nvx, Count>& new_geometries)
+  {
+    _geometry_count = static_cast<uint32_t>(new_geometries.size());
+    _geometries = new_geometries.data();
+  }
+
+  void geometries(const std::vector<vk::geometry_nvx>& new_geometries)
+  {
+    _geometry_count = static_cast<uint32_t>(new_geometries.size());
+    _geometries = new_geometries.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::acceleration_structure_create_info_nvx;
+  const void* _next = nullptr;
+  vk::acceleration_structure_type_nvx _type = vk::
+    acceleration_structure_type_nvx::acceleration_structure_type_top_level_nvx;
+  vk::build_acceleration_structure_flags_nvx _flags =
+    vk::build_acceleration_structure_flag_nvx::none;
+  VkDeviceSize _compacted_size = 0;
+  uint32_t _instance_count = 0;
+  uint32_t _geometry_count = 0;
+  const vk::geometry_nvx* _geometries = nullptr;
+};
+static_assert(sizeof(acceleration_structure_create_info_nvx) ==
+                sizeof(::VkAccelerationStructureCreateInfoNVX),
+              "struct and wrapper have different size!");
+
+enum class copy_acceleration_structure_mode_nvx
+{
+  /// @see VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_NVX
+  copy_acceleration_structure_mode_clone_nvx = 0,
+  /// @see VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_NVX
+  copy_acceleration_structure_mode_compact_nvx = 1,
+};
+
+/// Enhanced replacement type for VkBindAccelerationStructureMemoryInfoNVX.
+class bind_acceleration_structure_memory_info_nvx
+{
+public:
+  /// Default constructor.
+  constexpr bind_acceleration_structure_memory_info_nvx() = default;
+
+  /// Constructor.
+  constexpr bind_acceleration_structure_memory_info_nvx(
+    const void* initial_next,
+    VkAccelerationStructureNVX initial_acceleration_structure,
+    VkDeviceMemory initial_memory, VkDeviceSize initial_memory_offset,
+    uint32_t initial_device_index_count,
+    const uint32_t* initial_device_indices) noexcept
+  : _next(std::move(initial_next)),
+    _acceleration_structure(std::move(initial_acceleration_structure)),
+    _memory(std::move(initial_memory)),
+    _memory_offset(std::move(initial_memory_offset)),
+    _device_index_count(std::move(initial_device_index_count)),
+    _device_indices(std::move(initial_device_indices))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr bind_acceleration_structure_memory_info_nvx(
+    const bind_acceleration_structure_memory_info_nvx& other) noexcept
+  : _next(other._next),
+    _acceleration_structure(other._acceleration_structure),
+    _memory(other._memory),
+    _memory_offset(other._memory_offset),
+    _device_index_count(other._device_index_count),
+    _device_indices(other._device_indices)
+  {
+  }
+
+  /// Move constructor.
+  constexpr bind_acceleration_structure_memory_info_nvx(
+    bind_acceleration_structure_memory_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _acceleration_structure(std::move(other._acceleration_structure)),
+    _memory(std::move(other._memory)),
+    _memory_offset(std::move(other._memory_offset)),
+    _device_index_count(std::move(other._device_index_count)),
+    _device_indices(std::move(other._device_indices))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr bind_acceleration_structure_memory_info_nvx& operator=(
+    const bind_acceleration_structure_memory_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _acceleration_structure = other._acceleration_structure;
+    _memory = other._memory;
+    _memory_offset = other._memory_offset;
+    _device_index_count = other._device_index_count;
+    _device_indices = other._device_indices;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr bind_acceleration_structure_memory_info_nvx& operator=(
+    bind_acceleration_structure_memory_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _acceleration_structure = std::move(other._acceleration_structure);
+    _memory = std::move(other._memory);
+    _memory_offset = std::move(other._memory_offset);
+    _device_index_count = std::move(other._device_index_count);
+    _device_indices = std::move(other._device_indices);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkBindAccelerationStructureMemoryInfoNVX&() const
+  {
+    return *reinterpret_cast<const VkBindAccelerationStructureMemoryInfoNVX*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkAccelerationStructureNVX& acceleration_structure()
+  {
+    return _acceleration_structure;
+  }
+
+  constexpr const VkAccelerationStructureNVX& acceleration_structure() const
+  {
+    return _acceleration_structure;
+  }
+
+  void acceleration_structure(
+    VkAccelerationStructureNVX new_acceleration_structure)
+  {
+    _acceleration_structure = new_acceleration_structure;
+  }
+
+  VkDeviceMemory& memory()
+  {
+    return _memory;
+  }
+
+  constexpr const VkDeviceMemory& memory() const
+  {
+    return _memory;
+  }
+
+  void memory(VkDeviceMemory new_memory)
+  {
+    _memory = new_memory;
+  }
+
+  VkDeviceSize& memory_offset()
+  {
+    return _memory_offset;
+  }
+
+  constexpr const VkDeviceSize& memory_offset() const
+  {
+    return _memory_offset;
+  }
+
+  void memory_offset(VkDeviceSize new_memory_offset)
+  {
+    _memory_offset = new_memory_offset;
+  }
+
+  uint32_t& device_index_count()
+  {
+    return _device_index_count;
+  }
+
+  constexpr const uint32_t& device_index_count() const
+  {
+    return _device_index_count;
+  }
+
+  void device_index_count(uint32_t new_device_index_count)
+  {
+    _device_index_count = new_device_index_count;
+  }
+
+  const uint32_t* device_indices()
+  {
+    return _device_indices;
+  }
+
+  constexpr const uint32_t* device_indices() const
+  {
+    return _device_indices;
+  }
+
+  void device_indices(const uint32_t* new_device_indices)
+  {
+    _device_indices = new_device_indices;
+  }
+
+  template <std::size_t Count>
+  void device_indices(const std::array<uint32_t, Count>& new_device_indices)
+  {
+    _device_index_count = static_cast<uint32_t>(new_device_indices.size());
+    _device_indices = new_device_indices.data();
+  }
+
+  void device_indices(const std::vector<uint32_t>& new_device_indices)
+  {
+    _device_index_count = static_cast<uint32_t>(new_device_indices.size());
+    _device_indices = new_device_indices.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::bind_acceleration_structure_memory_info_nvx;
+  const void* _next = nullptr;
+  VkAccelerationStructureNVX _acceleration_structure = nullptr;
+  VkDeviceMemory _memory = nullptr;
+  VkDeviceSize _memory_offset = 0;
+  uint32_t _device_index_count = 0;
+  const uint32_t* _device_indices = nullptr;
+};
+static_assert(sizeof(bind_acceleration_structure_memory_info_nvx) ==
+                sizeof(::VkBindAccelerationStructureMemoryInfoNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkDescriptorAccelerationStructureInfoNVX.
+class descriptor_acceleration_structure_info_nvx
+{
+public:
+  /// Default constructor.
+  constexpr descriptor_acceleration_structure_info_nvx() = default;
+
+  /// Constructor.
+  constexpr descriptor_acceleration_structure_info_nvx(
+    const void* initial_next, uint32_t initial_acceleration_structure_count,
+    const VkAccelerationStructureNVX* initial_acceleration_structures) noexcept
+  : _next(std::move(initial_next)),
+    _acceleration_structure_count(
+      std::move(initial_acceleration_structure_count)),
+    _acceleration_structures(std::move(initial_acceleration_structures))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr descriptor_acceleration_structure_info_nvx(
+    const descriptor_acceleration_structure_info_nvx& other) noexcept
+  : _next(other._next),
+    _acceleration_structure_count(other._acceleration_structure_count),
+    _acceleration_structures(other._acceleration_structures)
+  {
+  }
+
+  /// Move constructor.
+  constexpr descriptor_acceleration_structure_info_nvx(
+    descriptor_acceleration_structure_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _acceleration_structure_count(
+      std::move(other._acceleration_structure_count)),
+    _acceleration_structures(std::move(other._acceleration_structures))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr descriptor_acceleration_structure_info_nvx& operator=(
+    const descriptor_acceleration_structure_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _acceleration_structure_count = other._acceleration_structure_count;
+    _acceleration_structures = other._acceleration_structures;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr descriptor_acceleration_structure_info_nvx& operator=(
+    descriptor_acceleration_structure_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _acceleration_structure_count =
+      std::move(other._acceleration_structure_count);
+    _acceleration_structures = std::move(other._acceleration_structures);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkDescriptorAccelerationStructureInfoNVX&() const
+  {
+    return *reinterpret_cast<const VkDescriptorAccelerationStructureInfoNVX*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& acceleration_structure_count()
+  {
+    return _acceleration_structure_count;
+  }
+
+  constexpr const uint32_t& acceleration_structure_count() const
+  {
+    return _acceleration_structure_count;
+  }
+
+  void acceleration_structure_count(uint32_t new_acceleration_structure_count)
+  {
+    _acceleration_structure_count = new_acceleration_structure_count;
+  }
+
+  const VkAccelerationStructureNVX* acceleration_structures()
+  {
+    return _acceleration_structures;
+  }
+
+  constexpr const VkAccelerationStructureNVX* acceleration_structures() const
+  {
+    return _acceleration_structures;
+  }
+
+  void acceleration_structures(
+    const VkAccelerationStructureNVX* new_acceleration_structures)
+  {
+    _acceleration_structures = new_acceleration_structures;
+  }
+
+  template <std::size_t Count>
+  void acceleration_structures(
+    const std::array<VkAccelerationStructureNVX, Count>&
+      new_acceleration_structures)
+  {
+    _acceleration_structure_count =
+      static_cast<uint32_t>(new_acceleration_structures.size());
+    _acceleration_structures = new_acceleration_structures.data();
+  }
+
+  void acceleration_structures(
+    const std::vector<VkAccelerationStructureNVX>& new_acceleration_structures)
+  {
+    _acceleration_structure_count =
+      static_cast<uint32_t>(new_acceleration_structures.size());
+    _acceleration_structures = new_acceleration_structures.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::descriptor_acceleration_structure_info_nvx;
+  const void* _next = nullptr;
+  uint32_t _acceleration_structure_count = 0;
+  const VkAccelerationStructureNVX* _acceleration_structures = nullptr;
+};
+static_assert(sizeof(descriptor_acceleration_structure_info_nvx) ==
+                sizeof(::VkDescriptorAccelerationStructureInfoNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkAccelerationStructureMemoryRequirementsInfoNVX.
+class acceleration_structure_memory_requirements_info_nvx
+{
+public:
+  /// Default constructor.
+  constexpr acceleration_structure_memory_requirements_info_nvx() = default;
+
+  /// Constructor.
+  constexpr acceleration_structure_memory_requirements_info_nvx(
+    const void* initial_next,
+    VkAccelerationStructureNVX initial_acceleration_structure) noexcept
+  : _next(std::move(initial_next)),
+    _acceleration_structure(std::move(initial_acceleration_structure))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr acceleration_structure_memory_requirements_info_nvx(
+    const acceleration_structure_memory_requirements_info_nvx& other) noexcept
+  : _next(other._next), _acceleration_structure(other._acceleration_structure)
+  {
+  }
+
+  /// Move constructor.
+  constexpr acceleration_structure_memory_requirements_info_nvx(
+    acceleration_structure_memory_requirements_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _acceleration_structure(std::move(other._acceleration_structure))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr acceleration_structure_memory_requirements_info_nvx& operator=(
+    const acceleration_structure_memory_requirements_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _acceleration_structure = other._acceleration_structure;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr acceleration_structure_memory_requirements_info_nvx& operator=(
+    acceleration_structure_memory_requirements_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _acceleration_structure = std::move(other._acceleration_structure);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAccelerationStructureMemoryRequirementsInfoNVX&() const
+  {
+    return *reinterpret_cast<
+      const VkAccelerationStructureMemoryRequirementsInfoNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkAccelerationStructureNVX& acceleration_structure()
+  {
+    return _acceleration_structure;
+  }
+
+  constexpr const VkAccelerationStructureNVX& acceleration_structure() const
+  {
+    return _acceleration_structure;
+  }
+
+  void acceleration_structure(
+    VkAccelerationStructureNVX new_acceleration_structure)
+  {
+    _acceleration_structure = new_acceleration_structure;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::acceleration_structure_memory_requirements_info_nvx;
+  const void* _next = nullptr;
+  VkAccelerationStructureNVX _acceleration_structure = nullptr;
+};
+static_assert(sizeof(acceleration_structure_memory_requirements_info_nvx) ==
+                sizeof(::VkAccelerationStructureMemoryRequirementsInfoNVX),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceRaytracingPropertiesNVX.
+class physical_device_raytracing_properties_nvx
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_raytracing_properties_nvx() = default;
+
+  /// Constructor.
+  constexpr physical_device_raytracing_properties_nvx(
+    void* initial_next, uint32_t initial_shader_header_size,
+    uint32_t initial_max_recursion_depth,
+    uint32_t initial_max_geometry_count) noexcept
+  : _next(std::move(initial_next)),
+    _shader_header_size(std::move(initial_shader_header_size)),
+    _max_recursion_depth(std::move(initial_max_recursion_depth)),
+    _max_geometry_count(std::move(initial_max_geometry_count))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_raytracing_properties_nvx(
+    const physical_device_raytracing_properties_nvx& other) noexcept
+  : _next(other._next),
+    _shader_header_size(other._shader_header_size),
+    _max_recursion_depth(other._max_recursion_depth),
+    _max_geometry_count(other._max_geometry_count)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_raytracing_properties_nvx(
+    physical_device_raytracing_properties_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_header_size(std::move(other._shader_header_size)),
+    _max_recursion_depth(std::move(other._max_recursion_depth)),
+    _max_geometry_count(std::move(other._max_geometry_count))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_raytracing_properties_nvx& operator=(
+    const physical_device_raytracing_properties_nvx& other) noexcept
+  {
+    _next = other._next;
+    _shader_header_size = other._shader_header_size;
+    _max_recursion_depth = other._max_recursion_depth;
+    _max_geometry_count = other._max_geometry_count;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_raytracing_properties_nvx& operator=(
+    physical_device_raytracing_properties_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_header_size = std::move(other._shader_header_size);
+    _max_recursion_depth = std::move(other._max_recursion_depth);
+    _max_geometry_count = std::move(other._max_geometry_count);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceRaytracingPropertiesNVX&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceRaytracingPropertiesNVX*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& shader_header_size()
+  {
+    return _shader_header_size;
+  }
+
+  constexpr const uint32_t& shader_header_size() const
+  {
+    return _shader_header_size;
+  }
+
+  void shader_header_size(uint32_t new_shader_header_size)
+  {
+    _shader_header_size = new_shader_header_size;
+  }
+
+  uint32_t& max_recursion_depth()
+  {
+    return _max_recursion_depth;
+  }
+
+  constexpr const uint32_t& max_recursion_depth() const
+  {
+    return _max_recursion_depth;
+  }
+
+  void max_recursion_depth(uint32_t new_max_recursion_depth)
+  {
+    _max_recursion_depth = new_max_recursion_depth;
+  }
+
+  uint32_t& max_geometry_count()
+  {
+    return _max_geometry_count;
+  }
+
+  constexpr const uint32_t& max_geometry_count() const
+  {
+    return _max_geometry_count;
+  }
+
+  void max_geometry_count(uint32_t new_max_geometry_count)
+  {
+    _max_geometry_count = new_max_geometry_count;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_raytracing_properties_nvx;
+  void* _next = nullptr;
+  uint32_t _shader_header_size = 0;
+  uint32_t _max_recursion_depth = 0;
+  uint32_t _max_geometry_count = 0;
+};
+static_assert(sizeof(physical_device_raytracing_properties_nvx) ==
+                sizeof(::VkPhysicalDeviceRaytracingPropertiesNVX),
+              "struct and wrapper have different size!");
+
+inline vk::result create_acceleration_structure_nvx(
+  VkDevice device,
+  const vk::acceleration_structure_create_info_nvx* create_info,
+  const vk::allocation_callbacks* allocator,
+  VkAccelerationStructureNVX* acceleration_structure)
+{
+  return static_cast<vk::result>(vkCreateAccelerationStructureNVX(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkAccelerationStructureCreateInfoNVX*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkAccelerationStructureNVX*>(acceleration_structure)));
+}
+inline void destroy_acceleration_structure_nvx(
+  VkDevice device, VkAccelerationStructureNVX acceleration_structure,
+  const vk::allocation_callbacks* allocator)
+{
+  vkDestroyAccelerationStructureNVX(
+    static_cast<VkDevice>(device),
+    static_cast<VkAccelerationStructureNVX>(acceleration_structure),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator));
+}
+inline void get_acceleration_structure_memory_requirements_nvx(
+  VkDevice device,
+  const vk::acceleration_structure_memory_requirements_info_nvx* info,
+  vk::memory_requirements_2_khr* memory_requirements)
+{
+  vkGetAccelerationStructureMemoryRequirementsNVX(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkAccelerationStructureMemoryRequirementsInfoNVX*>(
+      info),
+    reinterpret_cast<VkMemoryRequirements2KHR*>(memory_requirements));
+}
+inline void get_acceleration_structure_scratch_memory_requirements_nvx(
+  VkDevice device,
+  const vk::acceleration_structure_memory_requirements_info_nvx* info,
+  vk::memory_requirements_2_khr* memory_requirements)
+{
+  vkGetAccelerationStructureScratchMemoryRequirementsNVX(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkAccelerationStructureMemoryRequirementsInfoNVX*>(
+      info),
+    reinterpret_cast<VkMemoryRequirements2KHR*>(memory_requirements));
+}
+inline vk::result bind_acceleration_structure_memory_nvx(
+  VkDevice device, uint32_t bind_info_count,
+  const vk::bind_acceleration_structure_memory_info_nvx* bind_infos)
+{
+  return static_cast<vk::result>(vkBindAccelerationStructureMemoryNVX(
+    static_cast<VkDevice>(device), static_cast<uint32_t>(bind_info_count),
+    reinterpret_cast<const VkBindAccelerationStructureMemoryInfoNVX*>(
+      bind_infos)));
+}
+inline void cmd_build_acceleration_structure_nvx(
+  VkCommandBuffer cmd_buf, vk::acceleration_structure_type_nvx type,
+  uint32_t instance_count, VkBuffer instance_data, VkDeviceSize instance_offset,
+  uint32_t geometry_count, const vk::geometry_nvx* geometries,
+  vk::build_acceleration_structure_flags_nvx flags, VkBool32 update,
+  VkAccelerationStructureNVX dst, VkAccelerationStructureNVX src,
+  VkBuffer scratch, VkDeviceSize scratch_offset)
+{
+  vkCmdBuildAccelerationStructureNVX(
+    static_cast<VkCommandBuffer>(cmd_buf),
+    static_cast<VkAccelerationStructureTypeNVX>(type),
+    static_cast<uint32_t>(instance_count), static_cast<VkBuffer>(instance_data),
+    static_cast<VkDeviceSize>(instance_offset),
+    static_cast<uint32_t>(geometry_count),
+    reinterpret_cast<const VkGeometryNVX*>(geometries),
+    static_cast<VkBuildAccelerationStructureFlagsNVX>(flags),
+    static_cast<VkBool32>(update), static_cast<VkAccelerationStructureNVX>(dst),
+    static_cast<VkAccelerationStructureNVX>(src),
+    static_cast<VkBuffer>(scratch), static_cast<VkDeviceSize>(scratch_offset));
+}
+inline void cmd_copy_acceleration_structure_nvx(
+  VkCommandBuffer cmd_buf, VkAccelerationStructureNVX dst,
+  VkAccelerationStructureNVX src, vk::copy_acceleration_structure_mode_nvx mode)
+{
+  vkCmdCopyAccelerationStructureNVX(
+    static_cast<VkCommandBuffer>(cmd_buf),
+    static_cast<VkAccelerationStructureNVX>(dst),
+    static_cast<VkAccelerationStructureNVX>(src),
+    static_cast<VkCopyAccelerationStructureModeNVX>(mode));
+}
+inline void cmd_trace_rays_nvx(VkCommandBuffer cmd_buf,
+                               VkBuffer raygen_shader_binding_table_buffer,
+                               VkDeviceSize raygen_shader_binding_offset,
+                               VkBuffer miss_shader_binding_table_buffer,
+                               VkDeviceSize miss_shader_binding_offset,
+                               VkDeviceSize miss_shader_binding_stride,
+                               VkBuffer hit_shader_binding_table_buffer,
+                               VkDeviceSize hit_shader_binding_offset,
+                               VkDeviceSize hit_shader_binding_stride,
+                               uint32_t width, uint32_t height)
+{
+  vkCmdTraceRaysNVX(static_cast<VkCommandBuffer>(cmd_buf),
+                    static_cast<VkBuffer>(raygen_shader_binding_table_buffer),
+                    static_cast<VkDeviceSize>(raygen_shader_binding_offset),
+                    static_cast<VkBuffer>(miss_shader_binding_table_buffer),
+                    static_cast<VkDeviceSize>(miss_shader_binding_offset),
+                    static_cast<VkDeviceSize>(miss_shader_binding_stride),
+                    static_cast<VkBuffer>(hit_shader_binding_table_buffer),
+                    static_cast<VkDeviceSize>(hit_shader_binding_offset),
+                    static_cast<VkDeviceSize>(hit_shader_binding_stride),
+                    static_cast<uint32_t>(width),
+                    static_cast<uint32_t>(height));
+}
+inline vk::result create_raytracing_pipelines_nvx(
+  VkDevice device, VkPipelineCache pipeline_cache, uint32_t create_info_count,
+  const vk::raytracing_pipeline_create_info_nvx* create_infos,
+  const vk::allocation_callbacks* allocator, VkPipeline* pipelines)
+{
+  return static_cast<vk::result>(vkCreateRaytracingPipelinesNVX(
+    static_cast<VkDevice>(device), static_cast<VkPipelineCache>(pipeline_cache),
+    static_cast<uint32_t>(create_info_count),
+    reinterpret_cast<const VkRaytracingPipelineCreateInfoNVX*>(create_infos),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkPipeline*>(pipelines)));
+}
+inline vk::result get_raytracing_shader_handles_nvx(
+  VkDevice device, VkPipeline pipeline, uint32_t first_group,
+  uint32_t group_count, size_t data_size, void* data)
+{
+  return static_cast<vk::result>(vkGetRaytracingShaderHandlesNVX(
+    static_cast<VkDevice>(device), static_cast<VkPipeline>(pipeline),
+    static_cast<uint32_t>(first_group), static_cast<uint32_t>(group_count),
+    static_cast<size_t>(data_size), reinterpret_cast<void*>(data)));
+}
+inline vk::result get_acceleration_structure_handle_nvx(
+  VkDevice device, VkAccelerationStructureNVX acceleration_structure,
+  size_t data_size, void* data)
+{
+  return static_cast<vk::result>(vkGetAccelerationStructureHandleNVX(
+    static_cast<VkDevice>(device),
+    static_cast<VkAccelerationStructureNVX>(acceleration_structure),
+    static_cast<size_t>(data_size), reinterpret_cast<void*>(data)));
+}
+inline void cmd_write_acceleration_structure_properties_nvx(
+  VkCommandBuffer cmd_buf, VkAccelerationStructureNVX acceleration_structure,
+  vk::query_type query_type, VkQueryPool query_pool, uint32_t query)
+{
+  vkCmdWriteAccelerationStructurePropertiesNVX(
+    static_cast<VkCommandBuffer>(cmd_buf),
+    static_cast<VkAccelerationStructureNVX>(acceleration_structure),
+    static_cast<VkQueryType>(query_type), static_cast<VkQueryPool>(query_pool),
+    static_cast<uint32_t>(query));
+}
+inline vk::result compile_deferred_nvx(VkDevice device, VkPipeline pipeline,
+                                       uint32_t shader)
+{
+  return static_cast<vk::result>(vkCompileDeferredNVX(
+    static_cast<VkDevice>(device), static_cast<VkPipeline>(pipeline),
+    static_cast<uint32_t>(shader)));
+}
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.
+class physical_device_representative_fragment_test_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_representative_fragment_test_features_nv() =
+    default;
+
+  /// Constructor.
+  constexpr physical_device_representative_fragment_test_features_nv(
+    void* initial_next, VkBool32 initial_representative_fragment_test) noexcept
+  : _next(std::move(initial_next)),
+    _representative_fragment_test(
+      std::move(initial_representative_fragment_test))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_representative_fragment_test_features_nv(
+    const physical_device_representative_fragment_test_features_nv&
+      other) noexcept
+  : _next(other._next),
+    _representative_fragment_test(other._representative_fragment_test)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_representative_fragment_test_features_nv(
+    physical_device_representative_fragment_test_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _representative_fragment_test(
+      std::move(other._representative_fragment_test))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_representative_fragment_test_features_nv& operator=(
+    const physical_device_representative_fragment_test_features_nv&
+      other) noexcept
+  {
+    _next = other._next;
+    _representative_fragment_test = other._representative_fragment_test;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_representative_fragment_test_features_nv& operator=(
+    physical_device_representative_fragment_test_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _representative_fragment_test =
+      std::move(other._representative_fragment_test);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& representative_fragment_test()
+  {
+    return _representative_fragment_test;
+  }
+
+  constexpr const VkBool32& representative_fragment_test() const
+  {
+    return _representative_fragment_test;
+  }
+
+  void representative_fragment_test(VkBool32 new_representative_fragment_test)
+  {
+    _representative_fragment_test = new_representative_fragment_test;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_representative_fragment_test_features_nv;
+  void* _next = nullptr;
+  VkBool32 _representative_fragment_test = VK_FALSE;
+};
+static_assert(
+  sizeof(physical_device_representative_fragment_test_features_nv) ==
+    sizeof(::VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV),
+  "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPipelineRepresentativeFragmentTestStateCreateInfoNV.
+class pipeline_representative_fragment_test_state_create_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv() =
+    default;
+
+  /// Constructor.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv(
+    const void* initial_next,
+    VkBool32 initial_representative_fragment_test_enable) noexcept
+  : _next(std::move(initial_next)),
+    _representative_fragment_test_enable(
+      std::move(initial_representative_fragment_test_enable))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv(
+    const pipeline_representative_fragment_test_state_create_info_nv&
+      other) noexcept
+  : _next(other._next),
+    _representative_fragment_test_enable(
+      other._representative_fragment_test_enable)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv(
+    pipeline_representative_fragment_test_state_create_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _representative_fragment_test_enable(
+      std::move(other._representative_fragment_test_enable))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv&
+  operator=(const pipeline_representative_fragment_test_state_create_info_nv&
+              other) noexcept
+  {
+    _next = other._next;
+    _representative_fragment_test_enable =
+      other._representative_fragment_test_enable;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_representative_fragment_test_state_create_info_nv&
+  operator=(
+    pipeline_representative_fragment_test_state_create_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _representative_fragment_test_enable =
+      std::move(other._representative_fragment_test_enable);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineRepresentativeFragmentTestStateCreateInfoNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineRepresentativeFragmentTestStateCreateInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& representative_fragment_test_enable()
+  {
+    return _representative_fragment_test_enable;
+  }
+
+  constexpr const VkBool32& representative_fragment_test_enable() const
+  {
+    return _representative_fragment_test_enable;
+  }
+
+  void representative_fragment_test_enable(
+    VkBool32 new_representative_fragment_test_enable)
+  {
+    _representative_fragment_test_enable =
+      new_representative_fragment_test_enable;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    pipeline_representative_fragment_test_state_create_info_nv;
+  const void* _next = nullptr;
+  VkBool32 _representative_fragment_test_enable = VK_FALSE;
+};
+static_assert(
+  sizeof(pipeline_representative_fragment_test_state_create_info_nv) ==
+    sizeof(::VkPipelineRepresentativeFragmentTestStateCreateInfoNV),
+  "struct and wrapper have different size!");
+
 inline void cmd_draw_indirect_count_khr(VkCommandBuffer command_buffer,
                                         VkBuffer buffer, VkDeviceSize offset,
                                         VkBuffer count_buffer,
@@ -57446,6 +58424,163 @@ private:
 };
 static_assert(sizeof(device_queue_global_priority_create_info_ext) ==
                 sizeof(::VkDeviceQueueGlobalPriorityCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDevice8BitStorageFeaturesKHR.
+class physical_device_8_bit_storage_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_8_bit_storage_features_khr() = default;
+
+  /// Constructor.
+  constexpr physical_device_8_bit_storage_features_khr(
+    void* initial_next, VkBool32 initial_storage_buffer_8_bit_access,
+    VkBool32 initial_uniform_and_storage_buffer_8_bit_access,
+    VkBool32 initial_storage_push_constant_8) noexcept
+  : _next(std::move(initial_next)),
+    _storage_buffer_8_bit_access(
+      std::move(initial_storage_buffer_8_bit_access)),
+    _uniform_and_storage_buffer_8_bit_access(
+      std::move(initial_uniform_and_storage_buffer_8_bit_access)),
+    _storage_push_constant_8(std::move(initial_storage_push_constant_8))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_8_bit_storage_features_khr(
+    const physical_device_8_bit_storage_features_khr& other) noexcept
+  : _next(other._next),
+    _storage_buffer_8_bit_access(other._storage_buffer_8_bit_access),
+    _uniform_and_storage_buffer_8_bit_access(
+      other._uniform_and_storage_buffer_8_bit_access),
+    _storage_push_constant_8(other._storage_push_constant_8)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_8_bit_storage_features_khr(
+    physical_device_8_bit_storage_features_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _storage_buffer_8_bit_access(std::move(other._storage_buffer_8_bit_access)),
+    _uniform_and_storage_buffer_8_bit_access(
+      std::move(other._uniform_and_storage_buffer_8_bit_access)),
+    _storage_push_constant_8(std::move(other._storage_push_constant_8))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_8_bit_storage_features_khr& operator=(
+    const physical_device_8_bit_storage_features_khr& other) noexcept
+  {
+    _next = other._next;
+    _storage_buffer_8_bit_access = other._storage_buffer_8_bit_access;
+    _uniform_and_storage_buffer_8_bit_access =
+      other._uniform_and_storage_buffer_8_bit_access;
+    _storage_push_constant_8 = other._storage_push_constant_8;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_8_bit_storage_features_khr& operator=(
+    physical_device_8_bit_storage_features_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _storage_buffer_8_bit_access =
+      std::move(other._storage_buffer_8_bit_access);
+    _uniform_and_storage_buffer_8_bit_access =
+      std::move(other._uniform_and_storage_buffer_8_bit_access);
+    _storage_push_constant_8 = std::move(other._storage_push_constant_8);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDevice8BitStorageFeaturesKHR&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDevice8BitStorageFeaturesKHR*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& storage_buffer_8_bit_access()
+  {
+    return _storage_buffer_8_bit_access;
+  }
+
+  constexpr const VkBool32& storage_buffer_8_bit_access() const
+  {
+    return _storage_buffer_8_bit_access;
+  }
+
+  void storage_buffer_8_bit_access(VkBool32 new_storage_buffer_8_bit_access)
+  {
+    _storage_buffer_8_bit_access = new_storage_buffer_8_bit_access;
+  }
+
+  VkBool32& uniform_and_storage_buffer_8_bit_access()
+  {
+    return _uniform_and_storage_buffer_8_bit_access;
+  }
+
+  constexpr const VkBool32& uniform_and_storage_buffer_8_bit_access() const
+  {
+    return _uniform_and_storage_buffer_8_bit_access;
+  }
+
+  void uniform_and_storage_buffer_8_bit_access(
+    VkBool32 new_uniform_and_storage_buffer_8_bit_access)
+  {
+    _uniform_and_storage_buffer_8_bit_access =
+      new_uniform_and_storage_buffer_8_bit_access;
+  }
+
+  VkBool32& storage_push_constant_8()
+  {
+    return _storage_push_constant_8;
+  }
+
+  constexpr const VkBool32& storage_push_constant_8() const
+  {
+    return _storage_push_constant_8;
+  }
+
+  void storage_push_constant_8(VkBool32 new_storage_push_constant_8)
+  {
+    _storage_push_constant_8 = new_storage_push_constant_8;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_8_bit_storage_features_khr;
+  void* _next = nullptr;
+  /// 8-bit integer variables supported in StorageBuffer
+  VkBool32 _storage_buffer_8_bit_access = VK_FALSE;
+  /// 8-bit integer variables supported in StorageBuffer and Uniform
+  VkBool32 _uniform_and_storage_buffer_8_bit_access = VK_FALSE;
+  /// 8-bit integer variables supported in PushConstant
+  VkBool32 _storage_push_constant_8 = VK_FALSE;
+};
+static_assert(sizeof(physical_device_8_bit_storage_features_khr) ==
+                sizeof(::VkPhysicalDevice8BitStorageFeaturesKHR),
               "struct and wrapper have different size!");
 
 enum class external_memory_handle_type_flag_khr
@@ -58561,6 +59696,7389 @@ private:
 static_assert(sizeof(pipeline_vertex_input_divisor_state_create_info_ext) ==
                 sizeof(::VkPipelineVertexInputDivisorStateCreateInfoEXT),
               "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT.
+class physical_device_vertex_attribute_divisor_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_vertex_attribute_divisor_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_vertex_attribute_divisor_features_ext(
+    void* initial_next, VkBool32 initial_vertex_attribute_instance_rate_divisor,
+    VkBool32 initial_vertex_attribute_instance_rate_zero_divisor) noexcept
+  : _next(std::move(initial_next)),
+    _vertex_attribute_instance_rate_divisor(
+      std::move(initial_vertex_attribute_instance_rate_divisor)),
+    _vertex_attribute_instance_rate_zero_divisor(
+      std::move(initial_vertex_attribute_instance_rate_zero_divisor))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_vertex_attribute_divisor_features_ext(
+    const physical_device_vertex_attribute_divisor_features_ext& other) noexcept
+  : _next(other._next),
+    _vertex_attribute_instance_rate_divisor(
+      other._vertex_attribute_instance_rate_divisor),
+    _vertex_attribute_instance_rate_zero_divisor(
+      other._vertex_attribute_instance_rate_zero_divisor)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_vertex_attribute_divisor_features_ext(
+    physical_device_vertex_attribute_divisor_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _vertex_attribute_instance_rate_divisor(
+      std::move(other._vertex_attribute_instance_rate_divisor)),
+    _vertex_attribute_instance_rate_zero_divisor(
+      std::move(other._vertex_attribute_instance_rate_zero_divisor))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_vertex_attribute_divisor_features_ext& operator=(
+    const physical_device_vertex_attribute_divisor_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _vertex_attribute_instance_rate_divisor =
+      other._vertex_attribute_instance_rate_divisor;
+    _vertex_attribute_instance_rate_zero_divisor =
+      other._vertex_attribute_instance_rate_zero_divisor;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_vertex_attribute_divisor_features_ext& operator=(
+    physical_device_vertex_attribute_divisor_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _vertex_attribute_instance_rate_divisor =
+      std::move(other._vertex_attribute_instance_rate_divisor);
+    _vertex_attribute_instance_rate_zero_divisor =
+      std::move(other._vertex_attribute_instance_rate_zero_divisor);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& vertex_attribute_instance_rate_divisor()
+  {
+    return _vertex_attribute_instance_rate_divisor;
+  }
+
+  constexpr const VkBool32& vertex_attribute_instance_rate_divisor() const
+  {
+    return _vertex_attribute_instance_rate_divisor;
+  }
+
+  void vertex_attribute_instance_rate_divisor(
+    VkBool32 new_vertex_attribute_instance_rate_divisor)
+  {
+    _vertex_attribute_instance_rate_divisor =
+      new_vertex_attribute_instance_rate_divisor;
+  }
+
+  VkBool32& vertex_attribute_instance_rate_zero_divisor()
+  {
+    return _vertex_attribute_instance_rate_zero_divisor;
+  }
+
+  constexpr const VkBool32& vertex_attribute_instance_rate_zero_divisor() const
+  {
+    return _vertex_attribute_instance_rate_zero_divisor;
+  }
+
+  void vertex_attribute_instance_rate_zero_divisor(
+    VkBool32 new_vertex_attribute_instance_rate_zero_divisor)
+  {
+    _vertex_attribute_instance_rate_zero_divisor =
+      new_vertex_attribute_instance_rate_zero_divisor;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_vertex_attribute_divisor_features_ext;
+  void* _next = nullptr;
+  VkBool32 _vertex_attribute_instance_rate_divisor = VK_FALSE;
+  VkBool32 _vertex_attribute_instance_rate_zero_divisor = VK_FALSE;
+};
+static_assert(sizeof(physical_device_vertex_attribute_divisor_features_ext) ==
+                sizeof(::VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceComputeShaderDerivativesFeaturesNV.
+class physical_device_compute_shader_derivatives_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_compute_shader_derivatives_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_compute_shader_derivatives_features_nv(
+    void* initial_next, VkBool32 initial_compute_derivative_group_quads,
+    VkBool32 initial_compute_derivative_group_linear) noexcept
+  : _next(std::move(initial_next)),
+    _compute_derivative_group_quads(
+      std::move(initial_compute_derivative_group_quads)),
+    _compute_derivative_group_linear(
+      std::move(initial_compute_derivative_group_linear))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_compute_shader_derivatives_features_nv(
+    const physical_device_compute_shader_derivatives_features_nv&
+      other) noexcept
+  : _next(other._next),
+    _compute_derivative_group_quads(other._compute_derivative_group_quads),
+    _compute_derivative_group_linear(other._compute_derivative_group_linear)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_compute_shader_derivatives_features_nv(
+    physical_device_compute_shader_derivatives_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _compute_derivative_group_quads(
+      std::move(other._compute_derivative_group_quads)),
+    _compute_derivative_group_linear(
+      std::move(other._compute_derivative_group_linear))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_compute_shader_derivatives_features_nv& operator=(
+    const physical_device_compute_shader_derivatives_features_nv&
+      other) noexcept
+  {
+    _next = other._next;
+    _compute_derivative_group_quads = other._compute_derivative_group_quads;
+    _compute_derivative_group_linear = other._compute_derivative_group_linear;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_compute_shader_derivatives_features_nv& operator=(
+    physical_device_compute_shader_derivatives_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _compute_derivative_group_quads =
+      std::move(other._compute_derivative_group_quads);
+    _compute_derivative_group_linear =
+      std::move(other._compute_derivative_group_linear);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceComputeShaderDerivativesFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& compute_derivative_group_quads()
+  {
+    return _compute_derivative_group_quads;
+  }
+
+  constexpr const VkBool32& compute_derivative_group_quads() const
+  {
+    return _compute_derivative_group_quads;
+  }
+
+  void compute_derivative_group_quads(
+    VkBool32 new_compute_derivative_group_quads)
+  {
+    _compute_derivative_group_quads = new_compute_derivative_group_quads;
+  }
+
+  VkBool32& compute_derivative_group_linear()
+  {
+    return _compute_derivative_group_linear;
+  }
+
+  constexpr const VkBool32& compute_derivative_group_linear() const
+  {
+    return _compute_derivative_group_linear;
+  }
+
+  void compute_derivative_group_linear(
+    VkBool32 new_compute_derivative_group_linear)
+  {
+    _compute_derivative_group_linear = new_compute_derivative_group_linear;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_compute_shader_derivatives_features_nv;
+  void* _next = nullptr;
+  VkBool32 _compute_derivative_group_quads = VK_FALSE;
+  VkBool32 _compute_derivative_group_linear = VK_FALSE;
+};
+static_assert(sizeof(physical_device_compute_shader_derivatives_features_nv) ==
+                sizeof(::VkPhysicalDeviceComputeShaderDerivativesFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceMeshShaderFeaturesNV.
+class physical_device_mesh_shader_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_mesh_shader_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_mesh_shader_features_nv(
+    void* initial_next, VkBool32 initial_task_shader,
+    VkBool32 initial_mesh_shader) noexcept
+  : _next(std::move(initial_next)),
+    _task_shader(std::move(initial_task_shader)),
+    _mesh_shader(std::move(initial_mesh_shader))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_mesh_shader_features_nv(
+    const physical_device_mesh_shader_features_nv& other) noexcept
+  : _next(other._next),
+    _task_shader(other._task_shader),
+    _mesh_shader(other._mesh_shader)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_mesh_shader_features_nv(
+    physical_device_mesh_shader_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _task_shader(std::move(other._task_shader)),
+    _mesh_shader(std::move(other._mesh_shader))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_mesh_shader_features_nv& operator=(
+    const physical_device_mesh_shader_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _task_shader = other._task_shader;
+    _mesh_shader = other._mesh_shader;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_mesh_shader_features_nv& operator=(
+    physical_device_mesh_shader_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _task_shader = std::move(other._task_shader);
+    _mesh_shader = std::move(other._mesh_shader);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceMeshShaderFeaturesNV&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceMeshShaderFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& task_shader()
+  {
+    return _task_shader;
+  }
+
+  constexpr const VkBool32& task_shader() const
+  {
+    return _task_shader;
+  }
+
+  void task_shader(VkBool32 new_task_shader)
+  {
+    _task_shader = new_task_shader;
+  }
+
+  VkBool32& mesh_shader()
+  {
+    return _mesh_shader;
+  }
+
+  constexpr const VkBool32& mesh_shader() const
+  {
+    return _mesh_shader;
+  }
+
+  void mesh_shader(VkBool32 new_mesh_shader)
+  {
+    _mesh_shader = new_mesh_shader;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_mesh_shader_features_nv;
+  void* _next = nullptr;
+  VkBool32 _task_shader = VK_FALSE;
+  VkBool32 _mesh_shader = VK_FALSE;
+};
+static_assert(sizeof(physical_device_mesh_shader_features_nv) ==
+                sizeof(::VkPhysicalDeviceMeshShaderFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceMeshShaderPropertiesNV.
+class physical_device_mesh_shader_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_mesh_shader_properties_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_mesh_shader_properties_nv(
+    void* initial_next, uint32_t initial_max_draw_mesh_tasks_count,
+    uint32_t initial_max_task_work_group_invocations,
+    std::array<uint32_t, 3> initial_max_task_work_group_size,
+    uint32_t initial_max_task_total_memory_size,
+    uint32_t initial_max_task_output_count,
+    uint32_t initial_max_mesh_work_group_invocations,
+    std::array<uint32_t, 3> initial_max_mesh_work_group_size,
+    uint32_t initial_max_mesh_total_memory_size,
+    uint32_t initial_max_mesh_output_vertices,
+    uint32_t initial_max_mesh_output_primitives,
+    uint32_t initial_max_mesh_multiview_view_count,
+    uint32_t initial_mesh_output_per_vertex_granularity,
+    uint32_t initial_mesh_output_per_primitive_granularity) noexcept
+  : _next(std::move(initial_next)),
+    _max_draw_mesh_tasks_count(std::move(initial_max_draw_mesh_tasks_count)),
+    _max_task_work_group_invocations(
+      std::move(initial_max_task_work_group_invocations)),
+    _max_task_work_group_size(std::move(initial_max_task_work_group_size)),
+    _max_task_total_memory_size(std::move(initial_max_task_total_memory_size)),
+    _max_task_output_count(std::move(initial_max_task_output_count)),
+    _max_mesh_work_group_invocations(
+      std::move(initial_max_mesh_work_group_invocations)),
+    _max_mesh_work_group_size(std::move(initial_max_mesh_work_group_size)),
+    _max_mesh_total_memory_size(std::move(initial_max_mesh_total_memory_size)),
+    _max_mesh_output_vertices(std::move(initial_max_mesh_output_vertices)),
+    _max_mesh_output_primitives(std::move(initial_max_mesh_output_primitives)),
+    _max_mesh_multiview_view_count(
+      std::move(initial_max_mesh_multiview_view_count)),
+    _mesh_output_per_vertex_granularity(
+      std::move(initial_mesh_output_per_vertex_granularity)),
+    _mesh_output_per_primitive_granularity(
+      std::move(initial_mesh_output_per_primitive_granularity))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_mesh_shader_properties_nv(
+    const physical_device_mesh_shader_properties_nv& other) noexcept
+  : _next(other._next),
+    _max_draw_mesh_tasks_count(other._max_draw_mesh_tasks_count),
+    _max_task_work_group_invocations(other._max_task_work_group_invocations),
+    _max_task_work_group_size(other._max_task_work_group_size),
+    _max_task_total_memory_size(other._max_task_total_memory_size),
+    _max_task_output_count(other._max_task_output_count),
+    _max_mesh_work_group_invocations(other._max_mesh_work_group_invocations),
+    _max_mesh_work_group_size(other._max_mesh_work_group_size),
+    _max_mesh_total_memory_size(other._max_mesh_total_memory_size),
+    _max_mesh_output_vertices(other._max_mesh_output_vertices),
+    _max_mesh_output_primitives(other._max_mesh_output_primitives),
+    _max_mesh_multiview_view_count(other._max_mesh_multiview_view_count),
+    _mesh_output_per_vertex_granularity(
+      other._mesh_output_per_vertex_granularity),
+    _mesh_output_per_primitive_granularity(
+      other._mesh_output_per_primitive_granularity)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_mesh_shader_properties_nv(
+    physical_device_mesh_shader_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _max_draw_mesh_tasks_count(std::move(other._max_draw_mesh_tasks_count)),
+    _max_task_work_group_invocations(
+      std::move(other._max_task_work_group_invocations)),
+    _max_task_work_group_size(std::move(other._max_task_work_group_size)),
+    _max_task_total_memory_size(std::move(other._max_task_total_memory_size)),
+    _max_task_output_count(std::move(other._max_task_output_count)),
+    _max_mesh_work_group_invocations(
+      std::move(other._max_mesh_work_group_invocations)),
+    _max_mesh_work_group_size(std::move(other._max_mesh_work_group_size)),
+    _max_mesh_total_memory_size(std::move(other._max_mesh_total_memory_size)),
+    _max_mesh_output_vertices(std::move(other._max_mesh_output_vertices)),
+    _max_mesh_output_primitives(std::move(other._max_mesh_output_primitives)),
+    _max_mesh_multiview_view_count(
+      std::move(other._max_mesh_multiview_view_count)),
+    _mesh_output_per_vertex_granularity(
+      std::move(other._mesh_output_per_vertex_granularity)),
+    _mesh_output_per_primitive_granularity(
+      std::move(other._mesh_output_per_primitive_granularity))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_mesh_shader_properties_nv& operator=(
+    const physical_device_mesh_shader_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _max_draw_mesh_tasks_count = other._max_draw_mesh_tasks_count;
+    _max_task_work_group_invocations = other._max_task_work_group_invocations;
+    _max_task_work_group_size = other._max_task_work_group_size;
+    _max_task_total_memory_size = other._max_task_total_memory_size;
+    _max_task_output_count = other._max_task_output_count;
+    _max_mesh_work_group_invocations = other._max_mesh_work_group_invocations;
+    _max_mesh_work_group_size = other._max_mesh_work_group_size;
+    _max_mesh_total_memory_size = other._max_mesh_total_memory_size;
+    _max_mesh_output_vertices = other._max_mesh_output_vertices;
+    _max_mesh_output_primitives = other._max_mesh_output_primitives;
+    _max_mesh_multiview_view_count = other._max_mesh_multiview_view_count;
+    _mesh_output_per_vertex_granularity =
+      other._mesh_output_per_vertex_granularity;
+    _mesh_output_per_primitive_granularity =
+      other._mesh_output_per_primitive_granularity;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_mesh_shader_properties_nv& operator=(
+    physical_device_mesh_shader_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _max_draw_mesh_tasks_count = std::move(other._max_draw_mesh_tasks_count);
+    _max_task_work_group_invocations =
+      std::move(other._max_task_work_group_invocations);
+    _max_task_work_group_size = std::move(other._max_task_work_group_size);
+    _max_task_total_memory_size = std::move(other._max_task_total_memory_size);
+    _max_task_output_count = std::move(other._max_task_output_count);
+    _max_mesh_work_group_invocations =
+      std::move(other._max_mesh_work_group_invocations);
+    _max_mesh_work_group_size = std::move(other._max_mesh_work_group_size);
+    _max_mesh_total_memory_size = std::move(other._max_mesh_total_memory_size);
+    _max_mesh_output_vertices = std::move(other._max_mesh_output_vertices);
+    _max_mesh_output_primitives = std::move(other._max_mesh_output_primitives);
+    _max_mesh_multiview_view_count =
+      std::move(other._max_mesh_multiview_view_count);
+    _mesh_output_per_vertex_granularity =
+      std::move(other._mesh_output_per_vertex_granularity);
+    _mesh_output_per_primitive_granularity =
+      std::move(other._mesh_output_per_primitive_granularity);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceMeshShaderPropertiesNV&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceMeshShaderPropertiesNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& max_draw_mesh_tasks_count()
+  {
+    return _max_draw_mesh_tasks_count;
+  }
+
+  constexpr const uint32_t& max_draw_mesh_tasks_count() const
+  {
+    return _max_draw_mesh_tasks_count;
+  }
+
+  void max_draw_mesh_tasks_count(uint32_t new_max_draw_mesh_tasks_count)
+  {
+    _max_draw_mesh_tasks_count = new_max_draw_mesh_tasks_count;
+  }
+
+  uint32_t& max_task_work_group_invocations()
+  {
+    return _max_task_work_group_invocations;
+  }
+
+  constexpr const uint32_t& max_task_work_group_invocations() const
+  {
+    return _max_task_work_group_invocations;
+  }
+
+  void max_task_work_group_invocations(
+    uint32_t new_max_task_work_group_invocations)
+  {
+    _max_task_work_group_invocations = new_max_task_work_group_invocations;
+  }
+
+  std::array<uint32_t, 3>& max_task_work_group_size()
+  {
+    return _max_task_work_group_size;
+  }
+
+  constexpr const std::array<uint32_t, 3>& max_task_work_group_size() const
+  {
+    return _max_task_work_group_size;
+  }
+
+  void max_task_work_group_size(
+    std::array<uint32_t, 3> new_max_task_work_group_size)
+  {
+    _max_task_work_group_size = new_max_task_work_group_size;
+  }
+
+  uint32_t& max_task_total_memory_size()
+  {
+    return _max_task_total_memory_size;
+  }
+
+  constexpr const uint32_t& max_task_total_memory_size() const
+  {
+    return _max_task_total_memory_size;
+  }
+
+  void max_task_total_memory_size(uint32_t new_max_task_total_memory_size)
+  {
+    _max_task_total_memory_size = new_max_task_total_memory_size;
+  }
+
+  uint32_t& max_task_output_count()
+  {
+    return _max_task_output_count;
+  }
+
+  constexpr const uint32_t& max_task_output_count() const
+  {
+    return _max_task_output_count;
+  }
+
+  void max_task_output_count(uint32_t new_max_task_output_count)
+  {
+    _max_task_output_count = new_max_task_output_count;
+  }
+
+  uint32_t& max_mesh_work_group_invocations()
+  {
+    return _max_mesh_work_group_invocations;
+  }
+
+  constexpr const uint32_t& max_mesh_work_group_invocations() const
+  {
+    return _max_mesh_work_group_invocations;
+  }
+
+  void max_mesh_work_group_invocations(
+    uint32_t new_max_mesh_work_group_invocations)
+  {
+    _max_mesh_work_group_invocations = new_max_mesh_work_group_invocations;
+  }
+
+  std::array<uint32_t, 3>& max_mesh_work_group_size()
+  {
+    return _max_mesh_work_group_size;
+  }
+
+  constexpr const std::array<uint32_t, 3>& max_mesh_work_group_size() const
+  {
+    return _max_mesh_work_group_size;
+  }
+
+  void max_mesh_work_group_size(
+    std::array<uint32_t, 3> new_max_mesh_work_group_size)
+  {
+    _max_mesh_work_group_size = new_max_mesh_work_group_size;
+  }
+
+  uint32_t& max_mesh_total_memory_size()
+  {
+    return _max_mesh_total_memory_size;
+  }
+
+  constexpr const uint32_t& max_mesh_total_memory_size() const
+  {
+    return _max_mesh_total_memory_size;
+  }
+
+  void max_mesh_total_memory_size(uint32_t new_max_mesh_total_memory_size)
+  {
+    _max_mesh_total_memory_size = new_max_mesh_total_memory_size;
+  }
+
+  uint32_t& max_mesh_output_vertices()
+  {
+    return _max_mesh_output_vertices;
+  }
+
+  constexpr const uint32_t& max_mesh_output_vertices() const
+  {
+    return _max_mesh_output_vertices;
+  }
+
+  void max_mesh_output_vertices(uint32_t new_max_mesh_output_vertices)
+  {
+    _max_mesh_output_vertices = new_max_mesh_output_vertices;
+  }
+
+  uint32_t& max_mesh_output_primitives()
+  {
+    return _max_mesh_output_primitives;
+  }
+
+  constexpr const uint32_t& max_mesh_output_primitives() const
+  {
+    return _max_mesh_output_primitives;
+  }
+
+  void max_mesh_output_primitives(uint32_t new_max_mesh_output_primitives)
+  {
+    _max_mesh_output_primitives = new_max_mesh_output_primitives;
+  }
+
+  uint32_t& max_mesh_multiview_view_count()
+  {
+    return _max_mesh_multiview_view_count;
+  }
+
+  constexpr const uint32_t& max_mesh_multiview_view_count() const
+  {
+    return _max_mesh_multiview_view_count;
+  }
+
+  void max_mesh_multiview_view_count(uint32_t new_max_mesh_multiview_view_count)
+  {
+    _max_mesh_multiview_view_count = new_max_mesh_multiview_view_count;
+  }
+
+  uint32_t& mesh_output_per_vertex_granularity()
+  {
+    return _mesh_output_per_vertex_granularity;
+  }
+
+  constexpr const uint32_t& mesh_output_per_vertex_granularity() const
+  {
+    return _mesh_output_per_vertex_granularity;
+  }
+
+  void mesh_output_per_vertex_granularity(
+    uint32_t new_mesh_output_per_vertex_granularity)
+  {
+    _mesh_output_per_vertex_granularity =
+      new_mesh_output_per_vertex_granularity;
+  }
+
+  uint32_t& mesh_output_per_primitive_granularity()
+  {
+    return _mesh_output_per_primitive_granularity;
+  }
+
+  constexpr const uint32_t& mesh_output_per_primitive_granularity() const
+  {
+    return _mesh_output_per_primitive_granularity;
+  }
+
+  void mesh_output_per_primitive_granularity(
+    uint32_t new_mesh_output_per_primitive_granularity)
+  {
+    _mesh_output_per_primitive_granularity =
+      new_mesh_output_per_primitive_granularity;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_mesh_shader_properties_nv;
+  void* _next = nullptr;
+  uint32_t _max_draw_mesh_tasks_count = 0;
+  uint32_t _max_task_work_group_invocations = 0;
+  std::array<uint32_t, 3> _max_task_work_group_size = {};
+  uint32_t _max_task_total_memory_size = 0;
+  uint32_t _max_task_output_count = 0;
+  uint32_t _max_mesh_work_group_invocations = 0;
+  std::array<uint32_t, 3> _max_mesh_work_group_size = {};
+  uint32_t _max_mesh_total_memory_size = 0;
+  uint32_t _max_mesh_output_vertices = 0;
+  uint32_t _max_mesh_output_primitives = 0;
+  uint32_t _max_mesh_multiview_view_count = 0;
+  uint32_t _mesh_output_per_vertex_granularity = 0;
+  uint32_t _mesh_output_per_primitive_granularity = 0;
+};
+static_assert(sizeof(physical_device_mesh_shader_properties_nv) ==
+                sizeof(::VkPhysicalDeviceMeshShaderPropertiesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkDrawMeshTasksIndirectCommandNV.
+class draw_mesh_tasks_indirect_command_nv
+{
+public:
+  /// Default constructor.
+  constexpr draw_mesh_tasks_indirect_command_nv() = default;
+
+  /// Constructor.
+  constexpr draw_mesh_tasks_indirect_command_nv(
+    uint32_t initial_task_count, uint32_t initial_first_task) noexcept
+  : _task_count(std::move(initial_task_count)),
+    _first_task(std::move(initial_first_task))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr draw_mesh_tasks_indirect_command_nv(
+    const draw_mesh_tasks_indirect_command_nv& other) = default;
+
+  /// Move constructor.
+  constexpr draw_mesh_tasks_indirect_command_nv(
+    draw_mesh_tasks_indirect_command_nv&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr draw_mesh_tasks_indirect_command_nv& operator=(
+    const draw_mesh_tasks_indirect_command_nv& other) = default;
+
+  /// Move assignment operator.
+  constexpr draw_mesh_tasks_indirect_command_nv& operator=(
+    draw_mesh_tasks_indirect_command_nv&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkDrawMeshTasksIndirectCommandNV&() const
+  {
+    return *reinterpret_cast<const VkDrawMeshTasksIndirectCommandNV*>(this);
+  }
+
+  uint32_t& task_count()
+  {
+    return _task_count;
+  }
+
+  constexpr const uint32_t& task_count() const
+  {
+    return _task_count;
+  }
+
+  void task_count(uint32_t new_task_count)
+  {
+    _task_count = new_task_count;
+  }
+
+  uint32_t& first_task()
+  {
+    return _first_task;
+  }
+
+  constexpr const uint32_t& first_task() const
+  {
+    return _first_task;
+  }
+
+  void first_task(uint32_t new_first_task)
+  {
+    _first_task = new_first_task;
+  }
+
+private:
+  uint32_t _task_count = 0;
+  uint32_t _first_task = 0;
+};
+static_assert(sizeof(draw_mesh_tasks_indirect_command_nv) ==
+                sizeof(::VkDrawMeshTasksIndirectCommandNV),
+              "struct and wrapper have different size!");
+
+inline void cmd_draw_mesh_tasks_nv(VkCommandBuffer command_buffer,
+                                   uint32_t task_count, uint32_t first_task)
+{
+  vkCmdDrawMeshTasksNV(static_cast<VkCommandBuffer>(command_buffer),
+                       static_cast<uint32_t>(task_count),
+                       static_cast<uint32_t>(first_task));
+}
+inline void cmd_draw_mesh_tasks_indirect_nv(VkCommandBuffer command_buffer,
+                                            VkBuffer buffer,
+                                            VkDeviceSize offset,
+                                            uint32_t draw_count,
+                                            uint32_t stride)
+{
+  vkCmdDrawMeshTasksIndirectNV(
+    static_cast<VkCommandBuffer>(command_buffer), static_cast<VkBuffer>(buffer),
+    static_cast<VkDeviceSize>(offset), static_cast<uint32_t>(draw_count),
+    static_cast<uint32_t>(stride));
+}
+inline void cmd_draw_mesh_tasks_indirect_count_nv(
+  VkCommandBuffer command_buffer, VkBuffer buffer, VkDeviceSize offset,
+  VkBuffer count_buffer, VkDeviceSize count_buffer_offset,
+  uint32_t max_draw_count, uint32_t stride)
+{
+  vkCmdDrawMeshTasksIndirectCountNV(
+    static_cast<VkCommandBuffer>(command_buffer), static_cast<VkBuffer>(buffer),
+    static_cast<VkDeviceSize>(offset), static_cast<VkBuffer>(count_buffer),
+    static_cast<VkDeviceSize>(count_buffer_offset),
+    static_cast<uint32_t>(max_draw_count), static_cast<uint32_t>(stride));
+}
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.
+class physical_device_fragment_shader_barycentric_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_fragment_shader_barycentric_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_fragment_shader_barycentric_features_nv(
+    void* initial_next, VkBool32 initial_fragment_shader_barycentric) noexcept
+  : _next(std::move(initial_next)),
+    _fragment_shader_barycentric(std::move(initial_fragment_shader_barycentric))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_fragment_shader_barycentric_features_nv(
+    const physical_device_fragment_shader_barycentric_features_nv&
+      other) noexcept
+  : _next(other._next),
+    _fragment_shader_barycentric(other._fragment_shader_barycentric)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_fragment_shader_barycentric_features_nv(
+    physical_device_fragment_shader_barycentric_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _fragment_shader_barycentric(std::move(other._fragment_shader_barycentric))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_fragment_shader_barycentric_features_nv& operator=(
+    const physical_device_fragment_shader_barycentric_features_nv&
+      other) noexcept
+  {
+    _next = other._next;
+    _fragment_shader_barycentric = other._fragment_shader_barycentric;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_fragment_shader_barycentric_features_nv& operator=(
+    physical_device_fragment_shader_barycentric_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fragment_shader_barycentric =
+      std::move(other._fragment_shader_barycentric);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& fragment_shader_barycentric()
+  {
+    return _fragment_shader_barycentric;
+  }
+
+  constexpr const VkBool32& fragment_shader_barycentric() const
+  {
+    return _fragment_shader_barycentric;
+  }
+
+  void fragment_shader_barycentric(VkBool32 new_fragment_shader_barycentric)
+  {
+    _fragment_shader_barycentric = new_fragment_shader_barycentric;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_fragment_shader_barycentric_features_nv;
+  void* _next = nullptr;
+  VkBool32 _fragment_shader_barycentric = VK_FALSE;
+};
+static_assert(sizeof(physical_device_fragment_shader_barycentric_features_nv) ==
+                sizeof(::VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceShaderImageFootprintFeaturesNV.
+class physical_device_shader_image_footprint_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_image_footprint_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_shader_image_footprint_features_nv(
+    void* initial_next, VkBool32 initial_image_footprint) noexcept
+  : _next(std::move(initial_next)),
+    _image_footprint(std::move(initial_image_footprint))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_image_footprint_features_nv(
+    const physical_device_shader_image_footprint_features_nv& other) noexcept
+  : _next(other._next), _image_footprint(other._image_footprint)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_image_footprint_features_nv(
+    physical_device_shader_image_footprint_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _image_footprint(std::move(other._image_footprint))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_image_footprint_features_nv& operator=(
+    const physical_device_shader_image_footprint_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _image_footprint = other._image_footprint;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_image_footprint_features_nv& operator=(
+    physical_device_shader_image_footprint_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _image_footprint = std::move(other._image_footprint);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderImageFootprintFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShaderImageFootprintFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& image_footprint()
+  {
+    return _image_footprint;
+  }
+
+  constexpr const VkBool32& image_footprint() const
+  {
+    return _image_footprint;
+  }
+
+  void image_footprint(VkBool32 new_image_footprint)
+  {
+    _image_footprint = new_image_footprint;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shader_image_footprint_features_nv;
+  void* _next = nullptr;
+  VkBool32 _image_footprint = VK_FALSE;
+};
+static_assert(sizeof(physical_device_shader_image_footprint_features_nv) ==
+                sizeof(::VkPhysicalDeviceShaderImageFootprintFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPipelineViewportExclusiveScissorStateCreateInfoNV.
+class pipeline_viewport_exclusive_scissor_state_create_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv() =
+    default;
+
+  /// Constructor.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv(
+    const void* initial_next, uint32_t initial_exclusive_scissor_count,
+    const vk::rect_2d* initial_exclusive_scissors) noexcept
+  : _next(std::move(initial_next)),
+    _exclusive_scissor_count(std::move(initial_exclusive_scissor_count)),
+    _exclusive_scissors(std::move(initial_exclusive_scissors))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv(
+    const pipeline_viewport_exclusive_scissor_state_create_info_nv&
+      other) noexcept
+  : _next(other._next),
+    _exclusive_scissor_count(other._exclusive_scissor_count),
+    _exclusive_scissors(other._exclusive_scissors)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv(
+    pipeline_viewport_exclusive_scissor_state_create_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _exclusive_scissor_count(std::move(other._exclusive_scissor_count)),
+    _exclusive_scissors(std::move(other._exclusive_scissors))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv& operator=(
+    const pipeline_viewport_exclusive_scissor_state_create_info_nv&
+      other) noexcept
+  {
+    _next = other._next;
+    _exclusive_scissor_count = other._exclusive_scissor_count;
+    _exclusive_scissors = other._exclusive_scissors;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_viewport_exclusive_scissor_state_create_info_nv& operator=(
+    pipeline_viewport_exclusive_scissor_state_create_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _exclusive_scissor_count = std::move(other._exclusive_scissor_count);
+    _exclusive_scissors = std::move(other._exclusive_scissors);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineViewportExclusiveScissorStateCreateInfoNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineViewportExclusiveScissorStateCreateInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& exclusive_scissor_count()
+  {
+    return _exclusive_scissor_count;
+  }
+
+  constexpr const uint32_t& exclusive_scissor_count() const
+  {
+    return _exclusive_scissor_count;
+  }
+
+  void exclusive_scissor_count(uint32_t new_exclusive_scissor_count)
+  {
+    _exclusive_scissor_count = new_exclusive_scissor_count;
+  }
+
+  const vk::rect_2d* exclusive_scissors()
+  {
+    return _exclusive_scissors;
+  }
+
+  constexpr const vk::rect_2d* exclusive_scissors() const
+  {
+    return _exclusive_scissors;
+  }
+
+  void exclusive_scissors(const vk::rect_2d* new_exclusive_scissors)
+  {
+    _exclusive_scissors = new_exclusive_scissors;
+  }
+
+  template <std::size_t Count>
+  void exclusive_scissors(
+    const std::array<vk::rect_2d, Count>& new_exclusive_scissors)
+  {
+    _exclusive_scissor_count =
+      static_cast<uint32_t>(new_exclusive_scissors.size());
+    _exclusive_scissors = new_exclusive_scissors.data();
+  }
+
+  void exclusive_scissors(
+    const std::vector<vk::rect_2d>& new_exclusive_scissors)
+  {
+    _exclusive_scissor_count =
+      static_cast<uint32_t>(new_exclusive_scissors.size());
+    _exclusive_scissors = new_exclusive_scissors.data();
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    pipeline_viewport_exclusive_scissor_state_create_info_nv;
+  const void* _next = nullptr;
+  uint32_t _exclusive_scissor_count = 0;
+  const vk::rect_2d* _exclusive_scissors = nullptr;
+};
+static_assert(
+  sizeof(pipeline_viewport_exclusive_scissor_state_create_info_nv) ==
+    sizeof(::VkPipelineViewportExclusiveScissorStateCreateInfoNV),
+  "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceExclusiveScissorFeaturesNV.
+class physical_device_exclusive_scissor_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_exclusive_scissor_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_exclusive_scissor_features_nv(
+    void* initial_next, VkBool32 initial_exclusive_scissor) noexcept
+  : _next(std::move(initial_next)),
+    _exclusive_scissor(std::move(initial_exclusive_scissor))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_exclusive_scissor_features_nv(
+    const physical_device_exclusive_scissor_features_nv& other) noexcept
+  : _next(other._next), _exclusive_scissor(other._exclusive_scissor)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_exclusive_scissor_features_nv(
+    physical_device_exclusive_scissor_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _exclusive_scissor(std::move(other._exclusive_scissor))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_exclusive_scissor_features_nv& operator=(
+    const physical_device_exclusive_scissor_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _exclusive_scissor = other._exclusive_scissor;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_exclusive_scissor_features_nv& operator=(
+    physical_device_exclusive_scissor_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _exclusive_scissor = std::move(other._exclusive_scissor);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceExclusiveScissorFeaturesNV&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceExclusiveScissorFeaturesNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& exclusive_scissor()
+  {
+    return _exclusive_scissor;
+  }
+
+  constexpr const VkBool32& exclusive_scissor() const
+  {
+    return _exclusive_scissor;
+  }
+
+  void exclusive_scissor(VkBool32 new_exclusive_scissor)
+  {
+    _exclusive_scissor = new_exclusive_scissor;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_exclusive_scissor_features_nv;
+  void* _next = nullptr;
+  VkBool32 _exclusive_scissor = VK_FALSE;
+};
+static_assert(sizeof(physical_device_exclusive_scissor_features_nv) ==
+                sizeof(::VkPhysicalDeviceExclusiveScissorFeaturesNV),
+              "struct and wrapper have different size!");
+
+inline void cmd_set_exclusive_scissor_nv(VkCommandBuffer command_buffer,
+                                         uint32_t first_exclusive_scissor,
+                                         uint32_t exclusive_scissor_count,
+                                         const vk::rect_2d* exclusive_scissors)
+{
+  vkCmdSetExclusiveScissorNV(
+    static_cast<VkCommandBuffer>(command_buffer),
+    static_cast<uint32_t>(first_exclusive_scissor),
+    static_cast<uint32_t>(exclusive_scissor_count),
+    reinterpret_cast<const VkRect2D*>(exclusive_scissors));
+}
+
+/// Enhanced replacement type for VkQueueFamilyCheckpointPropertiesNV.
+class queue_family_checkpoint_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr queue_family_checkpoint_properties_nv() = default;
+
+  /// Constructor.
+  constexpr queue_family_checkpoint_properties_nv(
+    void* initial_next,
+    vk::pipeline_stage_flags initial_checkpoint_execution_stage_mask) noexcept
+  : _next(std::move(initial_next)),
+    _checkpoint_execution_stage_mask(
+      std::move(initial_checkpoint_execution_stage_mask))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr queue_family_checkpoint_properties_nv(
+    const queue_family_checkpoint_properties_nv& other) noexcept
+  : _next(other._next),
+    _checkpoint_execution_stage_mask(other._checkpoint_execution_stage_mask)
+  {
+  }
+
+  /// Move constructor.
+  constexpr queue_family_checkpoint_properties_nv(
+    queue_family_checkpoint_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _checkpoint_execution_stage_mask(
+      std::move(other._checkpoint_execution_stage_mask))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr queue_family_checkpoint_properties_nv& operator=(
+    const queue_family_checkpoint_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _checkpoint_execution_stage_mask = other._checkpoint_execution_stage_mask;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr queue_family_checkpoint_properties_nv& operator=(
+    queue_family_checkpoint_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _checkpoint_execution_stage_mask =
+      std::move(other._checkpoint_execution_stage_mask);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkQueueFamilyCheckpointPropertiesNV&() const
+  {
+    return *reinterpret_cast<const VkQueueFamilyCheckpointPropertiesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_stage_flags& checkpoint_execution_stage_mask()
+  {
+    return _checkpoint_execution_stage_mask;
+  }
+
+  constexpr const vk::pipeline_stage_flags& checkpoint_execution_stage_mask()
+    const
+  {
+    return _checkpoint_execution_stage_mask;
+  }
+
+  void checkpoint_execution_stage_mask(
+    vk::pipeline_stage_flags new_checkpoint_execution_stage_mask)
+  {
+    _checkpoint_execution_stage_mask = new_checkpoint_execution_stage_mask;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::queue_family_checkpoint_properties_nv;
+  void* _next = nullptr;
+  vk::pipeline_stage_flags _checkpoint_execution_stage_mask =
+    vk::pipeline_stage_flag::none;
+};
+static_assert(sizeof(queue_family_checkpoint_properties_nv) ==
+                sizeof(::VkQueueFamilyCheckpointPropertiesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkCheckpointDataNV.
+class checkpoint_data_nv
+{
+public:
+  /// Default constructor.
+  constexpr checkpoint_data_nv() = default;
+
+  /// Constructor.
+  constexpr checkpoint_data_nv(void* initial_next,
+                               vk::pipeline_stage_flag initial_stage,
+                               void* initial_checkpoint_marker) noexcept
+  : _next(std::move(initial_next)),
+    _stage(std::move(initial_stage)),
+    _checkpoint_marker(std::move(initial_checkpoint_marker))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr checkpoint_data_nv(const checkpoint_data_nv& other) noexcept
+  : _next(other._next),
+    _stage(other._stage),
+    _checkpoint_marker(other._checkpoint_marker)
+  {
+  }
+
+  /// Move constructor.
+  constexpr checkpoint_data_nv(checkpoint_data_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _stage(std::move(other._stage)),
+    _checkpoint_marker(std::move(other._checkpoint_marker))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr checkpoint_data_nv& operator=(
+    const checkpoint_data_nv& other) noexcept
+  {
+    _next = other._next;
+    _stage = other._stage;
+    _checkpoint_marker = other._checkpoint_marker;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr checkpoint_data_nv& operator=(checkpoint_data_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _stage = std::move(other._stage);
+    _checkpoint_marker = std::move(other._checkpoint_marker);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkCheckpointDataNV&() const
+  {
+    return *reinterpret_cast<const VkCheckpointDataNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_stage_flag& stage()
+  {
+    return _stage;
+  }
+
+  constexpr const vk::pipeline_stage_flag& stage() const
+  {
+    return _stage;
+  }
+
+  void stage(vk::pipeline_stage_flag new_stage)
+  {
+    _stage = new_stage;
+  }
+
+  void* checkpoint_marker()
+  {
+    return _checkpoint_marker;
+  }
+
+  constexpr void* checkpoint_marker() const
+  {
+    return _checkpoint_marker;
+  }
+
+  void checkpoint_marker(void* new_checkpoint_marker)
+  {
+    _checkpoint_marker = new_checkpoint_marker;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::checkpoint_data_nv;
+  void* _next = nullptr;
+  vk::pipeline_stage_flag _stage = vk::pipeline_stage_flag::none;
+  void* _checkpoint_marker = nullptr;
+};
+static_assert(sizeof(checkpoint_data_nv) == sizeof(::VkCheckpointDataNV),
+              "struct and wrapper have different size!");
+
+inline void cmd_set_checkpoint_nv(VkCommandBuffer command_buffer,
+                                  const void* checkpoint_marker)
+{
+  vkCmdSetCheckpointNV(static_cast<VkCommandBuffer>(command_buffer),
+                       reinterpret_cast<const void*>(checkpoint_marker));
+}
+inline void get_queue_checkpoint_data_nv(
+  VkQueue queue, uint32_t* checkpoint_data_count,
+  vk::checkpoint_data_nv* checkpoint_data)
+{
+  vkGetQueueCheckpointDataNV(
+    static_cast<VkQueue>(queue),
+    reinterpret_cast<uint32_t*>(checkpoint_data_count),
+    reinterpret_cast<VkCheckpointDataNV*>(checkpoint_data));
+}
+
+/// Enhanced replacement type for VkPhysicalDeviceVulkanMemoryModelFeaturesKHR.
+class physical_device_vulkan_memory_model_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_vulkan_memory_model_features_khr() = default;
+
+  /// Constructor.
+  constexpr physical_device_vulkan_memory_model_features_khr(
+    void* initial_next, VkBool32 initial_vulkan_memory_model,
+    VkBool32 initial_vulkan_memory_model_device_scope) noexcept
+  : _next(std::move(initial_next)),
+    _vulkan_memory_model(std::move(initial_vulkan_memory_model)),
+    _vulkan_memory_model_device_scope(
+      std::move(initial_vulkan_memory_model_device_scope))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_vulkan_memory_model_features_khr(
+    const physical_device_vulkan_memory_model_features_khr& other) noexcept
+  : _next(other._next),
+    _vulkan_memory_model(other._vulkan_memory_model),
+    _vulkan_memory_model_device_scope(other._vulkan_memory_model_device_scope)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_vulkan_memory_model_features_khr(
+    physical_device_vulkan_memory_model_features_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _vulkan_memory_model(std::move(other._vulkan_memory_model)),
+    _vulkan_memory_model_device_scope(
+      std::move(other._vulkan_memory_model_device_scope))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_vulkan_memory_model_features_khr& operator=(
+    const physical_device_vulkan_memory_model_features_khr& other) noexcept
+  {
+    _next = other._next;
+    _vulkan_memory_model = other._vulkan_memory_model;
+    _vulkan_memory_model_device_scope = other._vulkan_memory_model_device_scope;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_vulkan_memory_model_features_khr& operator=(
+    physical_device_vulkan_memory_model_features_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _vulkan_memory_model = std::move(other._vulkan_memory_model);
+    _vulkan_memory_model_device_scope =
+      std::move(other._vulkan_memory_model_device_scope);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceVulkanMemoryModelFeaturesKHR&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& vulkan_memory_model()
+  {
+    return _vulkan_memory_model;
+  }
+
+  constexpr const VkBool32& vulkan_memory_model() const
+  {
+    return _vulkan_memory_model;
+  }
+
+  void vulkan_memory_model(VkBool32 new_vulkan_memory_model)
+  {
+    _vulkan_memory_model = new_vulkan_memory_model;
+  }
+
+  VkBool32& vulkan_memory_model_device_scope()
+  {
+    return _vulkan_memory_model_device_scope;
+  }
+
+  constexpr const VkBool32& vulkan_memory_model_device_scope() const
+  {
+    return _vulkan_memory_model_device_scope;
+  }
+
+  void vulkan_memory_model_device_scope(
+    VkBool32 new_vulkan_memory_model_device_scope)
+  {
+    _vulkan_memory_model_device_scope = new_vulkan_memory_model_device_scope;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_vulkan_memory_model_features_khr;
+  void* _next = nullptr;
+  VkBool32 _vulkan_memory_model = VK_FALSE;
+  VkBool32 _vulkan_memory_model_device_scope = VK_FALSE;
+};
+static_assert(sizeof(physical_device_vulkan_memory_model_features_khr) ==
+                sizeof(::VkPhysicalDeviceVulkanMemoryModelFeaturesKHR),
+              "struct and wrapper have different size!");
+
+#if defined(VK_USE_PLATFORM_XLIB_KHR)
+#if defined(VK_USE_PLATFORM_XLIB_KHR)
+using xlib_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_XLIB_KHR)
+
+/// Enhanced replacement type for VkXlibSurfaceCreateInfoKHR.
+class xlib_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr xlib_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr xlib_surface_create_info_khr(
+    const void* initial_next, vk::xlib_surface_create_flags_khr initial_flags,
+    Display* initial_dpy, Window initial_window) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _dpy(std::move(initial_dpy)),
+    _window(std::move(initial_window))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr xlib_surface_create_info_khr(
+    const xlib_surface_create_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _dpy(other._dpy),
+    _window(other._window)
+  {
+  }
+
+  /// Move constructor.
+  constexpr xlib_surface_create_info_khr(
+    xlib_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _dpy(std::move(other._dpy)),
+    _window(std::move(other._window))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr xlib_surface_create_info_khr& operator=(
+    const xlib_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _dpy = other._dpy;
+    _window = other._window;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr xlib_surface_create_info_khr& operator=(
+    xlib_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _dpy = std::move(other._dpy);
+    _window = std::move(other._window);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkXlibSurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkXlibSurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::xlib_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::xlib_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::xlib_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  Display* dpy()
+  {
+    return _dpy;
+  }
+
+  constexpr Display* dpy() const
+  {
+    return _dpy;
+  }
+
+  void dpy(Display* new_dpy)
+  {
+    _dpy = new_dpy;
+  }
+
+  Window& window()
+  {
+    return _window;
+  }
+
+  constexpr const Window& window() const
+  {
+    return _window;
+  }
+
+  void window(Window new_window)
+  {
+    _window = new_window;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::xlib_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::xlib_surface_create_flags_khr _flags = 0;
+  Display* _dpy = nullptr;
+  Window _window = 0;
+};
+static_assert(sizeof(xlib_surface_create_info_khr) ==
+                sizeof(::VkXlibSurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_xlib_surface_khr(
+  VkInstance instance, const vk::xlib_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateXlibSurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkXlibSurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+inline VkBool32 get_physical_device_xlib_presentation_support_khr(
+  VkPhysicalDevice physical_device, uint32_t queue_family_index, Display* dpy,
+  VisualID visual_id)
+{
+  return static_cast<VkBool32>(vkGetPhysicalDeviceXlibPresentationSupportKHR(
+    static_cast<VkPhysicalDevice>(physical_device),
+    static_cast<uint32_t>(queue_family_index), reinterpret_cast<Display*>(dpy),
+    static_cast<VisualID>(visual_id)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_XCB_KHR)
+#if defined(VK_USE_PLATFORM_XCB_KHR)
+using xcb_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_XCB_KHR)
+
+/// Enhanced replacement type for VkXcbSurfaceCreateInfoKHR.
+class xcb_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr xcb_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr xcb_surface_create_info_khr(
+    const void* initial_next, vk::xcb_surface_create_flags_khr initial_flags,
+    xcb_connection_t* initial_connection, xcb_window_t initial_window) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _connection(std::move(initial_connection)),
+    _window(std::move(initial_window))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr xcb_surface_create_info_khr(
+    const xcb_surface_create_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _connection(other._connection),
+    _window(other._window)
+  {
+  }
+
+  /// Move constructor.
+  constexpr xcb_surface_create_info_khr(
+    xcb_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _connection(std::move(other._connection)),
+    _window(std::move(other._window))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr xcb_surface_create_info_khr& operator=(
+    const xcb_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _connection = other._connection;
+    _window = other._window;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr xcb_surface_create_info_khr& operator=(
+    xcb_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _connection = std::move(other._connection);
+    _window = std::move(other._window);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkXcbSurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkXcbSurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::xcb_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::xcb_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::xcb_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  xcb_connection_t* connection()
+  {
+    return _connection;
+  }
+
+  constexpr xcb_connection_t* connection() const
+  {
+    return _connection;
+  }
+
+  void connection(xcb_connection_t* new_connection)
+  {
+    _connection = new_connection;
+  }
+
+  xcb_window_t& window()
+  {
+    return _window;
+  }
+
+  constexpr const xcb_window_t& window() const
+  {
+    return _window;
+  }
+
+  void window(xcb_window_t new_window)
+  {
+    _window = new_window;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::xcb_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::xcb_surface_create_flags_khr _flags = 0;
+  xcb_connection_t* _connection = nullptr;
+  xcb_window_t _window = 0;
+};
+static_assert(sizeof(xcb_surface_create_info_khr) ==
+                sizeof(::VkXcbSurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_xcb_surface_khr(
+  VkInstance instance, const vk::xcb_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateXcbSurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkXcbSurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+inline VkBool32 get_physical_device_xcb_presentation_support_khr(
+  VkPhysicalDevice physical_device, uint32_t queue_family_index,
+  xcb_connection_t* connection, xcb_visualid_t visual_id)
+{
+  return static_cast<VkBool32>(vkGetPhysicalDeviceXcbPresentationSupportKHR(
+    static_cast<VkPhysicalDevice>(physical_device),
+    static_cast<uint32_t>(queue_family_index),
+    reinterpret_cast<xcb_connection_t*>(connection),
+    static_cast<xcb_visualid_t>(visual_id)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
+#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
+using wayland_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_WAYLAND_KHR)
+
+/// Enhanced replacement type for VkWaylandSurfaceCreateInfoKHR.
+class wayland_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr wayland_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr wayland_surface_create_info_khr(
+    const void* initial_next,
+    vk::wayland_surface_create_flags_khr initial_flags,
+    struct wl_display* initial_display,
+    struct wl_surface* initial_surface) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _display(std::move(initial_display)),
+    _surface(std::move(initial_surface))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr wayland_surface_create_info_khr(
+    const wayland_surface_create_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _display(other._display),
+    _surface(other._surface)
+  {
+  }
+
+  /// Move constructor.
+  constexpr wayland_surface_create_info_khr(
+    wayland_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _display(std::move(other._display)),
+    _surface(std::move(other._surface))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr wayland_surface_create_info_khr& operator=(
+    const wayland_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _display = other._display;
+    _surface = other._surface;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr wayland_surface_create_info_khr& operator=(
+    wayland_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _display = std::move(other._display);
+    _surface = std::move(other._surface);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkWaylandSurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkWaylandSurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::wayland_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::wayland_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::wayland_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  struct wl_display* display()
+  {
+    return _display;
+  }
+
+  constexpr struct wl_display* display() const
+  {
+    return _display;
+  }
+
+  void display(struct wl_display* new_display)
+  {
+    _display = new_display;
+  }
+
+  struct wl_surface* surface()
+  {
+    return _surface;
+  }
+
+  constexpr struct wl_surface* surface() const
+  {
+    return _surface;
+  }
+
+  void surface(struct wl_surface* new_surface)
+  {
+    _surface = new_surface;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::wayland_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::wayland_surface_create_flags_khr _flags = 0;
+  struct wl_display* _display = nullptr;
+  struct wl_surface* _surface = nullptr;
+};
+static_assert(sizeof(wayland_surface_create_info_khr) ==
+                sizeof(::VkWaylandSurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_wayland_surface_khr(
+  VkInstance instance, const vk::wayland_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateWaylandSurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkWaylandSurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+inline VkBool32 get_physical_device_wayland_presentation_support_khr(
+  VkPhysicalDevice physical_device, uint32_t queue_family_index,
+  struct wl_display* display)
+{
+  return static_cast<VkBool32>(vkGetPhysicalDeviceWaylandPresentationSupportKHR(
+    static_cast<VkPhysicalDevice>(physical_device),
+    static_cast<uint32_t>(queue_family_index),
+    reinterpret_cast<wl_display*>(display)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_MIR_KHR)
+#if defined(VK_USE_PLATFORM_MIR_KHR)
+using mir_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_MIR_KHR)
+
+/// Enhanced replacement type for VkMirSurfaceCreateInfoKHR.
+class mir_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr mir_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr mir_surface_create_info_khr(
+    const void* initial_next, vk::mir_surface_create_flags_khr initial_flags,
+    MirConnection* initial_connection, MirSurface* initial_mir_surface) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _connection(std::move(initial_connection)),
+    _mir_surface(std::move(initial_mir_surface))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr mir_surface_create_info_khr(
+    const mir_surface_create_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _connection(other._connection),
+    _mir_surface(other._mir_surface)
+  {
+  }
+
+  /// Move constructor.
+  constexpr mir_surface_create_info_khr(
+    mir_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _connection(std::move(other._connection)),
+    _mir_surface(std::move(other._mir_surface))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr mir_surface_create_info_khr& operator=(
+    const mir_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _connection = other._connection;
+    _mir_surface = other._mir_surface;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr mir_surface_create_info_khr& operator=(
+    mir_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _connection = std::move(other._connection);
+    _mir_surface = std::move(other._mir_surface);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMirSurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkMirSurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::mir_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::mir_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::mir_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  MirConnection* connection()
+  {
+    return _connection;
+  }
+
+  constexpr MirConnection* connection() const
+  {
+    return _connection;
+  }
+
+  void connection(MirConnection* new_connection)
+  {
+    _connection = new_connection;
+  }
+
+  MirSurface* mir_surface()
+  {
+    return _mir_surface;
+  }
+
+  constexpr MirSurface* mir_surface() const
+  {
+    return _mir_surface;
+  }
+
+  void mir_surface(MirSurface* new_mir_surface)
+  {
+    _mir_surface = new_mir_surface;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::mir_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::mir_surface_create_flags_khr _flags = 0;
+  MirConnection* _connection = nullptr;
+  MirSurface* _mir_surface = nullptr;
+};
+static_assert(sizeof(mir_surface_create_info_khr) ==
+                sizeof(::VkMirSurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_mir_surface_khr(
+  VkInstance instance, const vk::mir_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateMirSurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkMirSurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+inline VkBool32 get_physical_device_mir_presentation_support_khr(
+  VkPhysicalDevice physical_device, uint32_t queue_family_index,
+  MirConnection* connection)
+{
+  return static_cast<VkBool32>(vkGetPhysicalDeviceMirPresentationSupportKHR(
+    static_cast<VkPhysicalDevice>(physical_device),
+    static_cast<uint32_t>(queue_family_index),
+    reinterpret_cast<MirConnection*>(connection)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+using android_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkAndroidSurfaceCreateInfoKHR.
+class android_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr android_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr android_surface_create_info_khr(
+    const void* initial_next,
+    vk::android_surface_create_flags_khr initial_flags,
+    struct ANativeWindow* initial_window) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _window(std::move(initial_window))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr android_surface_create_info_khr(
+    const android_surface_create_info_khr& other) noexcept
+  : _next(other._next), _flags(other._flags), _window(other._window)
+  {
+  }
+
+  /// Move constructor.
+  constexpr android_surface_create_info_khr(
+    android_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _window(std::move(other._window))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr android_surface_create_info_khr& operator=(
+    const android_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _window = other._window;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr android_surface_create_info_khr& operator=(
+    android_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _window = std::move(other._window);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAndroidSurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkAndroidSurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::android_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::android_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::android_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  struct ANativeWindow* window()
+  {
+    return _window;
+  }
+
+  constexpr struct ANativeWindow* window() const
+  {
+    return _window;
+  }
+
+  void window(struct ANativeWindow* new_window)
+  {
+    _window = new_window;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::android_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::android_surface_create_flags_khr _flags = 0;
+  struct ANativeWindow* _window = nullptr;
+};
+static_assert(sizeof(android_surface_create_info_khr) ==
+                sizeof(::VkAndroidSurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_android_surface_khr(
+  VkInstance instance, const vk::android_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateAndroidSurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkAndroidSurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+using win32_surface_create_flags_khr = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkWin32SurfaceCreateInfoKHR.
+class win32_surface_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr win32_surface_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr win32_surface_create_info_khr(
+    const void* initial_next, vk::win32_surface_create_flags_khr initial_flags,
+    HINSTANCE initial_hinstance, HWND initial_hwnd) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _hinstance(std::move(initial_hinstance)),
+    _hwnd(std::move(initial_hwnd))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr win32_surface_create_info_khr(
+    const win32_surface_create_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _hinstance(other._hinstance),
+    _hwnd(other._hwnd)
+  {
+  }
+
+  /// Move constructor.
+  constexpr win32_surface_create_info_khr(
+    win32_surface_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _hinstance(std::move(other._hinstance)),
+    _hwnd(std::move(other._hwnd))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr win32_surface_create_info_khr& operator=(
+    const win32_surface_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _hinstance = other._hinstance;
+    _hwnd = other._hwnd;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr win32_surface_create_info_khr& operator=(
+    win32_surface_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _hinstance = std::move(other._hinstance);
+    _hwnd = std::move(other._hwnd);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkWin32SurfaceCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkWin32SurfaceCreateInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::win32_surface_create_flags_khr& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::win32_surface_create_flags_khr& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::win32_surface_create_flags_khr new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  HINSTANCE& hinstance()
+  {
+    return _hinstance;
+  }
+
+  constexpr const HINSTANCE& hinstance() const
+  {
+    return _hinstance;
+  }
+
+  void hinstance(HINSTANCE new_hinstance)
+  {
+    _hinstance = new_hinstance;
+  }
+
+  HWND& hwnd()
+  {
+    return _hwnd;
+  }
+
+  constexpr const HWND& hwnd() const
+  {
+    return _hwnd;
+  }
+
+  void hwnd(HWND new_hwnd)
+  {
+    _hwnd = new_hwnd;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::win32_surface_create_info_khr;
+  const void* _next = nullptr;
+  vk::win32_surface_create_flags_khr _flags = 0;
+  HINSTANCE _hinstance = 0;
+  HWND _hwnd = 0;
+};
+static_assert(sizeof(win32_surface_create_info_khr) ==
+                sizeof(::VkWin32SurfaceCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_win32_surface_khr(
+  VkInstance instance, const vk::win32_surface_create_info_khr* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateWin32SurfaceKHR(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkWin32SurfaceCreateInfoKHR*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+inline VkBool32 get_physical_device_win32_presentation_support_khr(
+  VkPhysicalDevice physical_device, uint32_t queue_family_index)
+{
+  return static_cast<VkBool32>(vkGetPhysicalDeviceWin32PresentationSupportKHR(
+    static_cast<VkPhysicalDevice>(physical_device),
+    static_cast<uint32_t>(queue_family_index)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkImportMemoryWin32HandleInfoNV.
+class import_memory_win32_handle_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr import_memory_win32_handle_info_nv() = default;
+
+  /// Constructor.
+  constexpr import_memory_win32_handle_info_nv(
+    const void* initial_next,
+    vk::external_memory_handle_type_flags_nv initial_handle_type,
+    HANDLE initial_handle) noexcept
+  : _next(std::move(initial_next)),
+    _handle_type(std::move(initial_handle_type)),
+    _handle(std::move(initial_handle))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr import_memory_win32_handle_info_nv(
+    const import_memory_win32_handle_info_nv& other) noexcept
+  : _next(other._next), _handle_type(other._handle_type), _handle(other._handle)
+  {
+  }
+
+  /// Move constructor.
+  constexpr import_memory_win32_handle_info_nv(
+    import_memory_win32_handle_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _handle_type(std::move(other._handle_type)),
+    _handle(std::move(other._handle))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr import_memory_win32_handle_info_nv& operator=(
+    const import_memory_win32_handle_info_nv& other) noexcept
+  {
+    _next = other._next;
+    _handle_type = other._handle_type;
+    _handle = other._handle;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr import_memory_win32_handle_info_nv& operator=(
+    import_memory_win32_handle_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _handle_type = std::move(other._handle_type);
+    _handle = std::move(other._handle);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImportMemoryWin32HandleInfoNV&() const
+  {
+    return *reinterpret_cast<const VkImportMemoryWin32HandleInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::external_memory_handle_type_flags_nv& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_memory_handle_type_flags_nv& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_memory_handle_type_flags_nv new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+  HANDLE& handle()
+  {
+    return _handle;
+  }
+
+  constexpr const HANDLE& handle() const
+  {
+    return _handle;
+  }
+
+  void handle(HANDLE new_handle)
+  {
+    _handle = new_handle;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::import_memory_win32_handle_info_nv;
+  const void* _next = nullptr;
+  vk::external_memory_handle_type_flags_nv _handle_type =
+    vk::external_memory_handle_type_flag_nv::none;
+  HANDLE _handle = 0;
+};
+static_assert(sizeof(import_memory_win32_handle_info_nv) ==
+                sizeof(::VkImportMemoryWin32HandleInfoNV),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkExportMemoryWin32HandleInfoNV.
+class export_memory_win32_handle_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr export_memory_win32_handle_info_nv() = default;
+
+  /// Constructor.
+  constexpr export_memory_win32_handle_info_nv(
+    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
+    DWORD initial_dw_access) noexcept
+  : _next(std::move(initial_next)),
+    _attributes(std::move(initial_attributes)),
+    _dw_access(std::move(initial_dw_access))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr export_memory_win32_handle_info_nv(
+    const export_memory_win32_handle_info_nv& other) noexcept
+  : _next(other._next),
+    _attributes(other._attributes),
+    _dw_access(other._dw_access)
+  {
+  }
+
+  /// Move constructor.
+  constexpr export_memory_win32_handle_info_nv(
+    export_memory_win32_handle_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _attributes(std::move(other._attributes)),
+    _dw_access(std::move(other._dw_access))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr export_memory_win32_handle_info_nv& operator=(
+    const export_memory_win32_handle_info_nv& other) noexcept
+  {
+    _next = other._next;
+    _attributes = other._attributes;
+    _dw_access = other._dw_access;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr export_memory_win32_handle_info_nv& operator=(
+    export_memory_win32_handle_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attributes = std::move(other._attributes);
+    _dw_access = std::move(other._dw_access);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkExportMemoryWin32HandleInfoNV&() const
+  {
+    return *reinterpret_cast<const VkExportMemoryWin32HandleInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  const SECURITY_ATTRIBUTES* attributes()
+  {
+    return _attributes;
+  }
+
+  constexpr const SECURITY_ATTRIBUTES* attributes() const
+  {
+    return _attributes;
+  }
+
+  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
+  {
+    _attributes = new_attributes;
+  }
+
+  DWORD& dw_access()
+  {
+    return _dw_access;
+  }
+
+  constexpr const DWORD& dw_access() const
+  {
+    return _dw_access;
+  }
+
+  void dw_access(DWORD new_dw_access)
+  {
+    _dw_access = new_dw_access;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::export_memory_win32_handle_info_nv;
+  const void* _next = nullptr;
+  const SECURITY_ATTRIBUTES* _attributes = nullptr;
+  DWORD _dw_access = 0;
+};
+static_assert(sizeof(export_memory_win32_handle_info_nv) ==
+                sizeof(::VkExportMemoryWin32HandleInfoNV),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result get_memory_win32_handle_nv(
+  VkDevice device, VkDeviceMemory memory,
+  vk::external_memory_handle_type_flags_nv handle_type, HANDLE* handle)
+{
+  return static_cast<vk::result>(vkGetMemoryWin32HandleNV(
+    static_cast<VkDevice>(device), static_cast<VkDeviceMemory>(memory),
+    static_cast<VkExternalMemoryHandleTypeFlagsNV>(handle_type),
+    reinterpret_cast<HANDLE*>(handle)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkWin32KeyedMutexAcquireReleaseInfoNV.
+class win32_keyed_mutex_acquire_release_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_nv() = default;
+
+  /// Constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_nv(
+    const void* initial_next, uint32_t initial_acquire_count,
+    const VkDeviceMemory* initial_acquire_syncs,
+    const uint64_t* initial_acquire_keys,
+    const uint32_t* initial_acquire_timeout_milliseconds,
+    uint32_t initial_release_count, const VkDeviceMemory* initial_release_syncs,
+    const uint64_t* initial_release_keys) noexcept
+  : _next(std::move(initial_next)),
+    _acquire_count(std::move(initial_acquire_count)),
+    _acquire_syncs(std::move(initial_acquire_syncs)),
+    _acquire_keys(std::move(initial_acquire_keys)),
+    _acquire_timeout_milliseconds(
+      std::move(initial_acquire_timeout_milliseconds)),
+    _release_count(std::move(initial_release_count)),
+    _release_syncs(std::move(initial_release_syncs)),
+    _release_keys(std::move(initial_release_keys))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_nv(
+    const win32_keyed_mutex_acquire_release_info_nv& other) noexcept
+  : _next(other._next),
+    _acquire_count(other._acquire_count),
+    _acquire_syncs(other._acquire_syncs),
+    _acquire_keys(other._acquire_keys),
+    _acquire_timeout_milliseconds(other._acquire_timeout_milliseconds),
+    _release_count(other._release_count),
+    _release_syncs(other._release_syncs),
+    _release_keys(other._release_keys)
+  {
+  }
+
+  /// Move constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_nv(
+    win32_keyed_mutex_acquire_release_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _acquire_count(std::move(other._acquire_count)),
+    _acquire_syncs(std::move(other._acquire_syncs)),
+    _acquire_keys(std::move(other._acquire_keys)),
+    _acquire_timeout_milliseconds(
+      std::move(other._acquire_timeout_milliseconds)),
+    _release_count(std::move(other._release_count)),
+    _release_syncs(std::move(other._release_syncs)),
+    _release_keys(std::move(other._release_keys))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr win32_keyed_mutex_acquire_release_info_nv& operator=(
+    const win32_keyed_mutex_acquire_release_info_nv& other) noexcept
+  {
+    _next = other._next;
+    _acquire_count = other._acquire_count;
+    _acquire_syncs = other._acquire_syncs;
+    _acquire_keys = other._acquire_keys;
+    _acquire_timeout_milliseconds = other._acquire_timeout_milliseconds;
+    _release_count = other._release_count;
+    _release_syncs = other._release_syncs;
+    _release_keys = other._release_keys;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr win32_keyed_mutex_acquire_release_info_nv& operator=(
+    win32_keyed_mutex_acquire_release_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _acquire_count = std::move(other._acquire_count);
+    _acquire_syncs = std::move(other._acquire_syncs);
+    _acquire_keys = std::move(other._acquire_keys);
+    _acquire_timeout_milliseconds =
+      std::move(other._acquire_timeout_milliseconds);
+    _release_count = std::move(other._release_count);
+    _release_syncs = std::move(other._release_syncs);
+    _release_keys = std::move(other._release_keys);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkWin32KeyedMutexAcquireReleaseInfoNV&() const
+  {
+    return *reinterpret_cast<const VkWin32KeyedMutexAcquireReleaseInfoNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& acquire_count()
+  {
+    return _acquire_count;
+  }
+
+  constexpr const uint32_t& acquire_count() const
+  {
+    return _acquire_count;
+  }
+
+  void acquire_count(uint32_t new_acquire_count)
+  {
+    _acquire_count = new_acquire_count;
+  }
+
+  const VkDeviceMemory* acquire_syncs()
+  {
+    return _acquire_syncs;
+  }
+
+  constexpr const VkDeviceMemory* acquire_syncs() const
+  {
+    return _acquire_syncs;
+  }
+
+  void acquire_syncs(const VkDeviceMemory* new_acquire_syncs)
+  {
+    _acquire_syncs = new_acquire_syncs;
+  }
+
+  template <std::size_t Count>
+  void acquire_syncs(const std::array<VkDeviceMemory, Count>& new_acquire_syncs)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
+    _acquire_syncs = new_acquire_syncs.data();
+  }
+
+  void acquire_syncs(const std::vector<VkDeviceMemory>& new_acquire_syncs)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
+    _acquire_syncs = new_acquire_syncs.data();
+  }
+
+  const uint64_t* acquire_keys()
+  {
+    return _acquire_keys;
+  }
+
+  constexpr const uint64_t* acquire_keys() const
+  {
+    return _acquire_keys;
+  }
+
+  void acquire_keys(const uint64_t* new_acquire_keys)
+  {
+    _acquire_keys = new_acquire_keys;
+  }
+
+  template <std::size_t Count>
+  void acquire_keys(const std::array<uint64_t, Count>& new_acquire_keys)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
+    _acquire_keys = new_acquire_keys.data();
+  }
+
+  void acquire_keys(const std::vector<uint64_t>& new_acquire_keys)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
+    _acquire_keys = new_acquire_keys.data();
+  }
+
+  const uint32_t* acquire_timeout_milliseconds()
+  {
+    return _acquire_timeout_milliseconds;
+  }
+
+  constexpr const uint32_t* acquire_timeout_milliseconds() const
+  {
+    return _acquire_timeout_milliseconds;
+  }
+
+  void acquire_timeout_milliseconds(
+    const uint32_t* new_acquire_timeout_milliseconds)
+  {
+    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds;
+  }
+
+  template <std::size_t Count>
+  void acquire_timeout_milliseconds(
+    const std::array<uint32_t, Count>& new_acquire_timeout_milliseconds)
+  {
+    _acquire_count =
+      static_cast<uint32_t>(new_acquire_timeout_milliseconds.size());
+    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds.data();
+  }
+
+  void acquire_timeout_milliseconds(
+    const std::vector<uint32_t>& new_acquire_timeout_milliseconds)
+  {
+    _acquire_count =
+      static_cast<uint32_t>(new_acquire_timeout_milliseconds.size());
+    _acquire_timeout_milliseconds = new_acquire_timeout_milliseconds.data();
+  }
+
+  uint32_t& release_count()
+  {
+    return _release_count;
+  }
+
+  constexpr const uint32_t& release_count() const
+  {
+    return _release_count;
+  }
+
+  void release_count(uint32_t new_release_count)
+  {
+    _release_count = new_release_count;
+  }
+
+  const VkDeviceMemory* release_syncs()
+  {
+    return _release_syncs;
+  }
+
+  constexpr const VkDeviceMemory* release_syncs() const
+  {
+    return _release_syncs;
+  }
+
+  void release_syncs(const VkDeviceMemory* new_release_syncs)
+  {
+    _release_syncs = new_release_syncs;
+  }
+
+  template <std::size_t Count>
+  void release_syncs(const std::array<VkDeviceMemory, Count>& new_release_syncs)
+  {
+    _release_count = static_cast<uint32_t>(new_release_syncs.size());
+    _release_syncs = new_release_syncs.data();
+  }
+
+  void release_syncs(const std::vector<VkDeviceMemory>& new_release_syncs)
+  {
+    _release_count = static_cast<uint32_t>(new_release_syncs.size());
+    _release_syncs = new_release_syncs.data();
+  }
+
+  const uint64_t* release_keys()
+  {
+    return _release_keys;
+  }
+
+  constexpr const uint64_t* release_keys() const
+  {
+    return _release_keys;
+  }
+
+  void release_keys(const uint64_t* new_release_keys)
+  {
+    _release_keys = new_release_keys;
+  }
+
+  template <std::size_t Count>
+  void release_keys(const std::array<uint64_t, Count>& new_release_keys)
+  {
+    _release_count = static_cast<uint32_t>(new_release_keys.size());
+    _release_keys = new_release_keys.data();
+  }
+
+  void release_keys(const std::vector<uint64_t>& new_release_keys)
+  {
+    _release_count = static_cast<uint32_t>(new_release_keys.size());
+    _release_keys = new_release_keys.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::win32_keyed_mutex_acquire_release_info_nv;
+  const void* _next = nullptr;
+  uint32_t _acquire_count = 0;
+  const VkDeviceMemory* _acquire_syncs = nullptr;
+  const uint64_t* _acquire_keys = nullptr;
+  const uint32_t* _acquire_timeout_milliseconds = nullptr;
+  uint32_t _release_count = 0;
+  const VkDeviceMemory* _release_syncs = nullptr;
+  const uint64_t* _release_keys = nullptr;
+};
+static_assert(sizeof(win32_keyed_mutex_acquire_release_info_nv) ==
+                sizeof(::VkWin32KeyedMutexAcquireReleaseInfoNV),
+              "struct and wrapper have different size!");
+
+#endif
+#endif
+#if defined(VK_USE_PLATFORM_VI_NN)
+#if defined(VK_USE_PLATFORM_VI_NN)
+using vi_surface_create_flags_nn = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_VI_NN)
+
+/// Enhanced replacement type for VkViSurfaceCreateInfoNN.
+class vi_surface_create_info_nn
+{
+public:
+  /// Default constructor.
+  constexpr vi_surface_create_info_nn() = default;
+
+  /// Constructor.
+  constexpr vi_surface_create_info_nn(
+    const void* initial_next, vk::vi_surface_create_flags_nn initial_flags,
+    void* initial_window) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _window(std::move(initial_window))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr vi_surface_create_info_nn(
+    const vi_surface_create_info_nn& other) noexcept
+  : _next(other._next), _flags(other._flags), _window(other._window)
+  {
+  }
+
+  /// Move constructor.
+  constexpr vi_surface_create_info_nn(
+    vi_surface_create_info_nn&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _window(std::move(other._window))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr vi_surface_create_info_nn& operator=(
+    const vi_surface_create_info_nn& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _window = other._window;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr vi_surface_create_info_nn& operator=(
+    vi_surface_create_info_nn&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _window = std::move(other._window);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkViSurfaceCreateInfoNN&() const
+  {
+    return *reinterpret_cast<const VkViSurfaceCreateInfoNN*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::vi_surface_create_flags_nn& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::vi_surface_create_flags_nn& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::vi_surface_create_flags_nn new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  void* window()
+  {
+    return _window;
+  }
+
+  constexpr void* window() const
+  {
+    return _window;
+  }
+
+  void window(void* new_window)
+  {
+    _window = new_window;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::vi_surface_create_info_nn;
+  const void* _next = nullptr;
+  vk::vi_surface_create_flags_nn _flags = 0;
+  void* _window = nullptr;
+};
+static_assert(sizeof(vi_surface_create_info_nn) ==
+                sizeof(::VkViSurfaceCreateInfoNN),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_vi_surface_nn(
+  VkInstance instance, const vk::vi_surface_create_info_nn* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateViSurfaceNN(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkViSurfaceCreateInfoNN*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkImportMemoryWin32HandleInfoKHR.
+class import_memory_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr import_memory_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr import_memory_win32_handle_info_khr(
+    const void* initial_next,
+    vk::external_memory_handle_type_flag initial_handle_type,
+    HANDLE initial_handle, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _handle_type(std::move(initial_handle_type)),
+    _handle(std::move(initial_handle)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr import_memory_win32_handle_info_khr(
+    const import_memory_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _handle_type(other._handle_type),
+    _handle(other._handle),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr import_memory_win32_handle_info_khr(
+    import_memory_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _handle_type(std::move(other._handle_type)),
+    _handle(std::move(other._handle)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr import_memory_win32_handle_info_khr& operator=(
+    const import_memory_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _handle_type = other._handle_type;
+    _handle = other._handle;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr import_memory_win32_handle_info_khr& operator=(
+    import_memory_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _handle_type = std::move(other._handle_type);
+    _handle = std::move(other._handle);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImportMemoryWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkImportMemoryWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::external_memory_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_memory_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_memory_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+  HANDLE& handle()
+  {
+    return _handle;
+  }
+
+  constexpr const HANDLE& handle() const
+  {
+    return _handle;
+  }
+
+  void handle(HANDLE new_handle)
+  {
+    _handle = new_handle;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::import_memory_win32_handle_info_khr;
+  const void* _next = nullptr;
+  vk::external_memory_handle_type_flag _handle_type =
+    vk::external_memory_handle_type_flag::none;
+  HANDLE _handle = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(import_memory_win32_handle_info_khr) ==
+                sizeof(::VkImportMemoryWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkExportMemoryWin32HandleInfoKHR.
+class export_memory_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr export_memory_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr export_memory_win32_handle_info_khr(
+    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
+    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _attributes(std::move(initial_attributes)),
+    _dw_access(std::move(initial_dw_access)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr export_memory_win32_handle_info_khr(
+    const export_memory_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _attributes(other._attributes),
+    _dw_access(other._dw_access),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr export_memory_win32_handle_info_khr(
+    export_memory_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attributes(std::move(other._attributes)),
+    _dw_access(std::move(other._dw_access)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr export_memory_win32_handle_info_khr& operator=(
+    const export_memory_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _attributes = other._attributes;
+    _dw_access = other._dw_access;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr export_memory_win32_handle_info_khr& operator=(
+    export_memory_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attributes = std::move(other._attributes);
+    _dw_access = std::move(other._dw_access);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkExportMemoryWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkExportMemoryWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  const SECURITY_ATTRIBUTES* attributes()
+  {
+    return _attributes;
+  }
+
+  constexpr const SECURITY_ATTRIBUTES* attributes() const
+  {
+    return _attributes;
+  }
+
+  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
+  {
+    _attributes = new_attributes;
+  }
+
+  DWORD& dw_access()
+  {
+    return _dw_access;
+  }
+
+  constexpr const DWORD& dw_access() const
+  {
+    return _dw_access;
+  }
+
+  void dw_access(DWORD new_dw_access)
+  {
+    _dw_access = new_dw_access;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::export_memory_win32_handle_info_khr;
+  const void* _next = nullptr;
+  const SECURITY_ATTRIBUTES* _attributes = nullptr;
+  DWORD _dw_access = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(export_memory_win32_handle_info_khr) ==
+                sizeof(::VkExportMemoryWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkMemoryWin32HandlePropertiesKHR.
+class memory_win32_handle_properties_khr
+{
+public:
+  /// Default constructor.
+  constexpr memory_win32_handle_properties_khr() = default;
+
+  /// Constructor.
+  constexpr memory_win32_handle_properties_khr(
+    void* initial_next, uint32_t initial_memory_type_bits) noexcept
+  : _next(std::move(initial_next)),
+    _memory_type_bits(std::move(initial_memory_type_bits))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr memory_win32_handle_properties_khr(
+    const memory_win32_handle_properties_khr& other) noexcept
+  : _next(other._next), _memory_type_bits(other._memory_type_bits)
+  {
+  }
+
+  /// Move constructor.
+  constexpr memory_win32_handle_properties_khr(
+    memory_win32_handle_properties_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _memory_type_bits(std::move(other._memory_type_bits))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr memory_win32_handle_properties_khr& operator=(
+    const memory_win32_handle_properties_khr& other) noexcept
+  {
+    _next = other._next;
+    _memory_type_bits = other._memory_type_bits;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr memory_win32_handle_properties_khr& operator=(
+    memory_win32_handle_properties_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _memory_type_bits = std::move(other._memory_type_bits);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMemoryWin32HandlePropertiesKHR&() const
+  {
+    return *reinterpret_cast<const VkMemoryWin32HandlePropertiesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& memory_type_bits()
+  {
+    return _memory_type_bits;
+  }
+
+  constexpr const uint32_t& memory_type_bits() const
+  {
+    return _memory_type_bits;
+  }
+
+  void memory_type_bits(uint32_t new_memory_type_bits)
+  {
+    _memory_type_bits = new_memory_type_bits;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::memory_win32_handle_properties_khr;
+  void* _next = nullptr;
+  uint32_t _memory_type_bits = 0;
+};
+static_assert(sizeof(memory_win32_handle_properties_khr) ==
+                sizeof(::VkMemoryWin32HandlePropertiesKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkMemoryGetWin32HandleInfoKHR.
+class memory_get_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr memory_get_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr memory_get_win32_handle_info_khr(
+    const void* initial_next, VkDeviceMemory initial_memory,
+    vk::external_memory_handle_type_flag initial_handle_type) noexcept
+  : _next(std::move(initial_next)),
+    _memory(std::move(initial_memory)),
+    _handle_type(std::move(initial_handle_type))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr memory_get_win32_handle_info_khr(
+    const memory_get_win32_handle_info_khr& other) noexcept
+  : _next(other._next), _memory(other._memory), _handle_type(other._handle_type)
+  {
+  }
+
+  /// Move constructor.
+  constexpr memory_get_win32_handle_info_khr(
+    memory_get_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _memory(std::move(other._memory)),
+    _handle_type(std::move(other._handle_type))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr memory_get_win32_handle_info_khr& operator=(
+    const memory_get_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _memory = other._memory;
+    _handle_type = other._handle_type;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr memory_get_win32_handle_info_khr& operator=(
+    memory_get_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _memory = std::move(other._memory);
+    _handle_type = std::move(other._handle_type);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMemoryGetWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkMemoryGetWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkDeviceMemory& memory()
+  {
+    return _memory;
+  }
+
+  constexpr const VkDeviceMemory& memory() const
+  {
+    return _memory;
+  }
+
+  void memory(VkDeviceMemory new_memory)
+  {
+    _memory = new_memory;
+  }
+
+  vk::external_memory_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_memory_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_memory_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::memory_get_win32_handle_info_khr;
+  const void* _next = nullptr;
+  VkDeviceMemory _memory = nullptr;
+  vk::external_memory_handle_type_flag _handle_type =
+    vk::external_memory_handle_type_flag::none;
+};
+static_assert(sizeof(memory_get_win32_handle_info_khr) ==
+                sizeof(::VkMemoryGetWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result get_memory_win32_handle_khr(
+  VkDevice device,
+  const vk::memory_get_win32_handle_info_khr* get_win32_handle_info,
+  HANDLE* handle)
+{
+  return static_cast<vk::result>(vkGetMemoryWin32HandleKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkMemoryGetWin32HandleInfoKHR*>(
+      get_win32_handle_info),
+    reinterpret_cast<HANDLE*>(handle)));
+}
+inline vk::result get_memory_win32_handle_properties_khr(
+  VkDevice device, vk::external_memory_handle_type_flag handle_type,
+  HANDLE handle,
+  vk::memory_win32_handle_properties_khr* memory_win32_handle_properties)
+{
+  return static_cast<vk::result>(vkGetMemoryWin32HandlePropertiesKHR(
+    static_cast<VkDevice>(device),
+    static_cast<VkExternalMemoryHandleTypeFlagBits>(handle_type),
+    static_cast<HANDLE>(handle),
+    reinterpret_cast<VkMemoryWin32HandlePropertiesKHR*>(
+      memory_win32_handle_properties)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkWin32KeyedMutexAcquireReleaseInfoKHR.
+class win32_keyed_mutex_acquire_release_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_khr() = default;
+
+  /// Constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_khr(
+    const void* initial_next, uint32_t initial_acquire_count,
+    const VkDeviceMemory* initial_acquire_syncs,
+    const uint64_t* initial_acquire_keys,
+    const uint32_t* initial_acquire_timeouts, uint32_t initial_release_count,
+    const VkDeviceMemory* initial_release_syncs,
+    const uint64_t* initial_release_keys) noexcept
+  : _next(std::move(initial_next)),
+    _acquire_count(std::move(initial_acquire_count)),
+    _acquire_syncs(std::move(initial_acquire_syncs)),
+    _acquire_keys(std::move(initial_acquire_keys)),
+    _acquire_timeouts(std::move(initial_acquire_timeouts)),
+    _release_count(std::move(initial_release_count)),
+    _release_syncs(std::move(initial_release_syncs)),
+    _release_keys(std::move(initial_release_keys))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_khr(
+    const win32_keyed_mutex_acquire_release_info_khr& other) noexcept
+  : _next(other._next),
+    _acquire_count(other._acquire_count),
+    _acquire_syncs(other._acquire_syncs),
+    _acquire_keys(other._acquire_keys),
+    _acquire_timeouts(other._acquire_timeouts),
+    _release_count(other._release_count),
+    _release_syncs(other._release_syncs),
+    _release_keys(other._release_keys)
+  {
+  }
+
+  /// Move constructor.
+  constexpr win32_keyed_mutex_acquire_release_info_khr(
+    win32_keyed_mutex_acquire_release_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _acquire_count(std::move(other._acquire_count)),
+    _acquire_syncs(std::move(other._acquire_syncs)),
+    _acquire_keys(std::move(other._acquire_keys)),
+    _acquire_timeouts(std::move(other._acquire_timeouts)),
+    _release_count(std::move(other._release_count)),
+    _release_syncs(std::move(other._release_syncs)),
+    _release_keys(std::move(other._release_keys))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr win32_keyed_mutex_acquire_release_info_khr& operator=(
+    const win32_keyed_mutex_acquire_release_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _acquire_count = other._acquire_count;
+    _acquire_syncs = other._acquire_syncs;
+    _acquire_keys = other._acquire_keys;
+    _acquire_timeouts = other._acquire_timeouts;
+    _release_count = other._release_count;
+    _release_syncs = other._release_syncs;
+    _release_keys = other._release_keys;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr win32_keyed_mutex_acquire_release_info_khr& operator=(
+    win32_keyed_mutex_acquire_release_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _acquire_count = std::move(other._acquire_count);
+    _acquire_syncs = std::move(other._acquire_syncs);
+    _acquire_keys = std::move(other._acquire_keys);
+    _acquire_timeouts = std::move(other._acquire_timeouts);
+    _release_count = std::move(other._release_count);
+    _release_syncs = std::move(other._release_syncs);
+    _release_keys = std::move(other._release_keys);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkWin32KeyedMutexAcquireReleaseInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkWin32KeyedMutexAcquireReleaseInfoKHR*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& acquire_count()
+  {
+    return _acquire_count;
+  }
+
+  constexpr const uint32_t& acquire_count() const
+  {
+    return _acquire_count;
+  }
+
+  void acquire_count(uint32_t new_acquire_count)
+  {
+    _acquire_count = new_acquire_count;
+  }
+
+  const VkDeviceMemory* acquire_syncs()
+  {
+    return _acquire_syncs;
+  }
+
+  constexpr const VkDeviceMemory* acquire_syncs() const
+  {
+    return _acquire_syncs;
+  }
+
+  void acquire_syncs(const VkDeviceMemory* new_acquire_syncs)
+  {
+    _acquire_syncs = new_acquire_syncs;
+  }
+
+  template <std::size_t Count>
+  void acquire_syncs(const std::array<VkDeviceMemory, Count>& new_acquire_syncs)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
+    _acquire_syncs = new_acquire_syncs.data();
+  }
+
+  void acquire_syncs(const std::vector<VkDeviceMemory>& new_acquire_syncs)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_syncs.size());
+    _acquire_syncs = new_acquire_syncs.data();
+  }
+
+  const uint64_t* acquire_keys()
+  {
+    return _acquire_keys;
+  }
+
+  constexpr const uint64_t* acquire_keys() const
+  {
+    return _acquire_keys;
+  }
+
+  void acquire_keys(const uint64_t* new_acquire_keys)
+  {
+    _acquire_keys = new_acquire_keys;
+  }
+
+  template <std::size_t Count>
+  void acquire_keys(const std::array<uint64_t, Count>& new_acquire_keys)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
+    _acquire_keys = new_acquire_keys.data();
+  }
+
+  void acquire_keys(const std::vector<uint64_t>& new_acquire_keys)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_keys.size());
+    _acquire_keys = new_acquire_keys.data();
+  }
+
+  const uint32_t* acquire_timeouts()
+  {
+    return _acquire_timeouts;
+  }
+
+  constexpr const uint32_t* acquire_timeouts() const
+  {
+    return _acquire_timeouts;
+  }
+
+  void acquire_timeouts(const uint32_t* new_acquire_timeouts)
+  {
+    _acquire_timeouts = new_acquire_timeouts;
+  }
+
+  template <std::size_t Count>
+  void acquire_timeouts(const std::array<uint32_t, Count>& new_acquire_timeouts)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_timeouts.size());
+    _acquire_timeouts = new_acquire_timeouts.data();
+  }
+
+  void acquire_timeouts(const std::vector<uint32_t>& new_acquire_timeouts)
+  {
+    _acquire_count = static_cast<uint32_t>(new_acquire_timeouts.size());
+    _acquire_timeouts = new_acquire_timeouts.data();
+  }
+
+  uint32_t& release_count()
+  {
+    return _release_count;
+  }
+
+  constexpr const uint32_t& release_count() const
+  {
+    return _release_count;
+  }
+
+  void release_count(uint32_t new_release_count)
+  {
+    _release_count = new_release_count;
+  }
+
+  const VkDeviceMemory* release_syncs()
+  {
+    return _release_syncs;
+  }
+
+  constexpr const VkDeviceMemory* release_syncs() const
+  {
+    return _release_syncs;
+  }
+
+  void release_syncs(const VkDeviceMemory* new_release_syncs)
+  {
+    _release_syncs = new_release_syncs;
+  }
+
+  template <std::size_t Count>
+  void release_syncs(const std::array<VkDeviceMemory, Count>& new_release_syncs)
+  {
+    _release_count = static_cast<uint32_t>(new_release_syncs.size());
+    _release_syncs = new_release_syncs.data();
+  }
+
+  void release_syncs(const std::vector<VkDeviceMemory>& new_release_syncs)
+  {
+    _release_count = static_cast<uint32_t>(new_release_syncs.size());
+    _release_syncs = new_release_syncs.data();
+  }
+
+  const uint64_t* release_keys()
+  {
+    return _release_keys;
+  }
+
+  constexpr const uint64_t* release_keys() const
+  {
+    return _release_keys;
+  }
+
+  void release_keys(const uint64_t* new_release_keys)
+  {
+    _release_keys = new_release_keys;
+  }
+
+  template <std::size_t Count>
+  void release_keys(const std::array<uint64_t, Count>& new_release_keys)
+  {
+    _release_count = static_cast<uint32_t>(new_release_keys.size());
+    _release_keys = new_release_keys.data();
+  }
+
+  void release_keys(const std::vector<uint64_t>& new_release_keys)
+  {
+    _release_count = static_cast<uint32_t>(new_release_keys.size());
+    _release_keys = new_release_keys.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::win32_keyed_mutex_acquire_release_info_khr;
+  const void* _next = nullptr;
+  uint32_t _acquire_count = 0;
+  const VkDeviceMemory* _acquire_syncs = nullptr;
+  const uint64_t* _acquire_keys = nullptr;
+  const uint32_t* _acquire_timeouts = nullptr;
+  uint32_t _release_count = 0;
+  const VkDeviceMemory* _release_syncs = nullptr;
+  const uint64_t* _release_keys = nullptr;
+};
+static_assert(sizeof(win32_keyed_mutex_acquire_release_info_khr) ==
+                sizeof(::VkWin32KeyedMutexAcquireReleaseInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkImportSemaphoreWin32HandleInfoKHR.
+class import_semaphore_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr import_semaphore_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr import_semaphore_win32_handle_info_khr(
+    const void* initial_next, VkSemaphore initial_semaphore,
+    vk::semaphore_import_flags initial_flags,
+    vk::external_semaphore_handle_type_flag initial_handle_type,
+    HANDLE initial_handle, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _semaphore(std::move(initial_semaphore)),
+    _flags(std::move(initial_flags)),
+    _handle_type(std::move(initial_handle_type)),
+    _handle(std::move(initial_handle)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr import_semaphore_win32_handle_info_khr(
+    const import_semaphore_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _semaphore(other._semaphore),
+    _flags(other._flags),
+    _handle_type(other._handle_type),
+    _handle(other._handle),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr import_semaphore_win32_handle_info_khr(
+    import_semaphore_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _semaphore(std::move(other._semaphore)),
+    _flags(std::move(other._flags)),
+    _handle_type(std::move(other._handle_type)),
+    _handle(std::move(other._handle)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr import_semaphore_win32_handle_info_khr& operator=(
+    const import_semaphore_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _semaphore = other._semaphore;
+    _flags = other._flags;
+    _handle_type = other._handle_type;
+    _handle = other._handle;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr import_semaphore_win32_handle_info_khr& operator=(
+    import_semaphore_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _semaphore = std::move(other._semaphore);
+    _flags = std::move(other._flags);
+    _handle_type = std::move(other._handle_type);
+    _handle = std::move(other._handle);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImportSemaphoreWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkImportSemaphoreWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkSemaphore& semaphore()
+  {
+    return _semaphore;
+  }
+
+  constexpr const VkSemaphore& semaphore() const
+  {
+    return _semaphore;
+  }
+
+  void semaphore(VkSemaphore new_semaphore)
+  {
+    _semaphore = new_semaphore;
+  }
+
+  vk::semaphore_import_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::semaphore_import_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::semaphore_import_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::external_semaphore_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_semaphore_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_semaphore_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+  HANDLE& handle()
+  {
+    return _handle;
+  }
+
+  constexpr const HANDLE& handle() const
+  {
+    return _handle;
+  }
+
+  void handle(HANDLE new_handle)
+  {
+    _handle = new_handle;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::import_semaphore_win32_handle_info_khr;
+  const void* _next = nullptr;
+  VkSemaphore _semaphore = nullptr;
+  vk::semaphore_import_flags _flags = vk::semaphore_import_flag::none;
+  vk::external_semaphore_handle_type_flag _handle_type =
+    vk::external_semaphore_handle_type_flag::none;
+  HANDLE _handle = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(import_semaphore_win32_handle_info_khr) ==
+                sizeof(::VkImportSemaphoreWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkExportSemaphoreWin32HandleInfoKHR.
+class export_semaphore_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr export_semaphore_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr export_semaphore_win32_handle_info_khr(
+    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
+    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _attributes(std::move(initial_attributes)),
+    _dw_access(std::move(initial_dw_access)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr export_semaphore_win32_handle_info_khr(
+    const export_semaphore_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _attributes(other._attributes),
+    _dw_access(other._dw_access),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr export_semaphore_win32_handle_info_khr(
+    export_semaphore_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attributes(std::move(other._attributes)),
+    _dw_access(std::move(other._dw_access)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr export_semaphore_win32_handle_info_khr& operator=(
+    const export_semaphore_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _attributes = other._attributes;
+    _dw_access = other._dw_access;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr export_semaphore_win32_handle_info_khr& operator=(
+    export_semaphore_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attributes = std::move(other._attributes);
+    _dw_access = std::move(other._dw_access);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkExportSemaphoreWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkExportSemaphoreWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  const SECURITY_ATTRIBUTES* attributes()
+  {
+    return _attributes;
+  }
+
+  constexpr const SECURITY_ATTRIBUTES* attributes() const
+  {
+    return _attributes;
+  }
+
+  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
+  {
+    _attributes = new_attributes;
+  }
+
+  DWORD& dw_access()
+  {
+    return _dw_access;
+  }
+
+  constexpr const DWORD& dw_access() const
+  {
+    return _dw_access;
+  }
+
+  void dw_access(DWORD new_dw_access)
+  {
+    _dw_access = new_dw_access;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::export_semaphore_win32_handle_info_khr;
+  const void* _next = nullptr;
+  const SECURITY_ATTRIBUTES* _attributes = nullptr;
+  DWORD _dw_access = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(export_semaphore_win32_handle_info_khr) ==
+                sizeof(::VkExportSemaphoreWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkD3D12FenceSubmitInfoKHR.
+class d3d_12_fence_submit_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr d3d_12_fence_submit_info_khr() = default;
+
+  /// Constructor.
+  constexpr d3d_12_fence_submit_info_khr(
+    const void* initial_next, uint32_t initial_wait_semaphore_values_count,
+    const uint64_t* initial_wait_semaphore_values,
+    uint32_t initial_signal_semaphore_values_count,
+    const uint64_t* initial_signal_semaphore_values) noexcept
+  : _next(std::move(initial_next)),
+    _wait_semaphore_values_count(
+      std::move(initial_wait_semaphore_values_count)),
+    _wait_semaphore_values(std::move(initial_wait_semaphore_values)),
+    _signal_semaphore_values_count(
+      std::move(initial_signal_semaphore_values_count)),
+    _signal_semaphore_values(std::move(initial_signal_semaphore_values))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr d3d_12_fence_submit_info_khr(
+    const d3d_12_fence_submit_info_khr& other) noexcept
+  : _next(other._next),
+    _wait_semaphore_values_count(other._wait_semaphore_values_count),
+    _wait_semaphore_values(other._wait_semaphore_values),
+    _signal_semaphore_values_count(other._signal_semaphore_values_count),
+    _signal_semaphore_values(other._signal_semaphore_values)
+  {
+  }
+
+  /// Move constructor.
+  constexpr d3d_12_fence_submit_info_khr(
+    d3d_12_fence_submit_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _wait_semaphore_values_count(std::move(other._wait_semaphore_values_count)),
+    _wait_semaphore_values(std::move(other._wait_semaphore_values)),
+    _signal_semaphore_values_count(
+      std::move(other._signal_semaphore_values_count)),
+    _signal_semaphore_values(std::move(other._signal_semaphore_values))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr d3d_12_fence_submit_info_khr& operator=(
+    const d3d_12_fence_submit_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _wait_semaphore_values_count = other._wait_semaphore_values_count;
+    _wait_semaphore_values = other._wait_semaphore_values;
+    _signal_semaphore_values_count = other._signal_semaphore_values_count;
+    _signal_semaphore_values = other._signal_semaphore_values;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr d3d_12_fence_submit_info_khr& operator=(
+    d3d_12_fence_submit_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _wait_semaphore_values_count =
+      std::move(other._wait_semaphore_values_count);
+    _wait_semaphore_values = std::move(other._wait_semaphore_values);
+    _signal_semaphore_values_count =
+      std::move(other._signal_semaphore_values_count);
+    _signal_semaphore_values = std::move(other._signal_semaphore_values);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkD3D12FenceSubmitInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkD3D12FenceSubmitInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& wait_semaphore_values_count()
+  {
+    return _wait_semaphore_values_count;
+  }
+
+  constexpr const uint32_t& wait_semaphore_values_count() const
+  {
+    return _wait_semaphore_values_count;
+  }
+
+  void wait_semaphore_values_count(uint32_t new_wait_semaphore_values_count)
+  {
+    _wait_semaphore_values_count = new_wait_semaphore_values_count;
+  }
+
+  const uint64_t* wait_semaphore_values()
+  {
+    return _wait_semaphore_values;
+  }
+
+  constexpr const uint64_t* wait_semaphore_values() const
+  {
+    return _wait_semaphore_values;
+  }
+
+  void wait_semaphore_values(const uint64_t* new_wait_semaphore_values)
+  {
+    _wait_semaphore_values = new_wait_semaphore_values;
+  }
+
+  template <std::size_t Count>
+  void wait_semaphore_values(
+    const std::array<uint64_t, Count>& new_wait_semaphore_values)
+  {
+    _wait_semaphore_values_count =
+      static_cast<uint32_t>(new_wait_semaphore_values.size());
+    _wait_semaphore_values = new_wait_semaphore_values.data();
+  }
+
+  void wait_semaphore_values(
+    const std::vector<uint64_t>& new_wait_semaphore_values)
+  {
+    _wait_semaphore_values_count =
+      static_cast<uint32_t>(new_wait_semaphore_values.size());
+    _wait_semaphore_values = new_wait_semaphore_values.data();
+  }
+
+  uint32_t& signal_semaphore_values_count()
+  {
+    return _signal_semaphore_values_count;
+  }
+
+  constexpr const uint32_t& signal_semaphore_values_count() const
+  {
+    return _signal_semaphore_values_count;
+  }
+
+  void signal_semaphore_values_count(uint32_t new_signal_semaphore_values_count)
+  {
+    _signal_semaphore_values_count = new_signal_semaphore_values_count;
+  }
+
+  const uint64_t* signal_semaphore_values()
+  {
+    return _signal_semaphore_values;
+  }
+
+  constexpr const uint64_t* signal_semaphore_values() const
+  {
+    return _signal_semaphore_values;
+  }
+
+  void signal_semaphore_values(const uint64_t* new_signal_semaphore_values)
+  {
+    _signal_semaphore_values = new_signal_semaphore_values;
+  }
+
+  template <std::size_t Count>
+  void signal_semaphore_values(
+    const std::array<uint64_t, Count>& new_signal_semaphore_values)
+  {
+    _signal_semaphore_values_count =
+      static_cast<uint32_t>(new_signal_semaphore_values.size());
+    _signal_semaphore_values = new_signal_semaphore_values.data();
+  }
+
+  void signal_semaphore_values(
+    const std::vector<uint64_t>& new_signal_semaphore_values)
+  {
+    _signal_semaphore_values_count =
+      static_cast<uint32_t>(new_signal_semaphore_values.size());
+    _signal_semaphore_values = new_signal_semaphore_values.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::d3d_12_fence_submit_info_khr;
+  const void* _next = nullptr;
+  uint32_t _wait_semaphore_values_count = 0;
+  const uint64_t* _wait_semaphore_values = nullptr;
+  uint32_t _signal_semaphore_values_count = 0;
+  const uint64_t* _signal_semaphore_values = nullptr;
+};
+static_assert(sizeof(d3d_12_fence_submit_info_khr) ==
+                sizeof(::VkD3D12FenceSubmitInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkSemaphoreGetWin32HandleInfoKHR.
+class semaphore_get_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr semaphore_get_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr semaphore_get_win32_handle_info_khr(
+    const void* initial_next, VkSemaphore initial_semaphore,
+    vk::external_semaphore_handle_type_flag initial_handle_type) noexcept
+  : _next(std::move(initial_next)),
+    _semaphore(std::move(initial_semaphore)),
+    _handle_type(std::move(initial_handle_type))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr semaphore_get_win32_handle_info_khr(
+    const semaphore_get_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _semaphore(other._semaphore),
+    _handle_type(other._handle_type)
+  {
+  }
+
+  /// Move constructor.
+  constexpr semaphore_get_win32_handle_info_khr(
+    semaphore_get_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _semaphore(std::move(other._semaphore)),
+    _handle_type(std::move(other._handle_type))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr semaphore_get_win32_handle_info_khr& operator=(
+    const semaphore_get_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _semaphore = other._semaphore;
+    _handle_type = other._handle_type;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr semaphore_get_win32_handle_info_khr& operator=(
+    semaphore_get_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _semaphore = std::move(other._semaphore);
+    _handle_type = std::move(other._handle_type);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSemaphoreGetWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkSemaphoreGetWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkSemaphore& semaphore()
+  {
+    return _semaphore;
+  }
+
+  constexpr const VkSemaphore& semaphore() const
+  {
+    return _semaphore;
+  }
+
+  void semaphore(VkSemaphore new_semaphore)
+  {
+    _semaphore = new_semaphore;
+  }
+
+  vk::external_semaphore_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_semaphore_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_semaphore_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::semaphore_get_win32_handle_info_khr;
+  const void* _next = nullptr;
+  VkSemaphore _semaphore = nullptr;
+  vk::external_semaphore_handle_type_flag _handle_type =
+    vk::external_semaphore_handle_type_flag::none;
+};
+static_assert(sizeof(semaphore_get_win32_handle_info_khr) ==
+                sizeof(::VkSemaphoreGetWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result import_semaphore_win32_handle_khr(
+  VkDevice device, const vk::import_semaphore_win32_handle_info_khr*
+                     import_semaphore_win32_handle_info)
+{
+  return static_cast<vk::result>(vkImportSemaphoreWin32HandleKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkImportSemaphoreWin32HandleInfoKHR*>(
+      import_semaphore_win32_handle_info)));
+}
+inline vk::result get_semaphore_win32_handle_khr(
+  VkDevice device,
+  const vk::semaphore_get_win32_handle_info_khr* get_win32_handle_info,
+  HANDLE* handle)
+{
+  return static_cast<vk::result>(vkGetSemaphoreWin32HandleKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkSemaphoreGetWin32HandleInfoKHR*>(
+      get_win32_handle_info),
+    reinterpret_cast<HANDLE*>(handle)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_XLIB_XRANDR_EXT)
+inline vk::result acquire_xlib_display_ext(VkPhysicalDevice physical_device,
+                                           Display* dpy, VkDisplayKHR display)
+{
+  return static_cast<vk::result>(vkAcquireXlibDisplayEXT(
+    static_cast<VkPhysicalDevice>(physical_device),
+    reinterpret_cast<Display*>(dpy), static_cast<VkDisplayKHR>(display)));
+}
+inline vk::result get_rand_routput_display_ext(VkPhysicalDevice physical_device,
+                                               Display* dpy, RROutput rr_output,
+                                               VkDisplayKHR* display)
+{
+  return static_cast<vk::result>(vkGetRandROutputDisplayEXT(
+    static_cast<VkPhysicalDevice>(physical_device),
+    reinterpret_cast<Display*>(dpy), static_cast<RROutput>(rr_output),
+    reinterpret_cast<VkDisplayKHR*>(display)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkImportFenceWin32HandleInfoKHR.
+class import_fence_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr import_fence_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr import_fence_win32_handle_info_khr(
+    const void* initial_next, VkFence initial_fence,
+    vk::fence_import_flags initial_flags,
+    vk::external_fence_handle_type_flag initial_handle_type,
+    HANDLE initial_handle, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _fence(std::move(initial_fence)),
+    _flags(std::move(initial_flags)),
+    _handle_type(std::move(initial_handle_type)),
+    _handle(std::move(initial_handle)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr import_fence_win32_handle_info_khr(
+    const import_fence_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _fence(other._fence),
+    _flags(other._flags),
+    _handle_type(other._handle_type),
+    _handle(other._handle),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr import_fence_win32_handle_info_khr(
+    import_fence_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _fence(std::move(other._fence)),
+    _flags(std::move(other._flags)),
+    _handle_type(std::move(other._handle_type)),
+    _handle(std::move(other._handle)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr import_fence_win32_handle_info_khr& operator=(
+    const import_fence_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _fence = other._fence;
+    _flags = other._flags;
+    _handle_type = other._handle_type;
+    _handle = other._handle;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr import_fence_win32_handle_info_khr& operator=(
+    import_fence_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fence = std::move(other._fence);
+    _flags = std::move(other._flags);
+    _handle_type = std::move(other._handle_type);
+    _handle = std::move(other._handle);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImportFenceWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkImportFenceWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkFence& fence()
+  {
+    return _fence;
+  }
+
+  constexpr const VkFence& fence() const
+  {
+    return _fence;
+  }
+
+  void fence(VkFence new_fence)
+  {
+    _fence = new_fence;
+  }
+
+  vk::fence_import_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::fence_import_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::fence_import_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::external_fence_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_fence_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_fence_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+  HANDLE& handle()
+  {
+    return _handle;
+  }
+
+  constexpr const HANDLE& handle() const
+  {
+    return _handle;
+  }
+
+  void handle(HANDLE new_handle)
+  {
+    _handle = new_handle;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::import_fence_win32_handle_info_khr;
+  const void* _next = nullptr;
+  VkFence _fence = nullptr;
+  vk::fence_import_flags _flags = vk::fence_import_flag::none;
+  vk::external_fence_handle_type_flag _handle_type =
+    vk::external_fence_handle_type_flag::none;
+  HANDLE _handle = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(import_fence_win32_handle_info_khr) ==
+                sizeof(::VkImportFenceWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkExportFenceWin32HandleInfoKHR.
+class export_fence_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr export_fence_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr export_fence_win32_handle_info_khr(
+    const void* initial_next, const SECURITY_ATTRIBUTES* initial_attributes,
+    DWORD initial_dw_access, LPCWSTR initial_name) noexcept
+  : _next(std::move(initial_next)),
+    _attributes(std::move(initial_attributes)),
+    _dw_access(std::move(initial_dw_access)),
+    _name(std::move(initial_name))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr export_fence_win32_handle_info_khr(
+    const export_fence_win32_handle_info_khr& other) noexcept
+  : _next(other._next),
+    _attributes(other._attributes),
+    _dw_access(other._dw_access),
+    _name(other._name)
+  {
+  }
+
+  /// Move constructor.
+  constexpr export_fence_win32_handle_info_khr(
+    export_fence_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attributes(std::move(other._attributes)),
+    _dw_access(std::move(other._dw_access)),
+    _name(std::move(other._name))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr export_fence_win32_handle_info_khr& operator=(
+    const export_fence_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _attributes = other._attributes;
+    _dw_access = other._dw_access;
+    _name = other._name;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr export_fence_win32_handle_info_khr& operator=(
+    export_fence_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attributes = std::move(other._attributes);
+    _dw_access = std::move(other._dw_access);
+    _name = std::move(other._name);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkExportFenceWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkExportFenceWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  const SECURITY_ATTRIBUTES* attributes()
+  {
+    return _attributes;
+  }
+
+  constexpr const SECURITY_ATTRIBUTES* attributes() const
+  {
+    return _attributes;
+  }
+
+  void attributes(const SECURITY_ATTRIBUTES* new_attributes)
+  {
+    _attributes = new_attributes;
+  }
+
+  DWORD& dw_access()
+  {
+    return _dw_access;
+  }
+
+  constexpr const DWORD& dw_access() const
+  {
+    return _dw_access;
+  }
+
+  void dw_access(DWORD new_dw_access)
+  {
+    _dw_access = new_dw_access;
+  }
+
+  LPCWSTR& name()
+  {
+    return _name;
+  }
+
+  constexpr const LPCWSTR& name() const
+  {
+    return _name;
+  }
+
+  void name(LPCWSTR new_name)
+  {
+    _name = new_name;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::export_fence_win32_handle_info_khr;
+  const void* _next = nullptr;
+  const SECURITY_ATTRIBUTES* _attributes = nullptr;
+  DWORD _dw_access = 0;
+  LPCWSTR _name = 0;
+};
+static_assert(sizeof(export_fence_win32_handle_info_khr) ==
+                sizeof(::VkExportFenceWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkFenceGetWin32HandleInfoKHR.
+class fence_get_win32_handle_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr fence_get_win32_handle_info_khr() = default;
+
+  /// Constructor.
+  constexpr fence_get_win32_handle_info_khr(
+    const void* initial_next, VkFence initial_fence,
+    vk::external_fence_handle_type_flag initial_handle_type) noexcept
+  : _next(std::move(initial_next)),
+    _fence(std::move(initial_fence)),
+    _handle_type(std::move(initial_handle_type))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr fence_get_win32_handle_info_khr(
+    const fence_get_win32_handle_info_khr& other) noexcept
+  : _next(other._next), _fence(other._fence), _handle_type(other._handle_type)
+  {
+  }
+
+  /// Move constructor.
+  constexpr fence_get_win32_handle_info_khr(
+    fence_get_win32_handle_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _fence(std::move(other._fence)),
+    _handle_type(std::move(other._handle_type))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr fence_get_win32_handle_info_khr& operator=(
+    const fence_get_win32_handle_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _fence = other._fence;
+    _handle_type = other._handle_type;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr fence_get_win32_handle_info_khr& operator=(
+    fence_get_win32_handle_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fence = std::move(other._fence);
+    _handle_type = std::move(other._handle_type);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkFenceGetWin32HandleInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkFenceGetWin32HandleInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkFence& fence()
+  {
+    return _fence;
+  }
+
+  constexpr const VkFence& fence() const
+  {
+    return _fence;
+  }
+
+  void fence(VkFence new_fence)
+  {
+    _fence = new_fence;
+  }
+
+  vk::external_fence_handle_type_flag& handle_type()
+  {
+    return _handle_type;
+  }
+
+  constexpr const vk::external_fence_handle_type_flag& handle_type() const
+  {
+    return _handle_type;
+  }
+
+  void handle_type(vk::external_fence_handle_type_flag new_handle_type)
+  {
+    _handle_type = new_handle_type;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::fence_get_win32_handle_info_khr;
+  const void* _next = nullptr;
+  VkFence _fence = nullptr;
+  vk::external_fence_handle_type_flag _handle_type =
+    vk::external_fence_handle_type_flag::none;
+};
+static_assert(sizeof(fence_get_win32_handle_info_khr) ==
+                sizeof(::VkFenceGetWin32HandleInfoKHR),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result import_fence_win32_handle_khr(
+  VkDevice device,
+  const vk::import_fence_win32_handle_info_khr* import_fence_win32_handle_info)
+{
+  return static_cast<vk::result>(vkImportFenceWin32HandleKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkImportFenceWin32HandleInfoKHR*>(
+      import_fence_win32_handle_info)));
+}
+inline vk::result get_fence_win32_handle_khr(
+  VkDevice device,
+  const vk::fence_get_win32_handle_info_khr* get_win32_handle_info,
+  HANDLE* handle)
+{
+  return static_cast<vk::result>(vkGetFenceWin32HandleKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkFenceGetWin32HandleInfoKHR*>(
+      get_win32_handle_info),
+    reinterpret_cast<HANDLE*>(handle)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_IOS_MVK)
+#if defined(VK_USE_PLATFORM_IOS_MVK)
+using iossurface_create_flags_mvk = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_IOS_MVK)
+
+/// Enhanced replacement type for VkIOSSurfaceCreateInfoMVK.
+class iossurface_create_info_mvk
+{
+public:
+  /// Default constructor.
+  constexpr iossurface_create_info_mvk() = default;
+
+  /// Constructor.
+  constexpr iossurface_create_info_mvk(
+    const void* initial_next, vk::iossurface_create_flags_mvk initial_flags,
+    const void* initial_view) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _view(std::move(initial_view))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr iossurface_create_info_mvk(
+    const iossurface_create_info_mvk& other) noexcept
+  : _next(other._next), _flags(other._flags), _view(other._view)
+  {
+  }
+
+  /// Move constructor.
+  constexpr iossurface_create_info_mvk(
+    iossurface_create_info_mvk&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _view(std::move(other._view))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr iossurface_create_info_mvk& operator=(
+    const iossurface_create_info_mvk& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _view = other._view;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr iossurface_create_info_mvk& operator=(
+    iossurface_create_info_mvk&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _view = std::move(other._view);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkIOSSurfaceCreateInfoMVK&() const
+  {
+    return *reinterpret_cast<const VkIOSSurfaceCreateInfoMVK*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::iossurface_create_flags_mvk& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::iossurface_create_flags_mvk& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::iossurface_create_flags_mvk new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  const void* view()
+  {
+    return _view;
+  }
+
+  constexpr const void* view() const
+  {
+    return _view;
+  }
+
+  void view(const void* new_view)
+  {
+    _view = new_view;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::ios_surface_create_info_mvk;
+  const void* _next = nullptr;
+  vk::iossurface_create_flags_mvk _flags = 0;
+  const void* _view = nullptr;
+};
+static_assert(sizeof(iossurface_create_info_mvk) ==
+                sizeof(::VkIOSSurfaceCreateInfoMVK),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_iossurface_mvk(
+  VkInstance instance, const vk::iossurface_create_info_mvk* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateIOSSurfaceMVK(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkIOSSurfaceCreateInfoMVK*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_MACOS_MVK)
+#if defined(VK_USE_PLATFORM_MACOS_MVK)
+using mac_ossurface_create_flags_mvk = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_MACOS_MVK)
+
+/// Enhanced replacement type for VkMacOSSurfaceCreateInfoMVK.
+class mac_ossurface_create_info_mvk
+{
+public:
+  /// Default constructor.
+  constexpr mac_ossurface_create_info_mvk() = default;
+
+  /// Constructor.
+  constexpr mac_ossurface_create_info_mvk(
+    const void* initial_next, vk::mac_ossurface_create_flags_mvk initial_flags,
+    const void* initial_view) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _view(std::move(initial_view))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr mac_ossurface_create_info_mvk(
+    const mac_ossurface_create_info_mvk& other) noexcept
+  : _next(other._next), _flags(other._flags), _view(other._view)
+  {
+  }
+
+  /// Move constructor.
+  constexpr mac_ossurface_create_info_mvk(
+    mac_ossurface_create_info_mvk&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _view(std::move(other._view))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr mac_ossurface_create_info_mvk& operator=(
+    const mac_ossurface_create_info_mvk& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _view = other._view;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr mac_ossurface_create_info_mvk& operator=(
+    mac_ossurface_create_info_mvk&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _view = std::move(other._view);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMacOSSurfaceCreateInfoMVK&() const
+  {
+    return *reinterpret_cast<const VkMacOSSurfaceCreateInfoMVK*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::mac_ossurface_create_flags_mvk& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::mac_ossurface_create_flags_mvk& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::mac_ossurface_create_flags_mvk new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  const void* view()
+  {
+    return _view;
+  }
+
+  constexpr const void* view() const
+  {
+    return _view;
+  }
+
+  void view(const void* new_view)
+  {
+    _view = new_view;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::macos_surface_create_info_mvk;
+  const void* _next = nullptr;
+  vk::mac_ossurface_create_flags_mvk _flags = 0;
+  const void* _view = nullptr;
+};
+static_assert(sizeof(mac_ossurface_create_info_mvk) ==
+                sizeof(::VkMacOSSurfaceCreateInfoMVK),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_mac_ossurface_mvk(
+  VkInstance instance, const vk::mac_ossurface_create_info_mvk* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateMacOSSurfaceMVK(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkMacOSSurfaceCreateInfoMVK*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkAndroidHardwareBufferUsageANDROID.
+class android_hardware_buffer_usage_android
+{
+public:
+  /// Default constructor.
+  constexpr android_hardware_buffer_usage_android() = default;
+
+  /// Constructor.
+  constexpr android_hardware_buffer_usage_android(
+    void* initial_next, uint64_t initial_android_hardware_buffer_usage) noexcept
+  : _next(std::move(initial_next)),
+    _android_hardware_buffer_usage(
+      std::move(initial_android_hardware_buffer_usage))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr android_hardware_buffer_usage_android(
+    const android_hardware_buffer_usage_android& other) noexcept
+  : _next(other._next),
+    _android_hardware_buffer_usage(other._android_hardware_buffer_usage)
+  {
+  }
+
+  /// Move constructor.
+  constexpr android_hardware_buffer_usage_android(
+    android_hardware_buffer_usage_android&& other) noexcept
+  : _next(std::move(other._next)),
+    _android_hardware_buffer_usage(
+      std::move(other._android_hardware_buffer_usage))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr android_hardware_buffer_usage_android& operator=(
+    const android_hardware_buffer_usage_android& other) noexcept
+  {
+    _next = other._next;
+    _android_hardware_buffer_usage = other._android_hardware_buffer_usage;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr android_hardware_buffer_usage_android& operator=(
+    android_hardware_buffer_usage_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _android_hardware_buffer_usage =
+      std::move(other._android_hardware_buffer_usage);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAndroidHardwareBufferUsageANDROID&() const
+  {
+    return *reinterpret_cast<const VkAndroidHardwareBufferUsageANDROID*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint64_t& android_hardware_buffer_usage()
+  {
+    return _android_hardware_buffer_usage;
+  }
+
+  constexpr const uint64_t& android_hardware_buffer_usage() const
+  {
+    return _android_hardware_buffer_usage;
+  }
+
+  void android_hardware_buffer_usage(uint64_t new_android_hardware_buffer_usage)
+  {
+    _android_hardware_buffer_usage = new_android_hardware_buffer_usage;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::android_hardware_buffer_usage_android;
+  void* _next = nullptr;
+  uint64_t _android_hardware_buffer_usage = 0;
+};
+static_assert(sizeof(android_hardware_buffer_usage_android) ==
+                sizeof(::VkAndroidHardwareBufferUsageANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkAndroidHardwareBufferPropertiesANDROID.
+class android_hardware_buffer_properties_android
+{
+public:
+  /// Default constructor.
+  constexpr android_hardware_buffer_properties_android() = default;
+
+  /// Constructor.
+  constexpr android_hardware_buffer_properties_android(
+    void* initial_next, VkDeviceSize initial_allocation_size,
+    uint32_t initial_memory_type_bits) noexcept
+  : _next(std::move(initial_next)),
+    _allocation_size(std::move(initial_allocation_size)),
+    _memory_type_bits(std::move(initial_memory_type_bits))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr android_hardware_buffer_properties_android(
+    const android_hardware_buffer_properties_android& other) noexcept
+  : _next(other._next),
+    _allocation_size(other._allocation_size),
+    _memory_type_bits(other._memory_type_bits)
+  {
+  }
+
+  /// Move constructor.
+  constexpr android_hardware_buffer_properties_android(
+    android_hardware_buffer_properties_android&& other) noexcept
+  : _next(std::move(other._next)),
+    _allocation_size(std::move(other._allocation_size)),
+    _memory_type_bits(std::move(other._memory_type_bits))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr android_hardware_buffer_properties_android& operator=(
+    const android_hardware_buffer_properties_android& other) noexcept
+  {
+    _next = other._next;
+    _allocation_size = other._allocation_size;
+    _memory_type_bits = other._memory_type_bits;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr android_hardware_buffer_properties_android& operator=(
+    android_hardware_buffer_properties_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _allocation_size = std::move(other._allocation_size);
+    _memory_type_bits = std::move(other._memory_type_bits);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAndroidHardwareBufferPropertiesANDROID&() const
+  {
+    return *reinterpret_cast<const VkAndroidHardwareBufferPropertiesANDROID*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkDeviceSize& allocation_size()
+  {
+    return _allocation_size;
+  }
+
+  constexpr const VkDeviceSize& allocation_size() const
+  {
+    return _allocation_size;
+  }
+
+  void allocation_size(VkDeviceSize new_allocation_size)
+  {
+    _allocation_size = new_allocation_size;
+  }
+
+  uint32_t& memory_type_bits()
+  {
+    return _memory_type_bits;
+  }
+
+  constexpr const uint32_t& memory_type_bits() const
+  {
+    return _memory_type_bits;
+  }
+
+  void memory_type_bits(uint32_t new_memory_type_bits)
+  {
+    _memory_type_bits = new_memory_type_bits;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::android_hardware_buffer_properties_android;
+  void* _next = nullptr;
+  VkDeviceSize _allocation_size = 0;
+  uint32_t _memory_type_bits = 0;
+};
+static_assert(sizeof(android_hardware_buffer_properties_android) ==
+                sizeof(::VkAndroidHardwareBufferPropertiesANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for
+/// VkAndroidHardwareBufferFormatPropertiesANDROID.
+class android_hardware_buffer_format_properties_android
+{
+public:
+  /// Default constructor.
+  constexpr android_hardware_buffer_format_properties_android() = default;
+
+  /// Constructor.
+  constexpr android_hardware_buffer_format_properties_android(
+    void* initial_next, vk::format initial_format,
+    uint64_t initial_external_format,
+    vk::format_feature_flags initial_format_features,
+    vk::component_mapping initial_sampler_ycbcr_conversion_components,
+    vk::sampler_ycbcr_model_conversion initial_suggested_ycbcr_model,
+    vk::sampler_ycbcr_range initial_suggested_ycbcr_range,
+    vk::chroma_location initial_suggested_xchroma_offset,
+    vk::chroma_location initial_suggested_ychroma_offset) noexcept
+  : _next(std::move(initial_next)),
+    _format(std::move(initial_format)),
+    _external_format(std::move(initial_external_format)),
+    _format_features(std::move(initial_format_features)),
+    _sampler_ycbcr_conversion_components(
+      std::move(initial_sampler_ycbcr_conversion_components)),
+    _suggested_ycbcr_model(std::move(initial_suggested_ycbcr_model)),
+    _suggested_ycbcr_range(std::move(initial_suggested_ycbcr_range)),
+    _suggested_xchroma_offset(std::move(initial_suggested_xchroma_offset)),
+    _suggested_ychroma_offset(std::move(initial_suggested_ychroma_offset))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr android_hardware_buffer_format_properties_android(
+    const android_hardware_buffer_format_properties_android& other) noexcept
+  : _next(other._next),
+    _format(other._format),
+    _external_format(other._external_format),
+    _format_features(other._format_features),
+    _sampler_ycbcr_conversion_components(
+      other._sampler_ycbcr_conversion_components),
+    _suggested_ycbcr_model(other._suggested_ycbcr_model),
+    _suggested_ycbcr_range(other._suggested_ycbcr_range),
+    _suggested_xchroma_offset(other._suggested_xchroma_offset),
+    _suggested_ychroma_offset(other._suggested_ychroma_offset)
+  {
+  }
+
+  /// Move constructor.
+  constexpr android_hardware_buffer_format_properties_android(
+    android_hardware_buffer_format_properties_android&& other) noexcept
+  : _next(std::move(other._next)),
+    _format(std::move(other._format)),
+    _external_format(std::move(other._external_format)),
+    _format_features(std::move(other._format_features)),
+    _sampler_ycbcr_conversion_components(
+      std::move(other._sampler_ycbcr_conversion_components)),
+    _suggested_ycbcr_model(std::move(other._suggested_ycbcr_model)),
+    _suggested_ycbcr_range(std::move(other._suggested_ycbcr_range)),
+    _suggested_xchroma_offset(std::move(other._suggested_xchroma_offset)),
+    _suggested_ychroma_offset(std::move(other._suggested_ychroma_offset))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr android_hardware_buffer_format_properties_android& operator=(
+    const android_hardware_buffer_format_properties_android& other) noexcept
+  {
+    _next = other._next;
+    _format = other._format;
+    _external_format = other._external_format;
+    _format_features = other._format_features;
+    _sampler_ycbcr_conversion_components =
+      other._sampler_ycbcr_conversion_components;
+    _suggested_ycbcr_model = other._suggested_ycbcr_model;
+    _suggested_ycbcr_range = other._suggested_ycbcr_range;
+    _suggested_xchroma_offset = other._suggested_xchroma_offset;
+    _suggested_ychroma_offset = other._suggested_ychroma_offset;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr android_hardware_buffer_format_properties_android& operator=(
+    android_hardware_buffer_format_properties_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _format = std::move(other._format);
+    _external_format = std::move(other._external_format);
+    _format_features = std::move(other._format_features);
+    _sampler_ycbcr_conversion_components =
+      std::move(other._sampler_ycbcr_conversion_components);
+    _suggested_ycbcr_model = std::move(other._suggested_ycbcr_model);
+    _suggested_ycbcr_range = std::move(other._suggested_ycbcr_range);
+    _suggested_xchroma_offset = std::move(other._suggested_xchroma_offset);
+    _suggested_ychroma_offset = std::move(other._suggested_ychroma_offset);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkAndroidHardwareBufferFormatPropertiesANDROID&() const
+  {
+    return *reinterpret_cast<
+      const VkAndroidHardwareBufferFormatPropertiesANDROID*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::format& format()
+  {
+    return _format;
+  }
+
+  constexpr const vk::format& format() const
+  {
+    return _format;
+  }
+
+  void format(vk::format new_format)
+  {
+    _format = new_format;
+  }
+
+  uint64_t& external_format()
+  {
+    return _external_format;
+  }
+
+  constexpr const uint64_t& external_format() const
+  {
+    return _external_format;
+  }
+
+  void external_format(uint64_t new_external_format)
+  {
+    _external_format = new_external_format;
+  }
+
+  vk::format_feature_flags& format_features()
+  {
+    return _format_features;
+  }
+
+  constexpr const vk::format_feature_flags& format_features() const
+  {
+    return _format_features;
+  }
+
+  void format_features(vk::format_feature_flags new_format_features)
+  {
+    _format_features = new_format_features;
+  }
+
+  vk::component_mapping& sampler_ycbcr_conversion_components()
+  {
+    return _sampler_ycbcr_conversion_components;
+  }
+
+  constexpr const vk::component_mapping& sampler_ycbcr_conversion_components()
+    const
+  {
+    return _sampler_ycbcr_conversion_components;
+  }
+
+  void sampler_ycbcr_conversion_components(
+    vk::component_mapping new_sampler_ycbcr_conversion_components)
+  {
+    _sampler_ycbcr_conversion_components =
+      new_sampler_ycbcr_conversion_components;
+  }
+
+  vk::sampler_ycbcr_model_conversion& suggested_ycbcr_model()
+  {
+    return _suggested_ycbcr_model;
+  }
+
+  constexpr const vk::sampler_ycbcr_model_conversion& suggested_ycbcr_model()
+    const
+  {
+    return _suggested_ycbcr_model;
+  }
+
+  void suggested_ycbcr_model(
+    vk::sampler_ycbcr_model_conversion new_suggested_ycbcr_model)
+  {
+    _suggested_ycbcr_model = new_suggested_ycbcr_model;
+  }
+
+  vk::sampler_ycbcr_range& suggested_ycbcr_range()
+  {
+    return _suggested_ycbcr_range;
+  }
+
+  constexpr const vk::sampler_ycbcr_range& suggested_ycbcr_range() const
+  {
+    return _suggested_ycbcr_range;
+  }
+
+  void suggested_ycbcr_range(vk::sampler_ycbcr_range new_suggested_ycbcr_range)
+  {
+    _suggested_ycbcr_range = new_suggested_ycbcr_range;
+  }
+
+  vk::chroma_location& suggested_xchroma_offset()
+  {
+    return _suggested_xchroma_offset;
+  }
+
+  constexpr const vk::chroma_location& suggested_xchroma_offset() const
+  {
+    return _suggested_xchroma_offset;
+  }
+
+  void suggested_xchroma_offset(
+    vk::chroma_location new_suggested_xchroma_offset)
+  {
+    _suggested_xchroma_offset = new_suggested_xchroma_offset;
+  }
+
+  vk::chroma_location& suggested_ychroma_offset()
+  {
+    return _suggested_ychroma_offset;
+  }
+
+  constexpr const vk::chroma_location& suggested_ychroma_offset() const
+  {
+    return _suggested_ychroma_offset;
+  }
+
+  void suggested_ychroma_offset(
+    vk::chroma_location new_suggested_ychroma_offset)
+  {
+    _suggested_ychroma_offset = new_suggested_ychroma_offset;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::android_hardware_buffer_format_properties_android;
+  void* _next = nullptr;
+  vk::format _format = vk::format::undefined;
+  uint64_t _external_format = 0;
+  vk::format_feature_flags _format_features = vk::format_feature_flag::none;
+  vk::component_mapping _sampler_ycbcr_conversion_components =
+    vk::component_mapping{};
+  vk::sampler_ycbcr_model_conversion _suggested_ycbcr_model =
+    vk::sampler_ycbcr_model_conversion::rgb_identity;
+  vk::sampler_ycbcr_range _suggested_ycbcr_range =
+    vk::sampler_ycbcr_range::itu_full;
+  vk::chroma_location _suggested_xchroma_offset =
+    vk::chroma_location::cosited_even;
+  vk::chroma_location _suggested_ychroma_offset =
+    vk::chroma_location::cosited_even;
+};
+static_assert(sizeof(android_hardware_buffer_format_properties_android) ==
+                sizeof(::VkAndroidHardwareBufferFormatPropertiesANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkImportAndroidHardwareBufferInfoANDROID.
+class import_android_hardware_buffer_info_android
+{
+public:
+  /// Default constructor.
+  constexpr import_android_hardware_buffer_info_android() = default;
+
+  /// Constructor.
+  constexpr import_android_hardware_buffer_info_android(
+    const void* initial_next, struct AHardwareBuffer* initial_buffer) noexcept
+  : _next(std::move(initial_next)), _buffer(std::move(initial_buffer))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr import_android_hardware_buffer_info_android(
+    const import_android_hardware_buffer_info_android& other) noexcept
+  : _next(other._next), _buffer(other._buffer)
+  {
+  }
+
+  /// Move constructor.
+  constexpr import_android_hardware_buffer_info_android(
+    import_android_hardware_buffer_info_android&& other) noexcept
+  : _next(std::move(other._next)), _buffer(std::move(other._buffer))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr import_android_hardware_buffer_info_android& operator=(
+    const import_android_hardware_buffer_info_android& other) noexcept
+  {
+    _next = other._next;
+    _buffer = other._buffer;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr import_android_hardware_buffer_info_android& operator=(
+    import_android_hardware_buffer_info_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _buffer = std::move(other._buffer);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImportAndroidHardwareBufferInfoANDROID&() const
+  {
+    return *reinterpret_cast<const VkImportAndroidHardwareBufferInfoANDROID*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  struct AHardwareBuffer* buffer()
+  {
+    return _buffer;
+  }
+
+  constexpr struct AHardwareBuffer* buffer() const
+  {
+    return _buffer;
+  }
+
+  void buffer(struct AHardwareBuffer* new_buffer)
+  {
+    _buffer = new_buffer;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::import_android_hardware_buffer_info_android;
+  const void* _next = nullptr;
+  struct AHardwareBuffer* _buffer = nullptr;
+};
+static_assert(sizeof(import_android_hardware_buffer_info_android) ==
+                sizeof(::VkImportAndroidHardwareBufferInfoANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkMemoryGetAndroidHardwareBufferInfoANDROID.
+class memory_get_android_hardware_buffer_info_android
+{
+public:
+  /// Default constructor.
+  constexpr memory_get_android_hardware_buffer_info_android() = default;
+
+  /// Constructor.
+  constexpr memory_get_android_hardware_buffer_info_android(
+    const void* initial_next, VkDeviceMemory initial_memory) noexcept
+  : _next(std::move(initial_next)), _memory(std::move(initial_memory))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr memory_get_android_hardware_buffer_info_android(
+    const memory_get_android_hardware_buffer_info_android& other) noexcept
+  : _next(other._next), _memory(other._memory)
+  {
+  }
+
+  /// Move constructor.
+  constexpr memory_get_android_hardware_buffer_info_android(
+    memory_get_android_hardware_buffer_info_android&& other) noexcept
+  : _next(std::move(other._next)), _memory(std::move(other._memory))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr memory_get_android_hardware_buffer_info_android& operator=(
+    const memory_get_android_hardware_buffer_info_android& other) noexcept
+  {
+    _next = other._next;
+    _memory = other._memory;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr memory_get_android_hardware_buffer_info_android& operator=(
+    memory_get_android_hardware_buffer_info_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _memory = std::move(other._memory);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMemoryGetAndroidHardwareBufferInfoANDROID&() const
+  {
+    return *reinterpret_cast<
+      const VkMemoryGetAndroidHardwareBufferInfoANDROID*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkDeviceMemory& memory()
+  {
+    return _memory;
+  }
+
+  constexpr const VkDeviceMemory& memory() const
+  {
+    return _memory;
+  }
+
+  void memory(VkDeviceMemory new_memory)
+  {
+    _memory = new_memory;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::memory_get_android_hardware_buffer_info_android;
+  const void* _next = nullptr;
+  VkDeviceMemory _memory = nullptr;
+};
+static_assert(sizeof(memory_get_android_hardware_buffer_info_android) ==
+                sizeof(::VkMemoryGetAndroidHardwareBufferInfoANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+
+/// Enhanced replacement type for VkExternalFormatANDROID.
+class external_format_android
+{
+public:
+  /// Default constructor.
+  constexpr external_format_android() = default;
+
+  /// Constructor.
+  constexpr external_format_android(void* initial_next,
+                                    uint64_t initial_external_format) noexcept
+  : _next(std::move(initial_next)),
+    _external_format(std::move(initial_external_format))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr external_format_android(
+    const external_format_android& other) noexcept
+  : _next(other._next), _external_format(other._external_format)
+  {
+  }
+
+  /// Move constructor.
+  constexpr external_format_android(external_format_android&& other) noexcept
+  : _next(std::move(other._next)),
+    _external_format(std::move(other._external_format))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr external_format_android& operator=(
+    const external_format_android& other) noexcept
+  {
+    _next = other._next;
+    _external_format = other._external_format;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr external_format_android& operator=(
+    external_format_android&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _external_format = std::move(other._external_format);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkExternalFormatANDROID&() const
+  {
+    return *reinterpret_cast<const VkExternalFormatANDROID*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint64_t& external_format()
+  {
+    return _external_format;
+  }
+
+  constexpr const uint64_t& external_format() const
+  {
+    return _external_format;
+  }
+
+  void external_format(uint64_t new_external_format)
+  {
+    _external_format = new_external_format;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::external_format_android;
+  void* _next = nullptr;
+  uint64_t _external_format = 0;
+};
+static_assert(sizeof(external_format_android) ==
+                sizeof(::VkExternalFormatANDROID),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result get_android_hardware_buffer_properties_android(
+  VkDevice device, const struct AHardwareBuffer* buffer,
+  vk::android_hardware_buffer_properties_android* properties)
+{
+  return static_cast<vk::result>(vkGetAndroidHardwareBufferPropertiesANDROID(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const AHardwareBuffer*>(buffer),
+    reinterpret_cast<VkAndroidHardwareBufferPropertiesANDROID*>(properties)));
+}
+inline vk::result get_memory_android_hardware_buffer_android(
+  VkDevice device,
+  const vk::memory_get_android_hardware_buffer_info_android* info,
+  struct AHardwareBuffer** buffer)
+{
+  return static_cast<vk::result>(vkGetMemoryAndroidHardwareBufferANDROID(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkMemoryGetAndroidHardwareBufferInfoANDROID*>(info),
+    reinterpret_cast<AHardwareBuffer**>(buffer)));
+}
+#endif
+using descriptor_update_template_create_flags_khr = VkFlags;
+enum class peer_memory_feature_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using peer_memory_feature_flags_khr =
+  shift::core::bit_field<peer_memory_feature_flag_khr,
+                         VkPeerMemoryFeatureFlagsKHR>;
+inline constexpr peer_memory_feature_flags_khr operator|(
+  peer_memory_feature_flag_khr lhs, peer_memory_feature_flag_khr rhs)
+{
+  return peer_memory_feature_flags_khr{lhs} | rhs;
+}
+enum class memory_allocate_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using memory_allocate_flags_khr =
+  shift::core::bit_field<memory_allocate_flag_khr, VkMemoryAllocateFlagsKHR>;
+inline constexpr memory_allocate_flags_khr operator|(
+  memory_allocate_flag_khr lhs, memory_allocate_flag_khr rhs)
+{
+  return memory_allocate_flags_khr{lhs} | rhs;
+}
+enum class debug_report_flag_ext
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_DEBUG_REPORT_INFORMATION_BIT_EXT
+  information_bit_ext = 1 << 0,
+  /// @see VK_DEBUG_REPORT_WARNING_BIT_EXT
+  warning_bit_ext = 1 << 1,
+  /// @see VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT
+  performance_warning_bit_ext = 1 << 2,
+  /// @see VK_DEBUG_REPORT_ERROR_BIT_EXT
+  error_bit_ext = 1 << 3,
+  /// @see VK_DEBUG_REPORT_DEBUG_BIT_EXT
+  debug_bit_ext = 1 << 4,
+};
+using debug_report_flags_ext =
+  shift::core::bit_field<debug_report_flag_ext, VkDebugReportFlagsEXT>;
+inline constexpr debug_report_flags_ext operator|(debug_report_flag_ext lhs,
+                                                  debug_report_flag_ext rhs)
+{
+  return debug_report_flags_ext{lhs} | rhs;
+}
+using command_pool_trim_flags_khr = VkFlags;
+enum class external_memory_feature_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using external_memory_feature_flags_khr =
+  shift::core::bit_field<external_memory_feature_flag_khr,
+                         VkExternalMemoryFeatureFlagsKHR>;
+inline constexpr external_memory_feature_flags_khr operator|(
+  external_memory_feature_flag_khr lhs, external_memory_feature_flag_khr rhs)
+{
+  return external_memory_feature_flags_khr{lhs} | rhs;
+}
+enum class external_semaphore_handle_type_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using external_semaphore_handle_type_flags_khr =
+  shift::core::bit_field<external_semaphore_handle_type_flag_khr,
+                         VkExternalSemaphoreHandleTypeFlagsKHR>;
+inline constexpr external_semaphore_handle_type_flags_khr operator|(
+  external_semaphore_handle_type_flag_khr lhs,
+  external_semaphore_handle_type_flag_khr rhs)
+{
+  return external_semaphore_handle_type_flags_khr{lhs} | rhs;
+}
+enum class external_semaphore_feature_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using external_semaphore_feature_flags_khr =
+  shift::core::bit_field<external_semaphore_feature_flag_khr,
+                         VkExternalSemaphoreFeatureFlagsKHR>;
+inline constexpr external_semaphore_feature_flags_khr operator|(
+  external_semaphore_feature_flag_khr lhs,
+  external_semaphore_feature_flag_khr rhs)
+{
+  return external_semaphore_feature_flags_khr{lhs} | rhs;
+}
+enum class semaphore_import_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using semaphore_import_flags_khr =
+  shift::core::bit_field<semaphore_import_flag_khr, VkSemaphoreImportFlagsKHR>;
+inline constexpr semaphore_import_flags_khr operator|(
+  semaphore_import_flag_khr lhs, semaphore_import_flag_khr rhs)
+{
+  return semaphore_import_flags_khr{lhs} | rhs;
+}
+enum class external_fence_handle_type_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using external_fence_handle_type_flags_khr =
+  shift::core::bit_field<external_fence_handle_type_flag_khr,
+                         VkExternalFenceHandleTypeFlagsKHR>;
+inline constexpr external_fence_handle_type_flags_khr operator|(
+  external_fence_handle_type_flag_khr lhs,
+  external_fence_handle_type_flag_khr rhs)
+{
+  return external_fence_handle_type_flags_khr{lhs} | rhs;
+}
+enum class external_fence_feature_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using external_fence_feature_flags_khr =
+  shift::core::bit_field<external_fence_feature_flag_khr,
+                         VkExternalFenceFeatureFlagsKHR>;
+inline constexpr external_fence_feature_flags_khr operator|(
+  external_fence_feature_flag_khr lhs, external_fence_feature_flag_khr rhs)
+{
+  return external_fence_feature_flags_khr{lhs} | rhs;
+}
+enum class fence_import_flag_khr
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using fence_import_flags_khr =
+  shift::core::bit_field<fence_import_flag_khr, VkFenceImportFlagsKHR>;
+inline constexpr fence_import_flags_khr operator|(fence_import_flag_khr lhs,
+                                                  fence_import_flag_khr rhs)
+{
+  return fence_import_flags_khr{lhs} | rhs;
+}
+enum class system_allocation_scope
+{
+  /// @see VK_SYSTEM_ALLOCATION_SCOPE_COMMAND
+  command = 0,
+  /// @see VK_SYSTEM_ALLOCATION_SCOPE_OBJECT
+  object = 1,
+  /// @see VK_SYSTEM_ALLOCATION_SCOPE_CACHE
+  cache = 2,
+  /// @see VK_SYSTEM_ALLOCATION_SCOPE_DEVICE
+  device = 3,
+  /// @see VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE
+  instance = 4,
+};
+enum class internal_allocation_type
+{
+  /// @see VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE
+  executable = 0,
+};
+enum class descriptor_update_template_type_khr
+{
+};
+enum class point_clipping_behavior_khr
+{
+};
+enum class tessellation_domain_origin_khr
+{
+};
+enum class sampler_ycbcr_model_conversion_khr
+{
+};
+enum class sampler_ycbcr_range_khr
+{
+};
+enum class chroma_location_khr
+{
+};
+
+/// Enhanced replacement type for VkDebugReportCallbackCreateInfoEXT.
+class debug_report_callback_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr debug_report_callback_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr debug_report_callback_create_info_ext(
+    const void* initial_next, vk::debug_report_flags_ext initial_flags,
+    PFN_vkDebugReportCallbackEXT initial_pfn_callback,
+    void* initial_user_data) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _pfn_callback(std::move(initial_pfn_callback)),
+    _user_data(std::move(initial_user_data))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr debug_report_callback_create_info_ext(
+    const debug_report_callback_create_info_ext& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _pfn_callback(other._pfn_callback),
+    _user_data(other._user_data)
+  {
+  }
+
+  /// Move constructor.
+  constexpr debug_report_callback_create_info_ext(
+    debug_report_callback_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _pfn_callback(std::move(other._pfn_callback)),
+    _user_data(std::move(other._user_data))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr debug_report_callback_create_info_ext& operator=(
+    const debug_report_callback_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _pfn_callback = other._pfn_callback;
+    _user_data = other._user_data;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr debug_report_callback_create_info_ext& operator=(
+    debug_report_callback_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _pfn_callback = std::move(other._pfn_callback);
+    _user_data = std::move(other._user_data);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkDebugReportCallbackCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkDebugReportCallbackCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::debug_report_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::debug_report_flags_ext& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::debug_report_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  PFN_vkDebugReportCallbackEXT& pfn_callback()
+  {
+    return _pfn_callback;
+  }
+
+  constexpr const PFN_vkDebugReportCallbackEXT& pfn_callback() const
+  {
+    return _pfn_callback;
+  }
+
+  void pfn_callback(PFN_vkDebugReportCallbackEXT new_pfn_callback)
+  {
+    _pfn_callback = new_pfn_callback;
+  }
+
+  void* user_data()
+  {
+    return _user_data;
+  }
+
+  constexpr void* user_data() const
+  {
+    return _user_data;
+  }
+
+  void user_data(void* new_user_data)
+  {
+    _user_data = new_user_data;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::debug_report_callback_create_info_ext;
+  const void* _next = nullptr;
+  /// Indicates which events call this callback
+  vk::debug_report_flags_ext _flags = vk::debug_report_flag_ext::none;
+  /// Function pointer of a callback function
+  PFN_vkDebugReportCallbackEXT _pfn_callback = nullptr;
+  /// User data provided to callback function
+  void* _user_data = nullptr;
+};
+static_assert(sizeof(debug_report_callback_create_info_ext) ==
+                sizeof(::VkDebugReportCallbackCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+using physical_device_features_2_khr = physical_device_features_2;
+
+using physical_device_properties_2_khr = physical_device_properties_2;
+
+using format_properties_2_khr = format_properties_2;
+
+using image_format_properties_2_khr = image_format_properties_2;
+
+using physical_device_image_format_info_2_khr =
+  physical_device_image_format_info_2;
+
+using queue_family_properties_2_khr = queue_family_properties_2;
+
+using physical_device_memory_properties_2_khr =
+  physical_device_memory_properties_2;
+
+using sparse_image_format_properties_2_khr = sparse_image_format_properties_2;
+
+using physical_device_sparse_image_format_info_2_khr =
+  physical_device_sparse_image_format_info_2;
+
+using physical_device_variable_pointer_features_khr =
+  physical_device_variable_pointer_features;
+
+using external_memory_properties_khr = external_memory_properties;
+
+using physical_device_external_image_format_info_khr =
+  physical_device_external_image_format_info;
+
+using external_image_format_properties_khr = external_image_format_properties;
+
+using physical_device_external_buffer_info_khr =
+  physical_device_external_buffer_info;
+
+using external_buffer_properties_khr = external_buffer_properties;
+
+using physical_device_idproperties_khr = physical_device_idproperties;
+
+using external_memory_image_create_info_khr = external_memory_image_create_info;
+
+using external_memory_buffer_create_info_khr =
+  external_memory_buffer_create_info;
+
+using export_memory_allocate_info_khr = export_memory_allocate_info;
+
+using physical_device_external_semaphore_info_khr =
+  physical_device_external_semaphore_info;
+
+using external_semaphore_properties_khr = external_semaphore_properties;
+
+using export_semaphore_create_info_khr = export_semaphore_create_info;
+
+using physical_device_external_fence_info_khr =
+  physical_device_external_fence_info;
+
+using external_fence_properties_khr = external_fence_properties;
+
+using export_fence_create_info_khr = export_fence_create_info;
+
+using physical_device_multiview_features_khr =
+  physical_device_multiview_features;
+
+using physical_device_multiview_properties_khr =
+  physical_device_multiview_properties;
+
+using render_pass_multiview_create_info_khr = render_pass_multiview_create_info;
+
+/// Enhanced replacement type for VkSurfaceCapabilities2EXT.
+class surface_capabilities_2_ext
+{
+public:
+  /// Default constructor.
+  constexpr surface_capabilities_2_ext() = default;
+
+  /// Constructor.
+  constexpr surface_capabilities_2_ext(
+    void* initial_next, uint32_t initial_min_image_count,
+    uint32_t initial_max_image_count, vk::extent_2d initial_current_extent,
+    vk::extent_2d initial_min_image_extent,
+    vk::extent_2d initial_max_image_extent,
+    uint32_t initial_max_image_array_layers,
+    vk::surface_transform_flags_khr initial_supported_transforms,
+    vk::surface_transform_flag_khr initial_current_transform,
+    vk::composite_alpha_flags_khr initial_supported_composite_alpha,
+    vk::image_usage_flags initial_supported_usage_flags,
+    vk::surface_counter_flags_ext initial_supported_surface_counters) noexcept
+  : _next(std::move(initial_next)),
+    _min_image_count(std::move(initial_min_image_count)),
+    _max_image_count(std::move(initial_max_image_count)),
+    _current_extent(std::move(initial_current_extent)),
+    _min_image_extent(std::move(initial_min_image_extent)),
+    _max_image_extent(std::move(initial_max_image_extent)),
+    _max_image_array_layers(std::move(initial_max_image_array_layers)),
+    _supported_transforms(std::move(initial_supported_transforms)),
+    _current_transform(std::move(initial_current_transform)),
+    _supported_composite_alpha(std::move(initial_supported_composite_alpha)),
+    _supported_usage_flags(std::move(initial_supported_usage_flags)),
+    _supported_surface_counters(std::move(initial_supported_surface_counters))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr surface_capabilities_2_ext(
+    const surface_capabilities_2_ext& other) noexcept
+  : _next(other._next),
+    _min_image_count(other._min_image_count),
+    _max_image_count(other._max_image_count),
+    _current_extent(other._current_extent),
+    _min_image_extent(other._min_image_extent),
+    _max_image_extent(other._max_image_extent),
+    _max_image_array_layers(other._max_image_array_layers),
+    _supported_transforms(other._supported_transforms),
+    _current_transform(other._current_transform),
+    _supported_composite_alpha(other._supported_composite_alpha),
+    _supported_usage_flags(other._supported_usage_flags),
+    _supported_surface_counters(other._supported_surface_counters)
+  {
+  }
+
+  /// Move constructor.
+  constexpr surface_capabilities_2_ext(
+    surface_capabilities_2_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _min_image_count(std::move(other._min_image_count)),
+    _max_image_count(std::move(other._max_image_count)),
+    _current_extent(std::move(other._current_extent)),
+    _min_image_extent(std::move(other._min_image_extent)),
+    _max_image_extent(std::move(other._max_image_extent)),
+    _max_image_array_layers(std::move(other._max_image_array_layers)),
+    _supported_transforms(std::move(other._supported_transforms)),
+    _current_transform(std::move(other._current_transform)),
+    _supported_composite_alpha(std::move(other._supported_composite_alpha)),
+    _supported_usage_flags(std::move(other._supported_usage_flags)),
+    _supported_surface_counters(std::move(other._supported_surface_counters))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr surface_capabilities_2_ext& operator=(
+    const surface_capabilities_2_ext& other) noexcept
+  {
+    _next = other._next;
+    _min_image_count = other._min_image_count;
+    _max_image_count = other._max_image_count;
+    _current_extent = other._current_extent;
+    _min_image_extent = other._min_image_extent;
+    _max_image_extent = other._max_image_extent;
+    _max_image_array_layers = other._max_image_array_layers;
+    _supported_transforms = other._supported_transforms;
+    _current_transform = other._current_transform;
+    _supported_composite_alpha = other._supported_composite_alpha;
+    _supported_usage_flags = other._supported_usage_flags;
+    _supported_surface_counters = other._supported_surface_counters;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr surface_capabilities_2_ext& operator=(
+    surface_capabilities_2_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _min_image_count = std::move(other._min_image_count);
+    _max_image_count = std::move(other._max_image_count);
+    _current_extent = std::move(other._current_extent);
+    _min_image_extent = std::move(other._min_image_extent);
+    _max_image_extent = std::move(other._max_image_extent);
+    _max_image_array_layers = std::move(other._max_image_array_layers);
+    _supported_transforms = std::move(other._supported_transforms);
+    _current_transform = std::move(other._current_transform);
+    _supported_composite_alpha = std::move(other._supported_composite_alpha);
+    _supported_usage_flags = std::move(other._supported_usage_flags);
+    _supported_surface_counters = std::move(other._supported_surface_counters);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSurfaceCapabilities2EXT&() const
+  {
+    return *reinterpret_cast<const VkSurfaceCapabilities2EXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& min_image_count()
+  {
+    return _min_image_count;
+  }
+
+  constexpr const uint32_t& min_image_count() const
+  {
+    return _min_image_count;
+  }
+
+  void min_image_count(uint32_t new_min_image_count)
+  {
+    _min_image_count = new_min_image_count;
+  }
+
+  uint32_t& max_image_count()
+  {
+    return _max_image_count;
+  }
+
+  constexpr const uint32_t& max_image_count() const
+  {
+    return _max_image_count;
+  }
+
+  void max_image_count(uint32_t new_max_image_count)
+  {
+    _max_image_count = new_max_image_count;
+  }
+
+  vk::extent_2d& current_extent()
+  {
+    return _current_extent;
+  }
+
+  constexpr const vk::extent_2d& current_extent() const
+  {
+    return _current_extent;
+  }
+
+  void current_extent(vk::extent_2d new_current_extent)
+  {
+    _current_extent = new_current_extent;
+  }
+
+  vk::extent_2d& min_image_extent()
+  {
+    return _min_image_extent;
+  }
+
+  constexpr const vk::extent_2d& min_image_extent() const
+  {
+    return _min_image_extent;
+  }
+
+  void min_image_extent(vk::extent_2d new_min_image_extent)
+  {
+    _min_image_extent = new_min_image_extent;
+  }
+
+  vk::extent_2d& max_image_extent()
+  {
+    return _max_image_extent;
+  }
+
+  constexpr const vk::extent_2d& max_image_extent() const
+  {
+    return _max_image_extent;
+  }
+
+  void max_image_extent(vk::extent_2d new_max_image_extent)
+  {
+    _max_image_extent = new_max_image_extent;
+  }
+
+  uint32_t& max_image_array_layers()
+  {
+    return _max_image_array_layers;
+  }
+
+  constexpr const uint32_t& max_image_array_layers() const
+  {
+    return _max_image_array_layers;
+  }
+
+  void max_image_array_layers(uint32_t new_max_image_array_layers)
+  {
+    _max_image_array_layers = new_max_image_array_layers;
+  }
+
+  vk::surface_transform_flags_khr& supported_transforms()
+  {
+    return _supported_transforms;
+  }
+
+  constexpr const vk::surface_transform_flags_khr& supported_transforms() const
+  {
+    return _supported_transforms;
+  }
+
+  void supported_transforms(
+    vk::surface_transform_flags_khr new_supported_transforms)
+  {
+    _supported_transforms = new_supported_transforms;
+  }
+
+  vk::surface_transform_flag_khr& current_transform()
+  {
+    return _current_transform;
+  }
+
+  constexpr const vk::surface_transform_flag_khr& current_transform() const
+  {
+    return _current_transform;
+  }
+
+  void current_transform(vk::surface_transform_flag_khr new_current_transform)
+  {
+    _current_transform = new_current_transform;
+  }
+
+  vk::composite_alpha_flags_khr& supported_composite_alpha()
+  {
+    return _supported_composite_alpha;
+  }
+
+  constexpr const vk::composite_alpha_flags_khr& supported_composite_alpha()
+    const
+  {
+    return _supported_composite_alpha;
+  }
+
+  void supported_composite_alpha(
+    vk::composite_alpha_flags_khr new_supported_composite_alpha)
+  {
+    _supported_composite_alpha = new_supported_composite_alpha;
+  }
+
+  vk::image_usage_flags& supported_usage_flags()
+  {
+    return _supported_usage_flags;
+  }
+
+  constexpr const vk::image_usage_flags& supported_usage_flags() const
+  {
+    return _supported_usage_flags;
+  }
+
+  void supported_usage_flags(vk::image_usage_flags new_supported_usage_flags)
+  {
+    _supported_usage_flags = new_supported_usage_flags;
+  }
+
+  vk::surface_counter_flags_ext& supported_surface_counters()
+  {
+    return _supported_surface_counters;
+  }
+
+  constexpr const vk::surface_counter_flags_ext& supported_surface_counters()
+    const
+  {
+    return _supported_surface_counters;
+  }
+
+  void supported_surface_counters(
+    vk::surface_counter_flags_ext new_supported_surface_counters)
+  {
+    _supported_surface_counters = new_supported_surface_counters;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::surface_capabilities_2_ext;
+  void* _next = nullptr;
+  /// Supported minimum number of images for the surface
+  uint32_t _min_image_count = 0;
+  /// Supported maximum number of images for the surface, 0 for unlimited
+  uint32_t _max_image_count = 0;
+  /// Current image width and height for the surface, (0, 0) if undefined
+  vk::extent_2d _current_extent = vk::extent_2d{};
+  /// Supported minimum image width and height for the surface
+  vk::extent_2d _min_image_extent = vk::extent_2d{};
+  /// Supported maximum image width and height for the surface
+  vk::extent_2d _max_image_extent = vk::extent_2d{};
+  /// Supported maximum number of image layers for the surface
+  uint32_t _max_image_array_layers = 0;
+  /// 1 or more bits representing the transforms supported
+  vk::surface_transform_flags_khr _supported_transforms =
+    vk::surface_transform_flag_khr::none;
+  /// The surface's current transform relative to the device's natural
+  /// orientation
+  vk::surface_transform_flag_khr _current_transform =
+    vk::surface_transform_flag_khr::none;
+  /// 1 or more bits representing the alpha compositing modes supported
+  vk::composite_alpha_flags_khr _supported_composite_alpha =
+    vk::composite_alpha_flag_khr::none;
+  /// Supported image usage flags for the surface
+  vk::image_usage_flags _supported_usage_flags = vk::image_usage_flag::none;
+  vk::surface_counter_flags_ext _supported_surface_counters =
+    vk::surface_counter_flag_ext::none;
+};
+static_assert(sizeof(surface_capabilities_2_ext) ==
+                sizeof(::VkSurfaceCapabilities2EXT),
+              "struct and wrapper have different size!");
+
+using physical_device_group_properties_khr = physical_device_group_properties;
+
+using memory_allocate_flags_info_khr = memory_allocate_flags_info;
+
+using bind_buffer_memory_info_khr = bind_buffer_memory_info;
+
+using bind_buffer_memory_device_group_info_khr =
+  bind_buffer_memory_device_group_info;
+
+using bind_image_memory_info_khr = bind_image_memory_info;
+
+using bind_image_memory_device_group_info_khr =
+  bind_image_memory_device_group_info;
+
+using device_group_render_pass_begin_info_khr =
+  device_group_render_pass_begin_info;
+
+using device_group_command_buffer_begin_info_khr =
+  device_group_command_buffer_begin_info;
+
+using device_group_submit_info_khr = device_group_submit_info;
+
+using device_group_bind_sparse_info_khr = device_group_bind_sparse_info;
+
+using device_group_device_create_info_khr = device_group_device_create_info;
+
+using descriptor_update_template_entry_khr = descriptor_update_template_entry;
+
+using descriptor_update_template_create_info_khr =
+  descriptor_update_template_create_info;
+
+using input_attachment_aspect_reference_khr = input_attachment_aspect_reference;
+
+using render_pass_input_attachment_aspect_create_info_khr =
+  render_pass_input_attachment_aspect_create_info;
+
+using physical_device_16_bit_storage_features_khr =
+  physical_device_16_bit_storage_features;
+
+using buffer_memory_requirements_info_2_khr = buffer_memory_requirements_info_2;
+
+using image_memory_requirements_info_2_khr = image_memory_requirements_info_2;
+
+using image_sparse_memory_requirements_info_2_khr =
+  image_sparse_memory_requirements_info_2;
+
+using sparse_image_memory_requirements_2_khr =
+  sparse_image_memory_requirements_2;
+
+using physical_device_point_clipping_properties_khr =
+  physical_device_point_clipping_properties;
+
+using memory_dedicated_requirements_khr = memory_dedicated_requirements;
+
+using memory_dedicated_allocate_info_khr = memory_dedicated_allocate_info;
+
+using image_view_usage_create_info_khr = image_view_usage_create_info;
+
+using pipeline_tessellation_domain_origin_state_create_info_khr =
+  pipeline_tessellation_domain_origin_state_create_info;
+
+using sampler_ycbcr_conversion_info_khr = sampler_ycbcr_conversion_info;
+
+using sampler_ycbcr_conversion_create_info_khr =
+  sampler_ycbcr_conversion_create_info;
+
+using bind_image_plane_memory_info_khr = bind_image_plane_memory_info;
+
+using image_plane_memory_requirements_info_khr =
+  image_plane_memory_requirements_info;
+
+using physical_device_sampler_ycbcr_conversion_features_khr =
+  physical_device_sampler_ycbcr_conversion_features;
+
+using sampler_ycbcr_conversion_image_format_properties_khr =
+  sampler_ycbcr_conversion_image_format_properties;
+
+using physical_device_maintenance_3_properties_khr =
+  physical_device_maintenance_3_properties;
+
+using descriptor_set_layout_support_khr = descriptor_set_layout_support;
 }
 
 #endif

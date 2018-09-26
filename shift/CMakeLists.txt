@@ -68,5 +68,5 @@ if (NOT NO_VULKAN)
   add_subdirectory(resource)
   add_subdirectory(render.vk)
   add_subdirectory(tools.rc)
+  add_subdirectory(tools.vk2cpp)
 endif()
-
