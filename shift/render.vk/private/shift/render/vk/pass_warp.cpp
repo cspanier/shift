@@ -329,7 +329,7 @@ void pass_warp::destroy_pipeline()
   _descriptor_set_layout.reset();
 }
 
-void pass_warp::create_resources(resource::scene& scene)
+void pass_warp::create_resources(resource::scene& /*scene*/)
 {
   /// ToDo...
 }
@@ -339,7 +339,7 @@ void pass_warp::destroy_resources()
   /// ToDo...
 }
 
-void pass_warp::update(std::uint32_t buffer_index)
+void pass_warp::update(std::uint32_t /*buffer_index*/)
 {
 }
 }

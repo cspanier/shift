@@ -33,7 +33,7 @@ void resource_streamer::create_resources()
 
   /// ToDo: The application should choose whether to precache all textures
   /// or not.
-  auto& repository = resource::repository::singleton_instance();
+  // auto& repository = resource::repository::singleton_instance();
   // auto resources = repository.load_all(resource::resource_type::image);
   // for (auto& resource_base : resources)
   //{

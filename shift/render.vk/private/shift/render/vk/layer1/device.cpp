@@ -322,12 +322,12 @@ device::~device()
   }
 }
 
-void device::create_worker_resources(task::worker_id_t worker_id)
+void device::create_worker_resources(task::worker_id_t /*worker_id*/)
 {
   _worker_local = std::make_unique<worker_thread_local_data>(*this);
 }
 
-void device::destroy_worker_resources(task::worker_id_t worker_id)
+void device::destroy_worker_resources(task::worker_id_t /*worker_id*/)
 {
   _worker_local.reset();
 }

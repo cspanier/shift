@@ -510,7 +510,7 @@ void pass_text::destroy_pipeline()
   _descriptor_set_layout.reset();
 }
 
-void pass_text::create_scene_resources(resource::scene& scene)
+void pass_text::create_scene_resources(resource::scene& /*scene*/)
 {
   /// ToDo...
 }
@@ -520,8 +520,8 @@ void pass_text::destroy_scene_resources()
   /// ToDo...
 }
 
-void pass_text::update(vk::layer2::multiview& multiview,
-                       std::uint32_t frame_index)
+void pass_text::update(vk::layer2::multiview& /*multiview*/,
+                       std::uint32_t /*frame_index*/)
 {
   /// ToDo...
 }
