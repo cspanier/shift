@@ -61,7 +61,9 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND NOT MSVC)
                                # -Wall.
   # -Wno-psabi                 # Disable "parameter passing for argument of type
                                # '...' changed in GCC 7.1" warnings
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -Wno-psabi") # -fvisibility=hidden -fvisibility-inlines-hidden
+  # -Wno-unknown-pragmas       # Disable warnings about unknown pragmas,
+                               # like e.g. pragma region/endregion.
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -Wno-psabi -Wno-unknown-pragmas") # -fvisibility=hidden -fvisibility-inlines-hidden
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
   set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT "-Os -Wextra -fomit-frame-pointer -DBUILD_CONFIG_MINSIZEREL")
   set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -Wextra -fomit-frame-pointer -DBUILD_CONFIG_RELEASE")
