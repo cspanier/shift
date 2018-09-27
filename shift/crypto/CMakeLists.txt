@@ -7,7 +7,6 @@ shift_add_library(shift.crypto STATIC
   DEPENDENCIES
     shift.core
     shift.platform
-    # Boost
 )
 
 shift_add_test(test.shift.crypto
@@ -19,5 +18,4 @@ shift_add_test(test.shift.crypto
     shift.core
     shift.platform
     Boost::unit_test_framework
-    # Boost
 )

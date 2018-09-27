@@ -8,4 +8,6 @@ shift_add_library(shift.application STATIC
     shift.log
     shift.core
     shift.platform
+    Boost::boost
+    Boost::program_options
 )

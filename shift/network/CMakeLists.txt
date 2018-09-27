@@ -9,6 +9,8 @@ shift_add_library(shift.network STATIC
     shift.core
     shift.platform
     Boost::boost
+    Boost::coroutine
+    OSLibs::winsock2
 )
 
 shift_add_test(test.shift.network
