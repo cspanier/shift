@@ -12,4 +12,5 @@ This repository hosts a collection of various libraries that have been created i
 * [ShaderC](https://github.com/google/shaderc) tested with revision 30af9f9
 * [Vulkan SDK](https://vulkan.lunarg.com/) 1.1.82.0
 * [GLFW](https://www.glfw.org/) 3.2.1
-
+* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) 6.0
+  * Used to format generated code.
