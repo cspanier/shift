@@ -1,0 +1,1 @@
+shift_add_csharp_project(shift_net.network)
