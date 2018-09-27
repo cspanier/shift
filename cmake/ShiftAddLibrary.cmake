@@ -93,7 +93,7 @@ macro(shift_add_library target)
         list(APPEND ARG_LIBRARIES ${${dependency}_LIBRARIES})
       endif()
     else()
-      message(FATAL_ERROR "Unknown dependency ${dependency} in target ${target}.")
+      message(WARNING "Unknown dependency ${dependency} in target ${target}.")
     endif()
   endforeach()
 
@@ -102,6 +102,10 @@ macro(shift_add_library target)
   set(definitions "${SHIFT_GLOBAL_DEFINITIONS}")
   list(APPEND definitions "${ARG_DEFINITIONS}")
   list(APPEND definitions $<$<CONFIG:Release>:_RELEASE>)
+  list(APPEND definitions $<$<CONFIG:Debug>:BUILD_BIN_FOLDER="bin.debug">)
+  list(APPEND definitions $<$<CONFIG:MinSizeRel>:BUILD_BIN_FOLDER="bin.minsizerel">)
+  list(APPEND definitions $<$<CONFIG:Release>:BUILD_BIN_FOLDER="bin">)
+  list(APPEND definitions $<$<CONFIG:RelWithDebInfo>:BUILD_BIN_FOLDER="bin.relwithdeb">)
   list(APPEND definitions BUILD_FILE_SUFFIX="${build_file_suffix}")
   set(LFLAGS "${GLOBAL_LINK_FLAGS} ${ARG_LFLAGS}")
 
@@ -130,44 +134,19 @@ macro(shift_add_library target)
       COMPILE_DEFINITIONS  # This property being ignored by MSVC CMake generator.
         "${definitions}"
       COMPILE_DEFINITIONS_DEBUG
-        "${definitions}"
-        "BUILD_CONFIG_DEBUG"
+        "${definitions};BUILD_CONFIG_DEBUG"
       COMPILE_DEFINITIONS_MINSIZEREL
-        "${definitions}"
-        "BUILD_CONFIG_MINSIZEREL"
+        "${definitions};BUILD_CONFIG_MINSIZEREL"
       COMPILE_DEFINITIONS_RELEASE
-        "${definitions}"
-        "BUILD_CONFIG_RELEASE"
+        "${definitions};BUILD_CONFIG_RELEASE"
       COMPILE_DEFINITIONS_RELWITHDEBINFO
-        "${definitions}"
-        "BUILD_CONFIG_RELWITHDEBINFO"
+        "${definitions};BUILD_CONFIG_RELWITHDEBINFO"
       COMPILE_FLAGS "${ARG_CXXFLAGS}"
       LINK_FLAGS "${LFLAGS}"
       LINK_FLAGS_DEBUG "${GLOBAL_LINK_FLAGS_DEBUG}"
+      LINK_FLAGS_MINSIZEREL "${GLOBAL_LINK_FLAGS_MINSIZEREL}"
       LINK_FLAGS_RELEASE "${GLOBAL_LINK_FLAGS_RELEASE}"
-      # LINKER_LANGUAGE CXX
-
-      #LIBRARY_OUTPUT_DIRECTORY
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #LIBRARY_OUTPUT_DIRECTORY_DEBUG
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #LIBRARY_OUTPUT_DIRECTORY_RELEASE
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-
-      #ARCHIVE_OUTPUT_DIRECTORY
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #ARCHIVE_OUTPUT_DIRECTORY_DEBUG
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #ARCHIVE_OUTPUT_DIRECTORY_MINSIZEREL
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #ARCHIVE_OUTPUT_DIRECTORY_RELEASE
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
-      #ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO
-      #  "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/lib"
+      LINK_FLAGS_RELWITHDEBINFO "${GLOBAL_LINK_FLAGS_RELWITHDEBINFO}"
 
       RUNTIME_OUTPUT_DIRECTORY
         "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin"

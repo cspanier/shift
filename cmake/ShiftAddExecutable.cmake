@@ -101,13 +101,20 @@ macro(shift_add_executable target)
     endif()
   endforeach()
 
-  get_directory_property(include_dirs INCLUDE_DIRECTORIES)
+  set(all_include_dirs)
+  list(APPEND all_include_dirs ${ARG_SOURCEDIRS})
+  list(APPEND all_include_dirs ${ARG_INCLUDEDIRS})
+  list(APPEND all_include_dirs "${CMAKE_PREFIX_PATH}/include")
 
   set(build_file_suffix "${version_tag}.${SHIFT_SYSTEM_PROCESSOR}.${SHIFT_COMPILER_ACRONYM}")
 
   set(definitions "${SHIFT_GLOBAL_DEFINITIONS}")
   list(APPEND definitions "${ARG_DEFINITIONS}")
   list(APPEND definitions $<$<CONFIG:Release>:_RELEASE>)
+  list(APPEND definitions $<$<CONFIG:Debug>:BUILD_BIN_FOLDER="bin.debug">)
+  list(APPEND definitions $<$<CONFIG:MinSizeRel>:BUILD_BIN_FOLDER="bin.minsizerel">)
+  list(APPEND definitions $<$<CONFIG:Release>:BUILD_BIN_FOLDER="bin">)
+  list(APPEND definitions $<$<CONFIG:RelWithDebInfo>:BUILD_BIN_FOLDER="bin.relwithdeb">)
   list(APPEND definitions BUILD_FILE_SUFFIX="${build_file_suffix}")
   set(LFLAGS "${GLOBAL_LINK_FLAGS}")
   list(APPEND LFLAGS " ${ARG_LFLAGS}")
@@ -115,26 +122,24 @@ macro(shift_add_executable target)
   set_target_properties(${target} PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
-    PREFIX ""
-    INCLUDE_DIRECTORIES "${include_dirs}"
+    # PREFIX ""
+    INCLUDE_DIRECTORIES "${all_include_dirs}"
     COMPILE_DEFINITIONS  # This property being ignored by MSVC CMake generator.
       "${definitions}"
     COMPILE_DEFINITIONS_DEBUG
-      "${definitions}"
-      "BUILD_CONFIG_DEBUG"
+      "${definitions};BUILD_CONFIG_DEBUG"
     COMPILE_DEFINITIONS_MINSIZEREL
-      "${definitions}"
-      "BUILD_CONFIG_MINSIZEREL"
+      "${definitions};BUILD_CONFIG_MINSIZEREL"
     COMPILE_DEFINITIONS_RELEASE
-      "${definitions}"
-      "BUILD_CONFIG_RELEASE"
+      "${definitions};BUILD_CONFIG_RELEASE"
     COMPILE_DEFINITIONS_RELWITHDEBINFO
-      "${definitions}"
-      "BUILD_CONFIG_RELWITHDEBINFO"
+      "${definitions};BUILD_CONFIG_RELWITHDEBINFO"
     COMPILE_FLAGS "${ARG_CXXFLAGS}"
     LINK_FLAGS "${LFLAGS}"
     LINK_FLAGS_DEBUG "${GLOBAL_LINK_FLAGS_DEBUG}"
+    LINK_FLAGS_MINSIZEREL "${GLOBAL_LINK_FLAGS_MINSIZEREL}"
     LINK_FLAGS_RELEASE "${GLOBAL_LINK_FLAGS_RELEASE}"
+    LINK_FLAGS_RELWITHDEBINFO "${GLOBAL_LINK_FLAGS_RELWITHDEBINFO}"
     LINKER_LANGUAGE CXX
 
     RUNTIME_OUTPUT_DIRECTORY
@@ -173,88 +178,7 @@ macro(shift_add_executable target)
       EXPORT "${CMAKE_PROJECT_NAME}")
     install(EXPORT "${CMAKE_PROJECT_NAME}"
       DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/cmake")
-
-    if(Qt5Core_FOUND)
-      if(WIN32 AND TARGET Qt5::qmake AND NOT TARGET Qt5::windeployqt)
-        get_target_property(_qt5_qmake_location
-          Qt5::qmake IMPORTED_LOCATION
-        )
-
-        execute_process(
-          COMMAND "${_qt5_qmake_location}" -query QT_INSTALL_PREFIX
-          RESULT_VARIABLE return_code
-          OUTPUT_VARIABLE qt5_install_prefix
-          OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-
-        set(windeployqt_path "${qt5_install_prefix}/bin/windeployqt.exe")
-
-        if(EXISTS ${windeployqt_path})
-          add_executable(Qt5::windeployqt IMPORTED)
-
-          set_target_properties(Qt5::windeployqt PROPERTIES
-            IMPORTED_LOCATION ${windeployqt_path}
-          )
-        endif()
-      endif()
-
-      if(TARGET Qt5::windeployqt)
-        add_custom_command(TARGET ${target}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.debug"
-          COMMAND set PATH=${qt5_install_prefix}/bin$<SEMICOLON>%PATH%
-          COMMAND Qt5::windeployqt --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.debug" --debug --qmldir "${ARG_QMLDIRS}" "$<TARGET_FILE:${target}>"
-        )
-        add_custom_command(TARGET ${target}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.minsizerel"
-          COMMAND set PATH=${qt5_install_prefix}/bin$<SEMICOLON>%PATH%
-          COMMAND Qt5::windeployqt --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.minsizerel" --release --qmldir "${ARG_QMLDIRS}" "$<TARGET_FILE:${target}>"
-        )
-        add_custom_command(TARGET ${target}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.release"
-          COMMAND set PATH=${qt5_install_prefix}/bin$<SEMICOLON>%PATH%
-          COMMAND Qt5::windeployqt --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.release" --release --qmldir "${ARG_QMLDIRS}" "$<TARGET_FILE:${target}>"
-        )
-        add_custom_command(TARGET ${target}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.relwithdeb"
-          COMMAND set PATH=${qt5_install_prefix}/bin$<SEMICOLON>%PATH%
-          COMMAND Qt5::windeployqt --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.relwithdeb" --release --qmldir "${ARG_QMLDIRS}" "$<TARGET_FILE:${target}>"
-        )
-
-        install(
-          DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.debug/"
-          CONFIGURATIONS Debug
-          DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.debug"
-        )
-        install(
-          DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.minsizerel/"
-          CONFIGURATIONS minsizerel
-          DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.minsizerel"
-        )
-        install(
-          DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.release/"
-          CONFIGURATIONS Release
-          DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin"
-        )
-        install(
-          DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/windeployqt.relwithdeb/"
-          CONFIGURATIONS relwithdeb
-          DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARG_ROOT}/bin.relwithdeb"
-        )
-      endif()
-    endif()
   endif()
-
-  set(all_include_dirs)
-  list(APPEND all_include_dirs ${ARG_SOURCEDIRS})
-  list(APPEND all_include_dirs ${ARG_INCLUDEDIRS})
-  list(APPEND all_include_dirs "${CMAKE_PREFIX_PATH}/include")
-  set_target_properties(${target} PROPERTIES
-    INCLUDE_DIRECTORIES "${all_include_dirs}")
-  unset(all_include_dirs)
 
   if(ARG_PRECOMPILED_HEADER)
     shift_add_precompiled_header(${target} "${sources}" "${ARG_PRECOMPILED_HEADER}")
@@ -275,6 +199,7 @@ macro(shift_add_executable target)
     add_dependencies(breakpad.${target} ${target})
   endif()
 
+  unset(all_include_dirs)
   unset(version_tag)
   unset(sources)
   unset(ARG_ROOT)

@@ -185,7 +185,7 @@ endmacro()
 ###############################################################################
 
 macro(shift_find_package name)
-  include(${CMAKE_DIR}/Lib${name}.cmake)
+  include("${CMAKE_SOURCE_DIR}/cmake/Lib${name}.cmake")
 endmacro()
 
 ###############################################################################

@@ -88,6 +88,10 @@ macro(shift_add_test target)
   set(definitions "${SHIFT_GLOBAL_DEFINITIONS}")
   list(APPEND definitions "${ARG_DEFINITIONS}")
   list(APPEND definitions $<$<CONFIG:Release>:_RELEASE>)
+  list(APPEND definitions $<$<CONFIG:Debug>:BUILD_BIN_FOLDER="bin.debug">)
+  list(APPEND definitions $<$<CONFIG:MinSizeRel>:BUILD_BIN_FOLDER="bin.minsizerel">)
+  list(APPEND definitions $<$<CONFIG:Release>:BUILD_BIN_FOLDER="bin">)
+  list(APPEND definitions $<$<CONFIG:RelWithDebInfo>:BUILD_BIN_FOLDER="bin.relwithdeb">)
   list(APPEND definitions BUILD_FILE_SUFFIX="${build_file_suffix}")
   list(APPEND definitions SHIFT_TEST_MODULE_NAME=${target})
   set(LFLAGS "${GLOBAL_LINK_FLAGS}")
@@ -101,21 +105,19 @@ macro(shift_add_test target)
     COMPILE_DEFINITIONS  # This property being ignored by MSVC CMake generator.
       "${definitions}"
     COMPILE_DEFINITIONS_DEBUG
-      "${definitions}"
-      "BUILD_CONFIG_DEBUG"
+      "${definitions};BUILD_CONFIG_DEBUG"
     COMPILE_DEFINITIONS_MINSIZEREL
-      "${definitions}"
-      "BUILD_CONFIG_MINSIZEREL"
+      "${definitions};BUILD_CONFIG_MINSIZEREL"
     COMPILE_DEFINITIONS_RELEASE
-      "${definitions}"
-      "BUILD_CONFIG_RELEASE"
+      "${definitions};BUILD_CONFIG_RELEASE"
     COMPILE_DEFINITIONS_RELWITHDEBINFO
-      "${definitions}"
-      "BUILD_CONFIG_RELWITHDEBINFO"
+      "${definitions};BUILD_CONFIG_RELWITHDEBINFO"
     COMPILE_FLAGS "${ARG_CXXFLAGS}"
     LINK_FLAGS "${LFLAGS}"
     LINK_FLAGS_DEBUG "${GLOBAL_LINK_FLAGS_DEBUG}"
+    LINK_FLAGS_MINSIZEREL "${GLOBAL_LINK_FLAGS_MINSIZEREL}"
     LINK_FLAGS_RELEASE "${GLOBAL_LINK_FLAGS_RELEASE}"
+    LINK_FLAGS_RELWITHDEBINFO "${GLOBAL_LINK_FLAGS_RELWITHDEBINFO}"
     LINKER_LANGUAGE CXX
 
     RUNTIME_OUTPUT_DIRECTORY

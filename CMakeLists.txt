@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.12)
 
 option(SHIFT_DEBUG
   "Prints the values of several variables to console to aid in debugging.")
@@ -87,8 +87,10 @@ include("${CMAKE_SOURCE_DIR}/cmake/ShiftUtilityDebugVar.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddExecutable.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddLibrary.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddTests.cmake")
-# include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddCSharpProject.cmake")
-# include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddProtogen.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddCSharpProject.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddProtogen.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/ShiftAddDocumentation.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/ShiftGitVersion.cmake")
 
 # Enable testing in this folder and below.
 enable_testing()
@@ -199,7 +201,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     "SHIFT_PLATFORM_WINDOWS"
     "WIN32"
     "_WINDOWS"
-    "_WIN32_WINNT=0x0A00" # Windows 10
+    # We need to define both WINVER and _WIN32_WINNT.
+    "WINVER=0x0A00"  # Windows 10
+    "_WIN32_WINNT=0x0A00"  # Windows 10
     "_CONSOLE"
 
     # Drastically reduce the number of implicite includes introduced by
@@ -236,13 +240,28 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     # Without BOOST_STACKTRACE_LINK being defined this selects the stacktrace
     # implementation to use.
     "BOOST_STACKTRACE_USE_WINDBG"
+
+    # ToDo: Add info about this macro and why it is used.
+    # "BOOST_USE_WINDOWS_H"
   )
 
-    # Add processor macros as required by winnt.h.
+    # Add processor macros as required external headers.
   if("${SHIFT_SYSTEM_PROCESSOR}" STREQUAL "x86_32")
-    list(APPEND SHIFT_GLOBAL_DEFINITIONS "_X86_")
+    list(APPEND SHIFT_GLOBAL_DEFINITIONS
+      # ToDo: Who needs this?
+      "_WIN32"
+      # Used by winnt.h
+      "_X86_"
+    )
   elseif("${SHIFT_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
-    list(APPEND SHIFT_GLOBAL_DEFINITIONS "_AMD64_")
+    list(APPEND SHIFT_GLOBAL_DEFINITIONS
+      # ToDo: Who needs this?
+      "WIN64"
+      # ToDo: Who needs this?
+      "_WIN64"
+      # Used by winnt.h
+      "_AMD64_"
+    )
   endif()
 
   # If BOOST_STACKTRACE_LINK is defined above, we need to manually link the
@@ -252,4 +271,5 @@ endif()
 
 ################################################################################
 
-shift_add_subdirectories()
+add_subdirectory(shift)
+add_subdirectory(thales)
