@@ -1469,8 +1469,7 @@ void cpp_generator::write_definition(const message& message)
   // Write read_virtual methods.
   *_header << indent << "///" br;
   *_header << indent
-           << "virtual void "
-              "read_virtual(::shift::serialization::compact_"
+           << "void read_virtual(::shift::serialization::compact_"
               "input_archive<boost::endian::order::big>& "
               "archive) override;" br2;
   *_source << indent << "void " << name
@@ -1482,8 +1481,7 @@ void cpp_generator::write_definition(const message& message)
 
   *_header << indent << "///" br;
   *_header << indent
-           << "virtual void "
-              "read_virtual(::shift::serialization::compact_"
+           << "void read_virtual(::shift::serialization::compact_"
               "input_archive<boost::endian::order::little>& "
               "archive) override;" br2;
   *_source << indent << "void " << name
@@ -1496,8 +1494,7 @@ void cpp_generator::write_definition(const message& message)
   // Write write_virtual methods.
   *_header << indent << "///" br;
   *_header << indent
-           << "virtual void "
-              "write_virtual(::shift::serialization::compact_"
+           << "void write_virtual(::shift::serialization::compact_"
               "output_archive<boost::endian::order::big>& "
               "archive) const override;" br;
 
@@ -1510,8 +1507,7 @@ void cpp_generator::write_definition(const message& message)
 
   *_header << indent << "///" br;
   *_header << indent
-           << "virtual void "
-              "write_virtual(::shift::serialization::compact_"
+           << "void write_virtual(::shift::serialization::compact_"
               "output_archive<boost::endian::order::little>& "
               "archive) const override;" br;
 
@@ -1698,7 +1694,7 @@ void cpp_generator::write_definition(const service& service)
 
   // Write destructor.
   *_header << indent << "/// Destructor." br;
-  *_header << indent << "virtual ~" << service_name << "() override;" br2;
+  *_header << indent << "~" << service_name << "() override;" br2;
   *_source << indent << service_name << "::~" << service_name << "()" br;
   *_source << indent << "{" br;
   *_source << indent << "}" br2;
@@ -1707,16 +1703,14 @@ void cpp_generator::write_definition(const service& service)
   *_header << indent
            << "/// @see ::shift::service::basic_service::read_message." br;
   *_header << indent
-           << "virtual void "
-              "read_message(::shift::serialization::compact_"
+           << "void read_message(::shift::serialization::compact_"
               "input_archive<boost::endian::order::big>& "
               "archive, ::shift::serialization::message_uid_t "
               "uid) override;" br;
   *_header << indent
            << "/// @see ::shift::service::basic_service::read_message." br;
   *_header << indent
-           << "virtual void "
-              "read_message(::shift::serialization::compact_"
+           << "void read_message(::shift::serialization::compact_"
               "input_archive<boost::endian::order::little>& "
               "archive, ::shift::serialization::message_uid_t "
               "uid) override;" br;
