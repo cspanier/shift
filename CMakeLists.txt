@@ -273,4 +273,3 @@ endif()
 
 add_subdirectory(shift)
 add_subdirectory(shift_net)
-add_subdirectory(thales)
