@@ -1,11 +1,12 @@
-/************************************************************************************//**
-// Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
-/// \author AMD Developer Tools Team
-/// \file
-****************************************************************************************/
-#ifndef _JRT_MESH_H_
-#define _JRT_MESH_H_
+/************************************************************************************/ /**
+ // Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
+ /// \author AMD Developer Tools Team
+ /// \file
+ ****************************************************************************************/
+#ifndef JRT_MESH_H
+#define JRT_MESH_H
 
+#include <cstdint>
 #include "JRTCommon.h"
 
 class JRTTriangle;
@@ -18,122 +19,153 @@ class JRTBoundingBox;
 class JRTMeshAttributes
 {
 public:
-    JRTMeshAttributes() : pShader(NULL), pCSGNode(NULL), bCastsShadows(true), bCastsCaustics(false)
-    {};
+  JRTMeshAttributes()
+  {
+  }
 
-    JRTSurfaceShader* pShader;
-    JRTPhotonShader* pPhotonShader;
-    JRTCSGNode* pCSGNode;
-    bool bCastsShadows;
-    bool bCastsCaustics;
+  JRTSurfaceShader* pShader{nullptr};
+  JRTPhotonShader* pPhotonShader;
+  JRTCSGNode* pCSGNode{nullptr};
+  bool bCastsShadows{true};
+  bool bCastsCaustics{false};
 };
-
 
 class JRTMesh
 {
 public:
+  /// Factory method for creating meshes
+  static JRTMesh* CreateMesh(const Vec3f* pPositions, const Vec3f* pNormals,
+                             std::uint32_t nVertices,
+                             std::uint32_t nTriangleCount,
+                             const std::uint32_t* pIndices);
 
-    /// Factory method for creating meshes
-    static JRTMesh* CreateMesh(const Vec3f* pPositions,
-                               const Vec3f* pNormals,
-                               UINT nVertices,
-                               UINT nTriangleCount,
-                               const UINT* pIndices);
+  /// Mesh constructor
+  JRTMesh();
 
-    /// Mesh constructor
-    JRTMesh();
+  /// Mesh destructor
+  ~JRTMesh();
 
-    /// Mesh destructor
-    ~JRTMesh();
+  /// Transforms the mesh and re-preprocesses the triangles
+  void Transform(const Matrix4f& rXForm, const Matrix4f& rInverse);
 
-    /// Transforms the mesh and re-preprocesses the triangles
-    void Transform(const Matrix4f& rXForm, const Matrix4f& rInverse);
+  /// Returns the number of triangles in the mesh
+  std::uint32_t GetTriangleCount() const
+  {
+    return m_nTriangleCount;
+  }
 
-    /// Returns the number of triangles in the mesh
-    UINT GetTriangleCount() const { return m_nTriangleCount; };
+  /// Accessor for the array of triangles
+  inline const JRTTriangle* GetTriangles() const
+  {
+    return m_Triangles.data();
+  }
 
-    /// Accessor for the array of triangles
-    inline const JRTTriangle* GetTriangles() const { return m_Triangles.data (); };
+  void GetInterpolants(std::uint32_t nTriIndex, const float barycentrics[3],
+                       Vec3f* pNormal, Vec2f* pUV) const;
 
+  const JRTMeshAttributes& GetAttributes() const
+  {
+    return m_attributes;
+  }
 
-    void GetInterpolants(UINT nTriIndex, const float barycentrics[3], Vec3f* pNormal, Vec2f* pUV) const;
+  void SetAttributes(const JRTMeshAttributes& rAttribs)
+  {
+    m_attributes = rAttribs;
+  }
 
-    const JRTMeshAttributes& GetAttributes() const { return m_attributes; };
+  /// Removes a particular triangle from the mesh
+  void RemoveTriangle(std::uint32_t nTri);
 
-    void SetAttributes(const JRTMeshAttributes& rAttribs) { m_attributes = rAttribs; };
+  JRTBoundingBox ComputeBoundingBox() const;
 
-    /// Removes a particular triangle from the mesh
-    void RemoveTriangle(UINT nTri);
+  const Vec3f& GetFaceNormal(std::uint32_t nTri) const
+  {
+    return m_FaceNormals[nTri];
+  }
 
-    JRTBoundingBox ComputeBoundingBox() const;
-
-    const Vec3f& GetFaceNormal(UINT nTri) const { return m_FaceNormals[nTri]; };
-
-    const Vec3f& GetVertex(UINT i) const { return m_Positions[i]; };
-    void SetVertex(UINT i, const Vec3f& v) { m_Positions[i] = v; };
+  const Vec3f& GetVertex(std::uint32_t i) const
+  {
+    return m_Positions[i];
+  }
+  void SetVertex(std::uint32_t i, const Vec3f& v)
+  {
+    m_Positions[i] = v;
+  }
 
 private:
+  std::vector<Vec3f> m_Positions;
+  std::vector<Vec3f> m_Normals;
+  std::vector<Vec2f> m_UVs;
 
-    std::vector<Vec3f> m_Positions;
-    std::vector<Vec3f> m_Normals;
-    std::vector<Vec2f> m_UVs;
+  /// Pre-computed array of face normals.  This is used only if no vertex
+  /// normals are provided
+  std::vector<Vec3f> m_FaceNormals;
 
-    /// Pre-computed array of face normals.  This is used only if no vertex normals are provided
-    std::vector<Vec3f> m_FaceNormals;
+  std::vector<JRTTriangle> m_Triangles;
 
-    std::vector<JRTTriangle> m_Triangles;
+  std::uint32_t m_nTriangleCount{0};
+  std::uint32_t m_nVertexCount{0};
 
-    UINT m_nTriangleCount;
-    UINT m_nVertexCount;
+  JRTMeshAttributes m_attributes;
 
-    JRTMeshAttributes m_attributes;
-
-    // Disallow copy constructor, as m_Triangles contains pointers into the
-    // other data structures
-    JRTMesh (const JRTMesh&);
-    JRTMesh& operator=(const JRTMesh&);
+  // Disallow copy constructor, as m_Triangles contains pointers into the
+  // other data structures
+  JRTMesh(const JRTMesh&) = delete;
+  JRTMesh& operator=(const JRTMesh&) = delete;
 };
-
-
-
 
 class JRTTriangle
 {
 public:
+  /// Returns the first vertex
+  inline const Vec3f& GetV1() const
+  {
+    return *(const Vec3f*)m_pV1;
+  }
 
-    /// Returns the first vertex
-    inline const Vec3f& GetV1() const { return *(const Vec3f*)m_pV1; };
+  /// Returns the second vertex
+  inline const Vec3f& GetV2() const
+  {
+    return *(const Vec3f*)m_pV2;
+  }
 
-    /// Returns the second vertex
-    inline const Vec3f& GetV2() const { return *(const Vec3f*)m_pV2; };
+  /// Returns the third vertex
+  inline const Vec3f& GetV3() const
+  {
+    return *(const Vec3f*)m_pV3;
+  }
 
-    /// Returns the third vertex
-    inline const Vec3f& GetV3() const { return *(const Vec3f*)m_pV3; };
+  /// Returns the mesh which owns this triangle
+  inline JRTMesh* GetMesh() const
+  {
+    return m_pMesh;
+  }
 
-    /// Returns the mesh which owns this triangle
-    inline JRTMesh* GetMesh() const { return m_pMesh; };
+  /// Returns the index of this triangle in its parent's triangle array
+  inline std::uint32_t GetIndexInMesh() const
+  {
+    return (std::uint32_t)(this - m_pMesh->GetTriangles());
+  }
 
-    /// Returns the index of this triangle in its parent's triangle array
-    inline UINT GetIndexInMesh() const { return (UINT)(this - m_pMesh->GetTriangles()); };
+  inline const Vec3f& GetNormal() const
+  {
+    return m_pMesh->GetFaceNormal(GetIndexInMesh());
+  }
 
-    inline const Vec3f& GetNormal() const { return m_pMesh->GetFaceNormal(GetIndexInMesh()); };
 private:
+  friend class JRTMesh;
 
+  /// Pointer to first vertex position
+  const float* m_pV1 = nullptr;
 
-    friend class JRTMesh;
+  /// Pointer to second vertex position
+  const float* m_pV2 = nullptr;
 
-    /// Pointer to first vertex position
-    const float* m_pV1;
+  /// Pointer to third vertex position
+  const float* m_pV3 = nullptr;
 
-    /// Pointer to second vertex position
-    const float* m_pV2;
-
-    /// Pointer to third vertex position
-    const float* m_pV3;
-
-    /// Pointer to the mesh
-    JRTMesh* m_pMesh;
-
+  /// Pointer to the mesh
+  JRTMesh* m_pMesh = nullptr;
 };
 
 #endif

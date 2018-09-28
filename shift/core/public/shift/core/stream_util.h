@@ -126,27 +126,27 @@ std::basic_ostream<CharT, Traits>& indent(
 namespace implementation
 {
   template <class T>
-  auto serialize(std::ostream& stream, const T& object, int)
+  auto serialize(std::ostream& stream, const T& object, int /*unused*/)
     -> decltype(object.serialize(stream), void())
   {
     object.serialize(stream);
   }
 
   template <typename T>
-  void serialize(std::ostream& stream, const T& object, long)
+  void serialize(std::ostream& stream, const T& object, long /*unused*/)
   {
     stream.write(reinterpret_cast<const char*>(&object), sizeof(T));
   }
 
   template <class T>
-  auto deserialize(std::istream& stream, T& object, int)
+  auto deserialize(std::istream& stream, T& object, int /*unused*/)
     -> decltype(object.deserialize(stream), void())
   {
     object.deserialize(stream);
   }
 
   template <typename T>
-  void deserialize(std::istream& stream, T& object, long)
+  void deserialize(std::istream& stream, T& object, long /*unused*/)
   {
     stream.read(reinterpret_cast<char*>(&object), sizeof(T));
   }
@@ -157,15 +157,13 @@ struct binary_t
 {
   T& data;
 
-  friend std::ostream& operator<<(std::ostream& stream,
-                                  const binary_t<T> reference)
+  friend std::ostream& operator<<(std::ostream& stream, binary_t<T> reference)
   {
     implementation::serialize(stream, reference.data, 0);
     return stream;
   }
 
-  friend std::istream& operator>>(std::istream& stream,
-                                  const binary_t<T> reference)
+  friend std::istream& operator>>(std::istream& stream, binary_t<T> reference)
   {
     implementation::deserialize(stream, reference.data, 0);
     return stream;

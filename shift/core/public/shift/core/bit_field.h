@@ -186,63 +186,63 @@ struct bit_field
   }
 
   ///
-  friend constexpr bit_field operator&(const bit_field lhs, const bit_field rhs)
+  friend constexpr bit_field operator&(bit_field lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) &
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator|(const bit_field lhs, const bit_field rhs)
+  friend constexpr bit_field operator|(bit_field lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) |
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator^(const bit_field lhs, const bit_field rhs)
+  friend constexpr bit_field operator^(bit_field lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) ^
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator&(const bit_field lhs, const TEnum rhs)
+  friend constexpr bit_field operator&(bit_field lhs, TEnum rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) &
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator|(const bit_field lhs, const TEnum rhs)
+  friend constexpr bit_field operator|(bit_field lhs, TEnum rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) |
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator^(const bit_field lhs, const TEnum rhs)
+  friend constexpr bit_field operator^(bit_field lhs, TEnum rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) ^
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator&(const TEnum lhs, const bit_field rhs)
+  friend constexpr bit_field operator&(TEnum lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) &
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator|(const TEnum lhs, const bit_field rhs)
+  friend constexpr bit_field operator|(TEnum lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) |
                      static_cast<storage_type>(rhs));
   }
 
   ///
-  friend constexpr bit_field operator^(const TEnum lhs, const bit_field rhs)
+  friend constexpr bit_field operator^(TEnum lhs, bit_field rhs)
   {
     return bit_field(static_cast<storage_type>(lhs) ^
                      static_cast<storage_type>(rhs));

@@ -107,7 +107,7 @@ const field_node* structure_node::field(std::string_view name) const
                  [&](const auto* field) { return field->identifier == name; });
   if (result != fields.end())
     return *result;
-  else if (base)
+  else if (base != nullptr)
     return base->field(name);
   else
     return nullptr;

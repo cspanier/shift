@@ -56,8 +56,8 @@ public:
   ~impl();
 
   /// @see service_host::start.
-  bool start(serialization::protocol_version_t protocol_version,
-             serialization::protocol_version_t required_version);
+  bool start(serialization::protocol_version_t new_protocol_version,
+             serialization::protocol_version_t new_required_version);
 
   /// @see service_host::publish.
   void publish();

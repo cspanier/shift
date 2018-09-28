@@ -124,7 +124,8 @@ const sha256::digest_t& sha256::finalize()
   if (!_finalized)
   {
     auto block_count =
-      (1u + ((block_size - 9) < (_buffer_length % block_size)));
+      (1u + static_cast<unsigned int>((block_size - 9) <
+                                      (_buffer_length % block_size)));
     auto length_in_bits =
       static_cast<std::uint32_t>((_total_length + _buffer_length) * 8);
     auto finalLength = block_count * block_size;

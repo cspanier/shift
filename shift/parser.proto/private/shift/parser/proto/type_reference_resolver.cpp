@@ -27,7 +27,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
 {
   auto* alias_node = token.ast_node->as_alias();
   BOOST_ASSERT(alias_node);
-  if (!alias_node)
+  if (alias_node == nullptr)
   {
     _impl.error_stream << error_internal{token} << std::endl;
     return false;
@@ -35,7 +35,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
 
   alias_node->reference.type =
     find_type(alias_node->parent_namescope, token.reference);
-  if (std::get_if<ast::invalid_type>(&alias_node->reference.type))
+  if (std::get_if<ast::invalid_type>(&alias_node->reference.type) != nullptr)
   {
     _impl.error_stream << error_type_lookup{token.reference} << std::endl;
     return false;
@@ -55,7 +55,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
 {
   auto* structure_node = token.ast_node->as_structure();
   BOOST_ASSERT(structure_node);
-  if (!structure_node)
+  if (structure_node == nullptr)
   {
     _impl.error_stream << error_internal{token} << std::endl;
     return false;
@@ -64,7 +64,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
   if (!token.base.empty())
   {
     auto base_type = find_type(structure_node->parent_namescope, token.base);
-    if (!std::get_if<ast::structure_node*>(&base_type))
+    if (std::get_if<ast::structure_node*>(&base_type) == nullptr)
     {
       _impl.error_stream << error_type_lookup{token.base} << std::endl;
       return false;
@@ -78,7 +78,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
   {
 
     BOOST_ASSERT(field_node->token);
-    if (!field_node->token)
+    if (field_node->token == nullptr)
     {
       _impl.error_stream << error_internal{token} << std::endl;
       return false;
@@ -88,7 +88,7 @@ type_reference_resolver::return_type type_reference_resolver::operator()(
     field_node->reference.type =
       find_type(structure_node->parent_namescope, field.reference);
 
-    if (std::get_if<ast::invalid_type>(&field_node->reference.type))
+    if (std::get_if<ast::invalid_type>(&field_node->reference.type) != nullptr)
     {
       _impl.error_stream << error_type_lookup{field.reference} << std::endl;
       result = false;
@@ -125,7 +125,7 @@ ast::type_variant type_reference_resolver::find_type_node(
   ast::namescope_node* namescope, const type_path_token& path,
   std::size_t current_depth)
 {
-  if (!namescope)
+  if (namescope == nullptr)
     return ast::invalid_type{};
   const std::string_view name = path[current_depth].name.value;
   if (current_depth == path.size() - 1)
@@ -140,7 +140,7 @@ ast::type_variant type_reference_resolver::find_type_node(
   else if (auto* sub_namescope = namescope->namescope(name))
   {
     auto result = find_type_node(sub_namescope, path, current_depth + 1);
-    if (!std::get_if<ast::invalid_type>(&result))
+    if (std::get_if<ast::invalid_type>(&result) == nullptr)
       return result;
   }
 

@@ -69,9 +69,9 @@ private:
   {
     bool operator()(const node* lhs, const node* rhs) const
     {
-      if (!rhs)
+      if (rhs == nullptr)
         return true;
-      if (!lhs)
+      if (lhs == nullptr)
         return false;
       return lhs < rhs;
     }
@@ -82,9 +82,9 @@ private:
   {
     bool operator()(const node* lhs, const node* rhs) const
     {
-      if (!rhs)
+      if (rhs == nullptr)
         return true;
-      if (!lhs)
+      if (lhs == nullptr)
         return false;
       return lhs->name < rhs->name;
     }

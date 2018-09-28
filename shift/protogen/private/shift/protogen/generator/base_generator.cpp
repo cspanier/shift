@@ -20,10 +20,10 @@ type_path base_generator::relative_path(
   const base_generator::name_lookup& name_lookup, const node* node,
   const namescope* current_scope)
 {
-  if (!node)
+  if (node == nullptr)
     return type_path();
   auto name = name_lookup(*node);
-  if (current_scope)
+  if (current_scope != nullptr)
   {
     while (node->depth < current_scope->depth)
       current_scope = current_scope->parent;

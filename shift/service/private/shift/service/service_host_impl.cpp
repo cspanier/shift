@@ -137,7 +137,7 @@ void service_host::impl::on_receive_multicast(
 
   // service_provider.lastSeen = std::chrono::system_clock::now();
 
-  if (remote_service_count)
+  if (remote_service_count != 0u)
   {
     std::lock_guard service_client_lock(service_client_mutex);
     std::lock_guard remote_service_lock(known_remote_services_mutex);

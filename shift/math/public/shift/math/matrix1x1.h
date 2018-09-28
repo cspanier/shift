@@ -22,37 +22,39 @@ struct matrix<1, 1, T>
   constexpr matrix() noexcept = default;
 
   /// Constructs the matrix from a single scalar value.
-  constexpr matrix(column_major, T value00) noexcept;
+  constexpr matrix(column_major /*unused*/, T value00) noexcept;
 
   /// Constructs the matrix from a single scalar value.
-  constexpr matrix(row_major, T value00) noexcept;
+  constexpr matrix(row_major /*unused*/, T value00) noexcept;
 
   /// Constructs the matrix from a single column vector.
-  constexpr matrix(column_major, const column_type& column0) noexcept;
+  constexpr matrix(column_major /*unused*/,
+                   const column_type& column0) noexcept;
 
   /// Constructs the matrix from a single row vector.
-  constexpr matrix(row_major, const row_type& row0) noexcept;
+  constexpr matrix(row_major /*unused*/, const row_type& row0) noexcept;
 
   /// Construct the matrix from a one dimensional C-style array of values stored
   /// in column major order.
-  constexpr matrix(column_major,
+  constexpr matrix(column_major /*unused*/,
                    const T (&array)[row_count * column_count]) noexcept;
 
   /// Construct the matrix from a one dimensional C-style array of values stored
   /// in row major order.
-  constexpr matrix(row_major,
+  constexpr matrix(row_major /*unused*/,
                    const T (&array)[row_count * column_count]) noexcept;
 
   /// Construct the matrix from a one dimensional std::array of values stored in
   /// column major order.
   constexpr matrix(
-    column_major,
+    column_major /*unused*/,
     const std::array<T, row_count * column_count>& array) noexcept;
 
   /// Construct the matrix from a one dimensional std::array of values stored in
   /// row major order.
   constexpr matrix(
-    row_major, const std::array<T, row_count * column_count>& array) noexcept;
+    row_major /*unused*/,
+    const std::array<T, row_count * column_count>& array) noexcept;
 
   /// @pre
   ///   The number of elements between begin and end must equal the number of
@@ -149,55 +151,57 @@ constexpr auto inverse(const matrix<1, 1, T>& any_matrix) noexcept
 }
 
 template <typename T>
-constexpr matrix<1, 1, T>::matrix(column_major, T value00) noexcept
+constexpr matrix<1, 1, T>::matrix(column_major /*unused*/, T value00) noexcept
 : _columns{{value00}}
 {
 }
 
 template <typename T>
-constexpr matrix<1, 1, T>::matrix(row_major, T value00) noexcept
+constexpr matrix<1, 1, T>::matrix(row_major /*unused*/, T value00) noexcept
 : _columns{{value00}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  column_major, const matrix<1, 1, T>::column_type& column0) noexcept
+  column_major /*unused*/, const matrix<1, 1, T>::column_type& column0) noexcept
 : _columns{column0}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  row_major, const matrix<1, 1, T>::row_type& row0) noexcept
+  row_major /*unused*/, const matrix<1, 1, T>::row_type& row0) noexcept
 : _columns{row0}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  column_major, const T (&array)[row_count * column_count]) noexcept
+  column_major /*unused*/, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  row_major, const T (&array)[row_count * column_count]) noexcept
+  row_major /*unused*/, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  column_major, const std::array<T, row_count * column_count>& array) noexcept
+  column_major /*unused*/,
+  const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0]}}
 {
 }
 
 template <typename T>
 constexpr matrix<1, 1, T>::matrix(
-  row_major, const std::array<T, row_count * column_count>& array) noexcept
+  row_major /*unused*/,
+  const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0]}}
 {
 }

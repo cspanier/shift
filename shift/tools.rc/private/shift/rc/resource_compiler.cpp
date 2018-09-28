@@ -120,7 +120,7 @@ void resource_compiler::load_rules(const fs::path& rules_filename)
     if (fs::is_regular_file(rules_file_path) &&
         rules_file_path.filename() == rules_filename)
     {
-      if (verbose())
+      if (verbose() != 0u)
         log::info() << "Loading rule file " << rules_file_path;
       auto rule_path =
         fs::relative(rules_file_path, _impl->input_path).remove_filename();
@@ -199,14 +199,14 @@ void resource_compiler::update()
     task_results.reserve(jobs.size());
     auto process_job = [&](rc::job_description* job) -> bool {
       /// ToDo: Change job parameter of reference type.
-      if (!job)
+      if (job == nullptr)
         return false;
 
       BOOST_ASSERT(job->matching_rule);
       BOOST_ASSERT(job->matching_rule->action);
-      if (!job->matching_rule)
+      if (job->matching_rule == nullptr)
         return false;
-      if (!job->matching_rule->action)
+      if (job->matching_rule->action == nullptr)
         return false;
 
       bool result = false;

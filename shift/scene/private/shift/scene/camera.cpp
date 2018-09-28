@@ -4,9 +4,7 @@ namespace shift
 {
 namespace scene
 {
-  camera_entity::camera_entity() noexcept
-  {
-  }
+  camera_entity::camera_entity() = default;
 
   void camera_entity::update()
   {

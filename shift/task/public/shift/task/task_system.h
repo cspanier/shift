@@ -74,8 +74,8 @@ private:
   friend class detail::associated_state_base;
 
   template <typename Function, typename... Args>
-  friend auto async(const task_create_info&, Function&& function,
-                    Args&&... args);
+  friend auto async(const task_create_info& /*create_info*/,
+                    Function&& function, Args&&... args);
 
   ///
   void queue(std::unique_ptr<task_base> new_task);

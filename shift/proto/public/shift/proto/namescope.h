@@ -29,7 +29,7 @@ struct namescope : public node
   namescope() = default;
   namescope(const namescope&) = default;
   namescope(namescope&&) = default;
-  virtual ~namescope() override;
+  ~namescope() override;
   namescope& operator=(const namescope&) = default;
   namescope& operator=(namescope&&) = default;
 

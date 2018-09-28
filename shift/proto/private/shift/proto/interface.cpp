@@ -45,7 +45,7 @@ type* interface::find_type(const namescope_path& namescope_path,
     }
   }
 
-  if (current_depth == 0 && parent)
+  if (current_depth == 0 && (parent != nullptr))
     return parent->find_type(namescope_path);
   else
     return nullptr;

@@ -71,7 +71,7 @@ bool filesystem::open(bool read_only)
     return true;
   }
 
-  if (!json::get_if<json::object>(&root))
+  if (json::get_if<json::object>(&root) == nullptr)
     return true;
   json::object& root_object = json::get<json::object>(root);
 
@@ -79,19 +79,19 @@ bool filesystem::open(bool read_only)
     return true;
   const auto& index_value = root_object.at("index");
   const auto* index_object = json::get_if<json::object>(&index_value);
-  if (!index_object)
+  if (index_object == nullptr)
     return true;
 
   for (const auto& key_object : *index_object)
   {
     const auto* index_array = json::get_if<json::array>(&key_object.second);
-    if (!index_array)
+    if (index_array == nullptr)
       continue;
     for (const auto& value_object : *index_array)
     {
       const auto* relative_path = json::get_if<std::string>(&value_object);
 
-      if (relative_path && fs::exists(_path / *relative_path))
+      if ((relative_path != nullptr) && fs::exists(_path / *relative_path))
       {
         _index.insert(
           {static_cast<resource_id>(std::stoull(key_object.first, nullptr, 16)),

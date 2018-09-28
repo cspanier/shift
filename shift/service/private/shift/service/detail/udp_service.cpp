@@ -71,7 +71,7 @@ void udp_service::stop()
 std::pair<guid_t, guid_t> udp_service::sender() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -83,7 +83,7 @@ std::pair<guid_t, guid_t> udp_service::sender() const
 boost::asio::ip::address udp_service::sender_address() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -95,7 +95,7 @@ boost::asio::ip::address udp_service::sender_address() const
 std::uint16_t udp_service::sender_port() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -125,7 +125,7 @@ void udp_service::broadcast(const serialization::message& message)
     connections = _connections;
   }
   auto count = connections.size();
-  if (!count)
+  if (count == 0u)
   {
     log::warning() << "Attempt to broadcast message, but no remote "
                       "service is currently connected.";
@@ -133,7 +133,7 @@ void udp_service::broadcast(const serialization::message& message)
   }
   for (auto& connection : connections)
   {
-    if (--count)
+    if (--count != 0u)
       connection->socket->post(buffer, connection->endpoint);
     else
       connection->socket->post(std::move(buffer), connection->endpoint);
@@ -143,7 +143,7 @@ void udp_service::broadcast(const serialization::message& message)
 void udp_service::reply(const serialization::message& message)
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_ASSERT(false);
     log::error() << "Calling reply() is only valid from within the "
@@ -261,7 +261,7 @@ void udp_service::on_receive(network::udp_socket& socket,
       break;
     }
   }
-  if (!connection)
+  if (connection == nullptr)
   {
     // We received a datagram from an unknown remote endpoint. To do things
     // as similar to the Tcp based service implementation as possible, we

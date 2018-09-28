@@ -158,7 +158,7 @@ void gpio::update(bool forceUpdate)
   {
     _value = newValue;
     if (on_changed)
-      on_changed(*this, value());
+      on_changed(*this, value() != nullptr);
   }
 }
 
@@ -181,7 +181,7 @@ void gpio::value(boost::tribool state)
     return;
   }
 
-  auto buffer = _value ? '1' : '0';
+  auto buffer = (_value != nullptr) ? '1' : '0';
   write(_value_handle, &buffer, sizeof(buffer));
   fsync(_value_handle);
 }
@@ -200,7 +200,8 @@ gpio::watch_event gpio::watch(const std::vector<std::shared_ptr<gpio>>& inputs,
     ++index;
   }
   /// ToDo: Disable signals, see ppoll (man 2).
-  auto result = poll(pollDescriptors.data(), inputs.size(), timeout.count());
+  auto result = poll(pollDescriptors.data(), inputs.size(),
+                     static_cast<int>(timeout.count()));
   if (result < 0)
     return watch_event::error;
   else if (result == 0)
@@ -209,7 +210,7 @@ gpio::watch_event gpio::watch(const std::vector<std::shared_ptr<gpio>>& inputs,
   auto input = inputs.begin();
   for (std::size_t index = 0; index < inputs.size(); ++index, ++input)
   {
-    if (pollDescriptors[index].revents & POLLPRI)
+    if ((pollDescriptors[index].revents & POLLPRI) != 0)
       (*input)->update();
   }
   return watch_event::changed;

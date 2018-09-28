@@ -36,7 +36,7 @@ struct error_handler
     std::size_t column = where - line_begin + 1;
 
     const auto& tag(info.tag);
-    auto diagnostic = diagnostics.find(std::string(tag.c_str()));
+    auto diagnostic = diagnostics.find(std::string(tag));
 
     BOOST_THROW_EXCEPTION(
       parse_error() << parse_error_line(line) << parse_error_column(column)

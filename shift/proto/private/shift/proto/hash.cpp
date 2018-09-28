@@ -38,7 +38,7 @@ sha256& operator<<(sha256& context,
   // Take the name scope path into account.
   int index = 0;
   auto parent_namescope = enumeration.parent;
-  while (parent_namescope && !parent_namescope->name.empty())
+  while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
   {
     context << parent_namescope->name << index++;
     parent_namescope = parent_namescope->parent;
@@ -63,14 +63,14 @@ sha256& operator<<(sha256& context, const ::shift::proto::message& message)
   // Take the name scope path into account.
   int index = 0;
   auto parent_namescope = message.parent;
-  while (parent_namescope && !parent_namescope->name.empty())
+  while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
   {
     context << parent_namescope->name << index++;
     parent_namescope = parent_namescope->parent;
   }
 
   // Tage the base type into account.
-  if (message.base)
+  if (message.base != nullptr)
     context << *message.base;
 
   // Take all member fields into account.
@@ -88,7 +88,7 @@ sha256& operator<<(sha256& context, const ::shift::proto::interface& interface)
   // Take the name scope path into account.
   int index = 0;
   auto parent_namescope = interface.parent;
-  while (parent_namescope && !parent_namescope->name.empty())
+  while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
   {
     context << parent_namescope->name << index++;
     parent_namescope = parent_namescope->parent;
@@ -104,25 +104,25 @@ sha256& operator<<(sha256& context, const ::shift::proto::interface& interface)
 sha256& operator<<(sha256& context, const ::shift::proto::service& service)
 {
   // Take full service interface and callback interface names into account.
-  if (service.service_interface)
+  if (service.service_interface != nullptr)
   {
     context << service.service_interface->name;
 
     int index = 0;
     auto parent_namescope = service.service_interface->parent;
-    while (parent_namescope && !parent_namescope->name.empty())
+    while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
     {
       context << parent_namescope->name << index++;
       parent_namescope = parent_namescope->parent;
     }
   }
-  if (service.callback_interface)
+  if (service.callback_interface != nullptr)
   {
     context << service.callback_interface->name;
 
     int index = 0;
     auto parent_namescope = service.callback_interface->parent;
-    while (parent_namescope && !parent_namescope->name.empty())
+    while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
     {
       context << parent_namescope->name << index++;
       parent_namescope = parent_namescope->parent;
@@ -139,7 +139,7 @@ sha256& operator<<(sha256& context, const ::shift::proto::namescope& namescope)
   // Take the name scope path into account.
   int index = 0;
   auto parent_namescope = namescope.parent;
-  while (parent_namescope && !parent_namescope->name.empty())
+  while ((parent_namescope != nullptr) && !parent_namescope->name.empty())
   {
     context << parent_namescope->name << index++;
     parent_namescope = parent_namescope->parent;

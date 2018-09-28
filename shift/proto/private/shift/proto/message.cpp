@@ -47,6 +47,6 @@ void message::generate_uids()
 
 bool message::has_fields() const
 {
-  return !fields.empty() || (base && base->has_fields());
+  return !fields.empty() || ((base != nullptr) && base->has_fields());
 }
 }

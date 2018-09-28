@@ -12,7 +12,7 @@ void assertion_failed_msg(char const* expr, char const* msg,
                           long /*line*/)
 {
   std::cerr << "Expression '" << expr << "' is false in function '" << function
-            << "': " << (msg ? msg : "<...>") << ".\n";
+            << "': " << (msg != nullptr ? msg : "<...>") << ".\n";
   std::abort();
 }
 

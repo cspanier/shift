@@ -165,7 +165,7 @@ static std::string enumerant_name(const std::string& name,
     result = to_lower_case(strip_vk(name.substr(prefix.length())));
   else
     result = to_lower_case(strip_vk(name));
-  if (isdigit(result.front()))
+  if (isdigit(result.front()) != 0)
     result = "_" + result;
   else if (result == "inline")
     result = "inline_commands";
@@ -178,7 +178,7 @@ static std::string type_to_string(const member_descriptor& member,
 {
   std::stringstream result;
 
-  if (member.array_size > 1 || member.array_size_reference)
+  if (member.array_size > 1 || (member.array_size_reference != nullptr))
     result << "std::array<";
   if ((member.flags & member_type_flag::is_const && !dereference) || read_only)
   {
@@ -205,7 +205,7 @@ static std::string type_to_string(const member_descriptor& member,
 
   if (member.array_size > 1)
     result << ", " << member.array_size << ">";
-  else if (member.array_size_reference)
+  else if (member.array_size_reference != nullptr)
     result << ", " << member.array_size_reference->inner_text() << ">";
   return result.str();
 }
@@ -244,12 +244,12 @@ int application::run()
 
   auto* registry_node = root_node.element_by_name("registry");
   BOOST_ASSERT(registry_node);
-  if (!registry_node)
+  if (registry_node == nullptr)
     return EXIT_FAILURE;
 
   auto* comment_node = registry_node->element_by_name("comment");
   BOOST_ASSERT(comment_node);
-  if (comment_node)
+  if (comment_node != nullptr)
   {
     _copyright = comment_node->inner_text();
     if (!_copyright.empty())
@@ -266,7 +266,8 @@ int application::run()
 
   BOOST_ASSERT(platforms_node && types_node && commands_node &&
                extensions_node);
-  if (!platforms_node || !types_node || !commands_node || !extensions_node)
+  if ((platforms_node == nullptr) || (types_node == nullptr) ||
+      (commands_node == nullptr) || (extensions_node == nullptr))
   {
     return EXIT_FAILURE;
   }
@@ -583,7 +584,7 @@ void application::parse_type_details(const parser::xml::node& /*types_node*/)
         }
         else if (type_child->type == xml::node_type::comment)
         {
-          if (last_member)
+          if (last_member != nullptr)
           {
             last_member->comment = type_child->text;
             last_member = nullptr;
@@ -790,7 +791,7 @@ void application::parse_enums(const parser::xml::node& registry_node)
         }
       }
       BOOST_ASSERT(enum_type);
-      if (!enum_type)
+      if (enum_type == nullptr)
         continue;
       for (const auto& enum_node : registry_child_node->children)
       {
@@ -1163,7 +1164,7 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
                   << core::context_info("Missing 'name' attribute"));
               }
               auto* command = command_by_name(require_node->attribute("name"));
-              if (command)
+              if (command != nullptr)
                 extension.commands.push_back(command);
               else
               {
@@ -1229,7 +1230,7 @@ void application::add_empty_bit_field_enumerants()
           break;
         }
       }
-      if (flag_type)
+      if (flag_type != nullptr)
       {
         if (flag_type->enumerants.empty() ||
             flag_type->enumerants.front().new_name != "none")
@@ -1261,7 +1262,7 @@ std::string application::cpp_default_value(const type_descriptor& parent_type,
     else
       ss << "vk::structure_type::" << parent_type.new_name;
   }
-  else if (member.array_size > 1 || member.array_size_reference)
+  else if (member.array_size > 1 || (member.array_size_reference != nullptr))
   {
     ss << "{}";
   }
@@ -1272,7 +1273,7 @@ std::string application::cpp_default_value(const type_descriptor& parent_type,
   {
     ss << "nullptr";
   }
-  else if (member.array_size > 1 || member.array_size_reference ||
+  else if (member.array_size > 1 || (member.array_size_reference != nullptr) ||
            member.type->category == type_category::struct_type ||
            member.type->category == type_category::union_type)
   {
@@ -1316,7 +1317,7 @@ std::string application::cpp_default_value(const type_descriptor& parent_type,
         break;
       }
     }
-    if (flag_type)
+    if (flag_type != nullptr)
     {
       ss << "vk::" << flag_type->new_name
          << "::" << flag_type->enumerants.front().new_name;
@@ -1390,7 +1391,7 @@ void application::propagate_platform(type_descriptor& type,
 
 void application::print_cpp(const type_descriptor& type)
 {
-  if (!_printed.emplace(&type).second != 0)
+  if (static_cast<int>(!_printed.emplace(&type).second) != 0)
     return;
 
   // ToDo: We need to skip this specific type because it is referenced only in a
@@ -1403,7 +1404,7 @@ void application::print_cpp(const type_descriptor& type)
       return false;
     for (auto* platform : type.platforms)
     {
-      if (!platform)
+      if (platform == nullptr)
         return false;
     }
     // Types that are not part of standard features but do have a set of
@@ -1468,7 +1469,7 @@ void application::print_cpp(const type_descriptor& type)
         break;
       }
     }
-    if (flag_type)
+    if (flag_type != nullptr)
     {
       // Print dependency.
       print_cpp(*flag_type);
@@ -1719,11 +1720,11 @@ void application::print_cpp(const type_descriptor& type)
            const_getter <= 1; ++const_getter)
       {
         _file << br << indent;
-        if (const_getter)
+        if (const_getter != 0u)
           _file << VS_CONSTEXPR;
         if (!(member.flags & member_type_flag::is_pointer) &&
             !(member.flags & member_type_flag::is_pointer_to_pointer) &&
-            const_getter)
+            (const_getter != 0u))
         {
           _file << "const ";
         }
@@ -1736,7 +1737,7 @@ void application::print_cpp(const type_descriptor& type)
         else
           _file << " ";
         _file << member.new_name << "()";
-        if (const_getter)
+        if (const_getter != 0u)
           _file << " const";
         _file << br;
         _file << indent << "{" br << inc_indent;
@@ -1761,7 +1762,7 @@ void application::print_cpp(const type_descriptor& type)
         _file << dec_indent << indent << "}" br;
 #pragma endregion
 
-        if (member.length && member.type->name != "void")
+        if ((member.length != nullptr) && member.type->name != "void")
         {
           BOOST_ASSERT(member.flags & member_type_flag::is_pointer ||
                        member.flags & member_type_flag::is_pointer_to_pointer);
@@ -1944,7 +1945,8 @@ void application::print_cpp(const command_descriptor& command)
 
     if ((parameter.flags & member_type_flag::is_pointer) ||
         (parameter.flags & member_type_flag::is_pointer_to_pointer) ||
-        (parameter.array_size > 1) || parameter.array_size_reference)
+        (parameter.array_size > 1) ||
+        (parameter.array_size_reference != nullptr))
       _file << "reinterpret_cast<";
     else
       _file << "static_cast<";
@@ -1953,7 +1955,8 @@ void application::print_cpp(const command_descriptor& command)
       _file << "const ";
     _file << parameter.type->name;
     if ((parameter.flags & member_type_flag::is_pointer) ||
-        (parameter.array_size > 1) || parameter.array_size_reference)
+        (parameter.array_size > 1) ||
+        (parameter.array_size_reference != nullptr))
     {
       _file << "*";
     }
@@ -1965,7 +1968,8 @@ void application::print_cpp(const command_descriptor& command)
         _file << "**";
     }
     _file << ">(" << parameter.new_name;
-    if ((parameter.array_size > 1) || parameter.array_size_reference)
+    if ((parameter.array_size > 1) ||
+        (parameter.array_size_reference != nullptr))
       _file << ".data()";
     _file << ")";
   }
@@ -1980,7 +1984,7 @@ void application::print_cpp(const extension_descriptor& extension)
   if (!_printed.emplace(&extension).second)
     return;
 
-  if (extension.platform)
+  if (extension.platform != nullptr)
     _file << "#if defined(" << extension.platform->macro << ")" br;
 
   // Print dependencies.
@@ -1995,7 +1999,7 @@ void application::print_cpp(const extension_descriptor& extension)
     print_cpp(*command);
   }
 
-  if (extension.platform)
+  if (extension.platform != nullptr)
     _file << "#endif" br;
 }
 

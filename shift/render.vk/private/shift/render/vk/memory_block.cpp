@@ -39,7 +39,7 @@ memory_block::operator bool() const noexcept
 
 VkDeviceMemory memory_block::handle() const noexcept
 {
-  if (_chunk)
+  if (_chunk != nullptr)
     return _chunk->memory;
   else
     return nullptr;

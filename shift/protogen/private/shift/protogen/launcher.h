@@ -6,7 +6,8 @@
 namespace boost
 {
 void validate(boost::any& v, const std::vector<std::string>& values,
-              std::pair<std::string, std::string>* /*target_type*/, int)
+              std::pair<std::string, std::string>* /*target_type*/,
+              int /*unused*/)
 {
   using namespace boost::program_options;
   const auto& value = values[0];

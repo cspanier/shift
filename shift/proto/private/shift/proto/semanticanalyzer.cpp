@@ -70,8 +70,9 @@ bool semantic_analyzer::analyze_namescope(namescope& namescope) const
     }
 
     auto* built_in_type = enumeration->base.as_built_in_type(true);
-    if (!built_in_type || (!built_in_type_traits::is_int(*built_in_type) &&
-                           !built_in_type_traits::is_char(*built_in_type)))
+    if ((built_in_type == nullptr) ||
+        (!built_in_type_traits::is_int(*built_in_type) &&
+         !built_in_type_traits::is_char(*built_in_type)))
     {
       log::error() << "Enumeration \"" << enumeration->name
                    << "\" can only be of integer or character type.";
@@ -88,7 +89,7 @@ bool semantic_analyzer::analyze_namescope(namescope& namescope) const
     {
       // Check if the base type name exists.
       auto* baseNode = namescope.find_type(message->base_name);
-      if (!baseNode)
+      if (baseNode == nullptr)
       {
         log::error() << "Cannot find base type \""
                      << core::implode(message->base_name, ".")
@@ -113,7 +114,7 @@ bool semantic_analyzer::analyze_namescope(namescope& namescope) const
   for (auto* service : namescope.services)
   {
     auto* serviceNode = namescope.find_type(service->service_name);
-    if (!serviceNode)
+    if (serviceNode == nullptr)
     {
       log::error() << "Cannot find service interface type \""
                    << core::implode(service->service_name, ".")
@@ -133,7 +134,7 @@ bool semantic_analyzer::analyze_namescope(namescope& namescope) const
     }
 
     auto* callback_node = namescope.find_type(service->callback_name);
-    if (!callback_node)
+    if (callback_node == nullptr)
     {
       log::error() << "Cannot find callback interface type \""
                    << core::implode(service->callback_name, ".")
@@ -175,7 +176,7 @@ bool semantic_analyzer::resolve_type(namescope& namescope,
         std::get_if<proto::type_path>(&type_reference.name))
   {
     auto* field_node = namescope.find_type(*type_path);
-    if (!field_node)
+    if (field_node == nullptr)
     {
       log::error() << "Unknown type \"" << core::implode(*type_path, ".")
                    << "\".";

@@ -25,46 +25,48 @@ struct matrix<4, 4, T>
   constexpr matrix(T fill_value) noexcept;
 
   /// Constructs the matrix from a series from column major ordered values.
-  constexpr matrix(column_major, T value00, T value10, T value20, T value30,
-                   T value01, T value11, T value21, T value31, T value02,
-                   T value12, T value22, T value32, T value03, T value13,
-                   T value23, T value33) noexcept;
+  constexpr matrix(column_major /*unused*/, T value00, T value10, T value20,
+                   T value30, T value01, T value11, T value21, T value31,
+                   T value02, T value12, T value22, T value32, T value03,
+                   T value13, T value23, T value33) noexcept;
 
   /// Constructs the matrix from a series from row major ordered values.
-  constexpr matrix(row_major, T value00, T value01, T value02, T value03,
-                   T value10, T value11, T value12, T value13, T value20,
-                   T value21, T value22, T value23, T value30, T value31,
-                   T value32, T value33) noexcept;
+  constexpr matrix(row_major /*unused*/, T value00, T value01, T value02,
+                   T value03, T value10, T value11, T value12, T value13,
+                   T value20, T value21, T value22, T value23, T value30,
+                   T value31, T value32, T value33) noexcept;
 
   /// Constructs the matrix from column vectors.
-  constexpr matrix(column_major, const column_type& column0,
+  constexpr matrix(column_major /*unused*/, const column_type& column0,
                    const column_type& column1, const column_type& column2,
                    const column_type& column3) noexcept;
 
   /// Constructs the matrix from row vectors.
-  constexpr matrix(row_major, const row_type& row0, const row_type& row1,
-                   const row_type& row2, const row_type& row3) noexcept;
+  constexpr matrix(row_major /*unused*/, const row_type& row0,
+                   const row_type& row1, const row_type& row2,
+                   const row_type& row3) noexcept;
 
   /// Construct the matrix from a one dimensional C-style array of values stored
   /// in column major order.
-  constexpr matrix(column_major,
+  constexpr matrix(column_major /*unused*/,
                    const T (&array)[row_count * column_count]) noexcept;
 
   /// Construct the matrix from a one dimensional C-style array of values stored
   /// in row major order.
-  constexpr matrix(row_major,
+  constexpr matrix(row_major /*unused*/,
                    const T (&array)[row_count * column_count]) noexcept;
 
   /// Construct the matrix from a one dimensional std::array of values stored in
   /// column major order.
   constexpr matrix(
-    column_major,
+    column_major /*unused*/,
     const std::array<T, row_count * column_count>& array) noexcept;
 
   /// Construct the matrix from a one dimensional std::array of values stored in
   /// row major order.
   constexpr matrix(
-    row_major, const std::array<T, row_count * column_count>& array) noexcept;
+    row_major /*unused*/,
+    const std::array<T, row_count * column_count>& array) noexcept;
 
   /// @pre
   ///   The number of elements between begin and end must equal the number of
@@ -201,11 +203,11 @@ constexpr matrix<4, 4, T>::matrix(T fill_value) noexcept
 }
 
 template <typename T>
-constexpr matrix<4, 4, T>::matrix(column_major, T value00, T value10, T value20,
-                                  T value30, T value01, T value11, T value21,
-                                  T value31, T value02, T value12, T value22,
-                                  T value32, T value03, T value13, T value23,
-                                  T value33) noexcept
+constexpr matrix<4, 4, T>::matrix(column_major /*unused*/, T value00, T value10,
+                                  T value20, T value30, T value01, T value11,
+                                  T value21, T value31, T value02, T value12,
+                                  T value22, T value32, T value03, T value13,
+                                  T value23, T value33) noexcept
 : _columns{{value00, value10, value20, value30},
            {value01, value11, value21, value31},
            {value02, value12, value22, value32},
@@ -214,11 +216,11 @@ constexpr matrix<4, 4, T>::matrix(column_major, T value00, T value10, T value20,
 }
 
 template <typename T>
-constexpr matrix<4, 4, T>::matrix(row_major, T value00, T value01, T value02,
-                                  T value03, T value10, T value11, T value12,
-                                  T value13, T value20, T value21, T value22,
-                                  T value23, T value30, T value31, T value32,
-                                  T value33) noexcept
+constexpr matrix<4, 4, T>::matrix(row_major /*unused*/, T value00, T value01,
+                                  T value02, T value03, T value10, T value11,
+                                  T value12, T value13, T value20, T value21,
+                                  T value22, T value23, T value30, T value31,
+                                  T value32, T value33) noexcept
 : _columns{{value00, value10, value20, value30},
            {value01, value11, value21, value31},
            {value02, value12, value22, value32},
@@ -228,7 +230,7 @@ constexpr matrix<4, 4, T>::matrix(row_major, T value00, T value01, T value02,
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  column_major, const matrix<4, 4, T>::column_type& column0,
+  column_major /*unused*/, const matrix<4, 4, T>::column_type& column0,
   const matrix<4, 4, T>::column_type& column1,
   const matrix<4, 4, T>::column_type& column2,
   const matrix<4, 4, T>::column_type& column3) noexcept
@@ -238,7 +240,7 @@ constexpr matrix<4, 4, T>::matrix(
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  row_major, const matrix<4, 4, T>::row_type& row0,
+  row_major /*unused*/, const matrix<4, 4, T>::row_type& row0,
   const matrix<4, 4, T>::row_type& row1, const matrix<4, 4, T>::row_type& row2,
   const matrix<4, 4, T>::row_type& row3) noexcept
 : _columns{{row0(0), row1(0), row2(0), row3(0)},
@@ -250,7 +252,7 @@ constexpr matrix<4, 4, T>::matrix(
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  column_major, const T (&array)[row_count * column_count]) noexcept
+  column_major /*unused*/, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0], array[1], array[2], array[3]},
            {array[4], array[5], array[6], array[7]},
            {array[8], array[9], array[10], array[11]},
@@ -260,7 +262,7 @@ constexpr matrix<4, 4, T>::matrix(
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  row_major, const T (&array)[row_count * column_count]) noexcept
+  row_major /*unused*/, const T (&array)[row_count * column_count]) noexcept
 : _columns{{array[0], array[4], array[8], array[12]},
            {array[1], array[5], array[9], array[13]},
            {array[2], array[6], array[10], array[14]},
@@ -270,7 +272,8 @@ constexpr matrix<4, 4, T>::matrix(
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  column_major, const std::array<T, row_count * column_count>& array) noexcept
+  column_major /*unused*/,
+  const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0], array[1], array[2], array[3]},
            {array[4], array[5], array[6], array[7]},
            {array[8], array[9], array[10], array[11]},
@@ -280,7 +283,8 @@ constexpr matrix<4, 4, T>::matrix(
 
 template <typename T>
 constexpr matrix<4, 4, T>::matrix(
-  row_major, const std::array<T, row_count * column_count>& array) noexcept
+  row_major /*unused*/,
+  const std::array<T, row_count * column_count>& array) noexcept
 : _columns{{array[0], array[4], array[8], array[12]},
            {array[1], array[5], array[9], array[13]},
            {array[2], array[6], array[10], array[14]},

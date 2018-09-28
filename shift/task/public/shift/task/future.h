@@ -302,7 +302,7 @@ public:
   {
   }
 
-  future(const detail::state_manager<R>& state, detail::private_type)
+  future(const detail::state_manager<R>& state, detail::private_type /*unused*/)
   : detail::state_manager<R>(state, true)
   {
   }
@@ -395,7 +395,8 @@ public:
   {
   }
 
-  future(const detail::state_manager<int>& state, detail::private_type)
+  future(const detail::state_manager<int>& state,
+         detail::private_type /*unused*/)
   : detail::state_manager<int>(state, true)
   {
   }

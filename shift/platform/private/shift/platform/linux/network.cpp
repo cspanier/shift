@@ -26,10 +26,11 @@ std::vector<boost::asio::ip::address> network_interfaces()
   }
 
   std::array<char, NI_MAXHOST> interfaceBuffer;
-  for (auto* interface = interfaces.get(); interface;
+  for (auto* interface = interfaces.get(); interface != nullptr;
        interface = interface->ifa_next)
   {
-    if (!interface->ifa_addr || !interface->ifa_ifu.ifu_broadaddr)
+    if ((interface->ifa_addr == nullptr) ||
+        (interface->ifa_ifu.ifu_broadaddr == nullptr))
       continue;
 
     auto family = interface->ifa_addr->sa_family;

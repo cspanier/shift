@@ -28,7 +28,7 @@ struct interface final : public namescope
   interface() = default;
   interface(const interface&) = default;
   interface(interface&&) = default;
-  virtual ~interface() override;
+  ~interface() override;
   interface& operator=(const interface&) = default;
   interface& operator=(interface&&) = default;
 

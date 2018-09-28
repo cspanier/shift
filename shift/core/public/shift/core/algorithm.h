@@ -83,9 +83,9 @@ inline constexpr auto mix(Tx x, Ty y, Tw w)
 /// Returns an array whose elements are aggregate initialized with the default
 /// constructed value of I.
 template <typename T, typename I, std::size_t... Is>
-std::array<T, sizeof...(Is)> make_array(std::index_sequence<Is...>)
+std::array<T, sizeof...(Is)> make_array(std::index_sequence<Is...> /*unused*/)
 {
-  return {T{typename std::conditional<(Is || true), I, int>::type{}}...};
+  return {T{std::conditional_t<(Is || true), I, int>{}}...};
 }
 
 /// Returns an array of values.

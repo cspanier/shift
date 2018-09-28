@@ -107,16 +107,14 @@ class Vector
 {
 public:
   float v[3];
-  Vector()
-  {
-  }
+  Vector() = default;
   Vector(float a, float b, float c)
   {
     v[0] = a;
     v[1] = b;
     v[2] = c;
   }
-  Vector(float* a)
+  Vector(const float* a)
   {
     v[0] = a[0];
     v[1] = a[1];
@@ -230,7 +228,7 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
 
   iNumClusters = 1;
 
-  if (piClustersOut)
+  if (piClustersOut != nullptr)
   {
     piClustersOut[0] = 0;
   }
@@ -327,9 +325,9 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
 
           int x = piFanPos[*pin];
 
-          int t = iCurCachePos - piCachePos[x] > iCacheSize;
+          int t = static_cast<int>(iCurCachePos - piCachePos[x] > iCacheSize);
 
-          if (t)
+          if (t != 0)
           {
             piCachePos[x] = iCurCachePos++;
           }
@@ -338,7 +336,7 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
 
           if (v > 0 && *pin != id)
           {
-            if (t)
+            if (t != 0)
             {
               *(piStartListTail++) = *pin;
             }
@@ -381,9 +379,10 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
         }
       }
 
-      if (notfound)
+      if (notfound != 0)
       {
-        while (lowi < iNumFaces3 && !piFanPos[piIndexBufferIn[piTriList[lowi]]])
+        while (lowi < iNumFaces3 &&
+               (piFanPos[piIndexBufferIn[piTriList[lowi]]] == 0))
         {
           lowi++;
         }
@@ -392,7 +391,8 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
       }
 
       // overdraw output
-      if (piClustersOut && piClustersOut[iNumClusters - 1] != j / 3 &&
+      if ((piClustersOut != nullptr) &&
+          piClustersOut[iNumClusters - 1] != j / 3 &&
           iCurCachePos - piCachePos[i] > iCacheSize * 2)
       {
         piClustersOut[iNumClusters++] = j / 3;
@@ -413,7 +413,8 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
 
   memset(piScratch, 0, (iNumFaces * 16) * sizeof(int));
 
-  if (piClustersOut && piClustersOut[iNumClusters - 1] == iNumFaces)
+  if ((piClustersOut != nullptr) &&
+      piClustersOut[iNumClusters - 1] == iNumFaces)
   {
     iNumClusters--;
   }
@@ -433,25 +434,26 @@ void OverdrawOrder(
   int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
   float* pfVertexPositionsIn, int /*iNumVertices*/,
   TootleFaceWinding eFrontWinding,
-  int* piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
-  int iNumClusters, int* piScratch, int* piRemap = NULL)
+  const int*
+    piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
+  int iNumClusters, int* piScratch, int* piRemap = nullptr)
 {
   int i, j;
   int c = 0, cstart = 0;
   int cnext = piClustersIn[1];
   int* p = piIndexBufferIn;
-  Vector* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
+  auto* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
   Vector vMeshPositions = Vector(0, 0, 0);
   float fMArea = 0.f;
 
   int* piScratchBase = piScratch;
-  Vector* pvClusterPositions = (Vector*)piScratch;
+  auto* pvClusterPositions = (Vector*)piScratch;
   piScratch += iNumClusters * 3;
 
-  Vector* pvClusterNormals = (Vector*)piScratch;
+  auto* pvClusterNormals = (Vector*)piScratch;
   piScratch += iNumClusters * 3;
 
-  ClusterSort* cs = (ClusterSort*)piScratch;
+  auto* cs = (ClusterSort*)piScratch;
   piScratch += iNumClusters * 2;
 
   for (i = 0; i < iNumClusters; i++)
@@ -514,7 +516,7 @@ void OverdrawOrder(
 
     for (j = 0; j < 3; j++)
     {
-      Vector* vp = (Vector*)&pfVertexPositionsIn[(*p) * 3];
+      auto* vp = (Vector*)&pfVertexPositionsIn[(*p) * 3];
       vMeshPositions += *vp * fArea;
       pvClusterPositions[c] += *vp * fArea;
       p++;
@@ -552,7 +554,7 @@ void OverdrawOrder(
     }
   }
 
-  if (piRemap != NULL)
+  if (piRemap != nullptr)
   {
     for (i = 0; i < iNumClusters; i++)
     {
@@ -568,28 +570,29 @@ void OverdrawOrderIntegral(
   int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
   float* pfVertexPositionsIn, int /*iNumVertices*/,
   TootleFaceWinding eFrontWinding,
-  int* piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
-  int iNumClusters, int* piScratch, int* piRemap = NULL)
+  const int*
+    piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
+  int iNumClusters, int* piScratch, int* piRemap = nullptr)
 {
   int i, j;
   int c = 0, cstart = 0;
   int cnext = piClustersIn[1];
   int* p = piIndexBufferIn;
-  Vector* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
+  auto* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
   Vector vMeshPositions = Vector(0, 0, 0);
   float fMArea = 0.f;
 
   int* piScratchBase = piScratch;
-  Vector* pvClusterPositions = (Vector*)piScratch;
+  auto* pvClusterPositions = (Vector*)piScratch;
   piScratch += iNumClusters * 3;
 
-  Vector* pvClusterNormals = (Vector*)piScratch;
+  auto* pvClusterNormals = (Vector*)piScratch;
   piScratch += iNumClusters * 3;
 
-  float* pfClusterAreas = (float*)piScratch;
+  auto* pfClusterAreas = (float*)piScratch;
   piScratch += iNumClusters;
 
-  ClusterSort* cs = (ClusterSort*)piScratch;
+  auto* cs = (ClusterSort*)piScratch;
   piScratch += iNumClusters * 2;
 
   for (i = 0; i < iNumClusters; i++)
@@ -652,7 +655,7 @@ void OverdrawOrderIntegral(
 
     for (j = 0; j < 3; j++)
     {
-      Vector* vp = (Vector*)&pfVertexPositionsIn[(*p) * 3];
+      auto* vp = (Vector*)&pfVertexPositionsIn[(*p) * 3];
       vMeshPositions += *vp * fArea;
       pvClusterPositions[c] += *vp * fArea;
       p++;
@@ -703,7 +706,7 @@ void OverdrawOrderIntegral(
     }
   }
 
-  if (piRemap != NULL)
+  if (piRemap != nullptr)
   {
     for (i = 0; i < iNumClusters; i++)
     {
@@ -717,7 +720,8 @@ void OverdrawOrderIntegral(
 // function implements linear clustering
 int OverdrawOrderPartition(
   int* piIndexBufferIn, int iNumFaces,
-  int* piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
+  const int*
+    piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
   int iNumClustersIn, int iCacheSize, float lambda, int* piClustersOut,
   int* piScratch)
 {
@@ -759,7 +763,7 @@ int OverdrawOrderPartition(
           }
         }
 
-        if (!found)
+        if (found == 0)
         {
           iProc++;
           piCache[head] = p[m];
@@ -826,18 +830,18 @@ void FanVertOptimize(
   float beta,       // linear parameter to compute lambda term from algorithm
   // lambda = alpha + beta * ACMR_OF_TIPSY
 
-  int* piScratch = NULL,  // optional temp buffer for computations; its size in
-                          // bytes should be:
+  int* piScratch = nullptr,  // optional temp buffer for computations; its size
+                             // in bytes should be:
   // FanVertScratchSize(iNumVertices, iNumFaces)
   // if NULL is passed, function will allocate and free this data
 
-  int* piClustersOut = NULL,  // optional buffer for the output cluster position
-                              // (in faces) of each cluster
-  int* piNumClustersOut = NULL)  // the number of putput clusters
+  int* piClustersOut = nullptr,     // optional buffer for the output cluster
+                                    // position (in faces) of each cluster
+  int* piNumClustersOut = nullptr)  // the number of putput clusters
 {
   bool bMalloc = false;
 
-  if (piScratch == NULL)
+  if (piScratch == nullptr)
   {
     size_t iScratchSize = FanVertScratchSize(iNumVertices, iNumFaces);
     piScratch = (int*)malloc(iScratchSize);
@@ -874,12 +878,12 @@ void FanVertOptimize(
                 pfVertexPositionsIn, iNumVertices, eFrontWinding, piClustersTmp,
                 iNumClustersOut, piScratch, piClusterRemap);
 
-  if (piNumClustersOut != NULL)
+  if (piNumClustersOut != nullptr)
   {
     *piNumClustersOut = iNumClustersOut;
     int i;
 
-    if (piClustersOut != NULL)
+    if (piClustersOut != nullptr)
     {
       // convert ClustersTmp array to array of cluster sizes
       for (i = 1; i <= iNumClustersOut; i++)
@@ -930,7 +934,7 @@ float FanVertOptimizeVCacheOnly(int* piIndexBufferIn, int* piIndexBufferOut,
 {
   bool bMalloc = false;
 
-  if (piScratch == NULL)
+  if (piScratch == nullptr)
   {
     size_t iScratchSize = FanVertScratchSize(iNumVertices, iNumFaces);
     piScratch = (int*)malloc(iScratchSize);
@@ -940,7 +944,7 @@ float FanVertOptimizeVCacheOnly(int* piIndexBufferIn, int* piIndexBufferOut,
 
   int* piScratchBase = piScratch;
 
-  if (piClustersOut == NULL)
+  if (piClustersOut == nullptr)
   {
     piClustersOut = piScratch;
 
@@ -951,7 +955,7 @@ float FanVertOptimizeVCacheOnly(int* piIndexBufferIn, int* piIndexBufferOut,
   float lambda = FanVertLinSort(piIndexBufferIn, piIndexBufferOut, iNumFaces,
                                 piScratch, iCacheSize, piClustersOut, nc);
 
-  if (iNumClusters)
+  if (iNumClusters != nullptr)
   {
     *iNumClusters = nc;
   }
@@ -979,7 +983,7 @@ void FanVertOptimizeClusterOnly(int* piIndexBufferIn, int iNumVertices,
 {
   bool bMalloc = false;
 
-  if (piScratch == NULL)
+  if (piScratch == nullptr)
   {
     size_t iScratchSize = FanVertScratchSize(iNumVertices, iNumFaces);
     piScratch = (int*)malloc(iScratchSize);
@@ -1007,7 +1011,7 @@ void FanVertOptimizeOverdrawOnly(float* pfVertexPositionsIn,
 {
   bool bMalloc = false;
 
-  if (piScratch == NULL)
+  if (piScratch == nullptr)
   {
     size_t iScratchSize = FanVertScratchSize(iNumVertices, iNumFaces);
     piScratch = (int*)malloc(iScratchSize);

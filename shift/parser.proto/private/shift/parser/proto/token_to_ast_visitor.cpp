@@ -184,7 +184,7 @@ token_to_ast_visitor::return_type token_to_ast_visitor::operator()(
   }
 
   BOOST_ASSERT(structure_node);
-  if (!structure_node)
+  if (structure_node == nullptr)
     return false;
 
   auto result = true;

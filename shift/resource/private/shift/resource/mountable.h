@@ -2,6 +2,7 @@
 #define SHIFT_RESOURCE_MOUNTABLE_H
 
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include "shift/resource/resource.h"
 
 namespace shift::resource
@@ -11,7 +12,7 @@ class mountable
 {
 public:
   ///
-  mountable(const boost::filesystem::path& path) : _path(path)
+  mountable(boost::filesystem::path path) : _path(std::move(path))
   {
   }
 

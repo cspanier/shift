@@ -351,7 +351,7 @@ public:
   for_each_visitor& operator=(for_each_visitor&&) = default;
 
   template <typename T>
-  void operator()(const T*)
+  void operator()(const T* /*unused*/)
   {
     ++_counter;
   }
@@ -387,7 +387,7 @@ public:
   }
 
   template <typename RecursionHelper, typename T>
-  return_type operator()(RecursionHelper recursion_helper, const T*)
+  return_type operator()(RecursionHelper recursion_helper, const T* /*unused*/)
   {
     ++_counter;
     return recursion_helper(*this);

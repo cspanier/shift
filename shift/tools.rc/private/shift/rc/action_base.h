@@ -41,7 +41,7 @@ public:
   ///   external libs that make use of global/static variables to store state.
   action_base(const std::string& action_name,
               const action_version& action_version,
-              const bool action_support_multithreading = true);
+              bool action_support_multithreading = true);
 
   action_base(const action_base&) = delete;
   action_base(action_base&&) = delete;

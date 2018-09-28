@@ -29,7 +29,7 @@ struct enumerator final : public node
   enumerator() = default;
   enumerator(const enumerator&) = default;
   enumerator(enumerator&&) = default;
-  virtual ~enumerator() override;
+  ~enumerator() override;
   enumerator& operator=(const enumerator&) = default;
   enumerator& operator=(enumerator&&) = default;
 
@@ -45,7 +45,7 @@ struct enumeration : public node
   enumeration() = default;
   enumeration(const enumeration&) = default;
   enumeration(enumeration&&) = default;
-  virtual ~enumeration() override;
+  ~enumeration() override;
   enumeration& operator=(const enumeration&) = default;
   enumeration& operator=(enumeration&&) = default;
 

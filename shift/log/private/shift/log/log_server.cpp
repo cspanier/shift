@@ -194,7 +194,7 @@ void log_server::write(int channel, channel_priority priority,
     }
   }
 
-  if (_impl->lock_count)
+  if (_impl->lock_count != 0u)
   {
     // Detected recursive logging from within a log sink.
     BOOST_ASSERT(false);

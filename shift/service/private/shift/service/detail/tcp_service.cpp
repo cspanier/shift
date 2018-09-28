@@ -67,7 +67,7 @@ void tcp_service::stop()
 std::pair<guid_t, guid_t> tcp_service::sender() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -79,7 +79,7 @@ std::pair<guid_t, guid_t> tcp_service::sender() const
 boost::asio::ip::address tcp_service::sender_address() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -91,7 +91,7 @@ boost::asio::ip::address tcp_service::sender_address() const
 std::uint16_t tcp_service::sender_port() const
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_THROW_EXCEPTION(core::invalid_operation() << core::context_info(
                             "Calling sender() is only valid from within "
@@ -117,7 +117,7 @@ void tcp_service::broadcast(const serialization::message& message)
 
   std::lock_guard lock(_connection_mutex);
   auto count = _established_connections.size();
-  if (!count)
+  if (count == 0u)
   {
     log::warning() << "Attempt to broadcast message, but no remote "
                       "service is currently connected.";
@@ -125,7 +125,7 @@ void tcp_service::broadcast(const serialization::message& message)
   }
   for (auto& connection : _established_connections)
   {
-    if (--count)
+    if (--count != 0u)
       connection->socket->post(buffer);
     else
       connection->socket->post(std::move(buffer));
@@ -135,7 +135,7 @@ void tcp_service::broadcast(const serialization::message& message)
 void tcp_service::reply(const serialization::message& message)
 {
   auto* caller = _caller;
-  if (!caller)
+  if (caller == nullptr)
   {
     BOOST_ASSERT(false);
     log::error() << "Calling reply() is only valid from within the "
@@ -214,7 +214,7 @@ void tcp_service::on_receive(network::tcp_socket_client& socket,
                              std::vector<char> buffer)
 {
   auto* connection = static_cast<tcp_connection*>(socket.user_data());
-  if (!connection)
+  if (connection == nullptr)
   {
     // Should never happen.
     BOOST_ASSERT(false);
@@ -362,7 +362,8 @@ std::chrono::high_resolution_clock::duration tcp_service::timeout() const
   return std::chrono::seconds(0);
 }
 
-void tcp_service::timeout(std::chrono::high_resolution_clock::duration)
+void tcp_service::timeout(
+  std::chrono::high_resolution_clock::duration /*duration*/)
 {
   /// ToDo: Throw illegal operation exception.
 }

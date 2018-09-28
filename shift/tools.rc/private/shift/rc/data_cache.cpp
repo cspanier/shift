@@ -80,7 +80,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           rule_description new_rule;
           new_rule.id = cached_rule.first;
           if (!json::has(*rule_object, "pass") ||
-              !json::get_if<double>(&rule_object->at("pass")))
+              (json::get_if<double>(&rule_object->at("pass")) == nullptr))
           {
             continue;
           }
@@ -88,7 +88,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             json::get<double>(rule_object->at("pass")));
 
           if (!json::has(*rule_object, "action") ||
-              !json::get_if<std::string>(&rule_object->at("action")))
+              (json::get_if<std::string>(&rule_object->at("action")) ==
+               nullptr))
           {
             continue;
           }
@@ -99,14 +100,15 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           new_rule.action = action_iter->second;
 
           if (!json::has(*rule_object, "path") ||
-              !json::get_if<std::string>(&rule_object->at("path")))
+              (json::get_if<std::string>(&rule_object->at("path")) == nullptr))
           {
             continue;
           }
           new_rule.rule_path = json::get<std::string>(rule_object->at("path"));
 
           if (!json::has(*rule_object, "inputs") ||
-              !json::get_if<json::object>(&rule_object->at("inputs")))
+              (json::get_if<json::object>(&rule_object->at("inputs")) ==
+               nullptr))
           {
             continue;
           }
@@ -126,7 +128,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           }
 
           if (!json::has(*rule_object, "group-by") ||
-              !json::get_if<json::array>(&rule_object->at("group-by")))
+              (json::get_if<json::array>(&rule_object->at("group-by")) ==
+               nullptr))
           {
             continue;
           }
@@ -142,7 +145,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           }
 
           if (!json::has(*rule_object, "outputs") ||
-              !json::get_if<json::object>(&rule_object->at("outputs")))
+              (json::get_if<json::object>(&rule_object->at("outputs")) ==
+               nullptr))
           {
             continue;
           }
@@ -158,7 +162,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           }
 
           if (!json::has(*rule_object, "options") ||
-              !json::get_if<json::object>(&rule_object->at("options")))
+              (json::get_if<json::object>(&rule_object->at("options")) ==
+               nullptr))
           {
             continue;
           }
@@ -211,14 +216,16 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           auto* file = file_iter->second.get();
 
           if (json::has(*cached_file_object, "write-time") &&
-              json::get_if<double>(&cached_file_object->at("write-time")))
+              (json::get_if<double>(&cached_file_object->at("write-time")) !=
+               nullptr))
           {
             file->last_write_time = static_cast<time_t>(
               json::get<double>(cached_file_object->at("write-time")));
           }
 
           if (json::has(*cached_file_object, "pass") &&
-              json::get_if<double>(&cached_file_object->at("pass")))
+              (json::get_if<double>(&cached_file_object->at("pass")) !=
+               nullptr))
           {
             file->pass = static_cast<std::uint32_t>(
               json::get<double>(cached_file_object->at("pass")));
@@ -234,7 +241,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
               json::get_if<json::object>(&cached_file.second))
         {
           if (json::has(*cached_file_object, "alias") &&
-              json::get_if<std::string>(&cached_file_object->at("alias")))
+              (json::get_if<std::string>(&cached_file_object->at("alias")) !=
+               nullptr))
           {
             if (auto* file = get_file(fs::path{cached_file.first}))
             {
@@ -260,7 +268,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           auto new_job = std::make_unique<job_description>();
 
           if (!json::has(*job_object, "rule") ||
-              !json::get_if<std::string>(&job_object->at("rule")))
+              (json::get_if<std::string>(&job_object->at("rule")) == nullptr))
           {
             continue;
           }
@@ -274,7 +282,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           new_job->matching_rule = rule_iter->get();
 
           if (!json::has(*job_object, "inputs") ||
-              !json::get_if<json::array>(&job_object->at("inputs")))
+              (json::get_if<json::array>(&job_object->at("inputs")) == nullptr))
           {
             continue;
           }
@@ -286,7 +294,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
                   json::get_if<std::string>(&input_value))
             {
               auto* input = get_file(fs::path{*input_name});
-              if (!input)
+              if (input == nullptr)
               {
                 input_files_missing = true;
                 break;
@@ -319,7 +327,8 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
 
           bool output_files_missing = false;
           if (!json::has(*job_object, "outputs") ||
-              !json::get_if<json::array>(&job_object->at("outputs")))
+              (json::get_if<json::array>(&job_object->at("outputs")) ==
+               nullptr))
           {
             continue;
           }
@@ -331,7 +340,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
                   json::get_if<std::string>(&output_value))
             {
               auto* output = get_file(fs::path{*output_name});
-              if (!output)
+              if (output == nullptr)
               {
                 output_files_missing = true;
                 break;
@@ -366,7 +375,7 @@ void data_cache::save(const boost::filesystem::path& cache_filename)
   auto& rules_object = json::get<json::object>(root["rules"] = json::object{});
   for (const auto& rule : _impl->rules)
   {
-    if (!rule->action)
+    if (rule->action == nullptr)
       continue;
 
     auto& rule_object =
@@ -383,7 +392,7 @@ void data_cache::save(const boost::filesystem::path& cache_filename)
     auto& group_by_array =
       json::get<json::array>(rule_object["group-by"] = json::array{});
     for (const auto value : rule->group_by)
-      group_by_array.push_back(static_cast<double>(value));
+      group_by_array.emplace_back(static_cast<double>(value));
 
     auto& outputs_object =
       json::get<json::object>(rule_object["outputs"] = json::object{});
@@ -407,14 +416,14 @@ void data_cache::save(const boost::filesystem::path& cache_filename)
     auto& inputs_array =
       json::get<json::array>(job_object["inputs"] = json::array{});
     for (const auto& input : job->inputs)
-      inputs_array.push_back(input->file->generic_string);
+      inputs_array.emplace_back(input->file->generic_string);
 
     auto& outputs_array =
       json::get<json::array>(job_object["outputs"] = json::array{});
     for (const auto* output : job->outputs)
-      outputs_array.push_back(output->path.generic_string());
+      outputs_array.emplace_back(output->path.generic_string());
 
-    jobs_array.push_back(std::move(job_object));
+    jobs_array.emplace_back(std::move(job_object));
   }
 
   // Cache all existing files.
@@ -436,7 +445,7 @@ void data_cache::save(const boost::filesystem::path& cache_filename)
       static_cast<double>(file.second->last_write_time);
     if (file.second->pass > 0)
       file_object["pass"] = static_cast<double>(file.second->pass);
-    if (file.second->alias &&
+    if ((file.second->alias != nullptr) &&
         (file.second->alias->flags & entity_flag::exists) &&
         (file.second->alias->flags & entity_flag::used))
     {

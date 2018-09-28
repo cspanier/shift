@@ -40,7 +40,7 @@ namespace scene
     static constexpr entity_type_guid type_guid = 0x0B797BE5;
 
   public:
-    camera_entity() noexcept;
+    camera_entity();
 
     ///
     void update() override;

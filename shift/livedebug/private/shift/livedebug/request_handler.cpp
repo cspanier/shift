@@ -84,16 +84,16 @@ bool file_request_handler::operator()(
   // Handle the case where the file doesn't exist.
   if (error == boost::system::errc::no_such_file_or_directory)
   {
-    session.send(session.not_found(request.target(), request.version(),
-                                   request.keep_alive()));
+    session.send(livedebug::session::not_found(
+      request.target(), request.version(), request.keep_alive()));
     return true;
   }
 
   // Handle an unknown error.
   if (error)
   {
-    session.send(session.server_error(error.message(), request.version(),
-                                      request.keep_alive()));
+    session.send(livedebug::session::server_error(
+      error.message(), request.version(), request.keep_alive()));
     return true;
   }
 

@@ -110,7 +110,7 @@ private:
   ///
   template <std::size_t... Is>
   typename base_t::result_t call_function(Function function,
-                                          std::index_sequence<Is...>)
+                                          std::index_sequence<Is...> /*unused*/)
   {
     return function(std::forward<std::tuple_element_t<Is, std::tuple<Args...>>>(
       std::get<Is>(_args))...);

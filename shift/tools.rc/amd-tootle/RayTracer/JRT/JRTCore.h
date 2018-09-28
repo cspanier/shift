@@ -1,28 +1,29 @@
-/************************************************************************************//**
-// Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
-/// \author AMD Developer Tools Team
-/// \file
-****************************************************************************************/
-#ifndef _JRT_CORE_H_
-#define _JRT_CORE_H_
+/************************************************************************************/ /**
+ // Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
+ /// \author AMD Developer Tools Team
+ /// \file
+ ****************************************************************************************/
+#ifndef JRT_CORE_H
+#define JRT_CORE_H
 
+#include <cstdint>
 #include "JRTCommon.h"
 #include "JRTTriangleIntersection.h"
 
 struct JRTHitInfo
 {
-    // the triangle that was hit
-    const JRTMesh* pMesh;
-    UINT nIndex;
+  // the triangle that was hit
+  const JRTMesh* pMesh;
+  std::uint32_t nIndex;
 
-    Vec3f mPosition;
-    Vec3f mNormal;
+  Vec3f mPosition;
+  Vec3f mNormal;
 };
 
 struct TootleRayHit
 {
-    float t;
-    UINT nFaceID;
+  float t;
+  std::uint32_t nFaceID;
 };
 
 class JRTCSGNode;
@@ -33,29 +34,29 @@ class JRTBoundingBox;
 class JRTCore
 {
 public:
+  static JRTCore* Build(const std::vector<JRTMesh*>& rMeshes);
 
-    static JRTCore* Build(const std::vector<JRTMesh*>& rPrims);
+  ~JRTCore();
 
-    ~JRTCore();
+  bool FindAllHits(const Vec3f& rOrigin, const Vec3f& rDirection,
+                   TootleRayHit** ppHitArray, std::uint32_t* pHitCount);
 
-    bool FindAllHits(const Vec3f& rOrigin, const Vec3f& rDirection, TootleRayHit** ppHitArray, UINT* pnHits);
+  void CullBackfaces(const Vec3f& rViewDir, bool bCullCCW);
 
-    void CullBackfaces(const Vec3f& rViewDir, bool bCullCCW);
+  /// Locates the position at which the given ray hits the scene bounding box.
+  /// Returns false if the ray misses the bounding box
+  bool GetSceneBBHit(const Vec3f& rOrigin, const Vec3f& rDirection,
+                     Vec3f* pHitPt);
 
-    /// Locates the position at which the given ray hits the scene bounding box.
-    /// Returns false if the ray misses the bounding box
-    bool GetSceneBBHit(const Vec3f& rOrigin, const Vec3f& rDirection, Vec3f* pHitPt);
-
-    const JRTBoundingBox& GetSceneBB() const ;
+  const JRTBoundingBox& GetSceneBB() const;
 
 private:
+  JRTCore();
 
-    JRTCore();
+  TootleRayHit* m_pHitArray;
+  std::uint32_t m_nArraySize{5};
 
-    TootleRayHit* m_pHitArray;
-    UINT          m_nArraySize;
-
-    JRTKDTree* m_pTree;
+  JRTKDTree* m_pTree = nullptr;
 };
 
 #endif

@@ -26,7 +26,8 @@ using core::indent_width;
 
 file_writer& operator<<(file_writer& stream, const node& any_node)
 {
-  if (any_node.parent && any_node.parent->has_attribute("dot_name"))
+  if ((any_node.parent != nullptr) &&
+      any_node.parent->has_attribute("dot_name"))
     stream << static_cast<const node&>(*any_node.parent) << "::";
   stream << any_node.attribute<std::string>("dot_name");
   return stream;
@@ -210,17 +211,17 @@ static std::ostream& operator<<(std::ostream& stream,
 
     case built_in_type::array:
     {
-      BOOST_ASSERT(type_reference.arguments.size() >= 1);
+      BOOST_ASSERT(!type_reference.arguments.empty());
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = nullptr;
       if (type_reference.arguments.size() >= 2)
         size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "array<" << *value_type;
-      if (size)
+      if (size != nullptr)
         stream << ", " << *size;
       stream << ">";
       break;
@@ -232,7 +233,7 @@ static std::ostream& operator<<(std::ostream& stream,
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "list<" << *value_type << ">";
       break;
@@ -245,7 +246,7 @@ static std::ostream& operator<<(std::ostream& stream,
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "vector<" << *value_type << ", " << *size << ">";
       break;
@@ -257,7 +258,7 @@ static std::ostream& operator<<(std::ostream& stream,
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "set<" << *value_type << ">";
       break;
@@ -270,7 +271,7 @@ static std::ostream& operator<<(std::ostream& stream,
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "matrix<" << *value_type << ", " << *size << ">";
       break;
@@ -284,7 +285,7 @@ static std::ostream& operator<<(std::ostream& stream,
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[1]);
       BOOST_ASSERT(key_type && value_type);
-      if (!key_type || !value_type)
+      if ((key_type == nullptr) || (value_type == nullptr))
         break;
       stream << "map<" << *key_type << ", " << *value_type << ">";
       break;
@@ -299,7 +300,7 @@ static std::ostream& operator<<(std::ostream& stream,
         const proto::type_reference* option =
           std::get_if<proto::type_reference>(&template_argument);
         BOOST_ASSERT(option);
-        if (!option)
+        if (option == nullptr)
           break;
         if (firstType)
           firstType = false;
@@ -475,7 +476,7 @@ void dot_generator::gather_nodes(const type_reference& reference)
     {
       const auto* argument_type =
         std::get_if<proto::type_reference>(&template_argument);
-      if (!argument_type)
+      if (argument_type == nullptr)
         continue;
       gather_nodes(*argument_type);
     }
@@ -543,7 +544,7 @@ void dot_generator::gather_nodes(const message& message)
              << field.attribute<std::string>("dot_name");
   }
   *_source << "}\", shape=record];" br;
-  if (message.base)
+  if (message.base != nullptr)
     gather_nodes(*message.base);
   for (const auto& field : message.fields)
     gather_nodes(field.reference);
@@ -578,7 +579,7 @@ void dot_generator::gather_edges(const namescope& scope)
     gather_edges(alias, alias->reference);
   for (const auto* message : scope.messages)
   {
-    if (message->base)
+    if (message->base != nullptr)
       _edges.insert(std::make_pair(message, message->base));
     for (const auto& field : message->fields)
       gather_edges(message, field.reference);
@@ -610,7 +611,7 @@ void dot_generator::gather_edges(const node* source,
     {
       const auto* argument_type =
         std::get_if<proto::type_reference>(&template_argument);
-      if (!argument_type)
+      if (argument_type == nullptr)
         continue;
       gather_edges(source, *argument_type);
     }

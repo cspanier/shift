@@ -43,13 +43,13 @@ namescope test
   {
     const auto* namescope_test = document.root().namescope("test");
     BOOST_CHECK(namescope_test);
-    if (namescope_test)
+    if (namescope_test != nullptr)
     {
       BOOST_CHECK_EQUAL(namescope_test->identifier, "test");
 
       const auto* structure_foo = namescope_test->structure("foo");
       BOOST_CHECK(structure_foo);
-      if (structure_foo)
+      if (structure_foo != nullptr)
       {
         BOOST_CHECK_EQUAL(structure_foo->parent_namescope, namescope_test);
         BOOST_CHECK_EQUAL(structure_foo->identifier, "foo");
@@ -58,7 +58,7 @@ namescope test
       }
       const auto* structure_bar = namescope_test->structure("bar");
       BOOST_CHECK(structure_bar);
-      if (structure_bar)
+      if (structure_bar != nullptr)
       {
         BOOST_CHECK_EQUAL(structure_bar->parent_namescope, namescope_test);
         BOOST_CHECK_EQUAL(structure_bar->identifier, "bar");
@@ -98,7 +98,7 @@ namescope test
   {
     const auto* namescope_test = document.root().namescope("test");
     BOOST_CHECK(namescope_test != nullptr);
-    if (!namescope_test)
+    if (namescope_test == nullptr)
       return;
     BOOST_CHECK_EQUAL(namescope_test->identifier, "test");
     BOOST_CHECK_EQUAL(namescope_test->comments, "some test comment");
@@ -107,7 +107,7 @@ namescope test
 
     const auto* structure_foo = namescope_test->structure("foo");
     BOOST_CHECK(structure_foo != nullptr);
-    if (!structure_foo)
+    if (structure_foo == nullptr)
       return;
     BOOST_CHECK_EQUAL(structure_foo->identifier, "foo");
     BOOST_CHECK_EQUAL(structure_foo->parent_namescope, namescope_test);
@@ -117,7 +117,7 @@ namescope test
 
     const auto* field_bar = structure_foo->field("bar");
     BOOST_CHECK(field_bar != nullptr);
-    if (!field_bar)
+    if (field_bar == nullptr)
       return;
     BOOST_CHECK_EQUAL(field_bar->identifier, "bar");
     BOOST_CHECK_EQUAL(field_bar->parent_namescope, namescope_test);

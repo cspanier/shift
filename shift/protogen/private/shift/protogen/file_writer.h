@@ -32,7 +32,7 @@ public:
   /// content is different to the file content. Optionally, it can apply
   /// clang-format to the written source file.
   void write(boost::filesystem::path filename,
-             boost::filesystem::path clangFormat = "");
+             boost::filesystem::path clang_format = "");
 
   /// Clears the file content buffer.
   void clear();

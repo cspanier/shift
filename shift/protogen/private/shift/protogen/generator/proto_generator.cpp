@@ -238,17 +238,17 @@ static file_writer& operator<<(
 
     case built_in_type::array:
     {
-      BOOST_ASSERT(type_reference.arguments.size() >= 1);
+      BOOST_ASSERT(!type_reference.arguments.empty());
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = nullptr;
       if (type_reference.arguments.size() >= 2)
         size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "array<" << make_tuple(current_scope, *value_type);
-      if (size)
+      if (size != nullptr)
         stream << ", " << *size;
       stream << ">";
       break;
@@ -260,7 +260,7 @@ static file_writer& operator<<(
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "list<" << make_tuple(current_scope, *value_type) << ">";
       break;
@@ -273,7 +273,7 @@ static file_writer& operator<<(
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "vector<" << make_tuple(current_scope, *value_type) << ", "
              << *size << ">";
@@ -286,7 +286,7 @@ static file_writer& operator<<(
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "set<" << make_tuple(current_scope, *value_type) << ">";
       break;
@@ -299,7 +299,7 @@ static file_writer& operator<<(
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "matrix<" << make_tuple(current_scope, *value_type) << ", "
              << *size << ">";
@@ -314,7 +314,7 @@ static file_writer& operator<<(
       const proto::type_reference* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[1]);
       BOOST_ASSERT(key_type && value_type);
-      if (!key_type || !value_type)
+      if ((key_type == nullptr) || (value_type == nullptr))
         break;
       stream << "map<" << make_tuple(current_scope, *key_type) << ", "
              << make_tuple(current_scope, *value_type) << ">";
@@ -330,7 +330,7 @@ static file_writer& operator<<(
         const proto::type_reference* option =
           std::get_if<proto::type_reference>(&template_argument);
         BOOST_ASSERT(option);
-        if (!option)
+        if (option == nullptr)
           break;
         if (firstType)
           firstType = false;
@@ -491,7 +491,7 @@ void proto_generator::write(const message& message)
 
   write_attributes(message);
   _source << indent << "message " << message.name;
-  if (message.base)
+  if (message.base != nullptr)
     _source << " : " << message.base_name;
   _source << br << indent << "{" br << inc_indent;
   for (const auto& field : message.fields)

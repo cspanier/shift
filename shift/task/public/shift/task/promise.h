@@ -17,7 +17,7 @@ public:
 
   /// Constructor.
   template <class Alloc>
-  promise(std::allocator_arg_t, const Alloc& alloc)
+  promise(std::allocator_arg_t /*unused*/, const Alloc& alloc)
   : _state(std::allocate_shared<detail::associated_state<R>>(alloc), false)
   {
   }
@@ -114,7 +114,7 @@ public:
 
   /// Constructor.
   template <class Alloc>
-  promise(std::allocator_arg_t, const Alloc& alloc)
+  promise(std::allocator_arg_t /*unused*/, const Alloc& alloc)
   : _state(std::allocate_shared<detail::associated_state<int>>(alloc), false)
   {
   }

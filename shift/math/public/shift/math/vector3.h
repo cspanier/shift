@@ -60,15 +60,15 @@ struct vector<3, T>
 
   /// Multiplies each component with the passed scalar value.
   template <typename U>
-  vector& operator*=(const U scalar);
+  vector& operator*=(U scalar);
 
   /// Divides each component by the passed scalar value.
   template <typename U>
-  vector& operator/=(const U scalar);
+  vector& operator/=(U scalar);
 
   /// Performs componentwise modulus.
   template <typename U>
-  vector& operator%=(const U scalar);
+  vector& operator%=(U scalar);
 
   ///
   template <typename... Args>
@@ -189,7 +189,7 @@ auto operator%(const vector<3, U>& lhs, const vector<3, V>& rhs)
 
 /// Multiplies each component of rhs with the passed scalar value lhs.
 template <typename U, typename V>
-auto operator*(const U lhs, const vector<3, V>& rhs)
+auto operator*(U lhs, const vector<3, V>& rhs)
 {
   return vector<3, decltype(std::declval<U>() * std::declval<V>())>{
     lhs * rhs.x, lhs * rhs.y, lhs * rhs.z};

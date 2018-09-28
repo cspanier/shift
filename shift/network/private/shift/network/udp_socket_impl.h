@@ -33,7 +33,7 @@ public:
   /// The actual implementation of udp_socket::post encapsulated using the
   /// read_write_strand thread synchronization object.
   void post(std::shared_ptr<udp_socket> socket, std::vector<char> buffer,
-            const boost::asio::ip::udp::endpoint destination);
+            boost::asio::ip::udp::endpoint destination);
 
   /// The coroutine method responsible to reading incomming data until the
   /// socket gets closed or until an error occurs.

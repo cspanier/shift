@@ -25,7 +25,7 @@ public:
   /// @see LogSink::write.
   void write(std::chrono::system_clock::duration time_since_start, int channel,
              const channel_config& channel_config, channel_priority priority,
-             std::string_view message, bool isSpam) override;
+             std::string_view message, bool is_spam) override;
 
 private:
   bool _enable_timestamp;

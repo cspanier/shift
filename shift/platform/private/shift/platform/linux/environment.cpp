@@ -21,7 +21,7 @@ std::string environment::username()
   std::vector<char> buffer;
   unsigned long size = L_cuserid + 1;
   buffer.resize(size, 0);
-  if (getlogin_r(buffer.data(), size))
+  if (getlogin_r(buffer.data(), size) != 0)
     return std::string(buffer.data());
   else
     return UNKNOWN_USERNAME;

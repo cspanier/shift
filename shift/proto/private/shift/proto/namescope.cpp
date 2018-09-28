@@ -66,7 +66,7 @@ type* namescope::find_type(const namescope_path& namescope_path,
     }
   }
 
-  if (current_depth == 0 && parent)
+  if (current_depth == 0 && (parent != nullptr))
     return parent->find_type(namescope_path);
   else
     return nullptr;
@@ -142,7 +142,8 @@ void namescope::merge()
       {
         auto* other_namescope =
           std::get_if<proto::namescope>(&*other_child_iter);
-        if (other_namescope && namescope->name == other_namescope->name)
+        if ((other_namescope != nullptr) &&
+            namescope->name == other_namescope->name)
         {
           for (auto& other_attribute : other_namescope->public_attributes)
           {

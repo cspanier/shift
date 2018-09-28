@@ -264,7 +264,7 @@ constexpr bool is_iterator_v = is_iterator<T>::value;
 namespace detail
 {
   template <std::size_t... Indices, typename... Ts, typename Visitor>
-  inline void for_each_element(std::index_sequence<Indices...>,
+  inline void for_each_element(std::index_sequence<Indices...> /*unused*/,
                                std::tuple<Ts...>& elements, Visitor&& visitor)
   {
     ((void)visitor(std::get<Indices>(elements)), ...);

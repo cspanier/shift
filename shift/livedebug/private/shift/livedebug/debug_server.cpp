@@ -55,7 +55,7 @@ void debug_server::handle_request(
   if (request.method() != http::verb::get &&
       request.method() != http::verb::head)
   {
-    return session.send(session.bad_request(
+    return session.send(livedebug::session::bad_request(
       "Unknown HTTP-method", request.version(), request.keep_alive()));
   }
 
@@ -63,7 +63,7 @@ void debug_server::handle_request(
   if (request.target().empty() || request.target()[0] != '/' ||
       request.target().find("..") != boost::beast::string_view::npos)
   {
-    return session.send(session.bad_request(
+    return session.send(livedebug::session::bad_request(
       "Illegal request-target", request.version(), request.keep_alive()));
   }
 
@@ -73,7 +73,7 @@ void debug_server::handle_request(
     if ((*request_handler)(request, session))
       return;
   }
-  session.send(session.not_found(request.target(), request.version(),
-                                 request.keep_alive()));
+  session.send(livedebug::session::not_found(
+    request.target(), request.version(), request.keep_alive()));
 }
 }

@@ -1,71 +1,90 @@
-/************************************************************************************//**
-// Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
-/// \author AMD Developer Tools Team
-/// \file
-****************************************************************************************/
-#ifndef _FRT_BOUNDING_BOX_H_
-#define _FRT_BOUNDING_BOX_H_
+/************************************************************************************/ /**
+ // Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
+ /// \author AMD Developer Tools Team
+ /// \file
+ ****************************************************************************************/
+#ifndef FRT_BOUNDING_BOX_H
+#define FRT_BOUNDING_BOX_H
 
 #include "JMLSSEVec.h"
 
-typedef SSEVec4 SSEVector;
+using SSEVector = SSEVec4;
 
 class JRTBoundingBox
 {
 public:
+  JRTBoundingBox(const float* positions, unsigned int num_points);
 
-    JRTBoundingBox(const float* points, unsigned int num_points);
+  JRTBoundingBox(const Vec3f* positions, unsigned int num_points);
 
-    JRTBoundingBox(const Vec3f* points, unsigned int num_points);
+  JRTBoundingBox(const Vec3f& min = Vec3f(0, 0, 0),
+                 const Vec3f& max = Vec3f(1, 1, 1));
 
-    JRTBoundingBox(const Vec3f& min = Vec3f(0, 0, 0), const Vec3f& max = Vec3f(1, 1, 1));
+  inline const Vec3f& GetMin() const
+  {
+    return m_min;
+  }
+  inline const Vec3f& GetMax() const
+  {
+    return m_max;
+  }
 
-    inline const Vec3f& GetMin() const { return m_min; };
-    inline const Vec3f& GetMax() const { return m_max; };
+  inline Vec3f& GetMin()
+  {
+    return m_min;
+  }
+  inline Vec3f& GetMax()
+  {
+    return m_max;
+  }
 
-    inline Vec3f& GetMin() { return m_min; };
-    inline Vec3f& GetMax() { return m_max; };
+  Vec3f GetCenter() const
+  {
+    return (m_max + m_min) / 2;
+  }
 
-    Vec3f GetCenter() const { return (m_max + m_min) / 2 ; };
+  void Expand(const Vec3f& point);
 
-    void Expand(const Vec3f& point);
+  bool RayHit(const Vec3f& rOrigin, const Vec3f& rDirection, float* tmin,
+              float* tmax) const;
 
-    bool RayHit(const Vec3f& origin, const Vec3f& endPoint, float* tmin_out, float* tmax_out) const;
+  void Split(unsigned int axis, float value, JRTBoundingBox& front,
+             JRTBoundingBox& back) const;
 
+  bool PointInBox(const float origin[3]) const;
 
-    void Split(unsigned int axis, float value, JRTBoundingBox& front, JRTBoundingBox& back) const;
+  JRTBoundingBox Union(const JRTBoundingBox& rOther) const;
 
+  /// Checks for intersection between this box and another, and optionally
+  /// returns the intersection \param rOther
+  ///     The other box to test for intersection with
+  /// \param pBBOut
+  ///     Pointer to receive a bounding box containing the intersection of the
+  ///     two boxes
+  /// \return True if the boxes intersect, false if not
+  bool Intersection(const JRTBoundingBox& rOther, JRTBoundingBox* pBBOut) const;
 
-    bool PointInBox(const float origin[3]) const;
+  float GetVolume() const;
 
-    JRTBoundingBox Union(const JRTBoundingBox& rOther) const;
+  float GetSurfaceArea() const;
 
-    /// Checks for intersection between this box and another, and optionally returns the intersection
-    /// \param rOther
-    ///     The other box to test for intersection with
-    /// \param pBBOut
-    ///     Pointer to receive a bounding box containing the intersection of the two boxes
-    /// \return True if the boxes intersect, false if not
-    bool Intersection(const JRTBoundingBox& rOther, JRTBoundingBox* pBBOut) const;
+  bool TriangleIntersect(const Vec3f* pV1, const Vec3f* pV2,
+                         const Vec3f* pV3) const;
 
-    float GetVolume() const;
+  bool IsDegenerate() const;
 
-    float GetSurfaceArea() const;
-
-    bool TriangleIntersect(const Vec3f* pV1, const Vec3f* pV2, const Vec3f* pV3) const;
-
-    bool IsDegenerate() const;
-
-    void GetCorners(Vec3f* pCorners) const;
+  void GetCorners(Vec3f* pCorners) const;
 
 private:
-
-    Vec3f m_min;
-    Vec3f m_max;
+  Vec3f m_min;
+  Vec3f m_max;
 };
 
-JRTBoundingBox JRTBBoxUnion(const JRTBoundingBox& rFirst, const JRTBoundingBox& rSecond);
-JRTBoundingBox JRTBBoxIntersection(const JRTBoundingBox& rFirst, const JRTBoundingBox& rSecond);
-JRTBoundingBox JRTBBoxDifference(const JRTBoundingBox& rFirst, const JRTBoundingBox& rSecond);
+JRTBoundingBox JRTBBoxUnion(const JRTBoundingBox& rOne,
+                            const JRTBoundingBox& rOther);
+JRTBoundingBox JRTBBoxIntersection(const JRTBoundingBox& rOne,
+                                   const JRTBoundingBox& rOther);
+JRTBoundingBox JRTBBoxDifference(const JRTBoundingBox& rFirst,
+                                 const JRTBoundingBox& rSecond);
 
 #endif

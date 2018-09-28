@@ -7,7 +7,7 @@
 #include <chrono>
 #include <ctime>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 
 namespace std
 {

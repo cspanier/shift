@@ -29,7 +29,7 @@ struct alias final : public node
   alias() = default;
   alias(const alias&) = default;
   alias(alias&&) = default;
-  virtual ~alias() override;
+  ~alias() override;
   alias& operator=(const alias&) = default;
   alias& operator=(alias&&) = default;
 

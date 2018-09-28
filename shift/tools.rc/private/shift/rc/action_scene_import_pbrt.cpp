@@ -580,7 +580,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"Kd\".";
+                         << R"(" for argument "Kd".)";
         }
       }
       else if (argument_name == "Ks")  // specular
@@ -592,7 +592,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"Ks\".";
+                         << R"(" for argument "Ks".)";
         }
       }
       else if (argument_name == "Kr")  // reflection => roughness?
@@ -604,7 +604,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"Kr\".";
+                         << R"(" for argument "Kr".)";
         }
       }
       else if (argument_name == "Kt")
@@ -615,7 +615,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"Kt\".";
+                         << R"(" for argument "Kt".)";
         }
       }
       else if (argument_name == "roughness")
@@ -627,7 +627,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"roughness\".";
+                         << R"(" for argument "roughness".)";
         }
       }
       else if (argument_name == "index")
@@ -637,7 +637,7 @@ bool action_scene_import_pbrt::parse_token_group(
         else
         {
           log::warning() << "Ignoring unknown argument_type \"" << argument_type
-                         << "\" for argument \"index\".";
+                         << R"(" for argument "index".)";
         }
       }
       else if (argument_name == "sigma" || argument_name == "sigma_a" ||
@@ -908,7 +908,7 @@ bool action_scene_import_pbrt::parse_token_group(
         }
         else
         {
-          log::warning() << "Ignoring attribute \"filename\" of unknown type \""
+          log::warning() << R"(Ignoring attribute "filename" of unknown type ")"
                          << type << "\".";
           return true;
         }

@@ -31,7 +31,7 @@ const namescope& file_writer::global_scope() const
 void file_writer::global_scope(const namescope& scope)
 {
   _global_scope = &scope;
-  if (!_current_scope)
+  if (_current_scope == nullptr)
     _current_scope = _global_scope;
 }
 
@@ -117,16 +117,16 @@ void file_writer::clear()
 
 bool file_writer::switch_namescope(const namescope& target)
 {
-  if (!_current_scope)
+  if (_current_scope == nullptr)
     return false;
   if (&target == _current_scope)
     return false;
 
   auto common_root = _current_scope;
   bool found = false;
-  while (!found && common_root)
+  while (!found && (common_root != nullptr))
   {
-    for (auto target_root = &target; target_root;
+    for (auto target_root = &target; target_root != nullptr;
          target_root = target_root->parent)
     {
       if (target_root == common_root)

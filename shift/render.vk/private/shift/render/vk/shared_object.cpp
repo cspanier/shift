@@ -2,9 +2,7 @@
 
 namespace shift::render::vk
 {
-shared_object::~shared_object() noexcept
-{
-}
+shared_object::~shared_object() noexcept = default;
 
 void shared_object::add_reference()
 {

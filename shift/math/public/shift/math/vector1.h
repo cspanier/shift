@@ -1,4 +1,4 @@
-#ifndef SHIFT_MATH_VECTOR2_H
+#ifndef SHIFT_MATH_VECTOR1_H
 #define SHIFT_MATH_VECTOR1_H
 
 #include <cstdint>
@@ -60,15 +60,15 @@ struct vector<1, T>
 
   /// Multiplies each component with the passed scalar value.
   template <typename U>
-  vector& operator*=(const U scalar);
+  vector& operator*=(U scalar);
 
   /// Divides each component by the passed scalar value.
   template <typename U>
-  vector& operator/=(const U scalar);
+  vector& operator/=(U scalar);
 
   /// Performs componentwise modulus.
   template <typename U>
-  vector& operator%=(const U scalar);
+  vector& operator%=(U scalar);
 
   union {
     T x;

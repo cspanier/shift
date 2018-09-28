@@ -102,14 +102,14 @@ public:
   T& operator*()
   {
     BOOST_ASSERT(_data);
-    return *_data.get();
+    return *_data;
   }
 
   ///
   const T& operator*() const
   {
     BOOST_ASSERT(_data);
-    return *_data.get();
+    return *_data;
   }
 
   ///

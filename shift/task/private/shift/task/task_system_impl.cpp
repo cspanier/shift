@@ -172,9 +172,9 @@ std::unique_ptr<task_base> task_system::impl::schedule_task(
   for (;;)
   {
     workers[current_worker_id - 1].queue_condition->wait(queue_lock, [&]() {
-      return quit ||
-             (!queued_tasks.empty() &&
-              worker_should_have_tasks & (1u << (current_worker_id - 1)));
+      return quit || (!queued_tasks.empty() &&
+                      ((worker_should_have_tasks &
+                        (1u << (current_worker_id - 1))) != 0u));
     });
     if (quit)
       return nullptr;
@@ -185,7 +185,8 @@ std::unique_ptr<task_base> task_system::impl::schedule_task(
       for (auto task_iter = std::begin(queued_tasks);
            task_iter != std::end(queued_tasks); ++task_iter)
       {
-        if ((*task_iter)->worker_affinity() & (1u << (current_worker_id - 1)))
+        if (((*task_iter)->worker_affinity() &
+             (1u << (current_worker_id - 1))) != 0u)
         {
           auto task = std::move(*task_iter);
           queued_tasks.erase(task_iter);

@@ -1,8 +1,8 @@
-/************************************************************************************//**
-// Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
-/// \author AMD Developer Tools Team
-/// \file
-****************************************************************************************/
+/************************************************************************************/ /**
+ // Copyright (c) 2006-2015 Advanced Micro Devices, Inc. All rights reserved.
+ /// \author AMD Developer Tools Team
+ /// \file
+ ****************************************************************************************/
 
 // define this to make the raytracer dump out debugging images
 //#define DEBUG_IMAGES
@@ -16,21 +16,18 @@
 #include "JRTBoundingBox.h"
 
 #ifdef DEBUG_IMAGES
-    #include "JRTPPMImage.h"
+#include "JRTPPMImage.h"
 #endif
+#include <cstdint>
 
 // function defined by Tootle that is called to process ray hits for each pixel
 extern void ProcessPixel(TootleRayHit*, int);
 
-
-TootleRaytracer::TootleRaytracer() : m_pMesh(NULL), m_pCore(NULL), m_pFaceClusters(0)
+TootleRaytracer::TootleRaytracer()
 {
 }
 
-TootleRaytracer::~TootleRaytracer()
-{
-}
-
+TootleRaytracer::~TootleRaytracer() = default;
 
 //=================================================================================================================================
 /// Initializes the internal data structures used by the ray tracer.
@@ -42,75 +39,84 @@ TootleRaytracer::~TootleRaytracer()
 /// \param pFaceClusters     An array giving the cluster ID for each face
 /// \return True if successful, false if out of memory
 //=================================================================================================================================
-bool TootleRaytracer::Init(const float* pVertexPositions, const UINT* pIndices, const float* pFaceNormals, UINT nVertices,
-                           UINT nFaces, const UINT* pFaceClusters)
+bool TootleRaytracer::Init(const float* pVertexPositions,
+                           const std::uint32_t* pIndices,
+                           const float* pFaceNormals, std::uint32_t nVertices,
+                           std::uint32_t nFaces,
+                           const std::uint32_t* pFaceClusters)
 {
-    m_pFaceClusters = pFaceClusters;
+  m_pFaceClusters = pFaceClusters;
 
-    std::vector<JRTMesh*> meshes (1);
+  std::vector<JRTMesh*> meshes(1);
 
+  m_pMesh = JRTMesh::CreateMesh((const Vec3f*)pVertexPositions,
+                                (const Vec3f*)pFaceNormals, nVertices, nFaces,
+                                pIndices);
 
-    m_pMesh = JRTMesh::CreateMesh((const Vec3f*) pVertexPositions, (const Vec3f*) pFaceNormals, nVertices, nFaces, pIndices);
+  if (m_pMesh == nullptr)
+  {
+    return false;
+  }
 
-    if (!m_pMesh)
-    {
-        return false;
-    }
+  // fix mesh so its centered on the origin
+  // also scale down (doesn't scale up) it so it is inside the radius 1 ball in
+  // the origin.
+  JRTBoundingBox bb = m_pMesh->ComputeBoundingBox();
+  Vec3f center = bb.GetCenter();
+  Vec3f size = bb.GetMax() - bb.GetMin();
+  float fLongestSide = std::max(size[0], size[1]);
+  fLongestSide = 2.0f * std::max(fLongestSide, size[2]);
+  fLongestSide = std::max(1.0f, fLongestSide);  // make it at least 1
 
-    // fix mesh so its centered on the origin
-    // also scale down (doesn't scale up) it so it is inside the radius 1 ball in the origin.
-    JRTBoundingBox bb  = m_pMesh->ComputeBoundingBox();
-    Vec3f center       = bb.GetCenter();
-    Vec3f size         = bb.GetMax() - bb.GetMin();
-    float fLongestSide = std::max(size[0], size[1]);
-    fLongestSide       = 2.0f * std::max(fLongestSide, size[2]);
-    fLongestSide       = std::max(1.0f, fLongestSide);               // make it at least 1
+  for (std::uint32_t i = 0; i < nVertices; i++)
+  {
+    float x = m_pMesh->GetVertex(i).x - center.x;
+    float y = m_pMesh->GetVertex(i).y - center.y;
+    float z = m_pMesh->GetVertex(i).z - center.z;
+    m_pMesh->SetVertex(i, Vec3f(x, y, z) / fLongestSide);
+  }
 
-    for (UINT i = 0; i < nVertices; i++)
-    {
-        float x = m_pMesh->GetVertex(i).x - center.x;
-        float y = m_pMesh->GetVertex(i).y - center.y;
-        float z = m_pMesh->GetVertex(i).z - center.z;
-        m_pMesh->SetVertex(i, Vec3f(x, y, z) / fLongestSide);
-    }
+  meshes[0] = m_pMesh;
+  m_pCore = JRTCore::Build(meshes);
 
-    meshes[0] = m_pMesh ;
-    m_pCore = JRTCore::Build(meshes);
+  if (m_pCore == nullptr)
+  {
+    JRT_SAFE_DELETE(m_pMesh);
+    return false;
+  }
 
-    if (!m_pCore)
-    {
-        JRT_SAFE_DELETE(m_pMesh);
-        return false;
-    }
-
-    return true;
+  return true;
 }
-
 
 //=================================================================================================================================
 /// Calculates an overdraw table for a particular set of viewpoints
 /// \param pViewpoints  Array of viewpoints to use
 /// \param nViewpoints  The size of this array
 /// \param nImageSize   The size of the pixel grid on each axis
-/// \param pODArray     A table that will hold the computed per-cluster overdraw.  The table must be resized so that it is
-///                     nClusters by nClusters and contains 0 in each element.  After this function returns, pODArray[i][j] will
-///                     contain the number of pixels in cluster i that are overdrawn by cluster j, summed over all viewpoints
+/// \param pODArray     A table that will hold the computed per-cluster
+/// overdraw.  The table must be resized so that it is
+///                     nClusters by nClusters and contains 0 in each element.
+///                     After this function returns, pODArray[i][j] will contain
+///                     the number of pixels in cluster i that are overdrawn by
+///                     cluster j, summed over all viewpoints
 /// \return        True if successful, false if out of memory.
 //=================================================================================================================================
-bool TootleRaytracer::CalculateOverdraw(const float* pViewpoints, UINT nViewpoints, UINT nImageSize,
-                                        bool bCullCCW, TootleOverdrawTable* pODArray)
+bool TootleRaytracer::CalculateOverdraw(const float* pViewpoints,
+                                        std::uint32_t nViewpoints,
+                                        std::uint32_t nImageSize, bool bCullCCW,
+                                        TootleOverdrawTable* pODArray)
 {
-    for (UINT i = 0; i < nViewpoints; i++)
+  for (std::uint32_t i = 0; i < nViewpoints; i++)
+  {
+    if (!ProcessViewpoint(pViewpoints, nImageSize, bCullCCW, pODArray))
     {
-        if (!ProcessViewpoint(pViewpoints, nImageSize, bCullCCW, pODArray))
-        {
-            return false;
-        }
-
-        pViewpoints += 3;
+      return false;
     }
 
-    return true;
+    pViewpoints += 3;
+  }
+
+  return true;
 }
 
 //=================================================================================================================================
@@ -124,415 +130,421 @@ bool TootleRaytracer::CalculateOverdraw(const float* pViewpoints, UINT nViewpoin
 /// \return        True if successful, false if out of memory.
 //=================================================================================================================================
 bool TootleRaytracer::MeasureOverdraw(const float* pViewpoints,
-                                      UINT         nViewpoints,
-                                      UINT         nImageSize,
-                                      bool         bCullCCW,
-                                      float&       fAvgODOut,
-                                      float&       fMaxODOut)
+                                      std::uint32_t nViewpoints,
+                                      std::uint32_t nImageSize, bool bCullCCW,
+                                      float& fAvgODOut, float& fMaxODOut)
 {
-    assert(pViewpoints);
+  assert(pViewpoints);
 
-    if (nViewpoints < 1)
+  if (nViewpoints < 1)
+  {
+    assert(false);
+  }
+
+  fAvgODOut = 0;
+  fMaxODOut = 0;
+
+  std::uint32_t nTotalPixelHit = 0;
+  std::uint32_t nTotalPixelDrawn = 0;
+  std::uint32_t nPixelHit;
+  std::uint32_t nPixelDrawn;
+
+  for (std::uint32_t i = 0; i < nViewpoints; i++)
+  {
+    if (!ProcessViewpoint(pViewpoints, nImageSize, bCullCCW, nPixelHit,
+                          nPixelDrawn))
     {
-        assert(false);
+      return false;
     }
 
+    nTotalPixelHit += nPixelHit;
+    nTotalPixelDrawn += nPixelDrawn;
+
+    if (nPixelHit > 0)
+    {
+      fMaxODOut = std::max(fMaxODOut, (float)nPixelDrawn / nPixelHit);
+    }
+
+    pViewpoints += 3;
+  }
+
+  if (nTotalPixelHit > 0)
+  {
+    fAvgODOut = (float)(nTotalPixelDrawn) / nTotalPixelHit;
+  }
+  else
+  {
     fAvgODOut = 0;
-    fMaxODOut = 0;
+  }
 
-    UINT nTotalPixelHit   = 0;
-    UINT nTotalPixelDrawn = 0;
-    UINT nPixelHit;
-    UINT nPixelDrawn;
-
-    for (UINT i = 0; i < nViewpoints; i++)
-    {
-        if (!ProcessViewpoint(pViewpoints, nImageSize, bCullCCW, nPixelHit, nPixelDrawn))
-        {
-            return false;
-        }
-
-        nTotalPixelHit   += nPixelHit;
-        nTotalPixelDrawn += nPixelDrawn;
-
-        if (nPixelHit > 0)
-        {
-            fMaxODOut = std::max(fMaxODOut, (float) nPixelDrawn / nPixelHit);
-        }
-
-        pViewpoints += 3;
-    }
-
-    if (nTotalPixelHit > 0)
-    {
-        fAvgODOut = (float)(nTotalPixelDrawn) / nTotalPixelHit;
-    }
-    else
-    {
-        fAvgODOut = 0;
-    }
-
-    return true;
+  return true;
 }
-
 
 //=================================================================================================================================
 /// Cleans up raytracer data structures
 //=================================================================================================================================
 void TootleRaytracer::Cleanup()
 {
-    m_pFaceClusters = NULL;
-    JRT_SAFE_DELETE(m_pCore);
-    JRT_SAFE_DELETE(m_pMesh);
+  m_pFaceClusters = nullptr;
+  JRT_SAFE_DELETE(m_pCore);
+  JRT_SAFE_DELETE(m_pMesh);
 }
-
 
 //=================================================================================================================================
 /// Computes overdraw from a particular viewpoint
-/// \param pCameraPosition  Camera position to use for this viewpoint.  The camera will be looking at the origin
-/// \param nImageSize       Size of the pixel grid on each axis
-/// \param bCullCCW         Set to true to cull CCW faces, otherwise cull CW faces.
-/// \param pODArray         A table that will be updated with per-cluster overdraw
-/// \return            False if out of memory.  True otherwise
+/// \param pCameraPosition  Camera position to use for this viewpoint.  The
+/// camera will be looking at the origin \param nImageSize       Size of the
+/// pixel grid on each axis \param bCullCCW         Set to true to cull CCW
+/// faces, otherwise cull CW faces. \param pODArray         A table that will be
+/// updated with per-cluster overdraw \return            False if out of memory.
+/// True otherwise
 //=================================================================================================================================
-bool TootleRaytracer::ProcessViewpoint(const float* pCameraPosition, UINT nImageSize, bool bCullCCW, TootleOverdrawTable* pODArray)
+bool TootleRaytracer::ProcessViewpoint(const float* pCameraPosition,
+                                       std::uint32_t nImageSize, bool bCullCCW,
+                                       TootleOverdrawTable* pODArray)
 {
-    assert(pCameraPosition);
+  assert(pCameraPosition);
 
-    if (nImageSize < 1)
-    {
-        nImageSize = 1;   // a strange 1x1 image
-    }
+  if (nImageSize < 1)
+  {
+    nImageSize = 1;  // a strange 1x1 image
+  }
 
-    // build camera basis vectors
-    Vec3f position(pCameraPosition);
-    position      = position;
-    Vec3f viewDir = Normalize(position) * -1.;
-    Vec3f up;
+  // build camera basis vectors
+  Vec3f position(pCameraPosition);
+  position = position;
+  Vec3f viewDir = Normalize(position) * -1.;
+  Vec3f up;
 
-    // Compute the up vector by performing 90 degree 2D rotation on the position vector
-    //  (choose two good component vectors).
-    if ((position[ 1 ] * position[ 1 ]) < (position[ 0 ] * position[ 0 ]))
-    {
-        up[ 0 ] = -position[ 2 ];
-        up[ 1 ] =  0;
-        up[ 2 ] =  position[ 0 ];
-    }
-    else
-    {
-        up[ 0 ] =  0;
-        up[ 1 ] =  position[ 2 ];
-        up[ 2 ] = -position[ 1 ];
-    }
+  // Compute the up vector by performing 90 degree 2D rotation on the position
+  // vector
+  //  (choose two good component vectors).
+  if ((position[1] * position[1]) < (position[0] * position[0]))
+  {
+    up[0] = -position[2];
+    up[1] = 0;
+    up[2] = position[0];
+  }
+  else
+  {
+    up[0] = 0;
+    up[1] = position[2];
+    up[2] = -position[1];
+  }
 
-    up = Normalize(up);
+  up = Normalize(up);
 
-    // choose viewport size:
-    // transform bounding box corners into viewing space
-    // as we do this, track the bounding square of the x and y coordinates
-    // we will take the size of the larger dimension to be the viewport size
-    Vec3f corners[8];
-    m_pCore->GetSceneBB().GetCorners(corners);
+  // choose viewport size:
+  // transform bounding box corners into viewing space
+  // as we do this, track the bounding square of the x and y coordinates
+  // we will take the size of the larger dimension to be the viewport size
+  Vec3f corners[8];
+  m_pCore->GetSceneBB().GetCorners(corners);
 
-    Matrix4f mLookAt = MatrixLookAt(position, Vec3f(0, 0, 0), up);
-    float xmin = FLT_MAX, xmax = -FLT_MAX, ymin = FLT_MAX, ymax = -FLT_MAX;
+  Matrix4f mLookAt = MatrixLookAt(position, Vec3f(0, 0, 0), up);
+  float xmin = FLT_MAX, xmax = -FLT_MAX, ymin = FLT_MAX, ymax = -FLT_MAX;
 
-    for (int i = 0; i < 8; i++)
-    {
-        TransformVector(&corners[i], &mLookAt, &corners[i]);
-        xmin = Min(xmin, corners[i].x);
-        xmax = Max(xmax, corners[i].x);
-        ymin = Min(ymin, corners[i].y);
-        ymax = Max(ymax, corners[i].y);
-    }
+  for (int i = 0; i < 8; i++)
+  {
+    TransformVector(&corners[i], &mLookAt, &corners[i]);
+    xmin = Min(xmin, corners[i].x);
+    xmax = Max(xmax, corners[i].x);
+    ymin = Min(ymin, corners[i].y);
+    ymax = Max(ymax, corners[i].y);
+  }
 
-    float fViewSize = Max(xmax - xmin, ymax - ymin) * 2;
-    //float fViewSize = sqrt(pow(xmax-xmin,2) + pow(ymax-ymin,2)); //Max( xmax - xmin, ymax - ymin );
+  float fViewSize = Max(xmax - xmin, ymax - ymin) * 2;
+  // float fViewSize = sqrt(pow(xmax-xmin,2) + pow(ymax-ymin,2)); //Max( xmax -
+  // xmin, ymax - ymin );
 
-    // build the camera
-    JRTOrthoCamera camera(position, viewDir, up, fViewSize);
+  // build the camera
+  JRTOrthoCamera camera(position, viewDir, up, fViewSize);
 
-    // cull backfaces
-    m_pCore->CullBackfaces(viewDir, bCullCCW);
+  // cull backfaces
+  m_pCore->CullBackfaces(viewDir, bCullCCW);
 
-    // iterate over the pixels that we're interested in
-    float delta = 1.0f / nImageSize;
-    float s = 0;
-    float t = 0;
-
-#ifdef DEBUG_IMAGES
-    JRTPPMImage img(nImageSize, nImageSize);
-#endif
-
-    for (int i = 0; i < (int)nImageSize; i++)
-    {
-        for (int j = 0; j < (int)nImageSize; j++)
-        {
-            // compute the camera ray for this pixel
-            Vec3f rayOrigin, rayDirection;
-            camera.GetRay(s, t, &rayOrigin, &rayDirection);
-
-            // trace through the scene data structures to find all hits
-            TootleRayHit* pHitArray = 0;
-            UINT nHits = 0;
-
-            if (!m_pCore->FindAllHits(rayOrigin, rayDirection, &pHitArray, &nHits))
-            {
-                // ran out of memory
-                return false;
-            }
-
-
+  // iterate over the pixels that we're interested in
+  float delta = 1.0f / nImageSize;
+  float s = 0;
+  float t = 0;
 
 #ifdef DEBUG_IMAGES
-            float clr = nHits / 8.f;
-
-            img.SetPixel(j, i, clr, clr, clr);
-
-            /*if( nHits > 0 )
-            {
-               UINT nTriIndex = pHitArray[0].nFaceID;
-               Vec3f normal = m_pMesh->GetFaceNormal( nTriIndex );
-               normal /= 2;
-               normal += Vec3f(0.5,0.5,0.5);
-               img.SetPixel( j, i, normal.x, normal.y, normal.z );
-            }*/
-
+  JRTPPMImage img(nImageSize, nImageSize);
 #endif
 
-            ProcessPixel(pHitArray, nHits, pODArray);
+  for (int i = 0; i < (int)nImageSize; i++)
+  {
+    for (int j = 0; j < (int)nImageSize; j++)
+    {
+      // compute the camera ray for this pixel
+      Vec3f rayOrigin, rayDirection;
+      camera.GetRay(s, t, &rayOrigin, &rayDirection);
 
-            s += delta;
-        }
+      // trace through the scene data structures to find all hits
+      TootleRayHit* pHitArray = nullptr;
+      std::uint32_t nHits = 0;
 
-        t += delta;
-        s = 0;
-    }
+      if (!m_pCore->FindAllHits(rayOrigin, rayDirection, &pHitArray, &nHits))
+      {
+        // ran out of memory
+        return false;
+      }
 
 #ifdef DEBUG_IMAGES
-    static int nFrameNum = 0;
-    char filename[100];
-    sprintf(filename, "C:\\images\\view_%d.ppm", nFrameNum);
-    img.SaveFile(filename);
-    nFrameNum++;
+      float clr = nHits / 8.f;
+
+      img.SetPixel(j, i, clr, clr, clr);
+
+      /*if( nHits > 0 )
+      {
+         std::uint32_t nTriIndex = pHitArray[0].nFaceID;
+         Vec3f normal = m_pMesh->GetFaceNormal( nTriIndex );
+         normal /= 2;
+         normal += Vec3f(0.5,0.5,0.5);
+         img.SetPixel( j, i, normal.x, normal.y, normal.z );
+      }*/
+
 #endif
 
-    return true;
+      ProcessPixel(pHitArray, nHits, pODArray);
+
+      s += delta;
+    }
+
+    t += delta;
+    s = 0;
+  }
+
+#ifdef DEBUG_IMAGES
+  static int nFrameNum = 0;
+  char filename[100];
+  sprintf(filename, "C:\\images\\view_%d.ppm", nFrameNum);
+  img.SaveFile(filename);
+  nFrameNum++;
+#endif
+
+  return true;
 }
 
 //=================================================================================================================================
 /// Measure overdraw from a particular viewpoint.
 ///
-/// \param pCameraPosition  Camera position to use for this viewpoint.  The camera will be looking at the origin
-/// \param nImageSize       Size of the pixel grid on each axis
-/// \param bCullCCW         Set to true to cull CCW faces, otherwise cull CW faces.
-/// \param fAvgODOut        A variable to receive the average overdraw per pixel.
+/// \param pCameraPosition  Camera position to use for this viewpoint.  The
+/// camera will be looking at the origin \param nImageSize       Size of the
+/// pixel grid on each axis \param bCullCCW         Set to true to cull CCW
+/// faces, otherwise cull CW faces. \param fAvgODOut        A variable to
+/// receive the average overdraw per pixel.
 ///
 /// \return                 False if out of memory.  True otherwise
 //=================================================================================================================================
 bool TootleRaytracer::ProcessViewpoint(const float* pCameraPosition,
-                                       UINT         nImageSize,
-                                       bool         bCullCCW,
-                                       UINT&        nPixelHit,
-                                       UINT&        nPixelDrawn)
+                                       std::uint32_t nImageSize, bool bCullCCW,
+                                       std::uint32_t& nPixelHit,
+                                       std::uint32_t& nPixelDrawn)
 {
-    assert(pCameraPosition);
+  assert(pCameraPosition);
 
-    if (nImageSize < 1)
-    {
-        nImageSize = 1;   // a strange 1x1 image
-    }
+  if (nImageSize < 1)
+  {
+    nImageSize = 1;  // a strange 1x1 image
+  }
 
-    // build camera basis vectors
-    Vec3f position(pCameraPosition);
-    Vec3f viewDir = Normalize(position) * -1.0;
-    Vec3f up;
+  // build camera basis vectors
+  Vec3f position(pCameraPosition);
+  Vec3f viewDir = Normalize(position) * -1.0;
+  Vec3f up;
 
-    // Compute the up vector by performing 90 degree 2D rotation on the position vector
-    //  (choose two good component vectors).
-    if ((position[ 1 ] * position[ 1 ]) < (position[ 0 ] * position[ 0 ]))
-    {
-        up[ 0 ] = -position[ 2 ];
-        up[ 1 ] =  0;
-        up[ 2 ] =  position[ 0 ];
-    }
-    else
-    {
-        up[ 0 ] =  0;
-        up[ 1 ] =  position[ 2 ];
-        up[ 2 ] = -position[ 1 ];
-    }
+  // Compute the up vector by performing 90 degree 2D rotation on the position
+  // vector
+  //  (choose two good component vectors).
+  if ((position[1] * position[1]) < (position[0] * position[0]))
+  {
+    up[0] = -position[2];
+    up[1] = 0;
+    up[2] = position[0];
+  }
+  else
+  {
+    up[0] = 0;
+    up[1] = position[2];
+    up[2] = -position[1];
+  }
 
-    up = Normalize(up);
+  up = Normalize(up);
 
-    Matrix4f mLookAt = MatrixLookAt(position, Vec3f(0, 0, 0), up);
+  Matrix4f mLookAt = MatrixLookAt(position, Vec3f(0, 0, 0), up);
 
-    // choose viewport size:
-    // transform bounding box corners into viewing space
-    // as we do this, track the bounding square of the x and y coordinates
-    // we will take the size of the larger dimension to be the viewport size
-    Vec3f corners[8];
-    m_pCore->GetSceneBB().GetCorners(corners);
+  // choose viewport size:
+  // transform bounding box corners into viewing space
+  // as we do this, track the bounding square of the x and y coordinates
+  // we will take the size of the larger dimension to be the viewport size
+  Vec3f corners[8];
+  m_pCore->GetSceneBB().GetCorners(corners);
 
-    float xmin =  FLT_MAX;
-    float xmax = -FLT_MAX;
-    float ymin =  FLT_MAX;
-    float ymax = -FLT_MAX;
+  float xmin = FLT_MAX;
+  float xmax = -FLT_MAX;
+  float ymin = FLT_MAX;
+  float ymax = -FLT_MAX;
 
-    for (int i = 0; i < 8; i++)
-    {
-        TransformVector(&corners[i], &mLookAt, &corners[i]);
-        xmin = Min(xmin, corners[i].x);
-        xmax = Max(xmax, corners[i].x);
-        ymin = Min(ymin, corners[i].y);
-        ymax = Max(ymax, corners[i].y);
-    }
+  for (int i = 0; i < 8; i++)
+  {
+    TransformVector(&corners[i], &mLookAt, &corners[i]);
+    xmin = Min(xmin, corners[i].x);
+    xmax = Max(xmax, corners[i].x);
+    ymin = Min(ymin, corners[i].y);
+    ymax = Max(ymax, corners[i].y);
+  }
 
-    float fViewSize = Max(xmax - xmin, ymax - ymin) * 2;
-    //float fViewSize = sqrt(pow(xmax-xmin,2) + pow(ymax-ymin,2)); //Max( xmax - xmin, ymax - ymin );
+  float fViewSize = Max(xmax - xmin, ymax - ymin) * 2;
+  // float fViewSize = sqrt(pow(xmax-xmin,2) + pow(ymax-ymin,2)); //Max( xmax -
+  // xmin, ymax - ymin );
 
-    // build the camera
-    JRTOrthoCamera camera(position, viewDir, up, fViewSize);
+  // build the camera
+  JRTOrthoCamera camera(position, viewDir, up, fViewSize);
 
-    // cull backfaces
-    m_pCore->CullBackfaces(viewDir, bCullCCW);
+  // cull backfaces
+  m_pCore->CullBackfaces(viewDir, bCullCCW);
 
-    // iterate over the pixels that we're interested in
-    float delta = 1.0f / nImageSize;
-    float s = 0;
-    float t = 0;
+  // iterate over the pixels that we're interested in
+  float delta = 1.0f / nImageSize;
+  float s = 0;
+  float t = 0;
 #ifdef DEBUG_IMAGES
-    JRTPPMImage img(nImageSize, nImageSize);
+  JRTPPMImage img(nImageSize, nImageSize);
 #endif
 
-    UINT nPixelDrawnTmp;
+  std::uint32_t nPixelDrawnTmp;
 
-    nPixelHit   = 0;
-    nPixelDrawn = 0;
+  nPixelHit = 0;
+  nPixelDrawn = 0;
 
-    for (int i = 0; i < (int) nImageSize; i++)
+  for (int i = 0; i < (int)nImageSize; i++)
+  {
+    for (int j = 0; j < (int)nImageSize; j++)
     {
-        for (int j = 0; j < (int) nImageSize; j++)
-        {
-            // compute the camera ray for this pixel
-            Vec3f rayOrigin, rayDirection;
-            camera.GetRay(s, t, &rayOrigin, &rayDirection);
+      // compute the camera ray for this pixel
+      Vec3f rayOrigin, rayDirection;
+      camera.GetRay(s, t, &rayOrigin, &rayDirection);
 
-            // trace through the scene data structures to find all hits
-            TootleRayHit* pHitArray = 0;
-            UINT nHits = 0;
+      // trace through the scene data structures to find all hits
+      TootleRayHit* pHitArray = nullptr;
+      std::uint32_t nHits = 0;
 
-            if (!m_pCore->FindAllHits(rayOrigin, rayDirection, &pHitArray, &nHits))
-            {
-                // ran out of memory
-                return false;
-            }
+      if (!m_pCore->FindAllHits(rayOrigin, rayDirection, &pHitArray, &nHits))
+      {
+        // ran out of memory
+        return false;
+      }
 
-            if (nHits > 0)
-            {
-                nPixelHit++;
+      if (nHits > 0)
+      {
+        nPixelHit++;
 
-                // compute the number of triangles overdrawn for the pixel
-                GetPixelDrawn(pHitArray, nHits, nPixelDrawnTmp);
+        // compute the number of triangles overdrawn for the pixel
+        GetPixelDrawn(pHitArray, nHits, nPixelDrawnTmp);
 
-                nPixelDrawn += nPixelDrawnTmp;
-            }
+        nPixelDrawn += nPixelDrawnTmp;
+      }
 
 #ifdef DEBUG_IMAGES
-            float clr = nHits / 8.f;
+      float clr = nHits / 8.f;
 
-            img.SetPixel(j, i, clr, clr, clr);
+      img.SetPixel(j, i, clr, clr, clr);
 
-            /*if( nHits > 0 )
-            {
-               UINT nTriIndex = pHitArray[0].nFaceID;
-               Vec3f normal = m_pMesh->GetFaceNormal( nTriIndex );
-               normal /= 2;
-               normal += Vec3f(0.5,0.5,0.5);
-               img.SetPixel( j, i, normal.x, normal.y, normal.z );
-            }*/
+      /*if( nHits > 0 )
+      {
+         std::uint32_t nTriIndex = pHitArray[0].nFaceID;
+         Vec3f normal = m_pMesh->GetFaceNormal( nTriIndex );
+         normal /= 2;
+         normal += Vec3f(0.5,0.5,0.5);
+         img.SetPixel( j, i, normal.x, normal.y, normal.z );
+      }*/
 
 #endif
 
-            s += delta;
-        }
-
-        t += delta;
-        s = 0;
+      s += delta;
     }
 
+    t += delta;
+    s = 0;
+  }
+
 #ifdef DEBUG_IMAGES
-    static int nFrameNum = 0;
-    char filename[100];
-    sprintf(filename, "C:/tmp/images/view_%d.ppm", nFrameNum);
-    img.SaveFile(filename);
-    nFrameNum++;
+  static int nFrameNum = 0;
+  char filename[100];
+  sprintf(filename, "C:/tmp/images/view_%d.ppm", nFrameNum);
+  img.SaveFile(filename);
+  nFrameNum++;
 #endif
 
-    return true;
+  return true;
 }
 
 //=================================================================================================================================
-/// \param pRayHits  Array of ray hits that occurred in this pixel.  They will be sorted by depth
-/// \param nHits     Number of hits in the array
-/// \param pODArray  A table that will be updated to take into account per-cluster overdraw discovered in this pixel
+/// \param pRayHits  Array of ray hits that occurred in this pixel.  They will
+/// be sorted by depth \param nHits     Number of hits in the array \param
+/// pODArray  A table that will be updated to take into account per-cluster
+/// overdraw discovered in this pixel
 //=================================================================================================================================
 
-void TootleRaytracer::ProcessPixel(TootleRayHit* pRayHits, UINT nHits, TootleOverdrawTable* pODArray)
+void TootleRaytracer::ProcessPixel(TootleRayHit* pRayHits, std::uint32_t nHits,
+                                   TootleOverdrawTable* pODArray)
 {
 
-    // we are given a set of ray hits, sorted by depth
-    // we can use this to adjust the compute pairwise overdraw between clusters by repeatedly marching
-    // from the first hit to the last
-    for (UINT i = 0; i < nHits; i++)
+  // we are given a set of ray hits, sorted by depth
+  // we can use this to adjust the compute pairwise overdraw between clusters by
+  // repeatedly marching from the first hit to the last
+  for (std::uint32_t i = 0; i < nHits; i++)
+  {
+    for (std::uint32_t j = 0; j < i; j++)
     {
-        for (UINT j = 0; j < i; j++)
-        {
-            int a = m_pFaceClusters[pRayHits[i].nFaceID];
-            int b = m_pFaceClusters[pRayHits[j].nFaceID];
+      int a = m_pFaceClusters[pRayHits[i].nFaceID];
+      int b = m_pFaceClusters[pRayHits[j].nFaceID];
 
-            if (a != b)
-            {
-                pODArray->at(b)[a]++;
-            }
-        }
+      if (a != b)
+      {
+        pODArray->at(b)[a]++;
+      }
     }
-
+  }
 }
 
 //=================================================================================================================================
 /// Compute the number of times for a particular pixel is drawn.
-/// \param pRayHits         Array of ray hits that occurred in this pixel.  They will be sorted by depth
-/// \param nHits            Number of hits in the array
+/// \param pRayHits         Array of ray hits that occurred in this pixel.  They
+/// will be sorted by depth \param nHits            Number of hits in the array
 /// \param nPixelDrawn      The number of times this pixel is drawn by the mesh.
 //=================================================================================================================================
-void TootleRaytracer::GetPixelDrawn(TootleRayHit* pRayHits, UINT nHits, UINT& nPixelDrawn)
+void TootleRaytracer::GetPixelDrawn(TootleRayHit* pRayHits, std::uint32_t nHits,
+                                    std::uint32_t& nPixelDrawn)
 {
-    assert(pRayHits);
+  assert(pRayHits);
 
-    // We are given a set of ray hits, sorted by depth
-    // We can use this information to compute the overdrawn triangle by comparing all the triangle IDs
-    //  hit by the ray on this pixel to the first triangle ID on the list.
+  // We are given a set of ray hits, sorted by depth
+  // We can use this information to compute the overdrawn triangle by comparing
+  // all the triangle IDs
+  //  hit by the ray on this pixel to the first triangle ID on the list.
 
-    nPixelDrawn = 0;
+  nPixelDrawn = 0;
 
-    if (nHits < 1)
+  if (nHits < 1)
+  {
+    return;
+  }
+
+  nPixelDrawn++;  // there is at least one hit (one triangle will be touching
+                  // this pixel).
+  std::uint32_t nMinFaceID = pRayHits[0].nFaceID;
+  std::uint32_t nCurrentFaceID;
+
+  for (std::uint32_t i = 1; i < nHits; i++)
+  {
+    nCurrentFaceID = pRayHits[i].nFaceID;
+
+    if (nCurrentFaceID < nMinFaceID)
     {
-        return;
+      nMinFaceID = nCurrentFaceID;
+      nPixelDrawn++;
     }
-
-    nPixelDrawn++;  // there is at least one hit (one triangle will be touching this pixel).
-    UINT nMinFaceID = pRayHits[ 0 ].nFaceID;
-    UINT nCurrentFaceID;
-
-    for (UINT i = 1; i < nHits; i++)
-    {
-        nCurrentFaceID = pRayHits[ i ].nFaceID;
-
-        if (nCurrentFaceID < nMinFaceID)
-        {
-            nMinFaceID = nCurrentFaceID;
-            nPixelDrawn++;
-        }
-    }
+  }
 }

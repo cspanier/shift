@@ -32,9 +32,9 @@ static const char* auto_generated_file_warning =
 
 bool node_comparator::operator()(const node* lhs, const node* rhs) const
 {
-  if (!rhs)
+  if (rhs == nullptr)
     return true;
-  if (!lhs)
+  if (lhs == nullptr)
     return false;
   return cpp_generator::relative_name(*lhs, nullptr) <
          cpp_generator::relative_name(*rhs, nullptr);
@@ -44,7 +44,7 @@ static file_writer& operator<<(file_writer& stream, const namescope& namescope)
 {
   if (!namescope.has_attribute("cpp_name"))
     return stream;
-  if (namescope.parent)
+  if (namescope.parent != nullptr)
     stream << *namescope.parent;
   stream << "::" << namescope.attribute<std::string>("cpp_name");
   return stream;
@@ -52,7 +52,7 @@ static file_writer& operator<<(file_writer& stream, const namescope& namescope)
 
 static file_writer& operator<<(file_writer& stream, const alias& alias)
 {
-  if (alias.parent)
+  if (alias.parent != nullptr)
     stream << *alias.parent;
   stream << "::" << alias.attribute<std::string>("cpp_name");
   return stream;
@@ -61,7 +61,7 @@ static file_writer& operator<<(file_writer& stream, const alias& alias)
 static file_writer& operator<<(file_writer& stream,
                                const enumeration& enumeration)
 {
-  if (enumeration.parent)
+  if (enumeration.parent != nullptr)
     stream << *enumeration.parent;
   stream << "::" << enumeration.attribute<std::string>("cpp_name");
   return stream;
@@ -74,9 +74,9 @@ static file_writer& operator<<(file_writer& stream, const message& message)
   // interfaces are moved to the surrounding name-scope. In this case we do
   // not want to include the interface name in the name path as we already
   // merged that name into the cs_name message attribute.
-  if (parent && parent->has_attribute("is_interface"))
+  if ((parent != nullptr) && parent->has_attribute("is_interface"))
     parent = parent->parent;
-  if (parent)
+  if (parent != nullptr)
     stream << *parent;
   stream << "::" << message.attribute<std::string>("cpp_name");
   return stream;
@@ -228,16 +228,16 @@ static file_writer& operator<<(file_writer& stream,
 
     case built_in_type::array:
     {
-      BOOST_ASSERT(type_reference.arguments.size() >= 1);
+      BOOST_ASSERT(!type_reference.arguments.empty());
       const auto* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = nullptr;
       if (type_reference.arguments.size() >= 2)
         size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
-      if (size)
+      if (size != nullptr)
       {
         stream << "std::array<" << *value_type << ", " << std::dec << *size
                << ">";
@@ -255,7 +255,7 @@ static file_writer& operator<<(file_writer& stream,
       const auto* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "std::vector<" << *value_type << ">";
       break;
@@ -268,7 +268,7 @@ static file_writer& operator<<(file_writer& stream,
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "::shift::math::vector<" << std::dec << *size << ", "
              << *value_type << ">";
@@ -281,7 +281,7 @@ static file_writer& operator<<(file_writer& stream,
       const auto* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "std::set<" << *value_type << ">";
       break;
@@ -294,7 +294,7 @@ static file_writer& operator<<(file_writer& stream,
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       const int* size = std::get_if<int>(&type_reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
       stream << "::shift::math::matrix<" << std::dec << *size << ", "
              << std::dec << *size << ", " << *value_type << ">";
@@ -309,7 +309,7 @@ static file_writer& operator<<(file_writer& stream,
       const auto* value_type =
         std::get_if<proto::type_reference>(&type_reference.arguments[1]);
       BOOST_ASSERT(key_type && value_type);
-      if (!key_type || !value_type)
+      if ((key_type == nullptr) || (value_type == nullptr))
         break;
       stream << "std::map<" << *key_type << ", " << *value_type << ">";
       break;
@@ -324,7 +324,7 @@ static file_writer& operator<<(file_writer& stream,
         const auto* argumentReference =
           std::get_if<proto::type_reference>(&template_argument);
         BOOST_ASSERT(argumentReference);
-        if (!argumentReference)
+        if (argumentReference == nullptr)
           break;
         if (firstType)
           firstType = false;
@@ -343,7 +343,7 @@ static file_writer& operator<<(file_writer& stream,
         std::get_if<proto::type_reference>(&type_reference.arguments[0]);
       BOOST_ASSERT(enumType);
       auto* enumeration = enumType->as_enumeration();
-      if (!enumType || !enumeration)
+      if ((enumType == nullptr) || (enumeration == nullptr))
         break;
       stream << "::shift::core::bit_field<" << *enumType << ">";
       break;
@@ -599,7 +599,7 @@ std::string cpp_generator::relative_name(const node& node,
   // interfaces are moved to the surrounding name-scope. In this case we do
   // not want to include the interface name in the name path as we already
   // merged that name into the cs_name message attribute.
-  if (node.parent && node.parent->has_attribute("is_interface") &&
+  if ((node.parent != nullptr) && node.parent->has_attribute("is_interface") &&
       relative_path.size() > 1)
   {
     relative_path.erase(relative_path.begin() + relative_path.size() - 2);
@@ -764,7 +764,8 @@ bool cpp_generator::is_copy_constructable(const type_reference& reference)
       {
         const auto* argument_type =
           std::get_if<proto::type_reference>(&template_argument);
-        if (!argument_type || !is_copy_constructable(*argument_type))
+        if ((argument_type == nullptr) ||
+            !is_copy_constructable(*argument_type))
           return false;
       }
       break;
@@ -777,7 +778,7 @@ bool cpp_generator::is_copy_constructable(const type_reference& reference)
     {
       const auto* value_type =
         std::get_if<proto::type_reference>(&reference.arguments[0]);
-      if (!value_type || !is_copy_constructable(*value_type))
+      if ((value_type == nullptr) || !is_copy_constructable(*value_type))
         return false;
       break;
     }
@@ -788,8 +789,8 @@ bool cpp_generator::is_copy_constructable(const type_reference& reference)
         std::get_if<proto::type_reference>(&reference.arguments[0]);
       const auto* value_type =
         std::get_if<proto::type_reference>(&reference.arguments[1]);
-      if (!key_type || !is_copy_constructable(*key_type) || !value_type ||
-          !is_copy_constructable(*value_type))
+      if ((key_type == nullptr) || !is_copy_constructable(*key_type) ||
+          (value_type == nullptr) || !is_copy_constructable(*value_type))
       {
         return false;
       }
@@ -857,7 +858,7 @@ void cpp_generator::gather_nodes(const type_reference& reference)
     {
       const auto* argument_type =
         std::get_if<proto::type_reference>(&template_argument);
-      if (!argument_type)
+      if (argument_type == nullptr)
         continue;
       gather_nodes(*argument_type);
     }
@@ -903,7 +904,7 @@ void cpp_generator::gather_nodes(const message& message)
   _node_groups.insert(
     std::make_pair(message.attribute<std::string>("cpp_def_group_name"),
                    std::make_pair(&message, true)));
-  if (message.base)
+  if (message.base != nullptr)
     gather_nodes(*message.base);
   for (const auto& field : message.fields)
     gather_nodes(field.reference);
@@ -991,7 +992,7 @@ void cpp_generator::gather_dependencies(const node& target,
       const auto* argument_type =
         std::get_if<proto::type_reference>(&reference.arguments[0]);
       BOOST_ASSERT(argument_type);
-      if (!argument_type)
+      if (argument_type == nullptr)
         break;
       gather_dependencies(target, *argument_type, required_declarations,
                           required_definitions, false);
@@ -1004,7 +1005,7 @@ void cpp_generator::gather_dependencies(const node& target,
       {
         const auto* argument_type =
           std::get_if<proto::type_reference>(&template_argument);
-        if (!argument_type)
+        if (argument_type == nullptr)
           continue;
         gather_dependencies(target, *argument_type, required_declarations,
                             required_definitions, definition);
@@ -1070,7 +1071,7 @@ void cpp_generator::gather_dependencies(const node& target,
   {
     return;
   }
-  if (definition && message.base)
+  if (definition && (message.base != nullptr))
   {
     gather_dependencies(target, *message.base, required_declarations,
                         required_definitions, true);
@@ -1291,7 +1292,7 @@ void cpp_generator::write_definition(const message& message)
   _use_header = true;
   _use_source = true;
   *_header << indent << "struct " << name << " : public ";
-  if (message.base)
+  if (message.base != nullptr)
     *_header << *message.base << br;
   else
     *_header << "::shift::serialization::message" << br;
@@ -1313,7 +1314,7 @@ void cpp_generator::write_definition(const message& message)
 
   //// Write copy constructor.
   *_header << indent << "/// Copy constructor." br;
-  if (message.attribute<std::uint32_t>("cpp_copy_constructable"))
+  if (message.attribute<std::uint32_t>("cpp_copy_constructable") != 0u)
   {
     *_header << indent << name << "(const " << name << "& other);" br2;
     *_source << indent << name << "::" << name << "(const " << name
@@ -1381,7 +1382,7 @@ void cpp_generator::write_definition(const message& message)
 
   // Write copy assignment operator.
   *_header << indent << "/// Copy assignment operator." br;
-  if (message.attribute<std::uint32_t>("cpp_copy_constructable"))
+  if (message.attribute<std::uint32_t>("cpp_copy_constructable") != 0u)
   {
     *_header << indent << name << "& operator=(const " << name
              << "& other);" br2;
@@ -1562,7 +1563,7 @@ void cpp_generator::write_definition(const message& message)
               "archive<boost::endian::order::big>& archive, "
            << message << "& message)" br;
   *_source << indent << "{" br << inc_indent;
-  if (message.base)
+  if (message.base != nullptr)
   {
     *_source << indent << "archive >> static_cast<" << *message.base
              << "&>(message);" br;
@@ -1585,7 +1586,7 @@ void cpp_generator::write_definition(const message& message)
               "boost::endian::order::big>& archive, const "
            << message << "& message)" br;
   *_source << indent << "{" br << inc_indent;
-  if (message.base)
+  if (message.base != nullptr)
   {
     *_source << indent << "archive << static_cast<const " << *message.base
              << "&>(message);" br;
@@ -1608,7 +1609,7 @@ void cpp_generator::write_definition(const message& message)
               "archive<boost::endian::order::little>& archive, "
            << message << "& message)" br;
   *_source << indent << "{" br << inc_indent;
-  if (message.base)
+  if (message.base != nullptr)
   {
     *_source << indent << "archive >> static_cast<" << *message.base
              << "&>(message);" br;
@@ -1631,7 +1632,7 @@ void cpp_generator::write_definition(const message& message)
               "boost::endian::order::little>& archive, const "
            << message << "& message)" br;
   *_source << indent << "{" br << inc_indent;
-  if (message.base)
+  if (message.base != nullptr)
   {
     *_source << indent << "archive << static_cast<const " << *message.base
              << "&>(message);" br;
@@ -1820,7 +1821,7 @@ std::string cpp_generator::def_group_name(const node& node)
 std::string cpp_generator::decl_group_name(const node& node)
 {
   const auto* parent = node.parent;
-  while (dynamic_cast<const proto::interface*>(parent))
+  while (dynamic_cast<const proto::interface*>(parent) != nullptr)
     parent = parent->parent;
   return lower_case(relative_name(*parent, nullptr, "/")) + "/types";
 }

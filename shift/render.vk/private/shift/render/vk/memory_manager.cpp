@@ -16,7 +16,7 @@ inline constexpr vk::memory_property_flags memory_pool_flags(memory_pool pool)
 
     // resource_buffers:
     vk::memory_property_flag::device_local_bit,
-    //vk::memory_property_flag::host_visible_bit |
+    // vk::memory_property_flag::host_visible_bit |
     //  vk::memory_property_flag::host_coherent_bit,
 
     // resource_images:

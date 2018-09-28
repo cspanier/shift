@@ -8,12 +8,12 @@ using namespace shift::core;
 BOOST_AUTO_TEST_CASE(stringutil_split)
 {
   {
-    const std::string s = "";
+    const std::string s = s;
     auto r = split(s, [](char c) { return c == ';'; });
     BOOST_CHECK_EQUAL(r.size(), 0);
   }
   {
-    const std::string s = "";
+    const std::string s = s;
     auto r = split(s, [](char c) { return c == ';'; }, true);
     BOOST_CHECK_EQUAL(r.size(), 1);
     BOOST_CHECK_EQUAL(r.at(0), "");
@@ -103,10 +103,10 @@ BOOST_AUTO_TEST_CASE(stringutil_to_lower)
   BOOST_CHECK(to_lower(L"ABC"s) == L"abc"s);
 
   /// ToDo: The following checks fail.
-  //BOOST_CHECK_EQUAL(to_lower("ƒ÷№я"s), "дцья"s);
-  //BOOST_CHECK_EQUAL(to_lower(u8"ƒ÷№я"s), u8"дцья"s);
-  //BOOST_CHECK_EQUAL(to_lower(u"ƒ÷№я"s), u"дцья"s);
-  //BOOST_CHECK_EQUAL(to_lower(U"ƒ÷№я"s), U"дцья"s);
+  // BOOST_CHECK_EQUAL(to_lower("ƒ÷№я"s), "дцья"s);
+  // BOOST_CHECK_EQUAL(to_lower(u8"ƒ÷№я"s), u8"дцья"s);
+  // BOOST_CHECK_EQUAL(to_lower(u"ƒ÷№я"s), u"дцья"s);
+  // BOOST_CHECK_EQUAL(to_lower(U"ƒ÷№я"s), U"дцья"s);
 }
 
 BOOST_AUTO_TEST_CASE(stringutil_to_upper)
@@ -125,8 +125,8 @@ BOOST_AUTO_TEST_CASE(stringutil_to_upper)
   BOOST_CHECK(to_upper(L"abc"s) == L"ABC"s);
 
   /// ToDo: The following checks fail.
-  //BOOST_CHECK_EQUAL(to_upper("дцья"s), "ƒ÷№SS"s);
-  //BOOST_CHECK_EQUAL(to_upper(u8"дцья"s), u8"ƒ÷№SS"s);
-  //BOOST_CHECK_EQUAL(to_upper(u"дцья"s), u"ƒ÷№SS"s);
-  //BOOST_CHECK_EQUAL(to_upper(U"дцья"s), U"ƒ÷№SS"s);
+  // BOOST_CHECK_EQUAL(to_upper("дцья"s), "ƒ÷№SS"s);
+  // BOOST_CHECK_EQUAL(to_upper(u8"дцья"s), u8"ƒ÷№SS"s);
+  // BOOST_CHECK_EQUAL(to_upper(u"дцья"s), u"ƒ÷№SS"s);
+  // BOOST_CHECK_EQUAL(to_upper(U"дцья"s), U"ƒ÷№SS"s);
 }

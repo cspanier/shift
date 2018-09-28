@@ -46,7 +46,7 @@ public:
   /// Tests if an attribute with the specified name is present.
   /// @param name
   ///   The name of the attribute to query.
-  bool has_attribute(const std::string name) const;
+  bool has_attribute(std::string attribute_name) const;
 
   /// Used to query the value of an attribute.
   /// @param name
@@ -54,20 +54,20 @@ public:
   /// @throws
   ///   If there is no attribute of the specified name an exception of type
   ///   @see ParserException will be thrown.
-  std::string attribute(const std::string name) const;
+  std::string attribute(std::string attribute_name) const;
 
   /// Used to set the value of an attribute.
   /// @param name
   ///   The name of the attribute to set.
   /// @param value
   ///   The value to assign to the attribute.
-  void attribute(const std::string name, const std::string value);
+  void attribute(std::string attribute_name, std::string value);
 
   /// Returns the first child in the list with the given tag name.
-  node* element_by_name(const std::string& name);
+  node* element_by_name(const std::string& child_name);
 
   /// Returns the first child in the list with the given tag name.
-  const node* element_by_name(const std::string& name) const;
+  const node* element_by_name(const std::string& child_name) const;
 
   /// This method finds all children with the given tag name and calls the
   /// handler for each occurrence.
@@ -78,7 +78,7 @@ public:
   /// @param recursive
   ///   When set to true a recursive depth search through all elements is
   ///   performed.
-  bool find_element_by_name(const std::string& name,
+  bool find_element_by_name(const std::string& child_name,
                             std::function<bool(node&)> handler, bool recursive);
 
   /// This method finds all children with the given tag name and calls the
@@ -90,7 +90,7 @@ public:
   /// @param recursive
   ///   When set to true a recursive depth search through all elements is
   ///   performed.
-  bool find_element_by_name(const std::string& name,
+  bool find_element_by_name(const std::string& child_name,
                             std::function<bool(const node&)> handler,
                             bool recursive) const;
 

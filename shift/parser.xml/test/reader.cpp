@@ -43,13 +43,13 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
   BOOST_CHECK_EQUAL(root.children.size(), 1);
   auto* root_node = root.element_by_name("simple");
   BOOST_CHECK(root_node);
-  if (root_node)
+  if (root_node != nullptr)
   {
     BOOST_CHECK_EQUAL(root_node->name, "simple");
 
     auto* text1 = root_node->element_by_name("text1");
     BOOST_CHECK(text1);
-    if (text1)
+    if (text1 != nullptr)
     {
       for (auto& child : text1->children)
       {
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
 
     auto* text2 = root_node->element_by_name("text2");
     BOOST_CHECK(text2);
-    if (text2)
+    if (text2 != nullptr)
     {
       for (auto& child : text2->children)
       {
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
 
     auto* entities = root_node->element_by_name("entities");
     BOOST_CHECK(entities);
-    if (entities)
+    if (entities != nullptr)
     {
       for (auto& child : entities->children)
       {
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(reader_comments)
 
   auto* root_node = root.element_by_name("comments");
   BOOST_CHECK(root_node);
-  if (root_node)
+  if (root_node != nullptr)
   {
     auto* element1 = root_node->element_by_name("node1");
     BOOST_CHECK(element1);
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(reader_comments)
     BOOST_CHECK(element3);
     auto* element4 = root_node->element_by_name("node4");
     BOOST_CHECK(element4);
-    if (element4)
+    if (element4 != nullptr)
     {
       auto* element5 = element4->element_by_name("node5");
       BOOST_CHECK(element5);

@@ -3,9 +3,7 @@
 
 namespace shift::render::vk::layer2
 {
-parent_object::~parent_object() noexcept
-{
-}
+parent_object::~parent_object() noexcept = default;
 
 bool child_object::add_parent(parent_object& parent)
 {

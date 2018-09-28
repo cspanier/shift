@@ -231,7 +231,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
 
     case built_in_type::array:
     {
-      BOOST_ASSERT(reference.arguments.size() >= 1);
+      BOOST_ASSERT(!reference.arguments.empty());
       const type_reference* value_type =
         std::get_if<type_reference>(&reference.arguments[0]);
       // The array size is not needed at this point in C#.
@@ -239,7 +239,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
       // if (reference.arguments.size() >= 2)
       //   size = std::get_if<int>(&reference.arguments[1]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
 
       stream << make_tuple(current_scope, *value_type, mode) << "[]";
@@ -252,7 +252,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
       const type_reference* value_type =
         std::get_if<type_reference>(&reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "List<" << make_tuple(current_scope, *value_type, mode) << ">";
       break;
@@ -265,13 +265,14 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
         std::get_if<type_reference>(&reference.arguments[0]);
       const int* size = std::get_if<int>(&reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
 
       auto* builtInValueType =
         std::get_if<proto::built_in_type>(&value_type->variant);
-      if (builtInValueType && (*builtInValueType == built_in_type::float32 ||
-                               *builtInValueType == built_in_type::float64))
+      if ((builtInValueType != nullptr) &&
+          (*builtInValueType == built_in_type::float32 ||
+           *builtInValueType == built_in_type::float64))
       {
         if (*size == 2)
           stream << "System.Windows.Point";
@@ -296,7 +297,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
       const type_reference* value_type =
         std::get_if<type_reference>(&reference.arguments[0]);
       BOOST_ASSERT(value_type);
-      if (!value_type)
+      if (value_type == nullptr)
         break;
       stream << "HashSet<" << make_tuple(current_scope, *value_type, mode)
              << ">";
@@ -310,13 +311,13 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
         std::get_if<type_reference>(&reference.arguments[0]);
       const int* size = std::get_if<int>(&reference.arguments[1]);
       BOOST_ASSERT(value_type && size);
-      if (!value_type || !size)
+      if ((value_type == nullptr) || (size == nullptr))
         break;
 
       auto* builtInValueType =
         std::get_if<proto::built_in_type>(&value_type->variant);
-      if (builtInValueType && *builtInValueType == built_in_type::float32 &&
-          *size == 4)
+      if ((builtInValueType != nullptr) &&
+          *builtInValueType == built_in_type::float32 && *size == 4)
       {
         stream << "Thales.Sagittarius.Data.Media3D.Matrix3D";
       }
@@ -348,7 +349,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
         const type_reference* argumentReference =
           std::get_if<type_reference>(&template_argument);
         BOOST_ASSERT(argumentReference);
-        if (!argumentReference)
+        if (argumentReference == nullptr)
           break;
         if (firstType)
           firstType = false;
@@ -369,7 +370,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
         std::get_if<type_reference>(&reference.arguments[0]);
       BOOST_ASSERT(enumReference);
       auto* enumeration = enumReference->as_enumeration();
-      if (!enumReference || !enumeration)
+      if ((enumReference == nullptr) || (enumeration == nullptr))
         break;
       stream << make_tuple(current_scope, *enumReference, mode);
       break;
@@ -384,7 +385,7 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
   {
     const auto& aliasTypeReference = alias->actual_type_reference();
     auto* aliasBuiltInType = aliasTypeReference.as_built_in_type();
-    if ((aliasBuiltInType &&
+    if (((aliasBuiltInType != nullptr) &&
          (built_in_type_traits::is_char(*aliasBuiltInType) ||
           built_in_type_traits::is_int(*aliasBuiltInType) ||
           built_in_type_traits::is_float(*aliasBuiltInType) ||
@@ -416,7 +417,8 @@ static file_writer& operator<<(file_writer& stream, print_tuple arguments)
     case ptr_type::group_ptr:
     {
       auto* built_in_type = reference.as_built_in_type();
-      if (built_in_type && !built_in_type_traits::is_template(*built_in_type) &&
+      if ((built_in_type != nullptr) &&
+          !built_in_type_traits::is_template(*built_in_type) &&
           !built_in_type_traits::is_string(*built_in_type))
       {
         stream << "?";
@@ -615,7 +617,7 @@ std::string cs_generator::relative_name(const node& node,
   // interfaces are moved to the surrounding name-scope. In this case we do
   // not want to include the interface name in the name path as we already
   // merged that name into the cs_name message attribute.
-  if (node.parent && node.parent->has_attribute("is_interface") &&
+  if ((node.parent != nullptr) && node.parent->has_attribute("is_interface") &&
       relative_path.size() > 1)
   {
     relative_path.erase(relative_path.begin() + relative_path.size() - 2);
@@ -753,7 +755,7 @@ void cs_generator::writeAliasDefinitions(namescope& scope)
   for (auto alias : scope.aliases)
   {
     auto* type = alias->actual_type_reference().as_built_in_type();
-    if (!type)
+    if (type == nullptr)
       continue;
     if (!alias->has_attribute("csExported") ||
         alias->attribute<std::string>("csExported") != "true")
@@ -774,7 +776,7 @@ void cs_generator::writeAliasDefinitions(namescope& scope)
     for (auto alias : scope.aliases)
     {
       auto* type = alias->actual_type_reference().as_built_in_type();
-      if (!type)
+      if (type == nullptr)
         continue;
       if (built_in_type_traits::is_char(*type) ||
           built_in_type_traits::is_int(*type) ||
@@ -816,7 +818,7 @@ void cs_generator::writeAliasDefinitions(namescope& scope)
             const type_reference* argumentReference =
               std::get_if<type_reference>(&template_argument);
             BOOST_ASSERT(argumentReference);
-            if (!argumentReference)
+            if (argumentReference == nullptr)
               break;
             *_source << br << indent << "public static implicit operator "
                      << alias->name << "("
@@ -864,7 +866,7 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
 
       *_source << indent << "public partial class "
                << message->attribute<std::string>("cs_name");
-      if (message->base)
+      if (message->base != nullptr)
       {
         *_source << " : " << message->base->attribute<std::string>("cs_name")
                  << br;
@@ -900,7 +902,7 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
                  << message->attribute<std::string>("cs_name") << "(";
         writeMessageAsParameterList(scope, *message, true);
         *_source << ")" br;
-        if (message->base)
+        if (message->base != nullptr)
         {
           *_source << inc_indent;
           *_source << indent << ": base(";
@@ -920,7 +922,7 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
       std::size_t order = 1;
       /// If this message derives from another one, we must not start
       /// counting at 1!
-      for (auto* base = message->base; base; base = base->base)
+      for (auto* base = message->base; base != nullptr; base = base->base)
         order += base->fields.size();
 
       for (auto& field : message->fields)
@@ -949,7 +951,7 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
 bool cs_generator::writeMessageAsArgumentList(namescope& scope,
                                               message& message, bool firstField)
 {
-  if (message.base)
+  if (message.base != nullptr)
   {
     firstField = writeMessageAsArgumentList(scope, *message.base, firstField);
   }
@@ -968,7 +970,7 @@ bool cs_generator::writeMessageAsParameterList(namescope& scope,
                                                message& message,
                                                bool firstField)
 {
-  if (message.base)
+  if (message.base != nullptr)
   {
     firstField = writeMessageAsParameterList(scope, *message.base, firstField);
   }

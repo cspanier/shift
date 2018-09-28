@@ -29,7 +29,7 @@ struct field final : public node
   field() = default;
   field(const field&) = default;
   field(field&&) = default;
-  virtual ~field() override;
+  ~field() override;
   field& operator=(const field&) = default;
   field& operator=(field&&) = default;
 
@@ -46,7 +46,7 @@ struct message final : public node
   message() = default;
   message(const message&) = default;
   message(message&&) = default;
-  virtual ~message() override;
+  ~message() override;
   message& operator=(const message&) = default;
   message& operator=(message&&) = default;
 
