@@ -439,7 +439,7 @@ void OverdrawOrder(
   int iNumClusters, int* piScratch, int* piRemap = nullptr)
 {
   int i, j;
-  int c = 0, cstart = 0;
+  int c = 0;
   int cnext = piClustersIn[1];
   int* p = piIndexBufferIn;
   auto* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
@@ -493,7 +493,6 @@ void OverdrawOrder(
         break;
       }
 
-      cstart = i;
       cnext = piClustersIn[c + 1];
       fCArea = 0.f;
     }
@@ -575,7 +574,7 @@ void OverdrawOrderIntegral(
   int iNumClusters, int* piScratch, int* piRemap = nullptr)
 {
   int i, j;
-  int c = 0, cstart = 0;
+  int c = 0;
   int cnext = piClustersIn[1];
   int* p = piIndexBufferIn;
   auto* pvVertexPositionsIn = (Vector*)pfVertexPositionsIn;
@@ -633,7 +632,6 @@ void OverdrawOrderIntegral(
         break;
       }
 
-      cstart = i;
       cnext = piClustersIn[c + 1];
       fCArea = 0.f;
     }

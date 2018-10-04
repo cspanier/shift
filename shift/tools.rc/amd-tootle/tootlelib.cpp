@@ -723,13 +723,11 @@ TootleResult TOOTLE_DLL TootleOptimizeOverdraw(
       pVB, pnIB, nVertices, nFaces, nVBStride, pfViewpoint, nViewpoints,
       eFrontWinding, eOverdrawOptimizer, pnFaceClusters, pnIBOut,
       pnClusterRemapOut);
-    break;
 
   case TOOTLE_OVERDRAW_FAST:
     return TootleOptimizeOverdrawFastApproximation(
       pVB, pnIB, nVertices, nFaces, nVBStride, eFrontWinding, pnFaceClusters,
       pnIBOut, pnClusterRemapOut);
-    break;
 
   default:
     errorf(("TootleOptimizeOverdraw: eOverdrawOptimizer is invalid."));
@@ -1408,7 +1406,8 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding, float* pfAvgODOut,
-  float* pfMaxODOut, TootleOverdrawOptimizer eOverdrawOptimizer)
+  float* pfMaxODOut,
+  [[maybe_unused]] TootleOverdrawOptimizer eOverdrawOptimizer)
 {
   AMD_TOOTLE_API_FUNCTION_BEGIN
 
@@ -1438,7 +1437,6 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
   }
 
 #ifdef _SOFTWARE_ONLY_VERSION
-  eOverdrawOptimizer;  // satisfy unused parameter warning message
   return TootleMeasureOverdrawRaytrace(pVB, pnIB, nVertices, nFaces, nVBStride,
                                        pfViewpoint, nViewpoints, eFrontWinding,
                                        pfAvgODOut, pfMaxODOut);
@@ -1610,7 +1608,7 @@ TootleResult TootleMeasureOverdrawRaytrace(
   // create a non-interleaved vertex buffer
   auto* pfVB = new float[3 * nVertices];
 
-  const auto* pVBuffer = (const char*)pVB;
+  const auto* pVBuffer = static_cast<const char*>(pVB);
 
   for (unsigned int i = 0; i < nVertices; i++)
   {
@@ -2021,7 +2019,7 @@ TootleResult TOOTLE_DLL TootleOptimizeVertexMemory(
   if (pVBOut != nullptr)
   {
     // rearrange the vertex buffer based on the remapping
-    const char* pVBuffer = (char*)pVB;
+    const char* pVBuffer = (const char*)pVB;
 
     for (i = 0; i < nVertices; i++)
     {
