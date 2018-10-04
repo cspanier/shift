@@ -16,7 +16,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <OutputPath>..\..\Evolution\Bin.Debug</OutputPath>
+    <OutputPath>..\..\production\Bin.Debug</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
@@ -28,7 +28,7 @@
     <BaseIntermediateOutputPath>..\..\temp\A9563D36</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MinSizeRel|AnyCPU'">
-    <OutputPath>..\..\Evolution\Bin.minsizerel</OutputPath>
+    <OutputPath>..\..\production\Bin.minsizerel</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
@@ -40,7 +40,7 @@
     <BaseIntermediateOutputPath>..\..\temp\A9563D36</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RelWithDebInfo|AnyCPU'">
-    <OutputPath>..\..\Evolution\Bin.relwithdebinfo</OutputPath>
+    <OutputPath>..\..\production\Bin.relwithdebinfo</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
@@ -52,7 +52,7 @@
     <BaseIntermediateOutputPath>..\..\temp\A9563D36</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>..\..\Evolution\Bin</OutputPath>
+    <OutputPath>..\..\production\Bin</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
