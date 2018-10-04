@@ -1,0 +1,4 @@
+module Editor
+singleton EditorState 1.0 EditorState.qml
+EditorButton 1.0 EditorButton.qml
+SchematicsEditor 1.0 SchematicsEditor.qml
