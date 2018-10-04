@@ -332,7 +332,6 @@ bool FaceManager::Stripify()
   std::uint32_t uFirstTurn = START;
 
   auto nodesLeft = (std::uint32_t)m_faces.size();
-  bool bFirstDirection = true;
   bool bRepeatedTurn = false;
   int stripIndex = -1;
   FaceStrips strips;
@@ -352,7 +351,6 @@ bool FaceManager::Stripify()
   {
     if (uWalkMode == START)
     {
-      bFirstDirection = true;
       stripIndex++;
       strips.push_back(FaceStrip());
 

@@ -20,7 +20,6 @@ typedef struct llnode
 } node;
 
 static node* s_addressList = nullptr;
-static void PrintList();
 template <typename T>
 static T GetNextPowerOfTwo(T nValue);
 
@@ -113,27 +112,6 @@ void* aligned_malloc(size_t bytes, size_t alignment)
   s_addressList = addressEntry;
 
   return memory;
-}
-
-//=================================================================================================================================
-// Print the linked-list, used for debugging purposes.
-//
-// \return void
-//=================================================================================================================================
-void PrintList()
-{
-  node* addressEntry;
-
-  fprintf(stderr, "List = ");
-
-  for (addressEntry = s_addressList; addressEntry != nullptr;
-       addressEntry = addressEntry->next)
-  {
-    fprintf(stderr, "(o = %p, a = %p), ", addressEntry->original,
-            addressEntry->aligned);
-  }
-
-  fprintf(stderr, "\n");
 }
 
 //=================================================================================================================================

@@ -6,7 +6,7 @@
 #include <cassert>
 #include "TootlePCH.h"
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 #include "gdiwm.h"
 #include "d3dwm.h"
 #endif
@@ -56,7 +56,7 @@ static TootleResult FindFaceMappingFromIndex(const unsigned int* pnIB,
                                              unsigned int nFaces,
                                              unsigned int* pnFaceMapOut);
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 // optimize vertex cache using D3DXOptimizeFaces
 static TootleResult TootleOptimizeVCacheDirect3D(
   const unsigned int* pnIB, unsigned int nFaces, unsigned int nVertices,
@@ -91,7 +91,7 @@ static TootleResult TootleOptimizeOverdrawFastApproximation(
   const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
   unsigned int* pnClusterRemapOut);
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 // measure overdraw using Direct3D calls
 static TootleResult TootleMeasureOverdrawDirect3D(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
@@ -248,7 +248,7 @@ TootleResult TOOTLE_DLL TootleOptimizeVCache(
     break;
 
   case TOOTLE_VCACHE_DIRECT3D:
-#ifdef _SOFTWARE_ONLY_VERSION
+#ifdef SOFTWARE_ONLY_VERSION
     fprintf(stderr,
             "TootleOptimizeVCache: No Direct3D support for this version.\n");
     result = TOOTLE_INTERNAL_ERROR;
@@ -286,7 +286,7 @@ TootleResult TOOTLE_DLL TootleOptimizeVCache(
   AMD_TOOTLE_API_FUNCTION_END
 }
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 static TootleResult TootleOptimizeVCacheDirect3D(
   const unsigned int* pnIB, unsigned int nFaces, unsigned int nVertices,
   unsigned int nCacheSize, unsigned int* pnIBOut, unsigned int* pnFaceRemapOut)
@@ -711,7 +711,7 @@ TootleResult TOOTLE_DLL TootleOptimizeOverdraw(
   switch (eOverdrawOptimizer)
   {
   case TOOTLE_OVERDRAW_DIRECT3D:
-#ifdef _SOFTWARE_ONLY_VERSION
+#ifdef SOFTWARE_ONLY_VERSION
     fprintf(stderr,
             "TootleOptimizeOverdraw: No Direct3D support for this version.\n");
     return TOOTLE_INTERNAL_ERROR;
@@ -779,7 +779,7 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
     return TOOTLE_INVALID_ARGS;
   }
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 
   if (!ODIsInitialized())
   {
@@ -1436,7 +1436,7 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
     return TOOTLE_INVALID_ARGS;
   }
 
-#ifdef _SOFTWARE_ONLY_VERSION
+#ifdef SOFTWARE_ONLY_VERSION
   return TootleMeasureOverdrawRaytrace(pVB, pnIB, nVertices, nFaces, nVBStride,
                                        pfViewpoint, nViewpoints, eFrontWinding,
                                        pfAvgODOut, pfMaxODOut);
@@ -1463,7 +1463,7 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
   AMD_TOOTLE_API_FUNCTION_END
 }
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 TootleResult TootleMeasureOverdrawDirect3D(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,

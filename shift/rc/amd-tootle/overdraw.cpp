@@ -7,7 +7,7 @@
 #include "overdraw.h"
 #include "soup.h"
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 #include "d3doverdrawwindow.h"
 #include "d3dwm.h"
 #include "gdiwm.h"
@@ -22,13 +22,13 @@
 //
 //=================================================================================================================================
 
-/// Flag to indicate whether or not the overdraw module has been initialized
-static bool s_bInitialized = false;
-
 /// The current soup being optimized
 static Soup* s_pSoup = nullptr;
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
+/// Flag to indicate whether or not the overdraw module has been initialized
+static bool s_bInitialized = false;
+
 /// Overdraw calculation window
 D3DOverdrawWindow* s_pOverdrawWindow;
 #endif
@@ -127,7 +127,7 @@ TootleResult ODComputeGraphRaytrace(const float* pViewpoints,
   return TOOTLE_OK;
 }
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 //=================================================================================================================================
 /// Computes the overdraw graph using the Direct3D implementation
 ///
@@ -182,7 +182,7 @@ static TootleResult ODComputeGraphDirect3D(
 
 TootleResult ODInit()
 {
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 
   if (s_bInitialized)
   {
@@ -223,7 +223,7 @@ TootleResult ODInit()
 //=================================================================================================================================
 bool ODIsInitialized()
 {
-#ifdef _SOFTWARE_ONLY_VERSION
+#ifdef SOFTWARE_ONLY_VERSION
   return true;
 #else
   return s_bInitialized;
@@ -243,7 +243,7 @@ bool ODIsInitialized()
 //=================================================================================================================================
 TootleResult ODSetSoup(Soup* pSoup, TootleFaceWinding eFrontWinding)
 {
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
   if (!s_bInitialized)
   {
     // ODInit has not been called
@@ -259,7 +259,7 @@ TootleResult ODSetSoup(Soup* pSoup, TootleFaceWinding eFrontWinding)
 #endif
   s_pSoup = pSoup;
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
   // set face winding for culling
 
   s_pOverdrawWindow->SetCulling(
@@ -272,7 +272,7 @@ TootleResult ODSetSoup(Soup* pSoup, TootleFaceWinding eFrontWinding)
   return TOOTLE_OK;
 }
 
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 //=================================================================================================================================
 /// Computes object overdraw for the triangle soup
 /// \param pViewpoints  The viewpoints to use to measure overdraw
@@ -433,7 +433,7 @@ TootleResult ODOverdrawGraph(const float* pViewpoints, unsigned int nViewpoints,
                              std::vector<t_edge>& rGraphOut,
                              TootleOverdrawOptimizer eOverdrawOptimizer)
 {
-#ifdef _SOFTWARE_ONLY_VERSION
+#ifdef SOFTWARE_ONLY_VERSION
 
   if (s_pSoup == nullptr)
   {
@@ -460,7 +460,7 @@ TootleResult ODOverdrawGraph(const float* pViewpoints, unsigned int nViewpoints,
   switch (eOverdrawOptimizer)
   {
   case TOOTLE_OVERDRAW_AUTO:
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 
     // if the number of clusters is high enough, then its faster to use software
     // rendering to compute overdraw if it's small, then we want to use the GPU
@@ -503,7 +503,7 @@ TootleResult ODOverdrawGraph(const float* pViewpoints, unsigned int nViewpoints,
 
 void ODCleanup()
 {
-#ifndef _SOFTWARE_ONLY_VERSION
+#ifndef SOFTWARE_ONLY_VERSION
 
   if (!s_bInitialized)
   {

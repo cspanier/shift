@@ -20,7 +20,7 @@ int Soup::ComputeNormals(bool force)
 
   n().resize(v().size());
 
-  const auto nf = static_cast<int>(t().size());
+  const auto nf = t().size();
   const auto nv = static_cast<int>(v().size());
 
   for (int i = 0; i < nv; i++)
@@ -28,12 +28,13 @@ int Soup::ComputeNormals(bool force)
     n(i) = Vector3(0, 0, 0);
   }
 
-  for (int i = 0; i < nf; i++)
+  for (std::size_t i = 0u; i < nf; i++)
   {
     const Vector3& p0 = v(t(i)[0]);
     const Vector3& p1 = v(t(i)[1]);
     const Vector3& p2 = v(t(i)[2]);
-    Vector3 a = p0 - p1, b = p1 - p2, c = p2 - p0;
+    Vector3 a = p0 - p1;
+    Vector3 b = p1 - p2;
     Vector3 tn = Cross(a, b);
     n(t(i)[0]) += tn;
     n(t(i)[1]) += tn;
@@ -53,7 +54,7 @@ int Soup::ComputeResolution(float* resolution, bool force)
 {
   const auto nf = static_cast<int>(t().size());
 
-  if (nf < 1 || r > 0.0 && !force)
+  if (nf < 1 || (r > 0.0f && !force))
   {
     *resolution = r;
     return 1;

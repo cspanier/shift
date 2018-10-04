@@ -7,6 +7,7 @@
 #define SOUP_H
 
 #include <cstdint>
+#include <vector>
 #include "cloud.h"
 
 class Soup : public Cloud

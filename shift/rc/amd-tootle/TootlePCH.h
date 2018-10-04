@@ -45,8 +45,8 @@
 
 // suppress Debug and error output stream for both release and debug builds
 #define ERROR_SILENT
-//#define _SOFTWARE_ONLY_VERSION          // compile with this flag for no
-// dependency on GPU or Direct3D
+// compile with this flag for no dependency on GPU or Direct3D
+#define SOFTWARE_ONLY_VERSION
 
 #include <cassert>
 #include <cfloat>
