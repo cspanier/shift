@@ -22,7 +22,19 @@ macro(shift_add_library target)
   else()
     set(version_tag "")
   endif()
+
   unset(sources)
+  if(ARG_DOCDIRS)
+    set(_docdirs ${ARG_DOCDIRS})
+  else()
+    set(_docdirs "${CMAKE_CURRENT_SOURCE_DIR}/doc")
+  endif()
+  find_sources(documentation_files
+    ROOTS ${_docdirs}
+    EXTS "*.md" "*.txt" "*.png" "*.jpg"
+    GROUPPREFIX "doc/")
+  list(APPEND sources ${documentation_files})
+
   if("${ARG_SOURCEEXTS}" STREQUAL "")
     set(ARG_SOURCEEXTS
       # source files
@@ -48,15 +60,7 @@ macro(shift_add_library target)
         "*.rc2")
     endif()
   endif()
-  if(ARG_DOCDIRS)
-    set(_docdirs ${ARG_DOCDIRS})
-  else()
-    set(_docdirs "${CMAKE_CURRENT_SOURCE_DIR}/doc")
-  endif()
-  find_sources(documentation_files
-    ROOTS ${_docdirs}
-    EXTS "*.md" "*.txt"
-    GROUPPREFIX "doc/")
+
   if(ARG_PUBLICSOURCEDIRS)
     find_sources(public_sources
       ROOTS ${ARG_PUBLICSOURCEDIRS}
@@ -65,6 +69,7 @@ macro(shift_add_library target)
       INSTALLDIR "${ARG_ROOT}/include/${PROJECT_NAME}${version_tag}")
     list(APPEND sources ${public_sources})
   endif()
+
   if(ARG_PRIVATESOURCEDIRS)
     find_sources(private_sources
       ROOTS ${ARG_PRIVATESOURCEDIRS}
@@ -72,6 +77,7 @@ macro(shift_add_library target)
       GROUPPREFIX "private/")
     list(APPEND sources ${private_sources})
   endif()
+
   list(APPEND sources ${ARG_SOURCES})
   if("${sources}" STREQUAL "")
     message(FATAL_ERROR "Target ${target} has no source files")

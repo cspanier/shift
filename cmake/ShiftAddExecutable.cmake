@@ -13,6 +13,7 @@ macro(shift_add_executable target)
     set(version_tag "")
   endif()
 
+  unset(sources)
   if(ARG_DOCDIRS)
     set(_docdirs ${ARG_DOCDIRS})
   else()
@@ -20,9 +21,10 @@ macro(shift_add_executable target)
   endif()
   find_sources(documentation_files
     ROOTS ${_docdirs}
-    EXTS "*.md" "*.txt"
+    EXTS "*.md" "*.txt" "*.png" "*.jpg"
     GROUPPREFIX "doc/")
-  unset(sources)
+  list(APPEND sources ${documentation_files})
+
   if(ARG_SOURCEDIRS)
     if("${ARG_SOURCEEXTS}" STREQUAL "")
       set(ARG_SOURCEEXTS
@@ -52,6 +54,7 @@ macro(shift_add_executable target)
   else()
     message(FATAL_ERROR "SOURCEDIRS argument not set")
   endif()
+
   if(ARG_QMLDIRS)
     set(qml_exts
       "*.qml"
@@ -62,6 +65,7 @@ macro(shift_add_executable target)
       GROUPPREFIX "qml/")
     list(APPEND sources ${qml_sources})
   endif()
+
   list(APPEND sources ${ARG_SOURCES})
 
   # ToDo: The following link flag variables are not used. Shall we remove them?
