@@ -3,3 +3,4 @@ crashes/*
 lib*/*
 log/*
 test*/*
+*.qmlc
