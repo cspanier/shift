@@ -35,7 +35,7 @@ if(NOT NO_VULKAN AND NOT NO_QT5)
   # set(QML_DESIGNER_IMPORT_PATH ""
   #   CACHE string "Qt Creator extra qml import paths" FORCE)
 
-  shift_add_executable(tools.editor
+  shift_add_executable(shift.tools.editor
     VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
     SOURCEDIRS
       ${CMAKE_CURRENT_SOURCE_DIR}
