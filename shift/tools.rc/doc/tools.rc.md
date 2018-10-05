@@ -1,6 +1,6 @@
 # shift.tools.rc - Resource Compiler
 
-This executable is a lightweight frontend for [shift.rc](../../rc/doc/rc.md) library.
+This console executable is a lightweight frontend for the [shift.rc](../../rc/doc/rc.md) library.
 
 ## Commandline Options
 ```
