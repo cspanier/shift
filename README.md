@@ -2,6 +2,24 @@
 
 This repository hosts a collection of various libraries that have been created in the last couple of years.
 
+## Content
+
+* shift.core: various generic algorithms and data structures.
+* shift.platform: platform specific functionality.
+* shift.log: a powerful log library.
+* shift.math: a math library optimized for use in 3D applications.
+* shift.task: a task processing library using coroutines.
+* shift.serialization: a datastructure serialization library.
+* shift.network: a network abstraction library.
+* shift.service: library for distributed services.
+* shift.proto: grammar and parser of the shift proto language.
+* shift.protogen: code generator for shift.proto.
+* shift.parser.proto: experimental version 2 of shift.proto.
+* shift.tools.protogen: experimental version 2 of shift.protogen.
+* [shift.rc](shift/rc/doc/rc.md): resource compiler core library.
+* [shift.tools.rc](shift/rools.rc/doc/rools.rc.md): resource compiler frontend application.
+* shift.tools.vk2cpp: a tool to translate the Vulkan specification XML file into a C++ header plus MSVS and QtCreator code snippets.
+
 ## Dependencies
 
 * [Boost](https://www.boost.org/) 1.68
