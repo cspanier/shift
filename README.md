@@ -17,7 +17,7 @@ This repository hosts a collection of various libraries that have been created i
 * shift.parser.proto: experimental version 2 of shift.proto.
 * shift.tools.protogen: experimental version 2 of shift.protogen.
 * [shift.rc](shift/rc/doc/rc.md): resource compiler core library.
-* [shift.tools.rc](shift/rools.rc/doc/rools.rc.md): resource compiler frontend application.
+* [shift.tools.rc](shift/tools.rc/doc/tools.rc.md): resource compiler frontend application.
 * shift.tools.vk2cpp: a tool to translate the Vulkan specification XML file into a C++ header plus MSVS and QtCreator code snippets.
 
 ## Dependencies
