@@ -69,6 +69,7 @@ static std::string type_to_string(const spirv_cross::SPIRType& type)
       case 1:
         return "float";
       }
+      break;
 
     case 2:
       switch (type.columns)
@@ -78,6 +79,7 @@ static std::string type_to_string(const spirv_cross::SPIRType& type)
       case 2:
         return "mat2";
       }
+      break;
 
     case 3:
       switch (type.columns)
@@ -87,6 +89,7 @@ static std::string type_to_string(const spirv_cross::SPIRType& type)
       case 3:
         return "mat3";
       }
+      break;
 
     case 4:
       switch (type.columns)
@@ -96,6 +99,7 @@ static std::string type_to_string(const spirv_cross::SPIRType& type)
       case 4:
         return "mat4";
       }
+      break;
     }
     break;
 

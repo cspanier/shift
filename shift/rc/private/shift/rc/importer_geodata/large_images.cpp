@@ -2,8 +2,8 @@
 
 namespace shift::rc
 {
-bool large_image_importer::process(resource_compiler_impl& compiler,
-                                   job_description& job)
+bool large_image_importer::process(resource_compiler_impl& /*compiler*/,
+                                   job_description& /*job*/)
 {
   return false;
 }

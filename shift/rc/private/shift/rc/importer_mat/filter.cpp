@@ -19,8 +19,8 @@ namespace mat
   namespace fs = boost::filesystem;
 
   int converter::run(const boost::filesystem::path& input_filename,
-                     resource::archive& target,
-                     const parser::json::object& options)
+                     resource::archive& /*target*/,
+                     const parser::json::object& /*options*/)
   {
     if (!fs::exists(input_filename) || !fs::is_regular_file(input_filename))
     {

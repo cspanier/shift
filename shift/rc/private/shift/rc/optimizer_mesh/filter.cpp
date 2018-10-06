@@ -45,21 +45,25 @@ struct hash<const void*>
     switch (remaining_size)
     {
     case 7:
-      h ^= static_cast<const std::size_t>(data[6]) << 48;
+      h ^= static_cast<std::size_t>(data[6]) << 48;
+      [[fallthrough]];
     case 6:
-      h ^= static_cast<const std::size_t>(data[5]) << 40;
+      h ^= static_cast<std::size_t>(data[5]) << 40;
+      [[fallthrough]];
     case 5:
-      h ^= static_cast<const std::size_t>(data[4]) << 32;
+      h ^= static_cast<std::size_t>(data[4]) << 32;
+      [[fallthrough]];
     case 4:
       h ^= *reinterpret_cast<const std::uint32_t*>(&data[0]);
       break;
     case 3:
-      h ^= static_cast<const std::size_t>(data[2]) << 16;
+      h ^= static_cast<std::size_t>(data[2]) << 16;
+      [[fallthrough]];
     case 2:
       h ^= *reinterpret_cast<const std::uint16_t*>(&data[0]);
       break;
     case 1:
-      h ^= static_cast<const std::size_t>(data[0]);
+      h ^= static_cast<std::size_t>(data[0]);
     };
     h *= m;
 
@@ -94,7 +98,7 @@ namespace shift::rc
 {
 namespace fs = boost::filesystem;
 
-bool optimize_mesh(const job_description& job)
+bool optimize_mesh(const job_description& /*job*/)
 {
   // auto input_file_path = job.input_base_path / job.input_file_path;
   // if (!fs::exists(input_file_path) ||
@@ -203,6 +207,7 @@ bool optimize_mesh(resource::mesh& mesh)
   case resource::vertex_index_data_type::uint8:
     resolve_vertex_indices<std::uint8_t>(
       mesh, /*mesh.index_buffer_view.buffer->storage.data(),*/ index_count);
+    break;
 
   default:
     // Ignore other cases for now.
