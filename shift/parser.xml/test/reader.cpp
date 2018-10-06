@@ -13,6 +13,7 @@ struct init_current_working_path
     boost::system::error_code error;
     current_path(path(shift::platform::environment::executable_path())
                    .parent_path()
+                   .parent_path()
                    .parent_path(),
                  error);
     if (error)
