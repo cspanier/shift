@@ -24,13 +24,18 @@ This repository hosts a collection of various libraries that have been created i
 
 ## Dependencies
 
-* [Boost](https://www.boost.org/) 1.68
 * [Google Breakpad](https://github.com/google/breakpad) tested with revision 1459e5d
     * [GYP](https://gyp.gsrc.io/) is needed to build Breakpad
     * [Python](https://www.python.org/) 2.7 is needed for running GYP
+* [zlib](https://zlib.net/) 1.2.11
+* [xz](https://tukaani.org/xz/) 5.2.4
+* [libtiff](http://www.simplesystems.org/libtiff/) 4.0.9
+* [libpng](http://www.libpng.org/pub/png/libpng.html) 1.6.35
+* [libjpeg](https://www.ijg.org/) 9c
+* [Boost](https://www.boost.org/) 1.68
 * [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross) tested with revision cc7679e
 * [ShaderC](https://github.com/google/shaderc) tested with revision 30af9f9
 * [Vulkan SDK](https://vulkan.lunarg.com/) 1.1.82.0
 * [GLFW](https://www.glfw.org/) 3.2.1
-* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) 6.0
+* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) 7.0
     * Used to format generated code.
