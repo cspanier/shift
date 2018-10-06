@@ -1,0 +1,8 @@
+<simple attribute="attribute value">
+  <text1>blah</text1>
+  <text2>
+    blah with
+    line breaks
+  </text2>
+  <entities>xxx&lt;xxx&gt;xxx&amp;xxx&apos;xxx&quot;xxx</entities>
+</simple>

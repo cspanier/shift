@@ -34,17 +34,17 @@ inline std::string lexical_cast<std::string, bool>(const bool& value)
   return ss.str();
 }
 
-template <typename T, ENABLE_IF(core::is_std_vector<T>::value)>
+template <typename T, ENABLE_IF(shift::core::is_std_vector<T>::value)>
 inline T lexical_cast(const std::string& string)
 {
   T result;
-  core::split(string, is_any_of(" \n\r"), [&](std::string token) {
+  shift::core::split(string, is_any_of(" \n\r"), [&](std::string token) {
     result.push_back(lexical_cast<T::value_type, std::string>(token));
   });
   return result;
 }
 
-template <typename T, ENABLE_IF(core::is_std_vector<T>::value)>
+template <typename T, ENABLE_IF(shift::core::is_std_vector<T>::value)>
 inline std::string lexical_cast(const T& values)
 {
   std::ostringstream ss;

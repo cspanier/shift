@@ -1,0 +1,16 @@
+<comments>
+  <!-- comment about node 1 -->
+  <node1></node1>
+
+  <!-- comment about node 2 -->
+  <node2></node2>
+
+  <!-- comment about node 3 -->
+  <node3 />
+
+  <!-- comment about node 4 -->
+  <node4>
+    <!-- comment about node 5 -->
+    <node5 />
+  </node4>
+</comments>

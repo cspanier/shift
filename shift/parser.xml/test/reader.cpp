@@ -27,7 +27,7 @@ using namespace shift::parser::xml;
 
 BOOST_AUTO_TEST_CASE(reader_empty_document)
 {
-  std::ifstream file("private/test/parser/xml/empty.xml", std::ios_base::in);
+  std::ifstream file("private/test/parser.xml/empty.xml", std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(reader_empty_document)
 
 BOOST_AUTO_TEST_CASE(reader_simple_document)
 {
-  std::ifstream file("private/test/parser/xml/simple.xml", std::ios_base::in);
+  std::ifstream file("private/test/parser.xml/simple.xml", std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
 /// ToDo: Not supported, yet.
 // BOOST_AUTO_TEST_CASE(reader_utf8_document)
 //{
-//  std::ifstream file("private/test/parser/xml/utf8.xml", std::ios_base::in);
+//  std::ifstream file("private/test/parser.xml/utf8.xml", std::ios_base::in);
 //  BOOST_CHECK(file);
 //  node root;
 //  BOOST_CHECK_NO_THROW(file >> root);
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
 
 BOOST_AUTO_TEST_CASE(reader_comments)
 {
-  std::ifstream file("private/test/parser/xml/comments.xml", std::ios_base::in);
+  std::ifstream file("private/test/parser.xml/comments.xml", std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
