@@ -4,31 +4,31 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/filesystem.hpp>
 #include <shift/core/boost_restore_warnings.h>
+#include <iostream>
 
-struct init_current_working_path
-{
-  init_current_working_path() noexcept
-  {
-    using namespace boost::filesystem;
-    boost::system::error_code error;
-    current_path(path(shift::platform::environment::executable_path())
-                   .parent_path()
-                   .parent_path()
-                   .parent_path(),
-                 error);
-    if (error)
-      std::terminate();
-  }
-};
+// struct current_working_path
+//{
+//  current_working_path() noexcept : path()
+//  {
+//  }
 
-static init_current_working_path init;
+//  path;
+//};
+
+static boost::filesystem::path cwd =
+  boost::filesystem::path(shift::platform::environment::executable_path())
+    .parent_path()
+    .parent_path()
+    .parent_path();
 
 using namespace shift;
 using namespace shift::parser::xml;
 
 BOOST_AUTO_TEST_CASE(reader_empty_document)
 {
-  std::ifstream file("private/test/parser.xml/empty.xml", std::ios_base::in);
+  std::ifstream file(
+    (cwd / "private/test/parser.xml/empty.xml").generic_path().string(),
+    std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
@@ -36,7 +36,9 @@ BOOST_AUTO_TEST_CASE(reader_empty_document)
 
 BOOST_AUTO_TEST_CASE(reader_simple_document)
 {
-  std::ifstream file("private/test/parser.xml/simple.xml", std::ios_base::in);
+  std::ifstream file(
+    (cwd / "private/test/parser.xml/simple.xml").generic_path().string(),
+    std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
@@ -86,15 +88,17 @@ BOOST_AUTO_TEST_CASE(reader_simple_document)
 /// ToDo: Not supported, yet.
 // BOOST_AUTO_TEST_CASE(reader_utf8_document)
 //{
-//  std::ifstream file("private/test/parser.xml/utf8.xml", std::ios_base::in);
-//  BOOST_CHECK(file);
-//  node root;
-//  BOOST_CHECK_NO_THROW(file >> root);
+//  std::ifstream file((cwd /
+//  "private/test/parser.xml/utf8.xml").generic_path().string(),
+//  std::ios_base::in); BOOST_CHECK(file); node root; BOOST_CHECK_NO_THROW(file
+//  >> root);
 //}
 
 BOOST_AUTO_TEST_CASE(reader_comments)
 {
-  std::ifstream file("private/test/parser.xml/comments.xml", std::ios_base::in);
+  std::ifstream file(
+    (cwd / "private/test/parser.xml/comments.xml").generic_path().string(),
+    std::ios_base::in);
   BOOST_CHECK(file);
   node root;
   BOOST_CHECK_NO_THROW(file >> root);
