@@ -8,12 +8,12 @@ using namespace shift::core;
 BOOST_AUTO_TEST_CASE(stringutil_split)
 {
   {
-    const std::string s = s;
+    const std::string s;
     auto r = split(s, [](char c) { return c == ';'; });
     BOOST_CHECK_EQUAL(r.size(), 0);
   }
   {
-    const std::string s = s;
+    const std::string s;
     auto r = split(s, [](char c) { return c == ';'; }, true);
     BOOST_CHECK_EQUAL(r.size(), 1);
     BOOST_CHECK_EQUAL(r.at(0), "");
