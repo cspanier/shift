@@ -6,7 +6,7 @@ This tiny library implements a high performance JSON parser.
 
 The parser is based on [Boost Spirit](https://www.boost.org/doc/libs/1_68_0/libs/spirit/doc/html/index.html) Qi. This allows for an incredibly easy and robust grammar definition:
 
-```
+```C++
   _null.add("null", nullptr);
   _unescape_map.add(R"(\")", '\"');
   _unescape_map.add(R"(\\)", '\\');
@@ -37,7 +37,7 @@ The primary interface is `std::istream& operator>>(std::istream& stream, json::v
 
 ## Example
 
-```
+```C++
   std::istringstream document(R"({"k1" : false, "k2" : null})");
   json::value root;
   document >> root;

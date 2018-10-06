@@ -14,7 +14,7 @@ The base abstraction for all available file transformation functions is an `acti
 
 The default filename of files containing rules to search for is `.rc-rules.json`. The format of such files is as follows:
 
-```
+```JSON
 {
   "<rule-name>": {
     "pass": <integer>,
@@ -46,7 +46,7 @@ Each file may contain many rules and each input, output, and options section may
 
 ### Example:
 
-```
+```JSON
 {
   "textures-engine-import": {
     "pass": 1,
