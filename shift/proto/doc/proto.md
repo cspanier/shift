@@ -42,3 +42,48 @@ service := attributes?, service_type, '<', interface_path, ',', interface_path, 
 scope := (namescope | alias | enumeration | message | interface | service)*
 namescope := attributes?, "namescope", namescope_name, '{', scope, '}'
 ```
+
+## Examples
+
+```
+namescope sample1
+{
+  message Ping
+  {
+    uint64 clientTime;
+  }
+
+  message Pong
+  {
+    uint64 clientTime;
+    uint64 providerTime;
+  }
+}
+```
+This simple example defines two messages `Ping` and `Pong` containing a couple of data fields. `protogen` would generate the messages along with appropriate de-/serialization code.
+
+```
+namescope sample2
+{
+  interface IPingPongProvider
+  {
+    message Ping
+    {
+      uint64 clientTime;
+    }
+  }
+
+  interface IPingPongClient
+  {
+    message Pong
+    {
+      uint64 clientTime;
+      uint64 providerTime;
+    }
+  }
+
+  service_client<IPingPongProvider, IPingPongClient> PingPongClient;
+  service_provider<IPingPongProvider, IPingPongClient> PingPongProvider;
+}
+```
+This slightly extended example lets `protogen` generate the service provider `PingPongProvider` and the service client `PingPongClient`. A client could send a `Ping` message to a provider and the provider would reply with `Pong`.
