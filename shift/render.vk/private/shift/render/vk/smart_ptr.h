@@ -1,5 +1,5 @@
-#ifndef SHIFT_RENDER_VK_SMART_PTR_IMPL_H
-#define SHIFT_RENDER_VK_SMART_PTR_IMPL_H
+#ifndef SHIFT_RENDER_VK_SMART_PTR_H
+#define SHIFT_RENDER_VK_SMART_PTR_H
 
 #include <utility>
 #include <memory>
@@ -232,7 +232,7 @@ public:
   ///
   template <typename... Args>
   shared_wrapper_base(std::uint32_t initial_reference_count, Args&&... args)
-  : _reference_counter(ATOMIC_VAR_INIT(initial_reference_count)),
+  : _reference_counter ATOMIC_VAR_INIT(initial_reference_count),
     _object(std::forward<Args>(args)...)
   {
   }
