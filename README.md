@@ -9,6 +9,7 @@ This repository hosts a collection of various libraries that have been created i
 * [shift.log](shift/log/doc/log.md): a powerful log library.
 * [shift.math](shift/math/doc/math.md): a math library optimized for use in 3D applications.
 * [shift.parser.json](shift/parser.json/doc/parser.json.md): yet another JSON parser.
+* [shift.parser.xml](shift/parser.xml/doc/parser.xml.md): yet another XML parser.
 * [shift.task](shift/task/doc/task.md): a task processing library using coroutines.
 * [shift.serialization](shift/serialization/doc/serialization.md): a flexible serialization library.
 * [shift.network](shift/network/doc/network.md): a network abstraction library.
