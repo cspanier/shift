@@ -1,3 +1,4 @@
 symbols/*
 build-*/*
 CMakeLists.txt.*
+*.autosave
