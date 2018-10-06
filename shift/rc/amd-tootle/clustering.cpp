@@ -95,7 +95,6 @@ static int MoveFaces(Mesh& mesh, std::vector<int>& seeds,
                      std::vector<int>& cluster, std::vector<int>& fixed,
                      std::vector<Vector3>& tn, float& fAvgDist)
 {
-  float fMaxDist = 0.f;
   int distcnt = 0;
 
   priority_queue<QNode, vector<QNode>, greater<>> q;
@@ -213,8 +212,7 @@ static int MoveFaces(Mesh& mesh, std::vector<int>& seeds,
     return i;
   }
 
-  fMaxDist = cost[f];
-  debugf(("Max: %.6f, Avg: %.6f", fMaxDist, fAvgDist));
+  debugf(("Max: %.6f, Avg: %.6f", cost[f], fAvgDist));
 
   int lowvisi = nvis;
 
@@ -229,17 +227,7 @@ static int MoveFaces(Mesh& mesh, std::vector<int>& seeds,
     }
   }
 
-  if (lowvisf != -1)
-  {
-    fMaxDist = BIGFLOAT / 2.f;
-    return lowvisf;
-  }
-  else
-  {
-    return f;
-  }
-
-  return 0;
+  return (lowvisf != -1) ? lowvisf : f;
 }
 
 static void MoveSeeds(Mesh& mesh, std::vector<int>& seeds,
@@ -535,8 +523,8 @@ static int* g_pCluster;
 // comparison function to sort by cluster ID
 int __cdecl SortByClusterID(const void* a, const void* b)
 {
-  auto* ia = (int*)a;
-  auto* ib = (int*)b;
+  auto* ia = (const int*)a;
+  auto* ib = (const int*)b;
 
   if (g_pCluster[*ia] < g_pCluster[*ib])
   {

@@ -104,7 +104,7 @@ int Soup::ComputeTriNormals(std::vector<Vector3>& tn)
     const Vector3& p0 = v(t(i)[0]);
     const Vector3& p1 = v(t(i)[1]);
     const Vector3& p2 = v(t(i)[2]);
-    Vector3 a = p0 - p1, b = p1 - p2, c = p2 - p0;
+    Vector3 a = p0 - p1, b = p1 - p2;
     tn[i] = Normalize(Cross(a, b));
   }
 
