@@ -2033,7 +2033,7 @@ void application::print_snippets_vs()
           << "</Shortcut>" br;
     _file << "      <Description>Code snippet for Vulkan type " << type.name
           << "</Description>" br;
-    _file << "      <Author>Christian Maaser</Author>" br;
+    _file << "      <Author>Christian Spanier</Author>" br;
     _file << "      <SnippetTypes>" br;
     _file << "        <SnippetType>Expansion</SnippetType>" br;
     _file << "      </SnippetTypes>" br;
