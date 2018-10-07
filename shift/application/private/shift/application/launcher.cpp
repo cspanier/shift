@@ -129,7 +129,7 @@ void launcher_core::start()
   /// NOP.
 }
 
-void launcher_core::stop()
+void launcher_core::stop() noexcept
 {
   /// NOP.
 }

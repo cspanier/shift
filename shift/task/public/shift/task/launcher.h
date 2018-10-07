@@ -20,8 +20,6 @@ public:
   {
     namespace opt = boost::program_options;
 
-    namespace opt = boost::program_options;
-
     base_t::_visible_options.add_options()(
       "task-num-workers",
       opt::value<std::uint32_t>(&_num_workers)->default_value(0),

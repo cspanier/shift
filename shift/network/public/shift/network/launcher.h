@@ -39,6 +39,7 @@ public:
 
   ~launcher() override = default;
 
+protected:
   void start() override
   {
     base_t::start();
@@ -50,7 +51,7 @@ public:
     host.start(1);
   }
 
-  void stop() override
+  void stop() noexcept override
   {
     if (network_host::singleton_instantiated())
     {

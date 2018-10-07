@@ -61,11 +61,10 @@ public:
       "Automatically start service host.");
   }
 
-  virtual ~launcher() override
-  {
-  }
+  ~launcher() override = default;
 
-  virtual void start() override
+protected:
+  void start() override
   {
     base_t::start();
 
@@ -101,7 +100,7 @@ public:
     }
   }
 
-  virtual void stop() override
+  void stop() noexcept override
   {
     if (service_host::singleton_instantiated())
     {

@@ -21,11 +21,10 @@ public:
   {
   }
 
-  virtual ~launcher() override
-  {
-  }
+  ~launcher() override = default;
 
-  virtual void start() override
+protected:
+  void start() override
   {
     base_t::start();
 
@@ -38,7 +37,7 @@ public:
     server.start();
   }
 
-  virtual void stop() override
+  void stop() noexcept override
   {
     if (debug_server::singleton_instantiated())
     {

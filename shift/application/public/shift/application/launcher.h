@@ -66,7 +66,7 @@ protected:
   virtual void start();
 
   ///
-  virtual void stop();
+  virtual void stop() noexcept;
 
   boost::program_options::options_description _visible_options;
   boost::program_options::options_description _hidden_options;
