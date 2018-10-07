@@ -20,28 +20,38 @@ using launcher_t = typename launcher<Modules...>::type;
 Each launcher module type passed as a template parameter to `launcher_t` must satisfy the following conditions:
 
 * It must have a single template parameter and derive from that type.
-* It must have a constructor with the following two parameters: `int argc, char* argv[]`. Those parameters must be passed to the base class'es constructor.
+* It must have a constructor with the following two parameters: `int argc, char* argv[]`. Those parameters must be passed to the base class's constructor.
 * Command line options must be registered in the launcher's constructor body using the three available protected member variables `_visible_options`, `_hidden_options`, and `_positional_options` derived from the base class. The values of program options should be stored in either global or static variables so that other classes can get access without having an instance of the launcher object.
-* It may override the public method `virtual int execute(std::function<int()> handler)`, but has to call the blocking base class'es execute handler, optionally with a different function object that has to call the blocking handler function object and return its resulting error code.
+* It may override the public method `virtual int execute(std::function<int()> handler)`, but has to call the blocking base class's execute handler, optionally with a different function object that has to call the passed blocking handler function object and return its resulting error code (see example).
 * It may override the two protected and non-blocking methods `void start()` and `void stop()` to perform initialization and shutdown logic. `start()` has to call `base_t::start()` first, and `stop()` has to call `base_t::stop()` last.
+* Because each launcher calls its base class, order matters. Modules specified first are initialized last.
 
 ## Usage
 
 ```c++
 #include <shift/application/launcher.h>
+#include <shift/network/launcher.h>
+#include <shift/service/launcher.h>
 
 int main(int argc, char* argv[])
 {
   using namespace shift;
   using shift::application::launcher_t;
 
-  launcher_t<> launcher(argc, argv);
+  launcher_t<service::launcher, network::launcher> launcher(argc, argv);
   return launcher.execute([&]() -> int {
     // Everything outlined above is set up at this point.
     return EXIT_SUCCESS;
   });
 }
 ```
+
+## Available Launchers:
+
+* [shift/network/launcher.h](../../network/public/shift/network/launcher.h)
+* [shift/service/launcher.h](../../service/public/shift/service/launcher.h) (depends on network::launcher)
+* [shift/livedebug/launcher.h](../../livedebug/public/shift/livedebug/launcher.h)
+* [shift/task/launcher.h](../../task/public/shift/task/launcher.h)
 
 ## Example for own Launcher:
 
