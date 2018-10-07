@@ -14,6 +14,7 @@ This repository hosts a collection of various libraries that have been created i
 * [shift.serialization](shift/serialization/doc/serialization.md): a flexible serialization library.
 * [shift.network](shift/network/doc/network.md): a network abstraction library.
 * [shift.service](shift/service/doc/service.md): library for distributed services.
+* [shift.application](shift/application/doc/application.md): a minimalistic library to initialize common components.
 * [shift.proto](shift/proto/doc/proto.md): grammar and parser of the shift proto language.
 * [shift.protogen](shift/protogen/doc/protogen.md): code generator for shift.proto.
 * [shift.parser.proto](shift/parser.proto/doc/parser.proto.md): experimental version 2 of shift.proto.
