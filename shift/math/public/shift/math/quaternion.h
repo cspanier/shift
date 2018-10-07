@@ -56,11 +56,11 @@ public:
 
   /// @return
   ///    Returns a reference to a single component.
-  T& operator()(std::size_t component);
+  constexpr T& operator()(std::size_t component) noexcept;
 
   /// @return
   ///    Returns a single component.
-  const T& operator()(std::size_t component) const;
+  constexpr T operator()(std::size_t component) const noexcept;
 
   /// @return
   ///    Returns the dot product of this and the other quaternion.
@@ -87,16 +87,10 @@ public:
                              T t, bool shortestPath = false);
 
 public:
-  union {
-    std::array<float, 4> array;
-    struct
-    {
-      T x;
-      T y;
-      T z;
-      T w;
-    };
-  };
+  T x;
+  T y;
+  T z;
+  T w;
 };
 
 /// Creates an identity quaternion.
@@ -291,8 +285,10 @@ quaternion<T>::quaternion(const matrix<N, N, T>& matrix)
 template <typename T>
 quaternion<T>& quaternion<T>::operator+=(const quaternion<T>& other)
 {
-  for (std::size_t i = 0; i < 4; ++i)
-    array[i] += other(i);
+  x += other.x;
+  y += other.y;
+  z += other.z;
+  w += other.w;
   return *this;
 }
 
@@ -310,17 +306,39 @@ constexpr quaternion<T> quaternion<T>::operator-() const noexcept
 }
 
 template <typename T>
-T& quaternion<T>::operator()(std::size_t component)
+constexpr T& quaternion<T>::operator()(std::size_t component) noexcept
 {
   BOOST_ASSERT(component < 4);
-  return array[component];
+  switch (component)
+  {
+  case 0:
+    return x;
+  case 1:
+    return y;
+  case 2:
+    return z;
+  case 3:
+    return w;
+  }
+  return x;
 }
 
 template <typename T>
-const T& quaternion<T>::operator()(std::size_t component) const
+constexpr T quaternion<T>::operator()(std::size_t component) const noexcept
 {
   BOOST_ASSERT(component < 4);
-  return array[component];
+  switch (component)
+  {
+  case 0:
+    return x;
+  case 1:
+    return y;
+  case 2:
+    return z;
+  case 3:
+    return w;
+  }
+  return x;
 }
 
 template <typename T>
@@ -351,13 +369,13 @@ vector3<T> quaternion<T>::normalized_rotation_axis() const
 template <typename T>
 T* quaternion<T>::data()
 {
-  return &array[0];
+  return &x;
 }
 
 template <typename T>
 const T* quaternion<T>::data() const
 {
-  return &array[0];
+  return &x;
 }
 
 template <typename T>

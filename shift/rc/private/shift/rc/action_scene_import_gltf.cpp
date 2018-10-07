@@ -28,7 +28,7 @@ action_scene_import_gltf::action_scene_import_gltf()
 
 action_scene_import_gltf::~action_scene_import_gltf() = default;
 
-bool action_scene_import_gltf::process(resource_compiler_impl& compiler,
+bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
                                        job_description& job) const
 {
   if (job.inputs.size() != 1)
@@ -136,10 +136,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& compiler,
         }
         std::size_t index = 0;
         for (const auto& value : *rotation_array)
-        {
-          rotation.array[index++] =
-            static_cast<float>(json::get<double>(value));
-        }
+          rotation(index++) = static_cast<float>(json::get<double>(value));
       }
 
       if (const auto* scale_array =
