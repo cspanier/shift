@@ -21,6 +21,7 @@ This repository hosts a collection of various libraries that have been created i
 * [shift.rc](shift/rc/doc/rc.md): resource compiler core library.
 * [shift.tools.rc](shift/tools.rc/doc/tools.rc.md): resource compiler frontend application.
 * [shift.tools.vk2cpp](shift/tools.vk2cpp/doc/tools.vk2cpp.md): a tool to translate the Vulkan specification XML file into a C++ header plus MSVS and QtCreator code snippets.
+* [shift.render.vk](shift/render.vk/doc/render.vk.md): a Vulkan renderer.
 
 ## Dependencies
 
