@@ -158,13 +158,13 @@ std::pair<int, bool> launcher_core::process_options()
     result = EXIT_FAILURE;
   }
 
-  if ((options.count("help") != 0u) || result != EXIT_SUCCESS)
+  if ((options.find("help") != options.end()) || result != EXIT_SUCCESS)
   {
     log::info() << _visible_options;
     return {result, true};
   }
 
-  if (options.count("hidden-help") != 0u)
+  if (options.find("hidden-help") != options.end())
   {
     log::info() << _visible_options << "\n" << _hidden_options;
     return {result, true};
