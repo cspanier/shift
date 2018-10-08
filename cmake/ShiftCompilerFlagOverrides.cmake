@@ -3,7 +3,11 @@
 # You need to manually delete the `CMakeCache.txt` file in your build folder to
 # make things happen.
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
+if(SHIFT_CLANG_TIDY_ON_MSVC)
+  if(NOT MSVC)
+    message(FATAL_ERROR "You may only define SHIFT_CLANG_TIDY_ON_MSVC when using MSVC.")
+  endif()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # General compiler flags:
   # -O0                        # Disable optimizations(required for accurate
                                # debugging).
@@ -63,7 +67,8 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND NOT MSVC)
                                # '...' changed in GCC 7.1" warnings
   # -Wno-unknown-pragmas       # Disable warnings about unknown pragmas,
                                # like e.g. pragma region/endregion.
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -Wno-psabi -Wno-unknown-pragmas") # -fvisibility=hidden -fvisibility-inlines-hidden
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -Wno-psabi -Wno-unknown-pragmas")
+  # -fvisibility=hidden -fvisibility-inlines-hidden
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
   set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT "-Os -Wextra -fomit-frame-pointer -DBUILD_CONFIG_MINSIZEREL")
   set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -Wextra -fomit-frame-pointer -DBUILD_CONFIG_RELEASE")
