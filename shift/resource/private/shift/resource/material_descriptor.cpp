@@ -5,14 +5,14 @@
 
 namespace shift::resource
 {
-void material_descriptor::load(resource_id id,
-                               boost::iostreams::filtering_istream& stream)
+void material_descriptor::load(resource_id /*id*/,
+                               boost::iostreams::filtering_istream& /*stream*/)
 {
   /// ToDo: implement...
 }
 
 void material_descriptor::save(
-  boost::iostreams::filtering_ostream& stream) const
+  boost::iostreams::filtering_ostream& /*stream*/) const
 {
   /// ToDo: implement...
 }

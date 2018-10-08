@@ -234,7 +234,8 @@ bool archive::load(resource_id id, resource_base& resource,
 }
 
 bool archive::save(const resource_base& resource, resource_type type,
-                   resource_id id, const boost::filesystem::path& relative_path)
+                   resource_id id,
+                   const boost::filesystem::path& /*relative_path*/)
 {
   namespace fs = boost::filesystem;
 
@@ -297,7 +298,7 @@ bool archive::save(const resource_base& resource, resource_type type,
   return true;
 }
 
-void archive::erase(resource_id id)
+void archive::erase(resource_id /*id*/)
 {
   /// ToDo: ...
 }
