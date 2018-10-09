@@ -60,9 +60,9 @@ if /i "%BUILD_BITS%"=="32" (
 ) else if /i "%BUILD_BITS%"=="64" (
   set BUILD_LIBJPEG_FOLDER=x64
 )
-"%MINGW64%\cp" -v %BUILD_LIBJPEG_FOLDER%\Release\jpeg.lib !BUILD_PREFIX!\lib
-"%MINGW64%\cp" -v %BUILD_LIBJPEG_FOLDER%\Release\jpeg.pdb !BUILD_PREFIX!\lib
-"%MINGW64%\cp" -v .\*.h !BUILD_PREFIX!\include
+"%MINGW64%\cp" -v %BUILD_LIBJPEG_FOLDER%/Release/jpeg.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v %BUILD_LIBJPEG_FOLDER%/Release/jpeg.pdb !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v ./*.h !BUILD_PREFIX!/include
 
 :end
 popd
