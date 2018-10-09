@@ -263,9 +263,18 @@ constexpr bool is_iterator_v = is_iterator<T>::value;
 
 namespace detail
 {
+  template <typename Visitor>
+  inline void for_each_element(std::index_sequence<> /*unused*/,
+                               std::tuple<>& /*elements*/,
+                               Visitor&& /*visitor*/)
+  {
+    // NOP.
+  }
+
   template <std::size_t... Indices, typename... Ts, typename Visitor>
-  inline void for_each_element(std::index_sequence<Indices...> /*unused*/,
-                               std::tuple<Ts...>& elements, Visitor&& visitor)
+  inline void for_each_element(
+    std::index_sequence<Indices...> /*unused*/, std::tuple<Ts...>& elements,
+    Visitor&& visitor, std::enable_if_t<(sizeof...(Indices) > 0)>* = nullptr)
   {
     ((void)visitor(std::get<Indices>(elements)), ...);
   }
