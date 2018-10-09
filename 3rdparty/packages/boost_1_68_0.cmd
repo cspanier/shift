@@ -49,9 +49,7 @@ cd !SOURCE_PACKAGE!
 
 call bootstrap.bat
 
-"%MINGW64%\patch" -p1 < ..\!SOURCE_PACKAGE!-gil-extension-numeric.patch
-IF NOT ERRORLEVEL 0 goto end
-"%MINGW64%\patch" -p1 < ..\!SOURCE_PACKAGE!-mpl-integral-overflow.patch
+"%MINGW64%\patch" -p1 < ..\!SOURCE_PACKAGE!-gil-tiff-reader.patch
 IF NOT ERRORLEVEL 0 goto end
 
 set ZLIB_NAME=zlib
