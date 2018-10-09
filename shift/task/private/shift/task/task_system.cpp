@@ -21,8 +21,11 @@ task_system& task_system::num_workers(std::size_t count)
   if (_impl->running)
     return *this;  /// ToDo: Throw logic_error.
 
-  // Only allow as many workers as there are bits in worker_affinity_t.
-  _impl->workers.resize(std::min(count, sizeof(worker_affinity_t) * 8));
+  if (count == 0)
+    count = std::max(std::thread::hardware_concurrency(), 1u);
+  // Limit the number of workers to the number of bits in worker_affinity_t.
+  count = std::min(count, sizeof(worker_affinity_t) * 8);
+  _impl->workers.resize(count);
   return *this;
 }
 
