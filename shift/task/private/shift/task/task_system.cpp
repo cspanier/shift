@@ -68,10 +68,7 @@ void task_system::initialize(std::unique_ptr<task_result<int>> primary_task)
     return;  /// ToDo: Throw logic_error.
 
   if (num_workers() == 0)
-  {
-    /// ToDo: Determ the optimal number of worker threads.
     num_workers(8);
-  }
 
   _impl->running = true;
   _impl->result = primary_task->get_future();
