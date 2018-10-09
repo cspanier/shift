@@ -19,15 +19,15 @@ namespace rc
       namespace opt = boost::program_options;
 
       base_t::_visible_options.add_options()(
-        "input,i", opt::value(&input_path)->default_value("resources"),
+        "input,i", opt::value(&input_path)->default_value("../resources"),
         "Base path to all source files to run through the resource compiler.");
 
       base_t::_visible_options.add_options()(
-        "build,b", opt::value(&build_path)->default_value("build-rc"),
+        "build,b", opt::value(&build_path)->default_value("../build-rc"),
         "Base path to write temporary resource files to.");
 
       base_t::_visible_options.add_options()(
-        "output,o", opt::value(&output_path)->default_value("production"),
+        "output,o", opt::value(&output_path)->default_value("resources"),
         "Base path to write compiled files to.");
 
       base_t::_visible_options.add_options()(

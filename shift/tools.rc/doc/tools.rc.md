@@ -12,11 +12,11 @@ Allowed options:
                                        'debug', 'info', 'warn', or 'error')
   --log-arguments                      Writes all program arguments to the log.
   --show-console arg (=1)              Show or hide the console window
-  -i [ --input ] arg (="resources")    Base path to all source files to run
+  -i [ --input ] arg (="../resources") Base path to all source files to run
                                        through the resource compiler.
-  -b [ --build ] arg (="build-rc")     Base path to write temporary resource
+  -b [ --build ] arg (="../build-rc")  Base path to write temporary resource
                                        files to.
-  -o [ --output ] arg (="production")  Base path to write compiled files to.
+  -o [ --output ] arg (=".")           Base path to write compiled files to.
   -r [ --rules ] arg (=.rc-rules.json) Name of rules json files to search for.
   -c [ --cache ] arg (=.rc-cache.json) Name of a cache json file used to store
                                        private data which is used to improve
