@@ -1,7 +1,7 @@
 @echo off
 
 pushd %CD%
-cd ..
+cd %~dp0..
 
 for /f "delims=" %%i in ('where /F magick') do (
   if NOT ERRORLEVEL 0 goto error
