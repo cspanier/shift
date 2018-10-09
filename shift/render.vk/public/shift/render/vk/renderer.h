@@ -3,7 +3,9 @@
 
 #include <functional>
 #include <gsl/span>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/intrusive_ptr.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/bit_field.h>
 #include <shift/math/vector.h>
 #include <shift/resource/image.h>

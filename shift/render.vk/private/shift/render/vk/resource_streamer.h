@@ -6,7 +6,9 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/intrusive_ptr.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include "shift/render/vk/shared.h"
 #include "shift/render/vk/smart_ptr.h"
 #include "shift/render/vk/layer1/buffer.h"

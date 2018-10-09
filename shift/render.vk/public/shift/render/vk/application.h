@@ -1,7 +1,9 @@
 #ifndef SHIFT_RENDER_VK_APPLICATION_H
 #define SHIFT_RENDER_VK_APPLICATION_H
 
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/intrusive_ptr.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/singleton.h>
 #include <shift/core/object_pool.h>
 #include <shift/math/vector.h>

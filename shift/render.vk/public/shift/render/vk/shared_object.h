@@ -3,7 +3,9 @@
 
 #include <cstdint>
 #include <atomic>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/intrusive_ptr.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::render::vk
 {

@@ -19,7 +19,9 @@
 
 #include <array>
 #include <vector>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/assert.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/exception.h>
 #include <shift/core/stack_ptr.h>
 #if defined(BUILD_CONFIG_DEBUG)

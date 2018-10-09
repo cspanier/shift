@@ -4,7 +4,9 @@
 #include <array>
 #include <vector>
 #include <list>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/container/slist.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/types.h>
 #include "shift/render/vk/shared.h"
 #include "shift/render/vk/memory_chunk.h"

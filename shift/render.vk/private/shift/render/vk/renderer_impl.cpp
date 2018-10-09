@@ -17,7 +17,9 @@
 #include <shift/resource/repository.h>
 #include <shift/resource/scene.h>
 #include <shift/log/log.h>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/functional/hash/hash.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace std
 {

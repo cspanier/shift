@@ -6,7 +6,9 @@
 #include <shift/resource/shader.h>
 #include <shift/core/exception.h>
 #include <shift/core/algorithm.h>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/filesystem.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::render::vk
 {

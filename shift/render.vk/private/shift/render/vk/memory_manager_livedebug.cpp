@@ -1,5 +1,7 @@
 #include "shift/render/vk/memory_manager_livedebug.h"
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/beast/version.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::render::vk
 {

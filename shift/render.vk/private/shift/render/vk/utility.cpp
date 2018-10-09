@@ -5,7 +5,9 @@
 #include "shift/render/vk/layer1/buffer.h"
 #include "shift/render/vk/layer1/device.h"
 #include <shift/core/mpl.h>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/gil/gil_all.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::render::vk
 {
@@ -581,7 +583,8 @@ void copy_image_to_staging_buffer(resource::image& source,
 {
   auto source_format = format_from_resource(source.format);
 
-  auto mip_level_count = static_cast<std::uint32_t>(source.mipmaps.size());
+  [[maybe_unused]] auto mip_level_count =
+    static_cast<std::uint32_t>(source.mipmaps.size());
   BOOST_ASSERT(mip_level_begin < mip_level_count);
   BOOST_ASSERT(mip_level_end <= mip_level_count);
 

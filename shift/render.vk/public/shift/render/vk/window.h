@@ -4,7 +4,9 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/signals2.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/types.h>
 #include <shift/core/bit_field.h>
 #include <shift/math/vector.h>
