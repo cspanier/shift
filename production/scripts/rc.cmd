@@ -13,6 +13,8 @@ if NOT ERRORLEVEL 0 goto error
 
 REM Call resource compiler
 bin\shift.tools.rc.2_0.x86_64.vc141 ^
+  --log-level debug ^
+  --verbose 2 ^
   --image-magick %IMAGE_MAGICK%
 if NOT ERRORLEVEL 0 goto error
 goto end

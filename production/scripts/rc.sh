@@ -17,6 +17,8 @@ pushd $PWD > /dev/null
 cd $SCRIPT_DIR/../
 
 ./bin/shift.tools.rc.2_0.x86_64.gcc* \
+  --log-level debug \
+  --verbose 2 \
   --image-magick "${IMAGE_MAGICK}" \
   $@
 
