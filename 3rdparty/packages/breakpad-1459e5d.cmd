@@ -28,7 +28,7 @@ if NOT "%BUILD_CALL%"=="1" (
 )
 set SOURCE_PACKAGE=breakpad-1459e5d
 if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe -L -J -O "https://boxie.eu/3rdparty/!SOURCE_PACKAGE!.zip"
+  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/!SOURCE_PACKAGE!.zip"
 )
 if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
   echo Error: Source package !SOURCE_PACKAGE!.zip is missing.

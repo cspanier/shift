@@ -28,7 +28,7 @@ if NOT "%BUILD_CALL%"=="1" (
 )
 set SOURCE_PACKAGE=boost_1_68_0
 if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe -L -J -O "https://boxie.eu/3rdparty/!SOURCE_PACKAGE!.zip"
+  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/!SOURCE_PACKAGE!.zip"
 )
 if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
   echo Error: Source package !SOURCE_PACKAGE!.zip is missing.
