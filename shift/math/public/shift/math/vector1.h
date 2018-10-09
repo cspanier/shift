@@ -32,11 +32,13 @@ struct vector<1, T>
 
   /// @pre
   ///   The row selector must not exceed the size of the vector.
-  constexpr T& operator()(std::size_t row) SHIFT_EXPECTS(row < row_count);
+  constexpr T& operator()([[maybe_unused]] std::size_t row)
+    SHIFT_EXPECTS(row < row_count);
 
   /// @pre
   ///   The row selector must not exceed the size of the vector.
-  constexpr T operator()(std::size_t row) const SHIFT_EXPECTS(row < row_count);
+  constexpr T operator()([[maybe_unused]] std::size_t row) const
+    SHIFT_EXPECTS(row < row_count);
 
   /// Performs componentwise addition.
   template <typename U>
@@ -282,14 +284,14 @@ constexpr vector<1, T>::vector(T x) noexcept : x(x)
 }
 
 template <typename T>
-constexpr T& vector<1, T>::operator()(std::size_t row)
+constexpr T& vector<1, T>::operator()([[maybe_unused]] std::size_t row)
 {
   BOOST_ASSERT(row < row_count);
   return x;
 }
 
 template <typename T>
-constexpr T vector<1, T>::operator()(std::size_t row) const
+constexpr T vector<1, T>::operator()([[maybe_unused]] std::size_t row) const
 {
   BOOST_ASSERT(row < row_count);
   return x;
