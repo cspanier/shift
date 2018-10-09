@@ -3,10 +3,7 @@
 setlocal EnableDelayedExpansion
 pushd !CD!
 
-set WINSDK_VERSION=10.0.16299.0
-set HOST_COMPILER=vc141
 set TRIPLE=x86_64-windows-%HOST_COMPILER%
-set QT5_PATH=C:/Qt/Qt5.11.0/5.11.0/msvc2017_64
 set CMAKE_GENERATOR=Visual Studio 15 2017 Win64
 
 if "%WINSDK_VERSION%"=="" (
