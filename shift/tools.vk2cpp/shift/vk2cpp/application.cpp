@@ -87,7 +87,7 @@ static std::string to_lower_case(std::string name)
   auto is_first = [&]() -> bool { return last_upper && last_underscore; };
   for (auto& c : name)
   {
-    if (isupper(c) != 0)
+    if (isupper(static_cast<unsigned char>(c)) != 0)
     {
       if (!last_upper && !last_underscore)
         new_name << '_';
@@ -96,7 +96,7 @@ static std::string to_lower_case(std::string name)
       last_digit = false;
       last_underscore = false;
     }
-    else if (isdigit(c) != 0)
+    else if (isdigit(static_cast<unsigned char>(c)) != 0)
     {
       if (!last_digit && !last_underscore)
         new_name << '_';
@@ -137,7 +137,7 @@ static std::string to_upper_case(const std::string& name)
   bool last_upper_or_digit_or_underscore = true;
   for (auto& c : name)
   {
-    if (isupper(c) != 0)
+    if (isupper(static_cast<unsigned char>(c)) != 0)
     {
       if (!last_upper_or_digit_or_underscore)
         result << '_';
@@ -147,7 +147,8 @@ static std::string to_upper_case(const std::string& name)
     else
     {
       result << static_cast<char>(toupper(c));
-      last_upper_or_digit_or_underscore = (isdigit(c) != 0) || (c == '_');
+      last_upper_or_digit_or_underscore =
+        (isdigit(static_cast<unsigned char>(c)) != 0) || (c == '_');
     }
   }
   // Fix special case WIN32xxx -> WIN32_xxx
@@ -165,7 +166,7 @@ static std::string enumerant_name(const std::string& name,
     result = to_lower_case(strip_vk(name.substr(prefix.length())));
   else
     result = to_lower_case(strip_vk(name));
-  if (isdigit(result.front()) != 0)
+  if (isdigit(static_cast<unsigned char>(result.front())) != 0)
     result = "_" + result;
   else if (result == "inline")
     result = "inline_commands";
@@ -726,12 +727,12 @@ void application::parse_member(member_descriptor& member,
       }
       else if (!has_name)
       {
-        auto text = boost::trim_copy(member_child->text);
-        if (text == "*")
+        auto child_text = boost::trim_copy(member_child->text);
+        if (child_text == "*")
           member.flags |= member_type_flag::is_pointer;
-        else if (text == "**")
+        else if (child_text == "**")
           member.flags |= member_type_flag::is_pointer_to_pointer;
-        else if (text == "* const*")
+        else if (child_text == "* const*")
         {
           member.flags |= member_type_flag::is_const;
           member.flags |= member_type_flag::is_pointer_to_pointer;
