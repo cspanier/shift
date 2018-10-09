@@ -22,3 +22,5 @@ echo ========== boost_1_67_0 ==========
 call boost_1_68_0 %1 %2
 echo ========== breakpad-1459e5d ==========
 call breakpad-1459e5d %1 %2
+echo ========== glfw-3.2.1 ==========
+call glfw-3.2.1 %1 %2
