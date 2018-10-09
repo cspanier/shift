@@ -2,3 +2,4 @@ symbols/*
 build-*/*
 CMakeLists.txt.*
 *.autosave
+temp

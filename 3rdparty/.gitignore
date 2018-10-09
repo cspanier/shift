@@ -1,0 +1,6 @@
+x86*
+arm*
+*.log
+*.tar.bz2
+*.tar.gz
+*.zip
