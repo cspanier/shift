@@ -51,6 +51,10 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   add_library(OSLibs::winmm INTERFACE IMPORTED)
   set_target_properties(OSLibs::winmm PROPERTIES
     IMPORTED_LIBNAME "")
+
+  add_library(OSLibs::dwmapi INTERFACE IMPORTED)
+  set_target_properties(OSLibs::dwmapi PROPERTIES
+    IMPORTED_LIBNAME "")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   find_library(OSLIBS_IPHLPAPI_LIBRARY NAMES IPHLPAPI)
   mark_as_advanced(OSLIBS_IPHLPAPI_LIBRARY)
@@ -79,8 +83,11 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   find_library(OSLIBS_SECUR32_LIBRARY NAMES Secur32.lib)
   mark_as_advanced(OSLIBS_SECUR32_LIBRARY)
   
-  find_library(OSLIBS_WINMM_LIBRARY NAMES Winmm.lib)
+  find_library(OSLIBS_WINMM_LIBRARY NAMES Dwmapi.lib)
   mark_as_advanced(OSLIBS_WINMM_LIBRARY)
+  
+  find_library(OSLIBS_DWMAPI_LIBRARY NAMES Dwmapi.lib)
+  mark_as_advanced(OSLIBS_DWMAPI_LIBRARY)
 
   FIND_PACKAGE_HANDLE_STANDARD_ARGS(OSLibs REQUIRED_VARS
     OSLIBS_IPHLPAPI_LIBRARY
@@ -93,6 +100,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     OSLIBS_SHLWAPI_LIBRARY
     OSLIBS_SECUR32_LIBRARY
     OSLIBS_WINMM_LIBRARY
+    OSLIBS_DWMAPI_LIBRARY
   )
 
   if(OSLIBS_FOUND)
@@ -109,6 +117,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
       ${OSLIBS_SHLWAPI_LIBRARY}
       ${OSLIBS_SECUR32_LIBRARY}
       ${OSLIBS_WINMM_LIBRARY}
+      ${OSLIBS_DWMAPI_LIBRARY}
     )
   endif()
 
@@ -210,5 +219,15 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     add_library(OSLibs::winmm INTERFACE IMPORTED)
     set_target_properties(OSLibs::winmm PROPERTIES
       IMPORTED_LIBNAME "${OSLIBS_WINMM_LIBRARY}")
+  endif()
+
+  if(IS_ABSOLUTE "${OSLIBS_DWMAPI_LIBRARY}")
+    add_library(OSLibs::dwmapi UNKNOWN IMPORTED)
+    set_target_properties(OSLibs::dwmapi PROPERTIES
+      IMPORTED_LOCATION "${OSLIBS_DWMAPI_LIBRARY}")
+  else()
+    add_library(OSLibs::dwmapi INTERFACE IMPORTED)
+    set_target_properties(OSLibs::dwmapi PROPERTIES
+      IMPORTED_LIBNAME "${OSLIBS_DWMAPI_LIBRARY}")
   endif()
 endif()
