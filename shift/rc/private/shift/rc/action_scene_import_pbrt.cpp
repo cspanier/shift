@@ -1089,7 +1089,7 @@ bool action_scene_import_pbrt::parse_file(
       }
       BOOST_ASSERT(!token.empty());
       token_begin = token_end;
-      if (std::isalpha(token[0]))
+      if (std::isalpha(static_cast<unsigned char>(token[0])))
       {
         if (!token_group.empty())
         {

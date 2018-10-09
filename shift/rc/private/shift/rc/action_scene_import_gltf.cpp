@@ -82,7 +82,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
   // First create all node objects so we can resolve references in one pass.
   for (auto nodes_count = nodes_array.size(); nodes_count > 0; --nodes_count)
     context.scene.nodes.emplace_back(std::make_unique<resource::scene_node>());
-  std::size_t node_index = 0;
+  std::uint32_t node_index = 0;
   for (const auto& node_value : nodes_array)
   {
     const auto& node_object = json::get<json::object>(node_value);

@@ -6,6 +6,7 @@
 #include <shift/math/vector.h>
 #include <shift/core/mpl.h>
 #include <shift/core/string_util.h>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/filesystem.hpp>
 #define png_infopp_NULL nullptr
 #define int_p_NULL nullptr
@@ -15,6 +16,7 @@
 #include <boost/gil/extension/numeric/sampler.hpp>
 #include <boost/gil/extension/numeric/resample.hpp>
 #include <boost/gil/gil_all.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <gsl/gsl>
 
 namespace shift::rc
