@@ -71,6 +71,13 @@ public:
     return group_ptr<T>(object, shared_from_this());
   }
 
+  /// Adds all objects from another group to this group.
+  void add(const group& other)
+  {
+    for (auto [key, object_ptr] : other._cache)
+      add(object_ptr);
+  }
+
   /// Returns the number of objects in the group.
   std::size_t size()
   {
@@ -197,16 +204,10 @@ private:
 };
 
 template <typename T, typename... Args>
-group_ptr<T> make_new_group_ptr(Args&&... args)
-{
-  return group_ptr<T>(std::make_shared<core::group>(),
-                      std::make_shared<T>(std::forward<Args>(args)...));
-}
-
-template <typename T, typename... Args>
 group_ptr<T> make_group_ptr(std::shared_ptr<core::group> group, Args&&... args)
 {
-  return group_ptr<T>(group, std::make_shared<T>(std::forward<Args>(args)...));
+  return group_ptr<T>(std::move(group),
+                      std::make_shared<T>(std::forward<Args>(args)...));
 }
 }
 
