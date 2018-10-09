@@ -419,24 +419,27 @@ float FanVertLinSort(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
     iNumClusters--;
   }
 
-  // the following property is a requirement for the clustering phase of the
-  // SIGGRAPH's algorithm
-  piClustersOut[iNumClusters] = iNumFaces;
+  if (piClustersOut != nullptr)
+  {
+    // the following property is a requirement for the clustering phase of the
+    // SIGGRAPH's algorithm
+    piClustersOut[iNumClusters] = iNumFaces;
 
-  // Added the following to be consistent with the full format (old tootle)
-  piClustersOut[iNumFaces] = iNumClusters;
+    // Added the following to be consistent with the full format (old tootle)
+    piClustersOut[iNumFaces] = iNumClusters;
+  }
 
   return (iCurCachePos - iCacheSize - 1) / (float)iNumFaces;
 }
 
 // function that implements the overdraw ordering
-void OverdrawOrder(
-  int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
-  float* pfVertexPositionsIn, int /*iNumVertices*/,
-  TootleFaceWinding eFrontWinding,
-  const int*
-    piClustersIn,  // should have piClustersIn[iNumClusters] == iNumFaces
-  int iNumClusters, int* piScratch, int* piRemap = nullptr)
+void OverdrawOrder(int* piIndexBufferIn, int* piIndexBufferOut, int iNumFaces,
+                   float* pfVertexPositionsIn, int /*iNumVertices*/,
+                   TootleFaceWinding eFrontWinding,
+                   const int* piClustersIn,  // should have
+                                             // piClustersIn[iNumClusters] ==
+                                             // iNumFaces
+                   int iNumClusters, int* piScratch, int* piRemap = nullptr)
 {
   int i, j;
   int c = 0;
@@ -912,7 +915,7 @@ void FanVertOptimize(
     }
   }
 
-  if (piScratch - piScratchBase > 0)
+  if (piScratchBase != nullptr && piScratch - piScratchBase > 0)
   {
     memset(piScratchBase, 0,
            (piScratch - piScratchBase) * sizeof(int));  // clear memory from tmp
@@ -958,7 +961,7 @@ float FanVertOptimizeVCacheOnly(int* piIndexBufferIn, int* piIndexBufferOut,
     *iNumClusters = nc;
   }
 
-  if (piScratch - piScratchBase > 0)
+  if (piScratchBase != nullptr && piScratch - piScratchBase > 0)
   {
     memset(piScratchBase, 0,
            (piScratch - piScratchBase) * sizeof(int));  // clear memory from tmp

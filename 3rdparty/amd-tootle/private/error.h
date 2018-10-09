@@ -6,14 +6,27 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-#ifndef _DX11_1_
 #ifdef __cplusplus
 extern "C"
-#endif
+{
 #endif
 
-  void
-  error_output(const char* fmt, ...);
+  static void error_output(const char* fmt, ...)
+  {
+    // disable all console output if ERROR_SILENT is defined
+#ifndef ERROR_SILENT
+    va_list ap;
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
+#else
+  (void)fmt;
+#endif
+  }
+
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef _LINUX
 #define warnf(args)

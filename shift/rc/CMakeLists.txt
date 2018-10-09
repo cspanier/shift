@@ -1,18 +1,4 @@
 if (NOT NO_VULKAN)
-  shift_add_library(3rdparty.amd-tootle STATIC
-    PUBLICSOURCEDIRS
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle
-    PRIVATESOURCEDIRS
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle
-    INCLUDEDIRS
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle/RayTracer/JRT
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle/RayTracer/Math
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle/RayTracer
-      ${CMAKE_CURRENT_SOURCE_DIR}/amd-tootle/
-    DEFINITIONS
-      _SOFTWARE_ONLY_VERSION
-  )
-
   shift_add_library(shift.rc STATIC
     VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
     PUBLICSOURCEDIRS
