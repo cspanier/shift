@@ -4,7 +4,6 @@ setlocal EnableDelayedExpansion
 pushd !CD!
 
 set TRIPLE=x86_64-windows-%HOST_COMPILER%
-set CMAKE_GENERATOR=Visual Studio 15 2017 Win64
 
 if "%WINSDK_VERSION%"=="" (
   echo "WINSDK_VERSION environment variable not set."
