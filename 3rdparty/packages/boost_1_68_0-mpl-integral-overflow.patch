@@ -1,0 +1,20 @@
+diff --git a/boost/mpl/aux_/integral_wrapper.hpp b/boost/mpl/aux_/integral_wrapper.hpp
+index 6bc05f7..ef6cc96 100644
+--- a/boost/mpl/aux_/integral_wrapper.hpp
++++ b/boost/mpl/aux_/integral_wrapper.hpp
+@@ -69,8 +69,15 @@ struct AUX_WRAPPER_NAME
+     typedef AUX_WRAPPER_INST( BOOST_MPL_AUX_STATIC_CAST(AUX_WRAPPER_VALUE_TYPE, (N + 1)) ) next;
+     typedef AUX_WRAPPER_INST( BOOST_MPL_AUX_STATIC_CAST(AUX_WRAPPER_VALUE_TYPE, (N - 1)) ) prior;
+ #else
++#ifdef _MSC_VER
++#pragma warning(push)
++#pragma warning(disable : 4307)
++#endif
+     typedef AUX_WRAPPER_INST( BOOST_MPL_AUX_STATIC_CAST(AUX_WRAPPER_VALUE_TYPE, (value + 1)) ) next;
+     typedef AUX_WRAPPER_INST( BOOST_MPL_AUX_STATIC_CAST(AUX_WRAPPER_VALUE_TYPE, (value - 1)) ) prior;
++#ifdef _MSC_VER
++#pragma warning(pop)
++#endif
+ #endif
+ 
+     // enables uniform function call syntax for families of overloaded 

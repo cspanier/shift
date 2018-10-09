@@ -1,0 +1,13 @@
+diff --git a/makefile.vc b/makefile.vc
+index ae46179..bafd41d 100644
+--- a/makefile.vc
++++ b/makefile.vc
+@@ -9,7 +9,7 @@
+ # To build an optimized library without debug info, say "nmake nodebug=1".
+ 
+ # Pull in standard variable definitions
+-!include <win32.mak>
++#!include <win32.mak>
+ 
+ # You may want to adjust these compiler options:
+ CFLAGS= $(cflags) $(cdebug) $(cvars) -I.
