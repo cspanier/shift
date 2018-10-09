@@ -2,8 +2,10 @@
 #define SHIFT_LIVEDEBUG_SESSION_H
 
 #include <memory>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::livedebug
 {

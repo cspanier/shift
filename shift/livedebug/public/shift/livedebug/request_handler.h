@@ -1,7 +1,9 @@
 #ifndef SHIFT_LIVEDEBUG_REQUEST_HANDLER_H
 #define SHIFT_LIVEDEBUG_REQUEST_HANDLER_H
 
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/filesystem/path.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include "shift/livedebug/session.h"
 
 namespace shift::livedebug

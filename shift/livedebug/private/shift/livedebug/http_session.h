@@ -2,12 +2,14 @@
 #define SHIFT_LIVEDEBUG_HTTP_SESSION_H
 
 #include <memory>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/system/error_code.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include "shift/livedebug/session.h"
 
 namespace shift::livedebug

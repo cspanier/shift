@@ -1,6 +1,8 @@
 #include "shift/livedebug/request_handler.h"
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/beast/version.hpp>
 #include <boost/algorithm/string.hpp>
+#include <shift/core/boost_restore_warnings.h>
 
 namespace shift::livedebug
 {

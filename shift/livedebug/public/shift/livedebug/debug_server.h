@@ -4,10 +4,12 @@
 #include <vector>
 #include <thread>
 #include <shared_mutex>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/core/singleton.h>
 #include "shift/livedebug/listener.h"
 #include "shift/livedebug/request_handler.h"

@@ -3,8 +3,10 @@
 
 #include <chrono>
 #include <thread>
+#include <shift/core/boost_disable_warnings.h>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <shift/core/boost_restore_warnings.h>
 #include <shift/platform/signal_handler.h>
 #include <shift/core/exception.h>
 #include "shift/livedebug/debug_server.h"
