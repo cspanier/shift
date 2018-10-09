@@ -41,3 +41,5 @@ This repository hosts a collection of various libraries that have been created i
 * [GLFW](https://www.glfw.org/) 3.2.1
 * [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) 7.0
     * Used to format generated code.
+
+For Windows you can try [3rdparty build scripts](3rdparty/packages/README.md) supplied with this repository.
