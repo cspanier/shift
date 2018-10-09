@@ -44,6 +44,8 @@ nmake -f makefile.msc
 
 "%MINGW64%\cp" -v libbz2.lib !BUILD_PREFIX!\lib
 "%MINGW64%\cp" -v bzlib.h !BUILD_PREFIX!\include
+REM CMake expects bz2.lib
+mklink /H !BUILD_PREFIX!\lib\bz2.lib !BUILD_PREFIX!\lib\libbz2.lib
 
 :end
 popd
