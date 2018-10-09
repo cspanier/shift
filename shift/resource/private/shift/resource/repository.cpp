@@ -129,7 +129,7 @@ std::pair<std::shared_ptr<resource_base>, resource_id> repository::load(
   const boost::filesystem::path& absolute_path, resource_type type)
 {
   auto resource = _impl->resource_factory.create_instance(type);
-  std::shared_lock read_lock(_impl->mount_point_mutex);
+  std::shared_lock mount_read_lock(_impl->mount_point_mutex);
   for (auto& mount_point : _impl->mount_points)
   {
     fs::path relative_path = fs::relative(absolute_path, mount_point->path());
@@ -139,7 +139,7 @@ std::pair<std::shared_ptr<resource_base>, resource_id> repository::load(
     {
       {
         // Check if we already loaded the resource.
-        std::shared_lock read_lock(_impl->cache_mutex);
+        std::shared_lock cache_read_lock(_impl->cache_mutex);
         auto cache_iter = _impl->cache.find(id);
         if (cache_iter != _impl->cache.end())
         {

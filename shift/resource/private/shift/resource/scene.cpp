@@ -73,9 +73,9 @@ void scene::save(boost::iostreams::filtering_ostream& stream) const
     for (const auto* child : node->children)
     {
       index = 0;
-      for (const auto& node : nodes)
+      for (const auto& inner_node : nodes)
       {
-        if (node.get() == child)
+        if (inner_node.get() == child)
         {
           archive << index;
           break;
