@@ -50,7 +50,7 @@ public:
 
   /// Try to match a file against the currently loaded rule set, eventually
   /// adding a new match to a rule's matches vector.
-  void match_file(file_stats* file, std::uint32_t current_pass);
+  void match_file(file_stats& file, std::uint32_t current_pass);
 
   /// Walk through the currently loaded rule set and finds the next pass that
   /// contains matches which eventually transform to jobs.
@@ -69,6 +69,7 @@ public:
   fs::path input_path;
   fs::path build_path;
   fs::path output_path;
+  std::string rules_filename;
   std::uint32_t verbose = 0;
   fs::path image_magick;
 

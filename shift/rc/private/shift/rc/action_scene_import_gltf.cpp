@@ -193,7 +193,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
     auto root_node = std::make_unique<resource::scene_node>();
     for (const auto& value : json::get<json::array>(scene_object, "nodes"))
     {
-      auto node_index = static_cast<std::uint32_t>(json::get<double>(value));
+      node_index = static_cast<std::uint32_t>(json::get<double>(value));
       if (node_index >= context.scene.nodes.size())
       {
         BOOST_THROW_EXCEPTION(gltf_error{} << core::context_info(

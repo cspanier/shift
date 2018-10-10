@@ -372,16 +372,17 @@ file_stats* resource_compiler_impl::get_file(const fs::path& file_path)
     return nullptr;
 }
 
-void resource_compiler_impl::match_file(file_stats* file,
+void resource_compiler_impl::match_file(file_stats& file,
                                         std::uint32_t current_pass)
 {
-  if (!file)
+  file.flags |= entity_flag::used;
+
+  // Skip rule files because they cannot be source of any action.
+  if (file.path.filename() == rules_filename)
     return;
 
-  file->flags |= entity_flag::used;
-
   auto match = std::make_unique<input_match>();
-  match->file = file;
+  match->file = &file;
   for (auto& rule : rules)
   {
     // Ignore rules of previous passes to avoid infinite recursion.
@@ -402,7 +403,7 @@ void resource_compiler_impl::match_file(file_stats* file,
 
         if (verbose >= 2)
         {
-          log::info() << "File " << file->path << R"( matched against rule ")"
+          log::info() << "File " << file.path << R"( matched against rule ")"
                       << rule->id << '"';
         }
         return;
@@ -411,7 +412,7 @@ void resource_compiler_impl::match_file(file_stats* file,
   }
 
   if (verbose >= 2)
-    log::info() << "File " << file->path << " didn't match against any rule.";
+    log::info() << "File " << file.path << " didn't match against any rule.";
 }
 
 std::uint32_t resource_compiler_impl::next_pass(

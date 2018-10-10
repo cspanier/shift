@@ -22,21 +22,23 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
   if (!fs::exists(cache_filename))
     return true;
 
-  std::ifstream file{cache_filename.generic_string(),
-                     std::ios_base::in | std::ios_base::binary};
-  if (!file.is_open())
-    return false;
-
   json::value root;
-  try
+  if (std::ifstream file{cache_filename.generic_string(),
+                         std::ios_base::in | std::ios_base::binary};
+      file.is_open())
   {
-    file >> root;
+    try
+    {
+      file >> root;
+    }
+    catch (json::parse_error&)
+    {
+      // Simply ignore any JSON parse error.
+      return false;
+    }
   }
-  catch (json::parse_error&)
-  {
-    // Simply ignore any JSON parse error.
+  else
     return false;
-  }
 
   auto& root_object = json::get<json::object>(root);
 

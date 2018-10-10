@@ -103,13 +103,15 @@ void resource_compiler::image_magick(const fs::path& value)
   _impl->image_magick = value;
 }
 
-void resource_compiler::load_rules(const fs::path& rules_filename)
+void resource_compiler::load_rules(const std::string_view rules_filename)
 {
   std::unique_lock lock(_impl->global_mutex);
   if (verbose() >= 1)
     log::info() << "Loading rule files...";
   /// ToDo: We certainly need to clear more data when rebuilding the rules list.
   _impl->rules.clear();
+
+  _impl->rules_filename = rules_filename;
 
   // Scan for rules files.
   for (auto input_iterator = fs::recursive_directory_iterator(
@@ -118,7 +120,7 @@ void resource_compiler::load_rules(const fs::path& rules_filename)
   {
     const auto& rules_file_path = input_iterator->path();
     if (fs::is_regular_file(rules_file_path) &&
-        rules_file_path.filename() == rules_filename)
+        rules_file_path.filename() == _impl->rules_filename)
     {
       if (verbose() != 0u)
         log::info() << "Loading rule file " << rules_file_path;
@@ -163,7 +165,13 @@ void resource_compiler::update()
   {
     const auto& file_path = input_iterator->path();
     if (fs::is_regular_file(file_path))
-      _impl->match_file(_impl->add_file(file_path, current_pass), current_pass);
+    {
+      if (auto* file = _impl->add_file(file_path, current_pass);
+          file != nullptr)
+      {
+        _impl->match_file(*file, current_pass);
+      }
+    }
   }
 
   // Loop until there is no more work to do.
@@ -268,7 +276,10 @@ void resource_compiler::update()
       {
         // Push all output files into the pipeline.
         for (auto* output_file : job->outputs)
-          _impl->match_file(output_file, job->matching_rule->pass);
+        {
+          BOOST_ASSERT(output_file != nullptr);
+          _impl->match_file(*output_file, job->matching_rule->pass);
+        }
       }
       else
       {

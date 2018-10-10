@@ -2,6 +2,7 @@
 #define SHIFT_RC_RESOURCECOMPILER_H
 
 #include <memory>
+#include <string_view>
 #include <boost/filesystem/path.hpp>
 #include <shift/core/singleton.h>
 #include <shift/core/exception.h>
@@ -58,7 +59,7 @@ public:
   void image_magick(const fs::path& value);
 
   ///
-  void load_rules(const fs::path& rules_filename);
+  void load_rules(const std::string_view rules_filename);
 
   ///
   bool load_cache(const boost::filesystem::path& cache_filename);
