@@ -3,7 +3,14 @@
 set WINSDK_VERSION=10.0.17134.0
 set HOST_COMPILER=vc141
 set TRIPLE=x86_64-windows-%HOST_COMPILER%
-set QT5_PATH=C:/Qt/5.11.2/msvc2017_64
+set QT5_VERSION=5.11.2
+if EXIST C:/Qt/%QT5_VERSION%/msvc2017_64 (
+  REM Default path for online installer.
+  set QT5_PATH=C:/Qt/%QT5_VERSION%/msvc2017_64
+) else if EXIST C:/Qt/Qt%QT5_VERSION%/%QT5_VERSION%/msvc2017_64 (
+  REM Default path for offline installer.
+  set QT5_PATH=C:/Qt/Qt%QT5_VERSION%/%QT5_VERSION%/msvc2017_64
+)
 set CMAKE_GENERATOR=Visual Studio 15 2017 Win64
 
 if "%VisualStudioVersion"=="15.0" (
