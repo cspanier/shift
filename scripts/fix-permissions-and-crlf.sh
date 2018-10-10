@@ -25,7 +25,8 @@ find . -type f -\( \
 	-name "*.sh" -o \
 	-name "*.cmd" -o \
 	-name "*.cmake" -o \
-	-name "CMakeLists.txt" \
+	-name "CMakeLists.txt" -o \
+	-name ".gitignore" \
 	-\) -not -path "./.git/*" \
 	-print0 | while read -r -d '' file; do
   dos2unix -q $file
