@@ -74,7 +74,7 @@ constexpr bool operator>=(const vector<Rows, U>& lhs,
 
 /// Componentwise comparison using almost_equal.
 template <std::size_t Rows, typename T>
-constexpr std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+constexpr std::enable_if_t<std::is_floating_point_v<T>, bool> almost_equal(
   const vector<Rows, T>& lhs, const vector<Rows, T>& rhs,
   int units_in_the_last_place = 2) noexcept
 {

@@ -34,7 +34,7 @@ constexpr bool operator!=(const matrix<Rows, Columns, U>& lhs,
 
 /// Per column vector comparison using almost_equal.
 template <std::size_t Rows, std::size_t Columns, typename T>
-std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+std::enable_if_t<std::is_floating_point_v<T>, bool> almost_equal(
   const matrix<Rows, Columns, T>& lhs, const matrix<Rows, Columns, T>& rhs,
   int units_in_the_last_place = 2)
 {

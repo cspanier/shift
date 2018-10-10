@@ -11,7 +11,7 @@
 namespace shift::math
 {
 template <typename T>
-std::enable_if_t<!std::is_integral_v<T>, bool> almost_equal(
+std::enable_if_t<std::is_floating_point_v<T>, bool> almost_equal(
   T lhs, T rhs, int units_in_the_last_place = 2)
 {
   T diff = std::abs(lhs - rhs);
