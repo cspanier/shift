@@ -1,6 +1,6 @@
 # Shift Library Collection
 
-This repository hosts a collection of various libraries that have been created in the last couple of years.
+This repository hosts a collection of various libraries and tools that have been created in the last couple of years.
 
 ## Content
 
