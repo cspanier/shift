@@ -11,6 +11,8 @@ find . -type d \
 done
 find . -type f \
 	-not -path "./.git/*" \
+	-not -path "./production/bin*/*" \
+	-not -path "./production/test*/*" \
 	-print0 | while read -r -d '' file; do
   chmod 644 $file
 done
