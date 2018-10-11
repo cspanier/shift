@@ -1,0 +1,8 @@
+shift_add_library(3rdparty.squish STATIC
+  PUBLICSOURCEDIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/public
+  PRIVATESOURCEDIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/private
+  DEFINITIONS
+    SQUISH_USE_SSE=2
+)

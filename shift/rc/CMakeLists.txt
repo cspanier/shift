@@ -21,6 +21,7 @@ if (NOT NO_VULKAN)
       # SPIRV_CROSS
       ShaderC::ShaderC
       3rdparty.amd-tootle
+      3rdparty.squish
       TIFF::TIFF
       JPEG::JPEG
       PNG::PNG
