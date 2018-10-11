@@ -19,26 +19,6 @@ if (NOT NO_VULKAN)
   find_package(SPIRVCross)
 endif()
 
-# Boost libraries.
-find_package(Boost ${Boost_VERSION} REQUIRED
-  COMPONENTS
-    unit_test_framework
-    ${BOOST_STACKTRACE_STATIC_LIB}
-    coroutine
-    filesystem
-    program_options
-    iostreams
-    regex
-    serialization
-    date_time
-    context
-    locale
-    system
-    thread
-    chrono
-    atomic
-  )
-
 set(SHIFT_VERSION_MAJOR 2)
 set(SHIFT_VERSION_MINOR 0)
 

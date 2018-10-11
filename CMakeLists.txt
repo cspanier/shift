@@ -271,6 +271,28 @@ endif()
 
 ################################################################################
 
+# Boost libraries.
+find_package(Boost ${Boost_VERSION} REQUIRED
+  COMPONENTS
+    unit_test_framework
+    ${BOOST_STACKTRACE_STATIC_LIB}
+    coroutine
+    filesystem
+    program_options
+    iostreams
+    regex
+    serialization
+    date_time
+    context
+    locale
+    system
+    thread
+    chrono
+    atomic
+  )
+
+################################################################################
+
 add_subdirectory(3rdparty)
 add_subdirectory(shift)
 add_subdirectory(shift_net)
