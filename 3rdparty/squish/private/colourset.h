@@ -31,13 +31,11 @@
 
 namespace squish
 {
-
-/*! @brief Represents a set of block colours
- */
+/// @brief Represents a set of block colours
 class ColourSet
 {
 public:
-  ColourSet(u8 const* rgba, int mask, int flags);
+  ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask, int flags);
 
   int GetCount() const
   {
@@ -56,7 +54,7 @@ public:
     return m_transparent;
   }
 
-  void RemapIndices(u8 const* source, u8* target) const;
+  void RemapIndices(std::uint8_t const* source, std::uint8_t* target) const;
 
 private:
   int m_count;
@@ -65,7 +63,6 @@ private:
   int m_remap[16];
   bool m_transparent;
 };
+}
 
-}  // namespace sqish
-
-#endif  // ndef SQUISH_COLOURSET_H
+#endif

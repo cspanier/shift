@@ -23,18 +23,15 @@
 
    -------------------------------------------------------------------------- */
 
-/*! @file
-
-  The symmetric eigensystem solver algorithm is from
-  http://www.geometrictools.com/Documentation/EigenSymmetric3x3.pdf
-*/
+/// @file
+///   The symmetric eigensystem solver algorithm is from
+///   http://www.geometrictools.com/Documentation/EigenSymmetric3x3.pdf
 
 #include "maths.h"
 #include <cfloat>
 
 namespace squish
 {
-
 Sym3x3 ComputeWeightedCovariance(int n, Vec3 const* points,
                                  float const* weights)
 {
@@ -226,5 +223,4 @@ Vec3 ComputePrincipleComponent(Sym3x3 const& matrix)
       return GetMultiplicity1Evector(matrix, l2);
   }
 }
-
-}  // namespace squish
+}

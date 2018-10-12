@@ -23,13 +23,11 @@
 
    -------------------------------------------------------------------------- */
 
-/*! @file
-
-  @brief	This program tests the error for 1 and 2-colour DXT compression.
-
-  This tests the effectiveness of the DXT compression algorithm for all
-  possible 1 and 2-colour blocks of pixels.
-*/
+/// @file
+/// @brief  This program tests the error for 1 and 2-colour DXT compression.
+///
+/// This tests the effectiveness of the DXT compression algorithm for all
+/// possible 1 and 2-colour blocks of pixels.
 
 #include <squish.h>
 #include <iostream>
@@ -39,7 +37,7 @@
 
 using namespace squish;
 
-double GetColourError(u8 const* a, u8 const* b)
+double GetColourError(std::uint8_t const* a, std::uint8_t const* b)
 {
   double error = 0.0;
   for (int i = 0; i < 16; ++i)
@@ -58,9 +56,9 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
 {
   int flags = kDxt1 | kColourRangeFit;
 
-  u8 input[4 * 16];
-  u8 output[4 * 16];
-  u8 block[16];
+  std::uint8_t input[4 * 16];
+  std::uint8_t output[4 * 16];
+  std::uint8_t block[16];
 
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
@@ -71,7 +69,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
     // set a constant random colour
     for (int channel = 0; channel < 3; ++channel)
     {
-      u8 value = (u8)(rand() & 0xff);
+      std::uint8_t value = (std::uint8_t)(rand() & 0xff);
       for (int i = 0; i < 16; ++i)
         input[4 * i + channel] = value;
     }
@@ -105,9 +103,9 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
 {
   int flags = kDxt1;
 
-  u8 input[4 * 16];
-  u8 output[4 * 16];
-  u8 block[16];
+  std::uint8_t input[4 * 16];
+  std::uint8_t output[4 * 16];
+  std::uint8_t block[16];
 
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
@@ -121,7 +119,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
     {
       // set the channnel value
       for (int i = 0; i < 16; ++i)
-        input[4 * i + channel] = (u8)value;
+        input[4 * i + channel] = (std::uint8_t)value;
 
       // compress and decompress
       Compress(input, block, flags);
@@ -155,9 +153,9 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
 {
   int flags = kDxt1;
 
-  u8 input[4 * 16];
-  u8 output[4 * 16];
-  u8 block[16];
+  std::uint8_t input[4 * 16];
+  std::uint8_t output[4 * 16];
+  std::uint8_t block[16];
 
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
@@ -173,7 +171,7 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
       {
         // set the channnel value
         for (int i = 0; i < 16; ++i)
-          input[4 * i + channel] = (u8)((i < 8) ? value1 : value2);
+          input[4 * i + channel] = (std::uint8_t)((i < 8) ? value1 : value2);
 
         // compress and decompress
         Compress(input, block, flags);

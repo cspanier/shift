@@ -31,7 +31,6 @@
 
 namespace squish
 {
-
 #define VEC4_CONST(X) Vec4((vector float)(X))
 
 class Vec4
@@ -143,13 +142,13 @@ public:
     return Vec4(vec_madd(left.m_v, right.m_v, (vector float)(-0.0f)));
   }
 
-  //! Returns a*b + c
+  /// Returns a*b + c
   friend Vec4 MultiplyAdd(Vec4::Arg a, Vec4::Arg b, Vec4::Arg c)
   {
     return Vec4(vec_madd(a.m_v, b.m_v, c.m_v));
   }
 
-  //! Returns -( a*b - c )
+  /// Returns -( a*b - c )
   friend Vec4 NegativeMultiplySubtract(Vec4::Arg a, Vec4::Arg b, Vec4::Arg c)
   {
     return Vec4(vec_nmsub(a.m_v, b.m_v, c.m_v));
@@ -188,7 +187,6 @@ public:
 private:
   vector float m_v;
 };
+}
 
-}  // namespace squish
-
-#endif  // ndef SQUISH_SIMD_VE_H
+#endif

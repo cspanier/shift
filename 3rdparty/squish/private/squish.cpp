@@ -34,7 +34,6 @@
 
 namespace squish
 {
-
 static int FixFlags(int flags)
 {
   // grab the flag bits
@@ -56,13 +55,14 @@ static int FixFlags(int flags)
   return method | fit | metric | extra;
 }
 
-void Compress(u8 const* rgba, void* block, int flags)
+void Compress(gsl::span<const std::uint8_t, 64> rgba, void* block, int flags)
 {
   // compress with full mask
   CompressMasked(rgba, 0xffff, block, flags);
 }
 
-void CompressMasked(u8 const* rgba, int mask, void* block, int flags)
+void CompressMasked(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                    void* block, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
@@ -71,7 +71,7 @@ void CompressMasked(u8 const* rgba, int mask, void* block, int flags)
   void* colourBlock = block;
   void* alphaBock = block;
   if ((flags & (kDxt3 | kDxt5)) != 0)
-    colourBlock = reinterpret_cast<u8*>(block) + 8;
+    colourBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
 
   // create the minimal point set
   ColourSet colours(rgba, mask, flags);
@@ -103,7 +103,7 @@ void CompressMasked(u8 const* rgba, int mask, void* block, int flags)
     CompressAlphaDxt5(rgba, mask, alphaBock);
 }
 
-void Decompress(u8* rgba, void const* block, int flags)
+void Decompress(gsl::span<std::uint8_t, 64> rgba, void const* block, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
@@ -112,7 +112,7 @@ void Decompress(u8* rgba, void const* block, int flags)
   void const* colourBlock = block;
   void const* alphaBock = block;
   if ((flags & (kDxt3 | kDxt5)) != 0)
-    colourBlock = reinterpret_cast<u8 const*>(block) + 8;
+    colourBlock = reinterpret_cast<std::uint8_t const*>(block) + 8;
 
   // decompress colour
   DecompressColour(rgba, colourBlock, (flags & kDxt1) != 0);
@@ -135,14 +135,14 @@ int GetStorageRequirements(int width, int height, int flags)
   return blockcount * blocksize;
 }
 
-void CompressImage(u8 const* rgba, int width, int height, void* blocks,
-                   int flags)
+void CompressImage(std::uint8_t const* rgba, int width, int height,
+                   void* blocks, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
 
   // initialise the block output
-  u8* targetBlock = reinterpret_cast<u8*>(blocks);
+  std::uint8_t* targetBlock = reinterpret_cast<std::uint8_t*>(blocks);
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
@@ -151,8 +151,8 @@ void CompressImage(u8 const* rgba, int width, int height, void* blocks,
     for (int x = 0; x < width; x += 4)
     {
       // build the 4x4 block of pixels
-      u8 sourceRgba[16 * 4];
-      u8* targetPixel = sourceRgba;
+      std::uint8_t sourceRgba[16 * 4];
+      std::uint8_t* targetPixel = sourceRgba;
       int mask = 0;
       for (int py = 0; py < 4; ++py)
       {
@@ -166,7 +166,7 @@ void CompressImage(u8 const* rgba, int width, int height, void* blocks,
           if (sx < width && sy < height)
           {
             // copy the rgba value
-            u8 const* sourcePixel = rgba + 4 * (width * sy + sx);
+            std::uint8_t const* sourcePixel = rgba + 4 * (width * sy + sx);
             for (int i = 0; i < 4; ++i)
               *targetPixel++ = *sourcePixel++;
 
@@ -190,14 +190,15 @@ void CompressImage(u8 const* rgba, int width, int height, void* blocks,
   }
 }
 
-void DecompressImage(u8* rgba, int width, int height, void const* blocks,
-                     int flags)
+void DecompressImage(std::uint8_t* rgba, int width, int height,
+                     void const* blocks, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
 
   // initialise the block input
-  u8 const* sourceBlock = reinterpret_cast<u8 const*>(blocks);
+  std::uint8_t const* sourceBlock =
+    reinterpret_cast<std::uint8_t const*>(blocks);
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
@@ -206,11 +207,11 @@ void DecompressImage(u8* rgba, int width, int height, void const* blocks,
     for (int x = 0; x < width; x += 4)
     {
       // decompress the block
-      u8 targetRgba[4 * 16];
+      std::uint8_t targetRgba[4 * 16];
       Decompress(targetRgba, sourceBlock, flags);
 
       // write the decompressed pixels to the correct image locations
-      u8 const* sourcePixel = targetRgba;
+      std::uint8_t const* sourcePixel = targetRgba;
       for (int py = 0; py < 4; ++py)
       {
         for (int px = 0; px < 4; ++px)
@@ -220,7 +221,7 @@ void DecompressImage(u8* rgba, int width, int height, void const* blocks,
           int sy = y + py;
           if (sx < width && sy < height)
           {
-            u8* targetPixel = rgba + 4 * (width * sy + sx);
+            std::uint8_t* targetPixel = rgba + 4 * (width * sy + sx);
 
             // copy the rgba value
             for (int i = 0; i < 4; ++i)
@@ -239,5 +240,4 @@ void DecompressImage(u8* rgba, int width, int height, void const* blocks,
     }
   }
 }
-
-}  // namespace squish
+}

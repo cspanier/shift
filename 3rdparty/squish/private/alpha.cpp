@@ -29,7 +29,6 @@
 
 namespace squish
 {
-
 static int FloatToInt(float a, int limit)
 {
   // use ANSI round-to-zero behaviour to get round-to-nearest
@@ -45,9 +44,10 @@ static int FloatToInt(float a, int limit)
   return i;
 }
 
-void CompressAlphaDxt3(u8 const* rgba, int mask, void* block)
+void CompressAlphaDxt3(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                       void* block)
 {
-  u8* bytes = reinterpret_cast<u8*>(block);
+  std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // quantise and pack the alpha values pairwise
   for (int i = 0; i < 8; ++i)
@@ -67,27 +67,27 @@ void CompressAlphaDxt3(u8 const* rgba, int mask, void* block)
       quant2 = 0;
 
     // pack into the byte
-    bytes[i] = static_cast<u8>(quant1 | (quant2 << 4));
+    bytes[i] = static_cast<std::uint8_t>(quant1 | (quant2 << 4));
   }
 }
 
-void DecompressAlphaDxt3(u8* rgba, void const* block)
+void DecompressAlphaDxt3(gsl::span<std::uint8_t, 64> rgba, void const* block)
 {
-  u8 const* bytes = reinterpret_cast<u8 const*>(block);
+  auto* bytes = reinterpret_cast<const std::uint8_t*>(block);
 
   // unpack the alpha values pairwise
   for (int i = 0; i < 8; ++i)
   {
     // quantise down to 4 bits
-    u8 quant = bytes[i];
+    std::uint8_t quant = bytes[i];
 
     // unpack the values
-    u8 lo = quant & 0x0f;
-    u8 hi = quant & 0xf0;
+    std::uint8_t lo = quant & 0x0f;
+    std::uint8_t hi = quant & 0xf0;
 
     // convert back up to bytes
-    rgba[8 * i + 3] = static_cast<u8>(lo | (lo << 4));
-    rgba[8 * i + 7] = static_cast<u8>(hi | (hi >> 4));
+    rgba[8 * i + 3] = static_cast<std::uint8_t>(lo | (lo << 4));
+    rgba[8 * i + 7] = static_cast<std::uint8_t>(hi | (hi >> 4));
   }
 }
 
@@ -99,7 +99,8 @@ static void FixRange(int& min, int& max, int steps)
     min = std::max(0, max - steps);
 }
 
-static int FitCodes(u8 const* rgba, int mask, u8 const* codes, u8* indices)
+static int FitCodes(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                    std::uint8_t const* codes, std::uint8_t* indices)
 {
   // fit each alpha value to the codebook
   int err = 0;
@@ -133,7 +134,7 @@ static int FitCodes(u8 const* rgba, int mask, u8 const* codes, u8* indices)
     }
 
     // save this index and accumulate the error
-    indices[i] = static_cast<u8>(index);
+    indices[i] = static_cast<std::uint8_t>(index);
     err += least;
   }
 
@@ -141,18 +142,18 @@ static int FitCodes(u8 const* rgba, int mask, u8 const* codes, u8* indices)
   return err;
 }
 
-static void WriteAlphaBlock(int alpha0, int alpha1, u8 const* indices,
+static void WriteAlphaBlock(int alpha0, int alpha1, std::uint8_t const* indices,
                             void* block)
 {
-  u8* bytes = reinterpret_cast<u8*>(block);
+  std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // write the first two bytes
-  bytes[0] = static_cast<u8>(alpha0);
-  bytes[1] = static_cast<u8>(alpha1);
+  bytes[0] = static_cast<std::uint8_t>(alpha0);
+  bytes[1] = static_cast<std::uint8_t>(alpha1);
 
   // pack the indices with 3 bits each
-  u8* dest = bytes + 2;
-  u8 const* src = indices;
+  std::uint8_t* dest = bytes + 2;
+  std::uint8_t const* src = indices;
   for (int i = 0; i < 2; ++i)
   {
     // pack 8 3-bit values
@@ -167,22 +168,22 @@ static void WriteAlphaBlock(int alpha0, int alpha1, u8 const* indices,
     for (int j = 0; j < 3; ++j)
     {
       int byte = (value >> 8 * j) & 0xff;
-      *dest++ = static_cast<u8>(byte);
+      *dest++ = static_cast<std::uint8_t>(byte);
     }
   }
 }
 
-static void WriteAlphaBlock5(int alpha0, int alpha1, u8 const* indices,
-                             void* block)
+static void WriteAlphaBlock5(int alpha0, int alpha1,
+                             std::uint8_t const* indices, void* block)
 {
   // check the relative values of the endpoints
   if (alpha0 > alpha1)
   {
     // swap the indices
-    u8 swapped[16];
+    std::uint8_t swapped[16];
     for (int i = 0; i < 16; ++i)
     {
-      u8 index = indices[i];
+      std::uint8_t index = indices[i];
       if (index == 0)
         swapped[i] = 1;
       else if (index == 1)
@@ -203,17 +204,17 @@ static void WriteAlphaBlock5(int alpha0, int alpha1, u8 const* indices,
   }
 }
 
-static void WriteAlphaBlock7(int alpha0, int alpha1, u8 const* indices,
-                             void* block)
+static void WriteAlphaBlock7(int alpha0, int alpha1,
+                             std::uint8_t const* indices, void* block)
 {
   // check the relative values of the endpoints
   if (alpha0 < alpha1)
   {
     // swap the indices
-    u8 swapped[16];
+    std::uint8_t swapped[16];
     for (int i = 0; i < 16; ++i)
     {
-      u8 index = indices[i];
+      std::uint8_t index = indices[i];
       if (index == 0)
         swapped[i] = 1;
       else if (index == 1)
@@ -232,7 +233,8 @@ static void WriteAlphaBlock7(int alpha0, int alpha1, u8 const* indices,
   }
 }
 
-void CompressAlphaDxt5(u8 const* rgba, int mask, void* block)
+void CompressAlphaDxt5(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                       void* block)
 {
   // get the range for 5-alpha and 7-alpha interpolation
   int min5 = 255;
@@ -269,24 +271,24 @@ void CompressAlphaDxt5(u8 const* rgba, int mask, void* block)
   FixRange(min7, max7, 7);
 
   // set up the 5-alpha code book
-  u8 codes5[8];
-  codes5[0] = static_cast<u8>(min5);
-  codes5[1] = static_cast<u8>(max5);
+  std::uint8_t codes5[8];
+  codes5[0] = static_cast<std::uint8_t>(min5);
+  codes5[1] = static_cast<std::uint8_t>(max5);
   for (int i = 1; i < 5; ++i)
-    codes5[1 + i] = static_cast<u8>(((5 - i) * min5 + i * max5) / 5);
+    codes5[1 + i] = static_cast<std::uint8_t>(((5 - i) * min5 + i * max5) / 5);
   codes5[6] = 0;
   codes5[7] = 255;
 
   // set up the 7-alpha code book
-  u8 codes7[8];
-  codes7[0] = static_cast<u8>(min7);
-  codes7[1] = static_cast<u8>(max7);
+  std::uint8_t codes7[8];
+  codes7[0] = static_cast<std::uint8_t>(min7);
+  codes7[1] = static_cast<std::uint8_t>(max7);
   for (int i = 1; i < 7; ++i)
-    codes7[1 + i] = static_cast<u8>(((7 - i) * min7 + i * max7) / 7);
+    codes7[1 + i] = static_cast<std::uint8_t>(((7 - i) * min7 + i * max7) / 7);
 
   // fit the data to both code books
-  u8 indices5[16];
-  u8 indices7[16];
+  std::uint8_t indices5[16];
+  std::uint8_t indices7[16];
   int err5 = FitCodes(rgba, mask, codes5, indices5);
   int err7 = FitCodes(rgba, mask, codes7, indices7);
 
@@ -297,22 +299,23 @@ void CompressAlphaDxt5(u8 const* rgba, int mask, void* block)
     WriteAlphaBlock7(min7, max7, indices7, block);
 }
 
-void DecompressAlphaDxt5(u8* rgba, void const* block)
+void DecompressAlphaDxt5(gsl::span<std::uint8_t, 64> rgba, void const* block)
 {
   // get the two alpha values
-  u8 const* bytes = reinterpret_cast<u8 const*>(block);
+  std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
   int alpha0 = bytes[0];
   int alpha1 = bytes[1];
 
   // compare the values to build the codebook
-  u8 codes[8];
-  codes[0] = static_cast<u8>(alpha0);
-  codes[1] = static_cast<u8>(alpha1);
+  std::uint8_t codes[8];
+  codes[0] = static_cast<std::uint8_t>(alpha0);
+  codes[1] = static_cast<std::uint8_t>(alpha1);
   if (alpha0 <= alpha1)
   {
     // use 5-alpha codebook
     for (int i = 1; i < 5; ++i)
-      codes[1 + i] = static_cast<u8>(((5 - i) * alpha0 + i * alpha1) / 5);
+      codes[1 + i] =
+        static_cast<std::uint8_t>(((5 - i) * alpha0 + i * alpha1) / 5);
     codes[6] = 0;
     codes[7] = 255;
   }
@@ -320,13 +323,14 @@ void DecompressAlphaDxt5(u8* rgba, void const* block)
   {
     // use 7-alpha codebook
     for (int i = 1; i < 7; ++i)
-      codes[1 + i] = static_cast<u8>(((7 - i) * alpha0 + i * alpha1) / 7);
+      codes[1 + i] =
+        static_cast<std::uint8_t>(((7 - i) * alpha0 + i * alpha1) / 7);
   }
 
   // decode the indices
-  u8 indices[16];
-  u8 const* src = bytes + 2;
-  u8* dest = indices;
+  std::uint8_t indices[16];
+  std::uint8_t const* src = bytes + 2;
+  std::uint8_t* dest = indices;
   for (int i = 0; i < 2; ++i)
   {
     // grab 3 bytes
@@ -341,7 +345,7 @@ void DecompressAlphaDxt5(u8* rgba, void const* block)
     for (int j = 0; j < 8; ++j)
     {
       int index = (value >> 3 * j) & 0x7;
-      *dest++ = static_cast<u8>(index);
+      *dest++ = static_cast<std::uint8_t>(index);
     }
   }
 
@@ -349,5 +353,4 @@ void DecompressAlphaDxt5(u8* rgba, void const* block)
   for (int i = 0; i < 16; ++i)
     rgba[4 * i + 3] = codes[indices[i]];
 }
-
-}  // namespace squish
+}

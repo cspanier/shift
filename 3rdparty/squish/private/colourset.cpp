@@ -27,8 +27,8 @@
 
 namespace squish
 {
-
-ColourSet::ColourSet(u8 const* rgba, int mask, int flags)
+ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                     int flags)
 : m_count(0), m_transparent(false)
 {
   // check the compression mode for dxt1
@@ -105,7 +105,8 @@ ColourSet::ColourSet(u8 const* rgba, int mask, int flags)
     m_weights[i] = std::sqrt(m_weights[i]);
 }
 
-void ColourSet::RemapIndices(u8 const* source, u8* target) const
+void ColourSet::RemapIndices(std::uint8_t const* source,
+                             std::uint8_t* target) const
 {
   for (int i = 0; i < 16; ++i)
   {
@@ -116,5 +117,4 @@ void ColourSet::RemapIndices(u8 const* source, u8* target) const
       target[i] = source[j];
   }
 }
-
-}  // namespace squish
+}

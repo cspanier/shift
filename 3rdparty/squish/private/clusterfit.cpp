@@ -31,7 +31,6 @@
 
 namespace squish
 {
-
 ClusterFit::ClusterFit(ColourSet const* colours, int flags)
 : ColourFit(colours, flags)
 {
@@ -64,16 +63,16 @@ ClusterFit::ClusterFit(ColourSet const* colours, int flags)
 bool ClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
 {
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
+  const int count = m_colours->GetCount();
+  const Vec3* values = m_colours->GetPoints();
 
   // build the list of dot products
   float dps[16];
-  u8* order = (u8*)m_order + 16 * iteration;
+  std::uint8_t* order = &m_order[16 * iteration];
   for (int i = 0; i < count; ++i)
   {
     dps[i] = Dot(values[i], axis);
-    order[i] = (u8)i;
+    order[i] = static_cast<std::uint8_t>(i);
   }
 
   // stable sort using them
@@ -89,7 +88,7 @@ bool ClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
   // check this ordering is unique
   for (int it = 0; it < iteration; ++it)
   {
-    u8 const* prev = (u8*)m_order + 16 * it;
+    const auto* prev = &m_order[16 * it];
     bool same = true;
     for (int i = 0; i < count; ++i)
     {
@@ -104,8 +103,8 @@ bool ClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
   }
 
   // copy the ordering and weight all the points
-  Vec3 const* unweighted = m_colours->GetPoints();
-  float const* weights = m_colours->GetWeights();
+  const Vec3* unweighted = m_colours->GetPoints();
+  const float* weights = m_colours->GetWeights();
   m_xsum_wsum = VEC4_CONST(0.0f);
   for (int i = 0; i < count; ++i)
   {
@@ -138,7 +137,7 @@ void ClusterFit::Compress3(void* block)
   Vec4 beststart = VEC4_CONST(0.0f);
   Vec4 bestend = VEC4_CONST(0.0f);
   Vec4 besterror = m_besterror;
-  u8 bestindices[16];
+  std::uint8_t bestindices[16];
   int bestiteration = 0;
   int besti = 0, bestj = 0;
 
@@ -235,9 +234,9 @@ void ClusterFit::Compress3(void* block)
   if (CompareAnyLessThan(besterror, m_besterror))
   {
     // remap the indices
-    u8 const* order = (u8*)m_order + 16 * bestiteration;
+    std::uint8_t const* order = &m_order[16 * bestiteration];
 
-    u8 unordered[16];
+    std::uint8_t unordered[16];
     for (int m = 0; m < besti; ++m)
       unordered[order[m]] = 0;
     for (int m = besti; m < bestj; ++m)
@@ -279,7 +278,7 @@ void ClusterFit::Compress4(void* block)
   Vec4 beststart = VEC4_CONST(0.0f);
   Vec4 bestend = VEC4_CONST(0.0f);
   Vec4 besterror = m_besterror;
-  u8 bestindices[16];
+  std::uint8_t bestindices[16];
   int bestiteration = 0;
   int besti = 0, bestj = 0, bestk = 0;
 
@@ -392,9 +391,9 @@ void ClusterFit::Compress4(void* block)
   if (CompareAnyLessThan(besterror, m_besterror))
   {
     // remap the indices
-    u8 const* order = (u8*)m_order + 16 * bestiteration;
+    const auto* order = &m_order[16 * bestiteration];
 
-    u8 unordered[16];
+    std::uint8_t unordered[16];
     for (int m = 0; m < besti; ++m)
       unordered[order[m]] = 0;
     for (int m = besti; m < bestj; ++m)
@@ -414,5 +413,4 @@ void ClusterFit::Compress4(void* block)
     m_besterror = besterror;
   }
 }
-
-}  // namespace squish
+}

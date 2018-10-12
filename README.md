@@ -34,6 +34,7 @@ This repository hosts a collection of various libraries and tools that have been
 * [libtiff](http://www.simplesystems.org/libtiff/) 4.0.9
 * [libpng](http://www.libpng.org/pub/png/libpng.html) 1.6.35
 * [libjpeg](https://www.ijg.org/) 9c
+* [GSL](https://github.com/Microsoft/GSL)
 * [Boost](https://www.boost.org/) 1.68
 * [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross) tested with revision cc7679e
 * [ShaderC](https://github.com/google/shaderc) tested with revision 30af9f9

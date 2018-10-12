@@ -34,11 +34,11 @@
 
 namespace squish
 {
-
 class ClusterFit : public ColourFit
 {
 public:
   ClusterFit(ColourSet const* colours, int flags);
+  virtual ~ClusterFit() = default;
 
 private:
   bool ConstructOrdering(Vec3 const& axis, int iteration);
@@ -53,13 +53,12 @@ private:
 
   int m_iterationCount;
   Vec3 m_principle;
-  u8 m_order[16 * kMaxIterations];
+  std::uint8_t m_order[16 * kMaxIterations];
   Vec4 m_points_weights[16];
   Vec4 m_xsum_wsum;
   Vec4 m_metric;
   Vec4 m_besterror;
 };
+}
 
-}  // namespace squish
-
-#endif  // ndef SQUISH_CLUSTERFIT_H
+#endif

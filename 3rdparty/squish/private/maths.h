@@ -32,7 +32,6 @@
 
 namespace squish
 {
-
 class Vec3
 {
 public:
@@ -230,7 +229,6 @@ private:
 Sym3x3 ComputeWeightedCovariance(int n, Vec3 const* points,
                                  float const* weights);
 Vec3 ComputePrincipleComponent(Sym3x3 const& matrix);
+}
 
-}  // namespace squish
-
-#endif  // ndef SQUISH_MATHS_H
+#endif

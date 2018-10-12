@@ -31,7 +31,6 @@
 
 namespace squish
 {
-
 class ColourSet;
 struct SingleColourLookup;
 
@@ -47,14 +46,13 @@ private:
 
   void ComputeEndPoints(SingleColourLookup const* const* lookups);
 
-  u8 m_colour[3];
+  std::uint8_t m_colour[3];
   Vec3 m_start;
   Vec3 m_end;
-  u8 m_index;
+  std::uint8_t m_index;
   int m_error;
   int m_besterror;
 };
+}
 
-}  // namespace squish
-
-#endif  // ndef SQUISH_SINGLECOLOURFIT_H
+#endif

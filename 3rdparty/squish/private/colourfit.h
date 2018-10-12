@@ -31,13 +31,13 @@
 
 namespace squish
 {
-
 class ColourSet;
 
 class ColourFit
 {
 public:
   ColourFit(ColourSet const* colours, int flags);
+  virtual ~ColourFit() = default;
 
   void Compress(void* block);
 
@@ -48,7 +48,6 @@ protected:
   ColourSet const* m_colours;
   int m_flags;
 };
+}
 
-}  // namespace squish
-
-#endif  // ndef SQUISH_COLOURFIT_H
+#endif

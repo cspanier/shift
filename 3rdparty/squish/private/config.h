@@ -46,4 +46,4 @@
 #define SQUISH_USE_SIMD 0
 #endif
 
-#endif  // ndef SQUISH_CONFIG_H
+#endif

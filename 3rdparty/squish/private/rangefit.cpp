@@ -30,7 +30,6 @@
 
 namespace squish
 {
-
 RangeFit::RangeFit(ColourSet const* colours, int flags)
 : ColourFit(colours, flags)
 {
@@ -108,7 +107,7 @@ void RangeFit::Compress3(void* block)
   codes[2] = 0.5f * m_start + 0.5f * m_end;
 
   // match each point to the closest code
-  u8 closest[16];
+  std::uint8_t closest[16];
   float error = 0.0f;
   for (int i = 0; i < count; ++i)
   {
@@ -126,7 +125,7 @@ void RangeFit::Compress3(void* block)
     }
 
     // save the index
-    closest[i] = (u8)idx;
+    closest[i] = (std::uint8_t)idx;
 
     // accumulate the error
     error += dist;
@@ -136,7 +135,7 @@ void RangeFit::Compress3(void* block)
   if (error < m_besterror)
   {
     // remap the indices
-    u8 indices[16];
+    std::uint8_t indices[16];
     m_colours->RemapIndices(closest, indices);
 
     // save the block
@@ -161,7 +160,7 @@ void RangeFit::Compress4(void* block)
   codes[3] = (1.0f / 3.0f) * m_start + (2.0f / 3.0f) * m_end;
 
   // match each point to the closest code
-  u8 closest[16];
+  std::uint8_t closest[16];
   float error = 0.0f;
   for (int i = 0; i < count; ++i)
   {
@@ -179,7 +178,7 @@ void RangeFit::Compress4(void* block)
     }
 
     // save the index
-    closest[i] = (u8)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
 
     // accumulate the error
     error += dist;
@@ -189,7 +188,7 @@ void RangeFit::Compress4(void* block)
   if (error < m_besterror)
   {
     // remap the indices
-    u8 indices[16];
+    std::uint8_t indices[16];
     m_colours->RemapIndices(closest, indices);
 
     // save the block
@@ -199,5 +198,4 @@ void RangeFit::Compress4(void* block)
     m_besterror = error;
   }
 }
-
-}  // namespace squish
+}

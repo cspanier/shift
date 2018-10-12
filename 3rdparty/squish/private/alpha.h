@@ -30,13 +30,13 @@
 
 namespace squish
 {
+void CompressAlphaDxt3(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                       void* block);
+void CompressAlphaDxt5(gsl::span<const std::uint8_t, 64> rgba, int mask,
+                       void* block);
 
-void CompressAlphaDxt3(u8 const* rgba, int mask, void* block);
-void CompressAlphaDxt5(u8 const* rgba, int mask, void* block);
+void DecompressAlphaDxt3(gsl::span<std::uint8_t, 64> rgba, void const* block);
+void DecompressAlphaDxt5(gsl::span<std::uint8_t, 64> rgba, void const* block);
+}
 
-void DecompressAlphaDxt3(u8* rgba, void const* block);
-void DecompressAlphaDxt5(u8* rgba, void const* block);
-
-}  // namespace squish
-
-#endif  // ndef SQUISH_ALPHA_H
+#endif

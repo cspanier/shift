@@ -32,7 +32,6 @@
 
 namespace squish
 {
-
 class ColourSet;
 
 class RangeFit : public ColourFit
@@ -49,7 +48,6 @@ private:
   Vec3 m_end;
   float m_besterror;
 };
+}
 
-}  // squish
-
-#endif  // ndef SQUISH_RANGEFIT_H
+#endif

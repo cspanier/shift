@@ -33,9 +33,9 @@ namespace squish
 
 struct SourceBlock
 {
-  u8 start;
-  u8 end;
-  u8 error;
+  std::uint8_t start;
+  std::uint8_t end;
+  std::uint8_t error;
 };
 
 struct SingleColourLookup
@@ -45,19 +45,19 @@ struct SingleColourLookup
 
 #include "singlecolourlookup.inl"
 
-static int FloatToInt(float a, int limit)
+static std::uint8_t FloatToByte(float a)
 {
   // use ANSI round-to-zero behaviour to get round-to-nearest
-  int i = (int)(a + 0.5f);
+  int i = static_cast<int>(a + 0.5f);
 
   // clamp to the limit
   if (i < 0)
     i = 0;
-  else if (i > limit)
-    i = limit;
+  else if (i > 255)
+    i = 255;
 
   // done
-  return i;
+  return static_cast<std::uint8_t>(i);
 }
 
 SingleColourFit::SingleColourFit(ColourSet const* colours, int flags)
@@ -65,9 +65,9 @@ SingleColourFit::SingleColourFit(ColourSet const* colours, int flags)
 {
   // grab the single colour
   Vec3 const* values = m_colours->GetPoints();
-  m_colour[0] = (u8)FloatToInt(255.0f * values->X(), 255);
-  m_colour[1] = (u8)FloatToInt(255.0f * values->Y(), 255);
-  m_colour[2] = (u8)FloatToInt(255.0f * values->Z(), 255);
+  m_colour[0] = FloatToByte(255.0f * values->X());
+  m_colour[1] = FloatToByte(255.0f * values->Y());
+  m_colour[2] = FloatToByte(255.0f * values->Z());
 
   // initialise the best error
   m_besterror = INT_MAX;
@@ -86,7 +86,7 @@ void SingleColourFit::Compress3(void* block)
   if (m_error < m_besterror)
   {
     // remap the indices
-    u8 indices[16];
+    std::uint8_t indices[16];
     m_colours->RemapIndices(&m_index, indices);
 
     // save the block
@@ -110,7 +110,7 @@ void SingleColourFit::Compress4(void* block)
   if (m_error < m_besterror)
   {
     // remap the indices
-    u8 indices[16];
+    std::uint8_t indices[16];
     m_colours->RemapIndices(&m_index, indices);
 
     // save the block
@@ -151,7 +151,7 @@ void SingleColourFit::ComputeEndPoints(SingleColourLookup const* const* lookups)
                      sources[2]->start / 31.0f);
       m_end = Vec3(sources[0]->end / 31.0f, sources[1]->end / 63.0f,
                    sources[2]->end / 31.0f);
-      m_index = (u8)(2 * index);
+      m_index = static_cast<std::uint8_t>(2 * index);
       m_error = error;
     }
   }

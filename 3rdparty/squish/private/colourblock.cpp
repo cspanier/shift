@@ -27,11 +27,10 @@
 
 namespace squish
 {
-
 static int FloatToInt(float a, int limit)
 {
   // use ANSI round-to-zero behaviour to get round-to-nearest
-  int i = (int)(a + 0.5f);
+  int i = static_cast<int>(a + 0.5f);
 
   // clamp to the limit
   if (i < 0)
@@ -54,34 +53,34 @@ static int FloatTo565(Vec3::Arg colour)
   return (r << 11) | (g << 5) | b;
 }
 
-static void WriteColourBlock(int a, int b, u8* indices, void* block)
+static void WriteColourBlock(int a, int b, std::uint8_t* indices, void* block)
 {
   // get the block as bytes
-  u8* bytes = (u8*)block;
+  std::uint8_t* bytes = (std::uint8_t*)block;
 
   // write the endpoints
-  bytes[0] = (u8)(a & 0xff);
-  bytes[1] = (u8)(a >> 8);
-  bytes[2] = (u8)(b & 0xff);
-  bytes[3] = (u8)(b >> 8);
+  bytes[0] = static_cast<std::uint8_t>(a & 0xff);
+  bytes[1] = static_cast<std::uint8_t>(a >> 8);
+  bytes[2] = static_cast<std::uint8_t>(b & 0xff);
+  bytes[3] = static_cast<std::uint8_t>(b >> 8);
 
   // write the indices
   for (int i = 0; i < 4; ++i)
   {
-    u8 const* ind = indices + 4 * i;
+    const std::uint8_t* ind = indices + 4 * i;
     bytes[4 + i] = ind[0] | (ind[1] << 2) | (ind[2] << 4) | (ind[3] << 6);
   }
 }
 
-void WriteColourBlock3(Vec3::Arg start, Vec3::Arg end, u8 const* indices,
-                       void* block)
+void WriteColourBlock3(Vec3::Arg start, Vec3::Arg end,
+                       std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
   int b = FloatTo565(end);
 
   // remap the indices
-  u8 remapped[16];
+  std::uint8_t remapped[16];
   if (a <= b)
   {
     // use the indices directly
@@ -107,15 +106,15 @@ void WriteColourBlock3(Vec3::Arg start, Vec3::Arg end, u8 const* indices,
   WriteColourBlock(a, b, remapped, block);
 }
 
-void WriteColourBlock4(Vec3::Arg start, Vec3::Arg end, u8 const* indices,
-                       void* block)
+void WriteColourBlock4(Vec3::Arg start, Vec3::Arg end,
+                       std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
   int b = FloatTo565(end);
 
   // remap the indices
-  u8 remapped[16];
+  std::uint8_t remapped[16];
   if (a < b)
   {
     // swap a and b
@@ -140,33 +139,34 @@ void WriteColourBlock4(Vec3::Arg start, Vec3::Arg end, u8 const* indices,
   WriteColourBlock(a, b, remapped, block);
 }
 
-static int Unpack565(u8 const* packed, u8* colour)
+static int Unpack565(std::uint8_t const* packed, std::uint8_t* colour)
 {
   // build the packed value
-  int value = (int)packed[0] | ((int)packed[1] << 8);
+  auto value = packed[0] | (static_cast<int>(packed[1]) << 8);
 
   // get the components in the stored range
-  u8 red = (u8)((value >> 11) & 0x1f);
-  u8 green = (u8)((value >> 5) & 0x3f);
-  u8 blue = (u8)(value & 0x1f);
+  std::uint8_t red = static_cast<std::uint8_t>((value >> 11) & 0x1f);
+  std::uint8_t green = static_cast<std::uint8_t>((value >> 5) & 0x3f);
+  std::uint8_t blue = static_cast<std::uint8_t>(value & 0x1f);
 
   // scale up to 8 bits
-  colour[0] = (red << 3) | (red >> 2);
-  colour[1] = (green << 2) | (green >> 4);
-  colour[2] = (blue << 3) | (blue >> 2);
+  colour[0] = static_cast<std::uint8_t>((red << 3) | (red >> 2));
+  colour[1] = static_cast<std::uint8_t>((green << 2) | (green >> 4));
+  colour[2] = static_cast<std::uint8_t>((blue << 3) | (blue >> 2));
   colour[3] = 255;
 
   // return the value
   return value;
 }
 
-void DecompressColour(u8* rgba, void const* block, bool isDxt1)
+void DecompressColour(gsl::span<std::uint8_t, 64> rgba, void const* block,
+                      bool isDxt1)
 {
   // get the block bytes
-  u8 const* bytes = reinterpret_cast<u8 const*>(block);
+  std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
 
   // unpack the endpoints
-  u8 codes[16];
+  std::uint8_t codes[16];
   int a = Unpack565(bytes, codes);
   int b = Unpack565(bytes + 2, codes + 4);
 
@@ -178,13 +178,13 @@ void DecompressColour(u8* rgba, void const* block, bool isDxt1)
 
     if (isDxt1 && a <= b)
     {
-      codes[8 + i] = (u8)((c + d) / 2);
+      codes[8 + i] = static_cast<std::uint8_t>((c + d) / 2);
       codes[12 + i] = 0;
     }
     else
     {
-      codes[8 + i] = (u8)((2 * c + d) / 3);
-      codes[12 + i] = (u8)((c + 2 * d) / 3);
+      codes[8 + i] = static_cast<std::uint8_t>((2 * c + d) / 3);
+      codes[12 + i] = static_cast<std::uint8_t>((c + 2 * d) / 3);
     }
   }
 
@@ -193,11 +193,11 @@ void DecompressColour(u8* rgba, void const* block, bool isDxt1)
   codes[12 + 3] = (isDxt1 && a <= b) ? 0 : 255;
 
   // unpack the indices
-  u8 indices[16];
+  std::uint8_t indices[16];
   for (int i = 0; i < 4; ++i)
   {
-    u8* ind = indices + 4 * i;
-    u8 packed = bytes[4 + i];
+    std::uint8_t* ind = indices + 4 * i;
+    std::uint8_t packed = bytes[4 + i];
 
     ind[0] = packed & 0x3;
     ind[1] = (packed >> 2) & 0x3;
@@ -208,10 +208,9 @@ void DecompressColour(u8* rgba, void const* block, bool isDxt1)
   // store out the colours
   for (int i = 0; i < 16; ++i)
   {
-    u8 offset = 4 * indices[i];
+    std::uint8_t offset = 4 * indices[i];
     for (int j = 0; j < 4; ++j)
       rgba[4 * i + j] = codes[offset + j];
   }
 }
-
-}  // namespace squish
+}
