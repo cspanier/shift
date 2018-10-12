@@ -36,7 +36,7 @@ ClusterFit::ClusterFit(ColourSet const* colours, int flags)
 {
   // set the iteration count
   m_iterationCount =
-    (m_flags & kColourIterativeClusterFit) ? kMaxIterations : 1;
+    (m_flags & kColourIterativeClusterFit) != 0 ? kMaxIterations : 1;
 
   // initialise the best error
   m_besterror = VEC4_CONST(FLT_MAX);

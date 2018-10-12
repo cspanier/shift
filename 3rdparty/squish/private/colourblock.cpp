@@ -53,10 +53,11 @@ static int FloatTo565(Vec3::Arg colour)
   return (r << 11) | (g << 5) | b;
 }
 
-static void WriteColourBlock(int a, int b, std::uint8_t* indices, void* block)
+static void WriteColourBlock(int a, int b, const std::uint8_t* indices,
+                             void* block)
 {
   // get the block as bytes
-  std::uint8_t* bytes = (std::uint8_t*)block;
+  auto* bytes = (std::uint8_t*)block;
 
   // write the endpoints
   bytes[0] = static_cast<std::uint8_t>(a & 0xff);
@@ -145,9 +146,9 @@ static int Unpack565(std::uint8_t const* packed, std::uint8_t* colour)
   auto value = packed[0] | (static_cast<int>(packed[1]) << 8);
 
   // get the components in the stored range
-  std::uint8_t red = static_cast<std::uint8_t>((value >> 11) & 0x1f);
-  std::uint8_t green = static_cast<std::uint8_t>((value >> 5) & 0x3f);
-  std::uint8_t blue = static_cast<std::uint8_t>(value & 0x1f);
+  auto red = static_cast<std::uint8_t>((value >> 11) & 0x1f);
+  auto green = static_cast<std::uint8_t>((value >> 5) & 0x3f);
+  auto blue = static_cast<std::uint8_t>(value & 0x1f);
 
   // scale up to 8 bits
   colour[0] = static_cast<std::uint8_t>((red << 3) | (red >> 2));
@@ -163,7 +164,7 @@ void DecompressColour(gsl::span<std::uint8_t, 64> rgba, void const* block,
                       bool isDxt1)
 {
   // get the block bytes
-  std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
+  auto const* bytes = reinterpret_cast<std::uint8_t const*>(block);
 
   // unpack the endpoints
   std::uint8_t codes[16];

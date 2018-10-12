@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
     // set a constant random colour
     for (int channel = 0; channel < 3; ++channel)
     {
-      std::uint8_t value = (std::uint8_t)(rand() & 0xff);
+      auto value = (std::uint8_t)(rand() & 0xff);
       for (int i = 0; i < 16; ++i)
         input[4 * i + channel] = value;
     }

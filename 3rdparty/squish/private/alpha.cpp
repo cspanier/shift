@@ -47,7 +47,7 @@ static int FloatToInt(float a, int limit)
 void CompressAlphaDxt3(gsl::span<const std::uint8_t, 64> rgba, int mask,
                        void* block)
 {
-  std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
+  auto* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // quantise and pack the alpha values pairwise
   for (int i = 0; i < 8; ++i)
@@ -145,7 +145,7 @@ static int FitCodes(gsl::span<const std::uint8_t, 64> rgba, int mask,
 static void WriteAlphaBlock(int alpha0, int alpha1, std::uint8_t const* indices,
                             void* block)
 {
-  std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
+  auto* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // write the first two bytes
   bytes[0] = static_cast<std::uint8_t>(alpha0);
@@ -302,7 +302,7 @@ void CompressAlphaDxt5(gsl::span<const std::uint8_t, 64> rgba, int mask,
 void DecompressAlphaDxt5(gsl::span<std::uint8_t, 64> rgba, void const* block)
 {
   // get the two alpha values
-  std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
+  auto const* bytes = reinterpret_cast<std::uint8_t const*>(block);
   int alpha0 = bytes[0];
   int alpha1 = bytes[1];
 

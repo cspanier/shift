@@ -142,7 +142,7 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
   flags = FixFlags(flags);
 
   // initialise the block output
-  std::uint8_t* targetBlock = reinterpret_cast<std::uint8_t*>(blocks);
+  auto* targetBlock = reinterpret_cast<std::uint8_t*>(blocks);
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
@@ -197,8 +197,7 @@ void DecompressImage(std::uint8_t* rgba, int width, int height,
   flags = FixFlags(flags);
 
   // initialise the block input
-  std::uint8_t const* sourceBlock =
-    reinterpret_cast<std::uint8_t const*>(blocks);
+  auto const* sourceBlock = reinterpret_cast<std::uint8_t const*>(blocks);
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
