@@ -10,7 +10,7 @@ if [[ ! -f "${1}/compile_commands.json" ]]; then
 fi
 
 export BASE_DIR="$(realpath $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/..)"
-for source in $(find ${BASE_DIR}/shift/ -name "*.cpp"); do
+for source in $(find ${BASE_DIR} -name "*.cpp"); do
   echo "Processing ${source}..."
   clang-tidy \
     -p "${1}" \
