@@ -128,7 +128,7 @@ void Compress(gsl::span<const std::uint8_t, 64> rgba, void* block, int flags);
 /// weight the colour of each pixel by its alpha value. For images that are
 /// rendered using alpha blending, this can significantly increase the
 /// perceived quality.
-void CompressMasked(gsl::span<const std::uint8_t, 64> rgba, int mask,
+void CompressMasked(gsl::span<const std::uint8_t, 64> rgba, std::uint32_t mask,
                     void* block, int flags);
 
 /// @brief Decompresses a 4x4 block of pixels.
@@ -160,7 +160,8 @@ void Decompress(gsl::span<std::uint8_t, 64> rgba, void const* block, int flags);
 /// Most DXT images will be a multiple of 4 in each dimension, but this
 /// function supports arbitrary size images by allowing the outer blocks to
 /// be only partially used.
-int GetStorageRequirements(int width, int height, int flags);
+std::size_t GetStorageRequirements(std::uint32_t width, std::uint32_t height,
+                                   int flags);
 
 /// @brief Compresses an image in memory.
 ///
@@ -196,8 +197,8 @@ int GetStorageRequirements(int width, int height, int flags);
 /// Internally this function calls squish::Compress for each block. To see how
 /// much memory is required in the compressed image, use
 /// squish::GetStorageRequirements.
-void CompressImage(std::uint8_t const* rgba, int width, int height,
-                   void* blocks, int flags);
+void CompressImage(std::uint8_t const* rgba, std::uint32_t width,
+                   std::uint32_t height, void* blocks, int flags);
 
 /// @brief Decompresses an image in memory.
 ///
@@ -218,8 +219,8 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
 /// are ignored.
 ///
 /// Internally this function calls squish::Decompress for each block.
-void DecompressImage(std::uint8_t* rgba, int width, int height,
-                     void const* blocks, int flags);
+void DecompressImage(std::uint8_t* rgba, std::uint32_t width,
+                     std::uint32_t height, void const* blocks, int flags);
 }
 
 #endif

@@ -61,7 +61,7 @@ void Compress(gsl::span<const std::uint8_t, 64> rgba, void* block, int flags)
   CompressMasked(rgba, 0xffff, block, flags);
 }
 
-void CompressMasked(gsl::span<const std::uint8_t, 64> rgba, int mask,
+void CompressMasked(gsl::span<const std::uint8_t, 64> rgba, std::uint32_t mask,
                     void* block, int flags)
 {
   // fix any bad flags
@@ -124,19 +124,20 @@ void Decompress(gsl::span<std::uint8_t, 64> rgba, void const* block, int flags)
     DecompressAlphaDxt5(rgba, alphaBock);
 }
 
-int GetStorageRequirements(int width, int height, int flags)
+std::size_t GetStorageRequirements(std::uint32_t width, std::uint32_t height,
+                                   int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
 
   // compute the storage requirements
-  int blockcount = ((width + 3) / 4) * ((height + 3) / 4);
-  int blocksize = ((flags & kDxt1) != 0) ? 8 : 16;
+  auto blockcount = ((width + 3) / 4) * ((height + 3) / 4);
+  auto blocksize = ((flags & kDxt1) != 0) ? 8u : 16u;
   return blockcount * blocksize;
 }
 
-void CompressImage(std::uint8_t const* rgba, int width, int height,
-                   void* blocks, int flags)
+void CompressImage(std::uint8_t const* rgba, std::uint32_t width,
+                   std::uint32_t height, void* blocks, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
@@ -146,29 +147,30 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
-  for (int y = 0; y < height; y += 4)
+  for (std::uint32_t y = 0; y < height; y += 4)
   {
-    for (int x = 0; x < width; x += 4)
+    for (std::uint32_t x = 0; x < width; x += 4)
     {
       // build the 4x4 block of pixels
       std::uint8_t sourceRgba[16 * 4];
       std::uint8_t* targetPixel = sourceRgba;
       int mask = 0;
-      for (int py = 0; py < 4; ++py)
+      for (std::uint32_t py = 0; py < 4; ++py)
       {
-        for (int px = 0; px < 4; ++px)
+        for (std::uint32_t px = 0; px < 4; ++px)
         {
           // get the source pixel in the image
-          int sx = x + px;
-          int sy = y + py;
+          auto sx = x + px;
+          auto sy = y + py;
 
           // enable if we're in the image
           if (sx < width && sy < height)
           {
             // copy the rgba value
             std::uint8_t const* sourcePixel = rgba + 4 * (width * sy + sx);
-            for (int i = 0; i < 4; ++i)
-              *targetPixel++ = *sourcePixel++;
+            std::memcpy(targetPixel, sourcePixel, 4);
+            targetPixel += 4;
+            sourcePixel += 4;
 
             // enable this pixel
             mask |= (1 << (4 * py + px));
@@ -190,8 +192,8 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
   }
 }
 
-void DecompressImage(std::uint8_t* rgba, int width, int height,
-                     void const* blocks, int flags)
+void DecompressImage(std::uint8_t* rgba, std::uint32_t width,
+                     std::uint32_t height, void const* blocks, int flags)
 {
   // fix any bad flags
   flags = FixFlags(flags);
@@ -201,9 +203,9 @@ void DecompressImage(std::uint8_t* rgba, int width, int height,
   int bytesPerBlock = ((flags & kDxt1) != 0) ? 8 : 16;
 
   // loop over blocks
-  for (int y = 0; y < height; y += 4)
+  for (std::uint32_t y = 0; y < height; y += 4)
   {
-    for (int x = 0; x < width; x += 4)
+    for (std::uint32_t x = 0; x < width; x += 4)
     {
       // decompress the block
       std::uint8_t targetRgba[4 * 16];
@@ -211,20 +213,21 @@ void DecompressImage(std::uint8_t* rgba, int width, int height,
 
       // write the decompressed pixels to the correct image locations
       std::uint8_t const* sourcePixel = targetRgba;
-      for (int py = 0; py < 4; ++py)
+      for (std::uint32_t py = 0; py < 4; ++py)
       {
-        for (int px = 0; px < 4; ++px)
+        for (std::uint32_t px = 0; px < 4; ++px)
         {
           // get the target location
-          int sx = x + px;
-          int sy = y + py;
+          std::uint32_t sx = x + px;
+          std::uint32_t sy = y + py;
           if (sx < width && sy < height)
           {
             std::uint8_t* targetPixel = rgba + 4 * (width * sy + sx);
 
             // copy the rgba value
-            for (int i = 0; i < 4; ++i)
-              *targetPixel++ = *sourcePixel++;
+            std::memcpy(targetPixel, sourcePixel, 4);
+            targetPixel += 4;
+            sourcePixel += 4;
           }
           else
           {

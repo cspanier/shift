@@ -35,7 +35,8 @@ namespace squish
 class ColourSet
 {
 public:
-  ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask, int flags);
+  ColourSet(gsl::span<const std::uint8_t, 64> rgba, std::uint32_t mask,
+            int flags);
 
   int GetCount() const
   {

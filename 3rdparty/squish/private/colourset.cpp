@@ -27,7 +27,7 @@
 
 namespace squish
 {
-ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
+ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, std::uint32_t mask,
                      int flags)
 : m_count(0), m_transparent(false)
 {
@@ -39,8 +39,8 @@ ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
   for (int i = 0; i < 16; ++i)
   {
     // check this pixel is enabled
-    int bit = 1 << i;
-    if ((mask & bit) == 0)
+    auto bit = 1u << i;
+    if ((mask & bit) == 0u)
     {
       m_remap[i] = -1;
       continue;
@@ -61,12 +61,12 @@ ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
       if (j == i)
       {
         // normalise coordinates to [0,1]
-        float x = (float)rgba[4 * i] / 255.0f;
-        float y = (float)rgba[4 * i + 1] / 255.0f;
-        float z = (float)rgba[4 * i + 2] / 255.0f;
+        auto x = rgba[4 * i] / 255.0f;
+        auto y = rgba[4 * i + 1] / 255.0f;
+        auto z = rgba[4 * i + 2] / 255.0f;
 
         // ensure there is always non-zero weight even for zero alpha
-        float w = (float)(rgba[4 * i + 3] + 1) / 256.0f;
+        float w = (rgba[4 * i + 3] + 1) / 256.0f;
 
         // add the point
         m_points[m_count] = Vec3(x, y, z);
@@ -79,7 +79,7 @@ ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
       }
 
       // check for a match
-      int oldbit = 1 << j;
+      auto oldbit = 1u << j;
       bool match = ((mask & oldbit) != 0) && (rgba[4 * i] == rgba[4 * j]) &&
                    (rgba[4 * i + 1] == rgba[4 * j + 1]) &&
                    (rgba[4 * i + 2] == rgba[4 * j + 2]) &&
@@ -90,7 +90,7 @@ ColourSet::ColourSet(gsl::span<const std::uint8_t, 64> rgba, int mask,
         int index = m_remap[j];
 
         // ensure there is always non-zero weight even for zero alpha
-        float w = (float)(rgba[4 * i + 3] + 1) / 256.0f;
+        float w = (rgba[4 * i + 3] + 1) / 256.0f;
 
         // map to this point and increase the weight
         m_weights[index] += (weightByAlpha ? w : 1.0f);
