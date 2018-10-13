@@ -28,13 +28,13 @@ std::vector<Range> split(const Range& input, Predicate predicate,
     if (predicate(*current))
     {
       if (include_empty || first != current)
-        tokens.push_back(Range(first, current));
+        tokens.emplace_back(first, current);
       first = current;
       ++first;
     }
   }
   if (include_empty || first != std::end(input))
-    tokens.push_back(Range(first, std::end(input)));
+    tokens.emplace_back(first, std::end(input));
   return tokens;
 }
 
