@@ -141,6 +141,46 @@ fs::path job_description::output(
   return path_string;
 }
 
+action_base::action_base(const std::string& action_name,
+                         const action_version& action_version,
+                         const bool action_support_multithreading)
+: _description({action_name, action_version}),
+  _support_multithreading(action_support_multithreading)
+{
+}
+
+action_base::~action_base() = default;
+
+const std::string& action_base::name() const
+{
+  return _description.name;
+}
+
+const action_version& action_base::version() const
+{
+  return _description.version;
+}
+
+bool action_base::support_multithreading() const
+{
+  return _support_multithreading;
+}
+
+bool action_base::compare_version(const action_version& cached_version) const
+{
+  return _description.version != cached_version;
+}
+
+bool action_base::modified() const
+{
+  return _modified;
+}
+
+void action_base::modified(bool is_modified)
+{
+  _modified = is_modified;
+}
+
 std::string merge_slashes(const std::string& input)
 {
   static const std::regex successive_slashes("//+", std::regex::ECMAScript);

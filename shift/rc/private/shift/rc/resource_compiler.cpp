@@ -151,6 +151,10 @@ void resource_compiler::save_cache(
     log::info() << "Saving cache file " << cache_filename << "...";
 
   _impl->cache.save(cache_filename);
+
+  if (verbose() >= 1)
+    log::info() << "Saving cache graph " << cache_filename << "...";
+  _impl->cache.save_graph(fs::path{cache_filename}.replace_extension(".dot"));
 }
 
 void resource_compiler::update()
@@ -192,7 +196,7 @@ void resource_compiler::update()
     if (current_pass == 0)
       break;
 
-    // Spawn an own parallel task for each job in the current pass.
+    // Spawn a task in parallel for each job in the current pass.
     std::size_t modified_jobs_count = 0;
     for (auto* job : jobs)
     {

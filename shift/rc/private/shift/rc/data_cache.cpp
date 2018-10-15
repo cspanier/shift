@@ -20,7 +20,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
   using namespace shift::parser;
 
   if (!fs::exists(cache_filename))
-    return true;
+    return false;
 
   json::value root;
   if (std::ifstream file{cache_filename.generic_string(),
@@ -47,18 +47,40 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
   if (actions_iter != root_object.end())
   {
     if (const auto* cached_actions =
-          json::get_if<json::object>(&actions_iter->second))
+          json::get_if<json::object>(&actions_iter->second);
+        cached_actions != nullptr)
     {
       for (const auto& cached_action : *cached_actions)
       {
         if (const auto* cached_version =
-              json::get_if<std::string>(&cached_action.second))
+              json::get_if<std::string>(&cached_action.second);
+            cached_version != nullptr)
         {
+          auto action = std::make_unique<action_description>(
+            cached_action.first, *cached_version);
+          std::string_view action_name = action->name;
+          _actions.try_emplace(action_name, std::move(action));
+
+          // Check if the cached action still exists and has the same version.
+          // We need to differenciate between three cases:
+          // 1. The cached action is available and has the same version.
+          // 2. The cached action is available but has a different version.
+          //    This happens if the implementation and thus the version of the
+          //    action changes. In this case we need to re-run all jobs using
+          //    this action by marking the action as modified.
+          // 3. The cached action is not available.
+          //    This happens if the action was removed from code or if we're
+          //    running an older version of the resource compiler using a more
+          //    recent cache file.
+          //    In this case we simply ignore the cached action. As a
+          //    consequence, rules loaded below still using the non-existing
+          //    action will also fail to load.
           for (auto& [action_name, action] : _impl->actions)
           {
             if (action_name == cached_action.first)
             {
-              action->check_version(*cached_version);
+              action->modified(action->modified() ||
+                               action->compare_version(*cached_version));
               break;
             }
           }
@@ -97,6 +119,9 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           }
           auto action_name = json::get<std::string>(rule_object->at("action"));
           auto action_iter = _impl->actions.find(action_name);
+          // Skip this rule of the associated action does not exist. This may
+          // happen when the action is removed from code. Any cached jobs
+          // associated with this action will also fail to load.
           if (action_iter == _impl->actions.end())
             continue;
           new_rule.action = action_iter->second;
@@ -361,7 +386,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
   return true;
 }
 
-void data_cache::save(const boost::filesystem::path& cache_filename)
+void data_cache::save(const boost::filesystem::path& cache_filename) const
 {
   using namespace shift::parser;
 
@@ -462,7 +487,47 @@ void data_cache::save(const boost::filesystem::path& cache_filename)
     return;
 
   file << core::indent_character(' ') << core::indent_width(2);
-  file << root << std::flush;
+  file << root;
+  file.close();
+}
+
+void data_cache::save_graph(const fs::path& graph_filename) const
+{
+  std::ofstream file{graph_filename.generic_string(), std::ios_base::out |
+                                                        std::ios_base::binary |
+                                                        std::ios_base::trunc};
+  if (!file.is_open())
+    return;
+
+  static constexpr char br = '\n';
+
+  file << R"(digraph Cache {)" << br;
+  file << R"(  rankdir=LR;)" << br;
+  file << R"(  size="8,5")" << br;
+
+  std::uint32_t job_id = 1;
+  for (const auto& job : _impl->jobs)
+  {
+    // Don't write jobs that failed execution.
+    if (job->flags.test(entity_flag::failed))
+      continue;
+
+    for (const auto& input : job->inputs)
+    {
+      file << R"(  ")" << input->file->generic_string << R"(" -> ")"
+           << job->matching_rule->id << '#' << job_id << R"(";)" << br;
+    }
+
+    for (const auto* output : job->outputs)
+    {
+      file << R"(  ")" << job->matching_rule->id << '#' << job_id << R"(" -> ")"
+           << output->path.generic_string() << R"(";)" << br;
+    }
+
+    ++job_id;
+  }
+
+  file << R"(})" << br;
   file.close();
 }
 

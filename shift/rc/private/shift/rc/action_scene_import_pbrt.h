@@ -4,7 +4,6 @@
 #include <shift/core/exception.h>
 #include <shift/resource/repository.h>
 #include "shift/rc/types.h"
-#include "shift/rc/action_base.h"
 
 namespace shift::rc
 {

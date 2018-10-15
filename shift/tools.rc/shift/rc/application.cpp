@@ -38,9 +38,11 @@ namespace rc
     _compiler.verbose(verbose);
     _compiler.image_magick(image_magick);
     _compiler.load_rules(rules_filename);
-    auto cache_filepath = build_path / cache_filename;
-    if (!_compiler.load_cache(cache_filepath))
-      log::warning() << "Error reading cache file " << cache_filepath;
+    if (auto cache_filepath = build_path / cache_filename;
+        fs::exists(cache_filepath) && !_compiler.load_cache(cache_filepath))
+    {
+      log::warning() << "Cannot read cache file " << cache_filepath;
+    }
     _compiler.update();
 
     _compiler.collect_garbage();

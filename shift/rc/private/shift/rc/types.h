@@ -15,7 +15,6 @@
 #include <shift/core/bit_field.h>
 #include <shift/parser/json/json.h>
 #include <shift/parser/json/hash.h>
-#include "shift/rc/action_base.h"
 
 namespace shift::rc
 {
@@ -30,15 +29,39 @@ struct file_stats;
 struct cache_data;
 
 ///
-enum class entity_flag
+enum class entity_flag : std::uint32_t
 {
-  exists = 0b0001,
-  modified = 0b0010,
-  used = 0b0100,
-  failed = 0b1000
+  exists = (1u << 0),
+  modified = (1u << 1),
+  used = (1u << 2),
+  failed = (1u << 3)
 };
 
 using entity_flags = core::bit_field<entity_flag>;
+
+using action_version = std::string;
+
+/// A short description to uniquely identify each action.
+struct action_description
+{
+  action_description() = default;
+  action_description(std::string name, action_version version,
+                     entity_flags flags = entity_flags{})
+  : name(name), version(version), flags(flags)
+  {
+  }
+  action_description(const action_description&) = default;
+  action_description(action_description&&) = default;
+  ~action_description() = default;
+  action_description& operator=(const action_description&) = default;
+  action_description& operator=(action_description&&) = default;
+
+  const std::string name;
+  const action_version version;
+  entity_flags flags;
+};
+
+class action_base;
 
 /// Stores a filename regex and a copy of the pattern string from which the
 /// regex was constructed from.
@@ -124,6 +147,69 @@ struct job_description
 
 /// Comparison operator used for finding jobs in cache.
 bool operator==(const job_description& lhs, const job_description& rhs);
+
+/// Base class for all actions.
+/// @remarks
+///   Each resource processing algorithm is encapsulated in an action.
+class action_base
+{
+public:
+  /// Constructor.
+  /// @param action_support_multithreading
+  ///   Set this parameter to false to enforce all instances of this action to
+  ///   be processed in a serial fashion. This is required e.g. when using
+  ///   external libs that make use of global/static variables to store state.
+  action_base(const std::string& action_name,
+              const action_version& action_version,
+              bool action_support_multithreading = true);
+
+  action_base(const action_base&) = delete;
+  action_base(action_base&&) = delete;
+
+  /// Destructor.
+  virtual ~action_base() = 0;
+
+  action_base& operator=(const action_base&) = delete;
+  action_base& operator=(action_base&&) = delete;
+
+  /// Returns the static action's name.
+  const std::string& name() const;
+
+  /// Returns the static action's version.
+  const action_version& version() const;
+
+  /// Returns whether the action can be used from multiple threads.
+  bool support_multithreading() const;
+
+  /// Checks the cached version against the internal static version.
+  /// @return
+  ///    Returns true if the versions match, false otherwise.
+  bool compare_version(const action_version& cached_version) const;
+
+  /// Returns whether the action itself has been modified.
+  /// @remarks
+  ///   The resource compiler needs to run an action not only if any input or
+  ///   output files changed, but also if the algorithm itself was updated to a
+  ///   new version. To detect this case each action has a version identifier.
+  ///   Changing an action version invalidates all cached actions.
+  bool modified() const;
+
+  /// Sets or clears the action's modified flag.
+  void modified(bool is_modified);
+
+  /// Process a single job.
+  /// @remarks
+  ///   This method may be called from multiple threads in parallel. You are
+  ///   supposed to store most runtime data on the stack to avoid
+  ///   synchronization issues.
+  virtual bool process(resource_compiler_impl& compiler,
+                       job_description& job) const = 0;
+
+private:
+  action_description _description;
+  bool _support_multithreading = true;
+  bool _modified = true;
+};
 
 ///
 struct file_stats

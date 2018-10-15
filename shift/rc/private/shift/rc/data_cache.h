@@ -9,7 +9,7 @@ namespace shift::rc
 class resource_compiler_impl;
 
 ///
-struct job_hasher
+struct job_description_hasher
 {
   std::size_t operator()(
     const std::unique_ptr<shift::rc::job_description>& job) const
@@ -22,7 +22,7 @@ struct job_hasher
 };
 
 ///
-struct job_comparator
+struct job_description_comparator
 {
   bool operator()(const std::unique_ptr<shift::rc::job_description>& lhs,
                   const std::unique_ptr<shift::rc::job_description>& rhs) const
@@ -55,8 +55,14 @@ public:
   ///   modification state get evaluated later on.
   bool load(const boost::filesystem::path& cache_filename);
 
+  /// Saves all cached data to a JSON file.
+  void save(const boost::filesystem::path& cache_filename) const;
+
+  /// Saves a GraphViz document of the file cache.
+  void save_graph(const fs::path& graph_filename) const;
+
   ///
-  void save(const boost::filesystem::path& cache_filename);
+  void add_action();
 
   /// Looks up a file in the list of cached files.
   file_stats* get_file(const fs::path& file_path);
@@ -77,9 +83,11 @@ public:
 
 private:
   resource_compiler_impl* _impl = nullptr;
+  std::unordered_map<std::string_view, std::unique_ptr<action_description>>
+    _actions;
   std::unordered_map<fs::path, std::unique_ptr<file_stats>> _files;
-  std::unordered_set<std::unique_ptr<job_description>, job_hasher,
-                     job_comparator>
+  std::unordered_set<std::unique_ptr<job_description>, job_description_hasher,
+                     job_description_comparator>
     _jobs;
 };
 }
