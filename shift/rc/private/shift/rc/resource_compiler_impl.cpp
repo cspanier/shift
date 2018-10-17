@@ -301,7 +301,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
   }
 }
 
-file_stats* resource_compiler_impl::save(
+file_description* resource_compiler_impl::save(
   const resource::resource_base& resource, const fs::path& target_name,
   job_description& job)
 {
@@ -315,8 +315,8 @@ file_stats* resource_compiler_impl::save(
   return push(target_name, job);
 }
 
-file_stats* resource_compiler_impl::push(const fs::path& target_name,
-                                         job_description& job)
+file_description* resource_compiler_impl::push(const fs::path& target_name,
+                                               job_description& job)
 {
   auto* target = add_file(target_name, job.matching_rule->pass);
   // log::debug() << "Added " << target_name
@@ -327,8 +327,8 @@ file_stats* resource_compiler_impl::push(const fs::path& target_name,
   return target;
 }
 
-file_stats* resource_compiler_impl::alias(file_stats* source,
-                                          std::uint32_t current_pass)
+file_description* resource_compiler_impl::alias(file_description* source,
+                                                std::uint32_t current_pass)
 {
   if (!source)
     return nullptr;
@@ -339,8 +339,8 @@ file_stats* resource_compiler_impl::alias(file_stats* source,
   return result;
 }
 
-file_stats* resource_compiler_impl::add_file(const fs::path& file_path,
-                                             std::uint32_t pass)
+file_description* resource_compiler_impl::add_file(const fs::path& file_path,
+                                                   std::uint32_t pass)
 {
   std::unique_lock lock(files_mutex);
 
@@ -350,7 +350,7 @@ file_stats* resource_compiler_impl::add_file(const fs::path& file_path,
 
   auto insert_result = files.insert(std::make_pair(file_path, nullptr));
   if (insert_result.second)
-    insert_result.first->second = std::make_unique<file_stats>(file_path);
+    insert_result.first->second = std::make_unique<file_description>(file_path);
   auto* file = insert_result.first->second.get();
 
   file->last_write_time = fs::last_write_time(file_path, error_code);
@@ -363,7 +363,7 @@ file_stats* resource_compiler_impl::add_file(const fs::path& file_path,
   return file;
 }
 
-file_stats* resource_compiler_impl::get_file(const fs::path& file_path)
+file_description* resource_compiler_impl::get_file(const fs::path& file_path)
 {
   auto file_iter = files.find(file_path);
   if (file_iter != files.end())
@@ -372,7 +372,7 @@ file_stats* resource_compiler_impl::get_file(const fs::path& file_path)
     return nullptr;
 }
 
-void resource_compiler_impl::match_file(file_stats& file,
+void resource_compiler_impl::match_file(file_description& file,
                                         std::uint32_t current_pass)
 {
   file.flags |= entity_flag::used;

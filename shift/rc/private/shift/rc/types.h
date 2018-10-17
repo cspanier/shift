@@ -25,7 +25,7 @@ class resource_compiler_impl;
 struct rule_description;
 struct input_match;
 struct job_description;
-struct file_stats;
+struct file_description;
 struct cache_data;
 
 ///
@@ -45,11 +45,13 @@ using action_version = std::string;
 struct action_description
 {
   action_description() = default;
+
   action_description(std::string name, action_version version,
                      entity_flags flags = entity_flags{})
   : name(name), version(version), flags(flags)
   {
   }
+
   action_description(const action_description&) = default;
   action_description(action_description&&) = default;
   ~action_description() = default;
@@ -120,7 +122,7 @@ struct input_match
   /// An iterator pointing to the matching rule_description::inputs map entry.
   std::map<std::string, rule_input>::const_iterator slot;
 
-  file_stats* file = nullptr;
+  file_description* file = nullptr;
 
   /// The regex search match pointing into generic_string.
   std::smatch match_results;
@@ -141,7 +143,7 @@ struct job_description
 
   rule_description* matching_rule = nullptr;
   std::vector<std::unique_ptr<input_match>> inputs;
-  std::unordered_set<file_stats*> outputs;
+  std::unordered_set<file_description*> outputs;
   entity_flags flags = entity_flags{0};
 };
 
@@ -212,21 +214,21 @@ private:
 };
 
 ///
-struct file_stats
+struct file_description
 {
   /// Constructor.
-  file_stats(const fs::path& path)
+  file_description(const fs::path& path)
   : path(path),
     generic_string(path.generic_string()),
     hash(std::hash<std::string>{}(generic_string))
   {
   }
 
-  file_stats(const file_stats&) = delete;
-  file_stats(file_stats&&) = delete;
-  ~file_stats() = default;
-  file_stats& operator=(const file_stats&) = delete;
-  file_stats& operator=(file_stats&&) = delete;
+  file_description(const file_description&) = delete;
+  file_description(file_description&&) = delete;
+  ~file_description() = default;
+  file_description& operator=(const file_description&) = delete;
+  file_description& operator=(file_description&&) = delete;
 
   fs::path path;
   /// Stores the result of path.generic_string(). This string is required as we
@@ -236,7 +238,7 @@ struct file_stats
   time_t last_write_time = 0;
   std::uint32_t pass = 0;
   entity_flags flags = entity_flags{0};
-  file_stats* alias = nullptr;
+  file_description* alias = nullptr;
 };
 
 /// In some circumstances variables are replaced with empty strings (e.g.

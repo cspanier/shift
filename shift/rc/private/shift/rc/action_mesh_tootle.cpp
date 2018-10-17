@@ -352,7 +352,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     switch (sub_mesh.topology)
     {
     case resource::primitive_topology::triangle_list:
-      for (std::size_t i = 0; i < sub_mesh.index_count; i += 3)
+      for (std::uint32_t i = 0; i < sub_mesh.index_count; i += 3)
       {
         obj_file << "f " << fetch_position_index(i + 0) << "/"
                  << fetch_texcoord_index(i + 0) << "/"

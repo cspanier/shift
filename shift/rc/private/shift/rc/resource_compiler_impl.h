@@ -26,15 +26,15 @@ public:
   void read_rules(const fs::path& rules_file_path, const fs::path& rule_path);
 
   /// Saves the resource and associates the output file with the job.
-  file_stats* save(const resource::resource_base& resource,
-                   const fs::path& target_name, job_description& job);
+  file_description* save(const resource::resource_base& resource,
+                         const fs::path& target_name, job_description& job);
 
   /// Associates the output file with the job.
-  file_stats* push(const fs::path& target_name, job_description& job);
+  file_description* push(const fs::path& target_name, job_description& job);
 
   /// Tries to resolve an alias. If is not found in the internal dictionary
   /// source is returned instead.
-  file_stats* alias(file_stats* source, std::uint32_t current_pass);
+  file_description* alias(file_description* source, std::uint32_t current_pass);
 
   /// Adds a file to the list of used files.
   /// @param pass
@@ -43,14 +43,14 @@ public:
   ///   avoid dependency loops.
   /// @pre
   ///   The file identified by file_path exists and is a regular file.
-  file_stats* add_file(const fs::path& file_path, std::uint32_t pass);
+  file_description* add_file(const fs::path& file_path, std::uint32_t pass);
 
   /// Looks up a file in the list of previously added files.
-  file_stats* get_file(const fs::path& file_path);
+  file_description* get_file(const fs::path& file_path);
 
   /// Try to match a file against the currently loaded rule set, eventually
   /// adding a new match to a rule's matches vector.
-  void match_file(file_stats& file, std::uint32_t current_pass);
+  void match_file(file_description& file, std::uint32_t current_pass);
 
   /// Walk through the currently loaded rule set and finds the next pass that
   /// contains matches which eventually transform to jobs.
@@ -83,7 +83,7 @@ public:
   data_cache cache;
 
   std::shared_mutex files_mutex;
-  std::unordered_map<fs::path, std::unique_ptr<file_stats>> files;
+  std::unordered_map<fs::path, std::unique_ptr<file_description>> files;
 };
 }
 

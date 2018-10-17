@@ -75,15 +75,15 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           //    In this case we simply ignore the cached action. As a
           //    consequence, rules loaded below still using the non-existing
           //    action will also fail to load.
-          for (auto& [action_name, action] : _impl->actions)
-          {
-            if (action_name == cached_action.first)
-            {
-              action->modified(action->modified() ||
-                               action->compare_version(*cached_version));
-              break;
-            }
-          }
+          // for (auto& [action_name, action] : _impl->actions)
+          // {
+          //   if (action_name == cached_action.first)
+          //   {
+          //     action->modified(action->modified() ||
+          //                      action->compare_version(*cached_version));
+          //     break;
+          //   }
+          // }
         }
       }
     }
@@ -101,14 +101,14 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
         if (const auto* rule_object =
               json::get_if<json::object>(&cached_rule.second))
         {
-          rule_description new_rule;
-          new_rule.id = cached_rule.first;
+          auto new_rule = std::make_unique<rule_description>();
+          new_rule->id = cached_rule.first;
           if (!json::has(*rule_object, "pass") ||
               (json::get_if<double>(&rule_object->at("pass")) == nullptr))
           {
             continue;
           }
-          new_rule.pass = static_cast<std::uint32_t>(
+          new_rule->pass = static_cast<std::uint32_t>(
             json::get<double>(rule_object->at("pass")));
 
           if (!json::has(*rule_object, "action") ||
@@ -124,14 +124,14 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           // associated with this action will also fail to load.
           if (action_iter == _impl->actions.end())
             continue;
-          new_rule.action = action_iter->second;
+          new_rule->action = action_iter->second;
 
           if (!json::has(*rule_object, "path") ||
               (json::get_if<std::string>(&rule_object->at("path")) == nullptr))
           {
             continue;
           }
-          new_rule.rule_path = json::get<std::string>(rule_object->at("path"));
+          new_rule->rule_path = json::get<std::string>(rule_object->at("path"));
 
           if (!json::has(*rule_object, "inputs") ||
               (json::get_if<json::object>(&rule_object->at("inputs")) ==
@@ -146,7 +146,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             if (const auto* input =
                   json::get_if<std::string>(&input_iter.second))
             {
-              new_rule.inputs.insert_or_assign(
+              new_rule->inputs.insert_or_assign(
                 input_iter.first,
                 rule_input{*input,
                            std::regex{*input, std::regex_constants::ECMAScript |
@@ -166,7 +166,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           {
             if (auto* group_by_value = json::get_if<double>(&group_by))
             {
-              new_rule.group_by.insert(
+              new_rule->group_by.insert(
                 static_cast<std::size_t>(*group_by_value));
             }
           }
@@ -184,7 +184,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             if (const auto* output =
                   json::get_if<std::string>(&output_iter.second))
             {
-              new_rule.outputs.insert_or_assign(output_iter.first, *output);
+              new_rule->outputs.insert_or_assign(output_iter.first, *output);
             }
           }
 
@@ -194,29 +194,39 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
           {
             continue;
           }
-          new_rule.options =
+          new_rule->options =
             json::get<json::object>(rule_object->at("options"));
 
-          // Search for the rule among the actually existing ones.
-          auto existing_rule_iter =
-            std::find_if(_impl->rules.begin(), _impl->rules.end(),
-                         [&](const auto& existing_rule) {
-                           return existing_rule->id == new_rule.id;
-                         });
-          if (existing_rule_iter == _impl->rules.end())
+          std::string_view id = new_rule->id;
+          if (!_rules.try_emplace(id, std::move(new_rule)).second)
           {
-            // There is no rule with the given id any more, so it must have been
-            // deleted since the last RC invocation. Ignore the cached rule in
-            // this case.
-            continue;
+            /// ToDo: Warn about non-unique rule in cache. Otherwise just ignore
+            /// it and continue with the next rule.
           }
-          auto* existing_rule = existing_rule_iter->get();
-          if (*existing_rule == new_rule)
-          {
-            // The cached rule matches the previously added one, thus remove the
-            // modified flag.
-            existing_rule->modified = false;
-          }
+
+          // // Search for the rule among the actually existing ones.
+          // auto existing_rule_iter =
+          //   std::find_if(_impl->rules.begin(), _impl->rules.end(),
+          //                [&](const auto& existing_rule) {
+          //                  return existing_rule->id == new_rule->id;
+          //                });
+          // if (existing_rule_iter == _impl->rules.end())
+          // {
+          //   // There is no rule with the given id any more, so it must have
+          //   been
+          //   // deleted since the last RC invocation. Ignore the cached rule
+          //   in
+          //   // this case.
+          //   continue;
+          // }
+          // auto* existing_rule = existing_rule_iter->get();
+          // if (*existing_rule == *new_rule)
+          // {
+          //   // The cached rule matches the previously added one, thus remove
+          //   the
+          //   // modified flag.
+          //   existing_rule->modified = false;
+          // }
         }
       }
     }
@@ -234,19 +244,14 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
         if (const auto* cached_file_object =
               json::get_if<json::object>(&cached_file.second))
         {
-          fs::path file_path{cached_file.first};
-          auto file_iter =
-            _files
-              .insert_or_assign(file_path,
-                                std::make_unique<file_stats>(file_path))
-              .first;
-          auto* file = file_iter->second.get();
+          auto new_file =
+            std::make_unique<file_description>(fs::path{cached_file.first});
 
           if (json::has(*cached_file_object, "write-time") &&
               (json::get_if<double>(&cached_file_object->at("write-time")) !=
                nullptr))
           {
-            file->last_write_time = static_cast<time_t>(
+            new_file->last_write_time = static_cast<time_t>(
               json::get<double>(cached_file_object->at("write-time")));
           }
 
@@ -254,31 +259,39 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
               (json::get_if<double>(&cached_file_object->at("pass")) !=
                nullptr))
           {
-            file->pass = static_cast<std::uint32_t>(
+            new_file->pass = static_cast<std::uint32_t>(
               json::get<double>(cached_file_object->at("pass")));
+          }
+
+          std::string_view file_key = new_file->generic_string;
+          if (!_files.try_emplace(file_key, std::move(new_file)).second)
+          {
+            /// ToDo: Log warning about non-unique file path.
+            continue;
           }
         }
       }
 
-      // Resolve alias references in a second pass to make sure that all files
-      // are present.
-      for (const auto& cached_file : *cached_files)
-      {
-        if (const auto* cached_file_object =
-              json::get_if<json::object>(&cached_file.second))
-        {
-          if (json::has(*cached_file_object, "alias") &&
-              (json::get_if<std::string>(&cached_file_object->at("alias")) !=
-               nullptr))
-          {
-            if (auto* file = get_file(fs::path{cached_file.first}))
-            {
-              file->alias = get_file(fs::path{
-                json::get<std::string>(cached_file_object->at("alias"))});
-            }
-          }
-        }
-      }
+      // // Resolve alias references in a second pass to make sure that all
+      // files
+      // // are present.
+      // for (const auto& cached_file : *cached_files)
+      // {
+      //   if (const auto* cached_file_object =
+      //         json::get_if<json::object>(&cached_file.second))
+      //   {
+      //     if (json::has(*cached_file_object, "alias") &&
+      //         (json::get_if<std::string>(&cached_file_object->at("alias")) !=
+      //          nullptr))
+      //     {
+      //       if (auto* file = get_file(fs::path{cached_file.first}))
+      //       {
+      //         file->alias = get_file(fs::path{
+      //           json::get<std::string>(cached_file_object->at("alias"))});
+      //       }
+      //     }
+      //   }
+      // }
     }
   }
 
@@ -300,13 +313,25 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             continue;
           }
           auto rule_id = json::get<std::string>(job_object->at("rule"));
-          auto rule_iter =
-            std::find_if(_impl->rules.begin(), _impl->rules.end(),
-                         [&](const auto& rule) { return rule->id == rule_id; });
-          if (rule_iter == _impl->rules.end())
+
+          rule_description* rule = nullptr;
+          if (auto rule_iter = _rules.find(rule_id); rule_iter != _rules.end())
+          {
+            rule = rule_iter->second.get();
+          }
+          else
+          {
+            /// ToDo: Log warning about missing rule reference in cached job.
             continue;
-          auto* rule = rule_iter->get();
-          new_job->matching_rule = rule_iter->get();
+          }
+          // auto rule_iter =
+          //   std::find_if(_impl->rules.begin(), _impl->rules.end(),
+          //                [&](const auto& rule) { return rule->id == rule_id;
+          //                });
+          // if (rule_iter == _impl->rules.end())
+          //   continue;
+          // auto* rule = rule_iter->get();
+          new_job->matching_rule = rule;
 
           if (!json::has(*job_object, "inputs") ||
               (json::get_if<json::array>(&job_object->at("inputs")) == nullptr))
@@ -531,7 +556,12 @@ void data_cache::save_graph(const fs::path& graph_filename) const
   file.close();
 }
 
-file_stats* data_cache::get_file(const fs::path& file_path)
+file_description* data_cache::get_file(const fs::path& file_path)
+{
+  return get_file(std::string_view{file_path.generic_string()});
+}
+
+file_description* data_cache::get_file(std::string_view file_path)
 {
   auto cached_file_iter = _files.find(file_path);
   if (cached_file_iter != _files.end())
@@ -582,9 +612,9 @@ bool data_cache::is_modified(const job_description& job) const
   return false;
 }
 
-bool data_cache::is_modified(const file_stats& file) const
+bool data_cache::is_modified(const file_description& file) const
 {
-  auto cached_file_iter = _files.find(file.path);
+  auto cached_file_iter = _files.find(file.generic_string);
   if (cached_file_iter != _files.end())
   {
     if (file.last_write_time != cached_file_iter->second->last_write_time)

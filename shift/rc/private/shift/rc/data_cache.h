@@ -65,7 +65,10 @@ public:
   void add_action();
 
   /// Looks up a file in the list of cached files.
-  file_stats* get_file(const fs::path& file_path);
+  file_description* get_file(const fs::path& file_path);
+
+  /// Looks up a file in the list of cached files.
+  file_description* get_file(std::string_view file_path);
 
   /// Looks up a job in the list of cached jobs that is equivalent to the passed
   /// one.
@@ -79,13 +82,16 @@ public:
   bool is_modified(const job_description& job) const;
 
   /// Checks whether a file is modified compared to the ones cached.
-  bool is_modified(const file_stats& file) const;
+  bool is_modified(const file_description& file) const;
 
 private:
   resource_compiler_impl* _impl = nullptr;
   std::unordered_map<std::string_view, std::unique_ptr<action_description>>
     _actions;
-  std::unordered_map<fs::path, std::unique_ptr<file_stats>> _files;
+  std::unordered_map<std::string_view, std::unique_ptr<rule_description>>
+    _rules;
+  std::unordered_map<std::string_view, std::unique_ptr<file_description>>
+    _files;
   std::unordered_set<std::unique_ptr<job_description>, job_description_hasher,
                      job_description_comparator>
     _jobs;
