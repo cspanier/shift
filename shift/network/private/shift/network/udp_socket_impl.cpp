@@ -66,17 +66,24 @@ bool udp_socket::impl::open(udp_socket& socket,
   underlying_socket.open(listen_endpoint.protocol());
   underlying_socket.set_option(udp::socket::reuse_address(true));
   underlying_socket.set_option(multicast::enable_loopback(true));
+
+  boost::system::error_code error_code;
   if (bind_address.is_v4())
   {
     underlying_socket.set_option(
-      multicast::outbound_interface(bind_address.to_v4()));
+      multicast::outbound_interface(bind_address.to_v4()), error_code);
   }
   else if (bind_address.is_v6())
   {
     // There is no platform independent way to find an interface number.
-    underlying_socket.set_option(multicast::outbound_interface(0));
+    underlying_socket.set_option(multicast::outbound_interface(0), error_code);
   }
-  boost::system::error_code error_code;
+  if (error_code)
+  {
+    underlying_socket.close();
+    return false;
+  }
+
   underlying_socket.bind(listen_endpoint, error_code);
   if (error_code)
   {
