@@ -62,7 +62,9 @@ namespace Shift.Protogen
 
         public Variant(Variant<T1, T2, T3, T4, T5, T6, T7, TRest> other)
         {
-            _value = other._value;
+            if (typeof(TRest) != typeof(EmptyType))
+                Rest = new TRest();
+            Value = other.Value;
         }
 
         public Variant(object value)
