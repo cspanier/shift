@@ -1,4 +1,4 @@
-﻿using Shift.Network;
+using Shift.Network;
 using System;
 
 namespace Shift.Service

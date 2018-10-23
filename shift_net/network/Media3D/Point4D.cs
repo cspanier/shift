@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Thales.Sagittarius.Data.Media3D
 {

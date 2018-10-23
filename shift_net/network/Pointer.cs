@@ -1,4 +1,4 @@
-﻿namespace Shift.Network
+namespace Shift.Network
 {
     /// <summary>
     /// 

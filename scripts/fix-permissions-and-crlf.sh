@@ -24,6 +24,7 @@ done
 find . -type f -\( \
 	-name "*.cpp" -o \
 	-name "*.h" -o \
+	-name "*.cs" -o \
 	-name "*.sh" -o \
 	-name "*.cmd" -o \
 	-name "*.cmake" -o \

@@ -1,4 +1,4 @@
-﻿using Shift.Protogen;
+using Shift.Protogen;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
