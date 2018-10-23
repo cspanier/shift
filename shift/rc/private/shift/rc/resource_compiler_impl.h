@@ -76,7 +76,6 @@ public:
   /// This mutex is used to prevent any external API calls while the resource
   /// compiler is working.
   std::mutex global_mutex;
-  std::unordered_map<std::string, action_base*> actions;
   std::shared_mutex rules_mutex;
   std::vector<std::unique_ptr<rule_description>> rules;
   std::vector<std::unique_ptr<job_description>> jobs;

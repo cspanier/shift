@@ -11,16 +11,16 @@ class action_group_resources : public action_base,
                                public core::singleton<action_group_resources>
 {
 public:
+  static constexpr const char* action_name = "group-resources";
+  static constexpr const char* action_version = "1.0.0001";
+
+public:
   /// Default constructor.
   action_group_resources();
 
   /// @see action_base::process.
   bool process(resource_compiler_impl& compiler,
                job_description& job) const override;
-
-private:
-  static constexpr const char* action_name = "group-resources";
-  static constexpr const char* action_version = "1.0.0001";
 };
 }
 

@@ -76,16 +76,16 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   }
 
   float scale = 1.0f;
-  auto scale_iter = job.matching_rule->options.find("scale");
-  if (scale_iter != job.matching_rule->options.end() &&
+  auto scale_iter = job.rule->options.find("scale");
+  if (scale_iter != job.rule->options.end() &&
       get_if<double>(&scale_iter->second))
   {
     scale = static_cast<float>(get<double>(scale_iter->second));
   }
 
   auto get_option = [&](const std::string& name, auto default_value) {
-    auto options_iter = job.matching_rule->options.find(name);
-    if (options_iter != job.matching_rule->options.end() &&
+    auto options_iter = job.rule->options.find(name);
+    if (options_iter != job.rule->options.end() &&
         get_if<decltype(default_value)>(&options_iter->second))
     {
       return get<decltype(default_value)>(options_iter->second);

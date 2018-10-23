@@ -247,8 +247,8 @@ bool action_font_import_ttf::process(resource_compiler_impl& compiler,
 
   save(compiler, job, ttf, glyph_meshes);
 
-  auto ttf_write_html = job.matching_rule->options.find("ttf_write_html");
-  if (ttf_write_html != job.matching_rule->options.end() &&
+  auto ttf_write_html = job.rule->options.find("ttf_write_html");
+  if (ttf_write_html != job.rule->options.end() &&
       parser::json::get_if<bool>(&ttf_write_html->second) &&
       parser::json::get<bool>(ttf_write_html->second))
   {

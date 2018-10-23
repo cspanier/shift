@@ -169,16 +169,16 @@ class action_font_import_ttf : public action_base,
                                public core::singleton<action_font_import_ttf>
 {
 public:
+  static constexpr const char* action_name = "font-import-ttf";
+  static constexpr const char* action_version = "1.0.0001";
+
+public:
   /// Default constructor.
   action_font_import_ttf();
 
   /// @see action_base::process.
   bool process(resource_compiler_impl& compiler,
                job_description& job) const override;
-
-private:
-  static constexpr const char* action_name = "font-import-ttf";
-  static constexpr const char* action_version = "1.0.0001";
 
 private:
   ///

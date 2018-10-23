@@ -16,6 +16,11 @@ class action_scene_import_gltf
   public core::singleton<action_scene_import_gltf>
 {
 public:
+  static constexpr const char* action_name = "scene-import-gltf";
+  static constexpr const char* action_version = "1.0.0001";
+  static constexpr const bool support_multithreading = true;
+
+public:
   /// Default constructor.
   action_scene_import_gltf();
 
@@ -28,10 +33,6 @@ public:
 
 private:
   struct context_t;
-
-  static constexpr const char* action_name = "scene-import-gltf";
-  static constexpr const char* action_version = "1.0.0001";
-  static constexpr const bool support_multithreading = true;
 };
 }
 

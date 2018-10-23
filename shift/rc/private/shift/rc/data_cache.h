@@ -8,32 +8,6 @@ namespace shift::rc
 {
 class resource_compiler_impl;
 
-///
-struct job_description_hasher
-{
-  std::size_t operator()(
-    const std::unique_ptr<shift::rc::job_description>& job) const
-  {
-    BOOST_ASSERT(job);
-    if (!job)
-      BOOST_THROW_EXCEPTION(core::logic_error());
-    return std::hash<shift::rc::job_description>{}(*job);
-  }
-};
-
-///
-struct job_description_comparator
-{
-  bool operator()(const std::unique_ptr<shift::rc::job_description>& lhs,
-                  const std::unique_ptr<shift::rc::job_description>& rhs) const
-  {
-    BOOST_ASSERT(lhs && rhs);
-    if (!lhs || !rhs)
-      BOOST_THROW_EXCEPTION(core::logic_error());
-    return *lhs == *rhs;
-  }
-};
-
 /// The cache data structure holds all information needed to decide whether a
 /// certain job needs to be rerun or not.
 class data_cache
@@ -45,11 +19,20 @@ public:
   /// Destructor.
   ~data_cache();
 
+  /// Registers an action and marks it as modified.
+  /// @pre
+  ///   load() has not been called, yet.
+  void register_action(std::string name, action_version version,
+                       action_base& impl);
+
   /// Loads cached data from a previously saved JSON file.
   /// @pre
-  ///   All actions have been registered and all rules have been read from file.
+  ///   All built-in actions must be registered before loading the cache file.
+  /// @post
+  ///   All actions that were found in the cache file and that had the same
+  ///   version are marked as unmodified.
   /// @remarks
-  ///   Actions, rules, jobs and files are initially created in modified state.
+  ///   Rules, jobs and files are initially created in modified state.
   ///   Only those that are found in this cache are reset to unmodified. Note
   ///   that jobs and files are created dynamically during run-time and their
   ///   modification state get evaluated later on.
@@ -62,12 +45,15 @@ public:
   void save_graph(const fs::path& graph_filename) const;
 
   ///
-  void add_action();
+  action_description* find_action(std::string_view name) const;
 
-  /// Looks up a file in the list of cached files.
+  /// @see get_file(std::string_view).
   file_description* get_file(const fs::path& file_path);
 
   /// Looks up a file in the list of cached files.
+  /// @return
+  ///   Either a pointer to a valid file_descriptor object, or nullptr if no
+  ///   file with the queried name was found.
   file_description* get_file(std::string_view file_path);
 
   /// Looks up a job in the list of cached jobs that is equivalent to the passed
@@ -92,9 +78,7 @@ private:
     _rules;
   std::unordered_map<std::string_view, std::unique_ptr<file_description>>
     _files;
-  std::unordered_set<std::unique_ptr<job_description>, job_description_hasher,
-                     job_description_comparator>
-    _jobs;
+  std::unordered_map<std::size_t, std::unique_ptr<job_description>> _jobs;
 };
 }
 

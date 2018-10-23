@@ -11,16 +11,16 @@ class action_scene_compile : public action_base,
                              public core::singleton<action_scene_compile>
 {
 public:
+  static constexpr const char* action_name = "scene-compile";
+  static constexpr const char* action_version = "1.0.0001";
+
+public:
   /// Default constructor.
   action_scene_compile();
 
   /// @see action_base::process.
   bool process(resource_compiler_impl& compiler,
                job_description& job) const override;
-
-private:
-  static constexpr const char* action_name = "scene-compile";
-  static constexpr const char* action_version = "1.0.0001";
 };
 }
 

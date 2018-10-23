@@ -10,7 +10,7 @@ bool operator==(const rule_description& lhs, const rule_description& rhs)
     return false;
   if (lhs.pass != rhs.pass)
     return false;
-  if (lhs.action->name() != rhs.action->name())
+  if (lhs.action->impl != rhs.action->impl)
     return false;
 
   if (lhs.inputs.size() != rhs.inputs.size())
@@ -59,7 +59,7 @@ bool operator==(const rule_description& lhs, const rule_description& rhs)
 
 bool operator==(const job_description& lhs, const job_description& rhs)
 {
-  if (lhs.matching_rule != rhs.matching_rule)
+  if (lhs.rule != rhs.rule)
     return false;
 
   if (lhs.inputs.size() != rhs.inputs.size())
@@ -84,7 +84,7 @@ bool operator==(const job_description& lhs, const job_description& rhs)
 
 bool job_description::has_output(const std::string& name) const
 {
-  return matching_rule->outputs.find(name) != matching_rule->outputs.end();
+  return rule->outputs.find(name) != rule->outputs.end();
 }
 
 fs::path job_description::output(
@@ -97,8 +97,8 @@ fs::path job_description::output(
 
   auto& compiler = resource_compiler::singleton_instance();
 
-  auto output_iter = matching_rule->outputs.find(name);
-  if (output_iter == matching_rule->outputs.end())
+  auto output_iter = rule->outputs.find(name);
+  if (output_iter == rule->outputs.end())
   {
     BOOST_ASSERT(false);
     return compiler.build_path() / name / "no-output.error";
@@ -111,8 +111,7 @@ fs::path job_description::output(
                      compiler.build_path().generic_string());
   boost::replace_all(path_string, "<output-path>",
                      compiler.output_path().generic_string());
-  boost::replace_all(path_string, "<rule-path>",
-                     matching_rule->rule_path.generic_string());
+  boost::replace_all(path_string, "<rule-path>", rule->path.generic_string());
 
   for (const auto& input : inputs)
   {
@@ -144,31 +143,21 @@ fs::path job_description::output(
 action_base::action_base(const std::string& action_name,
                          const action_version& action_version,
                          const bool action_support_multithreading)
-: _description({action_name, action_version}),
+: _description({action_name, action_version, this}),
   _support_multithreading(action_support_multithreading)
 {
 }
 
 action_base::~action_base() = default;
 
-const std::string& action_base::name() const
+const action_description& action_base::description() const
 {
-  return _description.name;
-}
-
-const action_version& action_base::version() const
-{
-  return _description.version;
+  return _description;
 }
 
 bool action_base::support_multithreading() const
 {
   return _support_multithreading;
-}
-
-bool action_base::compare_version(const action_version& cached_version) const
-{
-  return _description.version != cached_version;
 }
 
 bool action_base::modified() const

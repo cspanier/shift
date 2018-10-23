@@ -264,12 +264,11 @@ bool action_image_import::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  BOOST_ASSERT(job.matching_rule);
+  BOOST_ASSERT(job.rule);
 
   auto target_format =
-    parser::json::has(job.matching_rule->options, "target-format")
-      ? parser::json::get<std::string>(
-          job.matching_rule->options.at("target-format"))
+    parser::json::has(job.rule->options, "target-format")
+      ? parser::json::get<std::string>(job.rule->options.at("target-format"))
       : "auto"s;
 
   auto extension =
@@ -291,8 +290,8 @@ bool action_image_import::process(resource_compiler_impl& compiler,
   bool result = false;
   image_converter converter{
     *image, input->file->path, source_type,
-    parser::json::has(job.matching_rule->options, "normalize")
-      ? parser::json::get<bool>(job.matching_rule->options.at("normalize"))
+    parser::json::has(job.rule->options, "normalize")
+      ? parser::json::get<bool>(job.rule->options.at("normalize"))
       : false};
   try
   {

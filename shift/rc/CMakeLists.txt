@@ -28,4 +28,35 @@ if (NOT NO_VULKAN)
       BZip2::BZip2
       ZLIB::ZLIB
   )
+
+  shift_add_test(test.shift.rc
+    VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
+    SOURCEROOTS
+      ${CMAKE_CURRENT_SOURCE_DIR}/test
+    DEPENDENCIES
+      shift.application
+      shift.rc
+      # shift.graphics
+      shift.resource
+      shift.parser.json
+      shift.serialization2
+      shift.log
+      shift.crypto
+      shift.task
+      shift.core
+      shift.platform
+      Boost::boost
+      Boost::filesystem
+      Boost::iostreams
+      Boost::context
+      Boost::unit_test_framework
+      SPIRV::Cross
+      ShaderC::ShaderC
+      3rdparty.amd-tootle
+      TIFF::TIFF
+      JPEG::JPEG
+      PNG::PNG
+      BZip2::BZip2
+      ZLIB::ZLIB
+  )
 endif()

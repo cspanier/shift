@@ -44,7 +44,7 @@ static std::string regex_escape(const std::string& input)
 resource_compiler_impl::resource_compiler_impl() : cache(*this)
 {
   auto add_action = [&](auto& action) {
-    actions.insert_or_assign(action.name(), &action);
+    cache.register_action(action.action_name, action.action_version, action);
   };
 
   // Register all available actions.
@@ -199,17 +199,16 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
     new_rule->pass =
       boost::lexical_cast<std::uint32_t>(get<double>(pass_value));
     const auto& action_name = get<std::string>(action_value);
-    auto action_iter = actions.find(action_name);
-    if (action_iter == actions.end())
+    new_rule->action = cache.find_action(action_name);
+    if (new_rule->action == nullptr)
     {
       log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
                      << rule_id << R"(" references a non-existing action ")"
                      << action_name << R"(".)";
       continue;
     }
-    new_rule->action = action_iter->second;
-    new_rule->modified = true;
-    new_rule->rule_path = rule_path;
+    new_rule->flags.set(entity_flag::modified);
+    new_rule->path = rule_path;
     for (const auto& input_object_value : get<json::object>(input_value))
     {
       if (!get_if<std::string>(&input_object_value.second))
@@ -292,10 +291,9 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       [](const auto& new_rule, const auto& existing_rule) -> bool {
         return new_rule->pass < existing_rule->pass ||
                (new_rule->pass == existing_rule->pass &&
-                std::distance(new_rule->rule_path.begin(),
-                              new_rule->rule_path.end()) <
-                  std::distance(existing_rule->rule_path.begin(),
-                                existing_rule->rule_path.end()));
+                std::distance(new_rule->path.begin(), new_rule->path.end()) <
+                  std::distance(existing_rule->path.begin(),
+                                existing_rule->path.end()));
       });
     rules.insert(insert_position, std::move(new_rule));
   }
@@ -318,7 +316,7 @@ file_description* resource_compiler_impl::save(
 file_description* resource_compiler_impl::push(const fs::path& target_name,
                                                job_description& job)
 {
-  auto* target = add_file(target_name, job.matching_rule->pass);
+  auto* target = add_file(target_name, job.rule->pass);
   // log::debug() << "Added " << target_name
   //             << " with ts = " << target->last_write_time;
   if (!target)
@@ -493,7 +491,7 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
           log::debug() << R"(Adding new job based on rule ")" << rule->id
                        << '"';
         auto new_job = std::make_unique<job_description>();
-        new_job->matching_rule = rule.get();
+        new_job->rule = rule.get();
         new_job->inputs.emplace_back(std::move(new_match));
         new_jobs.push_back(std::move(new_job));
       }
@@ -510,7 +508,7 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
   // Add all modified jobs to the list of jobs to process.
   for (auto& job : jobs)
   {
-    if (job->matching_rule->pass == pass)
+    if (job->rule->pass == pass)
     {
       bool skip_job = true;
       // Check if there is an equivalent job in our cache.

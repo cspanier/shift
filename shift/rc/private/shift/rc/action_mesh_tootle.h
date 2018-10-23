@@ -11,6 +11,11 @@ class action_mesh_tootle : public action_base,
                            public core::singleton<action_mesh_tootle>
 {
 public:
+  static constexpr const char* action_name = "mesh-tootle";
+  static constexpr const char* action_version = "1.0.0001";
+  static constexpr const bool support_multithreading = false;
+
+public:
   /// Default constructor.
   action_mesh_tootle();
 
@@ -20,11 +25,6 @@ public:
   /// @see action_base::process.
   bool process(resource_compiler_impl& compiler,
                job_description& job) const override;
-
-private:
-  static constexpr const char* action_name = "mesh-tootle";
-  static constexpr const char* action_version = "1.0.0001";
-  static constexpr const bool support_multithreading = false;
 };
 }
 

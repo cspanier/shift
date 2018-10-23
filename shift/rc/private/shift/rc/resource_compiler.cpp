@@ -157,6 +157,16 @@ void resource_compiler::save_cache(
   _impl->cache.save_graph(fs::path{cache_filename}.replace_extension(".dot"));
 }
 
+void resource_compiler::save_cache_graph(
+  const boost::filesystem::path& cache_graph_filename)
+{
+  std::unique_lock lock(_impl->global_mutex);
+
+  if (verbose() >= 1)
+    log::info() << "Saving cache graph " << cache_graph_filename << "...";
+  _impl->cache.save_graph(cache_graph_filename);
+}
+
 void resource_compiler::update()
 {
   std::unique_lock lock(_impl->global_mutex);
@@ -214,11 +224,11 @@ void resource_compiler::update()
       if (job == nullptr)
         return false;
 
-      BOOST_ASSERT(job->matching_rule);
-      BOOST_ASSERT(job->matching_rule->action);
-      if (job->matching_rule == nullptr)
+      BOOST_ASSERT(job->rule);
+      BOOST_ASSERT(job->rule->action);
+      if (job->rule == nullptr)
         return false;
-      if (job->matching_rule->action == nullptr)
+      if (job->rule->action == nullptr)
         return false;
 
       bool result = false;
@@ -227,7 +237,7 @@ void resource_compiler::update()
       {
         try
         {
-          result = job->matching_rule->action->process(*_impl, *job);
+          result = job->rule->action->impl->process(*_impl, *job);
           if (verbose() >= 1)
           {
             log::info line;
@@ -282,14 +292,13 @@ void resource_compiler::update()
         for (auto* output_file : job->outputs)
         {
           BOOST_ASSERT(output_file != nullptr);
-          _impl->match_file(*output_file, job->matching_rule->pass);
+          _impl->match_file(*output_file, job->rule->pass);
         }
       }
       else
       {
         job->flags.set(entity_flag::failed);
-        log::error() << "A job using rule " << job->matching_rule->id
-                     << " failed.";
+        log::error() << "A job using rule " << job->rule->id << " failed.";
       }
       return false;
     };
@@ -299,7 +308,7 @@ void resource_compiler::update()
     auto serial_result = task::async([]() -> bool { return true; });
     for (auto* job : jobs)
     {
-      if (job->matching_rule->action->support_multithreading())
+      if (job->rule->action->impl->support_multithreading())
         continue;
 
       serial_result = std::move(serial_result)
@@ -318,7 +327,7 @@ void resource_compiler::update()
     // Spawn all jobs that do support multithreading in parallel.
     for (auto* job : jobs)
     {
-      if (!job->matching_rule->action->support_multithreading())
+      if (!job->rule->action->impl->support_multithreading())
         continue;
 
       task_results.emplace_back(task::async(process_job, job));

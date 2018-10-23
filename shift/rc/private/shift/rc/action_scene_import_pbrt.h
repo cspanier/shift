@@ -16,6 +16,10 @@ class action_scene_import_pbrt
   public core::singleton<action_scene_import_pbrt>
 {
 public:
+  static constexpr const char* action_name = "scene-import-pbrt";
+  static constexpr const char* action_version = "1.0.0001";
+
+public:
   /// Default constructor.
   action_scene_import_pbrt();
 
@@ -34,9 +38,6 @@ private:
                          const std::vector<std::string>& tokens,
                          const fs::path& base_path,
                          const fs::path& include_path) const;
-
-  static constexpr const char* action_name = "scene-import-pbrt";
-  static constexpr const char* action_version = "1.0.0001";
 };
 }
 

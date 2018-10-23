@@ -490,7 +490,7 @@ bool action_scene_import_pbrt::parse_token_group(
           if (texture_iter != current_scope.named_textures.end())
           {
             texture = texture_iter->second;
-            auto current_pass = context.job.matching_rule->pass;
+            auto current_pass = context.job.rule->pass;
             auto* texture_file = context.compiler.alias(
               context.compiler.get_file(texture->filename), current_pass);
             if (texture_file)
@@ -529,7 +529,7 @@ bool action_scene_import_pbrt::parse_token_group(
         if (image_reference.image)
           return true;
 
-        auto current_pass = context.job.matching_rule->pass;
+        auto current_pass = context.job.rule->pass;
         auto* image_file = context.compiler.alias(
           context.compiler.get_file(
             fs::path{"private/textures/engine/replaceme.png"}),
@@ -892,7 +892,7 @@ bool action_scene_import_pbrt::parse_token_group(
       {
         if (type == "string")
         {
-          auto current_pass = context.job.matching_rule->pass;
+          auto current_pass = context.job.rule->pass;
           auto* mesh_file = context.compiler.alias(
             context.compiler.get_file(include_path / get_token()),
             current_pass);

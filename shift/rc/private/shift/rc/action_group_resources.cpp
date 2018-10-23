@@ -52,7 +52,7 @@ bool action_group_resources::process(resource_compiler_impl& compiler,
     else
     {
       log::error() << "Unknown pattern name \"" << input->slot->first
-                   << "\" in rule \"" << job.matching_rule->id << "\".";
+                   << "\" in rule \"" << job.rule->id << "\".";
     }
   }
   // Store resource into repository.

@@ -68,6 +68,9 @@ public:
   void save_cache(const boost::filesystem::path& cache_filename);
 
   ///
+  void save_cache_graph(const boost::filesystem::path& cache_graph_filename);
+
+  ///
   void update();
 
   /// Drop all resources that are neither references by any other resource nor

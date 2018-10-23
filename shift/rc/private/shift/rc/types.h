@@ -40,6 +40,7 @@ enum class entity_flag : std::uint32_t
 using entity_flags = core::bit_field<entity_flag>;
 
 using action_version = std::string;
+class action_base;
 
 /// A short description to uniquely identify each action.
 struct action_description
@@ -47,8 +48,9 @@ struct action_description
   action_description() = default;
 
   action_description(std::string name, action_version version,
+                     const action_base* impl,
                      entity_flags flags = entity_flags{})
-  : name(name), version(version), flags(flags)
+  : name(name), version(version), impl(impl), flags(flags)
   {
   }
 
@@ -60,10 +62,9 @@ struct action_description
 
   const std::string name;
   const action_version version;
+  const action_base* impl = nullptr;
   entity_flags flags;
 };
-
-class action_base;
 
 /// Stores a filename regex and a copy of the pattern string from which the
 /// regex was constructed from.
@@ -85,13 +86,13 @@ struct rule_description
 
   std::string id;
   std::uint32_t pass;
-  const action_base* action = nullptr;
-  fs::path rule_path;
+  const action_description* action = nullptr;
+  fs::path path;
   std::map<std::string, rule_input> inputs;
   std::set<std::size_t> group_by;
   std::map<std::string, std::string> outputs;
   parser::json::object options;
-  bool modified;
+  entity_flags flags;
 
   std::mutex matches_mutex;
   std::vector<std::unique_ptr<input_match>> matches;
@@ -141,7 +142,8 @@ struct job_description
     const std::string& name,
     const std::map<std::string, std::string>& custom_variables) const;
 
-  rule_description* matching_rule = nullptr;
+  std::size_t id = 0;
+  rule_description* rule = nullptr;
   std::vector<std::unique_ptr<input_match>> inputs;
   std::unordered_set<file_description*> outputs;
   entity_flags flags = entity_flags{0};
@@ -174,19 +176,11 @@ public:
   action_base& operator=(const action_base&) = delete;
   action_base& operator=(action_base&&) = delete;
 
-  /// Returns the static action's name.
-  const std::string& name() const;
-
-  /// Returns the static action's version.
-  const action_version& version() const;
+  /// Returns the action's description.
+  const action_description& description() const;
 
   /// Returns whether the action can be used from multiple threads.
   bool support_multithreading() const;
-
-  /// Checks the cached version against the internal static version.
-  /// @return
-  ///    Returns true if the versions match, false otherwise.
-  bool compare_version(const action_version& cached_version) const;
 
   /// Returns whether the action itself has been modified.
   /// @remarks
@@ -239,6 +233,8 @@ struct file_description
   std::uint32_t pass = 0;
   entity_flags flags = entity_flags{0};
   file_description* alias = nullptr;
+  /// Each file may have zero or one source.
+  job_description* source = nullptr;
 };
 
 /// In some circumstances variables are replaced with empty strings (e.g.
@@ -265,7 +261,7 @@ struct hash<shift::rc::rule_description>
   {
     std::size_t seed = std::hash<std::string>{}(rule.id);
     boost::hash_combine(seed, std::hash<std::uint32_t>{}(rule.pass));
-    boost::hash_combine(seed, std::hash<std::string>{}(rule.action->name()));
+    boost::hash_combine(seed, std::hash<std::string>{}(rule.action->name));
 
     boost::hash_combine(seed, std::hash<std::size_t>{}(rule.inputs.size()));
     for (const auto& input : rule.inputs)
@@ -302,7 +298,7 @@ struct hash<shift::rc::job_description>
 {
   std::size_t operator()(const shift::rc::job_description& job) const
   {
-    std::size_t seed = std::hash<std::string>{}(job.matching_rule->id);
+    std::size_t seed = std::hash<std::string>{}(job.rule->id);
     boost::hash_combine(seed, std::hash<std::size_t>{}(job.inputs.size()));
     for (const auto& input : job.inputs)
     {
