@@ -35,8 +35,7 @@ TootleResult ODObjectOverdrawRaytrace(
 TootleResult ODOverdrawGraph(const float* pViewpoints, unsigned int nViewpoints,
                              bool bCullCCW, const std::vector<int>& rClusters,
                              const std::vector<int>& rClusterStart,
-                             std::vector<t_edge>& rGraphOut,
-                             TootleOverdrawOptimizer eOverdrawOptimizer);
+                             std::vector<t_edge>& rGraphOut);
 
 void ODCleanup();
 

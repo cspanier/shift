@@ -6,11 +6,6 @@
 #include <cassert>
 #include "TootlePCH.h"
 
-#ifndef SOFTWARE_ONLY_VERSION
-#include "gdiwm.h"
-#include "d3dwm.h"
-#endif
-
 #include "soup.h"
 #include "clustering.h"
 #include "error.h"
@@ -20,10 +15,6 @@
 #include "triorder.h"
 #include "viewpoints.h"
 #include "Stripifier.h"
-
-#ifdef _DX11_1_
-#include "directxmesh.h"
-#endif
 
 #define AMD_TOOTLE_API_FUNCTION_BEGIN \
   try                                 \
@@ -56,13 +47,6 @@ static TootleResult FindFaceMappingFromIndex(const unsigned int* pnIB,
                                              unsigned int nFaces,
                                              unsigned int* pnFaceMapOut);
 
-#ifndef SOFTWARE_ONLY_VERSION
-// optimize vertex cache using D3DXOptimizeFaces
-static TootleResult TootleOptimizeVCacheDirect3D(
-  const unsigned int* pnIB, unsigned int nFaces, unsigned int nVertices,
-  unsigned int nCacheSize, unsigned int* pnIBOut, unsigned int* pnFaceRemapOut);
-#endif
-
 // optimize vertex cache using triangle strips (not exactly triangle strips but
 // list like triangle strips)
 static TootleResult TootleOptimizeVCacheLStrips(
@@ -79,26 +63,8 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding,
-  TootleOverdrawOptimizer eOverdrawOptimizer,
   const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
   unsigned int* pnClusterRemapOut);
-
-// optimize overdraw by sorting the clusters based on the algorithm in SIGGRAPH
-// 2007
-static TootleResult TootleOptimizeOverdrawFastApproximation(
-  const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
-  unsigned int nFaces, unsigned int nVBStride, TootleFaceWinding eFrontWinding,
-  const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
-  unsigned int* pnClusterRemapOut);
-
-#ifndef SOFTWARE_ONLY_VERSION
-// measure overdraw using Direct3D calls
-static TootleResult TootleMeasureOverdrawDirect3D(
-  const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
-  unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
-  unsigned int nViewpoints, TootleFaceWinding eFrontWinding, float* pfAvgODOut,
-  float* pfMaxODOut);
-#endif
 
 // measure overdraw using software rendering via raytracing
 static TootleResult TootleMeasureOverdrawRaytrace(
@@ -248,14 +214,9 @@ TootleResult TOOTLE_DLL TootleOptimizeVCache(
     break;
 
   case TOOTLE_VCACHE_DIRECT3D:
-#ifdef SOFTWARE_ONLY_VERSION
     fprintf(stderr,
             "TootleOptimizeVCache: No Direct3D support for this version.\n");
     result = TOOTLE_INTERNAL_ERROR;
-#else
-    result = TootleOptimizeVCacheDirect3D(pnIB, nFaces, nVertices, nCacheSize,
-                                          pnIBOutTmp, pnFaceRemapOut);
-#endif
     break;
 
   case TOOTLE_VCACHE_LSTRIPS:
@@ -285,97 +246,6 @@ TootleResult TOOTLE_DLL TootleOptimizeVCache(
 
   AMD_TOOTLE_API_FUNCTION_END
 }
-
-#ifndef SOFTWARE_ONLY_VERSION
-static TootleResult TootleOptimizeVCacheDirect3D(
-  const unsigned int* pnIB, unsigned int nFaces, unsigned int nVertices,
-  unsigned int nCacheSize, unsigned int* pnIBOut, unsigned int* pnFaceRemapOut)
-{
-  // sanity checks
-  assert(pnIB);
-
-  if (nFaces == 0 || nFaces > TOOTLE_MAX_FACES)
-  {
-    errorf(("TootleOptimizeVCacheDirect3D: Invalid value of nFaces"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nVertices == 0 || nVertices > TOOTLE_MAX_VERTICES)
-  {
-    errorf(("TootleOptimizeVCacheDirect3D: Invalid value of nVertices"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nCacheSize == 0)
-  {
-    errorf(("TootleOptimizeVCacheDirect3D: nCacheSize = 0"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  auto pFaceRemap =
-#ifdef _DX11_1_
-    new uint32_t[nFaces];
-#else
-    new DWORD[nFaces];
-#endif
-  HRESULT hres = D3D_OK;
-
-  if (nFaces == 1)
-  {
-    // D3DX doesn't like it if we optimize a single face (we'll get an internal
-    // error), so just pass through
-    *pFaceRemap = 0;
-  }
-  else
-  {
-#ifdef _DX11_1_
-
-    hres = DirectX::OptimizeFaces(pnIB, nFaces, nullptr, pFaceRemap);
-#else
-    // use D3DX for optimization
-    hres = D3DXOptimizeFaces(pnIB, nFaces, nVertices, true, pFaceRemap);
-#endif
-  }
-
-  if (hres == D3D_OK)
-  {
-    // re-order faces
-    if (pnIBOut)
-    {
-      for (std::uint32_t i = 0; i < nFaces; i++)
-      {
-        for (std::uint32_t j = 0; j < 3; j++)
-        {
-          pnIBOut[(3 * i) + j] = pnIB[(3 * pFaceRemap[i]) + j];
-        }
-      }
-    }
-
-    // copy face re-mapping if user wants it
-    if (pnFaceRemapOut)
-    {
-      memcpy(pnFaceRemapOut, pFaceRemap, sizeof(std::uint32_t) * nFaces);
-    }
-  }
-
-  delete[] pFaceRemap;
-
-  switch (hres)
-  {
-  case D3D_OK:
-    return TOOTLE_OK;
-
-  case E_OUTOFMEMORY:
-    return TOOTLE_OUT_OF_MEMORY;
-
-  default:
-    return TOOTLE_INTERNAL_ERROR;
-  }
-}
-#endif
 
 static TootleResult TootleOptimizeVCacheLStrips(
   const unsigned int* pnIB, unsigned int nFaces, unsigned int nVertices,
@@ -669,7 +539,7 @@ TootleResult TOOTLE_DLL TootleOptimizeOverdraw(
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding,
   const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
-  unsigned int* pnClusterRemapOut, TootleOverdrawOptimizer eOverdrawOptimizer)
+  unsigned int* pnClusterRemapOut)
 {
   AMD_TOOTLE_API_FUNCTION_BEGIN
 
@@ -707,33 +577,9 @@ TootleResult TOOTLE_DLL TootleOptimizeOverdraw(
     return TOOTLE_INVALID_ARGS;
   }
 
-  // Select the overdraw optimization algorithm based on the input parameter.
-  switch (eOverdrawOptimizer)
-  {
-  case TOOTLE_OVERDRAW_DIRECT3D:
-#ifdef SOFTWARE_ONLY_VERSION
-    fprintf(stderr,
-            "TootleOptimizeOverdraw: No Direct3D support for this version.\n");
-    return TOOTLE_INTERNAL_ERROR;
-#endif
-
-  case TOOTLE_OVERDRAW_AUTO:
-  case TOOTLE_OVERDRAW_RAYTRACE:
-    return TootleOptimizeOverdrawDirect3DAndRaytrace(
-      pVB, pnIB, nVertices, nFaces, nVBStride, pfViewpoint, nViewpoints,
-      eFrontWinding, eOverdrawOptimizer, pnFaceClusters, pnIBOut,
-      pnClusterRemapOut);
-
-  case TOOTLE_OVERDRAW_FAST:
-    return TootleOptimizeOverdrawFastApproximation(
-      pVB, pnIB, nVertices, nFaces, nVBStride, eFrontWinding, pnFaceClusters,
-      pnIBOut, pnClusterRemapOut);
-
-  default:
-    errorf(("TootleOptimizeOverdraw: eOverdrawOptimizer is invalid."));
-
-    return TOOTLE_INVALID_ARGS;
-  }
+  return TootleOptimizeOverdrawDirect3DAndRaytrace(
+    pVB, pnIB, nVertices, nFaces, nVBStride, pfViewpoint, nViewpoints,
+    eFrontWinding, pnFaceClusters, pnIBOut, pnClusterRemapOut);
 
   AMD_TOOTLE_API_FUNCTION_END
 }
@@ -742,7 +588,6 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding,
-  TootleOverdrawOptimizer eOverdrawOptimizer,
   const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
   unsigned int* pnClusterRemapOut)
 {
@@ -778,15 +623,6 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
     errorf(("TootleOptimizeOverdrawDirect3D: Invalid face winding."));
     return TOOTLE_INVALID_ARGS;
   }
-
-#ifndef SOFTWARE_ONLY_VERSION
-
-  if (!ODIsInitialized())
-  {
-    return TOOTLE_NOT_INITIALIZED;
-  }
-
-#endif
 
   // perform check whether pnFaceCluster is in the full format.
   if (!IsClusterArrayFullFormat(pnFaceClusters, nFaces))
@@ -896,7 +732,7 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
     ODOverdrawGraph(pfViewpoint, nViewpoints,
                     (eFrontWinding !=
                      TOOTLE_CCW),  // cull CCW faces if they aren't front facing
-                    cluster, ClusterStart, graph, eOverdrawOptimizer);
+                    cluster, ClusterStart, graph);
 
   if (result != TOOTLE_OK)
   {
@@ -954,96 +790,6 @@ static TootleResult TootleOptimizeOverdrawDirect3DAndRaytrace(
   return TOOTLE_OK;
 }
 
-static TootleResult TootleOptimizeOverdrawFastApproximation(
-  const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
-  unsigned int nFaces, unsigned int nVBStride, TootleFaceWinding eFrontWinding,
-  const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
-  unsigned int* pnClusterRemapOut)
-{
-  // sanity checks
-  assert(pVB);
-  assert(pnIB);
-  assert(pnFaceClusters);
-  assert(pnIBOut);
-
-  if (nVertices == 0 || nVertices > TOOTLE_MAX_VERTICES)
-  {
-    errorf(("TootleOptimizeOverdrawFastApproximation: nVertices is invalid."));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nFaces == 0 || nFaces > TOOTLE_MAX_FACES)
-  {
-    errorf(("TootleOptimizeOverdrawFastApproximation: nFaces is invalid."));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nVBStride < 3 * sizeof(float))
-  {
-    errorf(
-      ("TootleOptimizeOverdrawFastApproximation: nVBStride less than "
-       "3*sizeof(float)"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  // make sure that they're not being stupid and passing us bad enum values
-  if (eFrontWinding != TOOTLE_CCW && eFrontWinding != TOOTLE_CW)
-  {
-    errorf(("TootleOptimizeOverdrawFastApproximation: Invalid face winding."));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  // perform check whether pnFaceCluster is in the compact format.
-  if (!IsClusterArrayCompactFormat(pnFaceClusters, nFaces))
-  {
-    ConvertClusterArrayFromFullToCompact((unsigned int*)pnFaceClusters, nFaces);
-  }
-
-  unsigned int* pnOutput = pnIBOut;
-
-  // if source and destination buffer are the same, we need a local copy
-  if (pnIBOut != nullptr)
-  {
-    if (pnIB == pnIBOut)
-    {
-      pnOutput = new unsigned int[3 * nFaces];
-    }
-  }
-
-  auto* pfVB = new float[nVertices * 3];
-
-  // make a packed version of the vertex buffer.
-  unsigned int nVertexPositionSize = 3 * sizeof(float);
-  const auto* pVBuffer = (const char*)pVB;
-
-  for (unsigned int i = 0; i < nVertices; i++)
-  {
-    memcpy(&pfVB[3 * i], pVBuffer, nVertexPositionSize);
-
-    pVBuffer += nVBStride;
-  }
-
-  FanVertOptimizeOverdrawOnly(pfVB, (int*)pnIB, (int*)pnOutput, nVertices,
-                              nFaces, eFrontWinding, (int*)pnFaceClusters,
-                              pnFaceClusters[nFaces], nullptr,
-                              (int*)pnClusterRemapOut);
-
-  // copy the output back
-  if ((pnIBOut != nullptr) && pnOutput != pnIBOut)
-  {
-    memcpy(pnIBOut, pnOutput, nFaces * 3 * sizeof(unsigned int));
-    delete[] pnOutput;
-  }
-
-  delete[] pfVB;
-
-  return TOOTLE_OK;
-}
-
 //=================================================================================================================================
 /// This method should be called when the application is finished Tootling.
 /// Failure to call this function when the application is finished Tootling will
@@ -1069,8 +815,7 @@ TootleResult TOOTLE_DLL TootleOptimize(
   unsigned int nFaces, unsigned int nVBStride, unsigned int nCacheSize,
   const float* pViewpoints, unsigned int nViewpoints,
   TootleFaceWinding eFrontWinding, unsigned int* pnIBOut,
-  unsigned int* pnNumClustersOut, TootleVCacheOptimizer eVCacheOptimizer,
-  TootleOverdrawOptimizer eOverdrawOptimizer)
+  unsigned int* pnNumClustersOut, TootleVCacheOptimizer eVCacheOptimizer)
 {
   AMD_TOOTLE_API_FUNCTION_BEGIN
 
@@ -1139,9 +884,9 @@ TootleResult TOOTLE_DLL TootleOptimize(
   }
 
   // optimize the draw order
-  result = TootleOptimizeOverdraw(
-    pVB, pnIBOut, nVertices, nFaces, nVBStride, pViewpoints, nViewpoints,
-    eFrontWinding, pnFaceClusters, pnIBOut, nullptr, eOverdrawOptimizer);
+  result = TootleOptimizeOverdraw(pVB, pnIBOut, nVertices, nFaces, nVBStride,
+                                  pViewpoints, nViewpoints, eFrontWinding,
+                                  pnFaceClusters, pnIBOut, nullptr);
 
   if (result != TOOTLE_OK)
   {
@@ -1222,9 +967,9 @@ TootleResult TOOTLE_DLL TootleFastOptimize(
   }
 
   // OPTIMIZE OVERDRAW
-  result = TootleOptimizeOverdraw(pVB, pnIBOut, nVertices, nFaces, nVBStride,
-                                  nullptr, 0, eFrontWinding, pnClustersTmp,
-                                  pnIBOut, nullptr, TOOTLE_OVERDRAW_FAST);
+  result =
+    TootleOptimizeOverdraw(pVB, pnIBOut, nVertices, nFaces, nVBStride, nullptr,
+                           0, eFrontWinding, pnClustersTmp, pnIBOut, nullptr);
 
   delete[] pnClustersTmp;
 
@@ -1406,68 +1151,6 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding, float* pfAvgODOut,
-  float* pfMaxODOut,
-  [[maybe_unused]] TootleOverdrawOptimizer eOverdrawOptimizer)
-{
-  AMD_TOOTLE_API_FUNCTION_BEGIN
-
-  // sanity checks
-  assert(pVB);
-  assert(pnIB);
-
-  if (nVertices == 0 || nVertices > TOOTLE_MAX_VERTICES)
-  {
-    errorf(("TootleMeasureOverdraw: nCacheSize = 0"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nFaces == 0 || nFaces > TOOTLE_MAX_FACES)
-  {
-    errorf(("TootleMeasureOverdraw: Invalid value of nFaces"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  if (nVBStride < 3 * sizeof(float))
-  {
-    errorf(("TootleMeasureOverdraw: nVBStride less than 3*sizeof(float)"));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-#ifdef SOFTWARE_ONLY_VERSION
-  return TootleMeasureOverdrawRaytrace(pVB, pnIB, nVertices, nFaces, nVBStride,
-                                       pfViewpoint, nViewpoints, eFrontWinding,
-                                       pfAvgODOut, pfMaxODOut);
-#else
-
-  switch (eOverdrawOptimizer)
-  {
-  case TOOTLE_OVERDRAW_RAYTRACE:
-    return TootleMeasureOverdrawRaytrace(pVB, pnIB, nVertices, nFaces,
-                                         nVBStride, pfViewpoint, nViewpoints,
-                                         eFrontWinding, pfAvgODOut, pfMaxODOut);
-
-  case TOOTLE_OVERDRAW_AUTO:
-  case TOOTLE_OVERDRAW_FAST:
-  case TOOTLE_OVERDRAW_DIRECT3D:
-  default:
-    return TootleMeasureOverdrawDirect3D(pVB, pnIB, nVertices, nFaces,
-                                         nVBStride, pfViewpoint, nViewpoints,
-                                         eFrontWinding, pfAvgODOut, pfMaxODOut);
-  }
-
-#endif
-
-  AMD_TOOTLE_API_FUNCTION_END
-}
-
-#ifndef SOFTWARE_ONLY_VERSION
-TootleResult TootleMeasureOverdrawDirect3D(
-  const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
-  unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
-  unsigned int nViewpoints, TootleFaceWinding eFrontWinding, float* pfAvgODOut,
   float* pfMaxODOut)
 {
   AMD_TOOTLE_API_FUNCTION_BEGIN
@@ -1497,65 +1180,12 @@ TootleResult TootleMeasureOverdrawDirect3D(
     return TOOTLE_INVALID_ARGS;
   }
 
-  if (!ODIsInitialized())
-  {
-    return TOOTLE_NOT_INITIALIZED;
-  }
-
-  // make sure that they're not being stupid and passing us bad enum values
-  if (eFrontWinding != TOOTLE_CCW && eFrontWinding != TOOTLE_CW)
-  {
-    errorf(("Invalid face winding."));
-
-    return TOOTLE_INVALID_ARGS;
-  }
-
-  // use default viewpoints if they were omitted
-  if (!pfViewpoint)
-  {
-    pfViewpoint = pDefaultViewpoint;
-    nViewpoints = nDefaultViewpoints;
-  }
-
-  // cook us up some soup
-  Soup soup;
-
-  if (!MakeSoup(pVB, pnIB, nVertices, nFaces, nVBStride, &soup))
-  {
-    return TOOTLE_OUT_OF_MEMORY;
-  }
-
-  // send soup to overdraw module
-  TootleResult result = ODSetSoup(&soup, eFrontWinding);
-
-  if (result == TOOTLE_OK)
-  {
-    // measure overdraw
-    float fAvgOD, fMaxOD;
-    result = ODObjectOverdraw(pfViewpoint, nViewpoints, fAvgOD, fMaxOD);
-
-    if (result != TOOTLE_OK)
-    {
-      return result;
-    }
-
-    // set output variables
-    if (pfAvgODOut)
-    {
-      *pfAvgODOut = fAvgOD - 1.0f;
-    }
-
-    if (pfMaxODOut)
-    {
-      *pfMaxODOut = fMaxOD - 1.0f;
-    }
-  }
-
-  return result;
+  return TootleMeasureOverdrawRaytrace(pVB, pnIB, nVertices, nFaces, nVBStride,
+                                       pfViewpoint, nViewpoints, eFrontWinding,
+                                       pfAvgODOut, pfMaxODOut);
 
   AMD_TOOTLE_API_FUNCTION_END
 }
-#endif
 
 TootleResult TootleMeasureOverdrawRaytrace(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,

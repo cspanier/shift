@@ -19,8 +19,6 @@
 // #define _finite(x) finite(x)
 #endif
 
-#ifdef __cplusplus
-
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -34,33 +32,11 @@
 #include <set>
 #include <string>
 #include <vector>
-#else
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-
-#endif
 
 // suppress Debug and error output stream for both release and debug builds
 #define ERROR_SILENT
-// compile with this flag for no dependency on GPU or Direct3D
-#define SOFTWARE_ONLY_VERSION
 
 #include <cassert>
 #include <cfloat>
-
-#ifdef _DX11_1_
-
-/*
-    Starting with Windows 8, the DirectX SDK is included as part of the Windows
-   SDK. more information at
-   https://msdn.microsoft.com/en-us/library/windows/desktop/ee663275(v=vs.85).aspx
-*/
-
-#include <DirectXMath.h>
-
-#endif
 
 #endif  // _SU_TOOTLEPCH_H_
