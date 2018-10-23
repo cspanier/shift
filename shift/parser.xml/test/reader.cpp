@@ -6,15 +6,6 @@
 #include <shift/core/boost_restore_warnings.h>
 #include <iostream>
 
-// struct current_working_path
-//{
-//  current_working_path() noexcept : path()
-//  {
-//  }
-
-//  path;
-//};
-
 static boost::filesystem::path cwd =
   boost::filesystem::path(shift::platform::environment::executable_path())
     .parent_path()
