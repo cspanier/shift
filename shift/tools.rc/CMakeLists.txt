@@ -21,7 +21,7 @@ if(NOT NO_RC)
       Boost::filesystem
       Boost::iostreams
       Boost::context
-      SPIRV::Cross
+      SpirVCross::core
       ShaderC::ShaderC
       3rdparty.amd-tootle
       TIFF::TIFF

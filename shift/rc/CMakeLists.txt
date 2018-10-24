@@ -50,7 +50,7 @@ if (NOT NO_VULKAN)
       Boost::iostreams
       Boost::context
       Boost::unit_test_framework
-      SPIRV::Cross
+      SpirVCross::core
       ShaderC::ShaderC
       3rdparty.amd-tootle
       TIFF::TIFF
