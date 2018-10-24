@@ -285,7 +285,7 @@ void application::create_views()
      {/*.relative_position = */ math::make_vector_from(0.5f, 0.0f),
       /*.relative_size = */ math::make_vector_from(0.5f, 1.0f),
       /*.camera = */ nullptr}}};
-  /*auto* view =*/_renderer->create_multiview(
+  [[maybe_unused]] auto* view = _renderer->create_multiview(
     vk::multiview_create_param{/*.view_create_params = */ view_create_params,
                                /*.views = */ {}});
 }
