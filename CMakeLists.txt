@@ -271,6 +271,18 @@ endif()
 
 ################################################################################
 
+# Platform specific threading library.
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+find_package(GSL REQUIRED)
+
+# Several OS specific libraries.
+find_package(OSLibs REQUIRED)
+
+find_package(ZLIB REQUIRED)
+find_package(BZip2 REQUIRED)
+find_package(Breakpad REQUIRED)
+
 # Boost libraries.
 find_package(Boost ${Boost_VERSION} REQUIRED
   COMPONENTS
