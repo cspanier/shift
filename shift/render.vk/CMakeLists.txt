@@ -21,10 +21,11 @@ if (NOT NO_VULKAN)
       shift.platform
       Boost::boost
       Boost::filesystem
+      Boost::iostreams
       GLFW3
       Vulkan::Vulkan
-      BZIP2
-      ZLIB
+      BZip2::BZip2
+      ZLIB::ZLIB
   )
 
   shift_add_test(test.shift.render.vk
