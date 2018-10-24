@@ -26,7 +26,7 @@ if NOT "%BUILD_CALL%"=="1" (
   echo You need to call build.cmd in order to use this script
   goto end
 )
-set SOURCE_PACKAGE=shaderc-30af9f9
+set SOURCE_PACKAGE=SPIRV-Cross
 if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
   "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/!SOURCE_PACKAGE!.zip"
 )
@@ -35,47 +35,35 @@ if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
   goto end
 )
 
-if NOT EXIST ".\SPIRV-Tools.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/SPIRV-Tools.zip"
-)
-if NOT EXIST ".\SPIRV-Headers.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/SPIRV-Headers.zip"
-)
-if NOT EXIST ".\googletest.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/googletest.zip"
-)
-if NOT EXIST ".\glslang.zip" (
-  "%MINGW64%\..\..\mingw64\bin\curl.exe" -L -J -O "https://boxie.eu/3rdparty/glslang.zip"
-)
-
 "%MINGW64%\unzip" .\!SOURCE_PACKAGE!.zip
 if %ERRORLEVEL% NEQ 0 goto end
 pushd %CD%
 cd !SOURCE_PACKAGE!
 
-REM Extract external dependencies
-cd third_party
-"%MINGW64%\unzip" ..\..\SPIRV-Tools.zip
-if %ERRORLEVEL% NEQ 0 goto end
-"%MINGW64%\unzip" ..\..\SPIRV-Headers.zip
-if %ERRORLEVEL% NEQ 0 goto end
-"%MINGW64%\unzip" ..\..\googletest.zip
-if %ERRORLEVEL% NEQ 0 goto end
-"%MINGW64%\unzip" ..\..\glslang.zip
-if %ERRORLEVEL% NEQ 0 goto end
-cd ..
+"%MINGW64%\patch" -p1 < ..\!SOURCE_PACKAGE!-debug.patch
+IF NOT ERRORLEVEL 0 goto end
 
 REM Build library
 mkdir build
 cd build
-cmake -G "%CMAKE_GENERATOR%" .. -DSHADERC_ENABLE_SHARED_CRT=1 -DSHADERC_SKIP_TESTS=1
-msbuild shaderc.sln /t:Rebuild /p:Configuration=Debug;Platform=%BUILD_PLATFORM%
-msbuild shaderc.sln /t:Rebuild /p:Configuration=Release;Platform=%BUILD_PLATFORM%
+cmake -G "%CMAKE_GENERATOR%" ..
+msbuild SPIRV-Cross.sln /t:Rebuild /p:Configuration=Debug;Platform=%BUILD_PLATFORM%
+msbuild SPIRV-Cross.sln /t:Rebuild /p:Configuration=Release;Platform=%BUILD_PLATFORM%
 cd ..
 
-"%MINGW64%\cp" -v build/libshaderc/Debug/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined_d.lib
-"%MINGW64%\cp" -v build/libshaderc/Release/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined.lib
-"%MINGW64%\cp" -rv libshaderc/include/* !BUILD_PREFIX!/include
+REM ToDo: Copy 'glslang.pdb'
+REM ToDo: Copy 'HLSL.pdb'
+REM ToDo: Copy 'OGLCompiler.pdb'
+REM ToDo: Copy 'OSDependent.pdb'
+REM ToDo: Copy 'shaderc.pdb'
+REM ToDo: Copy 'shaderc_util.pdb'
+REM ToDo: Copy 'spirv-cross-core.pdb'
+REM ToDo: Copy 'SPIRV-Tools-opt.pdb'
+REM ToDo: Copy 'SPIRV-Tools.pdb'
+REM ToDo: Copy 'SPIRV.pdb'
+"%MINGW64%\cp" -v build/Debug/spirv-cross*.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/Release/spirv-cross*.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -rv include/* !BUILD_PREFIX!/include
 
 popd
 "%MINGW64%\rm" -rf ./!SOURCE_PACKAGE!
