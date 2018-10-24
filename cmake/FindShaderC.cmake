@@ -1,10 +1,20 @@
 if(NOT SHADERC_LIBRARY)
   find_path(SHADERC_INCLUDE_DIR "shaderc/shaderc.hpp")
-  find_library(SHADERC_LIBRARY core
+  find_library(SHADERC_LIBRARY_DEBUG
+    NAMES
+      shaderc_combined_d
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(SHADERC_LIBRARY_RELEASE
     NAMES
       shaderc_combined
     PATH_SUFFIXES
       lib
+  )
+  set(SHADERC_LIBRARY
+    debug ${SHADERC_LIBRARY_DEBUG}
+    optimized ${SHADERC_LIBRARY_RELEASE}
   )
 endif()
 
@@ -29,17 +39,12 @@ if(SHADERC_FOUND)
       set_target_properties(ShaderC::ShaderC PROPERTIES
         IMPORTED_LOCATION_RELEASE "${SHADERC_LIBRARY_RELEASE}")
     endif()
-
-    if(ZLIB_LIBRARY_DEBUG)
+    
+    if(SHADERC_LIBRARY_DEBUG)
       set_property(TARGET ShaderC::ShaderC APPEND PROPERTY
         IMPORTED_CONFIGURATIONS DEBUG)
       set_target_properties(ShaderC::ShaderC PROPERTIES
         IMPORTED_LOCATION_DEBUG "${SHADERC_LIBRARY_DEBUG}")
-    endif()
-
-    if(NOT SHADERC_LIBRARY_RELEASE AND NOT SHADERC_LIBRARY_DEBUG)
-      set_property(TARGET ShaderC::ShaderC APPEND PROPERTY
-        IMPORTED_LOCATION "${SHADERC_LIBRARY}")
     endif()
   endif()
 endif()
