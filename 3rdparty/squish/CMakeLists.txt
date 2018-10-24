@@ -5,6 +5,8 @@ shift_add_library(3rdparty.squish STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/private
   DEFINITIONS
     SQUISH_USE_SSE=2
+  DEPENDENCIES
+    GSL
 )
 
 shift_add_test(test.3rdparty.squish
@@ -15,4 +17,5 @@ shift_add_test(test.3rdparty.squish
     3rdparty.squish
     Boost::boost
     Boost::unit_test_framework
+    GSL
 )
