@@ -67,20 +67,6 @@ enum TootleVCacheOptimizer
                            ///< optimize faces.
 };
 
-/// Enumeration for the algorithm for overdraw optimization.
-enum TootleOverdrawOptimizer
-{
-  NA_TOOTLE_OVERDRAW_OPTIMIZER,  ///< Default invalid choice.
-  TOOTLE_OVERDRAW_AUTO,  ///< Use either Direct3D or raytracing to reorder
-                         ///< clusters (depending on the number of clusters).
-  TOOTLE_OVERDRAW_DIRECT3D,  ///< Use Direct3D rendering to reorder clusters to
-                             ///< optimize overdraw (slow O(N^2)).
-  TOOTLE_OVERDRAW_RAYTRACE,  ///< Use CPU raytracing to reorder clusters to
-                             ///< optimize overdraw (slow O(N^2)).
-  TOOTLE_OVERDRAW_FAST  ///< Use a fast approximation algorithm (from SIGGRAPH
-                        ///< 2007) to reorder clusters.
-};
-
 //=================================================================================================================================
 /// \brief Performs one-time initialization required by Tootle
 //=================================================================================================================================
@@ -271,8 +257,7 @@ TootleResult TOOTLE_DLL TootleOptimizeOverdraw(
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding,
   const unsigned int* pnFaceClusters, unsigned int* pnIBOut,
-  unsigned int* pnClusterRemapOut,
-  TootleOverdrawOptimizer eOverdrawOptimizer = TOOTLE_OVERDRAW_FAST);
+  unsigned int* pnClusterRemapOut);
 
 //=================================================================================================================================
 /// Frees all resources held by Tootle
@@ -343,8 +328,7 @@ TootleResult TOOTLE_DLL TootleOptimize(
   const float* pViewpoints, unsigned int nViewpoints,
   TootleFaceWinding eFrontWinding, unsigned int* pnIBOut,
   unsigned int* pnNumClustersOut,
-  TootleVCacheOptimizer eVCacheOptimizer = TOOTLE_VCACHE_AUTO,
-  TootleOverdrawOptimizer eOverdrawOptimizer = TOOTLE_OVERDRAW_FAST);
+  TootleVCacheOptimizer eVCacheOptimizer = TOOTLE_VCACHE_AUTO);
 
 //=================================================================================================================================
 /// This is a utility function that performs the entire optimization using the
@@ -493,8 +477,7 @@ TootleResult TOOTLE_DLL TootleMeasureOverdraw(
   const void* pVB, const unsigned int* pnIB, unsigned int nVertices,
   unsigned int nFaces, unsigned int nVBStride, const float* pfViewpoint,
   unsigned int nViewpoints, TootleFaceWinding eFrontWinding, float* pfAvgODOut,
-  float* pfMaxODOut,
-  TootleOverdrawOptimizer eOverdrawOptimizer = TOOTLE_OVERDRAW_DIRECT3D);
+  float* pfMaxODOut);
 
 //=================================================================================================================================
 /// This function rearrange the vertex buffer's memory location based on the

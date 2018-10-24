@@ -90,9 +90,7 @@ bool JRTCore::FindAllHits(const Vec3f& rOrigin, const Vec3f& rDirection,
   for (std::uint32_t i = 0; i < nHits; i++)
   {
     for (std::uint32_t j = i + 1; j < nHits; j++)
-    {
-      JRT_ASSERT(m_pHitArray[i].nFaceID != m_pHitArray[j].nFaceID)
-    }
+      JRT_ASSERT(m_pHitArray[i].nFaceID != m_pHitArray[j].nFaceID);
   }
 
 #endif
