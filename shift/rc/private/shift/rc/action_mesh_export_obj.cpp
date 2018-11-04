@@ -43,7 +43,7 @@ bool action_mesh_export_obj::process(resource_compiler_impl& compiler,
   }
 
   const input_match* mesh_input = nullptr;
-  for (const auto& input : job.inputs)
+  for (const auto& [input_slot_index, input] : job.inputs)
   {
     if (input->slot->first == "mesh")
       mesh_input = input.get();

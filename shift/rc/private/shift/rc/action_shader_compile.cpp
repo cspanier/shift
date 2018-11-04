@@ -209,13 +209,13 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
                  << " action requires an output named \"spirv\".";
     return false;
   }
-  const auto& input = job.inputs.front();
-  if (!fs::exists(input->file->path) || !fs::is_regular_file(input->file->path))
+  const auto& input = *job.inputs.begin()->second;
+  if (!fs::exists(input.file->path) || !fs::is_regular_file(input.file->path))
   {
-    log::error() << "Cannot find input file " << input->file->path << ".";
+    log::error() << "Cannot find input file " << input.file->path << ".";
     return false;
   }
-  auto extension = input->file->path.extension();
+  auto extension = input.file->path.extension();
   shaderc_shader_kind shader_kind;
   if (extension == ".vert")
     shader_kind = shaderc_shader_kind::shaderc_vertex_shader;
@@ -235,9 +235,9 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  auto source = read_shader_source(input->file->generic_string);
+  auto source = read_shader_source(input.file->generic_string);
   auto optimized_spirv = compile_glsl_to_spirv(
-    source, shader_kind, input->file->generic_string,
+    source, shader_kind, input.file->generic_string,
     shaderc_optimization_level::shaderc_optimization_level_performance);
   if (optimized_spirv.second.empty())
     return false;
@@ -245,7 +245,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
   auto shader = std::make_shared<resource::shader>();
   {
     auto unoptimized_spirv = compile_glsl_to_spirv(
-      source, shader_kind, input->file->generic_string,
+      source, shader_kind, input.file->generic_string,
       shaderc_optimization_level::shaderc_optimization_level_zero);
     if (unoptimized_spirv.second.empty())
       return false;
@@ -254,7 +254,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
     spirv_cross::Compiler spirv_compiler(unoptimized_spirv.second);
     auto resources = spirv_compiler.get_shader_resources();
     log::info info;
-    info << input->file->path.generic_string();
+    info << input.file->path.generic_string();
     info << "\n  inputs:";
     for (const auto& stage_input : resources.stage_inputs)
     {

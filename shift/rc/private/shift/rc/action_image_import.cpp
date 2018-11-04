@@ -256,11 +256,11 @@ bool action_image_import::process(resource_compiler_impl& compiler,
                  << " action can only process one input at a time.";
     return false;
   }
-  const auto& input = job.inputs.at(0);
+  const auto& input = *job.inputs.begin()->second;
 
-  if (!fs::exists(input->file->path) || !fs::is_regular_file(input->file->path))
+  if (!fs::exists(input.file->path) || !fs::is_regular_file(input.file->path))
   {
-    log::error() << "Cannot find input file " << input->file->path << ".";
+    log::error() << "Cannot find input file " << input.file->path << ".";
     return false;
   }
 
@@ -272,7 +272,7 @@ bool action_image_import::process(resource_compiler_impl& compiler,
       : "auto"s;
 
   auto extension =
-    core::to_lower(input->file->path.extension().generic_string());
+    core::to_lower(input.file->path.extension().generic_string());
   img_file_type source_type;
   if (extension == ".png")
     source_type = img_file_type::png;
@@ -289,7 +289,7 @@ bool action_image_import::process(resource_compiler_impl& compiler,
   auto image = std::make_shared<resource::image>();
   bool result = false;
   image_converter converter{
-    *image, input->file->path, source_type,
+    *image, input.file->path, source_type,
     parser::json::has(job.rule->options, "normalize")
       ? parser::json::get<bool>(job.rule->options.at("normalize"))
       : false};
@@ -308,6 +308,8 @@ bool action_image_import::process(resource_compiler_impl& compiler,
       /// converted to linear space either. Look for a different library!
       result = converter.load<gil::any_image<mpl::vector<
         gil::gray8_image_t, gil::gray16_image_t, gil::gray32f_image_t,
+        /*gil::gray_alpha8_image_t, gil::gray_alpha16_image_t,
+        gil::gray_alpha32_image_t,*/
         gil::rgb8_image_t, gil::rgb16_image_t, gil::rgb32f_image_t,
         gil::rgba8_image_t, gil::rgba16_image_t, gil::rgba32f_image_t>>>();
     }
@@ -323,6 +325,24 @@ bool action_image_import::process(resource_compiler_impl& compiler,
       result = converter.load_and_convert<gil::gray16s_image_t, false>();
     else if (target_format == "r32_sfloat")
       result = converter.load_and_convert<gil::gray32f_image_t, false>();
+    //    else if (target_format == "rg8_unorm")
+    //      result = converter.load_and_convert<gil::gray_alpha8_image_t,
+    //      false>();
+    //    else if (target_format == "rg8_snorm")
+    //      result = converter.load_and_convert<gil::gray_alpha8s_image_t,
+    //      false>();
+    //    else if (target_format == "rg8_srgb")
+    //      result = converter.load_and_convert<gil::gray_alpha8_image_t,
+    //      true>();
+    //    else if (target_format == "rg16_unorm")
+    //      result = converter.load_and_convert<gil::gray_alpha16_image_t,
+    //      false>();
+    //    else if (target_format == "rg16_snorm")
+    //      result = converter.load_and_convert<gil::gray_alpha16s_image_t,
+    //      false>();
+    //    else if (target_format == "rg32_sfloat")
+    //      result = converter.load_and_convert<gil::gray_alpha32f_image_t,
+    //      false>();
     else if (target_format == "rgb8_unorm")
       result = converter.load_and_convert<gil::rgb8_image_t, false>();
     else if (target_format == "rgb8_snorm")
@@ -368,13 +388,13 @@ bool action_image_import::process(resource_compiler_impl& compiler,
   }
   catch (...)
   {
-    log::warning() << "Failed to load image " << input->file->path;
+    log::warning() << "Failed to load image " << input.file->path;
     return false;
   }
 
   if (!result)
   {
-    log::error() << "Failed to convert image " << input->file->path;
+    log::error() << "Failed to convert image " << input.file->path;
     return false;
   }
 
@@ -402,7 +422,7 @@ bool action_image_import::process(resource_compiler_impl& compiler,
   }
 
   auto header_filename = job.output("header", {});
-  input->file->alias = compiler.save(*image, header_filename, job);
+  input.file->alias = compiler.save(*image, header_filename, job);
   return true;
 }
 }

@@ -32,19 +32,19 @@ public:
   const fs::path& input_path() const;
 
   ///
-  void input_path(const fs::path& value);
+  void input_path(const fs::path& path);
 
   ///
   const fs::path& build_path() const;
 
   ///
-  void build_path(const fs::path& value);
+  void build_path(const fs::path& path);
 
   ///
   const fs::path& output_path() const;
 
   ///
-  void output_path(const fs::path& value);
+  void output_path(const fs::path& path);
 
   ///
   std::uint32_t verbose() const;
@@ -56,7 +56,7 @@ public:
   const fs::path& image_magick() const;
 
   ///
-  void image_magick(const fs::path& value);
+  void image_magick(const fs::path& path);
 
   ///
   void load_rules(const std::string_view rules_filename);
@@ -71,7 +71,9 @@ public:
   void save_cache_graph(const boost::filesystem::path& cache_graph_filename);
 
   ///
-  void update();
+  std::tuple<std::size_t /*succeeded_job_count*/,
+             std::size_t /*failed_job_count*/>
+  update();
 
   /// Drop all resources that are neither references by any other resource nor
   /// marked as named resources.

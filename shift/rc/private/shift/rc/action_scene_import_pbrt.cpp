@@ -89,24 +89,24 @@ bool action_scene_import_pbrt::process(resource_compiler_impl& compiler,
                  << " action can only process one input at a time.";
     return false;
   }
-  const auto& input = job.inputs.at(0);
+  const auto& input = *job.inputs.begin()->second;
 
-  if (!fs::exists(input->file->path) || !fs::is_regular_file(input->file->path))
+  if (!fs::exists(input.file->path) || !fs::is_regular_file(input.file->path))
   {
-    log::error() << "Cannot find input file " << input->file->path << ".";
+    log::error() << "Cannot find input file " << input.file->path << ".";
     return false;
   }
 
   // PBRT files reference other files relative to the original source file's
   // location, which we call include_folder.
-  auto include_path = input->file->path;
+  auto include_path = input.file->path;
   include_path.remove_filename();
 
   parser_context context{compiler, job};
   context.scope.push({});
-  /// ToDo: Does input->file->path.root_path() work as base_path?
-  if (!parse_file(context, input->file->path.root_path(), include_path,
-                  input->file->path))
+  /// ToDo: Does input.file->path.root_path() work as base_path?
+  if (!parse_file(context, input.file->path.root_path(), include_path,
+                  input.file->path))
   {
     return false;
   }
@@ -124,7 +124,7 @@ bool action_scene_import_pbrt::process(resource_compiler_impl& compiler,
 
   // Store resource into repository.
   auto scene_filename = job.output("scene", {});
-  input->file->alias = compiler.save(context.scene, scene_filename, job);
+  input.file->alias = compiler.save(context.scene, scene_filename, job);
 
   return true;
 }

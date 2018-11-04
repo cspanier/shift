@@ -144,7 +144,7 @@ struct job_description
 
   std::size_t id = 0;
   rule_description* rule = nullptr;
-  std::vector<std::unique_ptr<input_match>> inputs;
+  std::unordered_multimap<std::size_t, std::unique_ptr<input_match>> inputs;
   std::unordered_set<file_description*> outputs;
   entity_flags flags = entity_flags{0};
 };
@@ -300,7 +300,7 @@ struct hash<shift::rc::job_description>
   {
     std::size_t seed = std::hash<std::string>{}(job.rule->id);
     boost::hash_combine(seed, std::hash<std::size_t>{}(job.inputs.size()));
-    for (const auto& input : job.inputs)
+    for (const auto& [slot, input] : job.inputs)
     {
       boost::hash_combine(
         seed, std::hash<std::string>{}(input->file->generic_string));

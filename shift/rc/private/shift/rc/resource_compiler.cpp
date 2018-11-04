@@ -21,21 +21,22 @@ const fs::path& resource_compiler::input_path() const
   return _impl->input_path;
 }
 
-void resource_compiler::input_path(const fs::path& value)
+void resource_compiler::input_path(const fs::path& path)
 {
   std::unique_lock lock(_impl->global_mutex);
 
-  if (!fs::exists(value))
+  if (!fs::exists(path))
   {
     BOOST_THROW_EXCEPTION(rc_error()
                           << core::context_info("Input path does not exist"));
   }
-  if (!fs::is_directory(value))
+  if (!fs::is_directory(path))
   {
     BOOST_THROW_EXCEPTION(
       rc_error() << core::context_info("Input path is not a directory"));
   }
-  _impl->input_path = value;
+  _impl->input_path =
+    fs::relative(fs::canonical(fs::absolute(path)), fs::current_path());
 }
 
 const fs::path& resource_compiler::build_path() const
@@ -43,21 +44,22 @@ const fs::path& resource_compiler::build_path() const
   return _impl->build_path;
 }
 
-void resource_compiler::build_path(const fs::path& value)
+void resource_compiler::build_path(const fs::path& path)
 {
   std::unique_lock lock(_impl->global_mutex);
 
-  if (!fs::exists(value))
+  if (!fs::exists(path))
   {
     BOOST_THROW_EXCEPTION(rc_error()
                           << core::context_info("Build path does not exist"));
   }
-  if (!fs::is_directory(value))
+  if (!fs::is_directory(path))
   {
     BOOST_THROW_EXCEPTION(
       rc_error() << core::context_info("Build path is not a directory"));
   }
-  _impl->build_path = value;
+  _impl->build_path =
+    fs::relative(fs::canonical(fs::absolute(path)), fs::current_path());
 }
 
 const fs::path& resource_compiler::output_path() const
@@ -65,21 +67,22 @@ const fs::path& resource_compiler::output_path() const
   return _impl->output_path;
 }
 
-void resource_compiler::output_path(const fs::path& value)
+void resource_compiler::output_path(const fs::path& path)
 {
   std::unique_lock lock(_impl->global_mutex);
 
-  if (!fs::exists(value))
+  if (!fs::exists(path))
   {
     BOOST_THROW_EXCEPTION(rc_error()
                           << core::context_info("Output path does not exist"));
   }
-  if (!fs::is_directory(value))
+  if (!fs::is_directory(path))
   {
     BOOST_THROW_EXCEPTION(
       rc_error() << core::context_info("Output path is not a directory"));
   }
-  _impl->output_path = value;
+  _impl->output_path =
+    fs::relative(fs::canonical(fs::absolute(path)), fs::current_path());
 }
 
 std::uint32_t resource_compiler::verbose() const
@@ -97,10 +100,10 @@ const fs::path& resource_compiler::image_magick() const
   return _impl->image_magick;
 }
 
-void resource_compiler::image_magick(const fs::path& value)
+void resource_compiler::image_magick(const fs::path& path)
 {
   std::unique_lock lock(_impl->global_mutex);
-  _impl->image_magick = value;
+  _impl->image_magick = path;
 }
 
 void resource_compiler::load_rules(const std::string_view rules_filename)
@@ -167,11 +170,16 @@ void resource_compiler::save_cache_graph(
   _impl->cache.save_graph(cache_graph_filename);
 }
 
-void resource_compiler::update()
+std::tuple<std::size_t /*succeeded_job_count*/,
+           std::size_t /*failed_job_count*/>
+resource_compiler::update()
 {
   std::unique_lock lock(_impl->global_mutex);
 
-  // Build a list of jobs from all files matching one of the rules.
+  std::size_t succeeded_job_count = 0;
+  std::size_t failed_job_count = 0;
+
+  // Try to match each file found in input_path with one of the available rules.
   std::uint32_t current_pass = 0;
   for (auto input_iterator =
          fs::recursive_directory_iterator(_impl->input_path);
@@ -243,13 +251,13 @@ void resource_compiler::update()
             log::info line;
             bool first = true;
             line << "(";
-            for (const auto& input : job->inputs)
+            for (const auto& [input_slot_index, input] : job->inputs)
             {
               if (first)
                 first = false;
               else
                 line << ", ";
-              line << input->file->generic_string;
+              line << input_slot_index << ": " << input->file->generic_string;
             }
             line << ") -> (";
             first = true;
@@ -270,13 +278,13 @@ void resource_compiler::update()
             log::info line;
             bool first = true;
             line << "(";
-            for (const auto& input : job->inputs)
+            for (const auto& [input_slot_index, input] : job->inputs)
             {
               if (first)
                 first = false;
               else
                 line << ", ";
-              line << input->file->generic_string;
+              line << input_slot_index << ": " << input->file->generic_string;
             }
             line << ") -> failed";
           }
@@ -300,10 +308,10 @@ void resource_compiler::update()
         job->flags.set(entity_flag::failed);
         log::error() << "A job using rule " << job->rule->id << " failed.";
       }
-      return false;
+      return true;
     };
 
-    // Spawn all jobs that don't support multithreading serially.
+    // Spawn all jobs serially that don't support multithreading.
     // Use an empty dummy task to ease initialization of serial_result.
     auto serial_result = task::async([]() -> bool { return true; });
     for (auto* job : jobs)
@@ -335,7 +343,16 @@ void resource_compiler::update()
 
     // Wait until all tasks completed.
     task::when_all(begin(task_results), end(task_results)).get();
+
+    for (auto& task_result : task_results)
+    {
+      if (task_result.get())
+        ++succeeded_job_count;
+      else
+        ++failed_job_count;
+    }
   }
+  return {succeeded_job_count, failed_job_count};
 }
 
 void resource_compiler::collect_garbage()

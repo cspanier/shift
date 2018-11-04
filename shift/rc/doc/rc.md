@@ -51,10 +51,10 @@ Each file may contain many rules and each input, output, and options section may
 
 ## Global Variables
 
-* `<input-path>`: the absolute path to the input folder specified using `void resource_compiler::input_path(const fs::path& value)`.
-* `<build-path>`: the absolute path to the build folder specified using `void resource_compiler::build_path(const fs::path& value)`.
-* `<output-path>`: the absolute path to the output folder specified using `void resource_compiler::output_path(const fs::path& value)`.
-* `<rule-path>`: The path to the current rules file relative to `<input-path>`.
+* `<input-path/>`: the absolute path to the input folder specified using `void resource_compiler::input_path(const fs::path& value)`, including a trailing slash.
+* `<build-path/>`: the absolute path to the build folder specified using `void resource_compiler::build_path(const fs::path& value)`, including a trailing slash.
+* `<output-path/>`: the absolute path to the output folder specified using `void resource_compiler::output_path(const fs::path& value)`, including a trailing slash.
+* `<rule-path/>`: The path to the current rules file relative to `<input-path/>`, including a trailing slash. If the current rule path is equivalent to `<input-path/>` this variable expands to an empty string instead.
 
 ## Available Actions
 

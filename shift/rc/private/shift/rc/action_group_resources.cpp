@@ -26,7 +26,7 @@ bool action_group_resources::process(resource_compiler_impl& compiler,
 
   auto& repository = resource::repository::singleton_instance();
   auto group = std::make_shared<resource::resource_group>();
-  for (const auto& input : job.inputs)
+  for (const auto& [input_slot_index, input] : job.inputs)
   {
     if (input->slot->first == "images")
     {

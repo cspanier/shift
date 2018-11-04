@@ -331,17 +331,18 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             break;
           }
           match->file->flags |= entity_flag::used;
-          match->slot_index = 0;
+          std::size_t slot_index = 0;
           for (auto input_iter = new_job->rule->inputs.begin();
                input_iter != new_job->rule->inputs.end();
-               ++input_iter, ++match->slot_index)
+               ++input_iter, ++slot_index)
           {
             if (std::regex_search(match->file->generic_string,
                                   match->match_results,
                                   input_iter->second.pattern))
             {
               match->slot = input_iter;
-              new_job->inputs.push_back(std::move(match));
+              match->slot_index = slot_index;
+              new_job->inputs.insert({slot_index, std::move(match)});
               break;
             }
           }
@@ -506,7 +507,7 @@ void data_cache::save(const boost::filesystem::path& cache_filename) const
 
     auto& inputs_array =
       json::get<json::array>(job_object["inputs"] = json::array{});
-    for (const auto& input : job->inputs)
+    for (const auto& [input_slot_index, input] : job->inputs)
       inputs_array.emplace_back(input->file->generic_string);
 
     auto& outputs_array =
@@ -567,9 +568,11 @@ void data_cache::save_graph(const fs::path& graph_filename) const
 
   static constexpr char br = '\n';
 
-  file << R"(digraph Cache {)" << br;
-  file << R"(  rankdir=LR;)" << br;
-  file << R"(  size="8,5")" << br;
+  file << R"(digraph Cache {
+  rankdir=LR;
+  size="8,5"
+  node [shape=box]
+)";
 
   std::uint32_t job_id = 1;
   for (const auto& job : _impl->jobs)
@@ -578,7 +581,7 @@ void data_cache::save_graph(const fs::path& graph_filename) const
     if (job->flags.test(entity_flag::failed))
       continue;
 
-    for (const auto& input : job->inputs)
+    for (const auto& [input_slot_index, input] : job->inputs)
     {
       file << R"(  ")" << input->file->generic_string << R"(" -> ")"
            << job->rule->id << '#' << job_id << R"(";)" << br;
@@ -643,7 +646,7 @@ bool data_cache::is_modified(const job_description& job) const
     // log::debug() << "Rule " << job.rule->id << " is modified.";
     return true;
   }
-  for (const auto& input : job.inputs)
+  for (const auto& [input_slot_index, input] : job.inputs)
   {
     if (is_modified(*input->file))
     {

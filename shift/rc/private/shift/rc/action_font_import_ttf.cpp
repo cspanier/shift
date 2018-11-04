@@ -30,16 +30,16 @@ bool action_font_import_ttf::process(resource_compiler_impl& compiler,
                  << " action can only process one input at a time.";
     return false;
   }
-  const auto& input = job.inputs.at(0);
+  const auto& input = *job.inputs.begin()->second;
 
-  if (!fs::exists(input->file->path) || !fs::is_regular_file(input->file->path))
+  if (!fs::exists(input.file->path) || !fs::is_regular_file(input.file->path))
   {
-    log::error() << "Cannot find input file " << input->file->path << ".";
+    log::error() << "Cannot find input file " << input.file->path << ".";
     return false;
   }
 
   ttf::font ttf;
-  ttf.load(input->file->path);
+  ttf.load(input.file->path);
 
   std::vector<glyph_t> glyph_meshes;
   for (const auto& glyph : ttf.glyphs())
@@ -252,7 +252,7 @@ bool action_font_import_ttf::process(resource_compiler_impl& compiler,
       parser::json::get_if<bool>(&ttf_write_html->second) &&
       parser::json::get<bool>(ttf_write_html->second))
   {
-    write_html(input->file->path, glyph_meshes);
+    write_html(input.file->path, glyph_meshes);
   }
 
   return true;

@@ -65,6 +65,7 @@ resource_compiler_impl::~resource_compiler_impl() = default;
 void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
                                         const fs::path& rule_path)
 {
+  using namespace std::string_literals;
   using namespace shift::parser;
   using std::get;
   using std::get_if;
@@ -84,14 +85,15 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
   json::object& root_object = json::get<json::object>(root);
 
   auto input_pattern = [&](std::string input) {
-    boost::replace_all(input, "<input-path>",
-                       regex_escape(input_path.generic_string()));
-    boost::replace_all(input, "<build-path>",
-                       regex_escape(build_path.generic_string()));
-    boost::replace_all(input, "<output-path>",
-                       regex_escape(output_path.generic_string()));
-    boost::replace_all(input, "<rule-path>",
-                       regex_escape(rule_path.generic_string()));
+    boost::replace_all(input, "<input-path/>",
+                       regex_escape(input_path.generic_string() + '/'));
+    boost::replace_all(input, "<build-path/>",
+                       regex_escape(build_path.generic_string() + '/'));
+    boost::replace_all(input, "<output-path/>",
+                       regex_escape(output_path.generic_string() + '/'));
+    boost::replace_all(
+      input, "<rule-path/>",
+      rule_path.empty() ? ""s : regex_escape(rule_path.generic_string() + '/'));
     boost::replace_all(input, "<", "$");
     boost::replace_all(input, ">", "$");
     input = merge_slashes(input);
@@ -432,8 +434,6 @@ std::uint32_t resource_compiler_impl::next_pass(
 std::vector<job_description*> resource_compiler_impl::query_jobs(
   std::uint32_t pass, std::shared_lock<std::shared_mutex>& /* read_lock */)
 {
-  std::vector<job_description*> job_pointers;
-
   // Process each rule's matches separately.
   for (auto& rule : rules)
   {
@@ -441,7 +441,6 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
     if (rule->pass != pass)
       continue;
 
-    std::vector<std::unique_ptr<job_description>> new_jobs;
     for (auto& new_match : rule->matches)
     {
       // Multiple matches may be grouped together into a single job when the
@@ -449,37 +448,48 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
       bool merged_with_existing_job = false;
       if (!rule->group_by.empty())
       {
-        // Check whether this match shall be added to an existing job or a new
-        // one.
-        for (auto& existing_job : new_jobs)
+        // Check whether this match shall be merged into an existing job of the
+        // same rule.
+        for (auto existing_job_iter = jobs.rbegin();
+             existing_job_iter != jobs.rend(); ++existing_job_iter)
         {
-          // We only need to compare the new match with the first match
-          // already in this job.
-          auto& existing_match = existing_job->inputs.at(0);
-          if (existing_match->match_results.size() !=
-              new_match->match_results.size())
-          {
-            // This should basically never happen.
-            BOOST_ASSERT(false);
-            continue;
-          }
+          auto& existing_job = **existing_job_iter;
+          if (existing_job.rule != rule.get())
+            break;
 
           bool do_match = true;
-          for (std::size_t match_id = 1;
-               match_id < new_match->match_results.size(); ++match_id)
+          if (const auto& existing_match_iter =
+                existing_job.inputs.find(new_match->slot_index);
+              existing_match_iter != existing_job.inputs.end())
           {
-            if (rule->group_by.find(match_id) != rule->group_by.end())
-              continue;
-            if (existing_match->match_results[match_id].str() !=
-                new_match->match_results[match_id].str())
+            // We only need to compare the new match with the first match
+            // already in this job.
+            const auto& existing_match = *existing_match_iter->second;
+            if (existing_match.match_results.size() !=
+                new_match->match_results.size())
             {
-              do_match = false;
-              break;
+              // This should never happen.
+              BOOST_ASSERT(false);
+              continue;
+            }
+            for (std::size_t match_id = 1;
+                 match_id < new_match->match_results.size(); ++match_id)
+            {
+              if (rule->group_by.find(match_id) != rule->group_by.end())
+                continue;
+              if (existing_match.match_results[match_id].str() !=
+                  new_match->match_results[match_id].str())
+              {
+                do_match = false;
+                break;
+              }
             }
           }
+
           if (do_match)
           {
-            existing_job->inputs.emplace_back(std::move(new_match));
+            auto slot_index = new_match->slot_index;
+            existing_job.inputs.insert({slot_index, std::move(new_match)});
             merged_with_existing_job = true;
             break;
           }
@@ -488,43 +498,45 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
       if (!merged_with_existing_job)
       {
         if (verbose >= 2)
+        {
           log::debug() << R"(Adding new job based on rule ")" << rule->id
                        << '"';
-        auto new_job = std::make_unique<job_description>();
+        }
+        auto& new_job = jobs.emplace_back(std::make_unique<job_description>());
         new_job->rule = rule.get();
-        new_job->inputs.emplace_back(std::move(new_match));
-        new_jobs.push_back(std::move(new_job));
+        auto slot_index = new_match->slot_index;
+        new_job->inputs.insert({slot_index, std::move(new_match)});
       }
     }
 
     // All matches of this rule should have been moved to jobs at this point.
     rule->matches.clear();
-
-    // Move newly created jobs to the global list.
-    for (auto& new_job : new_jobs)
-      jobs.emplace_back(std::move(new_job));
   }
 
   // Add all modified jobs to the list of jobs to process.
+  std::vector<job_description*> job_pointers;
+  job_pointers.reserve(jobs.size());
   for (auto& job : jobs)
   {
     if (job->rule->pass == pass)
     {
       bool skip_job = true;
       // Check if there is an equivalent job in our cache.
-      if (const auto* cached_job = cache.get_job(*job))
+      if (const auto* cached_job = cache.get_job(*job);
+          cached_job != nullptr && !cache.is_modified(*cached_job))
       {
         // If so, copy the cached job output files over.
-        for (const auto* output_file : cached_job->outputs)
+        for (const auto* cached_output : cached_job->outputs)
         {
-          if (auto* file = add_file(output_file->path, pass))
-            job->outputs.insert(file);
+          if (auto* output_file = add_file(cached_output->path, pass);
+              output_file != nullptr)
+            job->outputs.insert(output_file);
           else
           {
             // If one of the cached output files does not exist we have to
             // process this job.
             // log::debug() << "Won't skip job because output file "
-            //             << output_file->path << " cannot be found.";
+            //             << cached_output->path << " cannot be found.";
             job->outputs.clear();
             skip_job = false;
             break;
@@ -535,13 +547,15 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
         {
           // If the job is indeed unmodified we can eventually adopt alias links
           // from input to output files.
-          for (const auto& cached_input_match : cached_job->inputs)
+          for (const auto& [cached_input_slot_index, cached_input_match] :
+               cached_job->inputs)
           {
             if (cached_input_match->file->alias)
             {
-              for (const auto& input_match : job->inputs)
+              for (const auto& [input_slot_index, input_match] : job->inputs)
               {
-                if (input_match->file->hash == cached_input_match->file->hash &&
+                if (cached_input_slot_index == input_slot_index &&
+                    input_match->file->hash == cached_input_match->file->hash &&
                     input_match->file->path == cached_input_match->file->path)
                 {
                   for (auto* output_file : job->outputs)
@@ -576,11 +590,13 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
         // log::debug() << "Won't skip job because there is no cached
         // equivalent.";
         skip_job = false;
+        /// ToDo: Do this later!
+        // cache.add_job(*job);
       }
 
       if (!skip_job)
         job->flags.set(entity_flag::modified);
-      job_pointers.push_back(job.get());
+      job_pointers.emplace_back(job.get());
     }
   }
 

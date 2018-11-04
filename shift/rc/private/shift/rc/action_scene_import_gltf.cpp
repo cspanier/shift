@@ -39,7 +39,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
   }
 
   const input_match* scene_input = nullptr;
-  for (const auto& input : job.inputs)
+  for (const auto& [input_slot_index, input] : job.inputs)
   {
     if (input->slot->first == "scene")
       scene_input = input.get();

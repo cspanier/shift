@@ -58,16 +58,16 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
                  << " action can only process one input at a time.";
     return false;
   }
-  const auto& input = job.inputs.at(0);
+  auto& input = *job.inputs.begin()->second;
 
-  if (!fs::exists(input->file->path) || !fs::is_regular_file(input->file->path))
+  if (!fs::exists(input.file->path) || !fs::is_regular_file(input.file->path))
   {
-    log::error() << "Cannot find input file " << input->file->path << ".";
+    log::error() << "Cannot find input file " << input.file->path << ".";
     return false;
   }
 
   std::ifstream file;
-  file.open(input->file->generic_string,
+  file.open(input.file->generic_string,
             std::ios_base::in | std::ios_base::binary);
   if (!file.is_open())
   {
@@ -774,7 +774,7 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   compiler.save(*vertex_buffer, job.output("vertex-buffer", {}), job);
   compiler.save(*index_buffer, job.output("index-buffer", {}), job);
   auto mesh_filename = job.output("mesh", {});
-  input->file->alias = compiler.save(*mesh, mesh_filename, job);
+  input.file->alias = compiler.save(*mesh, mesh_filename, job);
 
   return true;
 }

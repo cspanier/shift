@@ -64,13 +64,18 @@ bool operator==(const job_description& lhs, const job_description& rhs)
 
   if (lhs.inputs.size() != rhs.inputs.size())
     return false;
-  for (auto left = lhs.inputs.begin(); left != lhs.inputs.end(); ++left)
+  for (auto left_iter = lhs.inputs.begin(); left_iter != lhs.inputs.end();
+       ++left_iter)
   {
     bool found = false;
-    for (auto right = rhs.inputs.begin(); right != rhs.inputs.end(); ++right)
+    for (auto right_iter = rhs.inputs.begin(); right_iter != rhs.inputs.end();
+         ++right_iter)
     {
-      if ((*left)->file->hash == (*right)->file->hash &&
-          (*left)->file->path == (*right)->file->path)
+      auto& [left_slot_index, left_match] = *left_iter;
+      auto& [right_slot_index, right_match] = *right_iter;
+      if (left_slot_index == right_slot_index &&
+          left_match->file->hash == right_match->file->hash &&
+          left_match->file->path == right_match->file->path)
       {
         found = true;
         break;
@@ -91,6 +96,8 @@ fs::path job_description::output(
   const std::string& name,
   const std::map<std::string, std::string>& custom_variables) const
 {
+  using namespace std::string_literals;
+
   BOOST_ASSERT(!inputs.empty());
   if (inputs.empty())
     return "";
@@ -105,15 +112,17 @@ fs::path job_description::output(
   }
   auto path_string = output_iter->second;
 
-  boost::replace_all(path_string, "<input-path>",
-                     compiler.input_path().generic_string());
-  boost::replace_all(path_string, "<build-path>",
-                     compiler.build_path().generic_string());
-  boost::replace_all(path_string, "<output-path>",
-                     compiler.output_path().generic_string());
-  boost::replace_all(path_string, "<rule-path>", rule->path.generic_string());
+  boost::replace_all(path_string, "<input-path/>",
+                     compiler.input_path().generic_string() + '/');
+  boost::replace_all(path_string, "<build-path/>",
+                     compiler.build_path().generic_string() + '/');
+  boost::replace_all(path_string, "<output-path/>",
+                     compiler.output_path().generic_string() + '/');
+  boost::replace_all(
+    path_string, "<rule-path/>",
+    rule->path.empty() ? ""s : rule->path.generic_string() + '/');
 
-  for (const auto& input : inputs)
+  for (const auto& [input_slot_index, input] : inputs)
   {
     std::size_t match_index = 0;
     for (const auto& match_result : input->match_results)
