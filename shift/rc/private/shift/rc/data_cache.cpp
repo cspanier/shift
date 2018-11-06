@@ -636,9 +636,18 @@ void data_cache::add_job(std::unique_ptr<job_description> job)
   _jobs.insert_or_assign(id, std::move(job));
 }
 
-bool data_cache::has_rule(const rule_description& rule) const
+rule_description& data_cache::get_rule(const rule_create_info& create_info)
 {
-  return _rules.find(rule.id) != _rules.end();
+  auto rule_iter = _rules.find(create_info.id);
+  if (rule_iter != _rules.end())
+    return *rule_iter->second;
+  else
+  {
+    auto new_rule = std::make_unique<rule_description>(create_info);
+    new_rule->flags.set(entity_flag::modified);
+    std::string_view id = new_rule->id;
+    return *_rules.insert_or_assign(id, std::move(new_rule)).first->second;
+  }
 }
 
 bool data_cache::is_modified(const job_description& job) const

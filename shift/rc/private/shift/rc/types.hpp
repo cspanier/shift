@@ -74,16 +74,8 @@ struct rule_input
   std::regex pattern;
 };
 
-/// A rule defines what input files are processed by which action into what
-/// output files.
-struct rule_description
+struct rule_create_info
 {
-  rule_description() = default;
-  rule_description(const rule_description&) = delete;
-  rule_description(rule_description&&) = delete;
-  rule_description& operator=(const rule_description&) = delete;
-  rule_description& operator=(rule_description&&) = delete;
-
   std::string id;
   std::uint32_t pass = {};
   const action_description* action = nullptr;
@@ -93,6 +85,18 @@ struct rule_description
   std::map<std::string, std::string> outputs;
   parser::json::object options;
   entity_flags flags = {};
+};
+
+/// A rule defines what input files are processed by which action into what
+/// output files.
+struct rule_description : public rule_create_info
+{
+  rule_description() = default;
+  rule_description(const rule_create_info& create_info);
+  rule_description(const rule_description&) = delete;
+  rule_description(rule_description&&) = delete;
+  rule_description& operator=(const rule_description&) = delete;
+  rule_description& operator=(rule_description&&) = delete;
 
   std::mutex matches_mutex;
   std::vector<std::unique_ptr<input_match>> matches;

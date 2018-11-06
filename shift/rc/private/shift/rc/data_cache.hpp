@@ -68,9 +68,9 @@ public:
   /// be replaced and thus invalidated.
   void add_job(std::unique_ptr<job_description> job);
 
-  /// Checks whether there is a cached rule which is equivalent to the passed
-  /// one.
-  bool has_rule(const rule_description& rule) const;
+  /// Either returns an existing rule that is equivalent to the parameters
+  /// description, or creates and returns a new rule.
+  rule_description& get_rule(const rule_create_info& create_info);
 
   /// Checks whether a job is modified compared to the ones cached.
   bool is_modified(const job_description& job) const;

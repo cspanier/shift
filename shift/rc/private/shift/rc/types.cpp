@@ -4,6 +4,11 @@
 
 namespace shift::rc
 {
+rule_description::rule_description(const rule_create_info& create_info)
+: rule_create_info(create_info)
+{
+}
+
 bool operator==(const rule_description& lhs, const rule_description& rhs)
 {
   if (lhs.id != rhs.id)

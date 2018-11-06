@@ -196,20 +196,20 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       continue;
     }
 
-    auto new_rule = std::make_unique<rule_description>();
-    new_rule->id = rule_id;
-    new_rule->pass =
+    rule_create_info rule_info;
+    rule_info.id = rule_id;
+    rule_info.pass =
       boost::lexical_cast<std::uint32_t>(get<double>(pass_value));
     const auto& action_name = get<std::string>(action_value);
-    new_rule->action = cache.find_action(action_name);
-    if (new_rule->action == nullptr)
+    rule_info.action = cache.find_action(action_name);
+    if (rule_info.action == nullptr)
     {
       log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
                      << rule_id << R"(" references a non-existing action ")"
                      << action_name << R"(".)";
       continue;
     }
-    new_rule->path = rule_path;
+    rule_info.path = rule_path;
     for (const auto& input_object_value : get<json::object>(input_value))
     {
       if (!get_if<std::string>(&input_object_value.second))
@@ -219,7 +219,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
           << R"("'s "input" attribute object may only contain string values.)";
         continue;
       }
-      new_rule->inputs.insert_or_assign(
+      rule_info.inputs.insert_or_assign(
         input_object_value.first,
         input_pattern(get<std::string>(input_object_value.second)));
     }
@@ -243,14 +243,14 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
             << R"("'s "group-by" attribute array may only contain number values.)";
           continue;
         }
-        new_rule->group_by.insert(
+        rule_info.group_by.insert(
           static_cast<std::size_t>(get<double>(group_by_array_value)));
       }
     }
 
     if (get_if<std::string>(&output_value))
     {
-      new_rule->outputs.insert_or_assign("default",
+      rule_info.outputs.insert_or_assign("default",
                                          get<std::string>(output_value));
     }
     else if (get_if<json::object>(&output_value))
@@ -265,7 +265,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
             << R"("'s "output" attribute object may only contain string attributes.)";
           continue;
         }
-        new_rule->outputs.insert_or_assign(
+        rule_info.outputs.insert_or_assign(
           output_object_attribute.first,
           get<std::string>(output_object_attribute.second));
       }
@@ -283,23 +283,22 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
                      << R"(" lacks the required attribute "options".)";
       continue;
     }
-    new_rule->options = get<json::object>(rule_object.at("options"));
+    rule_info.options = get<json::object>(rule_object.at("options"));
 
-    if (!cache.has_rule(*new_rule))
-      new_rule->flags.set(entity_flag::modified);
+    auto& new_rule = cache.get_rule(rule_info);
 
     // Perform a sorted insert into the list of rules which are sorted by pass
     // and rule_path depth.
     auto insert_position = std::upper_bound(
       rules.begin(), rules.end(), new_rule,
       [](const auto& new_rule, const auto& existing_rule) -> bool {
-        return new_rule->pass < existing_rule->pass ||
-               (new_rule->pass == existing_rule->pass &&
-                std::distance(new_rule->path.begin(), new_rule->path.end()) <
+        return new_rule.pass < existing_rule->pass ||
+               (new_rule.pass == existing_rule->pass &&
+                std::distance(new_rule.path.begin(), new_rule.path.end()) <
                   std::distance(existing_rule->path.begin(),
                                 existing_rule->path.end()));
       });
-    rules.insert(insert_position, std::move(new_rule));
+    rules.insert(insert_position, &new_rule);
   }
 }
 
@@ -440,7 +439,7 @@ resource_compiler_impl::query_jobs(
   std::vector<std::unique_ptr<job_description>> jobs;
 
   // Process each rule's matches separately.
-  for (auto& rule : rules)
+  for (auto* rule : rules)
   {
     // Skip rules that are not in the current pass.
     if (rule->pass != pass)
@@ -459,7 +458,7 @@ resource_compiler_impl::query_jobs(
              existing_job_iter != jobs.rend(); ++existing_job_iter)
         {
           auto& existing_job = **existing_job_iter;
-          if (existing_job.rule != rule.get())
+          if (existing_job.rule != rule)
             break;
 
           bool do_match = true;
@@ -508,7 +507,7 @@ resource_compiler_impl::query_jobs(
                        << '"';
         }
         auto& new_job = jobs.emplace_back(std::make_unique<job_description>());
-        new_job->rule = rule.get();
+        new_job->rule = rule;
         auto slot_index = new_match->slot_index;
         new_job->inputs.insert({slot_index, std::move(new_match)});
       }

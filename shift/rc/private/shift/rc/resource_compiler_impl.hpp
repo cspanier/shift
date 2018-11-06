@@ -77,7 +77,7 @@ public:
   /// compiler is working.
   std::mutex global_mutex;
   std::shared_mutex rules_mutex;
-  std::vector<std::unique_ptr<rule_description>> rules;
+  std::vector<rule_description*> rules;
   data_cache cache;
 
   std::shared_mutex files_mutex;
