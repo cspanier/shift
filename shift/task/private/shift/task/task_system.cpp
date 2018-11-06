@@ -1,7 +1,7 @@
-#include "shift/task/task_system_impl.h"
-#include "shift/task/task_impl.h"
-#include <shift/platform/fpexceptions.h>
-#include <shift/platform/environment.h>
+#include "shift/task/task_system_impl.hpp"
+#include "shift/task/task_impl.hpp"
+#include <shift/platform/fpexceptions.hpp>
+#include <shift/platform/environment.hpp>
 #include <thread>
 
 namespace shift::task

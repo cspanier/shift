@@ -1,7 +1,7 @@
-#include "shift/rc/application.h"
-#include "shift/rc/launcher.h"
-#include <shift/application/launcher.h>
-#include <shift/task/launcher.h>
+#include "shift/rc/application.hpp"
+#include "shift/rc/launcher.hpp"
+#include <shift/application/launcher.hpp>
+#include <shift/task/launcher.hpp>
 
 int main(int argc, char* argv[])
 {

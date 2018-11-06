@@ -1,7 +1,7 @@
-#include "shift/parser/proto/type_reference_resolver.h"
-#include "shift/parser/proto/document.h"
-#include "shift/parser/proto/document_impl.h"
-#include "shift/parser/proto/error.h"
+#include "shift/parser/proto/type_reference_resolver.hpp"
+#include "shift/parser/proto/document.hpp"
+#include "shift/parser/proto/document_impl.hpp"
+#include "shift/parser/proto/error.hpp"
 
 namespace shift::parser::proto
 {

@@ -1,5 +1,5 @@
-#include "shift/task/future.h"
-#include "shift/task/task_system.h"
+#include "shift/task/future.hpp"
+#include "shift/task/task_system.hpp"
 
 namespace shift::task::detail
 {

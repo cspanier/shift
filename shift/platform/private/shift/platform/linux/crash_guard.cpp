@@ -1,7 +1,7 @@
-#include "shift/platform/crash_guard.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/platform/crash_guard.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <iostream>
 #include <client/linux/handler/exception_handler.h>
 

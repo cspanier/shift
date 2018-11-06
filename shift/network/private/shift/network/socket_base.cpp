@@ -1,5 +1,5 @@
-#include "shift/network/socket_base.h"
-#include "shift/network/network_host.h"
+#include "shift/network/socket_base.hpp"
+#include "shift/network/network_host.hpp"
 
 namespace shift::network
 {

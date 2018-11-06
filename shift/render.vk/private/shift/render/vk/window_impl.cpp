@@ -1,4 +1,4 @@
-#include "shift/render/vk/window_impl.h"
+#include "shift/render/vk/window_impl.hpp"
 
 namespace shift::render::vk
 {

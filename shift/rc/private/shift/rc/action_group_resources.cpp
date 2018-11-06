@@ -1,10 +1,10 @@
-#include "shift/rc/action_group_resources.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/resource_group.h>
-#include <shift/resource/image.h>
-#include <shift/resource/mesh.h>
-#include <shift/log/log.h>
-#include <shift/core/exception.h>
+#include "shift/rc/action_group_resources.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/resource_group.hpp>
+#include <shift/resource/image.hpp>
+#include <shift/resource/mesh.hpp>
+#include <shift/log/log.hpp>
+#include <shift/core/exception.hpp>
 #include <boost/filesystem.hpp>
 #include <queue>
 #include <memory>

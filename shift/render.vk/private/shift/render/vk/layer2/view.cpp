@@ -1,9 +1,9 @@
-#include "shift/render/vk/layer2/view.h"
-#include "shift/render/vk/pass.h"
-#include "shift/render/vk/renderer_impl.h"
-// #include "shift/render/vk/application.h"
-#include "shift/render/vk/context_impl.h"
-#include "shift/render/vk/layer1/device.h"
+#include "shift/render/vk/layer2/view.hpp"
+#include "shift/render/vk/pass.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+// #include "shift/render/vk/application.hpp"
+#include "shift/render/vk/context_impl.hpp"
+#include "shift/render/vk/layer1/device.hpp"
 
 namespace shift::render::vk::layer2
 {

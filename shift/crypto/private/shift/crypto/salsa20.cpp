@@ -1,5 +1,5 @@
-#include "shift/crypto/salsa20.h"
-#include "shift/crypto/crypto.h"
+#include "shift/crypto/salsa20.hpp"
+#include "shift/crypto/crypto.hpp"
 #include <cstring>
 #include <memory>
 

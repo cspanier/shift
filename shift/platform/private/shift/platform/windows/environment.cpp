@@ -1,5 +1,5 @@
-#include "shift/platform/environment.h"
-#include "shift/core/string_util.h"
+#include "shift/platform/environment.hpp"
+#include "shift/core/string_util.hpp"
 #include <vector>
 #include <string>
 #include <utility>

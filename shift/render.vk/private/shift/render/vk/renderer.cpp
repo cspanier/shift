@@ -1,5 +1,5 @@
-#include "shift/render/vk/renderer.h"
-#include "shift/render/vk/renderer_impl.h"
+#include "shift/render/vk/renderer.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
 
 namespace shift::render::vk
 {

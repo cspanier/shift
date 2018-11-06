@@ -1,8 +1,8 @@
-#include <shift/network/network_host.h>
-#include <shift/network/udp_socket.h>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/network/network_host.hpp>
+#include <shift/network/udp_socket.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 using namespace shift;
 using namespace shift::network;

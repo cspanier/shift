@@ -1,6 +1,6 @@
-#include "shift/render/vk/layer2/mesh.h"
+#include "shift/render/vk/layer2/mesh.hpp"
 
-#include <shift/log/log.h>
+#include <shift/log/log.hpp>
 
 namespace shift::render::vk
 {

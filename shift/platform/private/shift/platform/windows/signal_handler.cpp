@@ -1,5 +1,5 @@
 #define BOOST_USE_WINDOWS_H
-#include "shift/platform/signal_handler.h"
+#include "shift/platform/signal_handler.hpp"
 #include <consoleapi.h>
 
 namespace shift::platform

@@ -1,8 +1,8 @@
-#include "shift/rc/importer_pak/filter.h"
-#include <shift/resource/repository.h>
-#include <shift/log/log.h>
-#include <shift/core/mpl.h>
-#include <shift/core/string_util.h>
+#include "shift/rc/importer_pak/filter.hpp"
+#include <shift/resource/repository.hpp>
+#include <shift/log/log.hpp>
+#include <shift/core/mpl.hpp>
+#include <shift/core/string_util.hpp>
 #include <boost/filesystem.hpp>
 
 namespace shift::rc::pak

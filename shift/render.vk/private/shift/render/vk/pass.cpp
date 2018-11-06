@@ -1,4 +1,4 @@
-#include "shift/render/vk/pass.h"
+#include "shift/render/vk/pass.hpp"
 
 namespace shift::render::vk
 {

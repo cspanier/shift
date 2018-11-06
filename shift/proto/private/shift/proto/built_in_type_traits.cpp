@@ -1,10 +1,10 @@
-#include "shift/proto/built_in_type_traits.h"
-#include "shift/proto/hash.h"
-#include <shift/core/core.h>
-#include <shift/platform/assert.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/proto/built_in_type_traits.hpp"
+#include "shift/proto/hash.hpp"
+#include <shift/core/core.hpp>
+#include <shift/platform/assert.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/crc.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <algorithm>
 #include <cstdint>
 #include <string>

@@ -1,12 +1,12 @@
-#include "shift/network/tcp_socket_listener.h"
-#include "shift/network/tcp_socket_listener_impl.h"
-#include "shift/network/network_host.h"
-#include <shift/log/log.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/network/tcp_socket_listener.hpp"
+#include "shift/network/tcp_socket_listener_impl.hpp"
+#include "shift/network/network_host.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 #include <boost/asio/spawn.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <functional>
 
 namespace shift::network

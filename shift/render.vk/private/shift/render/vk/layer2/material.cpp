@@ -1,10 +1,10 @@
-#include "shift/render/vk/layer2/material.h"
-#include "shift/render/vk/layer2/texture.h"
-#include "shift/render/vk/layer2/sampler.h"
-#include "shift/render/vk/layer1/sampler.h"
-#include "shift/render/vk/layer1/device.h"
+#include "shift/render/vk/layer2/material.hpp"
+#include "shift/render/vk/layer2/texture.hpp"
+#include "shift/render/vk/layer2/sampler.hpp"
+#include "shift/render/vk/layer1/sampler.hpp"
+#include "shift/render/vk/layer1/device.hpp"
 
-#include <shift/log/log.h>
+#include <shift/log/log.hpp>
 
 namespace shift::render::vk
 {

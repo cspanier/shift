@@ -1,4 +1,4 @@
-#include "shift/parser/proto/source_module.h"
+#include "shift/parser/proto/source_module.hpp"
 
 namespace shift::parser::proto
 {

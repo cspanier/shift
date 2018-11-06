@@ -1,12 +1,12 @@
-#include "shift/network/udp_socket.h"
-#include "shift/network/udp_socket_impl.h"
-#include "shift/network/network_host.h"
-#include <shift/log/log.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/network/udp_socket.hpp"
+#include "shift/network/udp_socket_impl.hpp"
+#include "shift/network/network_host.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio/ip/multicast.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <functional>
 
 namespace shift::network

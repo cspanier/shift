@@ -1,7 +1,7 @@
-#include "shift/render/vk/layer1/descriptor_set_layout.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/renderer_impl.h"
-#include <shift/core/exception.h>
+#include "shift/render/vk/layer1/descriptor_set_layout.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include <shift/core/exception.hpp>
 #include <cstdint>
 
 namespace shift::render::vk::layer1

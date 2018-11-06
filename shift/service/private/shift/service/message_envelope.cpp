@@ -1,6 +1,6 @@
-#include "shift/service/message_envelope.h"
-#include <shift/serialization/compact/inputarchive.h>
-#include <shift/serialization/compact/outputarchive.h>
+#include "shift/service/message_envelope.hpp"
+#include <shift/serialization/compact/inputarchive.hpp>
+#include <shift/serialization/compact/outputarchive.hpp>
 
 namespace shift::service
 {

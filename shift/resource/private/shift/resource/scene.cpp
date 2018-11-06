@@ -1,7 +1,7 @@
-#include "shift/resource/scene.h"
-#include <shift/serialization2/all.h>
-#include <shift/crypto/sha256.h>
-#include <shift/math/serialization2.h>
+#include "shift/resource/scene.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/crypto/sha256.hpp>
+#include <shift/math/serialization2.hpp>
 
 namespace shift::resource
 {

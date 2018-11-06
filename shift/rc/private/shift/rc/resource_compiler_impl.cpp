@@ -1,18 +1,18 @@
-#include "shift/rc/resource_compiler_impl.h"
-#include "shift/rc/types.h"
-#include "shift/rc/action_group_resources.h"
-#include "shift/rc/action_image_import.h"
-#include "shift/rc/action_mesh_tootle.h"
-#include "shift/rc/action_mesh_import_ply.h"
-#include "shift/rc/action_mesh_export_obj.h"
-#include "shift/rc/action_font_import_ttf.h"
-#include "shift/rc/action_shader_compile.h"
-#include "shift/rc/action_scene_compile.h"
-#include "shift/rc/action_scene_import_gltf.h"
-#include "shift/rc/action_scene_import_pbrt.h"
-#include <shift/resource/repository.h>
-#include <shift/parser/json/json.h>
-#include <shift/log/log.h>
+#include "shift/rc/resource_compiler_impl.hpp"
+#include "shift/rc/types.hpp"
+#include "shift/rc/action_group_resources.hpp"
+#include "shift/rc/action_image_import.hpp"
+#include "shift/rc/action_mesh_tootle.hpp"
+#include "shift/rc/action_mesh_import_ply.hpp"
+#include "shift/rc/action_mesh_export_obj.hpp"
+#include "shift/rc/action_font_import_ttf.hpp"
+#include "shift/rc/action_shader_compile.hpp"
+#include "shift/rc/action_scene_compile.hpp"
+#include "shift/rc/action_scene_import_gltf.hpp"
+#include "shift/rc/action_scene_import_pbrt.hpp"
+#include <shift/resource/repository.hpp>
+#include <shift/parser/json/json.hpp>
+#include <shift/log/log.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/lexical_cast.hpp>
@@ -209,7 +209,6 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
                      << action_name << R"(".)";
       continue;
     }
-    new_rule->flags.set(entity_flag::modified);
     new_rule->path = rule_path;
     for (const auto& input_object_value : get<json::object>(input_value))
     {
@@ -285,6 +284,9 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       continue;
     }
     new_rule->options = get<json::object>(rule_object.at("options"));
+
+    if (!cache.has_rule(*new_rule))
+      new_rule->flags.set(entity_flag::modified);
 
     // Perform a sorted insert into the list of rules which are sorted by pass
     // and rule_path depth.
@@ -431,9 +433,12 @@ std::uint32_t resource_compiler_impl::next_pass(
   return next_pass;
 }
 
-std::vector<job_description*> resource_compiler_impl::query_jobs(
+std::vector<std::unique_ptr<job_description>>
+resource_compiler_impl::query_jobs(
   std::uint32_t pass, std::shared_lock<std::shared_mutex>& /* read_lock */)
 {
+  std::vector<std::unique_ptr<job_description>> jobs;
+
   // Process each rule's matches separately.
   for (auto& rule : rules)
   {
@@ -514,8 +519,6 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
   }
 
   // Add all modified jobs to the list of jobs to process.
-  std::vector<job_description*> job_pointers;
-  job_pointers.reserve(jobs.size());
   for (auto& job : jobs)
   {
     if (job->rule->pass == pass)
@@ -596,11 +599,10 @@ std::vector<job_description*> resource_compiler_impl::query_jobs(
 
       if (!skip_job)
         job->flags.set(entity_flag::modified);
-      job_pointers.emplace_back(job.get());
     }
   }
 
-  return job_pointers;
+  return jobs;
 }
 
 // bool path_contains_file(path dir, path file)

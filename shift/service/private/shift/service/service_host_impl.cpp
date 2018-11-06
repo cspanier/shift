@@ -1,20 +1,20 @@
 #define BOOST_BIND_NO_PLACEHOLDERS
-#include "shift/service/service_host_impl.h"
-#include "shift/service/basic_service.h"
-#include "shift/service/detail/guid_generator.h"
-#include <shift/network/network_host.h>
-#include <shift/network/socket_base.h>
-#include <shift/network/tcp_socket_client.h>
-#include <shift/network/tcp_socket_listener.h>
-#include <shift/network/udp_socket.h>
-#include <shift/serialization/pair.h>
-#include <shift/serialization/compact/inputarchive.h>
-#include <shift/serialization/compact/outputarchive.h>
-#include <shift/log/log.h>
-#include <shift/platform/environment.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/service/service_host_impl.hpp"
+#include "shift/service/basic_service.hpp"
+#include "shift/service/detail/guid_generator.hpp"
+#include <shift/network/network_host.hpp>
+#include <shift/network/socket_base.hpp>
+#include <shift/network/tcp_socket_client.hpp>
+#include <shift/network/tcp_socket_listener.hpp>
+#include <shift/network/udp_socket.hpp>
+#include <shift/serialization/pair.hpp>
+#include <shift/serialization/compact/inputarchive.hpp>
+#include <shift/serialization/compact/outputarchive.hpp>
+#include <shift/log/log.hpp>
+#include <shift/platform/environment.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 #include <iostream>
 

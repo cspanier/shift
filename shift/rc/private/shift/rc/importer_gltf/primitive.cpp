@@ -1,5 +1,5 @@
-#include "shift/rc/importer_gltf/primitive.h"
-#include <shift/parser/json/json.h>
+#include "shift/rc/importer_gltf/primitive.hpp"
+#include <shift/parser/json/json.hpp>
 #include <cmath>
 
 namespace shift::rc::gltf

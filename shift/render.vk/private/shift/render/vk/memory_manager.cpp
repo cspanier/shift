@@ -1,6 +1,6 @@
-#include "shift/render/vk/memory_manager.h"
-#include "shift/render/vk/layer1/physical_device.h"
-#include "shift/render/vk/layer1/device.h"
+#include "shift/render/vk/memory_manager.hpp"
+#include "shift/render/vk/layer1/physical_device.hpp"
+#include "shift/render/vk/layer1/device.hpp"
 #include <algorithm>
 
 namespace shift::render::vk

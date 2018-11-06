@@ -1,9 +1,9 @@
-#include "shift/rc/application.h"
-#include "shift/resource/repository.h"
-#include <shift/log/log.h>
-#include <shift/core/exception.h>
-#include <shift/core/mpl.h>
-#include <shift/core/string_util.h>
+#include "shift/rc/application.hpp"
+#include "shift/resource/repository.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/mpl.hpp>
+#include <shift/core/string_util.hpp>
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include <memory>

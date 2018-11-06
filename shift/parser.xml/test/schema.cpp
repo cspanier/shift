@@ -1,10 +1,10 @@
-#include <shift/parser/xml/xml.h>
-#include <shift/platform/environment.h>
+#include <shift/parser/xml/xml.hpp>
+#include <shift/platform/environment.hpp>
 #include <iostream>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 struct init_current_working_path
 {

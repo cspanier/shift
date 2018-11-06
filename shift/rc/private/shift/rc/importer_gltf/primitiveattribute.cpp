@@ -1,6 +1,6 @@
 #include <utility>
 
-#include "shift/rc/importer_gltf/primitiveattribute.h"
+#include "shift/rc/importer_gltf/primitiveattribute.hpp"
 
 namespace shift::rc::gltf
 {

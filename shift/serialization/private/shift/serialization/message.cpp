@@ -1,6 +1,6 @@
-#include "shift/serialization/message.h"
-#include "shift/serialization/compact/inputarchive.h"
-#include "shift/serialization/compact/outputarchive.h"
+#include "shift/serialization/message.hpp"
+#include "shift/serialization/compact/inputarchive.hpp"
+#include "shift/serialization/compact/outputarchive.hpp"
 
 namespace shift::serialization
 {

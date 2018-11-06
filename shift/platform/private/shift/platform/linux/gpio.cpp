@@ -1,8 +1,8 @@
-#include "shift/platform/gpio.h"
-#include "shift/platform/types.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/platform/gpio.hpp"
+#include "shift/platform/types.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <chrono>
 #include <array>
 #include <poll.h>

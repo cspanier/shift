@@ -1,8 +1,8 @@
-#include "shift/rc/optimizer_mesh/filter.h"
-#include <shift/resource/mesh.h>
-#include <shift/log/log.h>
-#include <shift/math/vector.h>
-#include <shift/core/hash_table.h>
+#include "shift/rc/optimizer_mesh/filter.hpp"
+#include <shift/resource/mesh.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/vector.hpp>
+#include <shift/core/hash_table.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/endian/conversion.hpp>
 #include <queue>

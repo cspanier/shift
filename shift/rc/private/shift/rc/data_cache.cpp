@@ -1,7 +1,7 @@
-#include "shift/rc/data_cache.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/parser/json/json.h>
-#include <shift/log/log.h>
+#include "shift/rc/data_cache.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/parser/json/json.hpp>
+#include <shift/log/log.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <fstream>
 
@@ -574,8 +574,7 @@ void data_cache::save_graph(const fs::path& graph_filename) const
   node [shape=box]
 )";
 
-  std::uint32_t job_id = 1;
-  for (const auto& job : _impl->jobs)
+  for (const auto& [job_id, job] : _jobs)
   {
     // Don't write jobs that failed execution.
     if (job->flags.test(entity_flag::failed))
@@ -592,8 +591,6 @@ void data_cache::save_graph(const fs::path& graph_filename) const
       file << R"(  ")" << job->rule->id << '#' << job_id << R"(" -> ")"
            << output->path.generic_string() << R"(";)" << br;
     }
-
-    ++job_id;
   }
 
   file << R"(})" << br;
@@ -633,9 +630,20 @@ const job_description* data_cache::get_job(const job_description& job) const
     return nullptr;
 }
 
+void data_cache::add_job(std::unique_ptr<job_description> job)
+{
+  auto id = std::hash<job_description>()(*job);
+  _jobs.insert_or_assign(id, std::move(job));
+}
+
+bool data_cache::has_rule(const rule_description& rule) const
+{
+  return _rules.find(rule.id) != _rules.end();
+}
+
 bool data_cache::is_modified(const job_description& job) const
 {
-  if (job.rule->action->impl->modified())
+  if (job.rule->action->flags.test(entity_flag::modified))
   {
     // log::debug() << "Action " << job.rule->action->name()
     //             << " is modified.";

@@ -1,4 +1,4 @@
-#include "shift/parser/proto/ast.h"
+#include "shift/parser/proto/ast.hpp"
 
 namespace shift::parser::proto::ast
 {

@@ -1,10 +1,10 @@
-#include <shift/math/intersection.h>
-#include <shift/math/interval.h>
-#include <shift/core/algorithm.h>
-#include <shift/platform/fpexceptions.h>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/math/intersection.hpp>
+#include <shift/math/interval.hpp>
+#include <shift/core/algorithm.hpp>
+#include <shift/platform/fpexceptions.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 using namespace shift;
 using namespace shift::math;

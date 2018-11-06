@@ -1,10 +1,10 @@
-#include "shift/rc/importer_mat/filter.h"
-#include <shift/resource/image.h>
-#include <shift/log/log.h>
-#include <shift/math/utility.h>
-#include <shift/math/vector.h>
-#include <shift/core/mpl.h>
-#include <shift/core/string_util.h>
+#include "shift/rc/importer_mat/filter.hpp"
+#include <shift/resource/image.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/utility.hpp>
+#include <shift/math/vector.hpp>
+#include <shift/core/mpl.hpp>
+#include <shift/core/string_util.hpp>
 #include <boost/filesystem.hpp>
 
 namespace shift::resource

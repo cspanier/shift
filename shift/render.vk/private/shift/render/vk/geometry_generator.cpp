@@ -1,4 +1,4 @@
-#include "shift/render/vk/geometry_generator.h"
+#include "shift/render/vk/geometry_generator.hpp"
 #include <cstring>
 
 namespace shift::render::vk

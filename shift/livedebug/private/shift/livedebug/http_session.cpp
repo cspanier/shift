@@ -1,10 +1,10 @@
-#include "shift/livedebug/http_session.h"
-#include "shift/livedebug/websocket_session.h"
-#include "shift/livedebug/debug_server.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/livedebug/http_session.hpp"
+#include "shift/livedebug/websocket_session.hpp"
+#include "shift/livedebug/debug_server.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/asio/bind_executor.hpp>
-#include <shift/core/boost_restore_warnings.h>
-#include <shift/log/log.h>
+#include <shift/core/boost_restore_warnings.hpp>
+#include <shift/log/log.hpp>
 
 namespace shift::livedebug
 {

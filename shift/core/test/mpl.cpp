@@ -1,7 +1,7 @@
-#include <shift/core/mpl.h>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/mpl.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <sstream>
 #include <cstdint>
 #include <iostream>

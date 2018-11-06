@@ -1,8 +1,8 @@
-#include "shift/task/task_impl.h"
-#include "shift/task/task_system_impl.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/task/task_impl.hpp"
+#include "shift/task/task_system_impl.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/coroutine2/coroutine.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <functional>
 #include <utility>
 

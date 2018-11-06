@@ -1,5 +1,5 @@
-#include "shift/livedebug/debug_server.h"
-#include "shift/livedebug/listener_impl.h"
+#include "shift/livedebug/debug_server.hpp"
+#include "shift/livedebug/listener_impl.hpp"
 
 namespace shift::livedebug
 {

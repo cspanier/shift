@@ -1,10 +1,10 @@
-#include <shift/parser/proto/proto.h>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/parser/proto/proto.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <iostream>
 #include <sstream>
-#include "test.h"
+#include "test.hpp"
 
 using namespace shift;
 using namespace shift::parser;

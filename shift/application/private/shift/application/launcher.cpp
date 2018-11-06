@@ -1,10 +1,10 @@
-#include "shift/application/launcher.h"
-#include <shift/log/log_server.h>
-#include <shift/log/log.h>
-#include <shift/platform/console.h>
-#include <shift/platform/environment.h>
-#include <shift/platform/console.h>
-#include <shift/platform/environment.h>
+#include "shift/application/launcher.hpp"
+#include <shift/log/log_server.hpp>
+#include <shift/log/log.hpp>
+#include <shift/platform/console.hpp>
+#include <shift/platform/environment.hpp>
+#include <shift/platform/console.hpp>
+#include <shift/platform/environment.hpp>
 
 namespace shift::application
 {

@@ -1,9 +1,9 @@
-#include "shift/render/vk/layer1/instance.h"
-#include "shift/render/vk/renderer_impl.h"
-#include "shift/render/vk/application.h"
-#include <shift/log/log.h>
-#include <shift/core/exception.h>
-#include <shift/platform/environment.h>
+#include "shift/render/vk/layer1/instance.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include "shift/render/vk/application.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/platform/environment.hpp>
 #include <boost/lexical_cast.hpp>
 #include <vector>
 #include <array>

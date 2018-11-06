@@ -1,4 +1,4 @@
-#include "shift/render/vk/layer2/object.h"
+#include "shift/render/vk/layer2/object.hpp"
 #include <boost/assert.hpp>
 
 namespace shift::render::vk::layer2

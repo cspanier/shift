@@ -29,9 +29,9 @@ Each launcher module type passed as a template parameter to `launcher_t` must sa
 ## Usage
 
 ```c++
-#include <shift/application/launcher.h>
-#include <shift/network/launcher.h>
-#include <shift/service/launcher.h>
+#include <shift/application/launcher.hpp>
+#include <shift/network/launcher.hpp>
+#include <shift/service/launcher.hpp>
 
 int main(int argc, char* argv[])
 {

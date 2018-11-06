@@ -1,7 +1,7 @@
-#include "shift/rc/action_shader_compile.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/shader.h>
-#include <shift/log/log.h>
+#include "shift/rc/action_shader_compile.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/shader.hpp>
+#include <shift/log/log.hpp>
 #include <boost/filesystem.hpp>
 #include <queue>
 #include <memory>

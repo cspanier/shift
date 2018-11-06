@@ -1,10 +1,10 @@
-#include "shift/proto/nodeunpacker.h"
-#include "shift/proto/namescope.h"
-#include "shift/proto/service.h"
-#include "shift/proto/interface.h"
-#include "shift/proto/message.h"
-#include "shift/proto/enumeration.h"
-#include "shift/proto/alias.h"
+#include "shift/proto/nodeunpacker.hpp"
+#include "shift/proto/namescope.hpp"
+#include "shift/proto/service.hpp"
+#include "shift/proto/interface.hpp"
+#include "shift/proto/message.hpp"
+#include "shift/proto/enumeration.hpp"
+#include "shift/proto/alias.hpp"
 
 namespace shift::proto
 {

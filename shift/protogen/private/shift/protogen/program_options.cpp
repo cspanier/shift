@@ -1,4 +1,4 @@
-#include "shift/protogen/program_options.h"
+#include "shift/protogen/program_options.hpp"
 
 namespace shift::proto
 {

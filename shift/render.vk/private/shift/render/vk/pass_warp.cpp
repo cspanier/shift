@@ -1,14 +1,14 @@
-#include "shift/render/vk/pass_warp.h"
-#include <shift/render/vk/renderer.h>
-#include "shift/render/vk/layer1/shader_module.h"
-#include "shift/render/vk/layer1/device.h"
-#include <shift/resource/repository.h>
-#include <shift/resource/shader.h>
-#include <shift/core/exception.h>
-#include <shift/core/algorithm.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/render/vk/pass_warp.hpp"
+#include <shift/render/vk/renderer.hpp>
+#include "shift/render/vk/layer1/shader_module.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include <shift/resource/repository.hpp>
+#include <shift/resource/shader.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/algorithm.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::render::vk
 {
@@ -345,14 +345,14 @@ void pass_warp::update(std::uint32_t /*buffer_index*/)
 {
 }
 }
-//#include "shift/render/vk/render_passes/warp_instance.h"
-//#include "shift/render/vk/render_passes/warp_schematic.h"
+//#include "shift/render/vk/render_passes/warp_instance.hpp"
+//#include "shift/render/vk/render_passes/warp_schematic.hpp"
 //#include "vk/cube_application.h"
-//#include <shift/resource/repository.h>
-//#include <shift/resource/shader.h>
-//#include <shift/core/exception.h>
-//#include <shift/core/algorithm.h>
-//#include <shift/core/at_exit_scope.h>
+//#include <shift/resource/repository.hpp>
+//#include <shift/resource/shader.hpp>
+//#include <shift/core/exception.hpp>
+//#include <shift/core/algorithm.hpp>
+//#include <shift/core/at_exit_scope.hpp>
 //#include <boost/filesystem.hpp>
 //#include <fstream>
 //#include <chrono>

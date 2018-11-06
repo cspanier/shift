@@ -1,6 +1,6 @@
-#include "shift/platform/led.h"
-#include "shift/platform/types.h"
-#include "shift/core/exception.h"
+#include "shift/platform/led.hpp"
+#include "shift/platform/types.hpp"
+#include "shift/core/exception.hpp"
 
 namespace shift::platform
 {

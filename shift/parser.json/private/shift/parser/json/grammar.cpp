@@ -1,5 +1,5 @@
-#include "shift/parser/json/grammar.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/parser/json/grammar.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_fusion.hpp>
@@ -7,7 +7,7 @@
 #include <boost/spirit/include/phoenix_object.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/fusion/include/std_pair.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::parser::json
 {

@@ -1,9 +1,9 @@
-#include <shift/parser/json/json.h>
-#include <shift/core/stream_util.h>
+#include <shift/parser/json/json.hpp>
+#include <shift/core/stream_util.hpp>
 #include <sstream>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 using namespace shift;
 using namespace shift::parser;

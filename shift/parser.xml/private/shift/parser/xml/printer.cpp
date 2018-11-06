@@ -1,8 +1,8 @@
-#include "shift/parser/xml/xml.h"
-#include <shift/core/stream_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/parser/xml/xml.hpp"
+#include <shift/core/stream_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <array>
 
 #if defined(SHIFT_PLATFORM_WINDOWS)

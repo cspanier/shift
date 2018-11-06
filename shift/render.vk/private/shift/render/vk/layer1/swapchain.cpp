@@ -1,8 +1,8 @@
-#include "shift/render/vk/layer1/swapchain.h"
-#include "shift/render/vk/layer1/surface.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/renderer_impl.h"
-#include <shift/core/exception.h>
+#include "shift/render/vk/layer1/swapchain.hpp"
+#include "shift/render/vk/layer1/surface.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include <shift/core/exception.hpp>
 #include <cstdint>
 
 namespace shift::render::vk::layer1

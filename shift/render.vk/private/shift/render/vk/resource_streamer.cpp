@@ -1,11 +1,11 @@
-#include "shift/render/vk/resource_streamer.h"
-#include "shift/render/vk/utility.h"
-#include "shift/render/vk/renderer.h"
-#include "shift/render/vk/layer2/texture.h"
-#include "shift/render/vk/layer1/device.h"
-#include <shift/resource/buffer_view.h>
-#include <shift/resource/image.h>
-#include <shift/resource/repository.h>
+#include "shift/render/vk/resource_streamer.hpp"
+#include "shift/render/vk/utility.hpp"
+#include "shift/render/vk/renderer.hpp"
+#include "shift/render/vk/layer2/texture.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include <shift/resource/buffer_view.hpp>
+#include <shift/resource/image.hpp>
+#include <shift/resource/repository.hpp>
 
 namespace shift::render::vk
 {

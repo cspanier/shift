@@ -1,5 +1,5 @@
-#include "shift/render/vk/memory_block.h"
-#include "shift/render/vk/memory_chunk.h"
+#include "shift/render/vk/memory_block.hpp"
+#include "shift/render/vk/memory_chunk.hpp"
 #include <algorithm>
 
 namespace shift::render::vk

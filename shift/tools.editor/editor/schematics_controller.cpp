@@ -1,4 +1,4 @@
-#include "editor/schematics_controller.h"
+#include "editor/schematics_controller.hpp"
 
 namespace shift
 {

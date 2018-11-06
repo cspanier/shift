@@ -1,7 +1,7 @@
-#include "shift/parser/proto/token_to_ast_visitor.h"
-#include "shift/parser/proto/document.h"
-#include "shift/parser/proto/document_impl.h"
-#include "shift/parser/proto/error.h"
+#include "shift/parser/proto/token_to_ast_visitor.hpp"
+#include "shift/parser/proto/document.hpp"
+#include "shift/parser/proto/document_impl.hpp"
+#include "shift/parser/proto/error.hpp"
 
 namespace shift::parser::proto
 {

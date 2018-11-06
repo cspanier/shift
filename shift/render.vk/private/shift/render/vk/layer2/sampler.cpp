@@ -1,6 +1,6 @@
-#include "shift/render/vk/layer2/sampler.h"
-#include "shift/render/vk/layer1/sampler.h"
-#include "shift/render/vk/layer1/device.h"
+#include "shift/render/vk/layer2/sampler.hpp"
+#include "shift/render/vk/layer1/sampler.hpp"
+#include "shift/render/vk/layer1/device.hpp"
 
 namespace shift::render::vk
 {

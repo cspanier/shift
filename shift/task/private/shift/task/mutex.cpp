@@ -1,5 +1,5 @@
-#include "shift/task/mutex.h"
-#include "shift/task/task_system.h"
+#include "shift/task/mutex.hpp"
+#include "shift/task/task_system.hpp"
 
 namespace shift::task
 {

@@ -1,4 +1,4 @@
-#include "shift/parser/proto/tokens.h"
+#include "shift/parser/proto/tokens.hpp"
 
 namespace shift::parser::proto
 {

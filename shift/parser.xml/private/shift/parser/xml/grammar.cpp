@@ -1,6 +1,6 @@
 //#define BOOST_NO_CXX11_RVALUE_REFERENCES
-#include "shift/parser/xml/grammar.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/parser/xml/grammar.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/spirit/home/support/container.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
@@ -9,7 +9,7 @@
 #include <boost/spirit/include/phoenix_object.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/phoenix/fusion.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::parser::xml
 {

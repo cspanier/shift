@@ -1,4 +1,4 @@
-#include "shift/platform/network.h"
+#include "shift/platform/network.hpp"
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <array>

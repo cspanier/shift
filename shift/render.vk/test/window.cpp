@@ -1,10 +1,10 @@
 #include <chrono>
-#include <shift/log/log_server.h>
-#include <shift/math/vector.h>
-#include <shift/core/exception.h>
-#include <shift/core/algorithm.h>
-#include <shift/core/at_exit_scope.h>
-#include <shift/platform/environment.h>
+#include <shift/log/log_server.hpp>
+#include <shift/math/vector.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/algorithm.hpp>
+#include <shift/core/at_exit_scope.hpp>
+#include <shift/platform/environment.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fstream>

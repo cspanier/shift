@@ -1,16 +1,16 @@
-#include "shift/render/vk/renderer_impl.h"
-#include "shift/render/vk/window_impl.h"
-#include "shift/render/vk/pass_warp.h"
-#include "shift/render/vk/pass_text.h"
-#include <shift/render/vk/geometry_generator.h>
-#include "shift/render/vk/layer2/view.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/layer1/instance.h"
-#include <shift/resource/repository.h>
-#include <shift/resource/shader.h>
+#include "shift/render/vk/renderer_impl.hpp"
+#include "shift/render/vk/window_impl.hpp"
+#include "shift/render/vk/pass_warp.hpp"
+#include "shift/render/vk/pass_text.hpp"
+#include <shift/render/vk/geometry_generator.hpp>
+#include "shift/render/vk/layer2/view.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/layer1/instance.hpp"
+#include <shift/resource/repository.hpp>
+#include <shift/resource/shader.hpp>
 #include <gsl/gsl>
 
-#include <shift/log/log.h>
+#include <shift/log/log.hpp>
 
 namespace shift::render::vk
 {

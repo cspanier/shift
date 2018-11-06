@@ -1,5 +1,5 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include "shift/platform/network.h"
+#include "shift/platform/network.hpp"
 #include <winsock2.h>
 #include <iphlpapi.h>
 

@@ -1,8 +1,8 @@
-#include "shift/rc/ttf/font.h"
-#include <shift/serialization2/all.h>
-#include <shift/log/log.h>
-#include <shift/math/line.h>
-#include <shift/math/intersection.h>
+#include "shift/rc/ttf/font.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/line.hpp>
+#include <shift/math/intersection.hpp>
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include <queue>

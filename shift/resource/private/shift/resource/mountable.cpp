@@ -1,4 +1,4 @@
-#include "shift/resource/mountable.h"
+#include "shift/resource/mountable.hpp"
 
 namespace shift::resource
 {

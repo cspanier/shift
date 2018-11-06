@@ -1,4 +1,4 @@
-#include "shift/rc/action_scene_compile.h"
+#include "shift/rc/action_scene_compile.hpp"
 
 namespace shift::rc
 {

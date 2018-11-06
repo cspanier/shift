@@ -1,16 +1,16 @@
-#include "shift/tools/protogen/generators/base_generator.h"
-#include "shift/tools/protogen/translator.h"
-#include "shift/core/string_util.h"
+#include "shift/tools/protogen/generators/base_generator.hpp"
+#include "shift/tools/protogen/translator.hpp"
+#include "shift/core/string_util.hpp"
 #include <sstream>
 #include <vector>
 #include <functional>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/path_traits.hpp>
 #include <boost/program_options/value_semantic.hpp>
 #include <boost/program_options/errors.hpp>
 #include <boost/program_options/options_description.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::tools::protogen::generators
 {

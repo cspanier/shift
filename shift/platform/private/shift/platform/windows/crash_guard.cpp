@@ -1,9 +1,9 @@
 #define BOOST_USE_WINDOWS_H
-#include "shift/platform/crash_guard.h"
-#include "shift/platform/environment.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/platform/crash_guard.hpp"
+#include "shift/platform/environment.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <string>
 #include <client/windows/handler/exception_handler.h>
 

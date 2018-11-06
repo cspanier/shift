@@ -1,14 +1,14 @@
-#include "utility.h"
-#include <shift/rc/resource_compiler.h>
-#include <shift/resource/repository.h>
-#include <shift/task/async.h>
-#include <shift/log/log_server.h>
-#include <shift/core/at_exit_scope.h>
-#include <shift/core/exception.h>
-#include <shift/platform/environment.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "utility.hpp"
+#include <shift/rc/resource_compiler.hpp>
+#include <shift/resource/repository.hpp>
+#include <shift/task/async.hpp>
+#include <shift/log/log_server.hpp>
+#include <shift/core/at_exit_scope.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/platform/environment.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <regex>
 
 namespace fs = boost::filesystem;

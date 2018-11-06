@@ -1,5 +1,5 @@
-#include "shift/task/condition_variable.h"
-#include "shift/task/task_system.h"
+#include "shift/task/condition_variable.hpp"
+#include "shift/task/task_system.hpp"
 
 namespace shift::task
 {

@@ -1,4 +1,4 @@
-#include "shift/parser/proto/built_in_types.h"
+#include "shift/parser/proto/built_in_types.hpp"
 
 namespace shift::parser::proto
 {

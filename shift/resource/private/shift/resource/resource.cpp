@@ -1,6 +1,6 @@
-#include "shift/resource/resource.h"
-#include "shift/resource/repository.h"
-#include <shift/crypto/sha256.h>
+#include "shift/resource/resource.hpp"
+#include "shift/resource/repository.hpp"
+#include <shift/crypto/sha256.hpp>
 #include <boost/assert.hpp>
 
 namespace shift::resource

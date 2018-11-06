@@ -1,10 +1,10 @@
-#include "shift/resource/resource_group.h"
-#include "shift/resource/resource_ptr.h"
-#include "shift/resource/image.h"
-#include "shift/resource/mesh.h"
-#include "shift/resource/repository.h"
-#include <shift/serialization2/all.h>
-#include <shift/crypto/sha256.h>
+#include "shift/resource/resource_group.hpp"
+#include "shift/resource/resource_ptr.hpp"
+#include "shift/resource/image.hpp"
+#include "shift/resource/mesh.hpp"
+#include "shift/resource/repository.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/crypto/sha256.hpp>
 
 namespace shift::resource
 {

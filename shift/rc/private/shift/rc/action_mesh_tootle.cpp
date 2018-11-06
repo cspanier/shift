@@ -1,8 +1,8 @@
-#include "shift/rc/action_mesh_tootle.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/buffer.h>
-#include <shift/resource/mesh.h>
-#include <shift/log/log.h>
+#include "shift/rc/action_mesh_tootle.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/buffer.hpp>
+#include <shift/resource/mesh.hpp>
+#include <shift/log/log.hpp>
 #include <boost/filesystem/operations.hpp>
 #if defined(PLATFORM_LINUX)
 #define _LINUX

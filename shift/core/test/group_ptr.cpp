@@ -1,8 +1,8 @@
-#include "probe.h"
-#include <shift/core/group_ptr.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "probe.hpp"
+#include <shift/core/group_ptr.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <vector>
 #include <atomic>
 #include <cstdint>

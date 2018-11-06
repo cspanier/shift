@@ -1,6 +1,6 @@
-#include "shift/task/this_task.h"
-#include "shift/task/task.h"
-#include "shift/task/task_system.h"
+#include "shift/task/this_task.hpp"
+#include "shift/task/task.hpp"
+#include "shift/task/task_system.hpp"
 
 namespace shift::task
 {

@@ -1,6 +1,6 @@
-#include "shift/scene/entitysystem.h"
-#include "shift/scene/camera.h"
-#include "shift/scene/model.h"
+#include "shift/scene/entitysystem.hpp"
+#include "shift/scene/camera.hpp"
+#include "shift/scene/model.hpp"
 
 namespace shift
 {

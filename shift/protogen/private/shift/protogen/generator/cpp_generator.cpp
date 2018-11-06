@@ -1,12 +1,12 @@
-#include "shift/protogen/generator/cpp_generator.h"
-#include "shift/protogen/file_writer.h"
-#include <shift/core/string_util.h>
-#include <shift/core/stream_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/protogen/generator/cpp_generator.hpp"
+#include "shift/protogen/file_writer.hpp"
+#include <shift/core/string_util.hpp>
+#include <shift/core/stream_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <fstream>
 
 namespace shift::proto::generator
@@ -493,18 +493,18 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     *_header << "#include <array>" br;
     *_header << "#include <vector>" br;
     *_header << "#include <set>" br;
-    *_header << "#include <shift/core/bit_field.h>" br;
-    *_header << "#include <shift/math/vector.h>" br;
-    *_header << "#include <shift/math/matrix.h>" br;
-    *_header << "#include <shift/math/serialization.h>" br;
-    *_header << "#include <shift/serialization/message.h>" br;
-    *_header << "#include <shift/serialization/all.h>" br;
-    *_header << "#include <shift/serialization/compact/all.h>" br;
+    *_header << "#include <shift/core/bit_field.hpp>" br;
+    *_header << "#include <shift/math/vector.hpp>" br;
+    *_header << "#include <shift/math/matrix.hpp>" br;
+    *_header << "#include <shift/math/serialization.hpp>" br;
+    *_header << "#include <shift/serialization/message.hpp>" br;
+    *_header << "#include <shift/serialization/all.hpp>" br;
+    *_header << "#include <shift/serialization/compact/all.hpp>" br;
 #if defined(USE_REFLECTIONS)
     *_header << "#include \"shift/proto/types.h\"" br;
 #endif
     if (_use_services)
-      *_header << "#include <shift/service/basic_service.h>" br;
+      *_header << "#include <shift/service/basic_service.hpp>" br;
 
     *_source << auto_generated_file_warning << indent_width(2);
     *_source << "#include \"" << groupName << ".h\"" br;
@@ -549,8 +549,8 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     *_source << "#include \"shift/proto/attribute.h\"" br;
     *_source << "#include \"shift/proto/type_reference.h\"" br;
 #endif
-    *_source << "#include <shift/serialization/archive.h>" br;
-    *_source << "#include <shift/serialization/all.h>" br;
+    *_source << "#include <shift/serialization/archive.hpp>" br;
+    *_source << "#include <shift/serialization/all.hpp>" br;
     *_source << "#include <functional>" br;
     *_source << "#include <iomanip>" br2;
 

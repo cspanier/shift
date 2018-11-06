@@ -1,10 +1,10 @@
-#include "shift/protogen/generator/proto_generator.h"
-#include <shift/log/log.h>
-#include <shift/core/string_util.h>
-#include <shift/core/stream_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/protogen/generator/proto_generator.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/string_util.hpp>
+#include <shift/core/stream_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <set>
 
 namespace shift::proto::generator

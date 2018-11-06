@@ -1,5 +1,5 @@
-#include "shift/parser/xml/xml.h"
-#include "shift/parser/xml/grammar.h"
+#include "shift/parser/xml/xml.hpp"
+#include "shift/parser/xml/grammar.hpp"
 
 namespace shift::parser::xml
 {

@@ -1,4 +1,4 @@
-#include "shift/parser/json/json.h"
+#include "shift/parser/json/json.hpp"
 #include <iomanip>
 
 #if defined(SHIFT_PLATFORM_WINDOWS)

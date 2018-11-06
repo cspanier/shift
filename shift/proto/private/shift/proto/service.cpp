@@ -1,9 +1,9 @@
-#include "shift/proto/service.h"
-#include "shift/proto/hash.h"
-#include "shift/core/core.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/proto/service.hpp"
+#include "shift/proto/hash.hpp"
+#include "shift/core/core.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/crc.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <algorithm>
 #include <cstdint>
 #include <string>

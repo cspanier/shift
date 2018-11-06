@@ -1,8 +1,8 @@
-#include "shift/render/vk/layer2/model.h"
-#include "shift/render/vk/renderer_impl.h"
+#include "shift/render/vk/layer2/model.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
 #include <gsl/gsl>
 
-#include <shift/log/log.h>
+#include <shift/log/log.hpp>
 
 namespace shift::render::vk
 {

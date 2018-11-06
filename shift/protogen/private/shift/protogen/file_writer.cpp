@@ -1,20 +1,20 @@
-#include "shift/protogen/file_writer.h"
-#include "shift/protogen/file_cache.h"
-#include <shift/proto/proto.h>
-#include <shift/platform/assert.h>
-#include <shift/log/log.h>
+#include "shift/protogen/file_writer.hpp"
+#include "shift/protogen/file_cache.hpp"
+#include <shift/proto/proto.hpp>
+#include <shift/platform/assert.hpp>
+#include <shift/log/log.hpp>
 #include <fstream>
 #include <iterator>
 #include <string>
 #include <ios>
 #include <string>
 #include <utility>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/path_traits.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::proto
 {

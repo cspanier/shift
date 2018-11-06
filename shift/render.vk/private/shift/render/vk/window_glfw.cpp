@@ -1,9 +1,9 @@
-#include "shift/render/vk/window_glfw.h"
-#include "shift/render/vk/renderer_impl.h"
-#include "shift/render/vk/shared.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/layer1/fence.h"
-#include <shift/platform/fpexceptions.h>
+#include "shift/render/vk/window_glfw.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include "shift/render/vk/shared.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/layer1/fence.hpp"
+#include <shift/platform/fpexceptions.hpp>
 #include <GLFW/glfw3.h>
 #if defined(SHIFT_PLATFORM_WINDOWS)
 #define GLFW_EXPOSE_NATIVE_WIN32

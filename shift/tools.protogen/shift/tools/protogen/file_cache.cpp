@@ -1,11 +1,11 @@
-#include "shift/tools/protogen/file_cache.h"
-#include <shift/parser/json/json.h>
-#include <shift/log/log.h>
-#include <shift/core/stream_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/tools/protogen/file_cache.hpp"
+#include <shift/parser/json/json.hpp>
+#include <shift/log/log.hpp>
+#include <shift/core/stream_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <fstream>
 #include <string_view>
 

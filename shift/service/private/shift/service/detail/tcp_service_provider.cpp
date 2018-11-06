@@ -1,8 +1,8 @@
 #define BOOST_BIND_NO_PLACEHOLDERS
-#include "shift/service/detail/tcp_service_provider.h"
-#include "shift/service/detail/tcp_connection.h"
-#include "shift/service/basic_service.h"
-#include <shift/network/network_host.h>
+#include "shift/service/detail/tcp_service_provider.hpp"
+#include "shift/service/detail/tcp_connection.hpp"
+#include "shift/service/basic_service.hpp"
+#include <shift/network/network_host.hpp>
 #include <iomanip>
 
 namespace shift::service::detail

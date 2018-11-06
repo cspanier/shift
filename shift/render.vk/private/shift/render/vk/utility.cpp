@@ -1,13 +1,13 @@
-#include "shift/render/vk/utility.h"
-#include "shift/render/vk/application.h"
-#include "shift/render/vk/renderer_impl.h"
-#include "shift/render/vk/renderer.h"
-#include "shift/render/vk/layer1/buffer.h"
-#include "shift/render/vk/layer1/device.h"
-#include <shift/core/mpl.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/render/vk/utility.hpp"
+#include "shift/render/vk/application.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include "shift/render/vk/renderer.hpp"
+#include "shift/render/vk/layer1/buffer.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include <shift/core/mpl.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/gil/gil_all.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::render::vk
 {

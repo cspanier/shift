@@ -1,5 +1,5 @@
-#include "shift/core/stream_util.h"
-#include <shift/platform/assert.h>
+#include "shift/core/stream_util.hpp"
+#include <shift/platform/assert.hpp>
 
 namespace shift::core
 {

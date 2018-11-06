@@ -1,7 +1,7 @@
-#include "shift/render/vk/layer1/command_queue.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/layer1/instance.h"
-#include <shift/core/exception.h>
+#include "shift/render/vk/layer1/command_queue.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/layer1/instance.hpp"
+#include <shift/core/exception.hpp>
 #include <cstdint>
 
 namespace shift::render::vk::layer1

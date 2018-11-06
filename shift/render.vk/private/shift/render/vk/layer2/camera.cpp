@@ -1,4 +1,4 @@
-#include "shift/render/vk/layer2/camera.h"
+#include "shift/render/vk/layer2/camera.hpp"
 
 namespace shift::render::vk::layer2
 {

@@ -1,4 +1,4 @@
-#include "shift/platform/single_instance.h"
+#include "shift/platform/single_instance.hpp"
 
 namespace shift::platform
 {

@@ -1,6 +1,6 @@
-#include "shift/tools/protogen/translator.h"
-#include "shift/tools/protogen/launcher.h"
-#include <shift/application/launcher.h>
+#include "shift/tools/protogen/translator.hpp"
+#include "shift/tools/protogen/launcher.hpp"
+#include <shift/application/launcher.hpp>
 
 int main(int argc, char* argv[])
 {

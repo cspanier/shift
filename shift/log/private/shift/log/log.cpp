@@ -1,6 +1,6 @@
-#include "shift/log/log.h"
-#include "shift/log/log_server.h"
-#include <shift/platform/assert.h>
+#include "shift/log/log.hpp"
+#include "shift/log/log_server.hpp"
+#include <shift/platform/assert.hpp>
 #include <string>
 
 namespace shift::log

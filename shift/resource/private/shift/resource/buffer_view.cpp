@@ -1,6 +1,6 @@
-#include "shift/resource/buffer_view.h"
-#include <shift/serialization2/all.h>
-#include <shift/crypto/sha256.h>
+#include "shift/resource/buffer_view.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/crypto/sha256.hpp>
 
 namespace shift::resource
 {

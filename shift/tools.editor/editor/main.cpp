@@ -1,7 +1,7 @@
-#include "editor/editor_application.h"
-#include <shift/task/launcher.h>
-#include <shift/task/async.h>
-#include <shift/application/launcher.h>
+#include "editor/editor_application.hpp"
+#include <shift/task/launcher.hpp>
+#include <shift/task/async.hpp>
+#include <shift/application/launcher.hpp>
 
 int main(int argc, char* argv[])
 {

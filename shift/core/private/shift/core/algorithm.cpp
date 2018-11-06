@@ -1,4 +1,4 @@
-#include "shift/core/algorithm.h"
+#include "shift/core/algorithm.hpp"
 #if defined(_MSC_VER)
 #include <intrin.h>
 #endif

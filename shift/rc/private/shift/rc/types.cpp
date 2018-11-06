@@ -1,5 +1,5 @@
-#include "shift/rc/types.h"
-#include "shift/rc/resource_compiler.h"
+#include "shift/rc/types.hpp"
+#include "shift/rc/resource_compiler.hpp"
 #include <boost/algorithm/string/replace.hpp>
 
 namespace shift::rc
@@ -167,16 +167,6 @@ const action_description& action_base::description() const
 bool action_base::support_multithreading() const
 {
   return _support_multithreading;
-}
-
-bool action_base::modified() const
-{
-  return _modified;
-}
-
-void action_base::modified(bool is_modified)
-{
-  _modified = is_modified;
 }
 
 std::string merge_slashes(const std::string& input)

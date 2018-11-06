@@ -1,5 +1,5 @@
-#include "shift/proto/grammar.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/proto/grammar.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/fusion/include/all.hpp>
 #include <boost/fusion/include/std_pair.hpp>
@@ -17,7 +17,7 @@
 #include <boost/preprocessor/variadic/elem.hpp>
 #include <boost/phoenix/phoenix.hpp>
 #include <boost/phoenix/fusion.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::proto
 {

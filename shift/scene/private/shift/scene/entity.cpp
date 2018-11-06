@@ -1,4 +1,4 @@
-#include "shift/scene/entity.h"
+#include "shift/scene/entity.hpp"
 #include <algorithm>
 
 namespace shift

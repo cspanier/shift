@@ -1,5 +1,5 @@
-#include "shift/rc/importer_gltf/buffer.h"
-#include <shift/parser/json/json.h>
+#include "shift/rc/importer_gltf/buffer.hpp"
+#include <shift/parser/json/json.hpp>
 
 namespace shift::rc::gltf
 {

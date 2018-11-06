@@ -1,7 +1,7 @@
-#include "shift/resource/mesh.h"
-#include <shift/serialization2/all.h>
-#include <shift/math/serialization2.h>
-#include <shift/crypto/sha256.h>
+#include "shift/resource/mesh.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/math/serialization2.hpp>
+#include <shift/crypto/sha256.hpp>
 
 namespace shift::resource
 {

@@ -1,4 +1,4 @@
-#include "shift/render/vk/smart_ptr.h"
+#include "shift/render/vk/smart_ptr.hpp"
 
 namespace shift::render::vk
 {

@@ -1,6 +1,6 @@
-#include "shift/render/vk/layer1/semaphore.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/renderer_impl.h"
+#include "shift/render/vk/layer1/semaphore.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
 
 namespace shift::render::vk::layer1
 {

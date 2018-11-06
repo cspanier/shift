@@ -1,7 +1,7 @@
-#include "shift/proto/semanticanalyzer.h"
-#include "shift/proto/proto.h"
-#include <shift/log/log.h>
-#include <shift/core/string_util.h>
+#include "shift/proto/semanticanalyzer.hpp"
+#include "shift/proto/proto.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/string_util.hpp>
 #include <set>
 
 namespace std

@@ -1,6 +1,6 @@
-#include "shift/platform/adc.h"
-#include "shift/platform/types.h"
-#include <shift/core/exception.h>
+#include "shift/platform/adc.hpp"
+#include "shift/platform/types.hpp"
+#include <shift/core/exception.hpp>
 #include <gsl/gsl>
 #include <array>
 #include <fcntl.h>

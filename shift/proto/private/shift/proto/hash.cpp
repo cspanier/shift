@@ -1,5 +1,5 @@
-#include "shift/proto/hash.h"
-#include "shift/proto/proto.h"
+#include "shift/proto/hash.hpp"
+#include "shift/proto/proto.hpp"
 
 namespace shift::crypto
 {

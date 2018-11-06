@@ -6,7 +6,7 @@ if (NOT NO_VULKAN)
     PRIVATESOURCEDIRS
       ${CMAKE_CURRENT_SOURCE_DIR}/private
     PRECOMPILED_HEADER
-      "${CMAKE_CURRENT_SOURCE_DIR}/private/shift/render/vk/precompiled.h"
+      "${CMAKE_CURRENT_SOURCE_DIR}/private/shift/render/vk/precompiled.hpp"
     DEPENDENCIES
       shift.scene
       shift.resource

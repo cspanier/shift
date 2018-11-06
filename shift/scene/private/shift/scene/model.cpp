@@ -1,4 +1,4 @@
-#include "shift/scene/model.h"
+#include "shift/scene/model.hpp"
 
 namespace shift
 {

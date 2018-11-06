@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-#include "shift/platform/console.h"
+#include "shift/platform/console.hpp"
 
 namespace shift::platform
 {

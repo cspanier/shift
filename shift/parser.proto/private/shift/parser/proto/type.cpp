@@ -1,5 +1,5 @@
-#include "shift/parser/proto/tokens.h"
-#include <shift/platform/assert.h>
+#include "shift/parser/proto/tokens.hpp"
+#include <shift/platform/assert.hpp>
 
 namespace shift::parser::proto
 {

@@ -1,12 +1,12 @@
-#include "shift/log/log_file_sink.h"
-#include "shift/log/log.h"
-#include <shift/platform/assert.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/log/log_file_sink.hpp"
+#include "shift/log/log.hpp"
+#include <shift/platform/assert.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/path_traits.hpp>
 #include <boost/system/error_code.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <cwchar>
 #include <chrono>
 #include <iomanip>

@@ -1,7 +1,7 @@
 //#include "editor/world_view.h"
 //#include "editor/editor_application.h"
-//#include <shift/render/vk/renderer.h>
-//#include <shift/log/log.h>
+//#include <shift/render/vk/renderer.hpp>
+//#include <shift/log/log.hpp>
 //#include <QtQuick/qquickwindow.h>
 //#include <QtGui/QOpenGLShaderProgram>
 //#include <QtGui/QOpenGLContext>

@@ -1,5 +1,5 @@
-#include "shift/log/log_console_sink.h"
-#include "shift/platform/console.h"
+#include "shift/log/log_console_sink.hpp"
+#include "shift/platform/console.hpp"
 #include <iomanip>
 #include <iostream>
 #include <string>

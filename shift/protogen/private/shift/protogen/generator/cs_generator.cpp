@@ -1,6 +1,6 @@
-#include "shift/protogen/generator/cs_generator.h"
-#include <shift/core/stream_util.h>
-#include <shift/core/string_util.h>
+#include "shift/protogen/generator/cs_generator.hpp"
+#include <shift/core/stream_util.hpp>
+#include <shift/core/string_util.hpp>
 
 namespace shift::proto::generator
 {

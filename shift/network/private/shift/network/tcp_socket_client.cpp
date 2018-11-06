@@ -1,11 +1,11 @@
-#include "shift/network/tcp_socket_client.h"
-#include "shift/network/tcp_socket_client_impl.h"
-#include "shift/network/network_host.h"
-#include <shift/log/log.h>
-#include <shift/platform/fpexceptions.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/network/tcp_socket_client.hpp"
+#include "shift/network/tcp_socket_client_impl.hpp"
+#include "shift/network/network_host.hpp"
+#include <shift/log/log.hpp>
+#include <shift/platform/fpexceptions.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/bind.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::network
 {

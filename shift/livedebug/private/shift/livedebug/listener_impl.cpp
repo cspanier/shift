@@ -1,6 +1,6 @@
-#include "shift/livedebug/listener_impl.h"
-#include "shift/livedebug/http_session.h"
-#include <shift/log/log.h>
+#include "shift/livedebug/listener_impl.hpp"
+#include "shift/livedebug/http_session.hpp"
+#include <shift/log/log.hpp>
 
 namespace shift::livedebug
 {

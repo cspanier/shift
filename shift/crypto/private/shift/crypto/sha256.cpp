@@ -1,4 +1,4 @@
-#include "shift/crypto/sha256.h"
+#include "shift/crypto/sha256.hpp"
 
 namespace shift::crypto
 {

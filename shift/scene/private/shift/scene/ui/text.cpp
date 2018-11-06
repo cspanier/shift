@@ -1,4 +1,4 @@
-#include "shift/scene/ui/text.h"
+#include "shift/scene/ui/text.hpp"
 
 namespace shift
 {

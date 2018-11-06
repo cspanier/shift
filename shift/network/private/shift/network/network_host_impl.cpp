@@ -1,10 +1,10 @@
-#include "shift/network/network_host_impl.h"
-#include "shift/network/tcp_socket_client.h"
-#include "shift/network/tcp_socket_listener.h"
-#include "shift/network/udp_socket.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/network/network_host_impl.hpp"
+#include "shift/network/tcp_socket_client.hpp"
+#include "shift/network/tcp_socket_listener.hpp"
+#include "shift/network/udp_socket.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/bind.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::network
 {

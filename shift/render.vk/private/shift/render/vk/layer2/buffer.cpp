@@ -1,8 +1,8 @@
-#include "shift/render/vk/layer2/buffer.h"
-#include "shift/render/vk/layer2/mesh.h"
-#include "shift/render/vk/layer1/command_buffer.h"
-#include "shift/render/vk/shared.h"
-#include <shift/resource/buffer.h>
+#include "shift/render/vk/layer2/buffer.hpp"
+#include "shift/render/vk/layer2/mesh.hpp"
+#include "shift/render/vk/layer1/command_buffer.hpp"
+#include "shift/render/vk/shared.hpp"
+#include <shift/resource/buffer.hpp>
 
 namespace shift::render::vk
 {

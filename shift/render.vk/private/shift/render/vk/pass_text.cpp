@@ -1,15 +1,15 @@
-#include "shift/render/vk/pass_text.h"
-#include "shift/render/vk/layer1/shader_module.h"
-#include "shift/render/vk/layer1/device.h"
-#include <shift/resource/repository.h>
-#include <shift/resource/shader.h>
-#include <shift/resource/font.h>
-#include <shift/core/exception.h>
-#include <shift/core/algorithm.h>
-#include <shift/core/at_exit_scope.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/render/vk/pass_text.hpp"
+#include "shift/render/vk/layer1/shader_module.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include <shift/resource/repository.hpp>
+#include <shift/resource/shader.hpp>
+#include <shift/resource/font.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/algorithm.hpp>
+#include <shift/core/at_exit_scope.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <fstream>
 #include <chrono>
 
@@ -529,14 +529,14 @@ void pass_text::update(vk::layer2::multiview& /*multiview*/,
 }
 }
 
-//#include "shift/render/vk/render_passes/text_instance.h"
-//#include "shift/render/vk/render_passes/text_schematic.h"
+//#include "shift/render/vk/render_passes/text_instance.hpp"
+//#include "shift/render/vk/render_passes/text_schematic.hpp"
 //#include "vk/cube_application.h"
-//#include <shift/resource/repository.h>
-//#include <shift/resource/shader.h>
-//#include <shift/resource/font.h>
-//#include <shift/core/exception.h>
-//#include <shift/core/algorithm.h>
+//#include <shift/resource/repository.hpp>
+//#include <shift/resource/shader.hpp>
+//#include <shift/resource/font.hpp>
+//#include <shift/core/exception.hpp>
+//#include <shift/core/algorithm.hpp>
 //#include <boost/filesystem.hpp>
 //
 // namespace shift::render::vk::render_passes

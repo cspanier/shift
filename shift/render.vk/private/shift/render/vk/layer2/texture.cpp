@@ -1,9 +1,9 @@
-#include "shift/render/vk/layer2/texture.h"
-#include "shift/render/vk/layer2/material.h"
-#include "shift/render/vk/layer1/command_buffer.h"
-#include "shift/render/vk/renderer_impl.h"
-#include "shift/render/vk/utility.h"
-#include "shift/render/vk/shared.h"
+#include "shift/render/vk/layer2/texture.hpp"
+#include "shift/render/vk/layer2/material.hpp"
+#include "shift/render/vk/layer1/command_buffer.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
+#include "shift/render/vk/utility.hpp"
+#include "shift/render/vk/shared.hpp"
 
 namespace shift::render::vk
 {

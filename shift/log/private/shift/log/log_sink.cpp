@@ -1,4 +1,4 @@
-#include "shift/log/log_sink.h"
+#include "shift/log/log_sink.hpp"
 
 namespace shift::log
 {

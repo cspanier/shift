@@ -1,8 +1,8 @@
-#include "shift/service/detail/service_impl.h"
-#include "shift/service/detail/guid_generator.h"
-#include "shift/service/basic_service.h"
-#include "shift/service/message_envelope.h"
-#include <shift/serialization/compact/inputarchive.h>
+#include "shift/service/detail/service_impl.hpp"
+#include "shift/service/detail/guid_generator.hpp"
+#include "shift/service/basic_service.hpp"
+#include "shift/service/message_envelope.hpp"
+#include <shift/serialization/compact/inputarchive.hpp>
 
 namespace shift::service::detail
 {

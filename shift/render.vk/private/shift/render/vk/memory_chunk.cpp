@@ -1,6 +1,6 @@
-#include "shift/render/vk/memory_chunk.h"
-#include "shift/render/vk/layer1/device.h"
-#include "shift/render/vk/renderer_impl.h"
+#include "shift/render/vk/memory_chunk.hpp"
+#include "shift/render/vk/layer1/device.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
 #include <algorithm>
 
 namespace shift::render::vk

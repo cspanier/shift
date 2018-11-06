@@ -1,9 +1,9 @@
-#include "shift/log/log_server.h"
-#include "shift/log/log_server_impl.h"
-#include "shift/log/log.h"
-#include "shift/log/log_file_sink.h"
-#include "shift/log/log_console_sink.h"
-#include <shift/platform/assert.h>
+#include "shift/log/log_server.hpp"
+#include "shift/log/log_server_impl.hpp"
+#include "shift/log/log.hpp"
+#include "shift/log/log_file_sink.hpp"
+#include "shift/log/log_console_sink.hpp"
+#include <shift/platform/assert.hpp>
 #include <deque>
 #include <list>
 #include <mutex>

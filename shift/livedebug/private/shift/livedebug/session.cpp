@@ -1,7 +1,7 @@
-#include "shift/livedebug/session.h"
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/livedebug/session.hpp"
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/beast/version.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::livedebug
 {

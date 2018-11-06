@@ -1,4 +1,4 @@
-#include "shift/render/vk/shared_object.h"
+#include "shift/render/vk/shared_object.hpp"
 
 namespace shift::render::vk
 {

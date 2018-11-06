@@ -1,5 +1,5 @@
-#include "shift/vk2cpp/application.h"
-#include "shift/application/launcher.h"
+#include "shift/vk2cpp/application.hpp"
+#include "shift/application/launcher.hpp"
 #include <iostream>
 
 int main(int argc, char* argv[])

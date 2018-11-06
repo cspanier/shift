@@ -1,14 +1,14 @@
 #define BOOST_BIND_NO_PLACEHOLDERS
-#include "shift/service/basic_service.h"
-#include "shift/service/detail/service_impl.h"
-#include "shift/service/detail/tcp_service_client.h"
-#include "shift/service/detail/tcp_service_provider.h"
-#include "shift/service/detail/udp_service.h"
-#include "shift/service/service_host.h"
-#include "shift/service/message_envelope.h"
-#include <shift/serialization/archive.h>
-#include <shift/serialization/message.h>
-#include <shift/log/log.h>
+#include "shift/service/basic_service.hpp"
+#include "shift/service/detail/service_impl.hpp"
+#include "shift/service/detail/tcp_service_client.hpp"
+#include "shift/service/detail/tcp_service_provider.hpp"
+#include "shift/service/detail/udp_service.hpp"
+#include "shift/service/service_host.hpp"
+#include "shift/service/message_envelope.hpp"
+#include <shift/serialization/archive.hpp>
+#include <shift/serialization/message.hpp>
+#include <shift/log/log.hpp>
 #include <iomanip>
 
 namespace shift::service

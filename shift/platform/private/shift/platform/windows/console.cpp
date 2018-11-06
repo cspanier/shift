@@ -1,4 +1,4 @@
-#include "shift/platform/console.h"
+#include "shift/platform/console.hpp"
 #include <algorithm>
 #include <string>
 #include <Windows.h>

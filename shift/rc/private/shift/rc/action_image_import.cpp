@@ -1,12 +1,12 @@
-#include "shift/rc/action_image_import.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/image.h>
-#include <shift/log/log.h>
-#include <shift/math/utility.h>
-#include <shift/math/vector.h>
-#include <shift/core/mpl.h>
-#include <shift/core/string_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/rc/action_image_import.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/image.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/utility.hpp>
+#include <shift/math/vector.hpp>
+#include <shift/core/mpl.hpp>
+#include <shift/core/string_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/filesystem.hpp>
 #define png_infopp_NULL nullptr
 #define int_p_NULL nullptr
@@ -16,7 +16,7 @@
 #include <boost/gil/extension/numeric/sampler.hpp>
 #include <boost/gil/extension/numeric/resample.hpp>
 #include <boost/gil/gil_all.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <gsl/gsl>
 
 namespace shift::rc

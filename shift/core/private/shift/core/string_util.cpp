@@ -1,4 +1,4 @@
-#include "shift/core/string_util.h"
+#include "shift/core/string_util.hpp"
 #include <cstring>
 #include <iostream>
 #include <string>

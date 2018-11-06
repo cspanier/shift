@@ -1,10 +1,10 @@
 #define BOOST_BIND_NO_PLACEHOLDERS
-#include "shift/service/service_host.h"
-#include "shift/service/service_host_impl.h"
-#include "shift/service/basic_service.h"
-#include <shift/network/network_host.h>
-#include <shift/log/log.h>
-#include <shift/platform/environment.h>
+#include "shift/service/service_host.hpp"
+#include "shift/service/service_host_impl.hpp"
+#include "shift/service/basic_service.hpp"
+#include <shift/network/network_host.hpp>
+#include <shift/log/log.hpp>
+#include <shift/platform/environment.hpp>
 #include <iomanip>
 
 namespace shift::service

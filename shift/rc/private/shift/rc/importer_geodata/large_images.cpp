@@ -1,4 +1,4 @@
-#include "shift/rc/importer_geodata/large_images.h"
+#include "shift/rc/importer_geodata/large_images.hpp"
 
 namespace shift::rc
 {

@@ -1,4 +1,4 @@
-#include "shift/platform/signal_handler.h"
+#include "shift/platform/signal_handler.hpp"
 
 namespace shift::platform
 {

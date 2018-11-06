@@ -1,4 +1,4 @@
-#include "shift/scene/camera.h"
+#include "shift/scene/camera.hpp"
 
 namespace shift
 {

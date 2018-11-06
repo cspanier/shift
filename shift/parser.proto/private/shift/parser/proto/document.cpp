@@ -1,10 +1,10 @@
-#include "shift/parser/proto/document.h"
-#include "shift/parser/proto/document_impl.h"
-#include "shift/parser/proto/grammar.h"
-#include "shift/parser/proto/token_to_ast_visitor.h"
-#include "shift/parser/proto/type_reference_resolver.h"
-#include "shift/parser/proto/error.h"
-#include "shift/parser/proto/built_in_types.h"
+#include "shift/parser/proto/document.hpp"
+#include "shift/parser/proto/document_impl.hpp"
+#include "shift/parser/proto/grammar.hpp"
+#include "shift/parser/proto/token_to_ast_visitor.hpp"
+#include "shift/parser/proto/type_reference_resolver.hpp"
+#include "shift/parser/proto/error.hpp"
+#include "shift/parser/proto/built_in_types.hpp"
 
 namespace shift::parser::proto
 {

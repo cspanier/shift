@@ -1,4 +1,4 @@
-#include "shift/platform/fpexceptions.h"
+#include "shift/platform/fpexceptions.hpp"
 
 namespace shift::platform
 {

@@ -1,4 +1,4 @@
-#include "shift/parser/proto/annotation_info.h"
+#include "shift/parser/proto/annotation_info.hpp"
 #include <algorithm>
 
 namespace shift::parser::proto

@@ -1,4 +1,4 @@
-#include "shift/service/detail/guid_generator.h"
+#include "shift/service/detail/guid_generator.hpp"
 #include <random>
 
 namespace shift::service::detail

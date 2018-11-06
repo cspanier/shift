@@ -1,9 +1,9 @@
-#include "shift/rc/action_mesh_import_ply.h"
-#include "shift/rc/optimizer_mesh/filter.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/mesh.h>
-#include <shift/log/log.h>
-#include <shift/math/vector.h>
+#include "shift/rc/action_mesh_import_ply.hpp"
+#include "shift/rc/optimizer_mesh/filter.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/mesh.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/vector.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/endian/conversion.hpp>
 #include <queue>

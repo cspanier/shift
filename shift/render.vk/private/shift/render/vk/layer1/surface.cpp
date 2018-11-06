@@ -1,7 +1,7 @@
-#include "shift/render/vk/layer1/surface.h"
-#include "shift/render/vk/layer1/physical_device.h"
-#include "shift/render/vk/layer1/instance.h"
-#include "shift/render/vk/renderer_impl.h"
+#include "shift/render/vk/layer1/surface.hpp"
+#include "shift/render/vk/layer1/physical_device.hpp"
+#include "shift/render/vk/layer1/instance.hpp"
+#include "shift/render/vk/renderer_impl.hpp"
 
 namespace shift::render::vk::layer1
 {

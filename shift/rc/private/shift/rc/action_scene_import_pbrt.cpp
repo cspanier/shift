@@ -1,10 +1,10 @@
-#include "shift/rc/action_scene_import_pbrt.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include <shift/resource/scene.h>
-#include <shift/log/log.h>
-#include <shift/math/matrix.h>
-#include <shift/math/vector.h>
-#include <shift/core/string_util.h>
+#include "shift/rc/action_scene_import_pbrt.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include <shift/resource/scene.hpp>
+#include <shift/log/log.hpp>
+#include <shift/math/matrix.hpp>
+#include <shift/math/vector.hpp>
+#include <shift/core/string_util.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>

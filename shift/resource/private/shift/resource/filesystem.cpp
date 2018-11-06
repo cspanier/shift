@@ -1,10 +1,10 @@
-#include "shift/resource/filesystem.h"
-#include "shift/resource/repository.h"
-#include <shift/parser/json/json.h>
-#include <shift/serialization2/all.h>
-#include <shift/core/substream_device.h>
-#include <shift/core/exception.h>
-#include <shift/core/string_util.h>
+#include "shift/resource/filesystem.hpp"
+#include "shift/resource/repository.hpp"
+#include <shift/parser/json/json.hpp>
+#include <shift/serialization2/all.hpp>
+#include <shift/core/substream_device.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/string_util.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iostreams/filter/zlib.hpp>

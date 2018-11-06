@@ -1,12 +1,12 @@
-#include "shift/protogen/generator/dot_generator.h"
-#include "shift/protogen/file_writer.h"
-#include <shift/core/string_util.h>
-#include <shift/core/stream_util.h>
-#include <shift/core/boost_disable_warnings.h>
+#include "shift/protogen/generator/dot_generator.hpp"
+#include "shift/protogen/file_writer.hpp"
+#include <shift/core/string_util.hpp>
+#include <shift/core/stream_util.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <fstream>
 
 namespace shift::proto::generator

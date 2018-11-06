@@ -1,9 +1,9 @@
-#include "shift/rc/resource_compiler.h"
-#include "shift/rc/resource_compiler_impl.h"
-#include "shift/rc/optimizer_mesh/filter.h"
-#include "shift/task/async.h"
-#include <shift/log/log.h>
-#include <shift/core/stream_util.h>
+#include "shift/rc/resource_compiler.hpp"
+#include "shift/rc/resource_compiler_impl.hpp"
+#include "shift/rc/optimizer_mesh/filter.hpp"
+#include "shift/task/async.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/stream_util.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/filesystem.hpp>
 
@@ -176,8 +176,8 @@ resource_compiler::update()
 {
   std::unique_lock lock(_impl->global_mutex);
 
-  std::size_t succeeded_job_count = 0;
-  std::size_t failed_job_count = 0;
+  std::atomic_size_t succeeded_job_count = ATOMIC_VAR_INIT(0);
+  std::atomic_size_t failed_job_count = ATOMIC_VAR_INIT(0);
 
   // Try to match each file found in input_path with one of the available rules.
   std::uint32_t current_pass = 0;
@@ -200,7 +200,7 @@ resource_compiler::update()
   /// ToDo: Add method to quit this loop early.
   for (;;)
   {
-    std::vector<job_description*> jobs;
+    std::vector<std::unique_ptr<job_description>> jobs;
     {
       std::shared_lock read_lock(_impl->rules_mutex);
       do
@@ -216,7 +216,7 @@ resource_compiler::update()
 
     // Spawn a task in parallel for each job in the current pass.
     std::size_t modified_jobs_count = 0;
-    for (auto* job : jobs)
+    for (const auto& job : jobs)
     {
       if (job->flags.test(entity_flag::modified))
         ++modified_jobs_count;
@@ -226,18 +226,19 @@ resource_compiler::update()
                 << (jobs.size() - modified_jobs_count)
                 << " unmodified job(s))...";
     std::vector<task::future<bool>> task_results;
-    task_results.reserve(jobs.size());
+    task_results.reserve(modified_jobs_count + 2);
     auto process_job = [&](rc::job_description* job) -> bool {
       /// ToDo: Change job parameter of reference type.
-      if (job == nullptr)
+      BOOST_ASSERT(job != nullptr);
+      BOOST_ASSERT(job->rule != nullptr);
+      BOOST_ASSERT(job->rule->action != nullptr);
+      if (job == nullptr || job->rule == nullptr ||
+          job->rule->action == nullptr)
+      {
+        job->flags.set(entity_flag::failed);
+        ++failed_job_count;
         return false;
-
-      BOOST_ASSERT(job->rule);
-      BOOST_ASSERT(job->rule->action);
-      if (job->rule == nullptr)
-        return false;
-      if (job->rule->action == nullptr)
-        return false;
+      }
 
       bool result = false;
       // Only process the job if it is modified.
@@ -308,48 +309,55 @@ resource_compiler::update()
         job->flags.set(entity_flag::failed);
         log::error() << "A job using rule " << job->rule->id << " failed.";
       }
+      job->flags.reset(entity_flag::failed);
+      ++succeeded_job_count;
       return true;
     };
 
-    // Spawn all jobs serially that don't support multithreading.
-    // Use an empty dummy task to ease initialization of serial_result.
-    auto serial_result = task::async([]() -> bool { return true; });
-    for (auto* job : jobs)
     {
-      if (job->rule->action->impl->support_multithreading())
-        continue;
+      // Spawn all jobs serially that don't support multithreading.
+      // Use an empty dummy task to ease initialization of serial_result.
+      auto serial_result = task::async([]() -> bool { return true; });
+      for (const auto& job : jobs)
+      {
+        if (!job->flags.test(entity_flag::modified) ||
+            job->rule->action->impl->support_multithreading())
+        {
+          continue;
+        }
 
-      serial_result = std::move(serial_result)
-                        .then(
-                          [&](task::future<bool> /* previous_result */,
-                              rc::job_description* job) -> bool {
-                            // Ignore value of previous_result and proceed with
-                            // next job in any case.
-                            return process_job(job);
-                          },
-                          job);
+        serial_result = std::move(serial_result)
+                          .then(
+                            [&](task::future<bool> previous_result,
+                                rc::job_description* job) -> bool {
+                              return previous_result.get() && process_job(job);
+                            },
+                            job.get());
+      }
+      // Add the last serial_result to the list of futures to wait on.
+      task_results.emplace_back(std::move(serial_result));
     }
-    // Add the last serial_result to the list of futures to wait on.
-    task_results.push_back(std::move(serial_result));
 
-    // Spawn all jobs that do support multithreading in parallel.
-    for (auto* job : jobs)
+    // Spawn all jobs in parallel that do support multithreading.
+    for (const auto& job : jobs)
     {
-      if (!job->rule->action->impl->support_multithreading())
+      if (!job->flags.test(entity_flag::modified) ||
+          !job->rule->action->impl->support_multithreading())
+      {
         continue;
+      }
 
-      task_results.emplace_back(task::async(process_job, job));
+      task_results.emplace_back(task::async(process_job, job.get()));
     }
 
     // Wait until all tasks completed.
     task::when_all(begin(task_results), end(task_results)).get();
 
-    for (auto& task_result : task_results)
+    // Cache all succeeded jobs.
+    for (auto& job : jobs)
     {
-      if (task_result.get())
-        ++succeeded_job_count;
-      else
-        ++failed_job_count;
+      if (!job->flags.test(entity_flag::failed))
+        _impl->cache.add_job(std::move(job));
     }
   }
   return {succeeded_job_count, failed_job_count};

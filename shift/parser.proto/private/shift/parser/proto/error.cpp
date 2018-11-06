@@ -1,4 +1,4 @@
-#include "shift/parser/proto/error.h"
+#include "shift/parser/proto/error.hpp"
 
 namespace shift::parser::proto
 {

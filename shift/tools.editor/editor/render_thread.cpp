@@ -1,12 +1,12 @@
 //#define BOOST_BIND_NO_PLACEHOLDERS
 //#include "editor/render_thread.h"
-//#include <shift/render/vk/renderer.h>
-//#include <shift/resource/repository.h>
-//#include <shift/resource/resource_group.h>
-//#include <shift/resource/scene.h>
-//#include <shift/log/log.h>
-//#include <shift/core/exception.h>
-//#include <shift/core/at_exit_scope.h>
+//#include <shift/render/vk/renderer.hpp>
+//#include <shift/resource/repository.hpp>
+//#include <shift/resource/resource_group.hpp>
+//#include <shift/resource/scene.hpp>
+//#include <shift/log/log.hpp>
+//#include <shift/core/exception.hpp>
+//#include <shift/core/at_exit_scope.hpp>
 //#include <boost/filesystem/path.hpp>
 //#include <GLFW/glfw3.h>
 

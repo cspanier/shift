@@ -1,5 +1,5 @@
-#include "shift/resource/resource_ptr.h"
-#include "shift/resource/repository.h"
+#include "shift/resource/resource_ptr.hpp"
+#include "shift/resource/repository.hpp"
 
 namespace shift::resource
 {

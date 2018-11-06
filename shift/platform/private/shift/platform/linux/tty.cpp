@@ -1,5 +1,5 @@
-#include "shift/platform/tty.h"
-#include <shift/platform/assert.h>
+#include "shift/platform/tty.hpp"
+#include <shift/platform/assert.hpp>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

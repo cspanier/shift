@@ -1,6 +1,6 @@
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/stacktrace.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 // BOOST_ENABLE_ASSERT_DEBUG_HANDLER is defined for the whole project
 #include <stdexcept>
 #include <iostream>

@@ -1,7 +1,7 @@
-#include "shift/resource/font.h"
-#include "shift/resource/repository.h"
-#include <shift/serialization2/all.h>
-#include <shift/crypto/sha256.h>
+#include "shift/resource/font.hpp"
+#include "shift/resource/repository.hpp"
+#include <shift/serialization2/all.hpp>
+#include <shift/crypto/sha256.hpp>
 #include <set>
 
 namespace shift::resource

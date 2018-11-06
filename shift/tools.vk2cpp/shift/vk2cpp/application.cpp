@@ -1,7 +1,7 @@
-#include "shift/vk2cpp/application.h"
-#include <shift/log/log.h>
-#include <shift/core/exception.h>
-#include <shift/core/stream_util.h>
+#include "shift/vk2cpp/application.hpp"
+#include <shift/log/log.hpp>
+#include <shift/core/exception.hpp>
+#include <shift/core/stream_util.hpp>
 #include <boost/assert.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/filesystem.hpp>
@@ -322,7 +322,7 @@ int application::run()
   _file << "#include <array>" br;
   _file << "#include <vector>" br;
   _file << "#include <vulkan/vulkan.h>" br;
-  _file << "#include <shift/core/bit_field.h>" br2;
+  _file << "#include <shift/core/bit_field.hpp>" br2;
 
   _file << indent << "namespace shift::render::vk" << br;
   _file << indent << "{" << br << inc_indent;

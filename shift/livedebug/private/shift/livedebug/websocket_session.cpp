@@ -1,6 +1,6 @@
-#include "shift/livedebug/websocket_session.h"
+#include "shift/livedebug/websocket_session.hpp"
 //#include <boost/algorithm/string.hpp>
-#include <shift/log/log.h>
+#include <shift/log/log.hpp>
 
 namespace shift::livedebug
 {

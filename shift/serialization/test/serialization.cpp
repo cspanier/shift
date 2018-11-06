@@ -1,9 +1,9 @@
-#include <shift/serialization/all.h>
-#include <shift/serialization/compact/all.h>
-#include <shift/core/boost_disable_warnings.h>
+#include <shift/serialization/all.hpp>
+#include <shift/serialization/compact/all.hpp>
+#include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
-#include <shift/core/boost_restore_warnings.h>
+#include <shift/core/boost_restore_warnings.hpp>
 #include <chrono>
 #include <ctime>
 #include <string>

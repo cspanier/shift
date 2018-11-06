@@ -1,7 +1,7 @@
-#include "shift/render/vk/layer1/descriptor_set.h"
-#include "shift/render/vk/layer1/descriptor_set_layout.h"
-#include "shift/render/vk/layer1/descriptor_pool.h"
-#include "shift/render/vk/layer1/device.h"
+#include "shift/render/vk/layer1/descriptor_set.hpp"
+#include "shift/render/vk/layer1/descriptor_set_layout.hpp"
+#include "shift/render/vk/layer1/descriptor_pool.hpp"
+#include "shift/render/vk/layer1/device.hpp"
 
 namespace shift::render::vk::layer1
 {
