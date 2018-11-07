@@ -34,12 +34,16 @@ std::string translator::cpp_folder;
 std::string translator::cpp_namespace;
 std::vector<std::string> translator::cpp_includes;
 std::string translator::cpp_naming_convention_name;
+std::uint32_t translator::cpp_indent_width;
 std::string translator::cpp_clang_format;
 boost::filesystem::path translator::cs_output_path;
 std::string translator::cs_namespace;
 std::vector<std::string> translator::cs_usings;
+std::uint32_t translator::cs_indent_width;
 boost::filesystem::path translator::dot_output_path;
+std::uint32_t translator::dot_indent_width;
 boost::filesystem::path translator::proto_output_path;
+std::uint32_t translator::proto_indent_width;
 
 translator::translator() = default;
 

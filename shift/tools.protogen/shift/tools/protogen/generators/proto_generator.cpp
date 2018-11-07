@@ -371,7 +371,8 @@ namespace shift::tools::protogen::generators
 
 // bool proto_generator::generate(namescope& root_scope, namescope& limit_scope)
 //{
-//  _source << indent_width(2);
+//  _source <<
+//  indent_width(static_cast<int>(translator::proto_indent_width));
 //  _source.on_enter_namescope = [&](std::ostream& stream,
 //                                   const namescope& scope) {
 //    write_attributes(scope);

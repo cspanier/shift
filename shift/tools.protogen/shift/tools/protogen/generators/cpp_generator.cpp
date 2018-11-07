@@ -485,7 +485,8 @@ namespace shift::tools::protogen::generators
 
 //    _use_header = false;
 //    _use_source = false;
-//    *_header << auto_generated_file_warning << indent_width(2);
+//    *_header << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cpp_indent_width));
 //    *_header << "#ifndef " << includeGuard << br;
 //    *_header << "#define " << includeGuard << br2;
 
@@ -509,7 +510,8 @@ namespace shift::tools::protogen::generators
 //    if (_use_services)
 //      *_header << "#include <shift/service/basic_service.hpp>" br;
 
-//    *_source << auto_generated_file_warning << indent_width(2);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cpp_indent_width));
 //    *_source << "#include \"" << groupName << ".h\"" br;
 
 //    // Definitions within this group need to be sorted topologically.

@@ -1,6 +1,7 @@
 #ifndef SHIFT_PROTO_GEN_LAUNCHER_HPP
 #define SHIFT_PROTO_GEN_LAUNCHER_HPP
 
+#include <boost/program_options.hpp>
 #include "shift/protogen/program_options.hpp"
 
 namespace boost
@@ -77,6 +78,9 @@ public:
       "Select naming convention of generated symbols. Choose between "
       "'lower-delimited' (default) and 'camel-case'.");
     base_t::_visible_options.add_options()(
+      "cpp-indent-width", opt::value(&cpp_indent_width)->default_value(2),
+      "The number of spaces to use to indent C++ code.");
+    base_t::_visible_options.add_options()(
       "cpp-clang-format", opt::value(&cpp_clang_format),
       "Path to the clang-format tool, used to automatically format the "
       "generated source code.");
@@ -89,14 +93,23 @@ public:
     base_t::_visible_options.add_options()(
       "c#-using", opt::value(&cs_usings)->composing(),
       "Add using directives to each generated source file.");
+    base_t::_visible_options.add_options()(
+      "cs-indent-width", opt::value(&cs_indent_width)->default_value(2),
+      "The number of spaces to use to indent C# code.");
 
     base_t::_visible_options.add_options()(
       "dot-path", opt::value(&dot_output_path),
       "Base path where the GraphViz generator shall write to.");
+    base_t::_visible_options.add_options()(
+      "dot-indent-width", opt::value(&dot_indent_width)->default_value(2),
+      "The number of spaces to use to indent Graphviz code.");
 
     base_t::_visible_options.add_options()(
       "proto-path", opt::value(&proto_output_path),
       "Base path where the Proto generator shall write to.");
+    base_t::_visible_options.add_options()(
+      "proto-indent-width", opt::value(&proto_indent_width)->default_value(2),
+      "The number of spaces to use to indent proto code.");
   }
 };
 }

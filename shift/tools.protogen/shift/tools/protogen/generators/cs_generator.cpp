@@ -484,7 +484,8 @@ namespace shift::tools::protogen::generators
 //  };
 //  _source = &fileSource;
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Network;" br;
@@ -497,7 +498,8 @@ namespace shift::tools::protogen::generators
 //    _source->clear();
 //  }
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Network;" br;
@@ -510,7 +512,8 @@ namespace shift::tools::protogen::generators
 //    _source->clear();
 //  }
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Network;" br;
@@ -523,7 +526,8 @@ namespace shift::tools::protogen::generators
 //    _source->clear();
 //  }
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Network;" br;
@@ -538,7 +542,8 @@ namespace shift::tools::protogen::generators
 
 //  if (requiresInterfaceDeserializers(limit_scope))
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Service;" br;
@@ -558,7 +563,8 @@ namespace shift::tools::protogen::generators
 
 //  if (requiresServiceDefinitions(limit_scope))
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Network;" br;
@@ -576,7 +582,8 @@ namespace shift::tools::protogen::generators
 
 //  if (requiresTypeRegistry(limit_scope))
 //  {
-//    *_source << auto_generated_file_warning << indent_width(4);
+//    *_source << auto_generated_file_warning <<
+//    indent_width(static_cast<int>(translator::cs_indent_width));
 //    *_source << "using System;" br;
 //    *_source << "using System.Collections.Generic;" br;
 //    *_source << "using Shift.Service;" br;

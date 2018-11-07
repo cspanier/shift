@@ -482,7 +482,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
   };
   _source = &fileSource;
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Network;" br;
@@ -495,7 +497,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
     _source->clear();
   }
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Network;" br;
@@ -508,7 +512,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
     _source->clear();
   }
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Network;" br;
@@ -521,7 +527,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
     _source->clear();
   }
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Network;" br;
@@ -536,7 +544,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
 
   if (requiresInterfaceDeserializers(limit_scope))
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Service;" br;
@@ -556,7 +566,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
 
   if (requiresServiceDefinitions(limit_scope))
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Network;" br;
@@ -574,7 +586,9 @@ bool cs_generator::generate(namescope& root_scope, namescope& limit_scope)
 
   if (requiresTypeRegistry(limit_scope))
   {
-    *_source << auto_generated_file_warning << indent_width(4);
+    *_source << auto_generated_file_warning
+             << indent_width(
+                  static_cast<int>(program_options::cs_indent_width));
     *_source << "using System;" br;
     *_source << "using System.Collections.Generic;" br;
     *_source << "using Shift.Service;" br;

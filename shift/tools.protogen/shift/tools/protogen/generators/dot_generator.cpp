@@ -351,7 +351,8 @@ namespace shift::tools::protogen::generators
 
 //  file_writer fileSource;
 //  _source = &fileSource;
-//  *_source << auto_generated_file_warning << indent_width(2);
+//  *_source << auto_generated_file_warning <<
+//  indent_width(static_cast<int>(translator::dot_indent_width));
 //  *_source << "digraph G {" br << inc_indent;
 //  gather_nodes(root_scope);
 //  *_source << br;

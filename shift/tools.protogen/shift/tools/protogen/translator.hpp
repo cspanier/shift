@@ -40,15 +40,19 @@ public:
   static std::string cpp_namespace;
   static std::vector<std::string> cpp_includes;
   static std::string cpp_naming_convention_name;
+  static std::uint32_t cpp_indent_width;
   static std::string cpp_clang_format;
 
   static boost::filesystem::path cs_output_path;
   static std::string cs_namespace;
   static std::vector<std::string> cs_usings;
+  static std::uint32_t cs_indent_width;
 
   static boost::filesystem::path dot_output_path;
+  static std::uint32_t dot_indent_width;
 
   static boost::filesystem::path proto_output_path;
+  static std::uint32_t proto_indent_width;
 
 protected:
   file_cache _file_cache;

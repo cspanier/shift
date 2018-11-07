@@ -16,10 +16,14 @@ std::string program_options::cpp_folder;
 std::string program_options::cpp_namespace;
 std::vector<std::string> program_options::cpp_includes;
 std::string program_options::cpp_naming_convention_name;
+std::uint32_t program_options::cpp_indent_width;
 std::string program_options::cpp_clang_format;
 boost::filesystem::path program_options::cs_output_path;
 std::string program_options::cs_namespace;
 std::vector<std::string> program_options::cs_usings;
+std::uint32_t program_options::cs_indent_width;
 boost::filesystem::path program_options::dot_output_path;
+std::uint32_t program_options::dot_indent_width;
 boost::filesystem::path program_options::proto_output_path;
+std::uint32_t program_options::proto_indent_width;
 }
