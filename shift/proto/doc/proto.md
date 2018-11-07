@@ -14,7 +14,7 @@ interface_name := [Ii], typename
 type_path := ((namescope_name | typename | interface_name), '.')*, typename
 interface_path := (namescope_name, '.')*, interface_name
 identifier := [a-z], [a-zA-Z0-9_]*
-string := '"', [^"]*, '"'
+string := '"', ("\"" | [^"])*, '"'
 
 bool_type := "bool"
 char_type := "char8" | "char16" | "char32"
@@ -32,7 +32,7 @@ attribute := identifier, ('=', (string | uint))?
 attributes := '[', (attribute % ',')?, ']'
 type_reference := (built_in_type | type_path), ('<', ((type_reference | int) % ','), '>')?
 alias := attributes?, "using", typename, '=', type_reference, ';'
-enumerator := identifier, ('=', sint)?
+enumerator := attributes?, identifier, ('=', sint)?
 enumeration := attributes?, "enum", typename, ':', type_reference, '{', (enumerator % ',')?, '}'
 field := attributes?, type_reference, identifier
 message := attributes?, ("message" | "struct"), typename,

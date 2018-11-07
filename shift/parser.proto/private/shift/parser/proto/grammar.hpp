@@ -53,6 +53,7 @@ private:
   qi::rule<iterator, std::uint64_t(), skipper> _uint;
   qi::rule<iterator, std::string(), skipper> _string_impl;
   qi::rule<iterator, string_token(), skipper> _string;
+  qi::symbols<const char, const char> _escape_sequences;
 
   qi::rule<iterator, std::string(), skipper> _identifier_impl;
   qi::rule<iterator, string_token(), skipper> _identifier;

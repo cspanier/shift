@@ -52,14 +52,15 @@ private:
   qi::rule<iterator, type_path(), skipper> _interface_path;
   qi::rule<iterator, std::string(), skipper> _identifier;
   qi::rule<iterator, std::string(), skipper> _string;
+  qi::symbols<const char, const char> _escape_sequences;
 
-  qi::symbols<char, built_in_type> _bool_type;
-  qi::symbols<char, built_in_type> _char_type;
-  qi::symbols<char, built_in_type> _sint_type;
-  qi::symbols<char, built_in_type> _uint_type;
-  qi::symbols<char, built_in_type> _float_type;
-  qi::symbols<char, built_in_type> _string_type;
-  qi::symbols<char, built_in_type> _template_type;
+  qi::symbols<const char, built_in_type> _bool_type;
+  qi::symbols<const char, built_in_type> _char_type;
+  qi::symbols<const char, built_in_type> _sint_type;
+  qi::symbols<const char, built_in_type> _uint_type;
+  qi::symbols<const char, built_in_type> _float_type;
+  qi::symbols<const char, built_in_type> _string_type;
+  qi::symbols<const char, built_in_type> _template_type;
   qi::rule<iterator, built_in_type(), skipper> _int_type;
   qi::rule<iterator, built_in_type(), skipper> _built_in_type;
 
@@ -75,7 +76,7 @@ private:
   qi::rule<iterator, field(), skipper> _field;
   qi::rule<iterator, message(), skipper> _message;
   qi::rule<iterator, interface(), skipper> _interface;
-  qi::symbols<char, bool> _service_type;
+  qi::symbols<const char, bool> _service_type;
   qi::rule<iterator, service(), skipper> _service;
   qi::rule<iterator, std::vector<type>(), skipper> _global_scope;
   qi::rule<iterator, namescope(), skipper> _namescope;

@@ -58,7 +58,9 @@ grammar::grammar() : grammar::base_type(_global_scope)
     *((_namescope_name | _typename | _interface_name) >> lit('.')) >> _typename;
   _interface_path %= *(_namescope_name >> lit('.')) >> _interface_name;
   _identifier %= lexeme[char_("a-z") >> *char_("a-zA-Z0-9_")];
-  _string %= lit('"') >> no_skip[*(char_ - char_('"'))] >> lit('"');
+  _string %= lit('"') >> no_skip[*(_escape_sequences | (char_ - char_('"')))] >>
+             lit('"');
+  _escape_sequences.add("\\\"", '\"');
 
   _bool_type.add("bool", built_in_type::boolean);
   _char_type.add("char8", built_in_type::char8);
@@ -106,17 +108,17 @@ grammar::grammar() : grammar::base_type(_global_scope)
   _alias %= (-_attributes >> lit("using")) > _typename > lit('=') >
             _type_reference > lit(';');
 
-  _enumerator %= _identifier[at_c<0>(_val) = _1] >
+  _enumerator %= -_attributes > _identifier[at_c<1>(_val) = _1] >
                  // If there is an explicit value defined use it.
-                 ((lit('=') > _sint[at_c<1>(_val) = _1]) |
+                 ((lit('=') > _sint[at_c<2>(_val) = _1]) |
                   // Otherwise use the value of argument _r1 instead.
-                  eps[at_c<1>(_val) = _r1]);
+                  eps[at_c<2>(_val) = _r1]);
   _enumeration %= (-_attributes >> lit("enum")) > _typename > lit(':') >
                   _type_reference > lit('{') >
                   // Initialize _a with 0.
                   eps[_a = 0] >
                   // Set _a to the value of the last member + 1.
-                  -(_enumerator(_a)[_a = at_c<1>(_1) + 1] % lit(',')) >
+                  -(_enumerator(_a)[_a = at_c<2>(_1) + 1] % lit(',')) >
                   lit('}');
 
   _field %= -_attributes >> _type_reference >> _identifier;
@@ -204,6 +206,7 @@ BOOST_FUSION_ADAPT_STRUCT(shift::proto::alias,
   ADAPT_MEMBER(shift::proto::alias, reference))
 
 BOOST_FUSION_ADAPT_STRUCT(shift::proto::enumerator,
+  ADAPT_MEMBER(shift::proto::enumerator, public_attributes)
   ADAPT_MEMBER(shift::proto::enumerator, name)
   ADAPT_MEMBER(shift::proto::enumerator, value))
 

@@ -62,8 +62,10 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
     lexeme[(lit("0x") >> hex) | (lit('\'') >> char_ >> lit('\'')) | long_long];
   _uint %=
     lexeme[(lit("0x") >> hex) | (lit('\'') >> char_ >> lit('\'')) | ulong_long];
-  _string_impl %= _quote >> no_skip[*(char_ - char_('"'))] >> _quote;
+  _string_impl %=
+    _quote >> no_skip[*(_escape_sequences | (char_ - char_('"')))] >> _quote;
   _string %= _string_impl;
+  _escape_sequences.add("\\\"", '\"');
 
   _identifier_impl %= lexeme[char_("a-z") >> *char_("a-z0-9_")];
   _identifier %= _identifier_impl;
@@ -110,7 +112,7 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   _enumerant_value %= (_equal_sign > (_template_identifier |
                                       _enumerant_reference | _uint | _sint)) |
                       attr(no_value_t{});
-  _enumerant %= _identifier > _enumerant_value;
+  _enumerant %= _meta >> _identifier >> _enumerant_value;
   _enumeration %= (_meta >> lit("enum")) > _whitespace > _identifier >
                   -_template_parameters > _colon > _type_path >
                   _curly_bracket_open > -(_enumerant % _comma) >
@@ -299,6 +301,7 @@ BOOST_FUSION_ADAPT_STRUCT(alias_token,
   ADAPT_MEMBER(alias_token, reference))
 
 BOOST_FUSION_ADAPT_STRUCT(enumerant_token,
+  ADAPT_MEMBER(enumerant_token, meta)
   ADAPT_MEMBER(enumerant_token, identifier)
   ADAPT_MEMBER(enumerant_token, value))
 
