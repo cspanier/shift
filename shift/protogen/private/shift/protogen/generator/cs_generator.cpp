@@ -739,6 +739,12 @@ void cs_generator::writeEnumDefinitions(namescope& scope)
       {
         *_source << indent << "[Flags]" br;
       }
+      if (enumeration->has_attribute("csCustomAtribute"))
+      {
+        *_source << indent << "["
+                 << enumeration->attribute<std::string>("csCustomAtribute")
+                 << "]" br;
+      }
       *_source << indent << "public enum " << enumeration->name << " : "
                << make_tuple(scope, enumeration->base, print_mode::type) << br;
       *_source << indent << "{" << inc_indent;
@@ -750,7 +756,14 @@ void cs_generator::writeEnumDefinitions(namescope& scope)
           firstMember = false;
         else
           *_source << ",";
-        *_source << br << indent << member.attribute<std::string>("cs_name");
+        *_source << br;
+        if (member.has_attribute("csCustomAtribute"))
+        {
+          *_source << indent << "["
+                   << member.attribute<std::string>("csCustomAtribute")
+                   << "]" br;
+        }
+        *_source << indent << member.attribute<std::string>("cs_name");
         if (member.value != nextAutoValue)
           *_source << " = " << member.value;
         nextAutoValue = member.value + 1;
@@ -878,6 +891,12 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
       if (!_source->switch_namescope(scope))
         *_source << br;
 
+      if (message->has_attribute("csCustomAtribute"))
+      {
+        *_source << indent << "["
+                 << message->attribute<std::string>("csCustomAtribute")
+                 << "]" br;
+      }
       *_source << indent << "public partial class "
                << message->attribute<std::string>("cs_name");
       if (message->base != nullptr)
@@ -941,10 +960,15 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
 
       for (auto& field : message->fields)
       {
+        *_source << indent;
+        if (field.has_attribute("csCustomAtribute"))
+        {
+          *_source << "[" << field.attribute<std::string>("csCustomAtribute")
+                   << "]" br;
+        }
         if (!field.has_attribute("ignore"))
         {
-          *_source << indent << "[Order(" << std::dec << order++
-                   << "), ProtoType(typeof("
+          *_source << "[Order(" << std::dec << order++ << "), ProtoType(typeof("
                    << make_tuple(scope, field.reference, print_mode::proto_type)
                    << "))] public ";
         }
@@ -1030,6 +1054,12 @@ void cs_generator::writeInterfaceDefinitions(namescope& scope)
       else
         *_source << br;
 
+      if (interface->has_attribute("csCustomAtribute"))
+      {
+        *_source << indent << "["
+                 << interface->attribute<std::string>("csCustomAtribute")
+                 << "]" br;
+      }
       *_source << indent << "public interface "
                << interface->attribute<std::string>("cs_name") << br;
       *_source << indent << "{" br << inc_indent;
