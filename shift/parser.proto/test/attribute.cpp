@@ -17,10 +17,20 @@ BOOST_AUTO_TEST_CASE(attribute_valids)
   test_parser_and_ast(
     R"(
 [my_attr_1, my_attr_2 = 42, my_attr_3="string with \"quotes\""]
+struct foo
+{
+  [my_attr_1]
+  var_uint_t field;
+})",
+    "attribute_valids_1.pro2");
+
+  test_parser_and_ast(
+    R"(
+[my_attr_1, my_attr_2 = 42, my_attr_3="string with \"quotes\""]
 enum foo : var_uint_t
 {
   [my_attr_1]
   bar
 })",
-    "attribute_valids_1.pro2");
+    "attribute_valids_2.pro2");
 }

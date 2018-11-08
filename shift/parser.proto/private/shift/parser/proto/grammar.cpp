@@ -22,7 +22,7 @@
 namespace shift::parser::proto
 {
 grammar::grammar(const std::shared_ptr<source_module>& source)
-: grammar::base_type(_namescope_content),
+: grammar::base_type(_namescope_body),
   _annotation(annotation_handler<iterator>{source}),
   _error(error_handler<iterator>{source})
 {
@@ -58,9 +58,9 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   _single_quote %= lit('\'');
   _quote %= lit('"');
 
-  _sint %=
+  _sint_const %=
     lexeme[(lit("0x") >> hex) | (lit('\'') >> char_ >> lit('\'')) | long_long];
-  _uint %=
+  _uint_const %=
     lexeme[(lit("0x") >> hex) | (lit('\'') >> char_ >> lit('\'')) | ulong_long];
   _string_impl %=
     _quote >> no_skip[*(_escape_sequences | (char_ - char_('"')))] >> _quote;
@@ -72,36 +72,34 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   _template_identifier_impl %= lexeme[char_("A-Z") >> *char_("a-zA-Z0-9_")];
   _template_identifier %= _template_identifier_impl;
   _any_identifier %= _identifier | _template_identifier;
-  _template_argument %= _type_path | _uint | _sint;
+  _template_argument %= _type_path | _uint_const | _sint_const;
   _type_path_element %=
     _any_identifier > -(_angle_bracket_open > (_template_argument % _comma) >
                         _angle_bracket_close);
   _type_path %= _type_path_element % _period;
 
-  _comment %= lit('#') > _optional_space > no_skip[*(char_ - eol)];
-
   _attribute %=
-    _identifier > ((_equal_sign > (_string | _uint)) |
+    _identifier > ((_equal_sign > (_string | _uint_const)) |
                    eps[at_c<1>(_val) = static_cast<std::uint64_t>(1)]);
   _attributes %= _bracket_open > -(_attribute % _comma) > _bracket_close;
-  _enumerant_reference %= _type_path > _period > _identifier;
 
   _template_parameter %=
     (lit("typename") > attr(/* type = */ type_path_token{}) >
      attr(/* is_typename = */ true) >
      ((lit("...") > attr(/* is_variadic = */ true)) |
       (_whitespace > attr(/* is_variadic = */ false))) > _template_identifier >
-     ((_equal_sign > (_type_path | _uint | _sint)) |
+     ((_equal_sign > (_type_path | _uint_const | _sint_const)) |
       attr(/* default_value = */ nullptr))) |
     (_type_path > attr(/* is_typename = */ false) >
      ((lit("...") > attr(/* is_variadic = */ true)) |
       (_whitespace > attr(/* is_variadic = */ false))) > _template_identifier >
-     ((_equal_sign > (_type_path | _uint | _sint)) |
+     ((_equal_sign > (_type_path | _uint_const | _sint_const)) |
       attr(/* default_value = */ nullptr)));
   _template_parameters_impl %= _template_parameter % _comma;
   _template_parameters %=
     _angle_bracket_open > _template_parameters_impl > _angle_bracket_close;
 
+  _comment %= lit('#') > _optional_space > no_skip[*(char_ - eol)];
   _meta %= *_comment >> -_attributes;
 
   // alias definitions
@@ -109,9 +107,11 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
             -_template_parameters > _equal_sign > _type_path > _semicolon;
 
   // enumeration definitions
-  _enumerant_value %= (_equal_sign > (_template_identifier |
-                                      _enumerant_reference | _uint | _sint)) |
-                      attr(no_value_t{});
+  _enumerant_reference %= _type_path > _period > _identifier;
+  _enumerant_value %=
+    (_equal_sign > (_template_identifier | _enumerant_reference | _uint_const |
+                    _sint_const)) |
+    attr(no_value_t{});
   _enumerant %= _meta >> _identifier >> _enumerant_value;
   _enumeration %= (_meta >> lit("enum")) > _whitespace > _identifier >
                   -_template_parameters > _colon > _type_path >
@@ -122,7 +122,7 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   _const_qualifier %= -(lit("const") > _whitespace > attr(true)) | attr(false);
   _field_value %=
     -(_equal_sign > ((lit("nullptr") > attr(nullptr)) | _template_identifier |
-                     _enumerant_reference | _uint | _sint)) |
+                     _enumerant_reference | _uint_const | _sint_const)) |
     attr(no_value_t{});
   _field %=
     _meta >> _const_qualifier >> _type_path >> _identifier >> _field_value;
@@ -131,9 +131,9 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
                 _curly_bracket_open > *(_field > _semicolon) >
                 _curly_bracket_close;
 
-  _namescope_content %= *(_namescope | _alias | _enumeration | _structure);
+  _namescope_body %= *(_namescope | _alias | _enumeration | _structure);
   _namescope %= (_meta >> lit("namescope")) > _whitespace > _identifier >
-                _curly_bracket_open > _namescope_content > _curly_bracket_close;
+                _curly_bracket_open > _namescope_body > _curly_bracket_close;
 
   BOOST_SPIRIT_DEBUG_NODE(_whitespace);
   BOOST_SPIRIT_DEBUG_NODE(_period);
@@ -149,8 +149,8 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   BOOST_SPIRIT_DEBUG_NODE(_angle_bracket_close);
   BOOST_SPIRIT_DEBUG_NODE(_single_quote);
   BOOST_SPIRIT_DEBUG_NODE(_quote);
-  BOOST_SPIRIT_DEBUG_NODE(_sint);
-  BOOST_SPIRIT_DEBUG_NODE(_uint);
+  BOOST_SPIRIT_DEBUG_NODE(_sint_const);
+  BOOST_SPIRIT_DEBUG_NODE(_uint_const);
   BOOST_SPIRIT_DEBUG_NODE(_string);
   BOOST_SPIRIT_DEBUG_NODE(_identifier);
   BOOST_SPIRIT_DEBUG_NODE(_template_identifier);
@@ -158,13 +158,14 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   BOOST_SPIRIT_DEBUG_NODE(_template_argument);
   BOOST_SPIRIT_DEBUG_NODE(_type_path_element);
   BOOST_SPIRIT_DEBUG_NODE(_type_path);
-  BOOST_SPIRIT_DEBUG_NODE(_comment);
   BOOST_SPIRIT_DEBUG_NODE(_attribute);
   BOOST_SPIRIT_DEBUG_NODE(_attributes);
   BOOST_SPIRIT_DEBUG_NODE(_enumerant_reference);
   BOOST_SPIRIT_DEBUG_NODE(_template_parameter);
   BOOST_SPIRIT_DEBUG_NODE(_template_parameters_impl);
   BOOST_SPIRIT_DEBUG_NODE(_template_parameters);
+  BOOST_SPIRIT_DEBUG_NODE(_comment);
+  BOOST_SPIRIT_DEBUG_NODE(_meta);
   BOOST_SPIRIT_DEBUG_NODE(_alias);
   BOOST_SPIRIT_DEBUG_NODE(_enumerant_value);
   BOOST_SPIRIT_DEBUG_NODE(_enumerant);
@@ -173,7 +174,7 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   BOOST_SPIRIT_DEBUG_NODE(_field_value);
   BOOST_SPIRIT_DEBUG_NODE(_field);
   BOOST_SPIRIT_DEBUG_NODE(_structure);
-  BOOST_SPIRIT_DEBUG_NODE(_namescope_content);
+  BOOST_SPIRIT_DEBUG_NODE(_namescope_body);
   BOOST_SPIRIT_DEBUG_NODE(_namescope);
 
   // Error diagnostic messages which are displayed if one of the rules fail.
@@ -203,8 +204,9 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
                             "Expected single quotation mark (''').");
   _diagnostics.emplace_back(_quote.name(), "Expected quotation mark ('\"').");
 
-  _diagnostics.emplace_back(_sint.name(), "Expected signed integer constant.");
-  _diagnostics.emplace_back(_uint.name(),
+  _diagnostics.emplace_back(_sint_const.name(),
+                            "Expected signed integer constant.");
+  _diagnostics.emplace_back(_uint_const.name(),
                             "Expected unsigned integer constant.");
   _diagnostics.emplace_back(_identifier.name(), "Expected identifier.");
   _diagnostics.emplace_back(_template_identifier.name(),
@@ -222,11 +224,12 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   qi::on_success(_template_identifier, set_annotation_info);
   qi::on_success(_type_path_element, set_annotation_info);
   qi::on_success(_type_path, set_annotation_info);
-  qi::on_success(_comment, set_annotation_info);
   qi::on_success(_attribute, set_annotation_info);
   qi::on_success(_attributes, set_annotation_info);
   qi::on_success(_template_parameter, set_annotation_info);
   qi::on_success(_template_parameters_impl, set_annotation_info);
+  qi::on_success(_comment, set_annotation_info);
+  qi::on_success(_meta, set_annotation_info);
   qi::on_success(_alias, set_annotation_info);
   qi::on_success(_enumerant, set_annotation_info);
   qi::on_success(_enumeration, set_annotation_info);
@@ -236,8 +239,8 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
 
   // Assign on_error handlers that print diagnostic information about an error.
   auto handle_error = _error(_diagnostics, _1, _2, _3, _4);
-  qi::on_error<qi::fail>(_sint, handle_error);
-  qi::on_error<qi::fail>(_uint, handle_error);
+  qi::on_error<qi::fail>(_sint_const, handle_error);
+  qi::on_error<qi::fail>(_uint_const, handle_error);
   qi::on_error<qi::fail>(_string, handle_error);
   qi::on_error<qi::fail>(_identifier, handle_error);
   qi::on_error<qi::fail>(_template_identifier, handle_error);
@@ -245,7 +248,6 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   qi::on_error<qi::fail>(_template_argument, handle_error);
   qi::on_error<qi::fail>(_type_path_element, handle_error);
   qi::on_error<qi::fail>(_type_path, handle_error);
-  qi::on_error<qi::fail>(_comment, handle_error);
   qi::on_error<qi::fail>(_attribute, handle_error);
   qi::on_error<qi::fail>(_attributes, handle_error);
   qi::on_error<qi::fail>(_const_qualifier, handle_error);
@@ -253,13 +255,15 @@ grammar::grammar(const std::shared_ptr<source_module>& source)
   qi::on_error<qi::fail>(_template_parameter, handle_error);
   qi::on_error<qi::fail>(_template_parameters_impl, handle_error);
   qi::on_error<qi::fail>(_template_parameters, handle_error);
+  qi::on_error<qi::fail>(_comment, handle_error);
+  qi::on_error<qi::fail>(_meta, handle_error);
   qi::on_error<qi::fail>(_alias, handle_error);
   qi::on_error<qi::fail>(_enumerant, handle_error);
   qi::on_error<qi::fail>(_enumeration, handle_error);
   qi::on_error<qi::fail>(_field_value, handle_error);
   qi::on_error<qi::fail>(_field, handle_error);
   qi::on_error<qi::fail>(_structure, handle_error);
-  qi::on_error<qi::fail>(_namescope_content, handle_error);
+  qi::on_error<qi::fail>(_namescope_body, handle_error);
   qi::on_error<qi::fail>(_namescope, handle_error);
 }
 }
