@@ -476,7 +476,7 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     }
 
     BOOST_ASSERT(&root_scope == &_header->current_scope());
-    std::string includeGuard = core::to_upper(groupName) + "_H";
+    std::string includeGuard = core::to_upper(groupName) + "_HPP";
     boost::replace_all(includeGuard, "/", "_");
     boost::replace_all(includeGuard, ".", "_");
 
@@ -503,7 +503,7 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     *_header << "#include <shift/serialization/all.hpp>" br;
     *_header << "#include <shift/serialization/compact/all.hpp>" br;
 #if defined(USE_REFLECTIONS)
-    *_header << "#include \"shift/proto/types.h\"" br;
+    *_header << "#include \"shift/proto/types.hpp\"" br;
 #endif
     if (_use_services)
       *_header << "#include <shift/service/basic_service.hpp>" br;
@@ -511,7 +511,7 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     *_source << auto_generated_file_warning
              << indent_width(
                   static_cast<int>(program_options::cpp_indent_width));
-    *_source << "#include \"" << groupName << ".h\"" br;
+    *_source << "#include \"" << groupName << ".hpp\"" br;
 
     // Definitions within this group need to be sorted topologically.
     std::vector<const proto::node*> sortedGroupDefinitions;
@@ -533,25 +533,25 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
       visit(node);
 
     for (auto includeFile : includeFiles)
-      *_header << indent << "#include \"" << includeFile << ".h\"" br;
+      *_header << indent << "#include \"" << includeFile << ".hpp\"" br;
     *_header << br;
     for (const auto* node : groupDeclarations)
     {
       write_declaration(*node);
       *_source << indent << "#include \""
                << node->attribute<std::string>("cpp_def_group_name")
-               << ".h\"" br;
+               << ".hpp\"" br;
     }
     *_header << br;
 #if defined(USE_REFLECTIONS)
-    *_source << "#include \"shift/proto/service.h\"" br;
-    *_source << "#include \"shift/proto/interface.h\"" br;
-    *_source << "#include \"shift/proto/message.h\"" br;
-    *_source << "#include \"shift/proto/messagefield.h\"" br;
-    *_source << "#include \"shift/proto/enumeration.h\"" br;
-    *_source << "#include \"shift/proto/enumerant.h\"" br;
-    *_source << "#include \"shift/proto/attribute.h\"" br;
-    *_source << "#include \"shift/proto/type_reference.h\"" br;
+    *_source << "#include \"shift/proto/service.hpp\"" br;
+    *_source << "#include \"shift/proto/interface.hpp\"" br;
+    *_source << "#include \"shift/proto/message.hpp\"" br;
+    *_source << "#include \"shift/proto/messagefield.hpp\"" br;
+    *_source << "#include \"shift/proto/enumeration.hpp\"" br;
+    *_source << "#include \"shift/proto/enumerant.hpp\"" br;
+    *_source << "#include \"shift/proto/attribute.hpp\"" br;
+    *_source << "#include \"shift/proto/type_reference.hpp\"" br;
 #endif
     *_source << "#include <shift/serialization/archive.hpp>" br;
     *_source << "#include <shift/serialization/all.hpp>" br;
