@@ -34,11 +34,47 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -Wextra -fomit-frame-pointer -DBUILD_CONFIG_RELEASE")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g -fno-omit-frame-pointer -DBUILD_CONFIG_RELWITHDEBINFO")
 
+  # -fsanitize=memory          # See https://clang.llvm.org/docs/MemorySanitizer.html.
+  # -fsanitize=address         # See https://clang.llvm.org/docs/AddressSanitizer.html.
+  # -fsanitize=undefined       # See https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html.
+  # Note that address and memory sanitizers cannot be enabled both at the same time.
+  if(CLANG_SANITIZER_MEMORY)
+    message(STATUS "LLVM memory sanitizer: OFF")
+    message(STATUS "LLVM address sanitizer: ON")
+    set(CMAKE_CXX_FLAGS_DEBUG_INIT "${CMAKE_CXX_FLAGS_DEBUG_INIT} -fsanitize=memory")
+  elseif(CLANG_SANITIZER_ADDRESS)
+    message(STATUS "LLVM memory sanitizer: OFF")
+    message(STATUS "LLVM address sanitizer: ON")
+    set(CMAKE_CXX_FLAGS_DEBUG_INIT "${CMAKE_CXX_FLAGS_DEBUG_INIT} -fsanitize=address")
+  else()
+    message(STATUS "LLVM memory sanitizer: OFF")
+    message(STATUS "LLVM address sanitizer: OFF")
+  endif()
+  if(CLANG_SANITIZER_UNDEFINED)
+    message(STATUS "LLVM memory sanitizer: ON")
+    set(CMAKE_CXX_FLAGS_DEBUG_INIT "${CMAKE_CXX_FLAGS_DEBUG_INIT} -fsanitize=undefined")
+  else()
+    message(STATUS "LLVM memory sanitizer: OFF")
+  endif()
+  # -fuse-ld=clang++           # Use clang++ to link, which is required when using certain sanizizers.
   # -fuse-ld=(gold|lld)        # Prefer gold|lld linker over ld
-  set(CMAKE_EXE_LINKER_FLAGS_INIT "-lpthread -fuse-ld=lld")
-  set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
-  set(CMAKE_STATIC_LINKER_FLAGS_INIT "")
-  set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld")
+  if(CLANG_SANITIZER_MEMORY OR CLANG_SANITIZER_ADDRESS OR CLANG_SANITIZER_UNDEFINED)
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT "-lpthread -fuse-ld=clang++")
+    set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL_INIT "-lpthread -fuse-ld=lld")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE_INIT "-lpthread -fuse-ld=lld")
+    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-lpthread -fuse-ld=lld")
+    set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
+    set(CMAKE_STATIC_LINKER_FLAGS_INIT "")
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT "-fuse-ld=clang++")
+    set(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL_INIT "-fuse-ld=lld")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE_INIT "-fuse-ld=lld")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fuse-ld=lld")
+  else()
+    set(CMAKE_EXE_LINKER_FLAGS_INIT "-lpthread -fuse-ld=lld")
+    set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
+    set(CMAKE_STATIC_LINKER_FLAGS_INIT "")
+    set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld")
+  endif()
 
   # ToDo: This is only needed when using a foreign compiler toolchain which uses
   # a ld-linux-armhf.so.3 different from the target OS installation.

@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.12)
 option(SHIFT_DEBUG
   "Prints the values of several variables to console to aid in debugging.")
 
+option(CLANG_SANITIZER_MEMORY
+  "Enables use of LLVM's memory sanitizer.")
+option(CLANG_SANITIZER_ADDRESS
+  "Enables use of LLVM's address sanitizer.")
+option(CLANG_SANITIZER_UNDEFINED
+  "Enables use of LLVM's undefined behavior sanitizer.")
+
 # Specifies a CMake file that overrides platform information. It is loaded after
 # CMake’s builtin compiler and platform information modules have been loaded but
 # before the information is used. The file may set platform information
