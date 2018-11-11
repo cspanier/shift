@@ -117,6 +117,10 @@ ast::type_variant type_reference_resolver::find_type(
       return ast::built_in_type::floating_point;
     if (type_name.name.value == "repeated_t")
       return ast::built_in_type::repeated;
+    if (type_name.name.value == "selected_t")
+      return ast::built_in_type::selected;
+    if (type_name.name.value == "optional_t")
+      return ast::built_in_type::optional;
   }
   return find_type_node(namescope, path);
 }

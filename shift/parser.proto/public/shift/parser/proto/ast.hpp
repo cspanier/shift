@@ -29,7 +29,9 @@ enum class built_in_type : std::uint8_t
   fixed_sint_t,
   fixed_uint_t,
   floating_point,
-  repeated
+  repeated,
+  selected,
+  optional
 };
 
 using template_argument = std::variant<type_path_node, std::int64_t>;
