@@ -26,6 +26,14 @@ This repository hosts a collection of various libraries and tools that have been
 
 ## Dependencies
 
+The code is regularly tested with the following compilers:
+
+* [GCC 8.2.1](https://gcc.gnu.org/)
+* [Clang 7.0.0](https://clang.llvm.org/)
+* [MSVC 15.8](https://visualstudio.microsoft.com/)
+
+Additionally, the following libraries are required:
+
 * [Google Breakpad](https://github.com/google/breakpad) tested with revision 1459e5d
     * [GYP](https://gyp.gsrc.io/) is needed to build Breakpad
     * [Python](https://www.python.org/) 2.7 is needed for running GYP

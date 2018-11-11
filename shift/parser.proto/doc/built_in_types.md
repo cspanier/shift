@@ -3,12 +3,12 @@
 
 ## Fundamental Types
 ```
-fixed_sint_t<N>      # (1)
-fixed_uint_t<N>      # (2)
-var_sint_t           # (3)
-var_uint_t           # (4)
-floating_point_t<N>  # (5)
-repeated_t<T, N>     # (6)
+fixed_sint_t<N>       # (1)
+fixed_uint_t<N>       # (2)
+var_sint_t            # (3)
+var_uint_t            # (4)
+floating_point_t<N>   # (5)
+repeated_t<T, N>      # (6)
 selected_t<S, Ts...>  # (7)
 optional_t<S, Ts...>  # (8)
 ```
