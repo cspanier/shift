@@ -11,13 +11,13 @@ floating_point_t<N>  # (5)
 repeated_t<T, N>     # (6)
 ```
 
-1-2) Fixed size signed (1) and unsigned (2) integer types do have a template parameter `N`, which must be a constant integer expression denoting the size in bits. `N` may be set to one of 8, 16, 32, or 64.
+(1-2) Fixed size signed (1) and unsigned (2) integer types do have a template parameter `N`, which must be a constant integer expression denoting the size in bits. `N` may be set to one of 8, 16, 32, or 64.
 
-3-4) Variable sized signed (3) and unsigned (4) integers may be encoded in a more compact way than regular fixed size integers and are particularly useful if you expect its values *usually* smaller than the maximum size of the integer type.
+(3-4) Variable sized signed (3) and unsigned (4) integers may be encoded in a more compact way than regular fixed size integers and are particularly useful if you expect its values *usually* smaller than the maximum size of the integer type.
 
-5) There is a single built-in floating-point type defined as a template type. The template argument N may be assigned 16 (for 16 bit half precision), 32 (for 32 bit default precision), or 64 (for 64 bit double precision).
+(5) There is a single built-in floating-point type defined as a template type. The template argument N may be assigned 16 (for 16 bit half precision), 32 (for 32 bit default precision), or 64 (for 64 bit double precision).
 
-6) Types repeating the same record type `T` a constant or variable number of times `N` may be expressed using this type. The template arguement `T` may be any type and `N` may be either any unsigned integer type (2) or (4), or an unsigned integer constant.
+(6) Types repeating the same record type `T` a constant or variable number of times `N` may be expressed using this type. The template arguement `T` may be any type and `N` may be either any unsigned integer type (2) or (4), or an unsigned integer constant.
 
 ## Alias Types
 The following convenient alias types ease usage of the available fundamental types:
@@ -65,14 +65,14 @@ using string8 = repeated_t<char8>;     # (24)
 using string16 = repeated_t<char16>;   # (25)
 ```
 
-9,11) These 8 bit variable size integers are actually fixed size integers.
+(9,11) These 8 bit variable size integers are actually fixed size integers.
 
-17) There is no difference between boolean and integer types in `shift.proto`. Instead, each boolean value is encoded as an 8 bit fixed unsigned integer with a value of zero being interpreted as false and any other value being interpreted as true.
+(17) There is no difference between boolean and integer types in `shift.proto`. Instead, each boolean value is encoded as an 8 bit fixed unsigned integer with a value of zero being interpreted as false and any other value being interpreted as true.
 
-18-20) Characters are treated as variable size unsigned integer types containing arbitrary data.
+(18-20) Characters are treated as variable size unsigned integer types containing arbitrary data.
 
-21) Half precision floating-point type.
+(21) Half precision floating-point type.
 
-22) Standard precision floating-point type.
+(22) Standard precision floating-point type.
 
-23) Double precision floating-point type.
+(23) Double precision floating-point type.
