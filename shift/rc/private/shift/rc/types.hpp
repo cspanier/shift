@@ -146,6 +146,9 @@ struct job_description
     const std::string& name,
     const std::map<std::string, std::string>& custom_variables) const;
 
+  /// Marks this job and all input and output files as used.
+  void mark_as_used();
+
   std::size_t id = 0;
   rule_description* rule = nullptr;
   std::unordered_multimap<std::size_t, std::unique_ptr<input_match>> inputs;

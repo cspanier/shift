@@ -25,5 +25,16 @@ BOOST_AUTO_TEST_CASE(rc_cache)
     BOOST_CHECK_EQUAL(succeeded, 0);
     BOOST_CHECK_EQUAL(failed, 0);
   }
+
+  BOOST_CHECK(fs::exists(settings.output_path / "global.cache"));
+  BOOST_CHECK(
+    fs::exists(settings.output_path / "image32_rgb8.lod_0.image_buffer"));
+  BOOST_CHECK(
+    fs::exists(settings.output_path / "image32_rgb16.lod_0.image_buffer"));
+  BOOST_CHECK(
+    fs::exists(settings.output_path / "image32_rgba8.lod_0.image_buffer"));
+  BOOST_CHECK(
+    fs::exists(settings.output_path / "image32_rgba16.lod_0.image_buffer"));
+
   // remove_working_folders(settings);
 }

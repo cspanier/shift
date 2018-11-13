@@ -154,6 +154,15 @@ fs::path job_description::output(
   return path_string;
 }
 
+void job_description::mark_as_used()
+{
+  flags.set(entity_flag::used);
+  for (auto& [input_slot_index, input] : inputs)
+    input->file->flags.set(entity_flag::used);
+  for (auto* output : outputs)
+    output->flags.set(entity_flag::used);
+}
+
 action_base::action_base(const std::string& action_name,
                          const action_version& action_version,
                          const bool action_support_multithreading)

@@ -220,13 +220,15 @@ resource_compiler::update()
     {
       if (job->flags.test(entity_flag::modified))
         ++modified_jobs_count;
+      else
+        job->mark_as_used();
     }
     log::info() << "Queuing " << modified_jobs_count
                 << " modified jobs(s) in pass " << current_pass << " (skipping "
                 << (jobs.size() - modified_jobs_count)
                 << " unmodified job(s))...";
     std::vector<task::future<bool>> task_results;
-    task_results.reserve(modified_jobs_count + 2);
+    task_results.reserve(modified_jobs_count);
     auto process_job = [&](rc::job_description* job) -> bool {
       /// ToDo: Change job parameter of reference type.
       BOOST_ASSERT(job != nullptr);
@@ -240,84 +242,85 @@ resource_compiler::update()
         return false;
       }
 
+      // There should be no tasks for unmodified jobs.
+      BOOST_ASSERT(job->flags.test(entity_flag::modified));
+
       bool result = false;
-      // Only process the job if it is modified.
-      if (job->flags.test(entity_flag::modified))
+      try
       {
-        try
+        result = job->rule->action->impl->process(*_impl, *job);
+        if (verbose() >= 1)
         {
-          result = job->rule->action->impl->process(*_impl, *job);
-          if (verbose() >= 1)
+          log::info line;
+          bool first = true;
+          line << "(";
+          for (const auto& [input_slot_index, input] : job->inputs)
           {
-            log::info line;
-            bool first = true;
-            line << "(";
-            for (const auto& [input_slot_index, input] : job->inputs)
-            {
-              if (first)
-                first = false;
-              else
-                line << ", ";
-              line << input_slot_index << ": " << input->file->generic_string;
-            }
-            line << ") -> (";
-            first = true;
-            for (const auto& output : job->outputs)
-            {
-              if (first)
-                first = false;
-              else
-                line << ", ";
-              line << output->generic_string;
-            }
-            line << ")";
+            if (first)
+              first = false;
+            else
+              line << ", ";
+            line << input_slot_index << ": " << input->file->generic_string;
           }
-        }
-        catch (boost::exception& e)
-        {
+          line << ") -> (";
+          first = true;
+          for (const auto& output : job->outputs)
           {
-            log::info line;
-            bool first = true;
-            line << "(";
-            for (const auto& [input_slot_index, input] : job->inputs)
-            {
-              if (first)
-                first = false;
-              else
-                line << ", ";
-              line << input_slot_index << ": " << input->file->generic_string;
-            }
-            line << ") -> failed";
+            if (first)
+              first = false;
+            else
+              line << ", ";
+            line << output->generic_string;
           }
-          log::exception() << boost::diagnostic_information(e);
+          line << ")";
         }
       }
-      else
-        result = true;
+      catch (boost::exception& e)
+      {
+        {
+          log::info line;
+          bool first = true;
+          line << "(";
+          for (const auto& [input_slot_index, input] : job->inputs)
+          {
+            if (first)
+              first = false;
+            else
+              line << ", ";
+            line << input_slot_index << ": " << input->file->generic_string;
+          }
+          line << ") -> failed";
+        }
+        log::exception() << boost::diagnostic_information(e);
+      }
 
       if (result)
       {
+        job->flags.reset(entity_flag::failed);
+        ++succeeded_job_count;
+        job->mark_as_used();
+
         // Push all output files into the pipeline.
         for (auto* output_file : job->outputs)
         {
           BOOST_ASSERT(output_file != nullptr);
           _impl->match_file(*output_file, job->rule->pass);
         }
+        return true;
       }
       else
       {
         job->flags.set(entity_flag::failed);
         log::error() << "A job using rule " << job->rule->id << " failed.";
+        return false;
       }
-      job->flags.reset(entity_flag::failed);
-      ++succeeded_job_count;
-      return true;
     };
 
     {
       // Spawn all jobs serially that don't support multithreading.
       // Use an empty dummy task to ease initialization of serial_result.
       auto serial_result = task::async([]() -> bool { return true; });
+      bool has_serial_job = false;
       for (const auto& job : jobs)
       {
         if (!job->flags.test(entity_flag::modified) ||
@@ -333,9 +336,13 @@ resource_compiler::update()
                               return previous_result.get() && process_job(job);
                             },
                             job.get());
+        has_serial_job = true;
       }
-      // Add the last serial_result to the list of futures to wait on.
-      task_results.emplace_back(std::move(serial_result));
+      if (has_serial_job)
+      {
+        // Add the last serial_result to the list of futures to wait on.
+        task_results.emplace_back(std::move(serial_result));
+      }
     }
 
     // Spawn all jobs in parallel that do support multithreading.
