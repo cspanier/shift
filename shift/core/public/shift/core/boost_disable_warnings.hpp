@@ -1,14 +1,20 @@
-// Microsoft Visual C++ generates tons of warnings with warning level 4 in
-// external Boost libraries. This header disables most of them.
+// Some compilers generate tons of warnings in external Boost libraries. This
+// header disables most of them.
 //
 // Use this header in conjunction with boost_restore_warnings.h:
 //
 // #include <shift/core/boost_disable_warnings.hpp>
 // #include <boost/...>
 // #include <shift/core/boost_restore_warnings.hpp>
-#if defined(_MSC_VER)
 #include <boost/version.hpp>
 #if (BOOST_VERSION <= 106800)
+#if defined(__clang__)
+#pragma clang diagnostic push
+
+// boost/exception/info.hpp(85): warning : expression with side effects will be
+// evaluated despite being used as an operand to 'typeid'
+#pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
+#elif defined(_MSC_VER)
 #pragma warning(push)
 
 // C4005: '<macro-name>': macro redefinition
