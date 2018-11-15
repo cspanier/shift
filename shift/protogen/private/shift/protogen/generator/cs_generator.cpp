@@ -739,10 +739,10 @@ void cs_generator::writeEnumDefinitions(namescope& scope)
       {
         *_source << indent << "[Flags]" br;
       }
-      if (enumeration->has_attribute("csCustomAtribute"))
+      if (enumeration->has_attribute("csCustomAttribute"))
       {
         *_source << indent << "["
-                 << enumeration->attribute<std::string>("csCustomAtribute")
+                 << enumeration->attribute<std::string>("csCustomAttribute")
                  << "]" br;
       }
       *_source << indent << "public enum " << enumeration->name << " : "
@@ -757,10 +757,10 @@ void cs_generator::writeEnumDefinitions(namescope& scope)
         else
           *_source << ",";
         *_source << br;
-        if (member.has_attribute("csCustomAtribute"))
+        if (member.has_attribute("csCustomAttribute"))
         {
           *_source << indent << "["
-                   << member.attribute<std::string>("csCustomAtribute")
+                   << member.attribute<std::string>("csCustomAttribute")
                    << "]" br;
         }
         *_source << indent << member.attribute<std::string>("cs_name");
@@ -891,10 +891,10 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
       if (!_source->switch_namescope(scope))
         *_source << br;
 
-      if (message->has_attribute("csCustomAtribute"))
+      if (message->has_attribute("csCustomAttribute"))
       {
         *_source << indent << "["
-                 << message->attribute<std::string>("csCustomAtribute")
+                 << message->attribute<std::string>("csCustomAttribute")
                  << "]" br;
       }
       *_source << indent << "public partial class "
@@ -961,9 +961,9 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
       for (auto& field : message->fields)
       {
         *_source << indent;
-        if (field.has_attribute("csCustomAtribute"))
+        if (field.has_attribute("csCustomAttribute"))
         {
-          *_source << "[" << field.attribute<std::string>("csCustomAtribute")
+          *_source << "[" << field.attribute<std::string>("csCustomAttribute")
                    << "]" br;
         }
         if (!field.has_attribute("ignore"))
@@ -1054,10 +1054,10 @@ void cs_generator::writeInterfaceDefinitions(namescope& scope)
       else
         *_source << br;
 
-      if (interface->has_attribute("csCustomAtribute"))
+      if (interface->has_attribute("csCustomAttribute"))
       {
         *_source << indent << "["
-                 << interface->attribute<std::string>("csCustomAtribute")
+                 << interface->attribute<std::string>("csCustomAttribute")
                  << "]" br;
       }
       *_source << indent << "public interface "
