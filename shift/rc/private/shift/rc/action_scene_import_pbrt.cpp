@@ -123,7 +123,7 @@ bool action_scene_import_pbrt::process(resource_compiler_impl& compiler,
   }
 
   // Store resource into repository.
-  auto scene_filename = job.output("scene", {});
+  auto scene_filename = job.output_file_path("scene", {});
   input.file->alias = compiler.save(context.scene, scene_filename, job);
 
   return true;
@@ -444,7 +444,7 @@ bool action_scene_import_pbrt::parse_token_group(
                             65535);
           }
 
-          auto image_buffer_filename = context.job.output(
+          auto image_buffer_filename = context.job.output_file_path(
             "material-image-buffer",
             {std::make_pair("image-color", color_name.str())});
           for (auto& mipmap : image_reference.image->mipmaps)
@@ -452,7 +452,7 @@ bool action_scene_import_pbrt::parse_token_group(
           context.compiler.save(*image_reference.image->mipmaps.front().buffer,
                                 image_buffer_filename, context.job);
 
-          auto image_header_filename = context.job.output(
+          auto image_header_filename = context.job.output_file_path(
             "material-image-header",
             {std::make_pair("image-color", color_name.str())});
           image_reference.image.update_id();
@@ -791,7 +791,7 @@ bool action_scene_import_pbrt::parse_token_group(
       }
       context.textures.push_back(new_texture);
 
-      // auto texture_filename = context.job.output(
+      // auto texture_filename = context.job.output_file_path(
       //  "texture", {std::make_pair("texture-name", texture_name)});
       // context.compiler.save(*new_texture, texture_filename, context.job);
     }
@@ -814,7 +814,7 @@ bool action_scene_import_pbrt::parse_token_group(
       std::stringstream material_name;
       material_name << std::hex << std::setfill('0') << std::setw(16)
                     << new_material->id();
-      auto material_filename = context.job.output(
+      auto material_filename = context.job.output_file_path(
         "material", {std::make_pair("material-name", material_name.str())});
       context.compiler.save(*new_material, material_filename, context.job);
     }
@@ -832,7 +832,7 @@ bool action_scene_import_pbrt::parse_token_group(
       {
         current_scope.named_materials.insert_or_assign(material_name,
                                                        new_material);
-        auto material_filename = context.job.output(
+        auto material_filename = context.job.output_file_path(
           "material", {std::make_pair("material-name", material_name)});
         context.compiler.save(*new_material, material_filename, context.job);
         // context.materials.push_back(std::move(new_material));

@@ -341,7 +341,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
   // Save assembly.
   if (job.has_output("assembly"))
   {
-    auto assembly_filename = job.output("assembly", {});
+    auto assembly_filename = job.output_file_path("assembly", {});
     fs::create_directories(assembly_filename.parent_path());
     write_shader_assembly(assembly_filename.generic_string(),
                           optimized_spirv.first);
@@ -350,7 +350,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
 
   // Save SPIR-V byte code.
   shader->storage = std::move(optimized_spirv.second);
-  compiler.save(*shader, job.output("spirv", {}), job);
+  compiler.save(*shader, job.output_file_path("spirv", {}), job);
   return true;
 }
 }

@@ -590,11 +590,11 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
     static_cast<std::uint32_t>(index_buffer->storage.size());
   mesh->index_buffer_view.buffer.update_id();
 
-  compiler.save(*vertex_buffer, job.output("vertex_buffer", {}), job);
-  compiler.save(*index_buffer, job.output("index_buffer", {}), job);
+  compiler.save(*vertex_buffer, job.output_file_path("vertex_buffer", {}), job);
+  compiler.save(*index_buffer, job.output_file_path("index_buffer", {}), job);
   font->mesh.update_id();
-  compiler.save(*font->mesh, job.output("mesh", {}), job);
-  compiler.save(*font, job.output("font", {}), job);
+  compiler.save(*font->mesh, job.output_file_path("mesh", {}), job);
+  compiler.save(*font, job.output_file_path("font", {}), job);
 }
 
 void action_font_import_ttf::write_html(

@@ -21,9 +21,8 @@ boost::filesystem::path working_path();
 
 settings_t create_working_folders();
 
-std::tuple<std::size_t /*succeeded_job_count*/,
-           std::size_t /*failed_job_count*/>
-run_rc(const settings_t& settings);
+void run_rc(const settings_t& settings, std::size_t expect_succeeded,
+            std::size_t expect_failed);
 
 void remove_working_folders(const settings_t& settings);
 
@@ -32,5 +31,12 @@ void remove_working_folders(const settings_t& settings);
 void copy_files(const boost::filesystem::path& source_folder,
                 const boost::filesystem::path& target_folder,
                 std::string regex_pattern);
+
+void write_text_file(const boost::filesystem::path& filename,
+                     std::string_view content);
+
+void write_png_image(const boost::filesystem::path& filename,
+                     std::uint32_t width, std::uint32_t height,
+                     std::uint32_t rgba);
 
 #endif

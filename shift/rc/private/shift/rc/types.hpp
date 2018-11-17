@@ -142,7 +142,7 @@ struct job_description
 {
   bool has_output(const std::string& name) const;
 
-  fs::path output(
+  fs::path output_file_path(
     const std::string& name,
     const std::map<std::string, std::string>& custom_variables) const;
 
@@ -295,7 +295,24 @@ struct hash<shift::rc::job_description>
   {
     std::size_t seed = std::hash<std::string>{}(job.rule->id);
     boost::hash_combine(seed, std::hash<std::size_t>{}(job.inputs.size()));
+
+    // We cannot simply iterate through the multimap of inputs because the order
+    // of items is not stable and would thus yield in different hashes.
+    // Instead we create a temporary list of inputs, sorted by slot index and
+    // file path.
+    std::vector<std::pair<std::size_t, shift::rc::input_match*>> ordered_inputs;
+    ordered_inputs.reserve(job.inputs.size());
     for (const auto& [slot_index, input] : job.inputs)
+      ordered_inputs.emplace_back(slot_index, input.get());
+    std::sort(
+      ordered_inputs.begin(), ordered_inputs.end(),
+      [](const auto& lhs, const auto& rhs) {
+        return lhs.first < rhs.first ||
+               (lhs.first == rhs.first && lhs.second->file->generic_string <
+                                            rhs.second->file->generic_string);
+      });
+
+    for (auto [slot_index, input] : ordered_inputs)
     {
       boost::hash_combine(seed, slot_index);
       boost::hash_combine(

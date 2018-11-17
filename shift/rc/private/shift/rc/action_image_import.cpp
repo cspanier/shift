@@ -413,16 +413,16 @@ bool action_image_import::process(resource_compiler_impl& compiler,
     }
     compiler.save(
       *mipmap.buffer,
-      job.output("buffer",
-                 {std::make_pair("lod-level", std::to_string(lod_level))}),
+      job.output_file_path(
+        "buffer", {std::make_pair("lod-level", std::to_string(lod_level))}),
       job);
 
     ++lod_level;
     previous_mipmap = &mipmap;
   }
 
-  auto header_filename = job.output("header", {});
-  input.file->alias = compiler.save(*image, header_filename, job);
+  input.file->alias =
+    compiler.save(*image, job.output_file_path("header", {}), job);
   return true;
 }
 }

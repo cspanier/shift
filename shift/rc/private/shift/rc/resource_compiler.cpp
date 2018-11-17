@@ -179,6 +179,93 @@ resource_compiler::update()
   std::atomic_size_t succeeded_job_count = ATOMIC_VAR_INIT(0);
   std::atomic_size_t failed_job_count = ATOMIC_VAR_INIT(0);
 
+  // Process a single modified job.
+  auto process_job = [&](rc::job_description* job) -> bool {
+    /// ToDo: Change job parameter of reference type.
+    BOOST_ASSERT(job != nullptr);
+    BOOST_ASSERT(job->rule != nullptr);
+    BOOST_ASSERT(job->rule->action != nullptr);
+    if (job == nullptr || job->rule == nullptr || job->rule->action == nullptr)
+    {
+      job->flags.set(entity_flag::failed);
+      ++failed_job_count;
+      return false;
+    }
+
+    // There should be no tasks for unmodified jobs.
+    BOOST_ASSERT(job->flags.test(entity_flag::modified));
+
+    bool result = false;
+    try
+    {
+      result = job->rule->action->impl->process(*_impl, *job);
+      if (verbose() >= 1)
+      {
+        log::info line;
+        bool first = true;
+        line << "(";
+        for (const auto& [input_slot_index, input] : job->inputs)
+        {
+          if (first)
+            first = false;
+          else
+            line << ", ";
+          line << input_slot_index << ": " << input->file->generic_string;
+        }
+        line << ") -> (";
+        first = true;
+        for (const auto& output : job->outputs)
+        {
+          if (first)
+            first = false;
+          else
+            line << ", ";
+          line << output->generic_string;
+        }
+        line << ")";
+      }
+    }
+    catch (boost::exception& e)
+    {
+      {
+        log::info line;
+        bool first = true;
+        line << "(";
+        for (const auto& [input_slot_index, input] : job->inputs)
+        {
+          if (first)
+            first = false;
+          else
+            line << ", ";
+          line << input_slot_index << ": " << input->file->generic_string;
+        }
+        line << ") -> failed";
+      }
+      log::exception() << boost::diagnostic_information(e);
+    }
+
+    if (result)
+    {
+      job->flags.reset(entity_flag::failed);
+      ++succeeded_job_count;
+      job->mark_as_used();
+
+      // Push all output files into the pipeline.
+      for (auto* output_file : job->outputs)
+      {
+        BOOST_ASSERT(output_file != nullptr);
+        _impl->match_file(*output_file, job->rule->pass);
+      }
+      return true;
+    }
+    else
+    {
+      job->flags.set(entity_flag::failed);
+      log::error() << "A job using rule " << job->rule->id << " failed.";
+      return false;
+    }
+  };
+
   // Try to match each file found in input_path with one of the available rules.
   std::uint32_t current_pass = 0;
   for (auto input_iterator =
@@ -214,107 +301,31 @@ resource_compiler::update()
     if (current_pass == 0)
       break;
 
-    // Spawn a task in parallel for each job in the current pass.
+    std::vector<task::future<bool>> task_results;
+    // Count the number of modified jobs in the current pass.
     std::size_t modified_jobs_count = 0;
     for (const auto& job : jobs)
     {
       if (job->flags.test(entity_flag::modified))
         ++modified_jobs_count;
       else
+      {
         job->mark_as_used();
-    }
-    log::info() << "Queuing " << modified_jobs_count
-                << " modified jobs(s) in pass " << current_pass << " (skipping "
-                << (jobs.size() - modified_jobs_count)
-                << " unmodified job(s))...";
-    std::vector<task::future<bool>> task_results;
-    task_results.reserve(modified_jobs_count);
-    auto process_job = [&](rc::job_description* job) -> bool {
-      /// ToDo: Change job parameter of reference type.
-      BOOST_ASSERT(job != nullptr);
-      BOOST_ASSERT(job->rule != nullptr);
-      BOOST_ASSERT(job->rule->action != nullptr);
-      if (job == nullptr || job->rule == nullptr ||
-          job->rule->action == nullptr)
-      {
-        job->flags.set(entity_flag::failed);
-        ++failed_job_count;
-        return false;
-      }
-
-      // There should be no tasks for unmodified jobs.
-      BOOST_ASSERT(job->flags.test(entity_flag::modified));
-
-      bool result = false;
-      try
-      {
-        result = job->rule->action->impl->process(*_impl, *job);
-        if (verbose() >= 1)
-        {
-          log::info line;
-          bool first = true;
-          line << "(";
-          for (const auto& [input_slot_index, input] : job->inputs)
-          {
-            if (first)
-              first = false;
-            else
-              line << ", ";
-            line << input_slot_index << ": " << input->file->generic_string;
-          }
-          line << ") -> (";
-          first = true;
-          for (const auto& output : job->outputs)
-          {
-            if (first)
-              first = false;
-            else
-              line << ", ";
-            line << output->generic_string;
-          }
-          line << ")";
-        }
-      }
-      catch (boost::exception& e)
-      {
-        {
-          log::info line;
-          bool first = true;
-          line << "(";
-          for (const auto& [input_slot_index, input] : job->inputs)
-          {
-            if (first)
-              first = false;
-            else
-              line << ", ";
-            line << input_slot_index << ": " << input->file->generic_string;
-          }
-          line << ") -> failed";
-        }
-        log::exception() << boost::diagnostic_information(e);
-      }
-
-      if (result)
-      {
-        job->flags.reset(entity_flag::failed);
-        ++succeeded_job_count;
-        job->mark_as_used();
-
-        // Push all output files into the pipeline.
+        // Push all output files of cached jobs into the pipeline. This is
+        // required to make sure that jobs with multiple input files, but only
+        // few of these modified, get re-run with all associated input files.
         for (auto* output_file : job->outputs)
         {
           BOOST_ASSERT(output_file != nullptr);
           _impl->match_file(*output_file, job->rule->pass);
         }
-        return true;
       }
-      else
-      {
-        job->flags.set(entity_flag::failed);
-        log::error() << "A job using rule " << job->rule->id << " failed.";
-        return false;
-      }
-    };
+    }
+    task_results.reserve(modified_jobs_count);
+    log::info() << "Queuing " << modified_jobs_count
+                << " modified jobs(s) in pass " << current_pass << " (skipping "
+                << (jobs.size() - modified_jobs_count)
+                << " unmodified job(s))...";
 
     {
       // Spawn all jobs serially that don't support multithreading.

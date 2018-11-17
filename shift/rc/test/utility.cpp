@@ -8,8 +8,12 @@
 #include <shift/platform/environment.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
+#define png_infopp_NULL nullptr
+#define int_p_NULL nullptr
+#include <boost/gil/extension/io/png.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include <regex>
+#include <fstream>
 
 namespace fs = boost::filesystem;
 using namespace shift;
@@ -46,9 +50,8 @@ settings_t create_working_folders()
   return settings;
 }
 
-std::tuple<std::size_t /*succeeded_job_count*/,
-           std::size_t /*failed_job_count*/>
-run_rc(const settings_t& settings)
+void run_rc(const settings_t& settings, std::size_t expect_succeeded,
+            std::size_t expect_failed)
 {
   core::at_exit_scope at_exit([]() { log::log_server::singleton_destroy(); });
 
@@ -80,7 +83,8 @@ run_rc(const settings_t& settings)
   };
   task::task_system{}.num_workers(1).start(primary_task).join();
 
-  return {succeeded, failed};
+  BOOST_CHECK_EQUAL(succeeded, expect_succeeded);
+  BOOST_CHECK_EQUAL(failed, expect_failed);
 }
 
 void remove_working_folders(const settings_t& settings)
@@ -112,4 +116,26 @@ void copy_files(const boost::filesystem::path& source_folder,
       }
     }
   }
+}
+
+void write_text_file(const boost::filesystem::path& filename,
+                     std::string_view content)
+{
+  std::ofstream file(filename.generic_string(),
+                     std::ios_base::out | std::ios_base::trunc);
+  if (file.is_open())
+    file << content;
+}
+
+void write_png_image(const boost::filesystem::path& filename,
+                     std::uint32_t width, std::uint32_t height,
+                     std::uint32_t rgba)
+{
+  using namespace boost;
+  gil::rgba8_image_t image(width, height);
+  auto image_view = gil::view(image);
+  gil::fill_pixels(image_view,
+                   gil::rgba8_pixel_t(rgba & 0xFF, rgba >> 8 & 0xFF,
+                                      rgba >> 16 & 0xFF, rgba >> 24 & 0xFF));
+  gil::write_view(filename.generic_string(), image_view, gil::png_tag{});
 }

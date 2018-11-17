@@ -56,7 +56,7 @@ bool action_group_resources::process(resource_compiler_impl& compiler,
     }
   }
   // Store resource into repository.
-  compiler.save(*group, job.output("group", {}), job);
+  compiler.save(*group, job.output_file_path("group", {}), job);
 
   return true;
 }

@@ -115,7 +115,7 @@ bool action_mesh_export_obj::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  auto obj_filename = job.output("mesh", {});
+  auto obj_filename = job.output_file_path("mesh", {});
   fs::create_directories(obj_filename.parent_path());
   std::ofstream obj_file(
     obj_filename.generic_string(),

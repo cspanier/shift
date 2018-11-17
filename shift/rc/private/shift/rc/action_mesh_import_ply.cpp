@@ -771,9 +771,9 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   mesh->index_buffer_view.buffer.update_id();
 
   // Store resource into repository.
-  compiler.save(*vertex_buffer, job.output("vertex-buffer", {}), job);
-  compiler.save(*index_buffer, job.output("index-buffer", {}), job);
-  auto mesh_filename = job.output("mesh", {});
+  compiler.save(*vertex_buffer, job.output_file_path("vertex-buffer", {}), job);
+  compiler.save(*index_buffer, job.output_file_path("index-buffer", {}), job);
+  auto mesh_filename = job.output_file_path("mesh", {});
   input.file->alias = compiler.save(*mesh, mesh_filename, job);
 
   return true;

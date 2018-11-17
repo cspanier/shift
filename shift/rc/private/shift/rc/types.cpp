@@ -97,7 +97,7 @@ bool job_description::has_output(const std::string& name) const
   return rule->outputs.find(name) != rule->outputs.end();
 }
 
-fs::path job_description::output(
+fs::path job_description::output_file_path(
   const std::string& name,
   const std::map<std::string, std::string>& custom_variables) const
 {
