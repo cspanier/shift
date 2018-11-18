@@ -48,22 +48,22 @@ BOOST_AUTO_TEST_CASE(rc_cache)
 )");
 
   auto check_files = [&]() {
+    BOOST_CHECK(
+      fs::file_size(settings.build_path / ".index.json", error_code) == 221);
     BOOST_CHECK(fs::exists(settings.build_path / "test_image1.image_header"));
     BOOST_CHECK(fs::exists(settings.build_path / "test_image2.image_header"));
     BOOST_CHECK(fs::exists(settings.build_path / "test_image3.image_header"));
-    BOOST_CHECK(fs::exists(settings.output_path / "global.cache"));
+
+    BOOST_CHECK(
+      fs::file_size(settings.output_path / ".index.json", error_code) == 294);
+    BOOST_CHECK(
+      fs::file_size(settings.output_path / "global.cache", error_code) == 494);
     BOOST_CHECK(
       fs::exists(settings.output_path / "test_image1.lod_0.image_buffer"));
     BOOST_CHECK(
       fs::exists(settings.output_path / "test_image2.lod_0.image_buffer"));
     BOOST_CHECK(
       fs::exists(settings.output_path / "test_image3.lod_0.image_buffer"));
-    BOOST_CHECK(
-      fs::file_size(settings.build_path / ".index.json", error_code) == 221);
-    BOOST_CHECK(
-      fs::file_size(settings.output_path / ".index.json", error_code) == 294);
-    BOOST_CHECK(
-      fs::file_size(settings.output_path / "global.cache", error_code) == 494);
   };
 
   {
@@ -113,7 +113,21 @@ BOOST_AUTO_TEST_CASE(rc_cache)
     run_rc(settings, 0, 0);
   }
 
-  check_files();
+  {
+    // Try to remove .index.json from output folder and check if it will be
+    // regenerated.
+    fs::remove(settings.output_path / ".index.json", error_code);
+    run_rc(settings, 0, 0);
+    check_files();
+  }
+
+  {
+    // Try to remove .index.json from build folder and check if it will be
+    // regenerated.
+    fs::remove(settings.build_path / ".index.json", error_code);
+    run_rc(settings, 0, 0);
+    check_files();
+  }
 
   // remove_working_folders(settings);
 }
