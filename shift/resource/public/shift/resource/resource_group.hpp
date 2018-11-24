@@ -10,14 +10,19 @@ namespace shift::resource
 class image;
 class mesh;
 
+template <>
+struct resource_traits<resource_group>
+{
+  static constexpr resource_type type_id = resource_type::resource_group;
+};
+
 ///
 class resource_group final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::resource_group;
-
   /// Default constructor.
-  resource_group() noexcept : resource_base(static_type)
+  resource_group() noexcept
+  : resource_base(resource_traits<resource_group>::type_id)
   {
   }
 

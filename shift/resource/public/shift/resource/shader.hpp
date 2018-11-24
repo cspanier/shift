@@ -2,10 +2,17 @@
 #define SHIFT_RESOURCE_SHADER_HPP
 
 #include <vector>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<shader>
+{
+  static constexpr resource_type type_id = resource_type::shader;
+};
+
 enum class stage_usage : uint32_t
 {
   unknown = 0,
@@ -51,10 +58,8 @@ struct stage_binding
 class shader final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::shader;
-
   /// Default constructor.
-  shader() noexcept : resource_base(static_type)
+  shader() noexcept : resource_base(resource_traits<shader>::type_id)
   {
   }
 

@@ -41,7 +41,8 @@ public:
   template <typename Resource>
   resource_ptr<Resource> load(const boost::filesystem::path& absolute_path)
   {
-    if (auto [new_resource, id] = load(absolute_path, Resource::static_type);
+    if (auto [new_resource, id] =
+          load(absolute_path, resource_traits<Resource>::type_id);
         new_resource)
     {
       // We do have the strong guarantee, that the object returned by load is
@@ -60,7 +61,7 @@ public:
   template <typename Resource>
   resource_ptr<Resource> load(resource_id id)
   {
-    if (auto resource = load(id, Resource::static_type).first)
+    if (auto resource = load(id, resource_traits<Resource>::type_id).first)
     {
       // We do have the strong guarantee, that the object returned by load is
       // infact of type Resource.
@@ -73,8 +74,8 @@ public:
   bool save(resource_ptr<Resource>& resource,
             const boost::filesystem::path& absolute_path)
   {
-    return save(*resource.get(), Resource::static_type, resource.id(),
-                absolute_path);
+    return save(*resource.get(), resource_traits<Resource>::type_id,
+                resource.id(), absolute_path);
   }
 
   /// Implementation for load<Resource>(const boost::filesystem::path&) method.

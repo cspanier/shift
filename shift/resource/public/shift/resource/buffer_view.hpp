@@ -2,11 +2,18 @@
 #define SHIFT_RESOURCE_BUFFER_VIEW_HPP
 
 #include <vector>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/buffer.hpp"
 
 namespace shift::resource
 {
+// template <>
+// struct resource_traits<buffer_view>
+//{
+//  static constexpr resource_type type_id = resource_type::buffer_view;
+//};
+
 /// A view into a buffer generally representing a subset of the buffer.
 class buffer_view
 {

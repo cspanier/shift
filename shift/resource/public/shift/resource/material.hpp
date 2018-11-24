@@ -6,11 +6,18 @@
 #include <unordered_map>
 #include <variant>
 #include <shift/math/vector.hpp>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/image.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<material>
+{
+  static constexpr resource_type type_id = resource_type::material;
+};
+
 ///
 struct image_reference
 {
@@ -55,10 +62,8 @@ using material_parameter =
 class material final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::material;
-
   /// Default constructor.
-  material() noexcept : resource_base(static_type)
+  material() noexcept : resource_base(resource_traits<material>::type_id)
   {
   }
 

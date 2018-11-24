@@ -1,17 +1,23 @@
 #ifndef SHIFT_RESOURCE_MATERIAL_DESCRIPTOR_HPP
 #define SHIFT_RESOURCE_MATERIAL_DESCRIPTOR_HPP
 
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<material_descriptor>
+{
+  static constexpr resource_type type_id = resource_type::material_descriptor;
+};
+
 class material_descriptor final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::material;
-
   /// Default constructor.
-  material_descriptor() noexcept : resource_base(static_type)
+  material_descriptor() noexcept
+  : resource_base(resource_traits<material_descriptor>::type_id)
   {
   }
 

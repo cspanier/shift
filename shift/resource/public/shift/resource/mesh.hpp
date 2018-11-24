@@ -5,11 +5,18 @@
 #include <vector>
 #include <shift/math/vector.hpp>
 #include <shift/math/aabb.hpp>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/buffer_view.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<mesh>
+{
+  static constexpr resource_type type_id = resource_type::mesh;
+};
+
 ///
 enum class vertex_attribute_usage : std::uint8_t
 {
@@ -137,10 +144,8 @@ struct sub_mesh
 class mesh final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::mesh;
-
   /// Default constructor.
-  mesh() noexcept : resource_base(static_type)
+  mesh() noexcept : resource_base(resource_traits<mesh>::type_id)
   {
   }
 

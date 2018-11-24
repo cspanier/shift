@@ -2,18 +2,23 @@
 #define SHIFT_RESOURCE_BUFFER_HPP
 
 #include <vector>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<buffer>
+{
+  static constexpr resource_type type_id = resource_type::buffer;
+};
+
 /// A buffer points to binary geometry, animation, or skins.
 class buffer final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::buffer;
-
   /// Default constructor.
-  buffer() noexcept : resource_base(static_type)
+  buffer() noexcept : resource_base(resource_traits<buffer>::type_id)
   {
   }
 

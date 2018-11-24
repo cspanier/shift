@@ -14,6 +14,10 @@ class model;
 class scene;
 struct scene_node;
 class shader;
+class resource_group;
+
+template <typename T>
+struct resource_traits;
 }
 
 #endif

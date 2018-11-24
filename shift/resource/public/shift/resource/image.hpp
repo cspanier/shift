@@ -5,11 +5,18 @@
 #include <array>
 #include <vector>
 #include <boost/gil/typedefs.hpp>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/buffer.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<image>
+{
+  static constexpr resource_type type_id = resource_type::image;
+};
+
 enum class image_format : std::uint8_t
 {
   undefined,
@@ -267,10 +274,8 @@ struct mipmap_info
 class image final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::image;
-
   /// Default constructor.
-  image() noexcept : resource_base(static_type)
+  image() noexcept : resource_base(resource_traits<image>::type_id)
   {
   }
 

@@ -7,6 +7,7 @@
 #include <boost/stacktrace.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/serialization2/all.hpp>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource.hpp"
 
 namespace shift::resource
@@ -128,7 +129,7 @@ public:
   {
     if (!_resource && _id)
     {
-      if (auto resource = load(_id, T::static_type))
+      if (auto resource = load(_id, resource_traits<T>::type_id))
         _resource = std::static_pointer_cast<T>(resource);
     }
     BOOST_ASSERT(_resource);
@@ -142,7 +143,7 @@ public:
   {
     if (!_resource && _id)
     {
-      if (auto resource = load(_id, T::static_type))
+      if (auto resource = load(_id, resource_traits<T>::type_id))
         _resource = std::static_pointer_cast<T>(resource);
     }
     BOOST_ASSERT(_resource);
@@ -196,7 +197,7 @@ public:
   {
     if (!_resource && _id)
     {
-      if (auto resource = load(_id, T::static_type))
+      if (auto resource = load(_id, resource_traits<T>::type_id))
         _resource = std::static_pointer_cast<T>(resource);
     }
     BOOST_ASSERT(_resource);

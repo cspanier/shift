@@ -5,12 +5,19 @@
 #include <vector>
 #include <shift/math/matrix.hpp>
 #include <shift/serialization2/pointer.hpp>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/material.hpp"
 #include "shift/resource/mesh.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<scene>
+{
+  static constexpr resource_type type_id = resource_type::scene;
+};
+
 struct scene_node
 {
   std::vector<scene_node*> children;
@@ -24,10 +31,8 @@ struct scene_node
 class scene final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::scene;
-
   /// Default constructor.
-  scene() noexcept : resource_base(static_type)
+  scene() noexcept : resource_base(resource_traits<scene>::type_id)
   {
   }
 

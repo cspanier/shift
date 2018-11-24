@@ -2,11 +2,18 @@
 #define SHIFT_RESOURCE_FONT_HPP
 
 #include <unordered_map>
+#include "shift/resource/types.hpp"
 #include "shift/resource/resource_ptr.hpp"
 #include "shift/resource/mesh.hpp"
 
 namespace shift::resource
 {
+template <>
+struct resource_traits<font>
+{
+  static constexpr resource_type type_id = resource_type::font;
+};
+
 /// A glyph contains all information about rendering a single character.
 struct glyph
 {
@@ -31,10 +38,8 @@ struct glyph
 class font final : public resource_base
 {
 public:
-  static constexpr resource_type static_type = resource_type::font;
-
   /// Default constructor.
-  font() noexcept : resource_base(static_type)
+  font() noexcept : resource_base(resource_traits<font>::type_id)
   {
   }
 
