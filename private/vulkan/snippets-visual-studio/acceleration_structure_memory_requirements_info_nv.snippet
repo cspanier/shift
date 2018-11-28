@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>acceleration_structure_memory_requirements_info_nv</Title>
+      <Shortcut>VkAccelerationStructureMemoryRequirementsInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkAccelerationStructureMemoryRequirementsInfoNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureMemoryRequirementsInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureMemoryRequirementsInfoNV::type.</ToolTip>
+          <Default>vk::acceleration_structure_memory_requirements_type_nv::acceleration_structure_memory_requirements_type_object_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>acceleration_structure</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureMemoryRequirementsInfoNV::accelerationStructure.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::acceleration_structure_memory_requirements_info_nv(
+  /* next */ $next$,
+  /* type */ $type$,
+  /* acceleration_structure */ $acceleration_structure$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

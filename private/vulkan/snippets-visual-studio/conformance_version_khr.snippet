@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>conformance_version_khr</Title>
+      <Shortcut>VkConformanceVersionKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkConformanceVersionKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>major</ID>
+          <ToolTip>Equivalent to Vulkan member VkConformanceVersionKHR::major.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>minor</ID>
+          <ToolTip>Equivalent to Vulkan member VkConformanceVersionKHR::minor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>subminor</ID>
+          <ToolTip>Equivalent to Vulkan member VkConformanceVersionKHR::subminor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>patch</ID>
+          <ToolTip>Equivalent to Vulkan member VkConformanceVersionKHR::patch.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::conformance_version_khr(
+  /* major */ $major$,
+  /* minor */ $minor$,
+  /* subminor */ $subminor$,
+  /* patch */ $patch$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

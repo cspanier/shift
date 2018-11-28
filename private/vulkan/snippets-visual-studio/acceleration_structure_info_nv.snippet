@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>acceleration_structure_info_nv</Title>
+      <Shortcut>VkAccelerationStructureInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkAccelerationStructureInfoNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::type.</ToolTip>
+          <Default>vk::acceleration_structure_type_nv::acceleration_structure_type_top_level_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::flags.</ToolTip>
+          <Default>vk::build_acceleration_structure_flag_nv::none</Default>
+        </Literal>
+        <Literal>
+          <ID>instance_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::instanceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>geometry_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::geometryCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>geometries</ID>
+          <ToolTip>Equivalent to Vulkan member VkAccelerationStructureInfoNV::pGeometries.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::acceleration_structure_info_nv(
+  /* next */ $next$,
+  /* type */ $type$,
+  /* flags */ $flags$,
+  /* instance_count */ $instance_count$,
+  /* geometry_count */ $geometry_count$,
+  /* geometries */ $geometries$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

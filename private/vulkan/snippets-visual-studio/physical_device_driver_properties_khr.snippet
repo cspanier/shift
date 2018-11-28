@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_driver_properties_khr</Title>
+      <Shortcut>VkPhysicalDeviceDriverPropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceDriverPropertiesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDriverPropertiesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>driver_id</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDriverPropertiesKHR::driverID.</ToolTip>
+          <Default>vk::driver_id_khr::driver_id_amd_proprietary_khr</Default>
+        </Literal>
+        <Literal>
+          <ID>driver_name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDriverPropertiesKHR::driverName.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>driver_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDriverPropertiesKHR::driverInfo.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>conformance_version</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDriverPropertiesKHR::conformanceVersion.</ToolTip>
+          <Default>vk::conformance_version_khr{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_driver_properties_khr(
+  /* next */ $next$,
+  /* driver_id */ $driver_id$,
+  /* driver_name */ $driver_name$,
+  /* driver_info */ $driver_info$,
+  /* conformance_version */ $conformance_version$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

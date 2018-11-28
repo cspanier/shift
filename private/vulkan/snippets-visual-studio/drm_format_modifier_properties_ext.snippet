@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>drm_format_modifier_properties_ext</Title>
+      <Shortcut>VkDrmFormatModifierPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkDrmFormatModifierPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>drm_format_modifier</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrmFormatModifierPropertiesEXT::drmFormatModifier.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier_plane_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrmFormatModifierPropertiesEXT::drmFormatModifierPlaneCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier_tiling_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkDrmFormatModifierPropertiesEXT::drmFormatModifierTilingFeatures.</ToolTip>
+          <Default>vk::format_feature_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::drm_format_modifier_properties_ext(
+  /* drm_format_modifier */ $drm_format_modifier$,
+  /* drm_format_modifier_plane_count */ $drm_format_modifier_plane_count$,
+  /* drm_format_modifier_tiling_features */ $drm_format_modifier_tiling_features$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

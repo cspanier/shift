@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_rasterization_state_stream_create_info_ext</Title>
+      <Shortcut>VkPipelineRasterizationStateStreamCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineRasterizationStateStreamCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateStreamCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateStreamCreateInfoEXT::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>rasterization_stream</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationStateStreamCreateInfoEXT::rasterizationStream.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_rasterization_state_stream_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* rasterization_stream */ $rasterization_stream$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -153,7 +153,7 @@ public:
     base_t::_visible_options.add_options()(
       "output,o",
       opt::value(&output_filename)
-        ->default_value("../shift/render.vk/public/shift/render/vk/vulkan.h")
+        ->default_value("../shift/render.vk/public/shift/render/vk/vulkan.hpp")
         ->required(),
       "Full path to a header file to write.");
     base_t::_visible_options.add_options()(

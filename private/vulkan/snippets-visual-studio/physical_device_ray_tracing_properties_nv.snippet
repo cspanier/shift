@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_ray_tracing_properties_nv</Title>
+      <Shortcut>VkPhysicalDeviceRayTracingPropertiesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceRayTracingPropertiesNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_group_handle_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::shaderGroupHandleSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_recursion_depth</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxRecursionDepth.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_shader_group_stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxShaderGroupStride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_group_base_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::shaderGroupBaseAlignment.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_geometry_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxGeometryCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_instance_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxInstanceCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_triangle_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxTriangleCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_descriptor_set_acceleration_structures</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceRayTracingPropertiesNV::maxDescriptorSetAccelerationStructures.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_ray_tracing_properties_nv(
+  /* next */ $next$,
+  /* shader_group_handle_size */ $shader_group_handle_size$,
+  /* max_recursion_depth */ $max_recursion_depth$,
+  /* max_shader_group_stride */ $max_shader_group_stride$,
+  /* shader_group_base_alignment */ $shader_group_base_alignment$,
+  /* max_geometry_count */ $max_geometry_count$,
+  /* max_instance_count */ $max_instance_count$,
+  /* max_triangle_count */ $max_triangle_count$,
+  /* max_descriptor_set_acceleration_structures */ $max_descriptor_set_acceleration_structures$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_transform_feedback_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceTransformFeedbackPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceTransformFeedbackPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_streams</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackStreams.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_buffers</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackBuffers.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_buffer_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackBufferSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_stream_data_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackStreamDataSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_buffer_data_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackBufferDataSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>max_transform_feedback_buffer_data_stride</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::maxTransformFeedbackBufferDataStride.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_feedback_queries</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::transformFeedbackQueries.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_feedback_streams_lines_triangles</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::transformFeedbackStreamsLinesTriangles.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_feedback_rasterization_stream_select</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::transformFeedbackRasterizationStreamSelect.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_feedback_draw</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackPropertiesEXT::transformFeedbackDraw.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_transform_feedback_properties_ext(
+  /* next */ $next$,
+  /* max_transform_feedback_streams */ $max_transform_feedback_streams$,
+  /* max_transform_feedback_buffers */ $max_transform_feedback_buffers$,
+  /* max_transform_feedback_buffer_size */ $max_transform_feedback_buffer_size$,
+  /* max_transform_feedback_stream_data_size */ $max_transform_feedback_stream_data_size$,
+  /* max_transform_feedback_buffer_data_size */ $max_transform_feedback_buffer_data_size$,
+  /* max_transform_feedback_buffer_data_stride */ $max_transform_feedback_buffer_data_stride$,
+  /* transform_feedback_queries */ $transform_feedback_queries$,
+  /* transform_feedback_streams_lines_triangles */ $transform_feedback_streams_lines_triangles$,
+  /* transform_feedback_rasterization_stream_select */ $transform_feedback_rasterization_stream_select$,
+  /* transform_feedback_draw */ $transform_feedback_draw$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

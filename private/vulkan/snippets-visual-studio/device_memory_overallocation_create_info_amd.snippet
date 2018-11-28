@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>device_memory_overallocation_create_info_amd</Title>
+      <Shortcut>VkDeviceMemoryOverallocationCreateInfoAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkDeviceMemoryOverallocationCreateInfoAMD</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceMemoryOverallocationCreateInfoAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>overallocation_behavior</ID>
+          <ToolTip>Equivalent to Vulkan member VkDeviceMemoryOverallocationCreateInfoAMD::overallocationBehavior.</ToolTip>
+          <Default>vk::memory_overallocation_behavior_amd::memory_overallocation_behavior_default_amd</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::device_memory_overallocation_create_info_amd(
+  /* next */ $next$,
+  /* overallocation_behavior */ $overallocation_behavior$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

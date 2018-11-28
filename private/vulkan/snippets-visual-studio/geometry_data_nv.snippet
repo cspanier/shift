@@ -2,10 +2,10 @@
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
   <CodeSnippet Format="1.0.0">
     <Header>
-      <Title>geometry_data_nvx</Title>
-      <Shortcut>VkGeometryDataNVX</Shortcut>
-      <Description>Code snippet for Vulkan type VkGeometryDataNVX</Description>
-      <Author>Christian Maaser</Author>
+      <Title>geometry_data_nv</Title>
+      <Shortcut>VkGeometryDataNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkGeometryDataNV</Description>
+      <Author>Christian Spanier</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
@@ -14,16 +14,16 @@
       <Declarations>
         <Literal>
           <ID>triangles</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryDataNVX::triangles.</ToolTip>
-          <Default>vk::geometry_triangles_nvx{}</Default>
+          <ToolTip>Equivalent to Vulkan member VkGeometryDataNV::triangles.</ToolTip>
+          <Default>vk::geometry_triangles_nv{}</Default>
         </Literal>
         <Literal>
           <ID>aabbs</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryDataNVX::aabbs.</ToolTip>
-          <Default>vk::geometry_aabbnvx{}</Default>
+          <ToolTip>Equivalent to Vulkan member VkGeometryDataNV::aabbs.</ToolTip>
+          <Default>vk::geometry_aabbnv{}</Default>
         </Literal>
       </Declarations>
-      <Code Language="cpp"><![CDATA[vk::geometry_data_nvx(
+      <Code Language="cpp"><![CDATA[vk::geometry_data_nv(
   /* triangles */ $triangles$,
   /* aabbs */ $aabbs$)$end$]]>
       </Code>

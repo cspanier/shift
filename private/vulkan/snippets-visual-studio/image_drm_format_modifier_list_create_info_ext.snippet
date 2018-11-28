@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_drm_format_modifier_list_create_info_ext</Title>
+      <Shortcut>VkImageDrmFormatModifierListCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageDrmFormatModifierListCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierListCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierListCreateInfoEXT::drmFormatModifierCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifiers</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierListCreateInfoEXT::pDrmFormatModifiers.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_drm_format_modifier_list_create_info_ext(
+  /* next */ $next$,
+  /* drm_format_modifier_count */ $drm_format_modifier_count$,
+  /* drm_format_modifiers */ $drm_format_modifiers$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

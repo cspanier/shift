@@ -1040,26 +1040,35 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
       continue;
     if (extension_node->name == "extension")
     {
+      extension_descriptor extension;
+
+      BOOST_ASSERT(extension_node->has_attribute("name") &&
+                   extension_node->has_attribute("number"));
+      if (!extension_node->has_attribute("name"))
+      {
+        log::warning() << "Skipping extension because it does not have a name.";
+        continue;
+      }
+      extension.name = extension_node->attribute("name");
+
+      if (!extension_node->has_attribute("number"))
+      {
+        log::warning() << "Skipping extension \"" << extension.name
+                       << "\" because it does not have a number.";
+        continue;
+      }
+      extension.number = static_cast<std::uint32_t>(
+        std::atoi(extension_node->attribute("number").c_str()));
+
       // Skip disabled extensions.
       if (extension_node->has_attribute("supported") &&
           extension_node->attribute("supported") != "vulkan")
       {
+        log::warning() << "Skipping extension \"" << extension.name
+                       << "\" because it is not supported.";
         continue;
       }
 
-      BOOST_ASSERT(extension_node->has_attribute("name") &&
-                   extension_node->has_attribute("number"));
-      if (!extension_node->has_attribute("name") ||
-          !extension_node->has_attribute("number"))
-      {
-        continue;
-      }
-
-      bool skip_extension = false;
-      extension_descriptor extension;
-      extension.name = extension_node->attribute("name");
-      extension.number = static_cast<std::uint32_t>(
-        std::atoi(extension_node->attribute("number").c_str()));
       if (extension_node->has_attribute("platform"))
       {
         auto platform = extension_node->attribute("platform");
@@ -1072,6 +1081,7 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
         extension.platform = &_platforms.at(platform);
       }
 
+      bool skip_extension = false;
       for (const auto& extension_child_node : extension_node->children)
       {
         if (skip_extension)
@@ -1123,8 +1133,11 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
               else
               {
                 // Skip alias definitions. We want to use the new names only.
-                skip_extension = true;
-                break;
+                log::info() << "Skipping enum \"" << enum_name
+                            << "\" of extension \"" << extension.name
+                            << "\" because it doesn't have a value, offset, or "
+                               "bitpos attribute.";
+                continue;
               }
 
               if (require_node->has_attribute("extends"))
@@ -1164,13 +1177,17 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
                   core::runtime_error()
                   << core::context_info("Missing 'name' attribute"));
               }
-              auto* command = command_by_name(require_node->attribute("name"));
+              auto command_name = require_node->attribute("name");
+              auto* command = command_by_name(command_name);
               if (command != nullptr)
                 extension.commands.push_back(command);
               else
               {
                 // Skip this extensions because its commands are either missing,
-                // or have been merged to Vulkan core.
+                // or have been merged into Vulkan core.
+                log::info() << "Skipping extension \"" << extension.name
+                            << "\" because its command \"" << command_name
+                            << "\" has been merged into Vulkan core.";
                 skip_extension = true;
                 break;
               }
@@ -1188,10 +1205,7 @@ void application::parse_extensions(const parser::xml::node& extensions_node)
       }
 
       if (skip_extension)
-      {
-        log::info() << "Skipping extension " << extension.name << ".";
         continue;
-      }
       _extensions.emplace_back(std::move(extension));
     }
     else

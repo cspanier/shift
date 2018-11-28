@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_drm_format_modifier_properties_ext</Title>
+      <Shortcut>VkImageDrmFormatModifierPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageDrmFormatModifierPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierPropertiesEXT::drmFormatModifier.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_drm_format_modifier_properties_ext(
+  /* next */ $next$,
+  /* drm_format_modifier */ $drm_format_modifier$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

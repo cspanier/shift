@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_transform_feedback_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceTransformFeedbackFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceTransformFeedbackFeaturesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>transform_feedback</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackFeaturesEXT::transformFeedback.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>geometry_streams</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTransformFeedbackFeaturesEXT::geometryStreams.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_transform_feedback_features_ext(
+  /* next */ $next$,
+  /* transform_feedback */ $transform_feedback$,
+  /* geometry_streams */ $geometry_streams$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

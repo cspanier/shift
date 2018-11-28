@@ -984,12 +984,6 @@
   /* flags */ $flags$,
   /* window */ $window$)
 </snippet>
-  <snippet group="C++" trigger="_VkMirSurfaceCreateInfoKHR" id="" complement="" removed="false" modified="false">vk::mir_surface_create_info_khr(
-  /* next */ $next$,
-  /* flags */ $flags$,
-  /* connection */ $connection$,
-  /* mir_surface */ $mir_surface$)
-</snippet>
   <snippet group="C++" trigger="_VkViSurfaceCreateInfoNN" id="" complement="" removed="false" modified="false">vk::vi_surface_create_info_nn(
   /* next */ $next$,
   /* flags */ $flags$,
@@ -1018,6 +1012,11 @@
   /* flags */ $flags$,
   /* connection */ $connection$,
   /* window */ $window$)
+</snippet>
+  <snippet group="C++" trigger="_VkImagePipeSurfaceCreateInfoFUCHSIA" id="" complement="" removed="false" modified="false">vk::image_pipe_surface_create_info_fuchsia(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* image_pipe_handle */ $image_pipe_handle$)
 </snippet>
   <snippet group="C++" trigger="_VkSurfaceFormatKHR" id="" complement="" removed="false" modified="false">vk::surface_format_khr(
   /* format */ $format$,
@@ -1290,6 +1289,19 @@
   <snippet group="C++" trigger="_VkPhysicalDevicePushDescriptorPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_push_descriptor_properties_khr(
   /* next */ $next$,
   /* max_push_descriptors */ $max_push_descriptors$)
+</snippet>
+  <snippet group="C++" trigger="_VkConformanceVersionKHR" id="" complement="" removed="false" modified="false">vk::conformance_version_khr(
+  /* major */ $major$,
+  /* minor */ $minor$,
+  /* subminor */ $subminor$,
+  /* patch */ $patch$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDriverPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_driver_properties_khr(
+  /* next */ $next$,
+  /* driver_id */ $driver_id$,
+  /* driver_name */ $driver_name$,
+  /* driver_info */ $driver_info$,
+  /* conformance_version */ $conformance_version$)
 </snippet>
   <snippet group="C++" trigger="_VkPresentRegionsKHR" id="" complement="" removed="false" modified="false">vk::present_regions_khr(
   /* next */ $next$,
@@ -2236,6 +2248,10 @@
   /* fully_covered_fragment_shader_input_variable */ $fully_covered_fragment_shader_input_variable$,
   /* conservative_rasterization_post_depth_coverage */ $conservative_rasterization_post_depth_coverage$)
 </snippet>
+  <snippet group="C++" trigger="_VkCalibratedTimestampInfoEXT" id="" complement="" removed="false" modified="false">vk::calibrated_timestamp_info_ext(
+  /* next */ $next$,
+  /* time_domain */ $time_domain$)
+</snippet>
   <snippet group="C++" trigger="_VkPhysicalDeviceShaderCorePropertiesAMD" id="" complement="" removed="false" modified="false">vk::physical_device_shader_core_properties_amd(
   /* next */ $next$,
   /* shader_engine_count */ $shader_engine_count$,
@@ -2397,6 +2413,13 @@
   /* next */ $next$,
   /* max_vertex_attrib_divisor */ $max_vertex_attrib_divisor$)
 </snippet>
+  <snippet group="C++" trigger="_VkPhysicalDevicePCIBusInfoPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_pcibus_info_properties_ext(
+  /* next */ $next$,
+  /* pci_domain */ $pci_domain$,
+  /* pci_bus */ $pci_bus$,
+  /* pci_device */ $pci_device$,
+  /* pci_function */ $pci_function$)
+</snippet>
   <snippet group="C++" trigger="_VkImportAndroidHardwareBufferInfoANDROID" id="" complement="" removed="false" modified="false">vk::import_android_hardware_buffer_info_android(
   /* next */ $next$,
   /* buffer */ $buffer$)
@@ -2449,6 +2472,11 @@
   /* vulkan_memory_model */ $vulkan_memory_model$,
   /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$)
 </snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceShaderAtomicInt64FeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_shader_atomic_int64_features_khr(
+  /* next */ $next$,
+  /* shader_buffer_int64_atomics */ $shader_buffer_int64_atomics$,
+  /* shader_shared_int64_atomics */ $shader_shared_int64_atomics$)
+</snippet>
   <snippet group="C++" trigger="_VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_vertex_attribute_divisor_features_ext(
   /* next */ $next$,
   /* vertex_attribute_instance_rate_divisor */ $vertex_attribute_instance_rate_divisor$,
@@ -2470,6 +2498,29 @@
   <snippet group="C++" trigger="_VkPhysicalDeviceASTCDecodeFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_astcdecode_features_ext(
   /* next */ $next$,
   /* decode_mode_shared_exponent */ $decode_mode_shared_exponent$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceTransformFeedbackFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_transform_feedback_features_ext(
+  /* next */ $next$,
+  /* transform_feedback */ $transform_feedback$,
+  /* geometry_streams */ $geometry_streams$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceTransformFeedbackPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_transform_feedback_properties_ext(
+  /* next */ $next$,
+  /* max_transform_feedback_streams */ $max_transform_feedback_streams$,
+  /* max_transform_feedback_buffers */ $max_transform_feedback_buffers$,
+  /* max_transform_feedback_buffer_size */ $max_transform_feedback_buffer_size$,
+  /* max_transform_feedback_stream_data_size */ $max_transform_feedback_stream_data_size$,
+  /* max_transform_feedback_buffer_data_size */ $max_transform_feedback_buffer_data_size$,
+  /* max_transform_feedback_buffer_data_stride */ $max_transform_feedback_buffer_data_stride$,
+  /* transform_feedback_queries */ $transform_feedback_queries$,
+  /* transform_feedback_streams_lines_triangles */ $transform_feedback_streams_lines_triangles$,
+  /* transform_feedback_rasterization_stream_select */ $transform_feedback_rasterization_stream_select$,
+  /* transform_feedback_draw */ $transform_feedback_draw$)
+</snippet>
+  <snippet group="C++" trigger="_VkPipelineRasterizationStateStreamCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::pipeline_rasterization_state_stream_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* rasterization_stream */ $rasterization_stream$)
 </snippet>
   <snippet group="C++" trigger="_VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_representative_fragment_test_features_nv(
   /* next */ $next$,
@@ -2568,18 +2619,27 @@
   /* task_count */ $task_count$,
   /* first_task */ $first_task$)
 </snippet>
-  <snippet group="C++" trigger="_VkRaytracingPipelineCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::raytracing_pipeline_create_info_nvx(
+  <snippet group="C++" trigger="_VkRayTracingShaderGroupCreateInfoNV" id="" complement="" removed="false" modified="false">vk::ray_tracing_shader_group_create_info_nv(
+  /* next */ $next$,
+  /* type */ $type$,
+  /* general_shader */ $general_shader$,
+  /* closest_hit_shader */ $closest_hit_shader$,
+  /* any_hit_shader */ $any_hit_shader$,
+  /* intersection_shader */ $intersection_shader$)
+</snippet>
+  <snippet group="C++" trigger="_VkRayTracingPipelineCreateInfoNV" id="" complement="" removed="false" modified="false">vk::ray_tracing_pipeline_create_info_nv(
   /* next */ $next$,
   /* flags */ $flags$,
   /* stage_count */ $stage_count$,
   /* stages */ $stages$,
-  /* group_numbers */ $group_numbers$,
+  /* group_count */ $group_count$,
+  /* groups */ $groups$,
   /* max_recursion_depth */ $max_recursion_depth$,
   /* layout */ $layout$,
   /* base_pipeline_handle */ $base_pipeline_handle$,
   /* base_pipeline_index */ $base_pipeline_index$)
 </snippet>
-  <snippet group="C++" trigger="_VkGeometryTrianglesNVX" id="" complement="" removed="false" modified="false">vk::geometry_triangles_nvx(
+  <snippet group="C++" trigger="_VkGeometryTrianglesNV" id="" complement="" removed="false" modified="false">vk::geometry_triangles_nv(
   /* next */ $next$,
   /* vertex_data */ $vertex_data$,
   /* vertex_offset */ $vertex_offset$,
@@ -2593,33 +2653,37 @@
   /* transform_data */ $transform_data$,
   /* transform_offset */ $transform_offset$)
 </snippet>
-  <snippet group="C++" trigger="_VkGeometryAABBNVX" id="" complement="" removed="false" modified="false">vk::geometry_aabbnvx(
+  <snippet group="C++" trigger="_VkGeometryAABBNV" id="" complement="" removed="false" modified="false">vk::geometry_aabbnv(
   /* next */ $next$,
   /* aabb_data */ $aabb_data$,
   /* num_aabbs */ $num_aabbs$,
   /* stride */ $stride$,
   /* offset */ $offset$)
 </snippet>
-  <snippet group="C++" trigger="_VkGeometryDataNVX" id="" complement="" removed="false" modified="false">vk::geometry_data_nvx(
+  <snippet group="C++" trigger="_VkGeometryDataNV" id="" complement="" removed="false" modified="false">vk::geometry_data_nv(
   /* triangles */ $triangles$,
   /* aabbs */ $aabbs$)
 </snippet>
-  <snippet group="C++" trigger="_VkGeometryNVX" id="" complement="" removed="false" modified="false">vk::geometry_nvx(
+  <snippet group="C++" trigger="_VkGeometryNV" id="" complement="" removed="false" modified="false">vk::geometry_nv(
   /* next */ $next$,
   /* geometry_type */ $geometry_type$,
   /* geometry */ $geometry$,
   /* flags */ $flags$)
 </snippet>
-  <snippet group="C++" trigger="_VkAccelerationStructureCreateInfoNVX" id="" complement="" removed="false" modified="false">vk::acceleration_structure_create_info_nvx(
+  <snippet group="C++" trigger="_VkAccelerationStructureInfoNV" id="" complement="" removed="false" modified="false">vk::acceleration_structure_info_nv(
   /* next */ $next$,
   /* type */ $type$,
   /* flags */ $flags$,
-  /* compacted_size */ $compacted_size$,
   /* instance_count */ $instance_count$,
   /* geometry_count */ $geometry_count$,
   /* geometries */ $geometries$)
 </snippet>
-  <snippet group="C++" trigger="_VkBindAccelerationStructureMemoryInfoNVX" id="" complement="" removed="false" modified="false">vk::bind_acceleration_structure_memory_info_nvx(
+  <snippet group="C++" trigger="_VkAccelerationStructureCreateInfoNV" id="" complement="" removed="false" modified="false">vk::acceleration_structure_create_info_nv(
+  /* next */ $next$,
+  /* compacted_size */ $compacted_size$,
+  /* info */ $info$)
+</snippet>
+  <snippet group="C++" trigger="_VkBindAccelerationStructureMemoryInfoNV" id="" complement="" removed="false" modified="false">vk::bind_acceleration_structure_memory_info_nv(
   /* next */ $next$,
   /* acceleration_structure */ $acceleration_structure$,
   /* memory */ $memory$,
@@ -2627,19 +2691,61 @@
   /* device_index_count */ $device_index_count$,
   /* device_indices */ $device_indices$)
 </snippet>
-  <snippet group="C++" trigger="_VkDescriptorAccelerationStructureInfoNVX" id="" complement="" removed="false" modified="false">vk::descriptor_acceleration_structure_info_nvx(
+  <snippet group="C++" trigger="_VkWriteDescriptorSetAccelerationStructureNV" id="" complement="" removed="false" modified="false">vk::write_descriptor_set_acceleration_structure_nv(
   /* next */ $next$,
   /* acceleration_structure_count */ $acceleration_structure_count$,
   /* acceleration_structures */ $acceleration_structures$)
 </snippet>
-  <snippet group="C++" trigger="_VkAccelerationStructureMemoryRequirementsInfoNVX" id="" complement="" removed="false" modified="false">vk::acceleration_structure_memory_requirements_info_nvx(
+  <snippet group="C++" trigger="_VkAccelerationStructureMemoryRequirementsInfoNV" id="" complement="" removed="false" modified="false">vk::acceleration_structure_memory_requirements_info_nv(
   /* next */ $next$,
+  /* type */ $type$,
   /* acceleration_structure */ $acceleration_structure$)
 </snippet>
-  <snippet group="C++" trigger="_VkPhysicalDeviceRaytracingPropertiesNVX" id="" complement="" removed="false" modified="false">vk::physical_device_raytracing_properties_nvx(
+  <snippet group="C++" trigger="_VkPhysicalDeviceRayTracingPropertiesNV" id="" complement="" removed="false" modified="false">vk::physical_device_ray_tracing_properties_nv(
   /* next */ $next$,
-  /* shader_header_size */ $shader_header_size$,
+  /* shader_group_handle_size */ $shader_group_handle_size$,
   /* max_recursion_depth */ $max_recursion_depth$,
-  /* max_geometry_count */ $max_geometry_count$)
+  /* max_shader_group_stride */ $max_shader_group_stride$,
+  /* shader_group_base_alignment */ $shader_group_base_alignment$,
+  /* max_geometry_count */ $max_geometry_count$,
+  /* max_instance_count */ $max_instance_count$,
+  /* max_triangle_count */ $max_triangle_count$,
+  /* max_descriptor_set_acceleration_structures */ $max_descriptor_set_acceleration_structures$)
+</snippet>
+  <snippet group="C++" trigger="_VkDrmFormatModifierPropertiesListEXT" id="" complement="" removed="false" modified="false">vk::drm_format_modifier_properties_list_ext(
+  /* next */ $next$,
+  /* drm_format_modifier_count */ $drm_format_modifier_count$,
+  /* drm_format_modifier_properties */ $drm_format_modifier_properties$)
+</snippet>
+  <snippet group="C++" trigger="_VkDrmFormatModifierPropertiesEXT" id="" complement="" removed="false" modified="false">vk::drm_format_modifier_properties_ext(
+  /* drm_format_modifier */ $drm_format_modifier$,
+  /* drm_format_modifier_plane_count */ $drm_format_modifier_plane_count$,
+  /* drm_format_modifier_tiling_features */ $drm_format_modifier_tiling_features$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceImageDrmFormatModifierInfoEXT" id="" complement="" removed="false" modified="false">vk::physical_device_image_drm_format_modifier_info_ext(
+  /* next */ $next$,
+  /* drm_format_modifier */ $drm_format_modifier$,
+  /* sharing_mode */ $sharing_mode$,
+  /* queue_family_index_count */ $queue_family_index_count$,
+  /* queue_family_indices */ $queue_family_indices$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageDrmFormatModifierListCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::image_drm_format_modifier_list_create_info_ext(
+  /* next */ $next$,
+  /* drm_format_modifier_count */ $drm_format_modifier_count$,
+  /* drm_format_modifiers */ $drm_format_modifiers$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageDrmFormatModifierExplicitCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::image_drm_format_modifier_explicit_create_info_ext(
+  /* next */ $next$,
+  /* drm_format_modifier */ $drm_format_modifier$,
+  /* drm_format_modifier_plane_count */ $drm_format_modifier_plane_count$,
+  /* plane_layouts */ $plane_layouts$)
+</snippet>
+  <snippet group="C++" trigger="_VkImageDrmFormatModifierPropertiesEXT" id="" complement="" removed="false" modified="false">vk::image_drm_format_modifier_properties_ext(
+  /* next */ $next$,
+  /* drm_format_modifier */ $drm_format_modifier$)
+</snippet>
+  <snippet group="C++" trigger="_VkDeviceMemoryOverallocationCreateInfoAMD" id="" complement="" removed="false" modified="false">vk::device_memory_overallocation_create_info_amd(
+  /* next */ $next$,
+  /* overallocation_behavior */ $overallocation_behavior$)
 </snippet>
 </snippets>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_drm_format_modifier_explicit_create_info_ext</Title>
+      <Shortcut>VkImageDrmFormatModifierExplicitCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageDrmFormatModifierExplicitCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierExplicitCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierExplicitCreateInfoEXT::drmFormatModifier.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>drm_format_modifier_plane_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierExplicitCreateInfoEXT::drmFormatModifierPlaneCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>plane_layouts</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageDrmFormatModifierExplicitCreateInfoEXT::pPlaneLayouts.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_drm_format_modifier_explicit_create_info_ext(
+  /* next */ $next$,
+  /* drm_format_modifier */ $drm_format_modifier$,
+  /* drm_format_modifier_plane_count */ $drm_format_modifier_plane_count$,
+  /* plane_layouts */ $plane_layouts$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

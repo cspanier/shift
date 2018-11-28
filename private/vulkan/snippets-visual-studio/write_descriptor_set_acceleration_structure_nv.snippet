@@ -2,10 +2,10 @@
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
   <CodeSnippet Format="1.0.0">
     <Header>
-      <Title>descriptor_acceleration_structure_info_nvx</Title>
-      <Shortcut>VkDescriptorAccelerationStructureInfoNVX</Shortcut>
-      <Description>Code snippet for Vulkan type VkDescriptorAccelerationStructureInfoNVX</Description>
-      <Author>Christian Maaser</Author>
+      <Title>write_descriptor_set_acceleration_structure_nv</Title>
+      <Shortcut>VkWriteDescriptorSetAccelerationStructureNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkWriteDescriptorSetAccelerationStructureNV</Description>
+      <Author>Christian Spanier</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
@@ -14,21 +14,21 @@
       <Declarations>
         <Literal>
           <ID>next</ID>
-          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::pNext.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSetAccelerationStructureNV::pNext.</ToolTip>
           <Default>nullptr</Default>
         </Literal>
         <Literal>
           <ID>acceleration_structure_count</ID>
-          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::accelerationStructureCount.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSetAccelerationStructureNV::accelerationStructureCount.</ToolTip>
           <Default>0</Default>
         </Literal>
         <Literal>
           <ID>acceleration_structures</ID>
-          <ToolTip>Equivalent to Vulkan member VkDescriptorAccelerationStructureInfoNVX::pAccelerationStructures.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkWriteDescriptorSetAccelerationStructureNV::pAccelerationStructures.</ToolTip>
           <Default>nullptr</Default>
         </Literal>
       </Declarations>
-      <Code Language="cpp"><![CDATA[vk::descriptor_acceleration_structure_info_nvx(
+      <Code Language="cpp"><![CDATA[vk::write_descriptor_set_acceleration_structure_nv(
   /* next */ $next$,
   /* acceleration_structure_count */ $acceleration_structure_count$,
   /* acceleration_structures */ $acceleration_structures$)$end$]]>

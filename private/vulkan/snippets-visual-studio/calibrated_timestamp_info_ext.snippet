@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>calibrated_timestamp_info_ext</Title>
+      <Shortcut>VkCalibratedTimestampInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkCalibratedTimestampInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCalibratedTimestampInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>time_domain</ID>
+          <ToolTip>Equivalent to Vulkan member VkCalibratedTimestampInfoEXT::timeDomain.</ToolTip>
+          <Default>vk::time_domain_ext::time_domain_device_ext</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::calibrated_timestamp_info_ext(
+  /* next */ $next$,
+  /* time_domain */ $time_domain$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

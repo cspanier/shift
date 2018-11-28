@@ -2,10 +2,10 @@
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
   <CodeSnippet Format="1.0.0">
     <Header>
-      <Title>geometry_aabbnvx</Title>
-      <Shortcut>VkGeometryAABBNVX</Shortcut>
-      <Description>Code snippet for Vulkan type VkGeometryAABBNVX</Description>
-      <Author>Christian Maaser</Author>
+      <Title>geometry_aabbnv</Title>
+      <Shortcut>VkGeometryAABBNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkGeometryAABBNV</Description>
+      <Author>Christian Spanier</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
@@ -14,31 +14,31 @@
       <Declarations>
         <Literal>
           <ID>next</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNVX::pNext.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNV::pNext.</ToolTip>
           <Default>nullptr</Default>
         </Literal>
         <Literal>
           <ID>aabb_data</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNVX::aabbData.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNV::aabbData.</ToolTip>
           <Default>nullptr</Default>
         </Literal>
         <Literal>
           <ID>num_aabbs</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNVX::numAABBs.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNV::numAABBs.</ToolTip>
           <Default>0</Default>
         </Literal>
         <Literal>
           <ID>stride</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNVX::stride.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNV::stride.</ToolTip>
           <Default>0</Default>
         </Literal>
         <Literal>
           <ID>offset</ID>
-          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNVX::offset.</ToolTip>
+          <ToolTip>Equivalent to Vulkan member VkGeometryAABBNV::offset.</ToolTip>
           <Default>0</Default>
         </Literal>
       </Declarations>
-      <Code Language="cpp"><![CDATA[vk::geometry_aabbnvx(
+      <Code Language="cpp"><![CDATA[vk::geometry_aabbnv(
   /* next */ $next$,
   /* aabb_data */ $aabb_data$,
   /* num_aabbs */ $num_aabbs$,
