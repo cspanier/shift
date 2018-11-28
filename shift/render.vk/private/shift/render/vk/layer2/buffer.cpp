@@ -2,7 +2,7 @@
 #include "shift/render/vk/layer2/mesh.hpp"
 #include "shift/render/vk/layer1/command_buffer.hpp"
 #include "shift/render/vk/shared.hpp"
-#include <shift/resource/buffer.hpp>
+#include <shift/resource_db/buffer.hpp>
 
 namespace shift::render::vk
 {
@@ -15,7 +15,7 @@ namespace shift::render::vk::layer2
 {
 buffer::buffer(vk::layer1::device& device, std::uint64_t size,
                vk::buffer_usage_flags usage,
-               std::shared_ptr<resource::buffer> source)
+               std::shared_ptr<resource_db::buffer> source)
 : _device(&device), _size(size), _usage(usage), _source(std::move(source))
 {
   _buffer = vk::make_framed_shared<vk::layer1::buffer>(
@@ -47,7 +47,7 @@ buffer::~buffer() noexcept
 {
 }
 
-const std::shared_ptr<resource::buffer>& buffer::source_buffer() const
+const std::shared_ptr<resource_db::buffer>& buffer::source_buffer() const
 {
   return _source;
 }

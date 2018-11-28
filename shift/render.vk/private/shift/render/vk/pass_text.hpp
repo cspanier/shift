@@ -10,7 +10,7 @@
 #include "shift/render/vk/layer1/pipeline.hpp"
 #include "shift/render/vk/layer1/buffer.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class font;
 }
@@ -62,7 +62,7 @@ public:
   void destroy_pipeline();
 
   ///
-  void create_scene_resources(resource::scene& scene);
+  void create_scene_resources(resource_db::scene& scene);
 
   ///
   void destroy_scene_resources();
@@ -100,7 +100,7 @@ public:
     return *_curve_pipeline;
   }
 
-  resource::font& font_resource()
+  resource_db::font& font_resource()
   {
     return *_font_resource;
   }
@@ -121,7 +121,7 @@ private:
   vk::shared_ptr<vk::layer1::render_pass> _render_pass;
   vk::shared_ptr<vk::layer1::pipeline> _solid_pipeline;
   vk::shared_ptr<vk::layer1::pipeline> _curve_pipeline;
-  std::shared_ptr<resource::font> _font_resource;
+  std::shared_ptr<resource_db::font> _font_resource;
   vk::shared_ptr<vk::layer1::buffer> _vertex_buffer;
   vk::shared_ptr<vk::layer1::buffer> _index_buffer;
 };
@@ -135,7 +135,7 @@ private:
 //#include "shift/render/vk/render_passes/instance.hpp"
 //#include "shift/render/vk/render_passes/text_schematic.hpp"
 //
-// namespace shift::resource
+// namespace shift::resource_db
 //{
 //  class font;
 //}

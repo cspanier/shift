@@ -9,7 +9,7 @@ if (NOT NO_VULKAN)
       ${CMAKE_SOURCE_DIR}/shift/math/public
     DEPENDENCIES
       # shift.graphics
-      shift.resource
+      shift.resource_db
       shift.parser.json
       shift.serialization2
       shift.log
@@ -37,7 +37,7 @@ if (NOT NO_VULKAN)
       shift.application
       shift.rc
       # shift.graphics
-      shift.resource
+      shift.resource_db
       shift.parser.json
       shift.serialization2
       shift.log

@@ -1,6 +1,6 @@
 #include "shift/rc/action_scene_import_pbrt.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/scene.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/matrix.hpp>
 #include <shift/math/vector.hpp>
@@ -35,7 +35,7 @@ struct texture_description
 {
   fs::path filename;
   // texture_mapping mapping = texture_mapping::undefined;
-  resource::sampler_address_mode wrap = resource::sampler_address_mode::repeat;
+  resource_db::sampler_address_mode wrap = resource_db::sampler_address_mode::repeat;
   math::vector2<float> scale = math::vector2<float>(1.0f, 1.0f);
   math::vector2<float> offset = math::vector2<float>(0.0f, 0.0f);
   float max_anisotropy = 1.0f;
@@ -47,7 +47,7 @@ struct parser_scope
 {
   std::string object_name;
   std::map<std::string, std::shared_ptr<texture_description>> named_textures;
-  std::map<std::string, std::shared_ptr<resource::material>> named_materials;
+  std::map<std::string, std::shared_ptr<resource_db::material>> named_materials;
 };
 
 struct action_scene_import_pbrt::parser_context
@@ -65,13 +65,13 @@ struct action_scene_import_pbrt::parser_context
 
   resource_compiler_impl& compiler;
   job_description& job;
-  resource::scene scene;
-  std::stack<std::unique_ptr<resource::scene_node>> current_nodes;
-  std::map<std::string, resource::scene_node*> named_nodes;
+  resource_db::scene scene;
+  std::stack<std::unique_ptr<resource_db::scene_node>> current_nodes;
+  std::map<std::string, resource_db::scene_node*> named_nodes;
 
   std::stack<parser_scope> scope;
   std::vector<std::shared_ptr<texture_description>> textures;
-  std::map<math::vector4<float>, resource::resource_ptr<resource::image>>
+  std::map<math::vector4<float>, resource_db::resource_ptr<resource_db::image>>
     color_images;
 };
 
@@ -134,7 +134,7 @@ bool action_scene_import_pbrt::parse_token_group(
   const std::vector<std::string>& tokens, const fs::path& base_path,
   const fs::path& include_path) const
 {
-  auto& repository = resource::repository::singleton_instance();
+  auto& repository = resource_db::repository::singleton_instance();
   auto token_iter = tokens.begin();
   auto has_tokens = [&]() { return token_iter != tokens.end(); };
   auto get_token = [&]() {
@@ -322,7 +322,7 @@ bool action_scene_import_pbrt::parse_token_group(
         {
           auto wrapping = get_string();
           if (wrapping == "repeat")
-            texture.wrap = resource::sampler_address_mode::repeat;
+            texture.wrap = resource_db::sampler_address_mode::repeat;
           else
           {
             log::warning() << "Unsupported texture wrapping \"" << wrapping
@@ -403,32 +403,32 @@ bool action_scene_import_pbrt::parse_token_group(
     return !texture.filename.empty();
   };
 
-  auto parse_material = [&](resource::material& material,
+  auto parse_material = [&](resource_db::material& material,
                             std::string type_name) {
-    auto& repository = resource::repository::singleton_instance();
+    auto& repository = resource_db::repository::singleton_instance();
 
     // Creates a 1x1 texture containing a single pixel of the requested color.
     auto assign_color =
       [&](math::vector4<float> color,
-          std::pair<resource::image_reference, resource::sampler>& image_map) {
+          std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
         auto& image_reference = image_map.first;
         auto& sampler = image_map.second;
 
         auto color_image_iter = context.color_images.find(color);
         if (color_image_iter == context.color_images.end())
         {
-          image_reference.image = std::make_shared<resource::image>();
+          image_reference.image = std::make_shared<resource_db::image>();
           image_reference.image->format =
-            resource::image_format::r32g32b32a32_sfloat;
+            resource_db::image_format::r32g32b32a32_sfloat;
           image_reference.image->array_element_count = 1;
           image_reference.image->face_count = 1;
 
           {
-            resource::mipmap_info mipmap;
+            resource_db::mipmap_info mipmap;
             mipmap.width = 1;
             mipmap.height = 1;
             mipmap.depth = 1;
-            mipmap.buffer = std::make_shared<resource::buffer>();
+            mipmap.buffer = std::make_shared<resource_db::buffer>();
             mipmap.buffer->storage.resize(sizeof(color));
             std::memcpy(mipmap.buffer->storage.data(), &color, sizeof(color));
             mipmap.offset = 0;
@@ -467,9 +467,9 @@ bool action_scene_import_pbrt::parse_token_group(
 
         image_reference.offset = math::make_vector_from(0.0f, 0.0f);
         image_reference.scale = math::make_vector_from(1.0f, 1.0f);
-        sampler.address_mode_u = resource::sampler_address_mode::repeat;
-        sampler.address_mode_v = resource::sampler_address_mode::repeat;
-        sampler.address_mode_w = resource::sampler_address_mode::repeat;
+        sampler.address_mode_u = resource_db::sampler_address_mode::repeat;
+        sampler.address_mode_v = resource_db::sampler_address_mode::repeat;
+        sampler.address_mode_w = resource_db::sampler_address_mode::repeat;
         sampler.max_anisotropy = 1.0f;
         sampler.min_lod = 0.0f;
         sampler.max_lod = 0.25f;
@@ -477,11 +477,11 @@ bool action_scene_import_pbrt::parse_token_group(
 
     auto assign_texture =
       [&](const std::string& texture_name,
-          std::pair<resource::image_reference, resource::sampler>& image_map) {
+          std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
         auto& image_reference = image_map.first;
         auto& sampler = image_map.second;
 
-        resource::resource_ptr<resource::image> image;
+        resource_db::resource_ptr<resource_db::image> image;
         std::shared_ptr<texture_description> texture;
         if (!texture_name.empty())
         {
@@ -494,7 +494,7 @@ bool action_scene_import_pbrt::parse_token_group(
             auto* texture_file = context.compiler.alias(
               context.compiler.get_file(texture->filename), current_pass);
             if (texture_file)
-              image = repository.load<resource::image>(texture_file->path);
+              image = repository.load<resource_db::image>(texture_file->path);
           }
           else
           {
@@ -522,7 +522,7 @@ bool action_scene_import_pbrt::parse_token_group(
       };
 
     auto assign_replaceme =
-      [&](std::pair<resource::image_reference, resource::sampler>& image_map) {
+      [&](std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
         auto& image_reference = image_map.first;
         auto& sampler = image_map.second;
 
@@ -537,7 +537,7 @@ bool action_scene_import_pbrt::parse_token_group(
         if (!image_file)
           return false;
         /// ToDo: Pass the exact path using rule options!
-        auto image = repository.load<resource::image>(image_file->path);
+        auto image = repository.load<resource_db::image>(image_file->path);
         if (!image)
         {
           log::error() << "Cannot find \"replaceme.png\" dummy texture.";
@@ -707,7 +707,7 @@ bool action_scene_import_pbrt::parse_token_group(
       return false;
     }
 
-    auto new_node = std::make_unique<resource::scene_node>();
+    auto new_node = std::make_unique<resource_db::scene_node>();
     context.scene.root = new_node.get();
     context.current_nodes.push(std::move(new_node));
   }
@@ -732,7 +732,7 @@ bool action_scene_import_pbrt::parse_token_group(
       return true;
     }
     // auto* current_node = context.current_nodes.top().get();
-    context.current_nodes.push(std::make_unique<resource::scene_node>());
+    context.current_nodes.push(std::make_unique<resource_db::scene_node>());
 
     context.scope.push(context.scope.top());
     context.scope.top().object_name.clear();
@@ -804,7 +804,7 @@ bool action_scene_import_pbrt::parse_token_group(
       log::warning() << "Already selected a material";
 
     std::string material_type = get_token();
-    auto new_material = std::make_shared<resource::material>();
+    auto new_material = std::make_shared<resource_db::material>();
 
     if (parse_material(*new_material, material_type))
     {
@@ -823,7 +823,7 @@ bool action_scene_import_pbrt::parse_token_group(
   {
     std::string material_name = get_token();
     auto& current_scope = context.scope.top();
-    auto new_material = std::make_shared<resource::material>();
+    auto new_material = std::make_shared<resource_db::material>();
 
     if (parse_material(*new_material, "uber"))
     {
@@ -899,7 +899,7 @@ bool action_scene_import_pbrt::parse_token_group(
           if (!mesh_file)
             return false;
           /// ToDo: Pass the exact path using rule options!
-          current_node->mesh = repository.load<resource::mesh>(mesh_file->path);
+          current_node->mesh = repository.load<resource_db::mesh>(mesh_file->path);
           if (!current_node->mesh)
           {
             log::warning() << "Cannot find mesh \"" << mesh_file->generic_string

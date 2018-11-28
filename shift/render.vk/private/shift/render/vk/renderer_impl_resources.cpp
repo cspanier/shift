@@ -6,8 +6,8 @@
 #include "shift/render/vk/layer2/view.hpp"
 #include "shift/render/vk/layer1/device.hpp"
 #include "shift/render/vk/layer1/instance.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/shader.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/shader.hpp>
 #include <gsl/gsl>
 
 #include <shift/log/log.hpp>

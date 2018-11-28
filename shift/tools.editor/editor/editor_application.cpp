@@ -1,9 +1,9 @@
 #define BOOST_BIND_NO_PLACEHOLDERS
 #include "editor/editor_application.hpp"
 #include <shift/render/vk/renderer.hpp>
-#include <shift/resource/repository.hpp>
-#include <shift/resource/resource_group.hpp>
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/resource_group.hpp>
+#include <shift/resource_db/scene.hpp>
 #include <shift/log/log.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/at_exit_scope.hpp>
@@ -152,10 +152,10 @@ void editor_application::initialize()
   using namespace render;
 
   // Initialize resource repository and mount public folder.
-  _repository = std::make_unique<resource::repository>();
+  _repository = std::make_unique<resource_db::repository>();
   _repository->mount("./");
   auto global_cache =
-    _repository->load<resource::resource_group>("global.cache");
+    _repository->load<resource_db::resource_group>("global.cache");
 
 // Initialize renderer instance.
 #if defined(BUILD_CONFIG_DEBUG) || 1
@@ -211,11 +211,11 @@ void editor_application::initialize()
   create_views();
 
   _resource_scene =
-    //  _repository->load<resource::scene>("scenes/empty.scene.json").get_shared();
-    // _repository->load<resource::scene>("pbrt/sanmiguel/sanmiguel.scene").get_shared();
-    _repository->load<resource::scene>("pbrt/white-room/whiteroom-night.scene")
+    //  _repository->load<resource_db::scene>("scenes/empty.scene.json").get_shared();
+    // _repository->load<resource_db::scene>("pbrt/sanmiguel/sanmiguel.scene").get_shared();
+    _repository->load<resource_db::scene>("pbrt/white-room/whiteroom-night.scene")
       .get_shared();
-  // _repository->load<resource::scene>("pbrt/landscape/view-0.scene").get_shared();
+  // _repository->load<resource_db::scene>("pbrt/landscape/view-0.scene").get_shared();
   if (!_resource_scene || _resource_scene->root == nullptr)
   {
     BOOST_THROW_EXCEPTION(

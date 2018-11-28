@@ -10,7 +10,7 @@
 #include "shift/rc/action_scene_compile.hpp"
 #include "shift/rc/action_scene_import_gltf.hpp"
 #include "shift/rc/action_scene_import_pbrt.hpp"
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include <shift/parser/json/json.hpp>
 #include <shift/log/log.hpp>
 #include <boost/filesystem.hpp>
@@ -303,10 +303,10 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
 }
 
 file_description* resource_compiler_impl::save(
-  const resource::resource_base& resource, const fs::path& target_name,
+  const resource_db::resource_base& resource, const fs::path& target_name,
   job_description& job)
 {
-  auto& repository = resource::repository::singleton_instance();
+  auto& repository = resource_db::repository::singleton_instance();
   /// ToDo: We don't want to call resource.id() here! Require id as parameter!
   auto id = resource.id();
   // log::debug() << target_name << ": " << std::hex << std::setw(16)

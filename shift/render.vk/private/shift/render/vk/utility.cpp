@@ -202,80 +202,80 @@ std::uint32_t pixel_size(vk::format format)
   }
 }
 
-vk::format format_from_resource(resource::image_format format)
+vk::format format_from_resource(resource_db::image_format format)
 {
   switch (format)
   {
-  case resource::image_format::r8_unorm:
+  case resource_db::image_format::r8_unorm:
     return vk::format::r8_unorm;
-  case resource::image_format::r8_snorm:
+  case resource_db::image_format::r8_snorm:
     return vk::format::r8_snorm;
-  case resource::image_format::r8_srgb:
+  case resource_db::image_format::r8_srgb:
     return vk::format::r8_srgb;
-  case resource::image_format::r16_unorm:
+  case resource_db::image_format::r16_unorm:
     return vk::format::r16_unorm;
-  case resource::image_format::r16_snorm:
+  case resource_db::image_format::r16_snorm:
     return vk::format::r16_snorm;
-  case resource::image_format::r32_sfloat:
+  case resource_db::image_format::r32_sfloat:
     return vk::format::r32_sfloat;
 
-  case resource::image_format::r8g8_unorm:
+  case resource_db::image_format::r8g8_unorm:
     return vk::format::r8_g8_unorm;
-  case resource::image_format::r8g8_snorm:
+  case resource_db::image_format::r8g8_snorm:
     return vk::format::r8_g8_snorm;
-  case resource::image_format::r8g8_srgb:
+  case resource_db::image_format::r8g8_srgb:
     return vk::format::r8_g8_srgb;
-  case resource::image_format::r16g16_unorm:
+  case resource_db::image_format::r16g16_unorm:
     return vk::format::r16_g16_unorm;
-  case resource::image_format::r16g16_snorm:
+  case resource_db::image_format::r16g16_snorm:
     return vk::format::r16_g16_snorm;
-  case resource::image_format::r16g16_sfloat:
+  case resource_db::image_format::r16g16_sfloat:
     return vk::format::r16_g16_sfloat;
-  case resource::image_format::r32g32_sfloat:
+  case resource_db::image_format::r32g32_sfloat:
     return vk::format::r32_g32_sfloat;
 
-  case resource::image_format::r8g8b8_unorm:
+  case resource_db::image_format::r8g8b8_unorm:
     return vk::format::r8_g8_b8_unorm;
-  case resource::image_format::r8g8b8_snorm:
+  case resource_db::image_format::r8g8b8_snorm:
     return vk::format::r8_g8_b8_snorm;
-  case resource::image_format::r8g8b8_srgb:
+  case resource_db::image_format::r8g8b8_srgb:
     return vk::format::r8_g8_b8_srgb;
-  case resource::image_format::r16g16b16_unorm:
+  case resource_db::image_format::r16g16b16_unorm:
     return vk::format::r16_g16_b16_unorm;
-  case resource::image_format::r16g16b16_snorm:
+  case resource_db::image_format::r16g16b16_snorm:
     return vk::format::r16_g16_b16_snorm;
-  case resource::image_format::r16g16b16_sfloat:
+  case resource_db::image_format::r16g16b16_sfloat:
     return vk::format::r16_g16_b16_sfloat;
-  case resource::image_format::r32g32b32_sfloat:
+  case resource_db::image_format::r32g32b32_sfloat:
     return vk::format::r32_g32_b32_sfloat;
 
-  case resource::image_format::b8g8r8_unorm:
+  case resource_db::image_format::b8g8r8_unorm:
     return vk::format::b8_g8_r8_unorm;
-  case resource::image_format::b8g8r8_snorm:
+  case resource_db::image_format::b8g8r8_snorm:
     return vk::format::b8_g8_r8_snorm;
-  case resource::image_format::b8g8r8_srgb:
+  case resource_db::image_format::b8g8r8_srgb:
     return vk::format::b8_g8_r8_srgb;
 
-  case resource::image_format::r8g8b8a8_unorm:
+  case resource_db::image_format::r8g8b8a8_unorm:
     return vk::format::r8_g8_b8_a8_unorm;
-  case resource::image_format::r8g8b8a8_snorm:
+  case resource_db::image_format::r8g8b8a8_snorm:
     return vk::format::r8_g8_b8_a8_snorm;
-  case resource::image_format::r8g8b8a8_srgb:
+  case resource_db::image_format::r8g8b8a8_srgb:
     return vk::format::r8_g8_b8_a8_srgb;
-  case resource::image_format::r16g16b16a16_unorm:
+  case resource_db::image_format::r16g16b16a16_unorm:
     return vk::format::r16_g16_b16_a16_unorm;
-  case resource::image_format::r16g16b16a16_snorm:
+  case resource_db::image_format::r16g16b16a16_snorm:
     return vk::format::r16_g16_b16_a16_snorm;
-  case resource::image_format::r16g16b16a16_sfloat:
+  case resource_db::image_format::r16g16b16a16_sfloat:
     return vk::format::r16_g16_b16_a16_sfloat;
-  case resource::image_format::r32g32b32a32_sfloat:
+  case resource_db::image_format::r32g32b32a32_sfloat:
     return vk::format::r32_g32_b32_a32_sfloat;
 
-  case resource::image_format::b8g8r8a8_unorm:
+  case resource_db::image_format::b8g8r8a8_unorm:
     return vk::format::b8_g8_r8_a8_unorm;
-  case resource::image_format::b8g8r8a8_snorm:
+  case resource_db::image_format::b8g8r8a8_snorm:
     return vk::format::b8_g8_r8_a8_snorm;
-  case resource::image_format::b8g8r8a8_srgb:
+  case resource_db::image_format::b8g8r8a8_srgb:
     return vk::format::b8_g8_r8_a8_srgb;
 
   default:
@@ -285,27 +285,27 @@ vk::format format_from_resource(resource::image_format format)
 }
 
 vk::format format_from_resource(
-  resource::vertex_attribute_data_type data_type,
-  resource::vertex_attribute_component_type component_type)
+  resource_db::vertex_attribute_data_type data_type,
+  resource_db::vertex_attribute_component_type component_type)
 {
   switch (data_type)
   {
-  case resource::vertex_attribute_data_type::scalar:
+  case resource_db::vertex_attribute_data_type::scalar:
     switch (component_type)
     {
-    case resource::vertex_attribute_component_type::int8:
+    case resource_db::vertex_attribute_component_type::int8:
       return vk::format::r8_sint;
-    case resource::vertex_attribute_component_type::uint8:
+    case resource_db::vertex_attribute_component_type::uint8:
       return vk::format::r8_uint;
-    case resource::vertex_attribute_component_type::int16:
+    case resource_db::vertex_attribute_component_type::int16:
       return vk::format::r16_sint;
-    case resource::vertex_attribute_component_type::uint16:
+    case resource_db::vertex_attribute_component_type::uint16:
       return vk::format::r16_uint;
-    case resource::vertex_attribute_component_type::int32:
+    case resource_db::vertex_attribute_component_type::int32:
       return vk::format::r32_sint;
-    case resource::vertex_attribute_component_type::uint32:
+    case resource_db::vertex_attribute_component_type::uint32:
       return vk::format::r32_uint;
-    case resource::vertex_attribute_component_type::float32:
+    case resource_db::vertex_attribute_component_type::float32:
       return vk::format::r32_sfloat;
 
     default:
@@ -313,22 +313,22 @@ vk::format format_from_resource(
       return vk::format::undefined;
     }
 
-  case resource::vertex_attribute_data_type::vec2:
+  case resource_db::vertex_attribute_data_type::vec2:
     switch (component_type)
     {
-    case resource::vertex_attribute_component_type::int8:
+    case resource_db::vertex_attribute_component_type::int8:
       return vk::format::r8_g8_sint;
-    case resource::vertex_attribute_component_type::uint8:
+    case resource_db::vertex_attribute_component_type::uint8:
       return vk::format::r8_g8_uint;
-    case resource::vertex_attribute_component_type::int16:
+    case resource_db::vertex_attribute_component_type::int16:
       return vk::format::r16_g16_sint;
-    case resource::vertex_attribute_component_type::uint16:
+    case resource_db::vertex_attribute_component_type::uint16:
       return vk::format::r16_g16_uint;
-    case resource::vertex_attribute_component_type::int32:
+    case resource_db::vertex_attribute_component_type::int32:
       return vk::format::r32_g32_sint;
-    case resource::vertex_attribute_component_type::uint32:
+    case resource_db::vertex_attribute_component_type::uint32:
       return vk::format::r32_g32_uint;
-    case resource::vertex_attribute_component_type::float32:
+    case resource_db::vertex_attribute_component_type::float32:
       return vk::format::r32_g32_sfloat;
 
     default:
@@ -336,22 +336,22 @@ vk::format format_from_resource(
       return vk::format::undefined;
     }
 
-  case resource::vertex_attribute_data_type::vec3:
+  case resource_db::vertex_attribute_data_type::vec3:
     switch (component_type)
     {
-    case resource::vertex_attribute_component_type::int8:
+    case resource_db::vertex_attribute_component_type::int8:
       return vk::format::r8_g8_b8_sint;
-    case resource::vertex_attribute_component_type::uint8:
+    case resource_db::vertex_attribute_component_type::uint8:
       return vk::format::r8_g8_b8_uint;
-    case resource::vertex_attribute_component_type::int16:
+    case resource_db::vertex_attribute_component_type::int16:
       return vk::format::r16_g16_b16_sint;
-    case resource::vertex_attribute_component_type::uint16:
+    case resource_db::vertex_attribute_component_type::uint16:
       return vk::format::r16_g16_b16_uint;
-    case resource::vertex_attribute_component_type::int32:
+    case resource_db::vertex_attribute_component_type::int32:
       return vk::format::r32_g32_b32_sint;
-    case resource::vertex_attribute_component_type::uint32:
+    case resource_db::vertex_attribute_component_type::uint32:
       return vk::format::r32_g32_b32_uint;
-    case resource::vertex_attribute_component_type::float32:
+    case resource_db::vertex_attribute_component_type::float32:
       return vk::format::r32_g32_b32_sfloat;
 
     default:
@@ -359,22 +359,22 @@ vk::format format_from_resource(
       return vk::format::undefined;
     }
 
-  case resource::vertex_attribute_data_type::vec4:
+  case resource_db::vertex_attribute_data_type::vec4:
     switch (component_type)
     {
-    case resource::vertex_attribute_component_type::int8:
+    case resource_db::vertex_attribute_component_type::int8:
       return vk::format::r8_g8_b8_a8_sint;
-    case resource::vertex_attribute_component_type::uint8:
+    case resource_db::vertex_attribute_component_type::uint8:
       return vk::format::r8_g8_b8_a8_uint;
-    case resource::vertex_attribute_component_type::int16:
+    case resource_db::vertex_attribute_component_type::int16:
       return vk::format::r16_g16_b16_a16_sint;
-    case resource::vertex_attribute_component_type::uint16:
+    case resource_db::vertex_attribute_component_type::uint16:
       return vk::format::r16_g16_b16_a16_uint;
-    case resource::vertex_attribute_component_type::int32:
+    case resource_db::vertex_attribute_component_type::int32:
       return vk::format::r32_g32_b32_a32_sint;
-    case resource::vertex_attribute_component_type::uint32:
+    case resource_db::vertex_attribute_component_type::uint32:
       return vk::format::r32_g32_b32_a32_uint;
-    case resource::vertex_attribute_component_type::float32:
+    case resource_db::vertex_attribute_component_type::float32:
       return vk::format::r32_g32_b32_a32_sfloat;
 
     default:
@@ -444,7 +444,7 @@ namespace detail
   template <typename SourceGilImage, typename DestinationGilImage>
   struct copy_or_convert_image_to_buffer
   {
-    void operator()(resource::image& source, vk::layer1::buffer& target,
+    void operator()(resource_db::image& source, vk::layer1::buffer& target,
                     std::uint32_t mip_level_begin,
                     std::uint32_t mip_level_end) const
     {
@@ -477,12 +477,12 @@ namespace detail
   struct copy_or_convert_image_to_buffer<SourceAndDestinationGilImage,
                                          SourceAndDestinationGilImage>
   {
-    void operator()(resource::image& source, vk::layer1::buffer& target,
+    void operator()(resource_db::image& source, vk::layer1::buffer& target,
                     std::uint32_t mip_level_begin,
                     std::uint32_t mip_level_end) const
     {
       std::size_t offset = 0;
-      resource::buffer* last_buffer = nullptr;
+      resource_db::buffer* last_buffer = nullptr;
       for (auto mip_level = mip_level_begin; mip_level < mip_level_end;
            ++mip_level)
       {
@@ -505,7 +505,7 @@ namespace detail
     template <vk::format SourceFormat, typename SourceGilImage>
     void operator()(
       const format_type_pair<SourceFormat, SourceGilImage>* source_dummy,
-      vk::format source_format, resource::image& source,
+      vk::format source_format, resource_db::image& source,
       vk::format destination_format, vk::layer1::buffer& buffer,
       std::uint32_t mip_level_begin, std::uint32_t mip_level_end)
     {
@@ -523,7 +523,7 @@ namespace detail
     void operator()(
       const format_type_pair<DestinationFormat, DestinationGilImage>*,
       const format_type_pair<SourceFormat, SourceGilImage>*,
-      resource::image& source, vk::format destination_format,
+      resource_db::image& source, vk::format destination_format,
       vk::layer1::buffer& buffer, std::uint32_t mip_level_begin,
       std::uint32_t mip_level_end)
     {
@@ -537,7 +537,7 @@ namespace detail
 }
 
 vk::shared_ptr<vk::layer1::buffer> copy_image_to_staging_buffer(
-  vk::layer1::device& device, resource::image& source,
+  vk::layer1::device& device, resource_db::image& source,
   vk::format destination_format)
 {
   namespace gil = boost::gil;
@@ -575,7 +575,7 @@ vk::shared_ptr<vk::layer1::buffer> copy_image_to_staging_buffer(
   return staging_buffer;
 }
 
-void copy_image_to_staging_buffer(resource::image& source,
+void copy_image_to_staging_buffer(resource_db::image& source,
                                   vk::layer1::buffer& staging_buffer,
                                   vk::format destination_format,
                                   std::uint32_t mip_level_begin,

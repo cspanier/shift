@@ -8,7 +8,7 @@
 #include <shift/math/vector.hpp>
 #include <shift/parser/json/json.hpp>
 //#include <shift/serialization2/all.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
 namespace shift::rc::ttf

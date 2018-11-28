@@ -19,6 +19,7 @@ This repository hosts a collection of various libraries and tools that have been
 * [shift.protogen](shift/protogen/doc/protogen.md): code generator for shift.proto.
 * [shift.parser.proto](shift/parser.proto/doc/parser.proto.md): experimental version 2 of shift.proto.
 * [shift.tools.protogen](shift/tools.protogen/doc/tools.protogen.md): experimental version 2 of shift.protogen.
+* [shift.resource_db](shift/resource_db/doc/resource_db.md): graphic resource serialization library.
 * [shift.rc](shift/rc/doc/rc.md): resource compiler core library.
 * [shift.tools.rc](shift/tools.rc/doc/tools.rc.md): resource compiler frontend application.
 * [shift.tools.vk2cpp](shift/tools.vk2cpp/doc/tools.vk2cpp.md): a tool to translate the Vulkan specification XML file into a C++ header plus MSVS and QtCreator code snippets.

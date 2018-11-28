@@ -1,6 +1,6 @@
 #include "shift/rc/action_shader_compile.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/shader.hpp>
+#include <shift/resource_db/shader.hpp>
 #include <shift/log/log.hpp>
 #include <boost/filesystem.hpp>
 #include <queue>
@@ -10,42 +10,42 @@
 
 namespace shift::rc
 {
-static resource::stage_usage translate_stage_usage(const std::string& name)
+static resource_db::stage_usage translate_stage_usage(const std::string& name)
 {
   if (name == "in_position")
-    return resource::stage_usage::position;
+    return resource_db::stage_usage::position;
   else if (name == "in_normal")
-    return resource::stage_usage::normal;
+    return resource_db::stage_usage::normal;
   else if (name == "in_texcoord")
-    return resource::stage_usage::texcoord;
+    return resource_db::stage_usage::texcoord;
   else
   {
     log::warning() << "Cannot detect usage of variable named \"" << name
                    << "\".";
   }
-  return resource::stage_usage::unknown;
+  return resource_db::stage_usage::unknown;
 }
 
-static resource::stage_type translate_stage_type(
+static resource_db::stage_type translate_stage_type(
   const spirv_cross::SPIRType& type, const std::string& name)
 {
   switch (type.basetype)
   {
   case spirv_cross::SPIRType::Float:
     if (type.vecsize == 1 && type.columns == 1)
-      return resource::stage_type::float32;
+      return resource_db::stage_type::float32;
     else if (type.vecsize == 2 && type.columns == 1)
-      return resource::stage_type::vec2;
+      return resource_db::stage_type::vec2;
     else if (type.vecsize == 2 && type.columns == 2)
-      return resource::stage_type::mat2;
+      return resource_db::stage_type::mat2;
     else if (type.vecsize == 3 && type.columns == 1)
-      return resource::stage_type::vec3;
+      return resource_db::stage_type::vec3;
     else if (type.vecsize == 3 && type.columns == 3)
-      return resource::stage_type::mat3;
+      return resource_db::stage_type::mat3;
     else if (type.vecsize == 4 && type.columns == 1)
-      return resource::stage_type::vec4;
+      return resource_db::stage_type::vec4;
     else if (type.vecsize == 4 && type.columns == 4)
-      return resource::stage_type::mat4;
+      return resource_db::stage_type::mat4;
     break;
 
   default:
@@ -53,7 +53,7 @@ static resource::stage_type translate_stage_type(
   }
 
   log::warning() << "Cannot detect type of variable named \"" << name << "\".";
-  return resource::stage_type::none;
+  return resource_db::stage_type::none;
 }
 
 static std::string type_to_string(const spirv_cross::SPIRType& type)
@@ -242,7 +242,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
   if (optimized_spirv.second.empty())
     return false;
 
-  auto shader = std::make_shared<resource::shader>();
+  auto shader = std::make_shared<resource_db::shader>();
   {
     auto unoptimized_spirv = compile_glsl_to_spirv(
       source, shader_kind, input.file->generic_string,
@@ -258,7 +258,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
     info << "\n  inputs:";
     for (const auto& stage_input : resources.stage_inputs)
     {
-      resource::stage_binding binding{};
+      resource_db::stage_binding binding{};
       binding.usage = translate_stage_usage(stage_input.name);
       binding.type = translate_stage_type(
         spirv_compiler.get_type(stage_input.type_id), stage_input.name);
@@ -277,7 +277,7 @@ bool action_shader_compile::process(resource_compiler_impl& compiler,
     info << "\n  outputs:";
     for (const auto& stage_output : resources.stage_outputs)
     {
-      resource::stage_binding binding{};
+      resource_db::stage_binding binding{};
       binding.usage = translate_stage_usage(stage_output.name);
       binding.type = translate_stage_type(
         spirv_compiler.get_type(stage_output.type_id), stage_output.name);

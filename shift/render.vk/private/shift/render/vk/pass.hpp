@@ -5,7 +5,7 @@
 #include <shift/math/vector.hpp>
 #include <shift/render/vk/shared.hpp>
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class scene;
 }

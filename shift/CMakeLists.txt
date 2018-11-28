@@ -35,7 +35,7 @@ add_subdirectory(tools.protogen)
 
 if (NOT NO_VULKAN)
   add_subdirectory(scene)
-  add_subdirectory(resource)
+  add_subdirectory(resource_db)
   add_subdirectory(render.vk)
   add_subdirectory(rc)
   add_subdirectory(tools.rc)

@@ -14,8 +14,8 @@
 #include "shift/render/vk/layer2/view.hpp"
 #include "shift/render/vk/layer1/device.hpp"
 #include "shift/render/vk/layer1/instance.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/scene.hpp>
 #include <shift/log/log.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/functional/hash/hash.hpp>
@@ -24,12 +24,12 @@
 namespace std
 {
 template <>
-struct hash<shift::resource::sampler>
+struct hash<shift::resource_db::sampler>
 {
-  inline std::size_t operator()(const shift::resource::sampler& sampler) const
+  inline std::size_t operator()(const shift::resource_db::sampler& sampler) const
   {
     using sampler_address_mode_t =
-      std::underlying_type_t<shift::resource::sampler_address_mode>;
+      std::underlying_type_t<shift::resource_db::sampler_address_mode>;
     std::size_t result = 0;
 
     boost::hash_combine(
@@ -383,36 +383,36 @@ void renderer_impl::destroy_context(gsl::owner<vk::context*> context)
 
 boost::intrusive_ptr<vk::buffer> renderer_impl::create_buffer(
   vk::buffer_usage_flags usage,
-  std::shared_ptr<resource::buffer>& source_buffer)
+  std::shared_ptr<resource_db::buffer>& source_buffer)
 {
   std::lock_guard render_graph_lock(_render_graph_mutex);
   return create_buffer(usage, source_buffer, render_graph_lock);
 }
 
 boost::intrusive_ptr<vk::mesh> renderer_impl::create_mesh(
-  const std::shared_ptr<resource::mesh>& source_mesh)
+  const std::shared_ptr<resource_db::mesh>& source_mesh)
 {
   std::lock_guard render_graph_lock(_render_graph_mutex);
   return create_mesh(source_mesh, render_graph_lock);
 }
 
 boost::intrusive_ptr<vk::texture> renderer_impl::create_texture(
-  std::shared_ptr<resource::image>& source_texture)
+  std::shared_ptr<resource_db::image>& source_texture)
 {
   std::lock_guard render_graph_lock(_render_graph_mutex);
   return create_texture(source_texture, render_graph_lock);
 }
 
 boost::intrusive_ptr<vk::material> renderer_impl::create_material(
-  const std::shared_ptr<resource::material>& source_material)
+  const std::shared_ptr<resource_db::material>& source_material)
 {
   std::lock_guard render_graph_lock(_render_graph_mutex);
   return create_material(source_material, render_graph_lock);
 }
 
 boost::intrusive_ptr<vk::model> renderer_impl::create_model(
-  const std::shared_ptr<resource::mesh>& source_mesh,
-  const std::shared_ptr<resource::material>& source_material)
+  const std::shared_ptr<resource_db::mesh>& source_mesh,
+  const std::shared_ptr<resource_db::material>& source_material)
 {
   std::lock_guard render_graph_lock(_render_graph_mutex);
   return create_model(source_mesh, source_material, render_graph_lock);
@@ -1146,7 +1146,7 @@ void renderer_impl::end_frame()
 
 boost::intrusive_ptr<vk::layer2::buffer> renderer_impl::create_buffer(
   vk::buffer_usage_flags usage,
-  std::shared_ptr<resource::buffer>& source_buffer,
+  std::shared_ptr<resource_db::buffer>& source_buffer,
   const std::lock_guard<std::mutex>& /*render_graph_lock*/)
 {
   if (auto existing_buffer_iter = _buffers.find(source_buffer.get());
@@ -1165,7 +1165,7 @@ boost::intrusive_ptr<vk::layer2::buffer> renderer_impl::create_buffer(
 }
 
 boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
-  const std::shared_ptr<resource::mesh>& source_mesh,
+  const std::shared_ptr<resource_db::mesh>& source_mesh,
   const std::lock_guard<std::mutex>& render_graph_lock)
 {
   if (auto existing_mesh_iter = _meshes.find(source_mesh.get());
@@ -1223,7 +1223,7 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
 
     switch (source_attribute.usage)
     {
-    case resource::vertex_attribute_usage::position:
+    case resource_db::vertex_attribute_usage::position:
       if (attribute.format != vk::format::r32_g32_b32_sfloat)
       {
         BOOST_THROW_EXCEPTION(
@@ -1244,7 +1244,7 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
       }
       break;
 
-    case resource::vertex_attribute_usage::normal:
+    case resource_db::vertex_attribute_usage::normal:
       if (attribute.format != vk::format::r32_g32_b32_sfloat)
       {
         BOOST_THROW_EXCEPTION(
@@ -1265,7 +1265,7 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
       }
       break;
 
-    case resource::vertex_attribute_usage::texcoord:
+    case resource_db::vertex_attribute_usage::texcoord:
       if (attribute.format != vk::format::r32_g32_sfloat)
       {
         BOOST_THROW_EXCEPTION(
@@ -1302,15 +1302,15 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
   index_attribute.buffer_size = 0;
   switch (source_mesh->index_data_type)
   {
-  case resource::vertex_index_data_type::uint16:
+  case resource_db::vertex_index_data_type::uint16:
     index_attribute.index_type = vk::index_type::uint16;
     break;
 
-  case resource::vertex_index_data_type::uint32:
+  case resource_db::vertex_index_data_type::uint32:
     index_attribute.index_type = vk::index_type::uint32;
     break;
 
-  case resource::vertex_index_data_type::uint8:
+  case resource_db::vertex_index_data_type::uint8:
     BOOST_THROW_EXCEPTION(
       shift::core::runtime_error()
       << shift::core::context_info("Unsupported vertex index type."));
@@ -1323,7 +1323,7 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
 }
 
 boost::intrusive_ptr<vk::layer2::texture> renderer_impl::create_texture(
-  std::shared_ptr<resource::image>& source_texture,
+  std::shared_ptr<resource_db::image>& source_texture,
   const std::lock_guard<std::mutex>& /*render_graph_lock*/)
 {
   if (auto existing_texture_iter = _textures.find(source_texture.get());
@@ -1358,10 +1358,10 @@ boost::intrusive_ptr<vk::layer2::texture> renderer_impl::create_texture(
 }
 
 boost::intrusive_ptr<vk::layer2::sampler> renderer_impl::create_sampler(
-  const resource::sampler& source_sampler,
+  const resource_db::sampler& source_sampler,
   const std::lock_guard<std::mutex>& /*render_graph_lock*/)
 {
-  auto sampler_id = std::hash<resource::sampler>{}(source_sampler);
+  auto sampler_id = std::hash<resource_db::sampler>{}(source_sampler);
   if (auto existing_sampler_iter = _samplers.find(sampler_id);
       existing_sampler_iter != _samplers.end())
   {
@@ -1382,7 +1382,7 @@ boost::intrusive_ptr<vk::layer2::sampler> renderer_impl::create_sampler(
 }
 
 boost::intrusive_ptr<vk::layer2::material> renderer_impl::create_material(
-  const std::shared_ptr<resource::material>& source_material,
+  const std::shared_ptr<resource_db::material>& source_material,
   const std::lock_guard<std::mutex>& render_graph_lock)
 {
   if (auto existing_material_iter = _materials.find(source_material.get());
@@ -1392,7 +1392,7 @@ boost::intrusive_ptr<vk::layer2::material> renderer_impl::create_material(
   }
 
   auto translate_map =
-    [&](std::pair<resource::image_reference, resource::sampler>&
+    [&](std::pair<resource_db::image_reference, resource_db::sampler>&
           image_and_sampler) -> vk::layer2::material_map {
     auto& [image, sampler] = image_and_sampler;
     auto image_source = image.image.get_shared();
@@ -1415,8 +1415,8 @@ boost::intrusive_ptr<vk::layer2::material> renderer_impl::create_material(
 }
 
 boost::intrusive_ptr<vk::layer2::model> renderer_impl::create_model(
-  const std::shared_ptr<resource::mesh>& source_mesh,
-  const std::shared_ptr<resource::material>& source_material,
+  const std::shared_ptr<resource_db::mesh>& source_mesh,
+  const std::shared_ptr<resource_db::material>& source_material,
   const std::lock_guard<std::mutex>& render_graph_lock)
 {
   if (!source_mesh || !source_material)

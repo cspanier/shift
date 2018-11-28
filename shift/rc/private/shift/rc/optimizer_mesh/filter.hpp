@@ -2,10 +2,10 @@
 #define SHIFT_RC_OPTIMIZER_MESH_FILTER_HPP
 
 #include <shift/core/exception.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class mesh;
 }
@@ -16,7 +16,7 @@ namespace shift::rc
 bool optimize_mesh(const job_description& job);
 
 ///
-bool optimize_mesh(resource::mesh& mesh);
+bool optimize_mesh(resource_db::mesh& mesh);
 
 ///
 std::vector<std::uint8_t> resolve_vertex_indices(

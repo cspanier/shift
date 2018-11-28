@@ -1,5 +1,5 @@
 #include "shift/rc/application.hpp"
-#include "shift/resource/repository.hpp"
+#include "shift/resource_db/repository.hpp"
 #include <shift/log/log.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/mpl.hpp>
@@ -28,7 +28,7 @@ namespace rc
     using std::begin;
     using std::end;
 
-    resource::repository repository;
+    resource_db::repository repository;
     repository.mount(build_path, false);
     repository.mount(output_path, false);
 

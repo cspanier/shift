@@ -9,7 +9,7 @@
 #include <gsl/gsl>
 #include <shift/core/singleton.hpp>
 #include <shift/core/stack_ptr.hpp>
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/scene.hpp>
 #include "shift/render/vk/shared.hpp"
 #include "shift/render/vk/memory_manager.hpp"
 #include "shift/render/vk/window.hpp"
@@ -48,15 +48,15 @@
 namespace std
 {
 template <>
-struct hash<std::pair<shift::resource::mesh*, shift::resource::material*>>
+struct hash<std::pair<shift::resource_db::mesh*, shift::resource_db::material*>>
 {
-  std::size_t operator()(const std::pair<shift::resource::mesh*,
-                                         shift::resource::material*>& key) const
+  std::size_t operator()(const std::pair<shift::resource_db::mesh*,
+                                         shift::resource_db::material*>& key) const
   {
     using std::hash;
 
-    return hash<shift::resource::mesh*>()(key.first) ^
-           rotate(hash<shift::resource::material*>()(key.second));
+    return hash<shift::resource_db::mesh*>()(key.first) ^
+           rotate(hash<shift::resource_db::material*>()(key.second));
   }
 
 private:
@@ -163,7 +163,7 @@ struct mesh_instance_data
 
 struct image_data
 {
-  resource::image* resource_image = nullptr;
+  resource_db::image* resource_image = nullptr;
 
   vk::shared_ptr<vk::layer1::image> image;
   vk::shared_ptr<vk::layer1::image_view> image_view;
@@ -171,13 +171,13 @@ struct image_data
 
 struct sampler_data
 {
-  resource::sampler resource_sampler;
+  resource_db::sampler resource_sampler;
   vk::shared_ptr<vk::layer1::sampler> sampler;
 };
 
 struct material_data
 {
-  resource::material* resource_material = nullptr;
+  resource_db::material* resource_material = nullptr;
   std::pair<image_data*, sampler_data*> albedo =
     std::make_pair(nullptr, nullptr);
   std::pair<image_data*, sampler_data*> normal =
@@ -186,7 +186,7 @@ struct material_data
 
 struct mesh_data
 {
-  resource::mesh* resource_mesh = nullptr;
+  resource_db::mesh* resource_mesh = nullptr;
 
   vk::shared_ptr<vk::layer1::buffer> position_buffer;
   vk::shared_ptr<vk::layer1::buffer> normal_buffer;
@@ -340,24 +340,24 @@ public:
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::buffer> create_buffer(
     vk::buffer_usage_flags usage,
-    std::shared_ptr<resource::buffer>& source_buffer) final;
+    std::shared_ptr<resource_db::buffer>& source_buffer) final;
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::mesh> create_mesh(
-    const std::shared_ptr<resource::mesh>& source_mesh) final;
+    const std::shared_ptr<resource_db::mesh>& source_mesh) final;
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::texture> create_texture(
-    std::shared_ptr<resource::image>& source_texture) final;
+    std::shared_ptr<resource_db::image>& source_texture) final;
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::material> create_material(
-    const std::shared_ptr<resource::material>& source_material) final;
+    const std::shared_ptr<resource_db::material>& source_material) final;
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::model> create_model(
-    const std::shared_ptr<resource::mesh>& source_mesh,
-    const std::shared_ptr<resource::material>& source_material) final;
+    const std::shared_ptr<resource_db::mesh>& source_mesh,
+    const std::shared_ptr<resource_db::material>& source_material) final;
 
   /// Destroys a context.
   /// @param context
@@ -462,33 +462,33 @@ private:
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::buffer> create_buffer(
     vk::buffer_usage_flags usage,
-    std::shared_ptr<resource::buffer>& source_buffer,
+    std::shared_ptr<resource_db::buffer>& source_buffer,
     const std::lock_guard<std::mutex>& /*render_graph_lock*/);
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::mesh> create_mesh(
-    const std::shared_ptr<resource::mesh>& source_mesh,
+    const std::shared_ptr<resource_db::mesh>& source_mesh,
     const std::lock_guard<std::mutex>& render_graph_lock);
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::texture> create_texture(
-    std::shared_ptr<resource::image>& source_texture,
+    std::shared_ptr<resource_db::image>& source_texture,
     const std::lock_guard<std::mutex>& /*render_graph_lock*/);
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::sampler> create_sampler(
-    const resource::sampler& source_sampler,
+    const resource_db::sampler& source_sampler,
     const std::lock_guard<std::mutex>& /*render_graph_lock*/);
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::material> create_material(
-    const std::shared_ptr<resource::material>& source_material,
+    const std::shared_ptr<resource_db::material>& source_material,
     const std::lock_guard<std::mutex>& render_graph_lock);
 
   ///
   [[nodiscard]] boost::intrusive_ptr<vk::layer2::model> create_model(
-    const std::shared_ptr<resource::mesh>& source_mesh,
-    const std::shared_ptr<resource::material>& source_material,
+    const std::shared_ptr<resource_db::mesh>& source_mesh,
+    const std::shared_ptr<resource_db::material>& source_material,
     const std::lock_guard<std::mutex>& render_graph_lock);
 
 private:
@@ -598,20 +598,20 @@ private:
   std::unique_ptr<pass_warp> _pass_warp;
 
   std::mutex _render_graph_mutex;
-  std::unordered_map<resource::buffer*,
+  std::unordered_map<resource_db::buffer*,
                      boost::intrusive_ptr<vk::layer2::buffer>>
     _buffers;
-  std::unordered_map<resource::mesh*, boost::intrusive_ptr<vk::layer2::mesh>>
+  std::unordered_map<resource_db::mesh*, boost::intrusive_ptr<vk::layer2::mesh>>
     _meshes;
-  std::unordered_map<resource::image*,
+  std::unordered_map<resource_db::image*,
                      boost::intrusive_ptr<vk::layer2::texture>>
     _textures;
   std::unordered_map<std::size_t, boost::intrusive_ptr<vk::layer2::sampler>>
     _samplers;
-  std::unordered_map<resource::material*,
+  std::unordered_map<resource_db::material*,
                      boost::intrusive_ptr<vk::layer2::material>>
     _materials;
-  std::unordered_map<std::pair<resource::mesh*, resource::material*>,
+  std::unordered_map<std::pair<resource_db::mesh*, resource_db::material*>,
                      boost::intrusive_ptr<vk::layer2::model>>
     _models;
 

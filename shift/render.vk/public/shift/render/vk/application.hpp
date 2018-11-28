@@ -8,11 +8,11 @@
 #include <shift/core/object_pool.hpp>
 #include <shift/math/vector.hpp>
 #include <shift/math/matrix.hpp>
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/scene.hpp>
 #include "shift/render/vk/types.hpp"
 #include "shift/render/vk/window.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class repository;
 class scene;
@@ -88,7 +88,7 @@ protected:
   virtual void destroy_views();
 
   ///
-  virtual void create_resources(resource::scene& scene);
+  virtual void create_resources(resource_db::scene& scene);
 
   ///
   virtual void destroy_resources();
@@ -107,7 +107,7 @@ protected:
 
 protected:
   ///
-  void collect_resources(resource::scene_node& node,
+  void collect_resources(resource_db::scene_node& node,
                          const math::matrix44<float>& transform);
 
   const char* _application_name = "";
@@ -115,11 +115,11 @@ protected:
 
   bool _quit = false;
   bool _initialized = false;
-  std::unique_ptr<resource::repository> _repository;
+  std::unique_ptr<resource_db::repository> _repository;
   vk::renderer* _renderer = nullptr;
   vk::window* _window = nullptr;
 
-  std::shared_ptr<resource::scene> _resource_scene;
+  std::shared_ptr<resource_db::scene> _resource_scene;
 
   math::vector3<float> _view_position = {0.0f, 0.0f, 0.0f};
   math::vector3<float> _view_angles = {0.0f, 0.0f, 0.0f};

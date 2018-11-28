@@ -2,7 +2,7 @@
 #define SHIFT_RC_ACTION_MESH_IMPORT_PLY_HPP
 
 #include <shift/core/exception.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
 namespace shift::rc

@@ -14,7 +14,7 @@
 #include "shift/render/vk/layer1/buffer.hpp"
 #include "shift/render/vk/layer1/image.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class image;
 }

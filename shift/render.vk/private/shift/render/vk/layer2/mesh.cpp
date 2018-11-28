@@ -11,10 +11,10 @@ mesh::~mesh() noexcept
 
 namespace shift::render::vk::layer2
 {
-mesh::mesh(vk::layer1::device& device,
+mesh::mesh(vk::layer1::device& /*device*/,
            mesh::vertex_attributes_t vertex_attributes,
            index_attribute_t index_attribute)
-: _device(&device),
+:  // _device(&device),
   _vertex_attributes(std::move(vertex_attributes)),
   _index_attribute(std::move(index_attribute))
 {

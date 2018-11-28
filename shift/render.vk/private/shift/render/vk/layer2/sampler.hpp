@@ -8,7 +8,7 @@
 #include "shift/render/vk/sampler.hpp"
 #include "shift/render/vk/layer2/object.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 struct sampler;
 }

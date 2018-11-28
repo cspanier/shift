@@ -5,7 +5,7 @@
 #include <queue>
 #include <unordered_map>
 #include <shared_mutex>
-#include <shift/resource/resource.hpp>
+#include <shift/resource_db/resource.hpp>
 #include "shift/rc/types.hpp"
 #include "shift/rc/data_cache.hpp"
 #include "shift/rc/resource_compiler.hpp"
@@ -26,7 +26,7 @@ public:
   void read_rules(const fs::path& rules_file_path, const fs::path& rule_path);
 
   /// Saves the resource and associates the output file with the job.
-  file_description* save(const resource::resource_base& resource,
+  file_description* save(const resource_db::resource_base& resource,
                          const fs::path& target_name, job_description& job);
 
   /// Associates the output file with the job.

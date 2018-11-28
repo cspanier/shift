@@ -1,7 +1,7 @@
 #include "shift/rc/action_mesh_tootle.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/buffer.hpp>
-#include <shift/resource/mesh.hpp>
+#include <shift/resource_db/buffer.hpp>
+#include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
 #include <boost/filesystem/operations.hpp>
 #if defined(PLATFORM_LINUX)
@@ -70,17 +70,17 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
   }
 
   // Load mesh and check if all referenced buffers exist.
-  auto& repository = resource::repository::singleton_instance();
-  auto mesh = repository.load<resource::mesh>(mesh_input->file->path);
+  auto& repository = resource_db::repository::singleton_instance();
+  auto mesh = repository.load<resource_db::mesh>(mesh_input->file->path);
   if (!mesh)
   {
     log::error() << "Cannot load mesh " << mesh_input->file->path << ".";
     return false;
   }
 
-  resource::vertex_attribute* position_attribute = nullptr;
-  resource::vertex_attribute* normal_attribute = nullptr;
-  resource::vertex_attribute* texcoord_attribute = nullptr;
+  resource_db::vertex_attribute* position_attribute = nullptr;
+  resource_db::vertex_attribute* normal_attribute = nullptr;
+  resource_db::vertex_attribute* texcoord_attribute = nullptr;
   for (auto& vertex_attribute : mesh->vertex_attributes)
   {
     if (!vertex_attribute.vertex_buffer_view.buffer.get_shared())
@@ -89,7 +89,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
                    << mesh_input->file->path << ".";
       return false;
     }
-    if (vertex_attribute.usage == resource::vertex_attribute_usage::position)
+    if (vertex_attribute.usage == resource_db::vertex_attribute_usage::position)
     {
       if (position_attribute)
       {
@@ -98,7 +98,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
       }
       position_attribute = &vertex_attribute;
     }
-    else if (vertex_attribute.usage == resource::vertex_attribute_usage::normal)
+    else if (vertex_attribute.usage == resource_db::vertex_attribute_usage::normal)
     {
       if (normal_attribute)
       {
@@ -108,7 +108,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
       normal_attribute = &vertex_attribute;
     }
     else if (vertex_attribute.usage ==
-             resource::vertex_attribute_usage::texcoord)
+             resource_db::vertex_attribute_usage::texcoord)
     {
       if (texcoord_attribute)
       {
@@ -153,7 +153,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     const auto& buffer_view = position_attribute->vertex_buffer_view;
     const auto& buffer = *buffer_view.buffer.get_shared();
     if (position_attribute->component_type !=
-        resource::vertex_attribute_component_type::float32)
+        resource_db::vertex_attribute_component_type::float32)
     {
       log::error() << "Unsupported position component type.";
       return false;
@@ -163,7 +163,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     std::uint32_t next_index = 0;
     switch (position_attribute->data_type)
     {
-    case resource::vertex_attribute_data_type::vec3:
+    case resource_db::vertex_attribute_data_type::vec3:
       if (!stride)
         stride = 3 * sizeof(float);
       for (std::size_t i = 0; i < buffer.storage.size() / stride; ++i)
@@ -187,7 +187,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
       }
       break;
 
-    case resource::vertex_attribute_data_type::vec4:
+    case resource_db::vertex_attribute_data_type::vec4:
       if (!stride)
         stride = 4 * sizeof(float);
       for (std::size_t i = 0; i < buffer.storage.size() / stride; ++i)
@@ -228,7 +228,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     const auto& buffer_view = texcoord_attribute->vertex_buffer_view;
     const auto& buffer = *buffer_view.buffer.get_shared();
     if (texcoord_attribute->component_type !=
-        resource::vertex_attribute_component_type::float32)
+        resource_db::vertex_attribute_component_type::float32)
     {
       log::error() << "Unsupported texcoord component type.";
       return false;
@@ -238,7 +238,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     std::uint32_t next_index = 0;
     switch (texcoord_attribute->data_type)
     {
-    case resource::vertex_attribute_data_type::vec3:
+    case resource_db::vertex_attribute_data_type::vec3:
       if (!stride)
         stride = 3 * sizeof(float);
       for (std::size_t i = 0; i < buffer.storage.size() / stride; ++i)
@@ -278,7 +278,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     const auto& buffer_view = normal_attribute->vertex_buffer_view;
     const auto& buffer = *buffer_view.buffer.get_shared();
     if (normal_attribute->component_type !=
-        resource::vertex_attribute_component_type::float32)
+        resource_db::vertex_attribute_component_type::float32)
     {
       log::error() << "Unsupported normal component type.";
       return false;
@@ -288,7 +288,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
     std::uint32_t next_index = 0;
     switch (normal_attribute->data_type)
     {
-    case resource::vertex_attribute_data_type::vec3:
+    case resource_db::vertex_attribute_data_type::vec3:
       if (!stride)
         stride = 3 * sizeof(float);
       for (std::size_t i = 0; i < buffer.storage.size() / stride; ++i)
@@ -351,7 +351,7 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
 
     switch (sub_mesh.topology)
     {
-    case resource::primitive_topology::triangle_list:
+    case resource_db::primitive_topology::triangle_list:
       for (std::uint32_t i = 0; i < sub_mesh.index_count; i += 3)
       {
         obj_file << "f " << fetch_position_index(i + 0) << "/"

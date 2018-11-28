@@ -12,7 +12,7 @@
 #include "shift/render/vk/layer2/mesh.hpp"
 #include "shift/render/vk/layer2/material.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class model;
 }

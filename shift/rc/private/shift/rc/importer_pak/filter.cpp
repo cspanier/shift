@@ -1,5 +1,5 @@
 #include "shift/rc/importer_pak/filter.hpp"
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include <shift/log/log.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
@@ -17,7 +17,7 @@ int converter::run()
   //  return EXIT_FAILURE;
   //}
 
-  // resource::repository repository;
+  // resource_db::repository repository;
   // auto input_archive =
   //  repository.mount(input_filename.generic_string(), true);
   // auto output_archive =

@@ -5,7 +5,7 @@
 #include "shift/render/vk/shared_object.hpp"
 #include "shift/render/vk/buffer.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class mesh;
 }

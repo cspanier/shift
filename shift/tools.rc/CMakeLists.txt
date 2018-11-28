@@ -9,7 +9,7 @@ if(NOT NO_RC)
       shift.application
       shift.rc
       # shift.graphics
-      shift.resource
+      shift.resource_db
       shift.parser.json
       shift.serialization2
       shift.log

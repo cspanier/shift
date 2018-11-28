@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <array>
-#include <shift/resource/mesh.hpp>
+#include <shift/resource_db/mesh.hpp>
 #include "shift/render/vk/types.hpp"
 #include "shift/render/vk/shared.hpp"
 #include "shift/render/vk/smart_ptr.hpp"
@@ -11,7 +11,7 @@
 #include "shift/render/vk/layer2/object.hpp"
 #include "shift/render/vk/layer2/buffer.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class mesh;
 }
@@ -79,7 +79,7 @@ public:
 
 public:
   ///
-  mesh(vk::layer1::device& device, vertex_attributes_t vertex_attributes,
+  mesh(vk::layer1::device& /*device*/, vertex_attributes_t vertex_attributes,
        index_attribute_t index_attribute);
 
   mesh(const mesh&) = delete;
@@ -92,7 +92,7 @@ public:
   void signal(availability_state signal) final;
 
 private:
-  vk::layer1::device* _device = nullptr;
+  // vk::layer1::device* _device = nullptr;
   vertex_attributes_t _vertex_attributes;
   index_attribute_t _index_attribute;
 };

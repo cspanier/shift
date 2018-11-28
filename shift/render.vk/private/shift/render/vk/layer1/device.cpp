@@ -5,9 +5,9 @@
 #include "shift/render/vk/renderer_impl.hpp"
 #include "shift/render/vk/utility.hpp"
 #include "shift/render/vk/resource_streamer.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/image.hpp>
-#include <shift/resource/buffer_view.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/image.hpp>
+#include <shift/resource_db/buffer_view.hpp>
 #include "shift/task/async.hpp"
 #include <shift/core/exception.hpp>
 #include <shift/log/log.hpp>

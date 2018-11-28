@@ -1,9 +1,9 @@
 #include "shift/rc/action_font_import_ttf.hpp"
 #include "shift/rc/ttf/font.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/mesh.hpp>
-#include <shift/resource/buffer_view.hpp>
-#include <shift/resource/font.hpp>
+#include <shift/resource_db/mesh.hpp>
+#include <shift/resource_db/buffer_view.hpp>
+#include <shift/resource_db/font.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/line.hpp>
 #include <shift/math/intersection.hpp>
@@ -460,8 +460,8 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
                                   job_description& job, ttf::font& ttf,
                                   const std::vector<glyph_t>& glyph_meshes)
 {
-  auto font = std::make_shared<resource::font>();
-  auto mesh = std::make_shared<resource::mesh>();
+  auto font = std::make_shared<resource_db::font>();
+  auto mesh = std::make_shared<resource_db::mesh>();
   font->mesh = mesh;
   font->ascent = ttf.horizontal_header().ascent * ttf.scale();
   font->descent = ttf.horizontal_header().descent * ttf.scale();
@@ -472,34 +472,34 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
     math::vector2<float> position;
   };
   std::vector<glyph_vertex> vertices;
-  auto vertex_buffer = std::make_shared<resource::buffer>();
+  auto vertex_buffer = std::make_shared<resource_db::buffer>();
 
   using index_t = std::uint32_t;
   std::vector<index_t> indices;
-  auto index_buffer = std::make_shared<resource::buffer>();
+  auto index_buffer = std::make_shared<resource_db::buffer>();
 
   // Setup vertex layout.
   {
-    resource::vertex_attribute position_attribute;
+    resource_db::vertex_attribute position_attribute;
     position_attribute.vertex_buffer_view.buffer = vertex_buffer;
     position_attribute.vertex_buffer_view.offset = 0;
     position_attribute.offset = offsetof(glyph_vertex, position);
     position_attribute.size = sizeof(glyph_vertex::position);
     position_attribute.stride = sizeof(glyph_vertex);
-    position_attribute.usage = resource::vertex_attribute_usage::position;
+    position_attribute.usage = resource_db::vertex_attribute_usage::position;
     position_attribute.component_type =
-      resource::vertex_attribute_component_type::float32;
-    position_attribute.data_type = resource::vertex_attribute_data_type::vec2;
+      resource_db::vertex_attribute_component_type::float32;
+    position_attribute.data_type = resource_db::vertex_attribute_data_type::vec2;
     mesh->vertex_attributes.emplace_back(std::move(position_attribute));
   }
   // Setup index layout.
   mesh->index_buffer_view.buffer = index_buffer;
   mesh->index_buffer_view.offset = 0;
-  mesh->index_data_type = resource::vertex_index_data_type::uint32;
+  mesh->index_data_type = resource_db::vertex_index_data_type::uint32;
 
   for (const auto& glyph_mesh : glyph_meshes)
   {
-    resource::glyph glyph;
+    resource_db::glyph glyph;
 
     auto first_vertex_index = vertices.size();
     for (const auto& point : glyph_mesh.points)
@@ -532,8 +532,8 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
 
     if (solid_index_count)
     {
-      resource::sub_mesh solid_sub_mesh{};
-      solid_sub_mesh.topology = resource::primitive_topology::triangle_list;
+      resource_db::sub_mesh solid_sub_mesh{};
+      solid_sub_mesh.topology = resource_db::primitive_topology::triangle_list;
       solid_sub_mesh.vertex_offset =
         static_cast<std::uint32_t>(first_vertex_index);
       solid_sub_mesh.first_index =
@@ -548,8 +548,8 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
 
     if (curved_index_count)
     {
-      resource::sub_mesh curved_sub_mesh{};
-      curved_sub_mesh.topology = resource::primitive_topology::triangle_list;
+      resource_db::sub_mesh curved_sub_mesh{};
+      curved_sub_mesh.topology = resource_db::primitive_topology::triangle_list;
       curved_sub_mesh.vertex_offset =
         static_cast<std::uint32_t>(first_vertex_index);
       curved_sub_mesh.first_index =

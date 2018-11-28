@@ -4,7 +4,7 @@
 #include "shift/render/vk/types.hpp"
 #include "shift/render/vk/shared_object.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class buffer;
 }

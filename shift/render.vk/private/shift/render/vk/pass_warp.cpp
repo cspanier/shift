@@ -2,8 +2,8 @@
 #include <shift/render/vk/renderer.hpp>
 #include "shift/render/vk/layer1/shader_module.hpp"
 #include "shift/render/vk/layer1/device.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/shader.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/shader.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/algorithm.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
@@ -26,7 +26,7 @@ void pass_warp::destroy_resource_descriptions()
 
 void pass_warp::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
 {
-  auto& repository = resource::repository::singleton_instance();
+  auto& repository = resource_db::repository::singleton_instance();
 
   // Create descriptor set layout and pipeline layout.
   const auto warp_layout_bindings = core::make_array(
@@ -108,15 +108,15 @@ void pass_warp::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
     /* dynamic_states */ dynamic_states.data());
 
   auto vertex_shader_resource =
-    repository.load<resource::shader>("public/shaders/warp.vert.spv");
+    repository.load<resource_db::shader>("public/shaders/warp.vert.spv");
   auto tess_ctrl_shader_resource =
-    repository.load<resource::shader>("public/shaders/warp.tesc.spv");
+    repository.load<resource_db::shader>("public/shaders/warp.tesc.spv");
   auto tess_eval_shader_resource =
-    repository.load<resource::shader>("public/shaders/warp.tese.spv");
+    repository.load<resource_db::shader>("public/shaders/warp.tese.spv");
   auto geometry_shader_resource =
-    repository.load<resource::shader>("public/shaders/warp.geom.spv");
+    repository.load<resource_db::shader>("public/shaders/warp.geom.spv");
   auto fragment_shader_resource =
-    repository.load<resource::shader>("public/shaders/warp.frag.spv");
+    repository.load<resource_db::shader>("public/shaders/warp.frag.spv");
   if (!vertex_shader_resource || !tess_ctrl_shader_resource ||
       !tess_eval_shader_resource || !geometry_shader_resource ||
       !fragment_shader_resource)
@@ -331,7 +331,7 @@ void pass_warp::destroy_pipeline()
   _descriptor_set_layout.reset();
 }
 
-void pass_warp::create_resources(resource::scene& /*scene*/)
+void pass_warp::create_resources(resource_db::scene& /*scene*/)
 {
   /// ToDo...
 }
@@ -348,8 +348,8 @@ void pass_warp::update(std::uint32_t /*buffer_index*/)
 //#include "shift/render/vk/render_passes/warp_instance.hpp"
 //#include "shift/render/vk/render_passes/warp_schematic.hpp"
 //#include "vk/cube_application.h"
-//#include <shift/resource/repository.hpp>
-//#include <shift/resource/shader.hpp>
+//#include <shift/resource_db/repository.hpp>
+//#include <shift/resource_db/shader.hpp>
 //#include <shift/core/exception.hpp>
 //#include <shift/core/algorithm.hpp>
 //#include <shift/core/at_exit_scope.hpp>

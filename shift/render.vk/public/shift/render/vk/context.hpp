@@ -3,7 +3,7 @@
 
 #include <shift/core/bit_field.hpp>
 #include <shift/math/vector.hpp>
-#include <shift/resource/image.hpp>
+#include <shift/resource_db/image.hpp>
 #include "shift/render/vk/types.hpp"
 #include "shift/render/vk/shared_object.hpp"
 

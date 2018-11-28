@@ -48,7 +48,7 @@ if(NOT NO_VULKAN AND NOT NO_QT5)
       shift.render.vk
       shift.graphics
       shift.scene
-      shift.resource
+      shift.resource_db
       shift.parser.json
       shift.serialization2
       shift.task

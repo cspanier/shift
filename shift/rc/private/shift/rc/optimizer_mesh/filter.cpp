@@ -1,5 +1,5 @@
 #include "shift/rc/optimizer_mesh/filter.hpp"
-#include <shift/resource/mesh.hpp>
+#include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/vector.hpp>
 #include <shift/core/hash_table.hpp>
@@ -126,20 +126,20 @@ bool optimize_mesh(const job_description& /*job*/)
   //                       sizeof(vertex));
 
   //// Store resource into repository.
-  // resource::repository::singleton_instance().save(*mesh,
+  // resource_db::repository::singleton_instance().save(*mesh,
 
   return true;
 }
 
 template <typename Index>
-std::vector<std::uint8_t> resolve_vertex_indices(resource::mesh& mesh,
+std::vector<std::uint8_t> resolve_vertex_indices(resource_db::mesh& mesh,
                                                  /* Index* indices, */
                                                  std::size_t index_count)
 {
   std::size_t vertex_size = 0;
   for (auto& attribute : mesh.vertex_attributes)
   {
-    vertex_size += resource::vertex_attribute_size(attribute.component_type,
+    vertex_size += resource_db::vertex_attribute_size(attribute.component_type,
                                                    attribute.data_type);
   }
   const auto& index_buffer = mesh.index_buffer_view.buffer->storage;
@@ -163,7 +163,7 @@ std::vector<std::uint8_t> resolve_vertex_indices(resource::mesh& mesh,
   return destination;
 }
 
-bool optimize_mesh(resource::mesh& mesh)
+bool optimize_mesh(resource_db::mesh& mesh)
 {
   if (mesh.sub_meshes.size() != 1)
     return true;
@@ -183,16 +183,16 @@ bool optimize_mesh(resource::mesh& mesh)
   {
     switch (sub_mesh.topology)
     {
-    case resource::primitive_topology::triangle_list:
+    case resource_db::primitive_topology::triangle_list:
       index_count = sub_mesh.index_count / 3;
       break;
 
-    case resource::primitive_topology::triangle_strip:
+    case resource_db::primitive_topology::triangle_strip:
       /// ToDo: Find and subtract empty triangles.
       BOOST_ASSERT(false);  // Not yet implemented.
       return false;
 
-    case resource::primitive_topology::triangle_fan:
+    case resource_db::primitive_topology::triangle_fan:
       BOOST_ASSERT(false);  // Not yet implemented.
       return false;
 
@@ -204,7 +204,7 @@ bool optimize_mesh(resource::mesh& mesh)
 
   switch (mesh.index_data_type)
   {
-  case resource::vertex_index_data_type::uint8:
+  case resource_db::vertex_index_data_type::uint8:
     resolve_vertex_indices<std::uint8_t>(
       mesh, /*mesh.index_buffer_view.buffer->storage.data(),*/ index_count);
     break;

@@ -9,7 +9,7 @@ if (NOT NO_VULKAN)
       "${CMAKE_CURRENT_SOURCE_DIR}/private/shift/render/vk/precompiled.hpp"
     DEPENDENCIES
       shift.scene
-      shift.resource
+      shift.resource_db
       shift.livedebug
       shift.parser.json
       shift.serialization2
@@ -34,7 +34,7 @@ if (NOT NO_VULKAN)
       ${CMAKE_CURRENT_SOURCE_DIR}/test
     DEPENDENCIES
       shift.render.vk
-      shift.resource
+      shift.resource_db
       Boost::unit_test_framework
   )
 endif()

@@ -1,9 +1,9 @@
 #include "shift/render/vk/pass_text.hpp"
 #include "shift/render/vk/layer1/shader_module.hpp"
 #include "shift/render/vk/layer1/device.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/shader.hpp>
-#include <shift/resource/font.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/shader.hpp>
+#include <shift/resource_db/font.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/algorithm.hpp>
 #include <shift/core/at_exit_scope.hpp>
@@ -29,7 +29,7 @@ void pass_text::destroy_resource_descriptions()
 
 void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
 {
-  auto& repository = resource::repository::singleton_instance();
+  auto& repository = resource_db::repository::singleton_instance();
 
   // Create descriptor set layout and pipeline layout.
   const auto text_layout_bindings =
@@ -120,15 +120,15 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
     /* dynamic_states */ dynamic_states.data());
 
   auto solid_vertex_shader_resource =
-    repository.load<resource::shader>("public/shaders/glyphsolid.vert.spv");
+    repository.load<resource_db::shader>("public/shaders/glyphsolid.vert.spv");
   auto solid_fragment_shader_resource =
-    repository.load<resource::shader>("public/shaders/glyphsolid.frag.spv");
+    repository.load<resource_db::shader>("public/shaders/glyphsolid.frag.spv");
   auto curve_vertex_shader_resource =
-    repository.load<resource::shader>("public/shaders/glyphcurve.vert.spv");
+    repository.load<resource_db::shader>("public/shaders/glyphcurve.vert.spv");
   auto curve_geometry_shader_resource =
-    repository.load<resource::shader>("public/shaders/glyphcurve.geom.spv");
+    repository.load<resource_db::shader>("public/shaders/glyphcurve.geom.spv");
   auto curve_fragment_shader_resource =
-    repository.load<resource::shader>("public/shaders/glyphcurve.frag.spv");
+    repository.load<resource_db::shader>("public/shaders/glyphcurve.frag.spv");
   if (!solid_vertex_shader_resource || !solid_fragment_shader_resource ||
       !curve_vertex_shader_resource || !curve_geometry_shader_resource ||
       !curve_fragment_shader_resource)
@@ -420,7 +420,7 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
 
   _font_resource =
     repository
-      .load<resource::font>("public/fonts/google/aldrich/Aldrich-Regular.font")
+      .load<resource_db::font>("public/fonts/google/aldrich/Aldrich-Regular.font")
       .get_shared();
   if (!_font_resource)
   {
@@ -431,7 +431,7 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
 
   // _font_resource->glyphs[0].solid_primitive;
 
-  // std::set<const shift::resource::buffer*> vertex_buffers;
+  // std::set<const shift::resource_db::buffer*> vertex_buffers;
   if (_font_resource->mesh->vertex_attributes.size() != 1)
   {
     BOOST_THROW_EXCEPTION(
@@ -445,10 +445,10 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
       shift::core::runtime_error() << shift::core::context_info(
         "Font meshes without vertex buffers are not supported."));
   }
-  if (vertex_attribute.usage != resource::vertex_attribute_usage::position ||
+  if (vertex_attribute.usage != resource_db::vertex_attribute_usage::position ||
       vertex_attribute.component_type !=
-        resource::vertex_attribute_component_type::float32 ||
-      vertex_attribute.data_type != resource::vertex_attribute_data_type::vec2)
+        resource_db::vertex_attribute_component_type::float32 ||
+      vertex_attribute.data_type != resource_db::vertex_attribute_data_type::vec2)
   {
     BOOST_THROW_EXCEPTION(
       shift::core::runtime_error()
@@ -463,7 +463,7 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
         "Font meshes without index buffers are not supported."));
   }
   if (_font_resource->mesh->index_data_type !=
-      resource::vertex_index_data_type::uint32)
+      resource_db::vertex_index_data_type::uint32)
   {
     BOOST_THROW_EXCEPTION(
       shift::core::runtime_error()
@@ -512,7 +512,7 @@ void pass_text::destroy_pipeline()
   _descriptor_set_layout.reset();
 }
 
-void pass_text::create_scene_resources(resource::scene& /*scene*/)
+void pass_text::create_scene_resources(resource_db::scene& /*scene*/)
 {
   /// ToDo...
 }
@@ -532,9 +532,9 @@ void pass_text::update(vk::layer2::multiview& /*multiview*/,
 //#include "shift/render/vk/render_passes/text_instance.hpp"
 //#include "shift/render/vk/render_passes/text_schematic.hpp"
 //#include "vk/cube_application.h"
-//#include <shift/resource/repository.hpp>
-//#include <shift/resource/shader.hpp>
-//#include <shift/resource/font.hpp>
+//#include <shift/resource_db/repository.hpp>
+//#include <shift/resource_db/shader.hpp>
+//#include <shift/resource_db/font.hpp>
 //#include <shift/core/exception.hpp>
 //#include <shift/core/algorithm.hpp>
 //#include <boost/filesystem.hpp>

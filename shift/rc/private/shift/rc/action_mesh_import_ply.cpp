@@ -1,7 +1,7 @@
 #include "shift/rc/action_mesh_import_ply.hpp"
 #include "shift/rc/optimizer_mesh/filter.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/mesh.hpp>
+#include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/vector.hpp>
 #include <boost/filesystem.hpp>
@@ -392,9 +392,9 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
     vertex_size += property_size(property.type);
   std::uint32_t index_element_size = property_size(index_element_type);
 
-  auto mesh = std::make_shared<resource::mesh>();
+  auto mesh = std::make_shared<resource_db::mesh>();
 
-  auto index_buffer = std::make_shared<resource::buffer>();
+  auto index_buffer = std::make_shared<resource_db::buffer>();
 
   mesh->index_buffer_view.buffer = index_buffer;
   mesh->index_buffer_view.offset = 0;
@@ -402,15 +402,15 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   switch (index_element_type)
   {
   case vertex_property_type::uint8:
-    mesh->index_data_type = resource::vertex_index_data_type::uint8;
+    mesh->index_data_type = resource_db::vertex_index_data_type::uint8;
     break;
 
   case vertex_property_type::uint16:
-    mesh->index_data_type = resource::vertex_index_data_type::uint16;
+    mesh->index_data_type = resource_db::vertex_index_data_type::uint16;
     break;
 
   case vertex_property_type::uint32:
-    mesh->index_data_type = resource::vertex_index_data_type::uint32;
+    mesh->index_data_type = resource_db::vertex_index_data_type::uint32;
     break;
 
   default:
@@ -418,32 +418,32 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  auto vertex_buffer = std::make_shared<resource::buffer>();
-  resource::buffer_view position_buffer_view;
+  auto vertex_buffer = std::make_shared<resource_db::buffer>();
+  resource_db::buffer_view position_buffer_view;
   position_buffer_view.buffer = vertex_buffer;
   position_buffer_view.offset = 0u;
   position_buffer_view.size = 0u;
 
-  resource::buffer_view normal_buffer_view;
+  resource_db::buffer_view normal_buffer_view;
   normal_buffer_view.buffer = vertex_buffer;
   normal_buffer_view.offset = 0u;
   normal_buffer_view.size = 0u;
 
-  resource::buffer_view texcoord_buffer_view;
+  resource_db::buffer_view texcoord_buffer_view;
   texcoord_buffer_view.buffer = vertex_buffer;
   texcoord_buffer_view.offset = 0u;
   texcoord_buffer_view.size = 0u;
 
   if (index_x >= 0 && index_y >= 0 && index_z >= 0)
   {
-    resource::vertex_attribute position_attribute;
+    resource_db::vertex_attribute position_attribute;
     position_attribute.offset = 0u;
     position_attribute.stride = 3 * sizeof(float);
-    position_attribute.usage = resource::vertex_attribute_usage::position;
+    position_attribute.usage = resource_db::vertex_attribute_usage::position;
     position_attribute.component_type =
-      resource::vertex_attribute_component_type::float32;
-    position_attribute.data_type = resource::vertex_attribute_data_type::vec3;
-    position_attribute.size = resource::vertex_attribute_size(
+      resource_db::vertex_attribute_component_type::float32;
+    position_attribute.data_type = resource_db::vertex_attribute_data_type::vec3;
+    position_attribute.size = resource_db::vertex_attribute_size(
       position_attribute.component_type, position_attribute.data_type);
 
     position_buffer_view.offset = vertex_buffer->storage.size();
@@ -456,14 +456,14 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   }
   if (index_nx >= 0 && index_ny >= 0 && index_nz >= 0)
   {
-    resource::vertex_attribute normal_attribute;
+    resource_db::vertex_attribute normal_attribute;
     normal_attribute.offset = 0u;
     normal_attribute.stride = 3 * sizeof(float);
-    normal_attribute.usage = resource::vertex_attribute_usage::normal;
+    normal_attribute.usage = resource_db::vertex_attribute_usage::normal;
     normal_attribute.component_type =
-      resource::vertex_attribute_component_type::float32;
-    normal_attribute.data_type = resource::vertex_attribute_data_type::vec3;
-    normal_attribute.size = resource::vertex_attribute_size(
+      resource_db::vertex_attribute_component_type::float32;
+    normal_attribute.data_type = resource_db::vertex_attribute_data_type::vec3;
+    normal_attribute.size = resource_db::vertex_attribute_size(
       normal_attribute.component_type, normal_attribute.data_type);
 
     normal_buffer_view.offset = vertex_buffer->storage.size();
@@ -476,14 +476,14 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   }
   if (index_u >= 0 && index_v >= 0)
   {
-    resource::vertex_attribute texcoord_attribute;
+    resource_db::vertex_attribute texcoord_attribute;
     texcoord_attribute.offset = 0u;
     texcoord_attribute.stride = 2 * sizeof(float);
-    texcoord_attribute.usage = resource::vertex_attribute_usage::texcoord;
+    texcoord_attribute.usage = resource_db::vertex_attribute_usage::texcoord;
     texcoord_attribute.component_type =
-      resource::vertex_attribute_component_type::float32;
-    texcoord_attribute.data_type = resource::vertex_attribute_data_type::vec2;
-    texcoord_attribute.size = resource::vertex_attribute_size(
+      resource_db::vertex_attribute_component_type::float32;
+    texcoord_attribute.data_type = resource_db::vertex_attribute_data_type::vec2;
+    texcoord_attribute.size = resource_db::vertex_attribute_size(
       texcoord_attribute.component_type, texcoord_attribute.data_type);
 
     texcoord_buffer_view.offset = vertex_buffer->storage.size();
@@ -515,10 +515,10 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
     }
     for (const auto& attribute : mesh->vertex_attributes)
     {
-      if (attribute.usage == resource::vertex_attribute_usage::position &&
+      if (attribute.usage == resource_db::vertex_attribute_usage::position &&
           attribute.component_type ==
-            resource::vertex_attribute_component_type::float32 &&
-          attribute.data_type == resource::vertex_attribute_data_type::vec3)
+            resource_db::vertex_attribute_component_type::float32 &&
+          attribute.data_type == resource_db::vertex_attribute_data_type::vec3)
       {
         auto& target = *reinterpret_cast<math::vector3<float>*>(
           vertex_buffer->storage.data() + position_buffer_view.offset +
@@ -548,17 +548,17 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
         if (flip_z)
           target.z = -target.z;
 
-        if (attribute.usage == resource::vertex_attribute_usage::position)
+        if (attribute.usage == resource_db::vertex_attribute_usage::position)
           target *= scale;
 
         min = math::min(min, target);
         max = math::max(max, target);
       }
-      else if (attribute.usage == resource::vertex_attribute_usage::normal &&
+      else if (attribute.usage == resource_db::vertex_attribute_usage::normal &&
                attribute.component_type ==
-                 resource::vertex_attribute_component_type::float32 &&
+                 resource_db::vertex_attribute_component_type::float32 &&
                attribute.data_type ==
-                 resource::vertex_attribute_data_type::vec3)
+                 resource_db::vertex_attribute_data_type::vec3)
       {
         auto& target = *reinterpret_cast<math::vector3<float>*>(
           vertex_buffer->storage.data() + normal_buffer_view.offset +
@@ -588,11 +588,11 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
         if (flip_nz)
           target.z = -target.z;
       }
-      else if (attribute.usage == resource::vertex_attribute_usage::texcoord &&
+      else if (attribute.usage == resource_db::vertex_attribute_usage::texcoord &&
                attribute.component_type ==
-                 resource::vertex_attribute_component_type::float32 &&
+                 resource_db::vertex_attribute_component_type::float32 &&
                attribute.data_type ==
-                 resource::vertex_attribute_data_type::vec2)
+                 resource_db::vertex_attribute_data_type::vec2)
       {
         auto& target = *reinterpret_cast<math::vector2<float>*>(
           vertex_buffer->storage.data() + texcoord_buffer_view.offset +
@@ -624,8 +624,8 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
   }
   mesh->bounding_box = math::make_aabb_from_min_max<3, float>(min, max);
 
-  resource::sub_mesh sub_mesh;
-  sub_mesh.topology = resource::primitive_topology::triangle_list;
+  resource_db::sub_mesh sub_mesh;
+  sub_mesh.topology = resource_db::primitive_topology::triangle_list;
   sub_mesh.vertex_offset = 0;
   sub_mesh.first_index = 0;
   sub_mesh.index_count = 0;

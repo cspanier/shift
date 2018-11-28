@@ -11,7 +11,7 @@
 #include "shift/render/vk/layer1/image_view.hpp"
 #include "shift/render/vk/layer2/object.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class image;
 }
@@ -42,7 +42,7 @@ public:
   ///   An optional data source.
   texture(vk::layer1::device& device, vk::format image_format,
           vk::extent_3d extent, std::uint32_t mip_levels,
-          std::uint32_t array_layers, std::shared_ptr<resource::image> source);
+          std::uint32_t array_layers, std::shared_ptr<resource_db::image> source);
 
   texture(const texture&) = delete;
   texture(texture&&) = delete;
@@ -63,7 +63,7 @@ public:
   }
 
   ///
-  const std::shared_ptr<resource::image>& source_image() const;
+  const std::shared_ptr<resource_db::image>& source_image() const;
 
   ///
   std::uint32_t mip_levels() noexcept final;
@@ -98,7 +98,7 @@ private:
   vk::shared_ptr<vk::layer1::buffer> _staging_buffer;
   vk::shared_ptr<vk::layer1::image_view> _image_view;
   std::uint32_t _array_layers;
-  std::shared_ptr<resource::image> _source;
+  std::shared_ptr<resource_db::image> _source;
   std::vector<vk::buffer_image_copy> _buffer_copy_regions;
   std::uint32_t _min_valid_mip_level;
 };

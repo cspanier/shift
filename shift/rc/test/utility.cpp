@@ -1,6 +1,6 @@
 #include "utility.hpp"
 #include <shift/rc/resource_compiler.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include <shift/task/async.hpp>
 #include <shift/log/log_server.hpp>
 #include <shift/core/at_exit_scope.hpp>
@@ -58,7 +58,7 @@ void run_rc(const settings_t& settings, std::size_t expect_succeeded,
   auto& log_server = log::log_server::singleton_create();
   log_server.add_console_sink(false, true, true, false);
 
-  resource::repository repository;
+  resource_db::repository repository;
   repository.mount(settings.build_path, false);
   repository.mount(settings.output_path, false);
 

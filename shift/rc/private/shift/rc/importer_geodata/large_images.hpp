@@ -2,7 +2,7 @@
 #define SHIFT_RC_IMPORTER_GEODATA_LARGE_IMAGES_HPP
 
 #include <shift/core/exception.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
 namespace shift::rc

@@ -6,8 +6,8 @@
 #include "shift/render/vk/layer2/view.hpp"
 #include "shift/render/vk/layer1/device.hpp"
 #include "shift/render/vk/layer1/instance.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/shader.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/shader.hpp>
 #include <gsl/gsl>
 
 #include <shift/log/log.hpp>
@@ -20,7 +20,7 @@ using namespace shift;
 
 void renderer_impl::create_pipeline()
 {
-  auto& repository = resource::repository::singleton_instance();
+  auto& repository = resource_db::repository::singleton_instance();
 
   for (std::uint32_t swapchain_index = 0; swapchain_index < _swapchain_length;
        ++swapchain_index)
@@ -83,7 +83,7 @@ void renderer_impl::create_pipeline()
                   /* push_constant_range_count */ 0,
                   /* push_constant_ranges */ nullptr));
 
-    auto compute_shader_resource = repository.load<resource::shader>(
+    auto compute_shader_resource = repository.load<resource_db::shader>(
       "public/shaders/reproject_depth.comp.spv");
     if (!compute_shader_resource)
     {
@@ -258,18 +258,18 @@ void renderer_impl::create_pipeline()
       /* dynamic_state_count */ dynamic_states.size(),
       /* dynamic_states */ dynamic_states.data());
 
-    auto vertex_shader_textured_resource = repository.load<resource::shader>(
+    auto vertex_shader_textured_resource = repository.load<resource_db::shader>(
       "public/shaders/materials/default_textured.vert.spv");
-    auto fragment_shader_textured_resource = repository.load<resource::shader>(
+    auto fragment_shader_textured_resource = repository.load<resource_db::shader>(
       "public/shaders/materials/default_textured.frag.spv");
-    auto vertex_shader_untextured_resource = repository.load<resource::shader>(
+    auto vertex_shader_untextured_resource = repository.load<resource_db::shader>(
       "public/shaders/materials/default_untextured.vert.spv");
     auto fragment_shader_untextured_resource =
-      repository.load<resource::shader>(
+      repository.load<resource_db::shader>(
         "public/shaders/materials/default_untextured.frag.spv");
-    auto vertex_shader_wireframe_resource = repository.load<resource::shader>(
+    auto vertex_shader_wireframe_resource = repository.load<resource_db::shader>(
       "public/shaders/materials/default_wireframe.vert.spv");
-    auto fragment_shader_wireframe_resource = repository.load<resource::shader>(
+    auto fragment_shader_wireframe_resource = repository.load<resource_db::shader>(
       "public/shaders/materials/default_wireframe.frag.spv");
     if (!vertex_shader_textured_resource ||
         !fragment_shader_textured_resource ||

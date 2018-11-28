@@ -1,9 +1,9 @@
 //#define BOOST_BIND_NO_PLACEHOLDERS
 //#include "editor/render_thread.h"
 //#include <shift/render/vk/renderer.hpp>
-//#include <shift/resource/repository.hpp>
-//#include <shift/resource/resource_group.hpp>
-//#include <shift/resource/scene.hpp>
+//#include <shift/resource_db/repository.hpp>
+//#include <shift/resource_db/resource_group.hpp>
+//#include <shift/resource_db/scene.hpp>
 //#include <shift/log/log.hpp>
 //#include <shift/core/exception.hpp>
 //#include <shift/core/at_exit_scope.hpp>

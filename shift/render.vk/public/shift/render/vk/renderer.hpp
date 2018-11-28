@@ -8,7 +8,7 @@
 #include <shift/core/boost_restore_warnings.hpp>
 #include <shift/core/bit_field.hpp>
 #include <shift/math/vector.hpp>
-#include <shift/resource/image.hpp>
+#include <shift/resource_db/image.hpp>
 #include "shift/render/vk/types.hpp"
 #include "shift/render/vk/shared.hpp"
 #include "shift/render/vk/window.hpp"
@@ -18,7 +18,7 @@
 #include "shift/render/vk/mesh.hpp"
 #include "shift/render/vk/model.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class buffer;
 class image;
@@ -239,24 +239,24 @@ public:
   ///
   [[nodiscard]] virtual boost::intrusive_ptr<vk::buffer> create_buffer(
     vk::buffer_usage_flags usage,
-    std::shared_ptr<resource::buffer>& source_buffer) = 0;
+    std::shared_ptr<resource_db::buffer>& source_buffer) = 0;
 
   ///
   [[nodiscard]] virtual boost::intrusive_ptr<vk::mesh> create_mesh(
-    const std::shared_ptr<resource::mesh>& source_mesh) = 0;
+    const std::shared_ptr<resource_db::mesh>& source_mesh) = 0;
 
   ///
   [[nodiscard]] virtual boost::intrusive_ptr<vk::texture> create_texture(
-    std::shared_ptr<resource::image>& source_texture) = 0;
+    std::shared_ptr<resource_db::image>& source_texture) = 0;
 
   ///
   [[nodiscard]] virtual boost::intrusive_ptr<vk::material> create_material(
-    const std::shared_ptr<resource::material>& source_material) = 0;
+    const std::shared_ptr<resource_db::material>& source_material) = 0;
 
   ///
   [[nodiscard]] virtual boost::intrusive_ptr<vk::model> create_model(
-    const std::shared_ptr<resource::mesh>& source_mesh,
-    const std::shared_ptr<resource::material>& source_material) = 0;
+    const std::shared_ptr<resource_db::mesh>& source_mesh,
+    const std::shared_ptr<resource_db::material>& source_material) = 0;
 
   /// Call this method to recreate all window size dependent resources.
   virtual void begin_resize() = 0;

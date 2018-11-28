@@ -6,7 +6,7 @@
 #include "shift/render/vk/shared_object.hpp"
 #include "shift/render/vk/texture.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 struct sampler;
 }

@@ -3,10 +3,10 @@
 
 #include <shift/core/exception.hpp>
 #include <shift/parser/json/json.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class archive;
 }
@@ -20,7 +20,7 @@ namespace mat
   {
     /// Main converter routine.
     static int run(const boost::filesystem::path& input_filename,
-                   resource::archive& target,
+                   resource_db::archive& target,
                    const parser::json::object& options);
   };
 }

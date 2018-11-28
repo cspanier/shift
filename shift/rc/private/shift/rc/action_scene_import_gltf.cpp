@@ -1,8 +1,8 @@
 #include "shift/rc/action_scene_import_gltf.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/buffer.hpp>
-#include <shift/resource/mesh.hpp>
-#include <shift/resource/scene.hpp>
+#include <shift/resource_db/buffer.hpp>
+#include <shift/resource_db/mesh.hpp>
+#include <shift/resource_db/scene.hpp>
 #include <shift/parser/json/json.hpp>
 #include <shift/math/quaternion.hpp>
 #include <shift/math/matrix.hpp>
@@ -18,7 +18,7 @@ namespace json = parser::json;
 
 struct action_scene_import_gltf::context_t
 {
-  resource::scene scene;
+  resource_db::scene scene;
 };
 
 action_scene_import_gltf::action_scene_import_gltf()
@@ -81,7 +81,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
   const auto& nodes_array = json::get<json::array>(root_object, "nodes");
   // First create all node objects so we can resolve references in one pass.
   for (auto nodes_count = nodes_array.size(); nodes_count > 0; --nodes_count)
-    context.scene.nodes.emplace_back(std::make_unique<resource::scene_node>());
+    context.scene.nodes.emplace_back(std::make_unique<resource_db::scene_node>());
   std::uint32_t node_index = 0;
   for (const auto& node_value : nodes_array)
   {
@@ -190,7 +190,7 @@ bool action_scene_import_gltf::process(resource_compiler_impl& /*compiler*/,
     if (default_scene_index-- > 0)
       continue;
 
-    auto root_node = std::make_unique<resource::scene_node>();
+    auto root_node = std::make_unique<resource_db::scene_node>();
     for (const auto& value : json::get<json::array>(scene_object, "nodes"))
     {
       node_index = static_cast<std::uint32_t>(json::get<double>(value));

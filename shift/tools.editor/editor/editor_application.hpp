@@ -13,12 +13,12 @@
 #include <shift/core/object_pool.hpp>
 #include <shift/math/vector.hpp>
 #include <shift/math/matrix.hpp>
-#include <shift/resource/types.hpp>
-#include <shift/resource/repository.hpp>
-#include <shift/resource/material.hpp>
+#include <shift/resource_db/types.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/material.hpp>
 #include "editor/schematics_controller.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class repository;
 class scene;
@@ -144,9 +144,9 @@ private:
 
   bool _quit = false;
 
-  std::unique_ptr<resource::repository> _repository;
+  std::unique_ptr<resource_db::repository> _repository;
   render::vk::renderer* _renderer = nullptr;
-  std::shared_ptr<resource::scene> _resource_scene;
+  std::shared_ptr<resource_db::scene> _resource_scene;
 
   render::vk::window* _render_window = nullptr;
   render::vk::layer2::view* _render_view = nullptr;

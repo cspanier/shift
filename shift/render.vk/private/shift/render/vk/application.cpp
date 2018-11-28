@@ -7,9 +7,9 @@
 #include "shift/render/vk/window.hpp"
 #include "shift/render/vk/layer1/device.hpp"
 #include "shift/render/vk/layer1/physical_device.hpp"
-#include <shift/resource/repository.hpp>
-#include <shift/resource/scene.hpp>
-#include <shift/resource/resource_group.hpp>
+#include <shift/resource_db/repository.hpp>
+#include <shift/resource_db/scene.hpp>
+#include <shift/resource_db/resource_group.hpp>
 #include <shift/log/log.hpp>
 #include <shift/core/at_exit_scope.hpp>
 #include <GLFW/glfw3.h>
@@ -80,10 +80,10 @@ void application::initialize()
   _initialized = true;
 
   // Initialize resource repository and mount public folder.
-  _repository = std::make_unique<resource::repository>();
+  _repository = std::make_unique<resource_db::repository>();
   _repository->mount("public/");
   auto global_cache =
-    _repository->load<resource::resource_group>("public/global.cache");
+    _repository->load<resource_db::resource_group>("public/global.cache");
 
   // Initialize renderer instance.
   vk::debug_layers debug_layers =
@@ -152,12 +152,12 @@ void application::initialize()
   _renderer->initialize(*selected_physical_device);
 
   _resource_scene =
-    _repository->load<resource::scene>("public/pbrt/sanmiguel/sanmiguel.scene")
+    _repository->load<resource_db::scene>("public/pbrt/sanmiguel/sanmiguel.scene")
       .get_shared();
   //    _repository
-  //      ->load<resource::scene>("public/pbrt/white-room/whiteroom-night.scene")
+  //      ->load<resource_db::scene>("public/pbrt/white-room/whiteroom-night.scene")
   //      .get_shared();
-  // _repository->load<resource::scene>("public/pbrt/landscape/view-0.scene").get_shared();
+  // _repository->load<resource_db::scene>("public/pbrt/landscape/view-0.scene").get_shared();
   //  if (!_resource_scene || !_resource_scene->root)
   //  {
   //    BOOST_THROW_EXCEPTION(
@@ -295,7 +295,7 @@ void application::destroy_views()
   _renderer->destroy_all_views();
 }
 
-void application::create_resources(resource::scene& scene)
+void application::create_resources(resource_db::scene& scene)
 {
   using namespace std::chrono_literals;
 
@@ -407,7 +407,7 @@ void application::on_move_cursor(math::vector<2, float> position)
   _cursor_position = position;
 }
 
-void application::collect_resources(resource::scene_node& node,
+void application::collect_resources(resource_db::scene_node& node,
                                     const math::matrix44<float>& transform)
 {
   auto world_transform = transform * node.transform;

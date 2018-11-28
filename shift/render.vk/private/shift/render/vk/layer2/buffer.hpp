@@ -9,7 +9,7 @@
 #include "shift/render/vk/layer1/buffer.hpp"
 #include "shift/render/vk/layer2/object.hpp"
 
-namespace shift::resource
+namespace shift::resource_db
 {
 class buffer;
 }
@@ -40,7 +40,7 @@ public:
   ///   An optional data source.
   buffer(vk::layer1::device& device, std::uint64_t size,
          vk::buffer_usage_flags usage,
-         std::shared_ptr<resource::buffer> source);
+         std::shared_ptr<resource_db::buffer> source);
 
   buffer(const buffer&) = delete;
   buffer(buffer&&) = delete;
@@ -49,7 +49,7 @@ public:
   buffer& operator=(buffer&&) = delete;
 
   ///
-  const std::shared_ptr<resource::buffer>& source_buffer() const;
+  const std::shared_ptr<resource_db::buffer>& source_buffer() const;
 
   ///
   std::uint64_t size() noexcept final;
@@ -72,7 +72,7 @@ private:
   vk::shared_ptr<vk::layer1::buffer> _staging_buffer;
   std::uint64_t _size = 0;
   vk::buffer_usage_flags _usage = vk::buffer_usage_flag::none;
-  std::shared_ptr<resource::buffer> _source;
+  std::shared_ptr<resource_db::buffer> _source;
 };
 }
 

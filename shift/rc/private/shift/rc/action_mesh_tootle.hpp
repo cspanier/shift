@@ -1,7 +1,7 @@
 #ifndef SHIFT_RC_ACTION_MESH_TOOTLE_HPP
 #define SHIFT_RC_ACTION_MESH_TOOTLE_HPP
 
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/repository.hpp>
 #include "shift/rc/types.hpp"
 
 namespace shift::rc

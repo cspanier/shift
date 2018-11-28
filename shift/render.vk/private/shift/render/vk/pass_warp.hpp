@@ -36,7 +36,7 @@ public:
   void destroy_pipeline();
 
   ///
-  void create_resources(resource::scene& scene);
+  void create_resources(resource_db::scene& scene);
 
   ///
   void destroy_resources();

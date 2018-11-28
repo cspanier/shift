@@ -3,9 +3,9 @@
 #include "shift/render/vk/renderer.hpp"
 #include "shift/render/vk/layer2/texture.hpp"
 #include "shift/render/vk/layer1/device.hpp"
-#include <shift/resource/buffer_view.hpp>
-#include <shift/resource/image.hpp>
-#include <shift/resource/repository.hpp>
+#include <shift/resource_db/buffer_view.hpp>
+#include <shift/resource_db/image.hpp>
+#include <shift/resource_db/repository.hpp>
 
 namespace shift::render::vk
 {
@@ -33,13 +33,13 @@ void resource_streamer::create_resources()
 
   /// ToDo: The application should choose whether to precache all textures
   /// or not.
-  // auto& repository = resource::repository::singleton_instance();
-  // auto resources = repository.load_all(resource::resource_type::image);
+  // auto& repository = resource_db::repository::singleton_instance();
+  // auto resources = repository.load_all(resource_db::resource_type::image);
   // for (auto& resource_base : resources)
   //{
   //  managed_image image;
   //  image.resource =
-  //    std::static_pointer_cast<resource::image>(resource_base);
+  //    std::static_pointer_cast<resource_db::image>(resource_base);
   //  image.image = _device->create_image(vk::image_create_info(
   //    /* flags */ vk::image_create_flag::sparse_binding_bit |
   //      vk::image_create_flag::sparse_residency_bit |

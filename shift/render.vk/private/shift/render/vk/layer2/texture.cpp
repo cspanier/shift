@@ -15,7 +15,7 @@ namespace shift::render::vk::layer2
 texture::texture(vk::layer1::device& device, vk::format image_format,
                  vk::extent_3d extent, std::uint32_t mip_levels,
                  std::uint32_t array_layers,
-                 std::shared_ptr<resource::image> source)
+                 std::shared_ptr<resource_db::image> source)
 : _device(&device),
   _array_layers(array_layers),
   _source(std::move(source)),
@@ -109,7 +109,7 @@ texture::~texture() noexcept
 {
 }
 
-const std::shared_ptr<resource::image>& texture::source_image() const
+const std::shared_ptr<resource_db::image>& texture::source_image() const
 {
   return _source;
 }

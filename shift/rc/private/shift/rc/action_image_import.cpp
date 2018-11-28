@@ -1,6 +1,6 @@
 #include "shift/rc/action_image_import.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include <shift/resource/image.hpp>
+#include <shift/resource_db/image.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/utility.hpp>
 #include <shift/math/vector.hpp>
@@ -69,7 +69,7 @@ class image_converter
 {
 public:
   ///
-  image_converter(resource::image& image,
+  image_converter(resource_db::image& image,
                   const boost::filesystem::path& source_name,
                   img_file_type source_type, bool normalized)
   : image(image),
@@ -144,11 +144,11 @@ private:
     using namespace shift::core::literals;
     using pixel_t = typename SourceView::value_type;
 
-    image.format = resource::format_from_gil_pixel<pixel_t, SRGB>::value;
+    image.format = resource_db::format_from_gil_pixel<pixel_t, SRGB>::value;
     image.array_element_count = 1;
     image.face_count = 1;
 
-    std::shared_ptr<resource::buffer> previous_buffer;
+    std::shared_ptr<resource_db::buffer> previous_buffer;
     std::uint32_t buffer_offset = 0;
     for (std::uint32_t
            width = static_cast<std::uint32_t>(source_view.width()),
@@ -157,7 +157,7 @@ private:
          width > 0 || height > 0 || depth > 0;
          width /= 2u, height /= 2u, depth /= 2u)
     {
-      resource::mipmap_info mipmap;
+      resource_db::mipmap_info mipmap;
       mipmap.width = std::max(width, 1u);
       mipmap.height = std::max(height, 1u);
       mipmap.depth = std::max(depth, 1u);
@@ -175,7 +175,7 @@ private:
       {
         // Create a new buffer for this mipmap level.
         buffer_offset = 0;
-        mipmap.buffer = std::make_shared<resource::buffer>();
+        mipmap.buffer = std::make_shared<resource_db::buffer>();
         previous_buffer = mipmap.buffer.get_shared();
       }
       else
@@ -189,7 +189,7 @@ private:
       image.mipmaps.push_back(mipmap);
     }
 
-    resource::mipmap_info* previous_mipmap = nullptr;
+    resource_db::mipmap_info* previous_mipmap = nullptr;
     for (auto& mipmap : image.mipmaps)
     {
       if (!previous_mipmap)
@@ -233,7 +233,7 @@ private:
     return true;
   }
 
-  resource::image& image;
+  resource_db::image& image;
   const boost::filesystem::path& source_name;
   img_file_type source_type;
   bool normalized;
@@ -286,7 +286,7 @@ bool action_image_import::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  auto image = std::make_shared<resource::image>();
+  auto image = std::make_shared<resource_db::image>();
   bool result = false;
   image_converter converter{
     *image, input.file->path, source_type,
@@ -399,7 +399,7 @@ bool action_image_import::process(resource_compiler_impl& compiler,
   }
 
   std::size_t lod_level = 0;
-  resource::mipmap_info* previous_mipmap = nullptr;
+  resource_db::mipmap_info* previous_mipmap = nullptr;
   // We need to update all buffer resource_ptr ids in a separate loop because of
   // the break in the loop below.
   for (auto& mipmap : image->mipmaps)
