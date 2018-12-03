@@ -1,0 +1,53 @@
+if(NOT GLSLANG_CORE_LIBRARY)
+  find_path(GLSLANG_CORE_INCLUDE_DIR "glslang/Public/ShaderLang.h")
+  find_library(GLSLANG_CORE_LIBRARY_DEBUG
+    NAMES
+      # ToDo: Is there any debug library?
+      glslang
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(GLSLANG_CORE_LIBRARY_RELEASE
+    NAMES
+      glslang
+    PATH_SUFFIXES
+      lib
+  )
+  set(GLSLANG_CORE_LIBRARY
+    debug ${GLSLANG_CORE_LIBRARY_DEBUG}
+    optimized ${GLSLANG_CORE_LIBRARY_RELEASE}
+  )
+endif()
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLSLANG_CORE REQUIRED_VARS
+  GLSLANG_CORE_LIBRARY GLSLANG_CORE_INCLUDE_DIR)
+
+mark_as_advanced(GLSLANG_CORE_INCLUDE_DIRS)
+mark_as_advanced(GLSLANG_CORE_LIBRARIES)
+
+if(GLSLANG_CORE_FOUND)
+  set(GLSLANG_CORE_INCLUDE_DIRS ${GLSLANG_CORE_INCLUDE_DIR})
+  set(GLSLANG_CORE_LIBRARIES ${GLSLANG_CORE_LIBRARY})
+
+  if(NOT TARGET Glslang::core)
+    add_library(Glslang::core UNKNOWN IMPORTED)
+    set_target_properties(Glslang::core PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${GLSLANG_CORE_INCLUDE_DIRS}")
+
+    set_property(TARGET Glslang::core APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS RELEASE)
+    set_property(TARGET Glslang::core APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS DEBUG)
+
+    if(GLSLANG_CORE_LIBRARY_DEBUG AND GLSLANG_CORE_LIBRARY_RELEASE)
+      set_target_properties(Glslang::core PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${GLSLANG_CORE_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${GLSLANG_CORE_LIBRARY_RELEASE}"
+      )
+    else()
+      set_target_properties(Glslang::core PROPERTIES
+        IMPORTED_LOCATION "${GLSLANG_CORE_LIBRARY_RELEASE}"
+      )
+    endif()
+  endif()
+endif()

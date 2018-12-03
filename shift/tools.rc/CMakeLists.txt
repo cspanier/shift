@@ -22,7 +22,13 @@ if(NOT NO_RC)
       Boost::iostreams
       Boost::context
       SpirVCross::core
-      ShaderC::ShaderC
+      SpirVCross::util
+      SpirVTools::core
+      SpirVTools::optimizer
+      SpirV::core
+      Glslang::core
+      ShaderC::core
+      ShaderC::util
       3rdparty.amd-tootle
       TIFF::TIFF
       JPEG::JPEG

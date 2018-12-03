@@ -1,6 +1,11 @@
-# shift.resource_db - A Graphic Resource Serialization Library
+# shift.resource_db - A Graphic Resource Library
 
-The purpose of `shift.resource_db` is to efficiently store data that is commonly used in graphics applications. Each resource is assigned an identifier that is computed from a hash of its data. Cross references between resources are not 
+The purpose of `shift.resource_db` is to efficiently store data that is commonly used in graphics applications.
+
+* Quickly provide information about dependencies between resources
+* Use IDs instead of paths for cross references
+
+Each resource is assigned an identifier that is computed from a hash of its data. Cross references between resources are not 
 
 * [buffer](#buffer)
 * [buffer_view](#buffer_view)

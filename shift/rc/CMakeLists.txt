@@ -18,8 +18,14 @@ if (NOT NO_VULKAN)
       shift.core
       shift.platform
       Boost::boost
-      # SPIRV_CROSS
-      ShaderC::ShaderC
+      SpirVCross::core
+      SpirVCross::util
+      SpirVTools::core
+      SpirVTools::optimizer
+      SpirV::core
+      Glslang::core
+      ShaderC::core
+      ShaderC::util
       3rdparty.amd-tootle
       3rdparty.squish
       TIFF::TIFF
@@ -51,7 +57,13 @@ if (NOT NO_VULKAN)
       Boost::context
       Boost::unit_test_framework
       SpirVCross::core
-      ShaderC::ShaderC
+      SpirVCross::util
+      SpirVTools::core
+      SpirVTools::optimizer
+      SpirV::core
+      Glslang::core
+      ShaderC::core
+      ShaderC::util
       3rdparty.amd-tootle
       TIFF::TIFF
       JPEG::JPEG
