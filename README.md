@@ -19,7 +19,7 @@ This repository hosts a collection of various libraries and tools that have been
 * [shift.protogen](shift/protogen/doc/protogen.md): code generator for shift.proto.
 * [shift.parser.proto](shift/parser.proto/doc/parser.proto.md): experimental version 2 of shift.proto.
 * [shift.tools.protogen](shift/tools.protogen/doc/tools.protogen.md): experimental version 2 of shift.protogen.
-* [shift.resource_db](shift/resource_db/doc/resource_db.md): graphic resource serialization library.
+* [shift.resource_db](shift/resource_db/doc/resource_db.md): graphic resource library.
 * [shift.rc](shift/rc/doc/rc.md): resource compiler core library.
 * [shift.tools.rc](shift/tools.rc/doc/tools.rc.md): resource compiler frontend application.
 * [shift.tools.vk2cpp](shift/tools.vk2cpp/doc/tools.vk2cpp.md): a tool to translate the Vulkan specification XML file into a C++ header plus MSVS and QtCreator code snippets.
@@ -47,6 +47,8 @@ Additionally, the following libraries are required:
 * [Boost](https://www.boost.org/) 1.68
 * [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross) tested with revision cc7679e
 * [ShaderC](https://github.com/google/shaderc) tested with revision 30af9f9
+    * [SPIRV-Tools](https://github.com/KhronosGroup/SPIRV-Tools)
+    * [glslang](https://github.com/KhronosGroup/glslang)
 * [Vulkan SDK](https://vulkan.lunarg.com/) 1.1.82.0
 * [GLFW](https://www.glfw.org/) 3.2.1
 * [Qt](https://www.qt.io/download) 5.11
