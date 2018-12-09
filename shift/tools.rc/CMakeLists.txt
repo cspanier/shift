@@ -21,19 +21,5 @@ if(NOT NO_RC)
       Boost::filesystem
       Boost::iostreams
       Boost::context
-      SpirVCross::core
-      SpirVCross::util
-      SpirVTools::core
-      SpirVTools::optimizer
-      SpirV::core
-      Glslang::core
-      ShaderC::core
-      ShaderC::util
-      3rdparty.amd-tootle
-      TIFF::TIFF
-      JPEG::JPEG
-      PNG::PNG
-      BZip2::BZip2
-      ZLIB::ZLIB
   )
 endif()

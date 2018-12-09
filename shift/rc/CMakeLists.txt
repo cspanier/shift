@@ -18,14 +18,14 @@ if (NOT NO_VULKAN)
       shift.core
       shift.platform
       Boost::boost
-      SpirVCross::core
-      SpirVCross::util
-      SpirVTools::core
-      SpirVTools::optimizer
-      SpirV::core
-      Glslang::core
       ShaderC::core
       ShaderC::util
+      Glslang::core
+      SpirV::core
+      SpirVTools::optimizer
+      SpirVTools::core
+      SpirVCross::util
+      SpirVCross::core
       3rdparty.amd-tootle
       3rdparty.squish
       TIFF::TIFF
@@ -56,19 +56,5 @@ if (NOT NO_VULKAN)
       Boost::iostreams
       Boost::context
       Boost::unit_test_framework
-      SpirVCross::core
-      SpirVCross::util
-      SpirVTools::core
-      SpirVTools::optimizer
-      SpirV::core
-      Glslang::core
-      ShaderC::core
-      ShaderC::util
-      3rdparty.amd-tootle
-      TIFF::TIFF
-      JPEG::JPEG
-      PNG::PNG
-      BZip2::BZip2
-      ZLIB::ZLIB
   )
 endif()
