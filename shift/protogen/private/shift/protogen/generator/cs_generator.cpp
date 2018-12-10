@@ -908,9 +908,13 @@ void cs_generator::writeMessageDefinitions(namescope& scope)
         *_source << " : Shift.Network.Message" br;
 
       *_source << indent << "{" << inc_indent << br;
-      *_source << indent << "public const uint Uid = 0x" << std::hex
-               << std::setfill('0') << std::setw(8)
-               << message->attribute<std::uint32_t>("uid") << ";" br2;
+      *_source << indent << "public";
+      // Eventually hide base member UID.
+      if (message->base != nullptr)
+        *_source << " new";
+      *_source << " const uint Uid = 0x" << std::hex << std::setfill('0')
+               << std::setw(8) << message->attribute<std::uint32_t>("uid")
+               << ";" br2;
       *_source << indent << "/// <summary>Default constructor.</summary>" br;
       *_source << indent << "public "
                << message->attribute<std::string>("cs_name") << "()" br;
