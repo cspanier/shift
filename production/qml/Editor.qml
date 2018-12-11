@@ -44,11 +44,6 @@ ApplicationWindow {
           ToolTip.text: qsTr("Save the active project")
         }
         EditorButton {
-          imageSource: "../icons/editor/ic_close_black_48dp.png"
-          // imageSource: "../icons/editor/ic_close_48px.svg"
-          ToolTip.text: qsTr("Close the active project")
-        }
-        EditorButton {
           imageSource: "../icons/editor/cursor_arrow_icon&48.png"
           ToolTip.text: qsTr("Select object tool")
         }

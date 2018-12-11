@@ -84,7 +84,7 @@ void renderer_impl::create_pipeline()
                   /* push_constant_ranges */ nullptr));
 
     auto compute_shader_resource = repository.load<resource_db::shader>(
-      "public/shaders/reproject_depth.comp.spv");
+      "resources/shaders/reproject_depth.comp.spv");
     if (!compute_shader_resource)
     {
       BOOST_THROW_EXCEPTION(
@@ -259,18 +259,22 @@ void renderer_impl::create_pipeline()
       /* dynamic_states */ dynamic_states.data());
 
     auto vertex_shader_textured_resource = repository.load<resource_db::shader>(
-      "public/shaders/materials/default_textured.vert.spv");
-    auto fragment_shader_textured_resource = repository.load<resource_db::shader>(
-      "public/shaders/materials/default_textured.frag.spv");
-    auto vertex_shader_untextured_resource = repository.load<resource_db::shader>(
-      "public/shaders/materials/default_untextured.vert.spv");
+      "resources/shaders/materials/default_textured.vert.spv");
+    auto fragment_shader_textured_resource =
+      repository.load<resource_db::shader>(
+        "resources/shaders/materials/default_textured.frag.spv");
+    auto vertex_shader_untextured_resource =
+      repository.load<resource_db::shader>(
+        "resources/shaders/materials/default_untextured.vert.spv");
     auto fragment_shader_untextured_resource =
       repository.load<resource_db::shader>(
-        "public/shaders/materials/default_untextured.frag.spv");
-    auto vertex_shader_wireframe_resource = repository.load<resource_db::shader>(
-      "public/shaders/materials/default_wireframe.vert.spv");
-    auto fragment_shader_wireframe_resource = repository.load<resource_db::shader>(
-      "public/shaders/materials/default_wireframe.frag.spv");
+        "resources/shaders/materials/default_untextured.frag.spv");
+    auto vertex_shader_wireframe_resource =
+      repository.load<resource_db::shader>(
+        "resources/shaders/materials/default_wireframe.vert.spv");
+    auto fragment_shader_wireframe_resource =
+      repository.load<resource_db::shader>(
+        "resources/shaders/materials/default_wireframe.frag.spv");
     if (!vertex_shader_textured_resource ||
         !fragment_shader_textured_resource ||
         !vertex_shader_untextured_resource ||

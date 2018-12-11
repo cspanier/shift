@@ -78,10 +78,9 @@ int editor_application::run()
   connect(_idle_timer.get(), SIGNAL(timeout()), this, SLOT(idle()));
   _idle_timer->start(16ms);
 
+  core::at_exit_scope{[&]() { finalize(); }};
   initialize();
-  auto result = exec();
-  finalize();
-  return result;
+  return exec();
 }
 
 void editor_application::refresh_qml()
@@ -151,16 +150,23 @@ void editor_application::initialize()
   using namespace math::literals;
   using namespace render;
 
+  if (_initialized)
+  {
+    BOOST_THROW_EXCEPTION(
+      core::logic_error() << core::context_info(
+        "You cannot call application::initialize() twice."));
+  }
+  _initialized = true;
+
   // Initialize resource repository and mount public folder.
   _repository = std::make_unique<resource_db::repository>();
-  _repository->mount("./");
+  _repository->mount("resources/");
   auto global_cache =
     _repository->load<resource_db::resource_group>("global.cache");
 
 // Initialize renderer instance.
 #if defined(BUILD_CONFIG_DEBUG) || 1
-  vk::debug_layers debug_layers =
-    vk::debug_layer::standard_validation | vk::debug_layer::monitor;
+  vk::debug_layers debug_layers = vk::debug_layer::standard_validation;
 #else
   vk::debug_layers debug_layers = vk::debug_layer::monitor;
 #endif
@@ -191,11 +197,28 @@ void editor_application::initialize()
   }
 
   _render_window = _renderer->create_glfw_window(
-    {400, 100}, {1280u, 1024u} /*, _view*/, vk::window_flag::decorated);
+    {400, 100}, {1280u, 1024u},
+    vk::window_flag::decorated | vk::window_flag::resizeable);
 
   // Add window callback handlers.
   _render_window->on_close.connect(
     std::bind(&editor_application::on_close, this));
+  _render_window->on_resize.connect(
+    [&](math::vector<2, std::uint32_t> /*size*/) {
+      using namespace math::literals;
+
+      // If the initial window size is larger than the desktop we immediately
+      // get a resize event. We won't have to recreate anything so we can
+      // silently ignore this case.
+      if (_renderer->device() == nullptr)
+        return;
+
+      _renderer->wait_idle();
+      _renderer->begin_resize();
+      destroy_views();
+      create_views();
+      _renderer->end_resize();
+    });
   _render_window->on_move.connect(
     std::bind(&editor_application::on_move_window, this, _1));
   _render_window->on_key.connect(
@@ -206,22 +229,20 @@ void editor_application::initialize()
     std::bind(&editor_application::on_move_cursor, this, _1));
   _render_window->visible(true);
 
+  create_views();
   _renderer->initialize(*selected_physical_device);
 
-  create_views();
-
-  _resource_scene =
-    //  _repository->load<resource_db::scene>("scenes/empty.scene.json").get_shared();
-    // _repository->load<resource_db::scene>("pbrt/sanmiguel/sanmiguel.scene").get_shared();
-    _repository->load<resource_db::scene>("pbrt/white-room/whiteroom-night.scene")
-      .get_shared();
+  //_resource_scene =
+  //  _repository->load<resource_db::scene>("scenes/empty.scene.json").get_shared();
+  // _repository->load<resource_db::scene>("pbrt/sanmiguel/sanmiguel.scene").get_shared();
+  //_repository->load<resource_db::scene>("pbrt/white-room/whiteroom-night.scene").get_shared();
   // _repository->load<resource_db::scene>("pbrt/landscape/view-0.scene").get_shared();
-  if (!_resource_scene || _resource_scene->root == nullptr)
-  {
-    BOOST_THROW_EXCEPTION(
-      shift::core::runtime_error()
-      << shift::core::context_info("Missing scene resource"));
-  }
+  // if (!_resource_scene || _resource_scene->root == nullptr)
+  // {
+  //   BOOST_THROW_EXCEPTION(
+  //     shift::core::runtime_error()
+  //     << shift::core::context_info("Missing scene resource"));
+  // }
 
   _renderer->create_resources();
 
@@ -234,8 +255,8 @@ void editor_application::finalize()
   if (_renderer != nullptr)
   {
     _renderer->destroy_resources();
-    destroy_views();
     _renderer->finalize();
+    destroy_views();
 
     if (_render_window != nullptr)
     {
@@ -247,6 +268,7 @@ void editor_application::finalize()
     _renderer = nullptr;
   }
   _repository.reset();
+  _initialized = false;
 }
 
 void editor_application::update()

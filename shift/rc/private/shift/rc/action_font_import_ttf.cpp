@@ -489,7 +489,8 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
     position_attribute.usage = resource_db::vertex_attribute_usage::position;
     position_attribute.component_type =
       resource_db::vertex_attribute_component_type::float32;
-    position_attribute.data_type = resource_db::vertex_attribute_data_type::vec2;
+    position_attribute.data_type =
+      resource_db::vertex_attribute_data_type::vec2;
     mesh->vertex_attributes.emplace_back(std::move(position_attribute));
   }
   // Setup index layout.
@@ -604,7 +605,7 @@ void action_font_import_ttf::write_html(
   std::ofstream test_file;
   std::stringstream test_filename;
   test_filename
-    << "public/fonts/"
+    << "resources/fonts/"
     << input_filename.filename().replace_extension(".html").string();
   test_file.open(test_filename.str(), std::ios::out | std::ios::trunc);
   test_file << R"(<!DOCTYPE html><html><body style="background-color:#000">)"

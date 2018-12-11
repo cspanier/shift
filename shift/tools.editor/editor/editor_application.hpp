@@ -143,6 +143,7 @@ private:
   schematics_controller _schematics_controller;
 
   bool _quit = false;
+  bool _initialized = false;
 
   std::unique_ptr<resource_db::repository> _repository;
   render::vk::renderer* _renderer = nullptr;

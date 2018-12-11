@@ -81,9 +81,9 @@ void application::initialize()
 
   // Initialize resource repository and mount public folder.
   _repository = std::make_unique<resource_db::repository>();
-  _repository->mount("public/");
+  _repository->mount("resources/");
   auto global_cache =
-    _repository->load<resource_db::resource_group>("public/global.cache");
+    _repository->load<resource_db::resource_group>("global.cache");
 
   // Initialize renderer instance.
   vk::debug_layers debug_layers =
@@ -115,7 +115,10 @@ void application::initialize()
     }
   }
   if (selected_physical_device == nullptr)
+  {
+    /// ToDo: Report error.
     return;
+  }
 
   // Create default window.
   _window = _renderer->create_glfw_window({100, 100}, {2560u, 1024u},
@@ -152,12 +155,13 @@ void application::initialize()
   _renderer->initialize(*selected_physical_device);
 
   _resource_scene =
-    _repository->load<resource_db::scene>("public/pbrt/sanmiguel/sanmiguel.scene")
+    _repository
+      ->load<resource_db::scene>("resources/pbrt/sanmiguel/sanmiguel.scene")
       .get_shared();
   //    _repository
-  //      ->load<resource_db::scene>("public/pbrt/white-room/whiteroom-night.scene")
+  //      ->load<resource_db::scene>("resources/pbrt/white-room/whiteroom-night.scene")
   //      .get_shared();
-  // _repository->load<resource_db::scene>("public/pbrt/landscape/view-0.scene").get_shared();
+  // _repository->load<resource_db::scene>("resources/pbrt/landscape/view-0.scene").get_shared();
   //  if (!_resource_scene || !_resource_scene->root)
   //  {
   //    BOOST_THROW_EXCEPTION(

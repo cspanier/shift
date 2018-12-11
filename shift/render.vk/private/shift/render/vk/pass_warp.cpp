@@ -108,15 +108,15 @@ void pass_warp::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
     /* dynamic_states */ dynamic_states.data());
 
   auto vertex_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/warp.vert.spv");
+    repository.load<resource_db::shader>("resources/shaders/warp.vert.spv");
   auto tess_ctrl_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/warp.tesc.spv");
+    repository.load<resource_db::shader>("resources/shaders/warp.tesc.spv");
   auto tess_eval_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/warp.tese.spv");
+    repository.load<resource_db::shader>("resources/shaders/warp.tese.spv");
   auto geometry_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/warp.geom.spv");
+    repository.load<resource_db::shader>("resources/shaders/warp.geom.spv");
   auto fragment_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/warp.frag.spv");
+    repository.load<resource_db::shader>("resources/shaders/warp.frag.spv");
   if (!vertex_shader_resource || !tess_ctrl_shader_resource ||
       !tess_eval_shader_resource || !geometry_shader_resource ||
       !fragment_shader_resource)

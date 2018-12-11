@@ -119,16 +119,16 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
     /* dynamic_state_count */ dynamic_states.size(),
     /* dynamic_states */ dynamic_states.data());
 
-  auto solid_vertex_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/glyphsolid.vert.spv");
-  auto solid_fragment_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/glyphsolid.frag.spv");
-  auto curve_vertex_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/glyphcurve.vert.spv");
-  auto curve_geometry_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/glyphcurve.geom.spv");
-  auto curve_fragment_shader_resource =
-    repository.load<resource_db::shader>("public/shaders/glyphcurve.frag.spv");
+  auto solid_vertex_shader_resource = repository.load<resource_db::shader>(
+    "resources/shaders/glyphsolid.vert.spv");
+  auto solid_fragment_shader_resource = repository.load<resource_db::shader>(
+    "resources/shaders/glyphsolid.frag.spv");
+  auto curve_vertex_shader_resource = repository.load<resource_db::shader>(
+    "resources/shaders/glyphcurve.vert.spv");
+  auto curve_geometry_shader_resource = repository.load<resource_db::shader>(
+    "resources/shaders/glyphcurve.geom.spv");
+  auto curve_fragment_shader_resource = repository.load<resource_db::shader>(
+    "resources/shaders/glyphcurve.frag.spv");
   if (!solid_vertex_shader_resource || !solid_fragment_shader_resource ||
       !curve_vertex_shader_resource || !curve_geometry_shader_resource ||
       !curve_fragment_shader_resource)
@@ -418,10 +418,10 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
       /* base_pipeline_handle */ nullptr,
       /* base_pipeline_index */ 0));
 
-  _font_resource =
-    repository
-      .load<resource_db::font>("public/fonts/google/aldrich/Aldrich-Regular.font")
-      .get_shared();
+  _font_resource = repository
+                     .load<resource_db::font>(
+                       "resources/fonts/google/aldrich/Aldrich-Regular.font")
+                     .get_shared();
   if (!_font_resource)
   {
     BOOST_THROW_EXCEPTION(
@@ -448,7 +448,8 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
   if (vertex_attribute.usage != resource_db::vertex_attribute_usage::position ||
       vertex_attribute.component_type !=
         resource_db::vertex_attribute_component_type::float32 ||
-      vertex_attribute.data_type != resource_db::vertex_attribute_data_type::vec2)
+      vertex_attribute.data_type !=
+        resource_db::vertex_attribute_data_type::vec2)
   {
     BOOST_THROW_EXCEPTION(
       shift::core::runtime_error()
