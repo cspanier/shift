@@ -2156,6 +2156,31 @@
   /* next */ $next$,
   /* shader_draw_parameters */ $shader_draw_parameters$)
 </snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFloat16Int8FeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_float16_int8_features_khr(
+  /* next */ $next$,
+  /* shader_float16 */ $shader_float16$,
+  /* shader_int8 */ $shader_int8$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFloatControlsPropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_float_controls_properties_khr(
+  /* next */ $next$,
+  /* separate_denorm_settings */ $separate_denorm_settings$,
+  /* separate_rounding_mode_settings */ $separate_rounding_mode_settings$,
+  /* shader_signed_zero_inf_nan_preserve_float16 */ $shader_signed_zero_inf_nan_preserve_float16$,
+  /* shader_signed_zero_inf_nan_preserve_float32 */ $shader_signed_zero_inf_nan_preserve_float32$,
+  /* shader_signed_zero_inf_nan_preserve_float64 */ $shader_signed_zero_inf_nan_preserve_float64$,
+  /* shader_denorm_preserve_float16 */ $shader_denorm_preserve_float16$,
+  /* shader_denorm_preserve_float32 */ $shader_denorm_preserve_float32$,
+  /* shader_denorm_preserve_float64 */ $shader_denorm_preserve_float64$,
+  /* shader_denorm_flush_to_zero_float16 */ $shader_denorm_flush_to_zero_float16$,
+  /* shader_denorm_flush_to_zero_float32 */ $shader_denorm_flush_to_zero_float32$,
+  /* shader_denorm_flush_to_zero_float64 */ $shader_denorm_flush_to_zero_float64$,
+  /* shader_rounding_mode_rtefloat16 */ $shader_rounding_mode_rtefloat16$,
+  /* shader_rounding_mode_rtefloat32 */ $shader_rounding_mode_rtefloat32$,
+  /* shader_rounding_mode_rtefloat64 */ $shader_rounding_mode_rtefloat64$,
+  /* shader_rounding_mode_rtzfloat16 */ $shader_rounding_mode_rtzfloat16$,
+  /* shader_rounding_mode_rtzfloat32 */ $shader_rounding_mode_rtzfloat32$,
+  /* shader_rounding_mode_rtzfloat64 */ $shader_rounding_mode_rtzfloat64$)
+</snippet>
   <snippet group="C++" trigger="_VkNativeBufferANDROID" id="" complement="" removed="false" modified="false">vk::native_buffer_android(
   /* next */ $next$,
   /* handle */ $handle$,
@@ -2744,8 +2769,32 @@
   /* next */ $next$,
   /* drm_format_modifier */ $drm_format_modifier$)
 </snippet>
+  <snippet group="C++" trigger="_VkImageStencilUsageCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::image_stencil_usage_create_info_ext(
+  /* next */ $next$,
+  /* stencil_usage */ $stencil_usage$)
+</snippet>
   <snippet group="C++" trigger="_VkDeviceMemoryOverallocationCreateInfoAMD" id="" complement="" removed="false" modified="false">vk::device_memory_overallocation_create_info_amd(
   /* next */ $next$,
   /* overallocation_behavior */ $overallocation_behavior$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFragmentDensityMapFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_fragment_density_map_features_ext(
+  /* next */ $next$,
+  /* fragment_density_map */ $fragment_density_map$,
+  /* fragment_density_map_dynamic */ $fragment_density_map_dynamic$,
+  /* fragment_density_map_non_subsampled_images */ $fragment_density_map_non_subsampled_images$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceFragmentDensityMapPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_fragment_density_map_properties_ext(
+  /* next */ $next$,
+  /* min_fragment_density_texel_size */ $min_fragment_density_texel_size$,
+  /* max_fragment_density_texel_size */ $max_fragment_density_texel_size$,
+  /* fragment_density_invocations */ $fragment_density_invocations$)
+</snippet>
+  <snippet group="C++" trigger="_VkRenderPassFragmentDensityMapCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::render_pass_fragment_density_map_create_info_ext(
+  /* next */ $next$,
+  /* fragment_density_map_attachment */ $fragment_density_map_attachment$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceScalarBlockLayoutFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_scalar_block_layout_features_ext(
+  /* next */ $next$,
+  /* scalar_block_layout */ $scalar_block_layout$)
 </snippet>
 </snippets>

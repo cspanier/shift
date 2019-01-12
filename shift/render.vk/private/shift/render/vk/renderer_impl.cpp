@@ -26,7 +26,8 @@ namespace std
 template <>
 struct hash<shift::resource_db::sampler>
 {
-  inline std::size_t operator()(const shift::resource_db::sampler& sampler) const
+  inline std::size_t operator()(
+    const shift::resource_db::sampler& sampler) const
   {
     using sampler_address_mode_t =
       std::underlying_type_t<shift::resource_db::sampler_address_mode>;
@@ -1477,7 +1478,7 @@ void renderer_impl::create_swapchain()
         *_device,
         vk::image_view_create_info(
           /* next */ nullptr,
-          /* flags */ 0,
+          /* flags */ vk::image_view_create_flag::none,
           /* image */ _swapchain_images[swapchain_index]->handle(),
           /* view_type */ vk::image_view_type::_2d,
           /* format */ _swapchain_images[swapchain_index]->format(),

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_stencil_usage_create_info_ext</Title>
+      <Shortcut>VkImageStencilUsageCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageStencilUsageCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageStencilUsageCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil_usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageStencilUsageCreateInfoEXT::stencilUsage.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_stencil_usage_create_info_ext(
+  /* next */ $next$,
+  /* stencil_usage */ $stencil_usage$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_float_controls_properties_khr</Title>
+      <Shortcut>VkPhysicalDeviceFloatControlsPropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceFloatControlsPropertiesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>separate_denorm_settings</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::separateDenormSettings.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>separate_rounding_mode_settings</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::separateRoundingModeSettings.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_signed_zero_inf_nan_preserve_float16</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderSignedZeroInfNanPreserveFloat16.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_signed_zero_inf_nan_preserve_float32</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderSignedZeroInfNanPreserveFloat32.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_signed_zero_inf_nan_preserve_float64</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderSignedZeroInfNanPreserveFloat64.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_preserve_float16</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormPreserveFloat16.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_preserve_float32</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormPreserveFloat32.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_preserve_float64</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormPreserveFloat64.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_flush_to_zero_float16</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormFlushToZeroFloat16.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_flush_to_zero_float32</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormFlushToZeroFloat32.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_denorm_flush_to_zero_float64</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderDenormFlushToZeroFloat64.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtefloat16</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTEFloat16.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtefloat32</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTEFloat32.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtefloat64</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTEFloat64.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtzfloat16</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTZFloat16.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtzfloat32</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTZFloat32.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_rounding_mode_rtzfloat64</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::shaderRoundingModeRTZFloat64.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_float_controls_properties_khr(
+  /* next */ $next$,
+  /* separate_denorm_settings */ $separate_denorm_settings$,
+  /* separate_rounding_mode_settings */ $separate_rounding_mode_settings$,
+  /* shader_signed_zero_inf_nan_preserve_float16 */ $shader_signed_zero_inf_nan_preserve_float16$,
+  /* shader_signed_zero_inf_nan_preserve_float32 */ $shader_signed_zero_inf_nan_preserve_float32$,
+  /* shader_signed_zero_inf_nan_preserve_float64 */ $shader_signed_zero_inf_nan_preserve_float64$,
+  /* shader_denorm_preserve_float16 */ $shader_denorm_preserve_float16$,
+  /* shader_denorm_preserve_float32 */ $shader_denorm_preserve_float32$,
+  /* shader_denorm_preserve_float64 */ $shader_denorm_preserve_float64$,
+  /* shader_denorm_flush_to_zero_float16 */ $shader_denorm_flush_to_zero_float16$,
+  /* shader_denorm_flush_to_zero_float32 */ $shader_denorm_flush_to_zero_float32$,
+  /* shader_denorm_flush_to_zero_float64 */ $shader_denorm_flush_to_zero_float64$,
+  /* shader_rounding_mode_rtefloat16 */ $shader_rounding_mode_rtefloat16$,
+  /* shader_rounding_mode_rtefloat32 */ $shader_rounding_mode_rtefloat32$,
+  /* shader_rounding_mode_rtefloat64 */ $shader_rounding_mode_rtefloat64$,
+  /* shader_rounding_mode_rtzfloat16 */ $shader_rounding_mode_rtzfloat16$,
+  /* shader_rounding_mode_rtzfloat32 */ $shader_rounding_mode_rtzfloat32$,
+  /* shader_rounding_mode_rtzfloat64 */ $shader_rounding_mode_rtzfloat64$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

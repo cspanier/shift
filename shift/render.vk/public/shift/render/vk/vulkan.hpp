@@ -397,6 +397,8 @@ enum class structure_type
   physical_device_conditional_rendering_features_ext = 1000081001,
   /// @see VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT
   conditional_rendering_begin_info_ext = 1000081002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR
+  physical_device_float16_int8_features_khr = 1000082000,
   /// @see VK_STRUCTURE_TYPE_PRESENT_REGIONS_KHR
   present_regions_khr = 1000084000,
   /// @see VK_STRUCTURE_TYPE_OBJECT_TABLE_CREATE_INFO_NVX
@@ -642,6 +644,8 @@ enum class structure_type
   physical_device_vertex_attribute_divisor_features_ext = 1000190002,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR
   physical_device_driver_properties_khr = 1000196000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR
+  physical_device_float_controls_properties_khr = 1000197000,
   /// @see
   /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_NV
   physical_device_compute_shader_derivatives_features_nv = 1000201000,
@@ -669,6 +673,16 @@ enum class structure_type
   physical_device_pci_bus_info_properties_ext = 1000212000,
   /// @see VK_STRUCTURE_TYPE_IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA
   imagepipe_surface_create_info_fuchsia = 1000214000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT
+  physical_device_fragment_density_map_features_ext = 1000218000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT
+  physical_device_fragment_density_map_properties_ext = 1000218001,
+  /// @see VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT
+  render_pass_fragment_density_map_create_info_ext = 1000218002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT
+  physical_device_scalar_block_layout_features_ext = 1000221000,
+  /// @see VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO_EXT
+  image_stencil_usage_create_info_ext = 1000246000,
 };
 enum class access_flag
 {
@@ -746,6 +760,8 @@ enum class access_flag
   acceleration_structure_read_bit_nv = 1 << 21,
   /// @see VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_NV
   acceleration_structure_write_bit_nv = 1 << 22,
+  /// @see VK_ACCESS_FRAGMENT_DENSITY_MAP_READ_BIT_EXT
+  fragment_density_map_read_bit_ext = 1 << 24,
 };
 using access_flags = shift::core::bit_field<access_flag, VkAccessFlags>;
 inline constexpr access_flags operator|(access_flag lhs, access_flag rhs)
@@ -1357,6 +1373,8 @@ enum class image_layout
   shared_present_khr = 1000111000,
   /// @see VK_IMAGE_LAYOUT_SHADING_RATE_OPTIMAL_NV
   shading_rate_optimal_nv = 1000164003,
+  /// @see VK_IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT
+  fragment_density_map_optimal_ext = 1000218000,
 };
 enum class image_aspect_flag
 {
@@ -2020,11 +2038,6 @@ enum class vendor_id
   /// Kazan Software Renderer
   /// @see VK_VENDOR_ID_KAZAN
   kazan = 0x10003,
-};
-enum class render_pass_create_flag
-{
-  /// Custom enumerant not available in Vulkan.
-  none = 0,
 };
 enum class result
 {
@@ -4379,6 +4392,8 @@ enum class format_feature_flag
   /// Format can be used with min/max reduction filtering
   /// @see VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT_EXT
   sampled_image_filter_minmax_bit_ext = 1 << 16,
+  /// @see VK_FORMAT_FEATURE_FRAGMENT_DENSITY_MAP_BIT_EXT
+  fragment_density_map_bit_ext = 1 << 24,
 };
 using format_feature_flags =
   shift::core::bit_field<format_feature_flag, VkFormatFeatureFlags>;
@@ -4542,6 +4557,8 @@ enum class image_usage_flag
   input_attachment_bit = 1 << 7,
   /// @see VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV
   shading_rate_image_bit_nv = 1 << 8,
+  /// @see VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT
+  fragment_density_map_bit_ext = 1 << 9,
 };
 using image_usage_flags =
   shift::core::bit_field<image_usage_flag, VkImageUsageFlags>;
@@ -4592,6 +4609,8 @@ enum class image_create_flag
   corner_sampled_bit_nv = 1 << 13,
   /// @see VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT
   sample_locations_compatible_depth_bit_ext = 1 << 12,
+  /// @see VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT
+  subsampled_bit_ext = 1 << 14,
 };
 using image_create_flags =
   shift::core::bit_field<image_create_flag, VkImageCreateFlags>;
@@ -8764,6 +8783,8 @@ enum class pipeline_stage_flag
   task_shader_bit_nv = 1 << 19,
   /// @see VK_PIPELINE_STAGE_MESH_SHADER_BIT_NV
   mesh_shader_bit_nv = 1 << 20,
+  /// @see VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT
+  fragment_density_process_bit_ext = 1 << 23,
 };
 using pipeline_stage_flags =
   shift::core::bit_field<pipeline_stage_flag, VkPipelineStageFlags>;
@@ -12736,7 +12757,20 @@ inline void get_image_subresource_layout(
     reinterpret_cast<const VkImageSubresource*>(subresource),
     reinterpret_cast<VkSubresourceLayout*>(layout));
 }
-using image_view_create_flags = VkFlags;
+enum class image_view_create_flag
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT
+  fragment_density_map_dynamic_bit_ext = 1 << 0,
+};
+using image_view_create_flags =
+  shift::core::bit_field<image_view_create_flag, VkImageViewCreateFlags>;
+inline constexpr image_view_create_flags operator|(image_view_create_flag lhs,
+                                                   image_view_create_flag rhs)
+{
+  return image_view_create_flags{lhs} | rhs;
+}
 enum class image_view_type
 {
   /// @see VK_IMAGE_VIEW_TYPE_1D
@@ -13074,7 +13108,7 @@ private:
   const vk::structure_type _structure_type =
     vk::structure_type::image_view_create_info;
   const void* _next = nullptr;
-  vk::image_view_create_flags _flags = 0;
+  vk::image_view_create_flags _flags = vk::image_view_create_flag::none;
   VkImage _image = nullptr;
   vk::image_view_type _view_type = vk::image_view_type::_1d;
   vk::format _format = vk::format::undefined;
@@ -18400,6 +18434,10 @@ enum class sampler_create_flag
 {
   /// Custom enumerant not available in Vulkan.
   none = 0,
+  /// @see VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT
+  subsampled_bit_ext = 1 << 0,
+  /// @see VK_SAMPLER_CREATE_SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT
+  subsampled_coarse_reconstruction_bit_ext = 1 << 1,
 };
 using sampler_create_flags =
   shift::core::bit_field<sampler_create_flag, VkSamplerCreateFlags>;
@@ -20776,6 +20814,11 @@ inline void destroy_framebuffer(VkDevice device, VkFramebuffer framebuffer,
     static_cast<VkDevice>(device), static_cast<VkFramebuffer>(framebuffer),
     reinterpret_cast<const VkAllocationCallbacks*>(allocator));
 }
+enum class render_pass_create_flag
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
 using render_pass_create_flags =
   shift::core::bit_field<render_pass_create_flag, VkRenderPassCreateFlags>;
 inline constexpr render_pass_create_flags operator|(render_pass_create_flag lhs,
@@ -30919,7 +30962,7 @@ public:
 
   /// Constructor.
   constexpr descriptor_update_template_create_info(
-    void* initial_next,
+    const void* initial_next,
     vk::descriptor_update_template_create_flags initial_flags,
     uint32_t initial_descriptor_update_entry_count,
     const vk::descriptor_update_template_entry*
@@ -31016,17 +31059,17 @@ public:
     return _structure_type;
   }
 
-  void* next()
+  const void* next()
   {
     return _next;
   }
 
-  constexpr void* next() const
+  constexpr const void* next() const
   {
     return _next;
   }
 
-  void next(void* new_next)
+  void next(const void* new_next)
   {
     _next = new_next;
   }
@@ -31175,7 +31218,7 @@ public:
 private:
   const vk::structure_type _structure_type =
     vk::structure_type::descriptor_update_template_create_info;
-  void* _next = nullptr;
+  const void* _next = nullptr;
   vk::descriptor_update_template_create_flags _flags = 0;
   /// Number of descriptor update entries to use for the update template
   uint32_t _descriptor_update_entry_count = 0;
@@ -34989,6 +35032,8 @@ enum class swapchain_create_flag_khr
   /// Swapchain is protected
   /// @see VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR
   protected_bit_khr = 1 << 1,
+  /// @see VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR
+  mutable_format_bit_khr = 1 << 2,
 };
 using swapchain_create_flags_khr =
   shift::core::bit_field<swapchain_create_flag_khr, VkSwapchainCreateFlagsKHR>;
@@ -41484,6 +41529,132 @@ inline void cmd_end_conditional_rendering_ext(VkCommandBuffer command_buffer)
 {
   vkCmdEndConditionalRenderingEXT(static_cast<VkCommandBuffer>(command_buffer));
 }
+
+/// Enhanced replacement type for VkPhysicalDeviceFloat16Int8FeaturesKHR.
+class physical_device_float16_int8_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_float16_int8_features_khr() = default;
+
+  /// Constructor.
+  constexpr physical_device_float16_int8_features_khr(
+    void* initial_next, VkBool32 initial_shader_float16,
+    VkBool32 initial_shader_int8) noexcept
+  : _next(std::move(initial_next)),
+    _shader_float16(std::move(initial_shader_float16)),
+    _shader_int8(std::move(initial_shader_int8))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_float16_int8_features_khr(
+    const physical_device_float16_int8_features_khr& other) noexcept
+  : _next(other._next),
+    _shader_float16(other._shader_float16),
+    _shader_int8(other._shader_int8)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_float16_int8_features_khr(
+    physical_device_float16_int8_features_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_float16(std::move(other._shader_float16)),
+    _shader_int8(std::move(other._shader_int8))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_float16_int8_features_khr& operator=(
+    const physical_device_float16_int8_features_khr& other) noexcept
+  {
+    _next = other._next;
+    _shader_float16 = other._shader_float16;
+    _shader_int8 = other._shader_int8;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_float16_int8_features_khr& operator=(
+    physical_device_float16_int8_features_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_float16 = std::move(other._shader_float16);
+    _shader_int8 = std::move(other._shader_int8);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFloat16Int8FeaturesKHR&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceFloat16Int8FeaturesKHR*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shader_float16()
+  {
+    return _shader_float16;
+  }
+
+  constexpr const VkBool32& shader_float16() const
+  {
+    return _shader_float16;
+  }
+
+  void shader_float16(VkBool32 new_shader_float16)
+  {
+    _shader_float16 = new_shader_float16;
+  }
+
+  VkBool32& shader_int8()
+  {
+    return _shader_int8;
+  }
+
+  constexpr const VkBool32& shader_int8() const
+  {
+    return _shader_int8;
+  }
+
+  void shader_int8(VkBool32 new_shader_int8)
+  {
+    _shader_int8 = new_shader_int8;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_float16_int8_features_khr;
+  /// Pointer to next structure
+  void* _next = nullptr;
+  /// 16-bit floats (halfs) in shaders
+  VkBool32 _shader_float16 = VK_FALSE;
+  /// 8-bit integers in shaders
+  VkBool32 _shader_int8 = VK_FALSE;
+};
+static_assert(sizeof(physical_device_float16_int8_features_khr) ==
+                sizeof(::VkPhysicalDeviceFloat16Int8FeaturesKHR),
+              "struct and wrapper have different size!");
 
 using physical_device_16_bit_storage_features_khr =
   physical_device_16_bit_storage_features;
@@ -50606,11 +50777,11 @@ public:
     vk::debug_utils_messenger_callback_data_flags_ext initial_flags,
     const char* initial_message_id_name, int32_t initial_message_id_number,
     const char* initial_message, uint32_t initial_queue_label_count,
-    vk::debug_utils_label_ext* initial_queue_labels,
+    const vk::debug_utils_label_ext* initial_queue_labels,
     uint32_t initial_cmd_buf_label_count,
-    vk::debug_utils_label_ext* initial_cmd_buf_labels,
+    const vk::debug_utils_label_ext* initial_cmd_buf_labels,
     uint32_t initial_object_count,
-    vk::debug_utils_object_name_info_ext* initial_objects) noexcept
+    const vk::debug_utils_object_name_info_ext* initial_objects) noexcept
   : _next(std::move(initial_next)),
     _flags(std::move(initial_flags)),
     _message_id_name(std::move(initial_message_id_name)),
@@ -50797,30 +50968,31 @@ public:
     _queue_label_count = new_queue_label_count;
   }
 
-  vk::debug_utils_label_ext* queue_labels()
+  const vk::debug_utils_label_ext* queue_labels()
   {
     return _queue_labels;
   }
 
-  constexpr vk::debug_utils_label_ext* queue_labels() const
+  constexpr const vk::debug_utils_label_ext* queue_labels() const
   {
     return _queue_labels;
   }
 
-  void queue_labels(vk::debug_utils_label_ext* new_queue_labels)
+  void queue_labels(const vk::debug_utils_label_ext* new_queue_labels)
   {
     _queue_labels = new_queue_labels;
   }
 
   template <std::size_t Count>
   void queue_labels(
-    std::array<vk::debug_utils_label_ext, Count>& new_queue_labels)
+    const std::array<vk::debug_utils_label_ext, Count>& new_queue_labels)
   {
     _queue_label_count = static_cast<uint32_t>(new_queue_labels.size());
     _queue_labels = new_queue_labels.data();
   }
 
-  void queue_labels(std::vector<vk::debug_utils_label_ext>& new_queue_labels)
+  void queue_labels(
+    const std::vector<vk::debug_utils_label_ext>& new_queue_labels)
   {
     _queue_label_count = static_cast<uint32_t>(new_queue_labels.size());
     _queue_labels = new_queue_labels.data();
@@ -50841,31 +51013,31 @@ public:
     _cmd_buf_label_count = new_cmd_buf_label_count;
   }
 
-  vk::debug_utils_label_ext* cmd_buf_labels()
+  const vk::debug_utils_label_ext* cmd_buf_labels()
   {
     return _cmd_buf_labels;
   }
 
-  constexpr vk::debug_utils_label_ext* cmd_buf_labels() const
+  constexpr const vk::debug_utils_label_ext* cmd_buf_labels() const
   {
     return _cmd_buf_labels;
   }
 
-  void cmd_buf_labels(vk::debug_utils_label_ext* new_cmd_buf_labels)
+  void cmd_buf_labels(const vk::debug_utils_label_ext* new_cmd_buf_labels)
   {
     _cmd_buf_labels = new_cmd_buf_labels;
   }
 
   template <std::size_t Count>
   void cmd_buf_labels(
-    std::array<vk::debug_utils_label_ext, Count>& new_cmd_buf_labels)
+    const std::array<vk::debug_utils_label_ext, Count>& new_cmd_buf_labels)
   {
     _cmd_buf_label_count = static_cast<uint32_t>(new_cmd_buf_labels.size());
     _cmd_buf_labels = new_cmd_buf_labels.data();
   }
 
   void cmd_buf_labels(
-    std::vector<vk::debug_utils_label_ext>& new_cmd_buf_labels)
+    const std::vector<vk::debug_utils_label_ext>& new_cmd_buf_labels)
   {
     _cmd_buf_label_count = static_cast<uint32_t>(new_cmd_buf_labels.size());
     _cmd_buf_labels = new_cmd_buf_labels.data();
@@ -50886,30 +51058,31 @@ public:
     _object_count = new_object_count;
   }
 
-  vk::debug_utils_object_name_info_ext* objects()
+  const vk::debug_utils_object_name_info_ext* objects()
   {
     return _objects;
   }
 
-  constexpr vk::debug_utils_object_name_info_ext* objects() const
+  constexpr const vk::debug_utils_object_name_info_ext* objects() const
   {
     return _objects;
   }
 
-  void objects(vk::debug_utils_object_name_info_ext* new_objects)
+  void objects(const vk::debug_utils_object_name_info_ext* new_objects)
   {
     _objects = new_objects;
   }
 
   template <std::size_t Count>
   void objects(
-    std::array<vk::debug_utils_object_name_info_ext, Count>& new_objects)
+    const std::array<vk::debug_utils_object_name_info_ext, Count>& new_objects)
   {
     _object_count = static_cast<uint32_t>(new_objects.size());
     _objects = new_objects.data();
   }
 
-  void objects(std::vector<vk::debug_utils_object_name_info_ext>& new_objects)
+  void objects(
+    const std::vector<vk::debug_utils_object_name_info_ext>& new_objects)
   {
     _object_count = static_cast<uint32_t>(new_objects.size());
     _objects = new_objects.data();
@@ -50924,11 +51097,11 @@ private:
   int32_t _message_id_number = 0;
   const char* _message = nullptr;
   uint32_t _queue_label_count = 0;
-  vk::debug_utils_label_ext* _queue_labels = nullptr;
+  const vk::debug_utils_label_ext* _queue_labels = nullptr;
   uint32_t _cmd_buf_label_count = 0;
-  vk::debug_utils_label_ext* _cmd_buf_labels = nullptr;
+  const vk::debug_utils_label_ext* _cmd_buf_labels = nullptr;
   uint32_t _object_count = 0;
-  vk::debug_utils_object_name_info_ext* _objects = nullptr;
+  const vk::debug_utils_object_name_info_ext* _objects = nullptr;
 };
 static_assert(sizeof(debug_utils_messenger_callback_data_ext) ==
                 sizeof(::VkDebugUtilsMessengerCallbackDataEXT),
@@ -62907,6 +63080,9 @@ enum class driver_id_khr
   /// Arm Limited
   /// @see VK_DRIVER_ID_ARM_PROPRIETARY_KHR
   driver_id_arm_proprietary_khr = 9,
+  /// Google LLC
+  /// @see VK_DRIVER_ID_GOOGLE_PASTEL_KHR
+  driver_id_google_pastel_khr = 10,
 };
 
 /// Enhanced replacement type for VkConformanceVersionKHR.
@@ -63189,6 +63365,556 @@ private:
 };
 static_assert(sizeof(physical_device_driver_properties_khr) ==
                 sizeof(::VkPhysicalDeviceDriverPropertiesKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceFloatControlsPropertiesKHR.
+class physical_device_float_controls_properties_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_float_controls_properties_khr() = default;
+
+  /// Constructor.
+  constexpr physical_device_float_controls_properties_khr(
+    void* initial_next, VkBool32 initial_separate_denorm_settings,
+    VkBool32 initial_separate_rounding_mode_settings,
+    VkBool32 initial_shader_signed_zero_inf_nan_preserve_float16,
+    VkBool32 initial_shader_signed_zero_inf_nan_preserve_float32,
+    VkBool32 initial_shader_signed_zero_inf_nan_preserve_float64,
+    VkBool32 initial_shader_denorm_preserve_float16,
+    VkBool32 initial_shader_denorm_preserve_float32,
+    VkBool32 initial_shader_denorm_preserve_float64,
+    VkBool32 initial_shader_denorm_flush_to_zero_float16,
+    VkBool32 initial_shader_denorm_flush_to_zero_float32,
+    VkBool32 initial_shader_denorm_flush_to_zero_float64,
+    VkBool32 initial_shader_rounding_mode_rtefloat16,
+    VkBool32 initial_shader_rounding_mode_rtefloat32,
+    VkBool32 initial_shader_rounding_mode_rtefloat64,
+    VkBool32 initial_shader_rounding_mode_rtzfloat16,
+    VkBool32 initial_shader_rounding_mode_rtzfloat32,
+    VkBool32 initial_shader_rounding_mode_rtzfloat64) noexcept
+  : _next(std::move(initial_next)),
+    _separate_denorm_settings(std::move(initial_separate_denorm_settings)),
+    _separate_rounding_mode_settings(
+      std::move(initial_separate_rounding_mode_settings)),
+    _shader_signed_zero_inf_nan_preserve_float16(
+      std::move(initial_shader_signed_zero_inf_nan_preserve_float16)),
+    _shader_signed_zero_inf_nan_preserve_float32(
+      std::move(initial_shader_signed_zero_inf_nan_preserve_float32)),
+    _shader_signed_zero_inf_nan_preserve_float64(
+      std::move(initial_shader_signed_zero_inf_nan_preserve_float64)),
+    _shader_denorm_preserve_float16(
+      std::move(initial_shader_denorm_preserve_float16)),
+    _shader_denorm_preserve_float32(
+      std::move(initial_shader_denorm_preserve_float32)),
+    _shader_denorm_preserve_float64(
+      std::move(initial_shader_denorm_preserve_float64)),
+    _shader_denorm_flush_to_zero_float16(
+      std::move(initial_shader_denorm_flush_to_zero_float16)),
+    _shader_denorm_flush_to_zero_float32(
+      std::move(initial_shader_denorm_flush_to_zero_float32)),
+    _shader_denorm_flush_to_zero_float64(
+      std::move(initial_shader_denorm_flush_to_zero_float64)),
+    _shader_rounding_mode_rtefloat16(
+      std::move(initial_shader_rounding_mode_rtefloat16)),
+    _shader_rounding_mode_rtefloat32(
+      std::move(initial_shader_rounding_mode_rtefloat32)),
+    _shader_rounding_mode_rtefloat64(
+      std::move(initial_shader_rounding_mode_rtefloat64)),
+    _shader_rounding_mode_rtzfloat16(
+      std::move(initial_shader_rounding_mode_rtzfloat16)),
+    _shader_rounding_mode_rtzfloat32(
+      std::move(initial_shader_rounding_mode_rtzfloat32)),
+    _shader_rounding_mode_rtzfloat64(
+      std::move(initial_shader_rounding_mode_rtzfloat64))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_float_controls_properties_khr(
+    const physical_device_float_controls_properties_khr& other) noexcept
+  : _next(other._next),
+    _separate_denorm_settings(other._separate_denorm_settings),
+    _separate_rounding_mode_settings(other._separate_rounding_mode_settings),
+    _shader_signed_zero_inf_nan_preserve_float16(
+      other._shader_signed_zero_inf_nan_preserve_float16),
+    _shader_signed_zero_inf_nan_preserve_float32(
+      other._shader_signed_zero_inf_nan_preserve_float32),
+    _shader_signed_zero_inf_nan_preserve_float64(
+      other._shader_signed_zero_inf_nan_preserve_float64),
+    _shader_denorm_preserve_float16(other._shader_denorm_preserve_float16),
+    _shader_denorm_preserve_float32(other._shader_denorm_preserve_float32),
+    _shader_denorm_preserve_float64(other._shader_denorm_preserve_float64),
+    _shader_denorm_flush_to_zero_float16(
+      other._shader_denorm_flush_to_zero_float16),
+    _shader_denorm_flush_to_zero_float32(
+      other._shader_denorm_flush_to_zero_float32),
+    _shader_denorm_flush_to_zero_float64(
+      other._shader_denorm_flush_to_zero_float64),
+    _shader_rounding_mode_rtefloat16(other._shader_rounding_mode_rtefloat16),
+    _shader_rounding_mode_rtefloat32(other._shader_rounding_mode_rtefloat32),
+    _shader_rounding_mode_rtefloat64(other._shader_rounding_mode_rtefloat64),
+    _shader_rounding_mode_rtzfloat16(other._shader_rounding_mode_rtzfloat16),
+    _shader_rounding_mode_rtzfloat32(other._shader_rounding_mode_rtzfloat32),
+    _shader_rounding_mode_rtzfloat64(other._shader_rounding_mode_rtzfloat64)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_float_controls_properties_khr(
+    physical_device_float_controls_properties_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _separate_denorm_settings(std::move(other._separate_denorm_settings)),
+    _separate_rounding_mode_settings(
+      std::move(other._separate_rounding_mode_settings)),
+    _shader_signed_zero_inf_nan_preserve_float16(
+      std::move(other._shader_signed_zero_inf_nan_preserve_float16)),
+    _shader_signed_zero_inf_nan_preserve_float32(
+      std::move(other._shader_signed_zero_inf_nan_preserve_float32)),
+    _shader_signed_zero_inf_nan_preserve_float64(
+      std::move(other._shader_signed_zero_inf_nan_preserve_float64)),
+    _shader_denorm_preserve_float16(
+      std::move(other._shader_denorm_preserve_float16)),
+    _shader_denorm_preserve_float32(
+      std::move(other._shader_denorm_preserve_float32)),
+    _shader_denorm_preserve_float64(
+      std::move(other._shader_denorm_preserve_float64)),
+    _shader_denorm_flush_to_zero_float16(
+      std::move(other._shader_denorm_flush_to_zero_float16)),
+    _shader_denorm_flush_to_zero_float32(
+      std::move(other._shader_denorm_flush_to_zero_float32)),
+    _shader_denorm_flush_to_zero_float64(
+      std::move(other._shader_denorm_flush_to_zero_float64)),
+    _shader_rounding_mode_rtefloat16(
+      std::move(other._shader_rounding_mode_rtefloat16)),
+    _shader_rounding_mode_rtefloat32(
+      std::move(other._shader_rounding_mode_rtefloat32)),
+    _shader_rounding_mode_rtefloat64(
+      std::move(other._shader_rounding_mode_rtefloat64)),
+    _shader_rounding_mode_rtzfloat16(
+      std::move(other._shader_rounding_mode_rtzfloat16)),
+    _shader_rounding_mode_rtzfloat32(
+      std::move(other._shader_rounding_mode_rtzfloat32)),
+    _shader_rounding_mode_rtzfloat64(
+      std::move(other._shader_rounding_mode_rtzfloat64))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_float_controls_properties_khr& operator=(
+    const physical_device_float_controls_properties_khr& other) noexcept
+  {
+    _next = other._next;
+    _separate_denorm_settings = other._separate_denorm_settings;
+    _separate_rounding_mode_settings = other._separate_rounding_mode_settings;
+    _shader_signed_zero_inf_nan_preserve_float16 =
+      other._shader_signed_zero_inf_nan_preserve_float16;
+    _shader_signed_zero_inf_nan_preserve_float32 =
+      other._shader_signed_zero_inf_nan_preserve_float32;
+    _shader_signed_zero_inf_nan_preserve_float64 =
+      other._shader_signed_zero_inf_nan_preserve_float64;
+    _shader_denorm_preserve_float16 = other._shader_denorm_preserve_float16;
+    _shader_denorm_preserve_float32 = other._shader_denorm_preserve_float32;
+    _shader_denorm_preserve_float64 = other._shader_denorm_preserve_float64;
+    _shader_denorm_flush_to_zero_float16 =
+      other._shader_denorm_flush_to_zero_float16;
+    _shader_denorm_flush_to_zero_float32 =
+      other._shader_denorm_flush_to_zero_float32;
+    _shader_denorm_flush_to_zero_float64 =
+      other._shader_denorm_flush_to_zero_float64;
+    _shader_rounding_mode_rtefloat16 = other._shader_rounding_mode_rtefloat16;
+    _shader_rounding_mode_rtefloat32 = other._shader_rounding_mode_rtefloat32;
+    _shader_rounding_mode_rtefloat64 = other._shader_rounding_mode_rtefloat64;
+    _shader_rounding_mode_rtzfloat16 = other._shader_rounding_mode_rtzfloat16;
+    _shader_rounding_mode_rtzfloat32 = other._shader_rounding_mode_rtzfloat32;
+    _shader_rounding_mode_rtzfloat64 = other._shader_rounding_mode_rtzfloat64;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_float_controls_properties_khr& operator=(
+    physical_device_float_controls_properties_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _separate_denorm_settings = std::move(other._separate_denorm_settings);
+    _separate_rounding_mode_settings =
+      std::move(other._separate_rounding_mode_settings);
+    _shader_signed_zero_inf_nan_preserve_float16 =
+      std::move(other._shader_signed_zero_inf_nan_preserve_float16);
+    _shader_signed_zero_inf_nan_preserve_float32 =
+      std::move(other._shader_signed_zero_inf_nan_preserve_float32);
+    _shader_signed_zero_inf_nan_preserve_float64 =
+      std::move(other._shader_signed_zero_inf_nan_preserve_float64);
+    _shader_denorm_preserve_float16 =
+      std::move(other._shader_denorm_preserve_float16);
+    _shader_denorm_preserve_float32 =
+      std::move(other._shader_denorm_preserve_float32);
+    _shader_denorm_preserve_float64 =
+      std::move(other._shader_denorm_preserve_float64);
+    _shader_denorm_flush_to_zero_float16 =
+      std::move(other._shader_denorm_flush_to_zero_float16);
+    _shader_denorm_flush_to_zero_float32 =
+      std::move(other._shader_denorm_flush_to_zero_float32);
+    _shader_denorm_flush_to_zero_float64 =
+      std::move(other._shader_denorm_flush_to_zero_float64);
+    _shader_rounding_mode_rtefloat16 =
+      std::move(other._shader_rounding_mode_rtefloat16);
+    _shader_rounding_mode_rtefloat32 =
+      std::move(other._shader_rounding_mode_rtefloat32);
+    _shader_rounding_mode_rtefloat64 =
+      std::move(other._shader_rounding_mode_rtefloat64);
+    _shader_rounding_mode_rtzfloat16 =
+      std::move(other._shader_rounding_mode_rtzfloat16);
+    _shader_rounding_mode_rtzfloat32 =
+      std::move(other._shader_rounding_mode_rtzfloat32);
+    _shader_rounding_mode_rtzfloat64 =
+      std::move(other._shader_rounding_mode_rtzfloat64);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFloatControlsPropertiesKHR&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceFloatControlsPropertiesKHR*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& separate_denorm_settings()
+  {
+    return _separate_denorm_settings;
+  }
+
+  constexpr const VkBool32& separate_denorm_settings() const
+  {
+    return _separate_denorm_settings;
+  }
+
+  void separate_denorm_settings(VkBool32 new_separate_denorm_settings)
+  {
+    _separate_denorm_settings = new_separate_denorm_settings;
+  }
+
+  VkBool32& separate_rounding_mode_settings()
+  {
+    return _separate_rounding_mode_settings;
+  }
+
+  constexpr const VkBool32& separate_rounding_mode_settings() const
+  {
+    return _separate_rounding_mode_settings;
+  }
+
+  void separate_rounding_mode_settings(
+    VkBool32 new_separate_rounding_mode_settings)
+  {
+    _separate_rounding_mode_settings = new_separate_rounding_mode_settings;
+  }
+
+  VkBool32& shader_signed_zero_inf_nan_preserve_float16()
+  {
+    return _shader_signed_zero_inf_nan_preserve_float16;
+  }
+
+  constexpr const VkBool32& shader_signed_zero_inf_nan_preserve_float16() const
+  {
+    return _shader_signed_zero_inf_nan_preserve_float16;
+  }
+
+  void shader_signed_zero_inf_nan_preserve_float16(
+    VkBool32 new_shader_signed_zero_inf_nan_preserve_float16)
+  {
+    _shader_signed_zero_inf_nan_preserve_float16 =
+      new_shader_signed_zero_inf_nan_preserve_float16;
+  }
+
+  VkBool32& shader_signed_zero_inf_nan_preserve_float32()
+  {
+    return _shader_signed_zero_inf_nan_preserve_float32;
+  }
+
+  constexpr const VkBool32& shader_signed_zero_inf_nan_preserve_float32() const
+  {
+    return _shader_signed_zero_inf_nan_preserve_float32;
+  }
+
+  void shader_signed_zero_inf_nan_preserve_float32(
+    VkBool32 new_shader_signed_zero_inf_nan_preserve_float32)
+  {
+    _shader_signed_zero_inf_nan_preserve_float32 =
+      new_shader_signed_zero_inf_nan_preserve_float32;
+  }
+
+  VkBool32& shader_signed_zero_inf_nan_preserve_float64()
+  {
+    return _shader_signed_zero_inf_nan_preserve_float64;
+  }
+
+  constexpr const VkBool32& shader_signed_zero_inf_nan_preserve_float64() const
+  {
+    return _shader_signed_zero_inf_nan_preserve_float64;
+  }
+
+  void shader_signed_zero_inf_nan_preserve_float64(
+    VkBool32 new_shader_signed_zero_inf_nan_preserve_float64)
+  {
+    _shader_signed_zero_inf_nan_preserve_float64 =
+      new_shader_signed_zero_inf_nan_preserve_float64;
+  }
+
+  VkBool32& shader_denorm_preserve_float16()
+  {
+    return _shader_denorm_preserve_float16;
+  }
+
+  constexpr const VkBool32& shader_denorm_preserve_float16() const
+  {
+    return _shader_denorm_preserve_float16;
+  }
+
+  void shader_denorm_preserve_float16(
+    VkBool32 new_shader_denorm_preserve_float16)
+  {
+    _shader_denorm_preserve_float16 = new_shader_denorm_preserve_float16;
+  }
+
+  VkBool32& shader_denorm_preserve_float32()
+  {
+    return _shader_denorm_preserve_float32;
+  }
+
+  constexpr const VkBool32& shader_denorm_preserve_float32() const
+  {
+    return _shader_denorm_preserve_float32;
+  }
+
+  void shader_denorm_preserve_float32(
+    VkBool32 new_shader_denorm_preserve_float32)
+  {
+    _shader_denorm_preserve_float32 = new_shader_denorm_preserve_float32;
+  }
+
+  VkBool32& shader_denorm_preserve_float64()
+  {
+    return _shader_denorm_preserve_float64;
+  }
+
+  constexpr const VkBool32& shader_denorm_preserve_float64() const
+  {
+    return _shader_denorm_preserve_float64;
+  }
+
+  void shader_denorm_preserve_float64(
+    VkBool32 new_shader_denorm_preserve_float64)
+  {
+    _shader_denorm_preserve_float64 = new_shader_denorm_preserve_float64;
+  }
+
+  VkBool32& shader_denorm_flush_to_zero_float16()
+  {
+    return _shader_denorm_flush_to_zero_float16;
+  }
+
+  constexpr const VkBool32& shader_denorm_flush_to_zero_float16() const
+  {
+    return _shader_denorm_flush_to_zero_float16;
+  }
+
+  void shader_denorm_flush_to_zero_float16(
+    VkBool32 new_shader_denorm_flush_to_zero_float16)
+  {
+    _shader_denorm_flush_to_zero_float16 =
+      new_shader_denorm_flush_to_zero_float16;
+  }
+
+  VkBool32& shader_denorm_flush_to_zero_float32()
+  {
+    return _shader_denorm_flush_to_zero_float32;
+  }
+
+  constexpr const VkBool32& shader_denorm_flush_to_zero_float32() const
+  {
+    return _shader_denorm_flush_to_zero_float32;
+  }
+
+  void shader_denorm_flush_to_zero_float32(
+    VkBool32 new_shader_denorm_flush_to_zero_float32)
+  {
+    _shader_denorm_flush_to_zero_float32 =
+      new_shader_denorm_flush_to_zero_float32;
+  }
+
+  VkBool32& shader_denorm_flush_to_zero_float64()
+  {
+    return _shader_denorm_flush_to_zero_float64;
+  }
+
+  constexpr const VkBool32& shader_denorm_flush_to_zero_float64() const
+  {
+    return _shader_denorm_flush_to_zero_float64;
+  }
+
+  void shader_denorm_flush_to_zero_float64(
+    VkBool32 new_shader_denorm_flush_to_zero_float64)
+  {
+    _shader_denorm_flush_to_zero_float64 =
+      new_shader_denorm_flush_to_zero_float64;
+  }
+
+  VkBool32& shader_rounding_mode_rtefloat16()
+  {
+    return _shader_rounding_mode_rtefloat16;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtefloat16() const
+  {
+    return _shader_rounding_mode_rtefloat16;
+  }
+
+  void shader_rounding_mode_rtefloat16(
+    VkBool32 new_shader_rounding_mode_rtefloat16)
+  {
+    _shader_rounding_mode_rtefloat16 = new_shader_rounding_mode_rtefloat16;
+  }
+
+  VkBool32& shader_rounding_mode_rtefloat32()
+  {
+    return _shader_rounding_mode_rtefloat32;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtefloat32() const
+  {
+    return _shader_rounding_mode_rtefloat32;
+  }
+
+  void shader_rounding_mode_rtefloat32(
+    VkBool32 new_shader_rounding_mode_rtefloat32)
+  {
+    _shader_rounding_mode_rtefloat32 = new_shader_rounding_mode_rtefloat32;
+  }
+
+  VkBool32& shader_rounding_mode_rtefloat64()
+  {
+    return _shader_rounding_mode_rtefloat64;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtefloat64() const
+  {
+    return _shader_rounding_mode_rtefloat64;
+  }
+
+  void shader_rounding_mode_rtefloat64(
+    VkBool32 new_shader_rounding_mode_rtefloat64)
+  {
+    _shader_rounding_mode_rtefloat64 = new_shader_rounding_mode_rtefloat64;
+  }
+
+  VkBool32& shader_rounding_mode_rtzfloat16()
+  {
+    return _shader_rounding_mode_rtzfloat16;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtzfloat16() const
+  {
+    return _shader_rounding_mode_rtzfloat16;
+  }
+
+  void shader_rounding_mode_rtzfloat16(
+    VkBool32 new_shader_rounding_mode_rtzfloat16)
+  {
+    _shader_rounding_mode_rtzfloat16 = new_shader_rounding_mode_rtzfloat16;
+  }
+
+  VkBool32& shader_rounding_mode_rtzfloat32()
+  {
+    return _shader_rounding_mode_rtzfloat32;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtzfloat32() const
+  {
+    return _shader_rounding_mode_rtzfloat32;
+  }
+
+  void shader_rounding_mode_rtzfloat32(
+    VkBool32 new_shader_rounding_mode_rtzfloat32)
+  {
+    _shader_rounding_mode_rtzfloat32 = new_shader_rounding_mode_rtzfloat32;
+  }
+
+  VkBool32& shader_rounding_mode_rtzfloat64()
+  {
+    return _shader_rounding_mode_rtzfloat64;
+  }
+
+  constexpr const VkBool32& shader_rounding_mode_rtzfloat64() const
+  {
+    return _shader_rounding_mode_rtzfloat64;
+  }
+
+  void shader_rounding_mode_rtzfloat64(
+    VkBool32 new_shader_rounding_mode_rtzfloat64)
+  {
+    _shader_rounding_mode_rtzfloat64 = new_shader_rounding_mode_rtzfloat64;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_float_controls_properties_khr;
+  void* _next = nullptr;
+  VkBool32 _separate_denorm_settings = VK_FALSE;
+  VkBool32 _separate_rounding_mode_settings = VK_FALSE;
+  /// An implementation can preserve signed zero, nan, inf
+  VkBool32 _shader_signed_zero_inf_nan_preserve_float16 = VK_FALSE;
+  /// An implementation can preserve signed zero, nan, inf
+  VkBool32 _shader_signed_zero_inf_nan_preserve_float32 = VK_FALSE;
+  /// An implementation can preserve signed zero, nan, inf
+  VkBool32 _shader_signed_zero_inf_nan_preserve_float64 = VK_FALSE;
+  /// An implementation can preserve  denormals
+  VkBool32 _shader_denorm_preserve_float16 = VK_FALSE;
+  /// An implementation can preserve  denormals
+  VkBool32 _shader_denorm_preserve_float32 = VK_FALSE;
+  /// An implementation can preserve  denormals
+  VkBool32 _shader_denorm_preserve_float64 = VK_FALSE;
+  /// An implementation can flush to zero  denormals
+  VkBool32 _shader_denorm_flush_to_zero_float16 = VK_FALSE;
+  /// An implementation can flush to zero  denormals
+  VkBool32 _shader_denorm_flush_to_zero_float32 = VK_FALSE;
+  /// An implementation can flush to zero  denormals
+  VkBool32 _shader_denorm_flush_to_zero_float64 = VK_FALSE;
+  /// An implementation can support RTE
+  VkBool32 _shader_rounding_mode_rtefloat16 = VK_FALSE;
+  /// An implementation can support RTE
+  VkBool32 _shader_rounding_mode_rtefloat32 = VK_FALSE;
+  /// An implementation can support RTE
+  VkBool32 _shader_rounding_mode_rtefloat64 = VK_FALSE;
+  /// An implementation can support RTZ
+  VkBool32 _shader_rounding_mode_rtzfloat16 = VK_FALSE;
+  /// An implementation can support RTZ
+  VkBool32 _shader_rounding_mode_rtzfloat32 = VK_FALSE;
+  /// An implementation can support RTZ
+  VkBool32 _shader_rounding_mode_rtzfloat64 = VK_FALSE;
+};
+static_assert(sizeof(physical_device_float_controls_properties_khr) ==
+                sizeof(::VkPhysicalDeviceFloatControlsPropertiesKHR),
               "struct and wrapper have different size!");
 
 /// Enhanced replacement type for
@@ -64784,8 +65510,8 @@ public:
 
   /// Constructor.
   constexpr physical_device_pcibus_info_properties_ext(
-    void* initial_next, uint16_t initial_pci_domain, uint8_t initial_pci_bus,
-    uint8_t initial_pci_device, uint8_t initial_pci_function) noexcept
+    void* initial_next, uint32_t initial_pci_domain, uint32_t initial_pci_bus,
+    uint32_t initial_pci_device, uint32_t initial_pci_function) noexcept
   : _next(std::move(initial_next)),
     _pci_domain(std::move(initial_pci_domain)),
     _pci_bus(std::move(initial_pci_bus)),
@@ -64867,62 +65593,62 @@ public:
     _next = new_next;
   }
 
-  uint16_t& pci_domain()
+  uint32_t& pci_domain()
   {
     return _pci_domain;
   }
 
-  constexpr const uint16_t& pci_domain() const
+  constexpr const uint32_t& pci_domain() const
   {
     return _pci_domain;
   }
 
-  void pci_domain(uint16_t new_pci_domain)
+  void pci_domain(uint32_t new_pci_domain)
   {
     _pci_domain = new_pci_domain;
   }
 
-  uint8_t& pci_bus()
+  uint32_t& pci_bus()
   {
     return _pci_bus;
   }
 
-  constexpr const uint8_t& pci_bus() const
+  constexpr const uint32_t& pci_bus() const
   {
     return _pci_bus;
   }
 
-  void pci_bus(uint8_t new_pci_bus)
+  void pci_bus(uint32_t new_pci_bus)
   {
     _pci_bus = new_pci_bus;
   }
 
-  uint8_t& pci_device()
+  uint32_t& pci_device()
   {
     return _pci_device;
   }
 
-  constexpr const uint8_t& pci_device() const
+  constexpr const uint32_t& pci_device() const
   {
     return _pci_device;
   }
 
-  void pci_device(uint8_t new_pci_device)
+  void pci_device(uint32_t new_pci_device)
   {
     _pci_device = new_pci_device;
   }
 
-  uint8_t& pci_function()
+  uint32_t& pci_function()
   {
     return _pci_function;
   }
 
-  constexpr const uint8_t& pci_function() const
+  constexpr const uint32_t& pci_function() const
   {
     return _pci_function;
   }
 
-  void pci_function(uint8_t new_pci_function)
+  void pci_function(uint32_t new_pci_function)
   {
     _pci_function = new_pci_function;
   }
@@ -64931,13 +65657,633 @@ private:
   const vk::structure_type _structure_type =
     vk::structure_type::physical_device_pci_bus_info_properties_ext;
   void* _next = nullptr;
-  uint16_t _pci_domain = 0;
-  uint8_t _pci_bus = 0;
-  uint8_t _pci_device = 0;
-  uint8_t _pci_function = 0;
+  uint32_t _pci_domain = 0;
+  uint32_t _pci_bus = 0;
+  uint32_t _pci_device = 0;
+  uint32_t _pci_function = 0;
 };
 static_assert(sizeof(physical_device_pcibus_info_properties_ext) ==
                 sizeof(::VkPhysicalDevicePCIBusInfoPropertiesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceFragmentDensityMapFeaturesEXT.
+class physical_device_fragment_density_map_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_fragment_density_map_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_fragment_density_map_features_ext(
+    void* initial_next, VkBool32 initial_fragment_density_map,
+    VkBool32 initial_fragment_density_map_dynamic,
+    VkBool32 initial_fragment_density_map_non_subsampled_images) noexcept
+  : _next(std::move(initial_next)),
+    _fragment_density_map(std::move(initial_fragment_density_map)),
+    _fragment_density_map_dynamic(
+      std::move(initial_fragment_density_map_dynamic)),
+    _fragment_density_map_non_subsampled_images(
+      std::move(initial_fragment_density_map_non_subsampled_images))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_fragment_density_map_features_ext(
+    const physical_device_fragment_density_map_features_ext& other) noexcept
+  : _next(other._next),
+    _fragment_density_map(other._fragment_density_map),
+    _fragment_density_map_dynamic(other._fragment_density_map_dynamic),
+    _fragment_density_map_non_subsampled_images(
+      other._fragment_density_map_non_subsampled_images)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_fragment_density_map_features_ext(
+    physical_device_fragment_density_map_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _fragment_density_map(std::move(other._fragment_density_map)),
+    _fragment_density_map_dynamic(
+      std::move(other._fragment_density_map_dynamic)),
+    _fragment_density_map_non_subsampled_images(
+      std::move(other._fragment_density_map_non_subsampled_images))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_fragment_density_map_features_ext& operator=(
+    const physical_device_fragment_density_map_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _fragment_density_map = other._fragment_density_map;
+    _fragment_density_map_dynamic = other._fragment_density_map_dynamic;
+    _fragment_density_map_non_subsampled_images =
+      other._fragment_density_map_non_subsampled_images;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_fragment_density_map_features_ext& operator=(
+    physical_device_fragment_density_map_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fragment_density_map = std::move(other._fragment_density_map);
+    _fragment_density_map_dynamic =
+      std::move(other._fragment_density_map_dynamic);
+    _fragment_density_map_non_subsampled_images =
+      std::move(other._fragment_density_map_non_subsampled_images);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFragmentDensityMapFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceFragmentDensityMapFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& fragment_density_map()
+  {
+    return _fragment_density_map;
+  }
+
+  constexpr const VkBool32& fragment_density_map() const
+  {
+    return _fragment_density_map;
+  }
+
+  void fragment_density_map(VkBool32 new_fragment_density_map)
+  {
+    _fragment_density_map = new_fragment_density_map;
+  }
+
+  VkBool32& fragment_density_map_dynamic()
+  {
+    return _fragment_density_map_dynamic;
+  }
+
+  constexpr const VkBool32& fragment_density_map_dynamic() const
+  {
+    return _fragment_density_map_dynamic;
+  }
+
+  void fragment_density_map_dynamic(VkBool32 new_fragment_density_map_dynamic)
+  {
+    _fragment_density_map_dynamic = new_fragment_density_map_dynamic;
+  }
+
+  VkBool32& fragment_density_map_non_subsampled_images()
+  {
+    return _fragment_density_map_non_subsampled_images;
+  }
+
+  constexpr const VkBool32& fragment_density_map_non_subsampled_images() const
+  {
+    return _fragment_density_map_non_subsampled_images;
+  }
+
+  void fragment_density_map_non_subsampled_images(
+    VkBool32 new_fragment_density_map_non_subsampled_images)
+  {
+    _fragment_density_map_non_subsampled_images =
+      new_fragment_density_map_non_subsampled_images;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_fragment_density_map_features_ext;
+  void* _next = nullptr;
+  VkBool32 _fragment_density_map = VK_FALSE;
+  VkBool32 _fragment_density_map_dynamic = VK_FALSE;
+  VkBool32 _fragment_density_map_non_subsampled_images = VK_FALSE;
+};
+static_assert(sizeof(physical_device_fragment_density_map_features_ext) ==
+                sizeof(::VkPhysicalDeviceFragmentDensityMapFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceFragmentDensityMapPropertiesEXT.
+class physical_device_fragment_density_map_properties_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_fragment_density_map_properties_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_fragment_density_map_properties_ext(
+    void* initial_next, vk::extent_2d initial_min_fragment_density_texel_size,
+    vk::extent_2d initial_max_fragment_density_texel_size,
+    VkBool32 initial_fragment_density_invocations) noexcept
+  : _next(std::move(initial_next)),
+    _min_fragment_density_texel_size(
+      std::move(initial_min_fragment_density_texel_size)),
+    _max_fragment_density_texel_size(
+      std::move(initial_max_fragment_density_texel_size)),
+    _fragment_density_invocations(
+      std::move(initial_fragment_density_invocations))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_fragment_density_map_properties_ext(
+    const physical_device_fragment_density_map_properties_ext& other) noexcept
+  : _next(other._next),
+    _min_fragment_density_texel_size(other._min_fragment_density_texel_size),
+    _max_fragment_density_texel_size(other._max_fragment_density_texel_size),
+    _fragment_density_invocations(other._fragment_density_invocations)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_fragment_density_map_properties_ext(
+    physical_device_fragment_density_map_properties_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _min_fragment_density_texel_size(
+      std::move(other._min_fragment_density_texel_size)),
+    _max_fragment_density_texel_size(
+      std::move(other._max_fragment_density_texel_size)),
+    _fragment_density_invocations(
+      std::move(other._fragment_density_invocations))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_fragment_density_map_properties_ext& operator=(
+    const physical_device_fragment_density_map_properties_ext& other) noexcept
+  {
+    _next = other._next;
+    _min_fragment_density_texel_size = other._min_fragment_density_texel_size;
+    _max_fragment_density_texel_size = other._max_fragment_density_texel_size;
+    _fragment_density_invocations = other._fragment_density_invocations;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_fragment_density_map_properties_ext& operator=(
+    physical_device_fragment_density_map_properties_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _min_fragment_density_texel_size =
+      std::move(other._min_fragment_density_texel_size);
+    _max_fragment_density_texel_size =
+      std::move(other._max_fragment_density_texel_size);
+    _fragment_density_invocations =
+      std::move(other._fragment_density_invocations);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFragmentDensityMapPropertiesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceFragmentDensityMapPropertiesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::extent_2d& min_fragment_density_texel_size()
+  {
+    return _min_fragment_density_texel_size;
+  }
+
+  constexpr const vk::extent_2d& min_fragment_density_texel_size() const
+  {
+    return _min_fragment_density_texel_size;
+  }
+
+  void min_fragment_density_texel_size(
+    vk::extent_2d new_min_fragment_density_texel_size)
+  {
+    _min_fragment_density_texel_size = new_min_fragment_density_texel_size;
+  }
+
+  vk::extent_2d& max_fragment_density_texel_size()
+  {
+    return _max_fragment_density_texel_size;
+  }
+
+  constexpr const vk::extent_2d& max_fragment_density_texel_size() const
+  {
+    return _max_fragment_density_texel_size;
+  }
+
+  void max_fragment_density_texel_size(
+    vk::extent_2d new_max_fragment_density_texel_size)
+  {
+    _max_fragment_density_texel_size = new_max_fragment_density_texel_size;
+  }
+
+  VkBool32& fragment_density_invocations()
+  {
+    return _fragment_density_invocations;
+  }
+
+  constexpr const VkBool32& fragment_density_invocations() const
+  {
+    return _fragment_density_invocations;
+  }
+
+  void fragment_density_invocations(VkBool32 new_fragment_density_invocations)
+  {
+    _fragment_density_invocations = new_fragment_density_invocations;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_fragment_density_map_properties_ext;
+  void* _next = nullptr;
+  vk::extent_2d _min_fragment_density_texel_size = vk::extent_2d{};
+  vk::extent_2d _max_fragment_density_texel_size = vk::extent_2d{};
+  VkBool32 _fragment_density_invocations = VK_FALSE;
+};
+static_assert(sizeof(physical_device_fragment_density_map_properties_ext) ==
+                sizeof(::VkPhysicalDeviceFragmentDensityMapPropertiesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkRenderPassFragmentDensityMapCreateInfoEXT.
+class render_pass_fragment_density_map_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr render_pass_fragment_density_map_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr render_pass_fragment_density_map_create_info_ext(
+    const void* initial_next,
+    vk::attachment_reference initial_fragment_density_map_attachment) noexcept
+  : _next(std::move(initial_next)),
+    _fragment_density_map_attachment(
+      std::move(initial_fragment_density_map_attachment))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr render_pass_fragment_density_map_create_info_ext(
+    const render_pass_fragment_density_map_create_info_ext& other) noexcept
+  : _next(other._next),
+    _fragment_density_map_attachment(other._fragment_density_map_attachment)
+  {
+  }
+
+  /// Move constructor.
+  constexpr render_pass_fragment_density_map_create_info_ext(
+    render_pass_fragment_density_map_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _fragment_density_map_attachment(
+      std::move(other._fragment_density_map_attachment))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr render_pass_fragment_density_map_create_info_ext& operator=(
+    const render_pass_fragment_density_map_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _fragment_density_map_attachment = other._fragment_density_map_attachment;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr render_pass_fragment_density_map_create_info_ext& operator=(
+    render_pass_fragment_density_map_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fragment_density_map_attachment =
+      std::move(other._fragment_density_map_attachment);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkRenderPassFragmentDensityMapCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkRenderPassFragmentDensityMapCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::attachment_reference& fragment_density_map_attachment()
+  {
+    return _fragment_density_map_attachment;
+  }
+
+  constexpr const vk::attachment_reference& fragment_density_map_attachment()
+    const
+  {
+    return _fragment_density_map_attachment;
+  }
+
+  void fragment_density_map_attachment(
+    vk::attachment_reference new_fragment_density_map_attachment)
+  {
+    _fragment_density_map_attachment = new_fragment_density_map_attachment;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::render_pass_fragment_density_map_create_info_ext;
+  const void* _next = nullptr;
+  vk::attachment_reference _fragment_density_map_attachment =
+    vk::attachment_reference{};
+};
+static_assert(sizeof(render_pass_fragment_density_map_create_info_ext) ==
+                sizeof(::VkRenderPassFragmentDensityMapCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.
+class physical_device_scalar_block_layout_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_scalar_block_layout_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_scalar_block_layout_features_ext(
+    void* initial_next, VkBool32 initial_scalar_block_layout) noexcept
+  : _next(std::move(initial_next)),
+    _scalar_block_layout(std::move(initial_scalar_block_layout))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_scalar_block_layout_features_ext(
+    const physical_device_scalar_block_layout_features_ext& other) noexcept
+  : _next(other._next), _scalar_block_layout(other._scalar_block_layout)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_scalar_block_layout_features_ext(
+    physical_device_scalar_block_layout_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _scalar_block_layout(std::move(other._scalar_block_layout))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_scalar_block_layout_features_ext& operator=(
+    const physical_device_scalar_block_layout_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _scalar_block_layout = other._scalar_block_layout;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_scalar_block_layout_features_ext& operator=(
+    physical_device_scalar_block_layout_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _scalar_block_layout = std::move(other._scalar_block_layout);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceScalarBlockLayoutFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& scalar_block_layout()
+  {
+    return _scalar_block_layout;
+  }
+
+  constexpr const VkBool32& scalar_block_layout() const
+  {
+    return _scalar_block_layout;
+  }
+
+  void scalar_block_layout(VkBool32 new_scalar_block_layout)
+  {
+    _scalar_block_layout = new_scalar_block_layout;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_scalar_block_layout_features_ext;
+  void* _next = nullptr;
+  VkBool32 _scalar_block_layout = VK_FALSE;
+};
+static_assert(sizeof(physical_device_scalar_block_layout_features_ext) ==
+                sizeof(::VkPhysicalDeviceScalarBlockLayoutFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkImageStencilUsageCreateInfoEXT.
+class image_stencil_usage_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr image_stencil_usage_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr image_stencil_usage_create_info_ext(
+    const void* initial_next,
+    vk::image_usage_flags initial_stencil_usage) noexcept
+  : _next(std::move(initial_next)),
+    _stencil_usage(std::move(initial_stencil_usage))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr image_stencil_usage_create_info_ext(
+    const image_stencil_usage_create_info_ext& other) noexcept
+  : _next(other._next), _stencil_usage(other._stencil_usage)
+  {
+  }
+
+  /// Move constructor.
+  constexpr image_stencil_usage_create_info_ext(
+    image_stencil_usage_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _stencil_usage(std::move(other._stencil_usage))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr image_stencil_usage_create_info_ext& operator=(
+    const image_stencil_usage_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _stencil_usage = other._stencil_usage;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr image_stencil_usage_create_info_ext& operator=(
+    image_stencil_usage_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _stencil_usage = std::move(other._stencil_usage);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImageStencilUsageCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkImageStencilUsageCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::image_usage_flags& stencil_usage()
+  {
+    return _stencil_usage;
+  }
+
+  constexpr const vk::image_usage_flags& stencil_usage() const
+  {
+    return _stencil_usage;
+  }
+
+  void stencil_usage(vk::image_usage_flags new_stencil_usage)
+  {
+    _stencil_usage = new_stencil_usage;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::image_stencil_usage_create_info_ext;
+  const void* _next = nullptr;
+  vk::image_usage_flags _stencil_usage = vk::image_usage_flag::none;
+};
+static_assert(sizeof(image_stencil_usage_create_info_ext) ==
+                sizeof(::VkImageStencilUsageCreateInfoEXT),
               "struct and wrapper have different size!");
 
 #if defined(VK_USE_PLATFORM_XLIB_KHR)

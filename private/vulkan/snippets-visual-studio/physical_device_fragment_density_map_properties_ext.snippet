@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_fragment_density_map_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceFragmentDensityMapPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceFragmentDensityMapPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFragmentDensityMapPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>min_fragment_density_texel_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFragmentDensityMapPropertiesEXT::minFragmentDensityTexelSize.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>max_fragment_density_texel_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFragmentDensityMapPropertiesEXT::maxFragmentDensityTexelSize.</ToolTip>
+          <Default>vk::extent_2d{}</Default>
+        </Literal>
+        <Literal>
+          <ID>fragment_density_invocations</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFragmentDensityMapPropertiesEXT::fragmentDensityInvocations.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_fragment_density_map_properties_ext(
+  /* next */ $next$,
+  /* min_fragment_density_texel_size */ $min_fragment_density_texel_size$,
+  /* max_fragment_density_texel_size */ $max_fragment_density_texel_size$,
+  /* fragment_density_invocations */ $fragment_density_invocations$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
