@@ -158,7 +158,7 @@ void gpio::update(bool forceUpdate)
   {
     _value = newValue;
     if (on_changed)
-      on_changed(*this, value() != nullptr);
+      on_changed(*this, newValue);
   }
 }
 

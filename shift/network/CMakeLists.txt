@@ -10,6 +10,7 @@ shift_add_library(shift.network STATIC
     shift.platform
     Boost::boost
     Boost::coroutine
+    Boost::thread
     OSLibs::winsock2
 )
 

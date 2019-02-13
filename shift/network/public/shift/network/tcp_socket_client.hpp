@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <shift/core/boost_disable_warnings.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include "shift/network/network.hpp"

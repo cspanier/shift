@@ -15,7 +15,7 @@
 #include <boost/gil/extension/io/tiff.hpp>
 #include <boost/gil/extension/numeric/sampler.hpp>
 #include <boost/gil/extension/numeric/resample.hpp>
-#include <boost/gil/gil_all.hpp>
+#include <boost/gil.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include <gsl/gsl>
 

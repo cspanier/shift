@@ -6,7 +6,7 @@
 #include "shift/render/vk/layer1/device.hpp"
 #include <shift/core/mpl.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/gil/gil_all.hpp>
+#include <boost/gil.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 
 namespace shift::render::vk

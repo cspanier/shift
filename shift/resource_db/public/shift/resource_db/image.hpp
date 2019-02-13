@@ -93,7 +93,29 @@ enum class image_format : std::uint8_t
   a8b8g8r8_snorm,
   // a8b8g8r8_uint,
   // a8b8g8r8_sint,
-  // a8b8g8r8_srgb
+  // a8b8g8r8_srgb,
+
+  // S3TC Compressed Texture Image Formats
+  bc1_rgb_unorm_block,
+  bc1_rgb_srgb_block,
+  bc1_rgba_unorm_block,
+  bc1_rgba_srgb_block,
+  bc2_unorm_block,
+  bc2_srgb_block,
+  bc3_unorm_block,
+  bc3_srgb_block,
+
+  // RGTC Compressed Texture Image Formats
+  bc4_unorm_block,
+  bc4_snorm_block,
+  bc5_unorm_block,
+  bc5_snorm_block,
+
+  // BPTC Compressed Texture Image Formats
+  bc6h_ufloat_block,
+  bc6h_sfloat_block,
+  bc7_unorm_block,
+  bc7_srgb_block
 };
 
 template <typename GilPixel, bool SRGB>
