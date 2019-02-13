@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buffer_device_address_create_info_ext</Title>
+      <Shortcut>VkBufferDeviceAddressCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkBufferDeviceAddressCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferDeviceAddressCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>device_address</ID>
+          <ToolTip>Equivalent to Vulkan member VkBufferDeviceAddressCreateInfoEXT::deviceAddress.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::buffer_device_address_create_info_ext(
+  /* next */ $next$,
+  /* device_address */ $device_address$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

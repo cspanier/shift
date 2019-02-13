@@ -1004,4 +1004,7 @@ digraph Vulkan {
   "vkCreateImagePipeSurfaceFUCHSIA" [shape=box, style=filled, color=greenyellow];
   "VkInstance" -> "vkCreateImagePipeSurfaceFUCHSIA";
   "vkCreateImagePipeSurfaceFUCHSIA" -> "VkSurfaceKHR";
+  "vkGetBufferDeviceAddressEXT" [shape=box, style=filled, color=greenyellow];
+  "VkDevice" -> "vkGetBufferDeviceAddressEXT";
+  "VkBuffer" -> "vkGetBufferDeviceAddressEXT";
 }

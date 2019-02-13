@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subpass_description_depth_stencil_resolve_khr</Title>
+      <Shortcut>VkSubpassDescriptionDepthStencilResolveKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkSubpassDescriptionDepthStencilResolveKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescriptionDepthStencilResolveKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_resolve_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescriptionDepthStencilResolveKHR::depthResolveMode.</ToolTip>
+          <Default>vk::resolve_mode_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>stencil_resolve_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescriptionDepthStencilResolveKHR::stencilResolveMode.</ToolTip>
+          <Default>vk::resolve_mode_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_stencil_resolve_attachment</ID>
+          <ToolTip>Equivalent to Vulkan member VkSubpassDescriptionDepthStencilResolveKHR::pDepthStencilResolveAttachment.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::subpass_description_depth_stencil_resolve_khr(
+  /* next */ $next$,
+  /* depth_resolve_mode */ $depth_resolve_mode$,
+  /* stencil_resolve_mode */ $stencil_resolve_mode$,
+  /* depth_stencil_resolve_attachment */ $depth_stencil_resolve_attachment$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

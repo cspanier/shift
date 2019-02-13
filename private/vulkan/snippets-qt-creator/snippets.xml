@@ -1061,6 +1061,13 @@
   /* disabled_validation_check_count */ $disabled_validation_check_count$,
   /* disabled_validation_checks */ $disabled_validation_checks$)
 </snippet>
+  <snippet group="C++" trigger="_VkValidationFeaturesEXT" id="" complement="" removed="false" modified="false">vk::validation_features_ext(
+  /* next */ $next$,
+  /* enabled_validation_feature_count */ $enabled_validation_feature_count$,
+  /* enabled_validation_features */ $enabled_validation_features$,
+  /* disabled_validation_feature_count */ $disabled_validation_feature_count$,
+  /* disabled_validation_features */ $disabled_validation_features$)
+</snippet>
   <snippet group="C++" trigger="_VkPipelineRasterizationStateRasterizationOrderAMD" id="" complement="" removed="false" modified="false">vk::pipeline_rasterization_state_rasterization_order_amd(
   /* next */ $next$,
   /* rasterization_order */ $rasterization_order$)
@@ -2495,7 +2502,8 @@
   <snippet group="C++" trigger="_VkPhysicalDeviceVulkanMemoryModelFeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_vulkan_memory_model_features_khr(
   /* next */ $next$,
   /* vulkan_memory_model */ $vulkan_memory_model$,
-  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$)
+  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$,
+  /* vulkan_memory_model_availability_visibility_chains */ $vulkan_memory_model_availability_visibility_chains$)
 </snippet>
   <snippet group="C++" trigger="_VkPhysicalDeviceShaderAtomicInt64FeaturesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_shader_atomic_int64_features_khr(
   /* next */ $next$,
@@ -2515,6 +2523,19 @@
   /* next */ $next$,
   /* stage */ $stage$,
   /* checkpoint_marker */ $checkpoint_marker$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDepthStencilResolvePropertiesKHR" id="" complement="" removed="false" modified="false">vk::physical_device_depth_stencil_resolve_properties_khr(
+  /* next */ $next$,
+  /* supported_depth_resolve_modes */ $supported_depth_resolve_modes$,
+  /* supported_stencil_resolve_modes */ $supported_stencil_resolve_modes$,
+  /* independent_resolve_none */ $independent_resolve_none$,
+  /* independent_resolve */ $independent_resolve$)
+</snippet>
+  <snippet group="C++" trigger="_VkSubpassDescriptionDepthStencilResolveKHR" id="" complement="" removed="false" modified="false">vk::subpass_description_depth_stencil_resolve_khr(
+  /* next */ $next$,
+  /* depth_resolve_mode */ $depth_resolve_mode$,
+  /* stencil_resolve_mode */ $stencil_resolve_mode$,
+  /* depth_stencil_resolve_attachment */ $depth_stencil_resolve_attachment$)
 </snippet>
   <snippet group="C++" trigger="_VkImageViewASTCDecodeModeEXT" id="" complement="" removed="false" modified="false">vk::image_view_astcdecode_mode_ext(
   /* next */ $next$,
@@ -2580,6 +2601,10 @@
   <snippet group="C++" trigger="_VkPhysicalDeviceShaderImageFootprintFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_shader_image_footprint_features_nv(
   /* next */ $next$,
   /* image_footprint */ $image_footprint$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV" id="" complement="" removed="false" modified="false">vk::physical_device_dedicated_allocation_image_aliasing_features_nv(
+  /* next */ $next$,
+  /* dedicated_allocation_image_aliasing */ $dedicated_allocation_image_aliasing$)
 </snippet>
   <snippet group="C++" trigger="_VkShadingRatePaletteNV" id="" complement="" removed="false" modified="false">vk::shading_rate_palette_nv(
   /* shading_rate_palette_entry_count */ $shading_rate_palette_entry_count$,
@@ -2796,5 +2821,41 @@
   <snippet group="C++" trigger="_VkPhysicalDeviceScalarBlockLayoutFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_scalar_block_layout_features_ext(
   /* next */ $next$,
   /* scalar_block_layout */ $scalar_block_layout$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMemoryBudgetPropertiesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_memory_budget_properties_ext(
+  /* next */ $next$,
+  /* heap_budget */ $heap_budget$,
+  /* heap_usage */ $heap_usage$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceMemoryPriorityFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_memory_priority_features_ext(
+  /* next */ $next$,
+  /* memory_priority */ $memory_priority$)
+</snippet>
+  <snippet group="C++" trigger="_VkMemoryPriorityAllocateInfoEXT" id="" complement="" removed="false" modified="false">vk::memory_priority_allocate_info_ext(
+  /* next */ $next$,
+  /* priority */ $priority$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceBufferAddressFeaturesEXT" id="" complement="" removed="false" modified="false">vk::physical_device_buffer_address_features_ext(
+  /* next */ $next$,
+  /* buffer_device_address */ $buffer_device_address$,
+  /* buffer_device_address_capture_replay */ $buffer_device_address_capture_replay$,
+  /* buffer_device_address_multi_device */ $buffer_device_address_multi_device$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferDeviceAddressInfoEXT" id="" complement="" removed="false" modified="false">vk::buffer_device_address_info_ext(
+  /* next */ $next$,
+  /* buffer */ $buffer$)
+</snippet>
+  <snippet group="C++" trigger="_VkBufferDeviceAddressCreateInfoEXT" id="" complement="" removed="false" modified="false">vk::buffer_device_address_create_info_ext(
+  /* next */ $next$,
+  /* device_address */ $device_address$)
+</snippet>
+  <snippet group="C++" trigger="_VkPhysicalDeviceImageViewImageFormatInfoEXT" id="" complement="" removed="false" modified="false">vk::physical_device_image_view_image_format_info_ext(
+  /* next */ $next$,
+  /* image_view_type */ $image_view_type$)
+</snippet>
+  <snippet group="C++" trigger="_VkFilterCubicImageViewImageFormatPropertiesEXT" id="" complement="" removed="false" modified="false">vk::filter_cubic_image_view_image_format_properties_ext(
+  /* next */ $next$,
+  /* filter_cubic */ $filter_cubic$,
+  /* filter_cubic_minmax */ $filter_cubic_minmax$)
 </snippet>
 </snippets>

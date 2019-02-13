@@ -27,11 +27,17 @@
           <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVulkanMemoryModelFeaturesKHR::vulkanMemoryModelDeviceScope.</ToolTip>
           <Default>VK_FALSE</Default>
         </Literal>
+        <Literal>
+          <ID>vulkan_memory_model_availability_visibility_chains</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVulkanMemoryModelFeaturesKHR::vulkanMemoryModelAvailabilityVisibilityChains.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
       </Declarations>
       <Code Language="cpp"><![CDATA[vk::physical_device_vulkan_memory_model_features_khr(
   /* next */ $next$,
   /* vulkan_memory_model */ $vulkan_memory_model$,
-  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$)$end$]]>
+  /* vulkan_memory_model_device_scope */ $vulkan_memory_model_device_scope$,
+  /* vulkan_memory_model_availability_visibility_chains */ $vulkan_memory_model_availability_visibility_chains$)$end$]]>
       </Code>
     </Snippet>
   </CodeSnippet>

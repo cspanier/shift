@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>filter_cubic_image_view_image_format_properties_ext</Title>
+      <Shortcut>VkFilterCubicImageViewImageFormatPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkFilterCubicImageViewImageFormatPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFilterCubicImageViewImageFormatPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>filter_cubic</ID>
+          <ToolTip>Equivalent to Vulkan member VkFilterCubicImageViewImageFormatPropertiesEXT::filterCubic.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>filter_cubic_minmax</ID>
+          <ToolTip>Equivalent to Vulkan member VkFilterCubicImageViewImageFormatPropertiesEXT::filterCubicMinmax.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::filter_cubic_image_view_image_format_properties_ext(
+  /* next */ $next$,
+  /* filter_cubic */ $filter_cubic$,
+  /* filter_cubic_minmax */ $filter_cubic_minmax$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

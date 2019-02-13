@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_depth_stencil_resolve_properties_khr</Title>
+      <Shortcut>VkPhysicalDeviceDepthStencilResolvePropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceDepthStencilResolvePropertiesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDepthStencilResolvePropertiesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_depth_resolve_modes</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDepthStencilResolvePropertiesKHR::supportedDepthResolveModes.</ToolTip>
+          <Default>vk::resolve_mode_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>supported_stencil_resolve_modes</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDepthStencilResolvePropertiesKHR::supportedStencilResolveModes.</ToolTip>
+          <Default>vk::resolve_mode_flag_khr::none</Default>
+        </Literal>
+        <Literal>
+          <ID>independent_resolve_none</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDepthStencilResolvePropertiesKHR::independentResolveNone.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>independent_resolve</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceDepthStencilResolvePropertiesKHR::independentResolve.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_depth_stencil_resolve_properties_khr(
+  /* next */ $next$,
+  /* supported_depth_resolve_modes */ $supported_depth_resolve_modes$,
+  /* supported_stencil_resolve_modes */ $supported_stencil_resolve_modes$,
+  /* independent_resolve_none */ $independent_resolve_none$,
+  /* independent_resolve */ $independent_resolve$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
