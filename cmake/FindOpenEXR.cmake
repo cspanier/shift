@@ -2,14 +2,15 @@ if(NOT OPENEXR_HALF_LIBRARY)
   find_path(OPENEXR_HALF_INCLUDE_DIR "OpenEXR/half.h")
   find_library(OPENEXR_HALF_LIBRARY_DEBUG
     NAMES
-      # ToDo: Is there any debug library?
-      Half
+      Half  # Arch Linux
+      Half-2_3_s_d  # Windows
     PATH_SUFFIXES
       lib
   )
   find_library(OPENEXR_HALF_LIBRARY_RELEASE
     NAMES
-      Half
+      Half  # Arch Linux
+      Half-2_3_s  # Windows
     PATH_SUFFIXES
       lib
   )
