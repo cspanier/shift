@@ -1,8 +1,63 @@
+if(NOT GLSLANG_OSDEPENDENT_LIBRARY)
+  find_path(GLSLANG_OSDEPENDENT_INCLUDE_DIR "glslang/Public/ShaderLang.h")
+  find_library(GLSLANG_OSDEPENDENT_LIBRARY_DEBUG
+    NAMES
+      OSDependentd  # Windows
+      OSDependent
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(GLSLANG_OSDEPENDENT_LIBRARY_RELEASE
+    NAMES
+      OSDependent
+    PATH_SUFFIXES
+      lib
+  )
+  set(GLSLANG_OSDEPENDENT_LIBRARY
+    debug ${GLSLANG_OSDEPENDENT_LIBRARY_DEBUG}
+    optimized ${GLSLANG_OSDEPENDENT_LIBRARY_RELEASE}
+  )
+endif()
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLSLANG_OSDEPENDENT REQUIRED_VARS
+  GLSLANG_OSDEPENDENT_LIBRARY GLSLANG_OSDEPENDENT_INCLUDE_DIR)
+
+mark_as_advanced(GLSLANG_OSDEPENDENT_INCLUDE_DIRS)
+mark_as_advanced(GLSLANG_OSDEPENDENT_LIBRARIES)
+
+if(GLSLANG_OSDEPENDENT_FOUND)
+  set(GLSLANG_OSDEPENDENT_INCLUDE_DIRS ${GLSLANG_OSDEPENDENT_INCLUDE_DIR})
+  set(GLSLANG_OSDEPENDENT_LIBRARIES ${GLSLANG_OSDEPENDENT_LIBRARY})
+
+  if(NOT TARGET Glslang::osdependent)
+    add_library(Glslang::osdependent UNKNOWN IMPORTED)
+    set_target_properties(Glslang::osdependent PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${GLSLANG_OSDEPENDENT_INCLUDE_DIRS}")
+
+    set_property(TARGET Glslang::osdependent APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS RELEASE)
+    set_property(TARGET Glslang::osdependent APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS DEBUG)
+
+    if(GLSLANG_OSDEPENDENT_LIBRARY_DEBUG AND GLSLANG_OSDEPENDENT_LIBRARY_RELEASE)
+      set_target_properties(Glslang::osdependent PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${GLSLANG_OSDEPENDENT_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${GLSLANG_OSDEPENDENT_LIBRARY_RELEASE}"
+      )
+    else()
+      set_target_properties(Glslang::osdependent PROPERTIES
+        IMPORTED_LOCATION "${GLSLANG_OSDEPENDENT_LIBRARY_RELEASE}"
+      )
+    endif()
+  endif()
+endif()
+
+
 if(NOT GLSLANG_CORE_LIBRARY)
   find_path(GLSLANG_CORE_INCLUDE_DIR "glslang/Public/ShaderLang.h")
   find_library(GLSLANG_CORE_LIBRARY_DEBUG
     NAMES
-      # ToDo: Is there any debug library?
+      glslangd  # Windows
       glslang
     PATH_SUFFIXES
       lib
@@ -47,6 +102,116 @@ if(GLSLANG_CORE_FOUND)
     else()
       set_target_properties(Glslang::core PROPERTIES
         IMPORTED_LOCATION "${GLSLANG_CORE_LIBRARY_RELEASE}"
+      )
+    endif()
+  endif()
+endif()
+
+
+if(NOT GLSLANG_OGL_LIBRARY)
+  find_path(GLSLANG_OGL_INCLUDE_DIR "glslang/Public/ShaderLang.h")
+  find_library(GLSLANG_OGL_LIBRARY_DEBUG
+    NAMES
+      OGLCompilerd  # Windows
+      OGLCompiler
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(GLSLANG_OGL_LIBRARY_RELEASE
+    NAMES
+      OGLCompiler
+    PATH_SUFFIXES
+      lib
+  )
+  set(GLSLANG_OGL_LIBRARY
+    debug ${GLSLANG_OGL_LIBRARY_DEBUG}
+    optimized ${GLSLANG_OGL_LIBRARY_RELEASE}
+  )
+endif()
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLSLANG_OGL REQUIRED_VARS
+  GLSLANG_OGL_LIBRARY GLSLANG_OGL_INCLUDE_DIR)
+
+mark_as_advanced(GLSLANG_OGL_INCLUDE_DIRS)
+mark_as_advanced(GLSLANG_OGL_LIBRARIES)
+
+if(GLSLANG_OGL_FOUND)
+  set(GLSLANG_OGL_INCLUDE_DIRS ${GLSLANG_OGL_INCLUDE_DIR})
+  set(GLSLANG_OGL_LIBRARIES ${GLSLANG_OGL_LIBRARY})
+
+  if(NOT TARGET Glslang::ogl)
+    add_library(Glslang::ogl UNKNOWN IMPORTED)
+    set_target_properties(Glslang::ogl PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${GLSLANG_OGL_INCLUDE_DIRS}")
+
+    set_property(TARGET Glslang::ogl APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS RELEASE)
+    set_property(TARGET Glslang::ogl APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS DEBUG)
+
+    if(GLSLANG_OGL_LIBRARY_DEBUG AND GLSLANG_OGL_LIBRARY_RELEASE)
+      set_target_properties(Glslang::ogl PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${GLSLANG_OGL_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${GLSLANG_OGL_LIBRARY_RELEASE}"
+      )
+    else()
+      set_target_properties(Glslang::ogl PROPERTIES
+        IMPORTED_LOCATION "${GLSLANG_OGL_LIBRARY_RELEASE}"
+      )
+    endif()
+  endif()
+endif()
+
+
+if(NOT GLSLANG_HLSL_LIBRARY)
+  find_path(GLSLANG_HLSL_INCLUDE_DIR "glslang/Public/ShaderLang.h")
+  find_library(GLSLANG_HLSL_LIBRARY_DEBUG
+    NAMES
+      HLSLd  # Windows
+      HLSL
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(GLSLANG_HLSL_LIBRARY_RELEASE
+    NAMES
+      HLSL
+    PATH_SUFFIXES
+      lib
+  )
+  set(GLSLANG_HLSL_LIBRARY
+    debug ${GLSLANG_HLSL_LIBRARY_DEBUG}
+    optimized ${GLSLANG_HLSL_LIBRARY_RELEASE}
+  )
+endif()
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLSLANG_HLSL REQUIRED_VARS
+  GLSLANG_HLSL_LIBRARY GLSLANG_HLSL_INCLUDE_DIR)
+
+mark_as_advanced(GLSLANG_HLSL_INCLUDE_DIRS)
+mark_as_advanced(GLSLANG_HLSL_LIBRARIES)
+
+if(GLSLANG_HLSL_FOUND)
+  set(GLSLANG_HLSL_INCLUDE_DIRS ${GLSLANG_HLSL_INCLUDE_DIR})
+  set(GLSLANG_HLSL_LIBRARIES ${GLSLANG_HLSL_LIBRARY})
+
+  if(NOT TARGET Glslang::hlsl)
+    add_library(Glslang::hlsl UNKNOWN IMPORTED)
+    set_target_properties(Glslang::hlsl PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${GLSLANG_HLSL_INCLUDE_DIRS}")
+
+    set_property(TARGET Glslang::hlsl APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS RELEASE)
+    set_property(TARGET Glslang::hlsl APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS DEBUG)
+
+    if(GLSLANG_HLSL_LIBRARY_DEBUG AND GLSLANG_HLSL_LIBRARY_RELEASE)
+      set_target_properties(Glslang::hlsl PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${GLSLANG_HLSL_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${GLSLANG_HLSL_LIBRARY_RELEASE}"
+      )
+    else()
+      set_target_properties(Glslang::hlsl PROPERTIES
+        IMPORTED_LOCATION "${GLSLANG_HLSL_LIBRARY_RELEASE}"
       )
     endif()
   endif()

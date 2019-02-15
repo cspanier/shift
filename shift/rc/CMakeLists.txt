@@ -20,7 +20,10 @@ if (NOT NO_VULKAN)
       Boost::boost
       ShaderC::core
       ShaderC::util
+      Glslang::hlsl
+      Glslang::ogl
       Glslang::core
+      Glslang::osdependent
       SpirV::core
       SpirVTools::optimizer
       SpirVTools::core
