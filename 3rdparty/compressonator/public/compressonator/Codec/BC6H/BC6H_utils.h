@@ -31,8 +31,6 @@
 #include <bitset>
 #include <stddef.h>
 
-using namespace std;
-
 class BitHeader
 {
 public:
@@ -108,7 +106,7 @@ public:
     }
   }
 
-  bitset<128> m_bits;  // 16 bytes max
+  std::bitset<128> m_bits;  // 16 bytes max
   int m_sizeinbytes;
 };
 

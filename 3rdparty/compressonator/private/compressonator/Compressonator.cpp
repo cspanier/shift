@@ -36,8 +36,6 @@
 #include <assert.h>
 #include "compressonator/Internal/debug.h"
 
-using namespace CMP;
-
 extern CodecType GetCodecType(CMP_FORMAT format);
 extern CMP_ERROR GetError(CodecError err);
 #ifdef ENABLE_MAKE_COMPATIBLE_API
@@ -67,7 +65,7 @@ char DbgTracer::buff[MAX_DBGBUFF_SIZE];
 char DbgTracer::PrintBuff[MAX_DBGPPRINTBUFF_SIZE];
 #endif
 
-std::uint32_t CMP_API CMP_CalculateBufferSize(const CMP_Texture* pTexture)
+std::uint32_t CMP_CalculateBufferSize(const CMP_Texture* pTexture)
 {
 #ifdef USE_DBGTRACE
   DbgTrace(("-------> pTexture [%x]", pTexture));
@@ -469,11 +467,11 @@ void CMP_PrepareCMPSourceForIMG_Destination(CMP_Texture* pDstTexture,
 }
 #endif
 
-CMP_ERROR CMP_API CMP_ConvertTexture(CMP_Texture* pSourceTexture,
-                                     CMP_Texture* pDestTexture,
-                                     const CMP_CompressOptions* pOptions,
-                                     CMP_Feedback_Proc pFeedbackProc,
-                                     std::size_t pUser1, std::size_t pUser2)
+CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
+                             CMP_Texture* pDestTexture,
+                             const CMP_CompressOptions* pOptions,
+                             CMP_Feedback_Proc pFeedbackProc,
+                             std::size_t pUser1, std::size_t pUser2)
 {
 #ifdef USE_DBGTRACE
   DbgTrace(("-------> pSourceTexture [%x] pDestTexture [%x] pOptions [%x]",
@@ -633,7 +631,7 @@ CMP_ERROR CMP_API CMP_ConvertTexture(CMP_Texture* pSourceTexture,
   {
     // Decompressing
 
-    CCodec* pCodec = CreateCodec(srcType);
+    auto* pCodec = CreateCodec(srcType);
     assert(pCodec);
     if (pCodec == nullptr)
     {
@@ -713,8 +711,8 @@ CMP_ERROR CMP_API CMP_ConvertTexture(CMP_Texture* pSourceTexture,
   else  // Decompressing & then compressing
   {
     // Decompressing
-    CCodec* pCodecIn = CreateCodec(srcType);
-    CCodec* pCodecOut = CreateCodec(destType);
+    auto* pCodecIn = CreateCodec(srcType);
+    auto* pCodecOut = CreateCodec(destType);
     assert(pCodecIn);
     assert(pCodecOut);
 

@@ -303,7 +303,7 @@ public:
   CCodecBuffer(std::uint8_t nBlockWidth, std::uint8_t nBlockHeight,
                std::uint8_t nBlockDepth, std::uint32_t dwWidth,
                std::uint32_t dwHeight, std::uint32_t dwPitch = 0,
-               std::uint8_t* pData = 0);
+               std::uint8_t* pData = nullptr);
   virtual ~CCodecBuffer();
 
   virtual void Copy(CCodecBuffer& srcBuffer);
@@ -604,7 +604,7 @@ protected:
 CCodecBuffer* CreateCodecBuffer(
   CodecBufferType nCodecBufferType, std::uint8_t nBlockWidth,
   std::uint8_t nBlockHeight, std::uint8_t nBlockDepth, std::uint32_t dwWidth,
-  std::uint32_t dwHeight, std::uint32_t dwPitch = 0, std::uint8_t* pData = 0);
+  std::uint32_t dwHeight, std::uint32_t dwPitch = 0, std::uint8_t* pData = nullptr);
 CodecBufferType GetCodecBufferType(CMP_FORMAT format);
 
 #endif  // !defined(_CODECBUFFER_H_INCLUDED_)

@@ -56,10 +56,6 @@ CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
                                 std::uint32_t dwHeight, std::uint32_t dwPitch,
                                 std::uint8_t* pData)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("nCodecBufferType %d dwWidth %d dwHeight %d dwPitch %d pData [%x]",
-            nCodecBufferType, dwWidth, dwHeight, dwPitch, pData));
-#endif
   switch (nCodecBufferType)
   {
   case CBT_RGBA8888:
@@ -143,9 +139,6 @@ CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
 CodecBufferType GetCodecBufferType(CMP_FORMAT format)
 {
   CodecBufferType CBT_type;
-#ifdef USE_DBGTRACE
-  DbgTrace(("IN : CMP_FORMAT %d", format));
-#endif
   // ToDo Expand the CBT data types listed below so that CMP_FORMAT maps to a
   // single CBT_ type
   switch (format)
@@ -223,9 +216,6 @@ CodecBufferType GetCodecBufferType(CMP_FORMAT format)
     CBT_type = CBT_Unknown;
     break;
   }
-#ifdef USE_DBGTRACE
-  DbgTrace(("OUT: %d", CBT_type));
-#endif
   return CBT_type;
 }
 
@@ -238,10 +228,6 @@ CCodecBuffer::CCodecBuffer(std::uint8_t nBlockWidth, std::uint8_t nBlockHeight,
                            std::uint32_t dwHeight, std::uint32_t dwPitch,
                            std::uint8_t* pData)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("dwWidth %d,dwHeight %d,dwPitch %d pData [%x]", dwWidth, dwHeight,
-            dwPitch, pData));
-#endif
   m_dwWidth = dwWidth;
   m_dwHeight = dwHeight;
   m_dwPitch = dwPitch;
@@ -258,9 +244,6 @@ CCodecBuffer::CCodecBuffer(std::uint8_t nBlockWidth, std::uint8_t nBlockHeight,
 
 CCodecBuffer::~CCodecBuffer()
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   if (m_pData && !m_bUserAllocedData)
   {
     free(m_pData);
@@ -270,9 +253,6 @@ CCodecBuffer::~CCodecBuffer()
 
 void CCodecBuffer::Copy(CCodecBuffer& srcBuffer)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("srcBuffer [%x]", srcBuffer));
-#endif
   if (GetWidth() != srcBuffer.GetWidth() ||
       GetHeight() != srcBuffer.GetHeight())
     return;
@@ -309,9 +289,6 @@ void CCodecBuffer::Copy(CCodecBuffer& srcBuffer)
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -338,9 +315,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -367,9 +341,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -396,9 +367,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -425,9 +393,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -454,9 +419,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -483,9 +445,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -512,9 +471,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -541,9 +497,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -570,9 +523,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -599,9 +549,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -628,9 +575,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -657,9 +601,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -686,9 +627,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -715,9 +653,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -744,9 +679,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -773,9 +705,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -802,9 +731,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -831,9 +757,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -860,9 +783,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -889,9 +809,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -918,9 +835,6 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -947,9 +861,6 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -976,9 +887,6 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                               std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1016,9 +924,6 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1045,9 +950,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1074,9 +976,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1103,9 +1002,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1132,9 +1028,6 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1161,9 +1054,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1190,9 +1080,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1219,9 +1106,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1248,9 +1132,6 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1277,9 +1158,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1306,9 +1184,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1335,9 +1210,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1364,9 +1236,6 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1393,9 +1262,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1422,9 +1288,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1451,9 +1314,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1480,9 +1340,6 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1509,9 +1366,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1538,9 +1392,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1567,9 +1418,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1596,9 +1444,6 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1625,9 +1470,6 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1654,9 +1496,6 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1683,9 +1522,6 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                                std::uint8_t h, double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1713,9 +1549,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h,
                                   std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1782,9 +1615,6 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h,
                                  std::uint8_t cBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1851,9 +1681,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h,
                                   std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1908,9 +1735,6 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h,
                                  std::uint32_t dwBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -1973,9 +1797,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h,
                                   std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2030,9 +1851,6 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h,
                                  std::uint16_t wBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2086,9 +1904,6 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2142,9 +1957,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h, half hBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2199,9 +2011,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h,
                                   float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2255,9 +2064,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h, float fBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2312,9 +2118,6 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
                                   std::uint8_t w, std::uint8_t h,
                                   double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2369,9 +2172,6 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                  std::uint8_t w, std::uint8_t h,
                                  double dBlock[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Ok, so we don't support this format
   // So we try other formats to find one that is supported
 
@@ -2426,9 +2226,6 @@ bool CCodecBuffer::WriteBlock(std::uint32_t /*x*/, std::uint32_t /*y*/,
                               std::uint32_t* /*pBlock*/,
                               std::uint32_t /*dwBlockSize*/)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(0);
   return false;
 }
@@ -2437,10 +2234,6 @@ bool CCodecBuffer::ReadBlock(std::uint32_t /*x*/, std::uint32_t /*y*/,
                              std::uint32_t* /*pBlock*/,
                              std::uint32_t /*dwBlockSize*/)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(0);
   return false;
 }
@@ -2448,9 +2241,6 @@ bool CCodecBuffer::ReadBlock(std::uint32_t /*x*/, std::uint32_t /*y*/,
 void CCodecBuffer::ConvertBlock(double dBlock[], float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(dBlock);
   assert(fBlock);
   assert(dwBlockSize);
@@ -2464,10 +2254,6 @@ void CCodecBuffer::ConvertBlock(double dBlock[], float fBlock[],
 void CCodecBuffer::ConvertBlock(double dBlock[], half hBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dBlock);
   assert(hBlock);
   assert(dwBlockSize);
@@ -2481,10 +2267,6 @@ void CCodecBuffer::ConvertBlock(double dBlock[], half hBlock[],
 void CCodecBuffer::ConvertBlock(double dBlock[], std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dBlock);
   assert(dwBlock);
   assert(dwBlockSize);
@@ -2498,10 +2280,6 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint32_t dwBlock[],
 void CCodecBuffer::ConvertBlock(double dBlock[], std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dBlock);
   assert(wBlock);
   assert(dwBlockSize);
@@ -2515,10 +2293,6 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint16_t wBlock[],
 void CCodecBuffer::ConvertBlock(double dBlock[], std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dBlock);
   assert(cBlock);
   assert(dwBlockSize);
@@ -2532,10 +2306,6 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint8_t cBlock[],
 void CCodecBuffer::ConvertBlock(float fBlock[], double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(dBlock);
   assert(dwBlockSize);
@@ -2549,10 +2319,6 @@ void CCodecBuffer::ConvertBlock(float fBlock[], double dBlock[],
 void CCodecBuffer::ConvertBlock(float fBlock[], half hBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(hBlock);
   assert(dwBlockSize);
@@ -2566,10 +2332,6 @@ void CCodecBuffer::ConvertBlock(float fBlock[], half hBlock[],
 void CCodecBuffer::ConvertBlock(float fBlock[], std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(dwBlock);
   assert(dwBlockSize);
@@ -2583,10 +2345,6 @@ void CCodecBuffer::ConvertBlock(float fBlock[], std::uint32_t dwBlock[],
 void CCodecBuffer::ConvertBlock(float fBlock[], std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(wBlock);
   assert(dwBlockSize);
@@ -2600,10 +2358,6 @@ void CCodecBuffer::ConvertBlock(float fBlock[], std::uint16_t wBlock[],
 void CCodecBuffer::ConvertBlock(float fBlock[], std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(cBlock);
   assert(dwBlockSize);
@@ -2617,10 +2371,6 @@ void CCodecBuffer::ConvertBlock(float fBlock[], std::uint8_t cBlock[],
 void CCodecBuffer::ConvertBlock(half hBlock[], double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(dBlock);
   assert(dwBlockSize);
@@ -2634,10 +2384,6 @@ void CCodecBuffer::ConvertBlock(half hBlock[], double dBlock[],
 void CCodecBuffer::ConvertBlock(half hBlock[], float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(fBlock);
   assert(dwBlockSize);
@@ -2651,10 +2397,6 @@ void CCodecBuffer::ConvertBlock(half hBlock[], float fBlock[],
 void CCodecBuffer::ConvertBlock(half hBlock[], std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(dwBlock);
   assert(dwBlockSize);
@@ -2668,10 +2410,6 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint32_t dwBlock[],
 void CCodecBuffer::ConvertBlock(half hBlock[], std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(wBlock);
   assert(dwBlockSize);
@@ -2685,10 +2423,6 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint16_t wBlock[],
 void CCodecBuffer::ConvertBlock(half hBlock[], std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(cBlock);
   assert(dwBlockSize);
@@ -2702,10 +2436,6 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint8_t cBlock[],
 void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(dBlock);
   assert(dwBlockSize);
@@ -2719,10 +2449,6 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], double dBlock[],
 void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(fBlock);
   assert(dwBlockSize);
@@ -2736,10 +2462,6 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], float fBlock[],
 void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], half hBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(hBlock);
   assert(dwBlockSize);
@@ -2753,10 +2475,6 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], half hBlock[],
 void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(wBlock);
   assert(dwBlockSize);
@@ -2770,10 +2488,6 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint16_t wBlock[],
 void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(cBlock);
   assert(dwBlockSize);
@@ -2787,10 +2501,6 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint8_t cBlock[],
 void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(dBlock);
   assert(dwBlockSize);
@@ -2804,10 +2514,6 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], double dBlock[],
 void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(fBlock);
   assert(dwBlockSize);
@@ -2821,10 +2527,6 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], float fBlock[],
 void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], half hBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(hBlock);
   assert(dwBlockSize);
@@ -2838,10 +2540,6 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], half hBlock[],
 void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(dwBlock);
   assert(dwBlockSize);
@@ -2855,10 +2553,6 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint32_t dwBlock[],
 void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(cBlock);
   assert(dwBlockSize);
@@ -2872,10 +2566,6 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint8_t cBlock[],
 void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(cBlock);
   assert(dBlock);
   assert(dwBlockSize);
@@ -2889,10 +2579,6 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], double dBlock[],
 void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(cBlock);
   assert(fBlock);
   assert(dwBlockSize);
@@ -2906,10 +2592,6 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], float fBlock[],
 void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], half hBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(cBlock);
   assert(hBlock);
   assert(dwBlockSize);
@@ -2923,10 +2605,6 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], half hBlock[],
 void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(cBlock);
   assert(dwBlock);
   assert(dwBlockSize);
@@ -2940,10 +2618,6 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint32_t dwBlock[],
 void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(cBlock);
   assert(wBlock);
   assert(dwBlockSize);
@@ -2956,10 +2630,6 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint16_t wBlock[],
 
 void CCodecBuffer::SwizzleBlock(double dBlock[], std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dBlock);
   assert(dwBlockSize);
   if (dBlock && dwBlockSize)
@@ -2969,10 +2639,6 @@ void CCodecBuffer::SwizzleBlock(double dBlock[], std::uint32_t dwBlockSize)
 
 void CCodecBuffer::SwizzleBlock(float fBlock[], std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(fBlock);
   assert(dwBlockSize);
   if (fBlock && dwBlockSize)
@@ -2982,10 +2648,6 @@ void CCodecBuffer::SwizzleBlock(float fBlock[], std::uint32_t dwBlockSize)
 
 void CCodecBuffer::SwizzleBlock(half hBlock[], std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(hBlock);
   assert(dwBlockSize);
   if (hBlock && dwBlockSize)
@@ -2996,10 +2658,6 @@ void CCodecBuffer::SwizzleBlock(half hBlock[], std::uint32_t dwBlockSize)
 void CCodecBuffer::SwizzleBlock(std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(dwBlock);
   assert(dwBlockSize);
   if (dwBlock && dwBlockSize)
@@ -3010,10 +2668,6 @@ void CCodecBuffer::SwizzleBlock(std::uint32_t dwBlock[],
 void CCodecBuffer::SwizzleBlock(std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   assert(wBlock);
   assert(dwBlockSize);
   if (wBlock && dwBlockSize)

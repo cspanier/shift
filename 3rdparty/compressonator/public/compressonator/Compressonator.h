@@ -24,14 +24,14 @@
 //
 //=====================================================================
 
-#ifndef H_COMPRESS
-#define H_COMPRESS
+#ifndef COMPRESSONATOR_H
+#define COMPRESSONATOR_H
 
+#include <cstdint>
 #include "compressonator/Common.h"
 
-typedef short CMP_HALF;  ///< A 16-bit Half format.
+typedef short CMP_HALF;  /// A 16-bit Half format.
 typedef long CMP_LONG;
-typedef CMP::BOOL CMP_BOOL;  ///< A 32-bit integer boolean format.
 
 typedef struct
 {
@@ -78,180 +78,190 @@ typedef struct
 typedef struct
 {
   union {
-    std::uint8_t rgba[4];   ///< The color as an array of components.
-    std::uint32_t asDword;  ///< The color as a std::uint32_t.
+    std::uint8_t rgba[4];   /// The color as an array of components.
+    std::uint32_t asDword;  /// The color as a std::uint32_t.
   };
 } CMP_COLOR;
 
 #define AMD_COMPRESS_VERSION_MAJOR \
-  2  ///< The major version number of this release.
+  2  /// The major version number of this release.
 #define AMD_COMPRESS_VERSION_MINOR \
-  6  ///< The minor version number of this release.
-
-#if defined(WIN32) || defined(_WIN64)
-#define CMP_API __cdecl
-#else
-#define CMP_API
-#endif
+  6  /// The minor version number of this release.
 
 /// Texture format.
 /// These enum are all used internally for each version of the SDK the order may
 /// change Typically reordered in alpha betical order per catagory for easy
 /// referance
-//  Use the enum by name and not by its value
-//
 typedef enum
 {
-  CMP_FORMAT_Unknown,  ///< Undefined texture format.
+  CMP_FORMAT_Unknown,  /// Undefined texture format.
   // Channel Component formats
   // --------------------------------------------------------------------------------
-  CMP_FORMAT_ARGB_8888,  ///< ARGB format with 8-bit fixed channels.
-  CMP_FORMAT_ABGR_8888,  ///< ABGR format with 8-bit fixed channels.
-  CMP_FORMAT_RGBA_8888,  ///< RGBA format with 8-bit fixed channels.
-  CMP_FORMAT_BGRA_8888,  ///< BGRA format with 8-bit fixed channels.
-  CMP_FORMAT_RGB_888,    ///< RGB format with 8-bit fixed channels.
-  CMP_FORMAT_BGR_888,    ///< BGR format with 8-bit fixed channels.
-  CMP_FORMAT_RG_8,       ///< Two component format with 8-bit fixed channels.
-  CMP_FORMAT_R_8,        ///< Single component format with 8-bit fixed channels.
-  CMP_FORMAT_ARGB_2101010,  ///< ARGB format with 10-bit fixed channels for
-                            ///< color & a 2-bit fixed channel for alpha.
-  CMP_FORMAT_ARGB_16,       ///< ARGB format with 16-bit fixed channels.
-  CMP_FORMAT_ABGR_16,       ///< ABGR format with 16-bit fixed channels.
-  CMP_FORMAT_RGBA_16,       ///< RGBA format with 16-bit fixed channels.
-  CMP_FORMAT_BGRA_16,       ///< BGRA format with 16-bit fixed channels.
-  CMP_FORMAT_RG_16,     ///< Two component format with 16-bit fixed channels.
-  CMP_FORMAT_R_16,      ///< Single component format with 16-bit fixed channels.
-  CMP_FORMAT_RGBE_32F,  ///< RGB format with 9-bit floating point each channel
-                        ///< and shared 5 bit exponent
-  CMP_FORMAT_ARGB_16F,  ///< ARGB format with 16-bit floating-point channels.
-  CMP_FORMAT_ABGR_16F,  ///< ABGR format with 16-bit floating-point channels.
-  CMP_FORMAT_RGBA_16F,  ///< RGBA format with 16-bit floating-point channels.
-  CMP_FORMAT_BGRA_16F,  ///< BGRA format with 16-bit floating-point channels.
-  CMP_FORMAT_RG_16F,    ///< Two component format with 16-bit floating-point
-                        ///< channels.
-  CMP_FORMAT_R_16F,  ///< Single component with 16-bit floating-point channels.
-  CMP_FORMAT_ARGB_32F,  ///< ARGB format with 32-bit floating-point channels.
-  CMP_FORMAT_ABGR_32F,  ///< ABGR format with 32-bit floating-point channels.
-  CMP_FORMAT_RGBA_32F,  ///< RGBA format with 32-bit floating-point channels.
-  CMP_FORMAT_BGRA_32F,  ///< BGRA format with 32-bit floating-point channels.
-  CMP_FORMAT_RGB_32F,   ///< RGB format with 32-bit floating-point channels.
-  CMP_FORMAT_BGR_32F,   ///< BGR format with 32-bit floating-point channels.
-  CMP_FORMAT_RG_32F,    ///< Two component format with 32-bit floating-point
-                        ///< channels.
-  CMP_FORMAT_R_32F,  ///< Single component with 32-bit floating-point channels.
-  // Compression formats
-  // -----------------------------------------------------------------------------------
-  CMP_FORMAT_ASTC,   ///< ASTC (Adaptive Scalable Texture Compression) open
-                     ///< texture compression standard
-  CMP_FORMAT_ATI1N,  ///< Single component compression format using the same
-                     ///< technique as DXT5 alpha. Four bits per pixel.
-  CMP_FORMAT_ATI2N,  ///<     Two component compression format using the same
-                     ///<     technique as DXT5 alpha. Designed for compression
-                     ///<     of tangent space normal maps. Eight bits per
-                     ///<     pixel.
-  CMP_FORMAT_ATI2N_XY,  ///<    Two component compression format using the same
-                        ///<    technique as DXT5 alpha. The same as ATI2N but
-                        ///<    with the channels swizzled. Eight bits per
-                        ///<    pixel.
-  CMP_FORMAT_ATI2N_DXT5,  ///<    ATI2N like format using DXT5. Intended for use
-                          ///<    on GPUs that do not natively support ATI2N.
-                          ///<    Eight bits per pixel.
-  CMP_FORMAT_ATC_RGB,     ///< CMP - a compressed RGB format.
-  CMP_FORMAT_ATC_RGBA_Explicit,      ///< CMP - a compressed ARGB format with
-                                     ///< explicit alpha.
-  CMP_FORMAT_ATC_RGBA_Interpolated,  ///< CMP - a compressed ARGB format with
-                                     ///< interpolated alpha.
-  CMP_FORMAT_BC1,  ///< A four component opaque (or 1-bit alpha) compressed
-                   ///< texture format for Microsoft DirectX10. Identical to
-                   ///< DXT1.  Four bits per pixel.
-  CMP_FORMAT_BC2,  ///< A four component compressed texture format with explicit
-                   ///< alpha for Microsoft DirectX10. Identical to DXT3. Eight
-                   ///< bits per pixel.
-  CMP_FORMAT_BC3,  ///< A four component compressed texture format with
-                   ///< interpolated alpha for Microsoft DirectX10. Identical to
-                   ///< DXT5. Eight bits per pixel.
-  CMP_FORMAT_BC4,  ///< A single component compressed texture format for
-                   ///< Microsoft DirectX10. Identical to ATI1N. Four bits per
-                   ///< pixel.
-  CMP_FORMAT_BC5,  ///< A two component compressed texture format for Microsoft
-                   ///< DirectX10. Identical to ATI2N_XY. Eight bits per pixel.
-  CMP_FORMAT_BC6H,     ///< BC6H compressed texture format (UF)
-  CMP_FORMAT_BC6H_SF,  ///< BC6H compressed texture format (SF)
-  CMP_FORMAT_BC7,      ///< BC7  compressed texture format
-  CMP_FORMAT_DXT1,  ///< An DXTC compressed texture matopaque (or 1-bit alpha).
-                    ///< Four bits per pixel.
-  CMP_FORMAT_DXT3,  ///<    DXTC compressed texture format with explicit alpha.
-                    ///<    Eight bits per pixel.
-  CMP_FORMAT_DXT5,  ///<    DXTC compressed texture format with interpolated
-                    ///<    alpha. Eight bits per pixel.
-  CMP_FORMAT_DXT5_xGBR,  ///<    DXT5 with the red component swizzled into the
-                         ///<    alpha channel. Eight bits per pixel.
-  CMP_FORMAT_DXT5_RxBG,  ///<    swizzled DXT5 format with the green component
-                         ///<    swizzled into the alpha channel. Eight bits per
-                         ///<    pixel.
-  CMP_FORMAT_DXT5_RBxG,  ///<    swizzled DXT5 format with the green component
-                         ///<    swizzled into the alpha channel & the blue
-                         ///<    component swizzled into the green channel.
-                         ///<    Eight bits per pixel.
-  CMP_FORMAT_DXT5_xRBG,  ///<    swizzled DXT5 format with the green component
-                         ///<    swizzled into the alpha channel & the red
-                         ///<    component swizzled into the green channel.
-                         ///<    Eight bits per pixel.
-  CMP_FORMAT_DXT5_RGxB,  ///<    swizzled DXT5 format with the blue component
-                         ///<    swizzled into the alpha channel. Eight bits per
-                         ///<    pixel.
-  CMP_FORMAT_DXT5_xGxR,  ///<    two-component swizzled DXT5 format with the red
-                         ///<    component swizzled into the alpha channel & the
-                         ///<    green component in the green channel. Eight
-                         ///<    bits per pixel.
-  CMP_FORMAT_ETC_RGB,    ///< ETC   GL_COMPRESSED_RGB8_ETC2  backward compatible
-  CMP_FORMAT_ETC2_RGB,   ///< ETC2  GL_COMPRESSED_RGB8_ETC2
-  CMP_FORMAT_ETC2_SRGB,  ///< ETC2  GL_COMPRESSED_SRGB8_ETC2
-  CMP_FORMAT_ETC2_RGBA,  ///< ETC2  GL_COMPRESSED_RGBA8_ETC2_EAC
-  CMP_FORMAT_ETC2_RGBA1,  ///< ETC2  GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2
-  CMP_FORMAT_ETC2_SRGBA,  ///< ETC2  GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC
-  CMP_FORMAT_ETC2_SRGBA1,  ///< ETC2
-                           ///< GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2
-#ifdef USE_GTC
-  CMP_FORMAT_GTC,  ///< GTC   Fast Gradient Texture Compressor: max 8 bits per
-                   ///< channel
-#endif
-#ifdef USE_GTC_HDR
-  CMP_FORMAT_GTCH,  ///< GTCH  Fast Gradient Texture Compressor: max FP16 per
-                    ///< channel
-  CMP_FORMAT_MAX = CMP_FORMAT_GTCH
-#endif
-    CMP_FORMAT_MAX = CMP_FORMAT_ETC2_SRGBA1
+  /// ARGB format with 8-bit fixed channels.
+  CMP_FORMAT_ARGB_8888,
+  /// ABGR format with 8-bit fixed channels.
+  CMP_FORMAT_ABGR_8888,
+  /// RGBA format with 8-bit fixed channels.
+  CMP_FORMAT_RGBA_8888,
+  /// BGRA format with 8-bit fixed channels.
+  CMP_FORMAT_BGRA_8888,
+  /// RGB format with 8-bit fixed channels.
+  CMP_FORMAT_RGB_888,
+  /// BGR format with 8-bit fixed channels.
+  CMP_FORMAT_BGR_888,
+  /// Two component format with 8-bit fixed channels.
+  CMP_FORMAT_RG_8,
+  /// Single component format with 8-bit fixed channels.
+  CMP_FORMAT_R_8,
+  /// ARGB format with 10-bit fixed channels for color & a 2-bit fixed channel
+  /// for alpha.
+  CMP_FORMAT_ARGB_2101010,
+  /// ARGB format with 16-bit fixed channels.
+  CMP_FORMAT_ARGB_16,
+  /// ABGR format with 16-bit fixed channels.
+  CMP_FORMAT_ABGR_16,
+  /// RGBA format with 16-bit fixed channels.
+  CMP_FORMAT_RGBA_16,
+  /// BGRA format with 16-bit fixed channels.
+  CMP_FORMAT_BGRA_16,
+  /// Two component format with 16-bit fixed channels.
+  CMP_FORMAT_RG_16,
+  /// Single component format with 16-bit fixed channels.
+  CMP_FORMAT_R_16,
+  /// RGB format with 9-bit floating point each channel and shared 5 bit
+  /// exponent
+  CMP_FORMAT_RGBE_32F,
+  /// ARGB format with 16-bit floating-point channels.
+  CMP_FORMAT_ARGB_16F,
+  /// ABGR format with 16-bit floating-point channels.
+  CMP_FORMAT_ABGR_16F,
+  /// RGBA format with 16-bit floating-point channels.
+  CMP_FORMAT_RGBA_16F,
+  /// BGRA format with 16-bit floating-point channels.
+  CMP_FORMAT_BGRA_16F,
+  /// Two component format with 16-bit floating-point channels.
+  CMP_FORMAT_RG_16F,
+  /// Single component with 16-bit floating-point channels.
+  CMP_FORMAT_R_16F,
+  /// ARGB format with 32-bit floating-point channels.
+  CMP_FORMAT_ARGB_32F,
+  /// ABGR format with 32-bit floating-point channels.
+  CMP_FORMAT_ABGR_32F,
+  /// RGBA format with 32-bit floating-point channels.
+  CMP_FORMAT_RGBA_32F,
+  /// BGRA format with 32-bit floating-point channels.
+  CMP_FORMAT_BGRA_32F,
+  /// RGB format with 32-bit floating-point channels.
+  CMP_FORMAT_RGB_32F,
+  /// BGR format with 32-bit floating-point channels.
+  CMP_FORMAT_BGR_32F,
+  /// Two component format with 32-bit floating-point channels.
+  CMP_FORMAT_RG_32F,
+  /// Single component with 32-bit floating-point channels.
+  CMP_FORMAT_R_32F,
+
+  // Compression formats:
+  /// Single component compression format using the same technique as DXT5
+  /// alpha. Four bits per pixel.
+  CMP_FORMAT_ATI1N,
+  /// Two component compression format using the same technique as DXT5 alpha.
+  /// Designed for compression of tangent space normal maps. Eight bits per
+  /// pixel.
+  CMP_FORMAT_ATI2N,
+  /// Two component compression format using the same technique as DXT5 alpha.
+  /// The same as ATI2N but with the channels swizzled. Eight bits per pixel.
+  CMP_FORMAT_ATI2N_XY,
+  /// ATI2N like format using DXT5. Intended for use on GPUs that do not
+  /// natively support ATI2N. Eight bits per pixel.
+  CMP_FORMAT_ATI2N_DXT5,
+  /// A compressed RGB format.
+  CMP_FORMAT_ATC_RGB,
+  /// A compressed ARGB format with explicit alpha.
+  CMP_FORMAT_ATC_RGBA_Explicit,
+  /// A compressed ARGB format with interpolated alpha.
+  CMP_FORMAT_ATC_RGBA_Interpolated,
+  /// A four component opaque (or 1-bit alpha) compressed texture format for
+  /// Microsoft DirectX10. Identical to DXT1. Four bits per pixel.
+  CMP_FORMAT_BC1,
+  /// A four component compressed texture format with explicit alpha for
+  /// Microsoft DirectX10. Identical to DXT3. Eight bits per pixel.
+  CMP_FORMAT_BC2,
+  /// A four component compressed texture format with interpolated alpha for
+  /// Microsoft DirectX10. Identical to DXT5. Eight bits per pixel.
+  CMP_FORMAT_BC3,
+  /// A single component compressed texture format for Microsoft DirectX10.
+  /// Identical to ATI1N. Four bits per pixel.
+  CMP_FORMAT_BC4,
+  /// A two component compressed texture format for Microsoft DirectX10.
+  /// Identical to ATI2N_XY. Eight bits per pixel.
+  CMP_FORMAT_BC5,
+  /// BC6H compressed texture format (UF)
+  CMP_FORMAT_BC6H,
+  /// BC6H compressed texture format (SF)
+  CMP_FORMAT_BC6H_SF,
+  /// BC7  compressed texture format
+  CMP_FORMAT_BC7,
+  /// An DXTC compressed texture matopaque (or 1-bit alpha). Four bits per
+  /// pixel.
+  CMP_FORMAT_DXT1,
+  /// DXTC compressed texture format with explicit alpha. Eight bits per pixel.
+  CMP_FORMAT_DXT3,
+  /// DXTC compressed texture format with interpolated alpha. Eight bits per
+  /// pixel.
+  CMP_FORMAT_DXT5,
+  /// DXT5 with the red component swizzled into the alpha channel. Eight bits
+  /// per pixel.
+  CMP_FORMAT_DXT5_xGBR,
+  /// swizzled DXT5 format with the green component swizzled into the alpha
+  /// channel. Eight bits per pixel.
+  CMP_FORMAT_DXT5_RxBG,
+  /// swizzled DXT5 format with the green component swizzled into the alpha
+  /// channel & the blue component swizzled into the green channel. Eight bits
+  /// per pixel.
+  CMP_FORMAT_DXT5_RBxG,
+  /// swizzled DXT5 format with the green component swizzled into the alpha
+  /// channel & the red component swizzled into the green channel. Eight bits
+  /// per pixel.
+  CMP_FORMAT_DXT5_xRBG,
+  /// swizzled DXT5 format with the blue component swizzled into the alpha
+  /// channel. Eight bits per pixel.
+  CMP_FORMAT_DXT5_RGxB,
+  /// two-component swizzled DXT5 format with the red component swizzled into
+  /// the alpha channel & the green component in the green channel. Eight bits
+  /// per pixel.
+  CMP_FORMAT_DXT5_xGxR,
+
+  CMP_FORMAT_MAX = CMP_FORMAT_DXT5_xGxR
 } CMP_FORMAT;
 
 /// An enum selecting the speed vs. quality trade-off.
 typedef enum
 {
-  CMP_Speed_Normal,  ///< Highest quality mode
-  CMP_Speed_Fast,  ///< Slightly lower quality but much faster compression mode
-                   ///< - DXTn & ATInN only
-  CMP_Speed_SuperFast,  ///< Slightly lower quality but much, much faster
-                        ///< compression mode - DXTn & ATInN only
+  CMP_Speed_Normal,  /// Highest quality mode
+  CMP_Speed_Fast,    /// Slightly lower quality but much faster compression mode
+                     /// - DXTn & ATInN only
+  CMP_Speed_SuperFast,  /// Slightly lower quality but much, much faster
+                        /// compression mode - DXTn & ATInN only
 } CMP_Speed;
 
 /// An enum selecting the different GPU driver types.
 typedef enum
 {
-  GPUDecode_OPENGL = 0,  ///< Use OpenGL   to decode Textures (default)
-  GPUDecode_DIRECTX,     ///< Use DirectX  to decode Textures
-  GPUDecode_VULKAN,      ///< Use Vulkan  to decode Textures
+  GPUDecode_OPENGL = 0,  /// Use OpenGL   to decode Textures (default)
+  GPUDecode_DIRECTX,     /// Use DirectX  to decode Textures
+  GPUDecode_VULKAN,      /// Use Vulkan  to decode Textures
   GPUDecode_INVALID
 } CMP_GPUDecode;
 
 /// An enum selecting the different GPU driver types.
 typedef enum
 {
-  Compute_CPU_HPC = 0,  ///< Use CPU High Performance Compute to compress
-                        ///< textures, full support (default)
-  Compute_OPENCL,       ///< Use OpenCL  to compress textures, full support
+  Compute_CPU_HPC = 0,  /// Use CPU High Performance Compute to compress
+                        /// textures, full support (default)
+  Compute_OPENCL,       /// Use OpenCL  to compress textures, full support
 #ifdef ENABLE_V3x_CODE
-  Compute_VULKAN,   ///< Use Vulkan  SPIR-V to compress textures, full support
-  Compute_DIRECTX,  ///< Use DirectX to compress textures, minimal codec support
+  Compute_VULKAN,   /// Use Vulkan  SPIR-V to compress textures, full support
+  Compute_DIRECTX,  /// Use DirectX to compress textures, minimal codec support
 #endif
   Compute_INVALID
 } CMP_Compute_type;
@@ -259,25 +269,25 @@ typedef enum
 /// Compress error codes
 typedef enum
 {
-  CMP_OK = 0,                         ///< Ok.
-  CMP_ABORTED,                        ///< The conversion was aborted.
-  CMP_ERR_INVALID_SOURCE_TEXTURE,     ///< The source texture is invalid.
-  CMP_ERR_INVALID_DEST_TEXTURE,       ///< The destination texture is invalid.
-  CMP_ERR_UNSUPPORTED_SOURCE_FORMAT,  ///< The source format is not a supported
-                                      ///< format.
-  CMP_ERR_UNSUPPORTED_DEST_FORMAT,    ///< The destination format is not a
-                                      ///< supported format.
-  CMP_ERR_UNSUPPORTED_GPU_ASTC_DECODE,  ///< The gpu hardware is not supported.
-  CMP_ERR_SIZE_MISMATCH,  ///< The source and destination texture sizes do not
-                          ///< match.
-  CMP_ERR_UNABLE_TO_INIT_CODEC,  ///< Compressonator was unable to initialize
-                                 ///< the codec needed for conversion.
-  CMP_ERR_UNABLE_TO_INIT_DECOMPRESSLIB,  ///< GPU_Decode Lib was unable to
-                                         ///< initialize the codec needed for
-                                         ///< decompression .
-  CMP_ERR_UNABLE_TO_INIT_COMPUTELIB,  ///< Compute Lib was unable to initialize
-                                      ///< the codec needed for compression.
-  CMP_ERR_GENERIC                     ///< An unknown error occurred.
+  CMP_OK = 0,                           /// Ok.
+  CMP_ABORTED,                          /// The conversion was aborted.
+  CMP_ERR_INVALID_SOURCE_TEXTURE,       /// The source texture is invalid.
+  CMP_ERR_INVALID_DEST_TEXTURE,         /// The destination texture is invalid.
+  CMP_ERR_UNSUPPORTED_SOURCE_FORMAT,    /// The source format is not a supported
+                                        /// format.
+  CMP_ERR_UNSUPPORTED_DEST_FORMAT,      /// The destination format is not a
+                                        /// supported format.
+  CMP_ERR_UNSUPPORTED_GPU_ASTC_DECODE,  /// The gpu hardware is not supported.
+  CMP_ERR_SIZE_MISMATCH,  /// The source and destination texture sizes do not
+                          /// match.
+  CMP_ERR_UNABLE_TO_INIT_CODEC,  /// Compressonator was unable to initialize
+                                 /// the codec needed for conversion.
+  CMP_ERR_UNABLE_TO_INIT_DECOMPRESSLIB,  /// GPU_Decode Lib was unable to
+                                         /// initialize the codec needed for
+                                         /// decompression .
+  CMP_ERR_UNABLE_TO_INIT_COMPUTELIB,  /// Compute Lib was unable to initialize
+                                      /// the codec needed for compression.
+  CMP_ERR_GENERIC                     /// An unknown error occurred.
 } CMP_ERROR;
 
 #define AMD_MAX_CMDS 20
@@ -285,55 +295,37 @@ typedef enum
 #define AMD_MAX_CMD_PARAM 16
 
 #define AMD_CODEC_QUALITY_DEFAULT \
-  0.05f  ///< This is the default value set for all Codecs (Gives fast
-         ///< Processing and lowest Quality)
+  0.05f  /// This is the default value set for all Codecs (Gives fast
+         /// Processing and lowest Quality)
 #define AMD_CODEC_EXPOSURE_DEFAULT \
-  0  ///< This is the default value set for exposure value of hdr/exr input
-     ///< image
+  0  /// This is the default value set for exposure value of hdr/exr input
+     /// image
 #define AMD_CODEC_DEFOG_DEFAULT \
-  0  ///< This is the default value set for defog value of hdr/exr input image
+  0  /// This is the default value set for defog value of hdr/exr input image
 #define AMD_CODEC_KNEELOW_DEFAULT \
-  0  ///< This is the default value set for kneelow value of hdr/exr input image
+  0  /// This is the default value set for kneelow value of hdr/exr input image
 #define AMD_CODEC_KNEEHIGH_DEFAULT \
-  5  ///< This is the default value set for kneehigh value of hdr/exr input
-     ///< image
+  5  /// This is the default value set for kneehigh value of hdr/exr input
+     /// image
 #define AMD_CODEC_GAMMA_DEFAULT \
-  2.2f  ///< This is the default value set for gamma value of hdr/exr input
-        ///< image
+  2.2f  /// This is the default value set for gamma value of hdr/exr input
+        /// image
 
 #define CMP_MESH_COMP_LEVEL \
-  7  ///< This is the default value set for draco compress level for mesh
-     ///< compression
+  7  /// This is the default value set for draco compress level for mesh
+     /// compression
 #define CMP_MESH_POS_BITS \
-  14  ///< This is the default value set for draco position quantization bits
-      ///< for mesh compression
+  14  /// This is the default value set for draco position quantization bits
+      /// for mesh compression
 #define CMP_MESH_TEXC_BITS \
-  12  ///< This is the default value set for draco texture coordinate
-      ///< quantization bits for mesh compression
+  12  /// This is the default value set for draco texture coordinate
+      /// quantization bits for mesh compression
 #define CMP_MESH_NORMAL_BITS \
-  10  ///< This is the default value set for draco normal quantization bits for
-      ///< mesh compression
+  10  /// This is the default value set for draco normal quantization bits for
+      /// mesh compression
 #define CMP_MESH_GENERIC_BITS \
-  8  ///< This is the default value set for draco generic quantization bits for
-     ///< mesh compression
-
-#ifdef USE_3DMESH_OPTIMIZE
-#define CMP_MESH_VCACHE_SIZE_DEFAULT \
-  16  ///< This is the default value set for vertices cache size for mesh
-      ///< optimization
-#define CMP_MESH_VCACHEFIFO_SIZE_DEFAULT \
-  0  ///< This is the default value set for vertices FIFO cache size for mesh
-     ///< optimization
-#define CMP_MESH_OVERDRAW_ACMR_DEFAULT \
-  1.05f  ///< This is the default value set for ACMR(average cache miss ratio)
-         ///< for mesh overdraw optimization
-#define CMP_MESH_SIMPLIFYMESH_LOD_DEFAULT \
-  0  ///< This is the default value set for LOD(level of details) for mesh
-     ///< simplication.
-#define CMP_MESH_OPTVFETCH_DEFAULT \
-  1  ///< This is the default boolean value set for vertices fetch mesh
-     ///< optimization.
-#endif
+  8  /// This is the default value set for draco generic quantization bits for
+     /// mesh compression
 
 struct CMP_MAP_BYTES_SET
 {
@@ -353,157 +345,146 @@ typedef struct
 /// Passing this structure is optional
 typedef struct
 {
-  std::uint32_t dwSize;  ///< The size of this structure.
-  CMP_BOOL
-  bUseChannelWeighting;  ///< Use channel weightings. With swizzled formats the
-                         ///< weighting applies to the data within the specified
-                         ///< channel not the channel itself. channel weigthing
-                         ///< is not implemented for BC6H and BC7
-  float fWeightingRed;   ///<    The weighting of the Red or X Channel.
-  float fWeightingGreen;  ///<    The weighting of the Green or Y Channel.
-  float fWeightingBlue;   ///<    The weighting of the Blue or Z Channel.
-  CMP_BOOL bUseAdaptiveWeighting;  ///<    Adapt weighting on a per-block basis.
-  CMP_BOOL bDXT1UseAlpha;  ///< Encode single-bit alpha data. Only valid when
-                           ///< compressing to DXT1 & BC1.
-  CMP_BOOL bUseGPUDecompress;  ///< Use GPU to decompress. Decode API can be
-                               ///< changed by specified in DecodeWith
-                               ///< parameter. Default is OpenGL.
-  CMP_BOOL
-  bUseGPUCompress;  ///< Use GPU to compress. Encode API can be changed by
-                    ///< specified in EncodeWith parameter. Default is OpenCL.
-  std::uint8_t
-    nAlphaThreshold;  ///< The alpha threshold to use when compressing to DXT1 &
-                      ///< BC1 with bDXT1UseAlpha. Texels with an alpha value
-                      ///< less than the threshold are treated as transparent.
-                      ///< Note: When nCompressionSpeed is not set to Normal
-                      ///< AphaThreshold is ignored for DXT1 & BC1
-  CMP_BOOL
-  bDisableMultiThreading;  ///< Disable multi-threading of the compression. This
-                           ///< will slow the compression but can be useful if
-                           ///< you're managing threads in your application.
-  ///< if set BC7 dwnumThreads will default to 1 during encoding and then return
-  ///< back to its original value when done.
-  CMP_Speed
-    nCompressionSpeed;  ///< The trade-off between compression speed & quality.
-                        ///< Notes:
-                        ///< 1. This value is ignored for BC6H and BC7 (for BC7
-                        ///< the compression speed depends on fquaility value)
-                        ///< 2. For 64 bit DXT1 to DXT5 and BC1 to BC5
-                        ///< nCompressionSpeed is ignored and set to Noramal
-                        ///< Speed
-                        ///< 3. To force the use of nCompressionSpeed setting
-                        ///< regarless of Note 2 use fQuality at 0.05
-  CMP_GPUDecode nGPUDecode;  ///< This value is set using DecodeWith argument
-                             ///< (OpenGL, DirectX) default is OpenGL
-  CMP_Compute_type
-    nComputeWith;  ///< This value is set using ComputeWith argument (OpenGL,
-                   ///< DirectX)  default is OpenCL
-  std::uint32_t dwnumThreads;  ///< Number of threads to initialize for BC7
-                               ///< encoding (Max up to 128). Default set to 8,
-  float
-    fquality;  ///< Quality of encoding. This value ranges between 0.0 and 1.0.
-               ///< Default set to 0.05 setting fquality above 0.0 gives the
-               ///< fastest, lowest quality encoding, 1.0 is the slowest,
-               ///< highest quality encoding. Default set to a low value of 0.05
-  CMP_BOOL
-  brestrictColour;  ///< This setting is a quality tuning setting for BC7 which
-                    ///< may be necessary for convenience in some applications.
-                    ///< Default set to false
-  ///< if  set and the block does not need alpha it instructs the code not to
-  ///< use modes that have combined colour + alpha - this avoids the possibility
-  ///< that the encoder might choose an alpha other than 1.0 (due to parity) and
-  ///< cause something to become accidentally slightly transparent (it's
-  ///< possible that when encoding 3-component texture applications will assume
-  ///< that the 4th component can safely be assumed to be 1.0 all the time.)
-  CMP_BOOL
-  brestrictAlpha;  ///< This setting is a quality tuning setting for BC7 which
-                   ///< may be necessary for some textures. Default set to
-                   ///< false, if set it will also apply restriction to blocks
-                   ///< with alpha to avoid issues with punch-through or
-                   ///< thresholded alpha encoding
+  /// The size of this structure.
+  std::uint32_t dwSize;
+
+  /// Use channel weightings. With swizzled formats the weighting applies to the
+  /// data within the specified channel not the channel itself. channel
+  /// weigthing is not implemented for BC6H and BC7
+  bool bUseChannelWeighting;
+
+  /// The weighting of the Red or X Channel.
+  float fWeightingRed;
+  /// The weighting of the Green or Y Channel.
+  float fWeightingGreen;
+  /// The weighting of the Blue or Z Channel.
+  float fWeightingBlue;
+
+  /// Adapt weighting on a per-block basis.
+  bool bUseAdaptiveWeighting;
+
+  /// Encode single-bit alpha data. Only valid when compressing to DXT1 & BC1.
+  bool bDXT1UseAlpha;
+
+  /// Use GPU to decompress. Decode API can be changed by specified in
+  /// DecodeWith parameter. Default is OpenGL.
+  bool bUseGPUDecompress;
+
+  /// Use GPU to compress. Encode API can be changed by specified in EncodeWith
+  /// parameter. Default is OpenCL.
+  bool bUseGPUCompress;
+
+  /// The alpha threshold to use when compressing to DXT1 & BC1 with
+  /// bDXT1UseAlpha. Texels with an alpha value less than the threshold are
+  /// treated as transparent. Note: When nCompressionSpeed is not set to Normal
+  /// AphaThreshold is ignored for DXT1 & BC1
+  std::uint8_t nAlphaThreshold;
+
+  /// Disable multi-threading of the compression. This will slow the compression
+  /// but can be useful if you're managing threads in your application. if set
+  /// BC7 dwnumThreads will default to 1 during encoding and then return back to
+  /// its original value when done.
+  bool bDisableMultiThreading;
+
+  /// The trade-off between compression speed & quality.
+  /// Notes:
+  /// 1. This value is ignored for BC6H and BC7 (for BC7 the compression speed
+  ///    depends on fquaility value)
+  /// 2. For 64 bit DXT1 to DXT5 and BC1 to BC5 nCompressionSpeed is ignored and
+  ///    set to Noramal Speed
+  /// 3. To force the use of nCompressionSpeed setting regarless of Note 2 use
+  ///    fQuality at 0.05
+  CMP_Speed nCompressionSpeed;
+
+  /// This value is set using DecodeWith argument (OpenGL, DirectX).
+  CMP_GPUDecode nGPUDecode = GPUDecode_OPENGL;
+
+  /// This value is set using ComputeWith argument (OpenGL, DirectX).
+  CMP_Compute_type nComputeWith = Compute_OPENCL;
+
+  /// Number of threads to initialize for BC7 encoding (Max up to 128).
+  std::uint32_t dwnumThreads = 8;
+
+  /// Quality of encoding. This value ranges between 0.0 and 1.0.
+  /// Default set to 0.05 setting fquality above 0.0 gives the
+  /// fastest, lowest quality encoding, 1.0 is the slowest,
+  /// highest quality encoding. Default set to a low value of 0.05.
+  float fquality;
+
+  bool brestrictColour;  /// This setting is a quality tuning setting for BC7
+                         /// which may be necessary for convenience in some
+                         /// applications. Default set to false
+  /// if  set and the block does not need alpha it instructs the code not to
+  /// use modes that have combined colour + alpha - this avoids the possibility
+  /// that the encoder might choose an alpha other than 1.0 (due to parity) and
+  /// cause something to become accidentally slightly transparent (it's
+  /// possible that when encoding 3-component texture applications will assume
+  /// that the 4th component can safely be assumed to be 1.0 all the time.)
+  bool brestrictAlpha;  /// This setting is a quality tuning setting for BC7
+                        /// which may be necessary for some textures. Default
+                        /// set to false, if set it will also apply restriction
+                        /// to blocks with alpha to avoid issues with
+                        /// punch-through or thresholded alpha encoding
   std::uint32_t
-    dwmodeMask;  ///< Mode to set BC7 to encode blocks using any of 8 different
-                 ///< block modes in order to obtain the highest quality.
-                 ///< Default set to 0xCF, (Skips Color components with separate
-                 ///< alpha component) You can combine the bits to test for
-                 ///< which modes produce the best image quality.
-  ///< The mode that produces the best image quality above a set quality level
-  ///< (fquality) is used and subsequent modes set in the mask are not tested,
-  ///< this optimizes the performance of the compression versus the required
-  ///< quality. If you prefer to check all modes regardless of the quality then
-  ///< set the fquality to a value of 0
-  int NumCmds;  ///< Count of the number of command value pairs in CmdSet[]. Max
-                ///< value that can be set is AMD_MAX_CMDS = 20 on this release
+    dwmodeMask;  /// Mode to set BC7 to encode blocks using any of 8 different
+                 /// block modes in order to obtain the highest quality.
+                 /// Default set to 0xCF, (Skips Color components with separate
+                 /// alpha component) You can combine the bits to test for
+                 /// which modes produce the best image quality.
+  /// The mode that produces the best image quality above a set quality level
+  /// (fquality) is used and subsequent modes set in the mask are not tested,
+  /// this optimizes the performance of the compression versus the required
+  /// quality. If you prefer to check all modes regardless of the quality then
+  /// set the fquality to a value of 0
+  int NumCmds;  /// Count of the number of command value pairs in CmdSet[]. Max
+                /// value that can be set is AMD_MAX_CMDS = 20 on this release
   AMD_CMD_SET CmdSet
-    [AMD_MAX_CMDS];  ///< Extended command options that can be set for the
-                     ///< specified codec\n Example to set the number of threads
-                     ///< and quality used for compression\n
-                     ///<        CMP_CompressOptions Options;\n
-                     ///<        memset(Options,0,sizeof(CMP_CompressOptions));\n
-                     ///<        Options.dwSize = sizeof(CMP_CompressOptions)\n
-                     ///<        Options.CmdSet[0].strCommand   = "NumThreads"\n
-                     ///<        Options.CmdSet[0].strParameter = "8";\n
-                     ///<        Options.CmdSet[1].strCommand   = "Quality"\n
-                     ///<        Options.CmdSet[1].strParameter = "1.0";\n
-                     ///<        Options.NumCmds = 2;\n
-  float fInputDefog;  ///< ToneMap properties for float type image send into non
-                      ///< float compress algorithm.
-  float fInputExposure;  ///< ToneMap properties for float type image send into
-                         ///< non float compress algorithm.
-  float fInputKneeLow;   ///< ToneMap properties for float type image send into
-                         ///< non float compress algorithm.
-  float fInputKneeHigh;  ///< ToneMap properties for float type image send into
-                         ///< non float compress algorithm.
-  float fInputGamma;  ///< ToneMap properties for float type image send into non
-                      ///< float compress algorithm.
+    [AMD_MAX_CMDS];  /// Extended command options that can be set for the
+                     /// specified codec\n Example to set the number of threads
+                     /// and quality used for compression\n
+                     ///        CMP_CompressOptions Options;\n
+                     ///        memset(Options,0,sizeof(CMP_CompressOptions));\n
+                     ///        Options.dwSize = sizeof(CMP_CompressOptions)\n
+                     ///        Options.CmdSet[0].strCommand   = "NumThreads"\n
+                     ///        Options.CmdSet[0].strParameter = "8";\n
+                     ///        Options.CmdSet[1].strCommand   = "Quality"\n
+                     ///        Options.CmdSet[1].strParameter = "1.0";\n
+                     ///        Options.NumCmds = 2;\n
+  float fInputDefog;  /// ToneMap properties for float type image send into non
+                      /// float compress algorithm.
+  float fInputExposure;  /// ToneMap properties for float type image send into
+                         /// non float compress algorithm.
+  float fInputKneeLow;   /// ToneMap properties for float type image send into
+                         /// non float compress algorithm.
+  float fInputKneeHigh;  /// ToneMap properties for float type image send into
+                         /// non float compress algorithm.
+  float fInputGamma;  /// ToneMap properties for float type image send into non
+                      /// float compress algorithm.
 
-  int iCmpLevel;  ///< draco setting: compression level (range 0-10: higher mean
-                  ///< more compressed) - default 7
-  int iPosBits;  ///< draco setting: quantization bits for position - default 14
-  int iTexCBits;  ///< draco setting: quantization bits for texture coordinates
-                  ///< - default 12
+  int iCmpLevel;  /// draco setting: compression level (range 0-10: higher mean
+                  /// more compressed) - default 7
+  int iPosBits;   /// draco setting: quantization bits for position - default 14
+  int iTexCBits;  /// draco setting: quantization bits for texture coordinates
+                  /// - default 12
+  int iNormalBits;  /// draco setting: quantization bits for normal - default 10
   int
-    iNormalBits;  ///< draco setting: quantization bits for normal - default 10
-  int
-    iGenericBits;  ///< draco setting: quantization bits for generic - default 8
-
-#ifdef USE_3DMESH_OPTIMIZE
-  int iVcacheSize;  ///< For mesh vertices optimization, hardware vertex cache
-                    ///< size. (value range 1- no limit as it allows users to
-                    ///< simulate hardware cache size to find the most optimum
-                    ///< size)- default is enabled with cache size = 16
-  int iVcacheFIFOSize;  ///< For mesh vertices optimization, hardware vertex
-                        ///< cache size. (value range 1- no limit as it allows
-                        ///< users to simulate hardware cache size to find the
-                        ///< most optimum size)- default is disabled.
-  float fOverdrawACMR;  ///< For mesh overdraw optimization,  optimize overdraw
-                        ///< with ACMR (average cache miss ratio) threshold
-                        ///< value specified (value range 1-3) - default is
-                        ///< enabled with ACMR value = 1.05 (i.e. 5% worse)
-  int
-    iSimplifyLOD;  ///< simplify mesh using LOD (Level of Details) value
-                   ///< specified.(value range 1- no limit as it allows users to
-                   ///< simplify the mesh until the level they desired. Higher
-                   ///< level means less triangles drawn, less details.)
-  bool bVertexFetch;  ///< optimize vertices fetch . boolean value 0 - disabled,
-                      ///< 1-enabled. -default is enabled.
-#endif
+    iGenericBits;  /// draco setting: quantization bits for generic - default 8
 } CMP_CompressOptions;
 
 /// The structure describing a texture.
 typedef struct
 {
-  std::uint32_t dwSize;    ///< Size of this structure.
-  std::uint32_t dwWidth;   ///< Width of the texture.
-  std::uint32_t dwHeight;  ///< Height of the texture.
-  std::uint32_t dwPitch;   ///< Distance to start of next line - necessary only
-                          ///< for uncompressed textures.
-  CMP_FORMAT format;          ///< Format of the texture.
-  std::uint8_t nBlockHeight;  ///< Size Block to use (Default is 4x4x1).
-  std::uint8_t nBlockWidth;   ///<
-  std::uint8_t nBlockDepth;   ///<
-  std::uint32_t dwDataSize;   ///< Size of the allocated texture data.
-  std::uint8_t* pData;        ///< Pointer to the texture data
+  std::uint32_t dwSize;    /// Size of this structure.
+  std::uint32_t dwWidth;   /// Width of the texture.
+  std::uint32_t dwHeight;  /// Height of the texture.
+  std::uint32_t dwPitch;   /// Distance to start of next line - necessary only
+                           /// for uncompressed textures.
+  CMP_FORMAT format;       /// Format of the texture.
+  std::uint8_t nBlockHeight;  /// Size Block to use (Default is 4x4x1).
+  std::uint8_t nBlockWidth;   ///
+  std::uint8_t nBlockDepth;   ///
+  std::uint32_t dwDataSize;   /// Size of the allocated texture data.
+  std::uint8_t* pData;        /// Pointer to the texture data
 } CMP_Texture;
 
 #define MINIMUM_WEIGHT_VALUE 0.01f
@@ -553,12 +534,12 @@ extern "C"
   //
   // Must be called before any other library methods are valid
   //
-  BC_ERROR CMP_API CMP_InitializeBCLibrary();
+  BC_ERROR CMP_InitializeBCLibrary();
 
   //
   // ShutdownBCLibrary - Shutdown the BC6H or BC7 library
   //
-  BC_ERROR CMP_API CMP_ShutdownBCLibrary();
+  BC_ERROR CMP_ShutdownBCLibrary();
 
   typedef struct
   {
@@ -670,13 +651,11 @@ extern "C"
   //
   // Note: For BC6H quality and modeMask are reserved for future release
   //
-  BC_ERROR CMP_API CMP_CreateBC6HEncoder(
-    CMP_BC6H_BLOCK_PARAMETERS user_settings, BC6HBlockEncoder** encoder);
-  BC_ERROR CMP_API CMP_CreateBC7Encoder(double quality, CMP_BOOL restrictColour,
-                                        CMP_BOOL restrictAlpha,
-                                        std::uint32_t modeMask,
-                                        double performance,
-                                        BC7BlockEncoder** encoder);
+  BC_ERROR CMP_CreateBC6HEncoder(CMP_BC6H_BLOCK_PARAMETERS user_settings,
+                                 BC6HBlockEncoder** encoder);
+  BC_ERROR CMP_CreateBC7Encoder(double quality, bool restrictColour,
+                                bool restrictAlpha, std::uint32_t modeMask,
+                                double performance, BC7BlockEncoder** encoder);
 
   // CMP_EncodeBC7Block()  - Enqueue a single BC7  block to the library for
   // encoding CMP_EncodeBC6HBlock() - Enqueue a single BC6H block to the library
@@ -695,12 +674,12 @@ extern "C"
   // row-major order. the 4th component should be set to 0, since Alpha is not
   // supported in BC6H
   //
-  BC_ERROR CMP_API CMP_EncodeBC7Block(
-    BC7BlockEncoder* encoder, double in[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT],
-    std::uint8_t* out);
-  BC_ERROR CMP_API CMP_EncodeBC6HBlock(
-    BC6HBlockEncoder* encoder, float in[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT],
-    std::uint8_t* out);
+  BC_ERROR CMP_EncodeBC7Block(BC7BlockEncoder* encoder,
+                              double in[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT],
+                              std::uint8_t* out);
+  BC_ERROR CMP_EncodeBC6HBlock(BC6HBlockEncoder* encoder,
+                               float in[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT],
+                               std::uint8_t* out);
 
   //
   // CMP_DecodeBC6HBlock() - Decode a BC6H block to an uncompressed output
@@ -710,18 +689,18 @@ extern "C"
   // and writes out the result
   //
   //
-  BC_ERROR CMP_API CMP_DecodeBC6HBlock(
-    std::uint8_t* in, float out[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT]);
-  BC_ERROR CMP_API CMP_DecodeBC7Block(
-    std::uint8_t* in, double out[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT]);
+  BC_ERROR CMP_DecodeBC6HBlock(std::uint8_t* in,
+                               float out[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT]);
+  BC_ERROR CMP_DecodeBC7Block(std::uint8_t* in,
+                              double out[BC_BLOCK_PIXELS][BC_COMPONENT_COUNT]);
 
   //
   // CMP_DestroyBC6HEncoder() - Deletes a previously allocated encoder object
   // CMP_DestroyBC7Encoder()  - Deletes a previously allocated encoder object
   //
   //
-  BC_ERROR CMP_API CMP_DestroyBC6HEncoder(BC6HBlockEncoder* encoder);
-  BC_ERROR CMP_API CMP_DestroyBC7Encoder(BC7BlockEncoder* encoder);
+  BC_ERROR CMP_DestroyBC6HEncoder(BC6HBlockEncoder* encoder);
+  BC_ERROR CMP_DestroyBC7Encoder(BC7BlockEncoder* encoder);
 
   //=================================================================================
 
@@ -731,31 +710,32 @@ extern "C"
   /// \param[in] pUser1 User data as passed to CMP_ConvertTexture.
   /// \param[in] pUser2 User data as passed to CMP_ConvertTexture.
   /// \return non-nullptr(true) value to abort conversion
-  typedef bool(CMP_API* CMP_Feedback_Proc)(float fProgress, std::size_t pUser1,
-                                           std::size_t pUser2);
+  typedef bool (*CMP_Feedback_Proc)(float fProgress, std::size_t pUser1,
+                                    std::size_t pUser2);
 
   /// Calculates the required buffer size for the specified texture
   /// \param[in] pTexture A pointer to the texture.
   /// \return    The size of the buffer required to hold the texture data.
-  std::uint32_t CMP_API CMP_CalculateBufferSize(const CMP_Texture* pTexture);
+  std::uint32_t CMP_CalculateBufferSize(const CMP_Texture* pTexture);
 
   /// Converts the source texture to the destination texture
   /// This can be compression, decompression or converting between two
-  /// uncompressed formats. \param[in] pSourceTexture A pointer to the source
-  /// texture. \param[in] pDestTexture A pointer to the destination texture.
+  /// uncompressed formats.
+  /// \param[in] pSourceTexture A pointer to the source texture.
+  /// \param[in] pDestTexture A pointer to the destination texture.
   /// \param[in] pOptions A pointer to the compression options - can be nullptr.
-  /// \param[in] pFeedbackProc A pointer to the feedback function - can be nullptr.
-  /// \param[in] pUser1 User data to pass to the feedback function.
+  /// \param[in] pFeedbackProc A pointer to the feedback function - can be
+  /// nullptr. \param[in] pUser1 User data to pass to the feedback function.
   /// \param[in] pUser2 User data to pass to the feedback function.
   /// \return    CMP_OK if successful, otherwise the error code.
-  CMP_ERROR CMP_API CMP_ConvertTexture(CMP_Texture* pSourceTexture,
-                                       CMP_Texture* pDestTexture,
-                                       const CMP_CompressOptions* pOptions,
-                                       CMP_Feedback_Proc pFeedbackProc,
-                                       std::size_t pUser1, std::size_t pUser2);
+  CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
+                               CMP_Texture* pDestTexture,
+                               const CMP_CompressOptions* pOptions,
+                               CMP_Feedback_Proc pFeedbackProc,
+                               std::size_t pUser1, std::size_t pUser2);
 
 #ifdef __cplusplus
 };
 #endif
 
-#endif  // !H_COMPRESS
+#endif

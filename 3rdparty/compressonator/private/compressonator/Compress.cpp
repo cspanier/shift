@@ -146,15 +146,11 @@ bool IsFloatFormat(CMP_FORMAT InFormat)
 #ifdef USE_GTC_HDR
   case CMP_FORMAT_GTCH:
 #endif
-  {
     return true;
-  }
-  break;
-  default:
-    break;
-  }
 
-  return false;
+  default:
+    return false;
+  }
 }
 
 bool NeedSwizzle(CMP_FORMAT destformat)
@@ -178,12 +174,10 @@ bool NeedSwizzle(CMP_FORMAT destformat)
   case CMP_FORMAT_ATC_RGBA_Explicit:
   case CMP_FORMAT_ATC_RGBA_Interpolated:
     return true;
-    break;
-  default:
-    break;
-  }
 
-  return false;
+  default:
+    return false;
+  }
 }
 
 inline float clamp(float a, float l, float h)
@@ -191,9 +185,10 @@ inline float clamp(float a, float l, float h)
   return (a < l) ? l : ((a > h) ? h : a);
 }
 
-inline float knee(double x, double f)
+template <typename T>
+inline T knee(T x, T f)
 {
-  return float(log(x * f + 1.f) / f);
+  return std::log(x * f + T{1}) / f;
 }
 
 float findKneeValue(float x, float y)
@@ -272,24 +267,24 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
         {
           if (needSwizzle)
           {
-            b = (float)(*hfData);
+            b = static_cast<float>(*hfData);
             hfData++;
-            g = (float)(*hfData);
+            g = static_cast<float>(*hfData);
             hfData++;
-            r = (float)(*hfData);
+            r = static_cast<float>(*hfData);
             hfData++;
-            a = (float)(*hfData);
+            a = static_cast<float>(*hfData);
             hfData++;
           }
           else
           {
-            r = (float)(*hfData);
+            r = static_cast<float>(*hfData);
             hfData++;
-            g = (float)(*hfData);
+            g = static_cast<float>(*hfData);
             hfData++;
-            b = (float)(*hfData);
+            b = static_cast<float>(*hfData);
             hfData++;
-            a = (float)(*hfData);
+            a = static_cast<float>(*hfData);
             hfData++;
           }
         }
@@ -297,24 +292,24 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
         {
           if (needSwizzle)
           {
-            b = (float)(*fBlock);
+            b = static_cast<float>(*fBlock);
             fBlock++;
-            g = (float)(*fBlock);
+            g = static_cast<float>(*fBlock);
             fBlock++;
-            r = (float)(*fBlock);
+            r = static_cast<float>(*fBlock);
             fBlock++;
-            a = (float)(*fBlock);
+            a = static_cast<float>(*fBlock);
             fBlock++;
           }
           else
           {
-            r = (float)(*fBlock);
+            r = static_cast<float>(*fBlock);
             fBlock++;
-            g = (float)(*fBlock);
+            g = static_cast<float>(*fBlock);
             fBlock++;
-            b = (float)(*fBlock);
+            b = static_cast<float>(*fBlock);
             fBlock++;
-            a = (float)(*fBlock);
+            a = static_cast<float>(*fBlock);
             fBlock++;
           }
         }
@@ -388,10 +383,10 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
         b *= scale;
         a *= scale;
 
-        r_b = (std::uint8_t)clamp(r, 0.f, 255.f);
-        g_b = (std::uint8_t)clamp(g, 0.f, 255.f);
-        b_b = (std::uint8_t)clamp(b, 0.f, 255.f);
-        a_b = (std::uint8_t)clamp(a, 0.f, 255.f);
+        r_b = static_cast<std::uint8_t>(clamp(r, 0.f, 255.f));
+        g_b = static_cast<std::uint8_t>(clamp(g, 0.f, 255.f));
+        b_b = static_cast<std::uint8_t>(clamp(b, 0.f, 255.f));
+        a_b = static_cast<std::uint8_t>(clamp(a, 0.f, 255.f));
         cBlock[i] = r_b;
         i++;
         cBlock[i] = g_b;
@@ -482,7 +477,7 @@ CMP_ERROR CompressTexture(const CMP_Texture* pSourceTexture,
                           std::size_t pUser2, CodecType destType)
 {
   // Compressing
-  CCodec* pCodec = CreateCodec(destType);
+  auto* pCodec = CreateCodec(destType);
   assert(pCodec);
   if (pCodec == nullptr)
     return CMP_ERR_UNABLE_TO_INIT_CODEC;

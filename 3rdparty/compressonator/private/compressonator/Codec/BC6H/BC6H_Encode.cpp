@@ -529,6 +529,7 @@ void BC6HBlockEncoder::SwapIndices(
   int iIndices[3][BC6H_MAX_SUBSET_SIZE], int entryCount[BC6H_MAX_SUBSETS],
   int max_subsets, int mode, int shape_pattern)
 {
+  using std::swap;
 
   unsigned int uNumIndices = 1 << ModePartition[mode].IndexPrec;
   unsigned int uHighIndexBit = uNumIndices >> 1;

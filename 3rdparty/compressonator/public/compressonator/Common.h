@@ -32,33 +32,29 @@
 #include <cstdint>
 #include <string>
 
-namespace CMP
-{
-// Basic types.
-typedef std::int32_t BOOL;
-}  // namespace CMP
-
 #include "compressonator/Compressonator.h"
-
-using namespace std;
 
 #define QT_KEY_SPACE 0x20  // Qt::Key_Space = 0x20
 #define QT_KEY_M 0x4d      // Qt::Key_M = 0x4d
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
-//#define USE_DBGTRACE                                //  Show messages via Win
-// Debug #define BC7_DEBUG_TO_RESULTS_TXT                    //  Send debug info
-// to a results text file #define DXT5_COMPDEBUGGER                           //
-// Remote connect data to Comp Debugger views #define BC6H_COMPDEBUGGER //
-// Remote connect data to Comp Debugger views #define BC7_COMPDEBUGGER // Remote
-// connect data to Comp Debugger views #define BC6H_NO_OPTIMIZE_ENDPOINTS //
+//  Show messages via Win Debug
+//#define USE_DBGTRACE
+
+//  Send debug info to a results text file
+// #define BC7_DEBUG_TO_RESULTS_TXT
+
 // Turn off BC6H optimization of endpoints - useful for debugging quantization
-// and mode checking #define BC6H_DEBUG_TO_RESULTS_TXT                   //
+// and mode checking
+// #define BC6H_NO_OPTIMIZE_ENDPOINTS
+
 // Generates a Results.txt file on exe working directory; MultiThreading is
-// turned off for debuging to text file #define BC6H_DECODE_DEBUG // Enables
-// debug info on decoder #define GT_COMPDEBUGGER //  Remote connect data to Comp
-// Debugger views
+// turned off for debuging to text file
+// #define BC6H_DEBUG_TO_RESULTS_TXT
+
+// Enables debug info on decoder
+// #define BC6H_DECODE_DEBUG
 
 #define ENABLE_MAKE_COMPATIBLE_API  //  Byte<->Float to make all source and dest
                                     //  compatible
@@ -74,15 +70,6 @@ using namespace std;
 #define USE_MESH_CLI      // CLI Process Mesh (only support glTF and OBJ files)
 #define USE_MESH_DRACO_EXTENSION  // Mesh Compression with Draco support in glTF
                                   // and OBJ files only
-
-// todo: multiple mesh decompression is still under development. Enable define
-// below will generate corrupted view. #define USE_MULTIPLE_MESH_DECODE //
-// Enable multiple meshes and amultiple primitives draco decompression
-
-// mesh optimization only available in window now
-#ifdef _WIN32
-#define USE_3DMESH_OPTIMIZE  // Mesh Optimize
-#endif
 
 // Codec options
 #define USE_ETCPACK  // Use ETCPack for ETC2 else use CModel code!
@@ -116,4 +103,4 @@ using namespace std;
 // ENABLE_USER_ETC2S_FORMATS                 // Enable users to set these
 // formats in CLI and GUI applications
 
-#endif  // !COMMON_H
+#endif

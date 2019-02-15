@@ -50,8 +50,8 @@ struct BC7EncodeThreadParam
   BC7BlockEncoder* encoder;
   double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG];
   std::uint8_t* out;
-  volatile CMP_BOOL run;
-  volatile CMP_BOOL exit;
+  volatile bool run;
+  volatile bool exit;
 };
 
 class CCodec_BC7 : public CCodec_DXTC
@@ -89,14 +89,14 @@ private:
   std::uint32_t m_ModeMask;
   double m_Quality;
   double m_Performance;
-  CMP_BOOL m_ColourRestrict;
-  CMP_BOOL m_AlphaRestrict;
+  bool m_ColourRestrict;
+  bool m_AlphaRestrict;
   std::uint16_t m_NumThreads;
-  CMP_BOOL m_ImageNeedsAlpha;
+  bool m_ImageNeedsAlpha;
 
   // BC7 Internal status
-  CMP_BOOL m_LibraryInitialized;
-  CMP_BOOL m_Use_MultiThreading;
+  bool m_LibraryInitialized;
+  bool m_Use_MultiThreading;
   std::uint16_t m_NumEncodingThreads;
   std::uint16_t m_LiveThreads;
   std::uint16_t m_LastThread;

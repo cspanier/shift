@@ -74,7 +74,8 @@ unsigned int BC7ThreadProcEncode(void* param)
       tp->run = FALSE;
     }
 
-    using namespace chrono;
+    using namespace std::chrono;
+    using namespace std::chrono_literals;
 
     std::this_thread::sleep_for(0ms);
   }
@@ -118,11 +119,11 @@ bool CCodec_BC7::SetParameter(const char* pszParamName, char* sValue)
       m_ModeMask = 0xCF;
   }
   else if (strcmp(pszParamName, "ColourRestrict") == 0)
-    m_ColourRestrict = (CMP_BOOL)std::stoi(sValue) > 0;
+    m_ColourRestrict = (bool)std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "AlphaRestrict") == 0)
-    m_AlphaRestrict = (CMP_BOOL)std::stoi(sValue) > 0;
+    m_AlphaRestrict = (bool)std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "ImageNeedsAlpha") == 0)
-    m_ImageNeedsAlpha = (CMP_BOOL)std::stoi(sValue) > 0;
+    m_ImageNeedsAlpha = (bool)std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "NumThreads") == 0)
   {
     m_NumThreads = (std::uint8_t)std::stoi(sValue) & 0xFF;
@@ -154,11 +155,11 @@ bool CCodec_BC7::SetParameter(const char* pszParamName, std::uint32_t dwValue)
   if (strcmp(pszParamName, "ModeMask") == 0)
     m_ModeMask = (std::uint8_t)dwValue & 0xFF;
   else if (strcmp(pszParamName, "ColourRestrict") == 0)
-    m_ColourRestrict = (CMP_BOOL)dwValue & 1;
+    m_ColourRestrict = (bool)dwValue & 1;
   else if (strcmp(pszParamName, "AlphaRestrict") == 0)
-    m_AlphaRestrict = (CMP_BOOL)dwValue & 1;
+    m_AlphaRestrict = (bool)dwValue & 1;
   else if (strcmp(pszParamName, "ImageNeedsAlpha") == 0)
-    m_ImageNeedsAlpha = (CMP_BOOL)dwValue & 1;
+    m_ImageNeedsAlpha = (bool)dwValue & 1;
   else if (strcmp(pszParamName, "NumThreads") == 0)
   {
     m_NumThreads = (std::uint8_t)dwValue;
@@ -381,7 +382,7 @@ CodecError CCodec_BC7::EncodeBC7Block(
     }
 
     // Loop and look for an available thread
-    CMP_BOOL found = FALSE;
+    bool found = FALSE;
     threadIndex = m_LastThread;
     while (found == FALSE)
     {
@@ -431,21 +432,18 @@ CodecError CCodec_BC7::EncodeBC7Block(
 CodecError CCodec_BC7::FinishBC7Encoding(void)
 {
   if (!m_LibraryInitialized)
-  {
     return CE_Unknown;
-  }
 
   if (!m_EncodeParameterStorage)
-  {
     return CE_Unknown;
-  }
 
   if (m_Use_MultiThreading)
   {
     // Wait for all the live threads to finish any current work
     for (std::uint32_t i = 0; i < m_LiveThreads; i++)
     {
-      using namespace chrono;
+      using namespace std::chrono;
+      using namespace std::chrono_literals;
 
       // If a thread is in the running state then we need to wait for it to
       // finish its work from the producer

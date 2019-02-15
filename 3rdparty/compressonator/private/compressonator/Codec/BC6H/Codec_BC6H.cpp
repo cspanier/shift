@@ -68,7 +68,8 @@ unsigned int BC6HThreadProcEncode(void* param)
       tp->run = FALSE;
     }
 
-    using namespace chrono;
+    using namespace std::chrono;
+    using namespace std::chrono_literals;
 
     std::this_thread::sleep_for(0ms);
   }
@@ -431,7 +432,8 @@ CodecError CCodec_BC6H::CFinishBC6HEncoding(void)
     // Wait for all the live threads to finish any current work
     for (std::uint32_t i = 0; i < m_LiveThreads; i++)
     {
-      using namespace chrono;
+      using namespace std::chrono;
+      using namespace std::chrono_literals;
 
       // If a thread is in the running state then we need to wait for it to
       // finish its work from the producer

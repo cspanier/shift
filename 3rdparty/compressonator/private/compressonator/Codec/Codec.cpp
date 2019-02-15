@@ -41,13 +41,6 @@
 #include "compressonator/Codec/BC6H/Codec_BC6H.h"
 #include "compressonator/Codec/BC7/Codec_BC7.h"
 
-#ifdef _WIN32  // GT only enabled for win build now
-#include "Codec_GT.h"
-#ifdef USE_GTC_HDR
-#include "Codec_GTCH.h"
-#endif
-#endif
-
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////

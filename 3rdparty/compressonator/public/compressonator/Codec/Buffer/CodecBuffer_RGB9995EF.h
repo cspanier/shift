@@ -39,7 +39,7 @@ public:
   CCodecBuffer_RGB9995EF(std::uint8_t nBlockWidth, std::uint8_t nBlockHeight,
                          std::uint8_t nBlockDepth, std::uint32_t dwWidth,
                          std::uint32_t dwHeight, std::uint32_t dwPitch = 0,
-                         std::uint8_t* pData = 0);
+                         std::uint8_t* pData = nullptr);
   virtual ~CCodecBuffer_RGB9995EF();
 
   virtual void Copy(CCodecBuffer& srcBuffer);

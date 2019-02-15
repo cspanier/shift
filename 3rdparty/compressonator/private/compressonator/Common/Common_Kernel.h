@@ -46,8 +46,6 @@ typedef float3 afloat3;
 #include <math.h>
 #include <algorithm>  // std::max
 
-using namespace std;
-
 struct Vec4uc
 {
   Vec4uc(){};

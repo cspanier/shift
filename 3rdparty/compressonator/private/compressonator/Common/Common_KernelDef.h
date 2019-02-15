@@ -94,7 +94,6 @@ struct KernalOptions
 
 namespace CMP_Encoder
 {
-
 typedef struct
 {
   int m_src_width;
@@ -152,8 +151,6 @@ typedef float3 afloat3;
 #include "stdio.h"
 #include <math.h>
 #include <algorithm>  // std::max
-
-using namespace std;
 
 struct afloat3
 {

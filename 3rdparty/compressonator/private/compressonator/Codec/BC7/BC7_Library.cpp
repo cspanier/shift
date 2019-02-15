@@ -30,7 +30,7 @@
 #include "compressonator/Compressonator.h"
 #include "compressonator/Common/HDR_Encode.h"
 
-CMP_BOOL g_LibraryInitialized = FALSE;
+bool g_LibraryInitialized = FALSE;
 static BC7BlockDecoder g_Decoder;
 
 //
@@ -53,7 +53,7 @@ extern "C" BC_ERROR CMP_InitializeBCLibrary()
 }
 
 extern "C" BC_ERROR CMP_CreateBC7Encoder(
-  double quality, CMP_BOOL restrictColour, CMP_BOOL restrictAlpha,
+  double quality, bool restrictColour, bool restrictAlpha,
   std::uint32_t modeMask, double performance, BC7BlockEncoder** encoder)
 {
   if (!g_LibraryInitialized)

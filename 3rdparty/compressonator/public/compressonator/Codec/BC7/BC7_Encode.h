@@ -37,9 +37,9 @@ extern double g_HIGHQULITY_THRESHOLD;
 class BC7BlockEncoder
 {
 public:
-  BC7BlockEncoder(std::uint32_t validModeMask, CMP_BOOL imageNeedsAlpha,
-                  double quality, CMP_BOOL colourRestrict,
-                  CMP_BOOL alphaRestrict, double performance = 1.0)
+  BC7BlockEncoder(std::uint32_t validModeMask, bool imageNeedsAlpha,
+                  double quality, bool colourRestrict,
+                  bool alphaRestrict, double performance = 1.0)
   {
     // Bug check : ModeMask must be > 0
     if (validModeMask <= 0)
@@ -180,9 +180,9 @@ private:
   double m_performance;
   double m_errorThreshold;
   std::uint32_t m_validModeMask;
-  CMP_BOOL m_imageNeedsAlpha;
-  CMP_BOOL m_colourRestrict;
-  CMP_BOOL m_alphaRestrict;
+  bool m_imageNeedsAlpha;
+  bool m_colourRestrict;
+  bool m_alphaRestrict;
 
   // Data for compressing a particular block mode
   std::uint32_t m_parityBits;

@@ -41,8 +41,8 @@ struct BC6HEncodeThreadParam
   BC6HBlockEncoder* encoder;
   float in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG];
   std::uint8_t* out;
-  volatile CMP_BOOL run;
-  volatile CMP_BOOL exit;
+  volatile bool run;
+  volatile bool exit;
 };
 
 class CCodec_BC6H : public CCodec_DXTC
@@ -86,8 +86,8 @@ private:
   float m_Exposure;
 
   // BC6H Internal status
-  CMP_BOOL m_LibraryInitialized;
-  CMP_BOOL m_Use_MultiThreading;
+  bool m_LibraryInitialized;
+  bool m_Use_MultiThreading;
   std::uint16_t m_NumEncodingThreads;
   std::uint16_t m_LiveThreads;
   std::uint16_t m_LastThread;

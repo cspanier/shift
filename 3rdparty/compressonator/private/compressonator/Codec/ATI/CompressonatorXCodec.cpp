@@ -30,8 +30,6 @@
 
 #include "compressonator/Common.h"
 
-using namespace CMP;
-
 #include <algorithm>
 
 #ifdef USE_SSE
@@ -2348,7 +2346,7 @@ float CompRGBBlock(float* block_32, std::uint16_t dwBlockSize,
                    std::uint8_t nBlueBits,
                    std::uint8_t nEndpoints[3][NUM_ENDPOINTS],
                    std::uint8_t* pcIndices, std::uint8_t dwNumPoints,
-                   bool _bUseSSE2, bool b3DRefinement,
+                   bool /*_bUseSSE2*/, bool b3DRefinement,
                    std::uint8_t nRefinementSteps, float* _pfChannelWeights,
                    bool _bUseAlpha, float _fAlphaThreshold)
 {
@@ -2453,7 +2451,7 @@ float CompRGBBlock(std::uint32_t* block_32, std::uint16_t dwBlockSize,
                    std::uint8_t nBlueBits,
                    std::uint8_t nEndpoints[3][NUM_ENDPOINTS],
                    std::uint8_t* pcIndices, std::uint8_t dwNumPoints,
-                   bool _bUseSSE2, bool b3DRefinement,
+                   bool /*_bUseSSE2*/, bool b3DRefinement,
                    std::uint8_t nRefinementSteps, float* _pfChannelWeights,
                    bool _bUseAlpha, std::uint8_t _nAlphaThreshold)
 {
@@ -2771,7 +2769,7 @@ static float Refine1(ALIGN_16 float _Blk[MAX_BLOCK],
                      ALIGN_16 float _Rpt[MAX_BLOCK], float _MaxError,
                      float& _min_ex, float& _max_ex, float _m_step,
                      float _min_bnd, float _max_bnd, int _NmbrClrs,
-                     std::uint8_t dwNumPoints, bool _bUseSSE2)
+                     std::uint8_t dwNumPoints, bool /*_bUseSSE2*/)
 {
   // Start out assuming our endpoints are the min and max values we've
   // determined

@@ -67,11 +67,9 @@ typedef enum _CODECError
   CE_Aborted,
 } CodecError;
 
-typedef bool(CMP_API* Codec_Feedback_Proc)(float fProgress, std::size_t pUser1,
-                                           std::size_t pUser2);
+typedef bool (*Codec_Feedback_Proc)(float fProgress, std::size_t pUser1,
+                                    std::size_t pUser2);
 
-namespace AMD_Compress
-{
 class CCodec
 {
 public:
@@ -89,17 +87,17 @@ public:
   virtual CodecType GetType() const
   {
     return m_CodecType;
-  };
+  }
 
   virtual std::uint32_t GetBlockHeight()
   {
     return 1;
-  };
+  }
 
   virtual CCodecBuffer* CreateBuffer(
     std::uint8_t nBlockWidth, std::uint8_t nBlockHeight,
     std::uint8_t nBlockDepth, std::uint32_t dwWidth, std::uint32_t dwHeight,
-    std::uint32_t dwPitch = 0, std::uint8_t* pData = 0) const = 0;
+    std::uint32_t dwPitch = 0, std::uint8_t* pData = nullptr) const = 0;
 
   virtual CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
                               Codec_Feedback_Proc pFeedbackProc = nullptr,
@@ -113,10 +111,6 @@ public:
 protected:
   CodecType m_CodecType;
 };
-
-}  // namespace AMD_Compress
-
-using namespace AMD_Compress;
 
 bool SupportsSSE();
 bool SupportsSSE2();

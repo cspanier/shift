@@ -36,11 +36,6 @@
 #include "compressonator/Codec/BC7/BC7_utils.h"
 #include "compressonator/Codec/BC7/3dquant_vpc.h"
 #include "compressonator/Codec/BC7/shake.h"
-#include "compressonator/Internal/debug.h"
-
-#ifdef BC7_COMPDEBUGGER
-#include "compclient.h"
-#endif
 
 #ifdef USE_FILEIO
 #include <stdio.h>
@@ -67,9 +62,6 @@ double g_HIGHQULITY_THRESHOLD = 0.7;
 
 void BC7BlockEncoder::BlockSetup(std::uint32_t blockMode)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   switch (bti[blockMode].pBitType)
   {
   case NO_PBIT:
@@ -138,9 +130,6 @@ void BC7BlockEncoder::EncodeSingleIndexBlock(
   // std::uint32_t entryCount[MAX_SUBSETS],
   std::uint8_t block[COMPRESSED_BLOCK_SIZE])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, j, k;
   std::uint32_t* partitionTable;
   int bitPosition = 0;  // Position the pointer at the LSB
@@ -334,12 +323,7 @@ void BC7BlockEncoder::EncodeSingleIndexBlock(
 
   // Check that we encoded exactly the right number of bits
   if (bitPosition != (COMPRESSED_BLOCK_SIZE * 8))
-  {
-#ifdef USE_DBGTRACE
-    DbgTrace(("Error:Encoded incorrect number of bits"));
-#endif
     return;
-  }
 }
 
 //
@@ -359,9 +343,6 @@ double BC7BlockEncoder::CompressSingleIndexBlock(
   double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
   std::uint8_t out[COMPRESSED_BLOCK_SIZE], std::uint32_t blockMode)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, k, n;
   std::uint32_t dimension;
 
@@ -392,16 +373,6 @@ double BC7BlockEncoder::CompressSingleIndexBlock(
   std::uint32_t entryCount[MAX_SUBSETS];
   std::uint32_t subset;
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-  fprintf(fp, "\CompressSingleIndexBlock\n");
-  fprintf(fp, "blockMode = %d\n", blockMode);
-  fprintf(fp, "numPartitionModes = %d\n", numPartitionModes);
-  fprintf(fp, "partitionsToTry = %d\n", partitionsToTry);
-  fprintf(fp, "m_blockMaxRange =  %4.0f\n", m_blockMaxRange);
-  fprintf(fp, "m_quantizerRangeThreshold = %4.0f\n", m_quantizerRangeThreshold);
-  fprintf(fp, "m_clusters[0] = %d\n", m_clusters[0]);
-#endif
-
   // Loop over the available partitions for the block mode and quantize them
   // to figure out the best candidates for further refinement
   for (blockPartition = 0; blockPartition < partitionsToTry; blockPartition++)
@@ -423,92 +394,15 @@ double BC7BlockEncoder::CompressSingleIndexBlock(
         if ((m_clusters[0] > 8) ||
             (m_blockMaxRange <= m_quantizerRangeThreshold))
         {
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-          fprintf(fp, "\noptQuantAnD_d\n");
-#endif
           error +=
             optQuantAnD_d(partition[subset], entryCount[subset], m_clusters[0],
                           indices[subset], outB, direction, &step, dimension);
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-          if (blockPartition == 11)
-          {
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "partition[%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                      partition[subset][row][0], partition[subset][row][1],
-                      partition[subset][row][2]);
-            }
-
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "indices[0][%2d] = %4.2f\n", row, indices[0][row]);
-            }
-
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "outB[%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                      outB[row][0], outB[row][1], outB[row][2]);
-            }
-
-            fprintf(fp, "\n");
-            fprintf(fp, "entryCount = %d\n", entryCount[subset]);
-            fprintf(fp, "m_clusters[0] = %d\n", m_clusters[0]);
-            fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                    direction[1], direction[2]);
-            fprintf(fp, "step = %4.2f\n", step);
-            fprintf(fp, "dimension = %4.2f\n", dimension);
-            fprintf(fp, "error = %4.2f\n", error);
-          }
-#endif
         }
         else
         {
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-          fprintf(fp, "\optQuantTrace_d\n");
-#endif
           error += optQuantTrace_d(partition[subset], entryCount[subset],
                                    m_clusters[0], indices[subset], outB,
                                    direction, &step, dimension);
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-          if (blockPartition == 11)
-          {
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "partition[%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                      partition[subset][row][0], partition[subset][row][1],
-                      partition[subset][row][2]);
-            }
-
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "indices[0][%2d] = %4.2f\n", row, indices[0][row]);
-            }
-
-            fprintf(fp, "\n");
-            for (int row = 0; row < 16; row++)
-            {
-              fprintf(fp, "outB[%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                      outB[row][0], outB[row][1], outB[row][2]);
-            }
-
-            fprintf(fp, "\n");
-            fprintf(fp, "entryCount = %d\n", entryCount[subset]);
-            fprintf(fp, "m_clusters[0] = %d\n", m_clusters[0]);
-            fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                    direction[1], direction[2]);
-            fprintf(fp, "step = %4.2f\n", step);
-            fprintf(fp, "dimension = %4.2f\n", dimension);
-            fprintf(fp, "error = %4.2f\n", error);
-          }
-#endif
         }
 
         // Store off the indices for later
@@ -755,15 +649,11 @@ void BC7BlockEncoder::EncodeDualIndexBlock(
   std::uint32_t componentRotation, int endpoint[2][2][MAX_DIMENSION_BIG],
   int indices[2][MAX_SUBSET_SIZE], std::uint8_t out[COMPRESSED_BLOCK_SIZE])
 {
-
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, j, k;
   int bitPosition = 0;  // Position the pointer at the LSB
   std::uint8_t* basePtr = out;
   std::uint32_t idxBits[2];
-  CMP_BOOL swapIndices;
+  bool swapIndices;
 
   // Generate Unary header for this mode
   for (i = 0; i < blockMode; i++)
@@ -910,9 +800,6 @@ double BC7BlockEncoder::CompressDualIndexBlock(
   double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
   std::uint8_t out[COMPRESSED_BLOCK_SIZE], std::uint32_t blockMode)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i;
   double cBlock[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG];
   double aBlock[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG];
@@ -933,15 +820,6 @@ double BC7BlockEncoder::CompressDualIndexBlock(
   double overallError;
   double bestOverallError = DBL_MAX;
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-  fprintf(fp, "\nCompressDualIndexBlock\n");
-  fprintf(fp, "blockMode = %d\n", blockMode);
-  fprintf(fp, "maxIndexSelection = %d\n", maxIndexSelection);
-  fprintf(fp, "maxRotation = %d\n", maxRotation);
-  fprintf(fp, "m_blockMaxRange =  %4.0f\n", m_blockMaxRange);
-  fprintf(fp, "m_quantizerRangeThreshold = %4.0f\n", m_quantizerRangeThreshold);
-#endif
-
   // Go through each possible rotation and selection of indices
   for (rotation = 0; rotation < maxRotation; rotation++)
   {  // A
@@ -957,177 +835,44 @@ double BC7BlockEncoder::CompressDualIndexBlock(
       aBlock[i][COMP_BLUE] = in[i][componentRotations[rotation][0]];
     }
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-    fprintf(fp, "\ncBlock[16][3]\n");
-    for (i = 0; i < MAX_SUBSET_SIZE; i++)
-    {
-      fprintf(fp, "%4.0f, %4.0f, %4.0f\n", cBlock[i][COMP_RED],
-              cBlock[i][COMP_GREEN], cBlock[i][COMP_BLUE]);
-    }
-
-    fprintf(fp, "\naBlock[16][3]\n");
-    for (i = 0; i < MAX_SUBSET_SIZE; i++)
-    {
-      fprintf(fp, "%4.0f, %4.0f, %4.0f\n", aBlock[i][COMP_RED],
-              aBlock[i][COMP_GREEN], aBlock[i][COMP_BLUE]);
-    }
-#endif
-
     for (indexSelection = 0; indexSelection < maxIndexSelection;
          indexSelection++)
     {  // B
       quantizerError = 0.;
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-      fprintf(fp,
-              "\n-------------- Quantize the vector block ----------------\n");
-#endif
       // Quantize the vector block
       if (m_blockMaxRange <= m_quantizerRangeThreshold)
       {
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\noptQuantAnD_d\n");
-        fprintf(fp, "IndexSelection = %d\n", indexSelection);
-        fprintf(fp, "NumClusters = %d\n",
-                1 << bti[blockMode].indexBits[0 ^ indexSelection]);
-#endif
         quantizerError =
           optQuantAnD_d(cBlock, MAX_SUBSET_SIZE,
                         (1 << bti[blockMode].indexBits[0 ^ indexSelection]),
                         indices[0], outQ[0], direction, &step, 3);
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "indices[0][%2d] = %4.2f\n", row, indices[0][row]);
-        }
-
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "outQ[0][%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                  outQ[0][row][0], outQ[0][row][1], outQ[0][row][2]);
-        }
-
-        fprintf(fp, "\n");
-        fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                direction[1], direction[2]);
-        fprintf(fp, "step = %4.2f\n", step);
-        fprintf(fp, "quantizerError = %4.2f\n", quantizerError);
-#endif
       }
       else
       {
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\noptQuantTrace_d\n");
-        fprintf(fp, "IndexSelection = %d\n", indexSelection);
-        fprintf(fp, "NumClusters = %d\n",
-                1 << bti[blockMode].indexBits[0 ^ indexSelection]);
-#endif
         quantizerError =
           optQuantTrace_d(cBlock, MAX_SUBSET_SIZE,
                           (1 << bti[blockMode].indexBits[0 ^ indexSelection]),
                           indices[0], outQ[0], direction, &step, 3);
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "indices[0][%2d] = %4.2f\n", row, indices[0][row]);
-        }
-
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "outQ[0][%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                  outQ[0][row][0], outQ[0][row][1], outQ[0][row][2]);
-        }
-
-        fprintf(fp, "\n");
-        fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                direction[1], direction[2]);
-        fprintf(fp, "step = %4.2f\n", step);
-        fprintf(fp, "quantizerError = %4.2f\n", quantizerError);
-#endif
       }
 
       // Quantize the scalar block
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-      fprintf(fp, "\nQuantize the scalar block\n");
-#endif
       if (m_blockMaxRange <= m_quantizerRangeThreshold)
       {
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\noptQuantAnD_d\n");
-        fprintf(fp, "IndexSelection = %d\n", indexSelection);
-        fprintf(fp, "NumClusters = %d\n",
-                1 << bti[blockMode].indexBits[1 ^ indexSelection]);
-#endif
         quantizerError +=
           optQuantAnD_d(aBlock, MAX_SUBSET_SIZE,
                         (1 << bti[blockMode].indexBits[1 ^ indexSelection]),
                         indices[1], outQ[1], direction, &step, 3) /
           3.;
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "indices[1][%2d] = %4.2f\n", row, indices[1][row]);
-        }
-
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "outQ[1][%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                  outQ[1][row][0], outQ[1][row][1], outQ[1][row][2]);
-        }
-
-        fprintf(fp, "\n");
-        fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                direction[1], direction[2]);
-        fprintf(fp, "step = %4.2f\n", step);
-        fprintf(fp, "quantizerError = %4.2f\n", quantizerError);
-#endif
       }
       else
       {
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\noptQuantTrace_d\n");
-        fprintf(fp, "IndexSelection = %d\n", indexSelection);
-        fprintf(fp, "NumClusters = %d\n",
-                1 << bti[blockMode].indexBits[1 ^ indexSelection]);
-#endif
         quantizerError +=
           optQuantTrace_d(aBlock, MAX_SUBSET_SIZE,
                           (1 << bti[blockMode].indexBits[1 ^ indexSelection]),
                           indices[1], outQ[1], direction, &step, 3) /
           3.;
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "indices[1][%2d] = %4.2f\n", row, indices[1][row]);
-        }
-
-        fprintf(fp, "\n");
-        for (int row = 0; row < 16; row++)
-        {
-          fprintf(fp, "outQ[1][%2d] = %4.2f, %4.2f, %4.2f\n", row,
-                  outQ[1][row][0], outQ[1][row][1], outQ[1][row][2]);
-        }
-
-        fprintf(fp, "\n");
-        fprintf(fp, "Direction = %4.2f, %4.2f, %4.2f\n", direction[0],
-                direction[1], direction[2]);
-        fprintf(fp, "step = %4.2f\n", step);
-        fprintf(fp, "quantizerError = %4.2f\n", quantizerError);
-#endif
       }
 
       // If quality is high then run the full shaking for this config and
@@ -1237,233 +982,171 @@ double BC7BlockEncoder::CompressBlock(
   double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
   std::uint8_t out[COMPRESSED_BLOCK_SIZE])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, j;
-  CMP_BOOL blockNeedsAlpha = FALSE;
-  CMP_BOOL blockAlphaZeroOne = FALSE;
+  bool blockNeedsAlpha = FALSE;
+  bool blockAlphaZeroOne = FALSE;
   std::uint32_t validModeMask = m_validModeMask;
-  CMP_BOOL encodedBlock = FALSE;
+  bool encodedBlock = FALSE;
 
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-  fp = fopen("debugdata.txt", "w");
-  if (fp)
+  for (i = 0; i < MAX_DIMENSION_BIG; i++)
   {
-    fprintf(fp, "Data INPUT\n");
-    double data[16][4];
-    memcpy(data, in, sizeof(data));
-    for (int row = 0; row < 16; row++)
-      fprintf(fp, "%4.0f, %4.0f, %4.0f\n", data[row][0], data[row][1],
-              data[row][2]);
-#endif
-
-    for (i = 0; i < MAX_DIMENSION_BIG; i++)
-    {
-      m_blockMin[i] = DBL_MAX;
-      m_blockMax[i] = 0.0;
-      m_blockRange[i] = 0.0;
-    }
-
-    // Check if the input block has any alpha values that are not 1
-    // We assume 8-bit input here, so 1 is mapped to 255.
-    // Also check if the block encodes an explicit zero or one in the
-    // alpha channel. If so then we might need also need special as the
-    // block may have a thresholded or punch-through alpha
-    for (i = 0; i < MAX_SUBSET_SIZE; i++)
-    {
-      if (in[i][COMP_ALPHA] != 255.0)
-      {
-        blockNeedsAlpha = TRUE;
-      }
-      else if ((in[i][COMP_ALPHA] == 255.0) || (in[i][COMP_ALPHA] == 0.0))
-      {
-        blockAlphaZeroOne = TRUE;
-      }
-    }
-
-    for (i = 0; i < MAX_SUBSET_SIZE; i++)
-    {
-      for (j = 0; j < MAX_DIMENSION_BIG; j++)
-      {
-        m_blockMin[j] = (in[i][j] < m_blockMin[j]) ? in[i][j] : m_blockMin[j];
-        m_blockMax[j] = (in[i][j] > m_blockMax[j]) ? in[i][j] : m_blockMax[j];
-      }
-    }
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-    fprintf(fp, "m_blockMin[0] = %4.2f\n", m_blockMin[0]);
-    fprintf(fp, "m_blockMin[1] = %4.2f\n", m_blockMin[1]);
-    fprintf(fp, "m_blockMin[2] = %4.2f\n", m_blockMin[2]);
-    fprintf(fp, "m_blockMin[3] = %4.2f\n\n", m_blockMin[3]);
-
-    fprintf(fp, "m_blockMax[0] = %4.2f\n", m_blockMax[0]);
-    fprintf(fp, "m_blockMax[1] = %4.2f\n", m_blockMax[1]);
-    fprintf(fp, "m_blockMax[2] = %4.2f\n", m_blockMax[2]);
-    fprintf(fp, "m_blockMax[3] = %4.2f\n\n", m_blockMax[3]);
-#endif
-
-    m_blockRange[0] = m_blockMax[0] - m_blockMin[0];
-    m_blockRange[1] = m_blockMax[1] - m_blockMin[1];
-    m_blockRange[2] = m_blockMax[2] - m_blockMin[2];
-    m_blockRange[3] = m_blockMax[3] - m_blockMin[3];
-    m_blockMaxRange = max(m_blockRange[0], m_blockRange[1]);
-    m_blockMaxRange = max(m_blockMaxRange, m_blockRange[2]);
-    m_blockMaxRange = max(m_blockMaxRange, m_blockRange[3]);
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-    fprintf(fp, "m_blockRange[0] = %4.2f\n", m_blockRange[0]);
-    fprintf(fp, "m_blockRange[1] = %4.2f\n", m_blockRange[1]);
-    fprintf(fp, "m_blockRange[2] = %4.2f\n", m_blockRange[2]);
-    fprintf(fp, "m_blockRange[3] = %4.2f\n", m_blockRange[3]);
-    fprintf(fp, "m_blockMaxRange = %4.2f\n\n", m_blockMaxRange);
-
-    fprintf(fp, "=========================================\n");
-#endif
-
-    // Initial loop - go through the block modes and get the ones that are valid
-    for (std::uint32_t blockMode = 0; blockMode < NUM_BLOCK_TYPES; blockMode++)
-    {
-      // Check if this mode is allowed based on the global settings
-      if (!(validModeMask & (1 << blockMode)))
-      {
-        continue;
-      }
-
-      // If the block needs Alpha and this mode doesn't support alpha then
-      // indicate that this is not a valid mode and continue
-      if ((blockNeedsAlpha == TRUE) &&
-          (bti[blockMode].encodingType == NO_ALPHA))
-      {
-        validModeMask &= ~(1 << blockMode);
-      }
-
-      // Optional restriction for colour-only blocks so that they
-      // don't use modes that have combined colour+alpha - this
-      // avoids the possibility that the encoder might choose an
-      // alpha other than 1.0 (due to parity) and cause something to
-      // become accidentally slightly transparent (it's possible that
-      // when encoding 3-component texture applications will assume that
-      // the 4th component can safely be assumed to be 1.0 all the time)
-      if ((blockNeedsAlpha == FALSE) && (m_colourRestrict == TRUE) &&
-          (bti[blockMode].encodingType == COMBINED_ALPHA))
-      {
-        validModeMask &= ~(1 << blockMode);
-      }
-
-      // Optional restriction for blocks with alpha to avoid issues with
-      // punch-through or thresholded alpha encoding
-      if ((blockNeedsAlpha == TRUE) && (m_alphaRestrict == TRUE) &&
-          (blockAlphaZeroOne == TRUE) &&
-          (bti[blockMode].encodingType == COMBINED_ALPHA))
-      {
-        validModeMask &= ~(1 << blockMode);
-      }
-    }
-
-    assert(validModeMask != 0);
-
-    // Try all the legal block modes that we flagged
-
-    std::uint8_t temporaryOutputBlock[COMPRESSED_BLOCK_SIZE];
-    double bestError = DBL_MAX;
-    double thisError;
-    std::uint32_t bestblockMode = 99;
-
-    // We change the order in which we visit the block modes to try to maximize
-    // the chance that we manage to early out as quickly as possible. This is a
-    // significant performance optimization for the lower quality modes where
-    // the exit threshold is higher, and also tends to improve quality (as the
-    // generally higher quality modes are now enumerated earlier, so the first
-    // encoding that passes the threshold will tend to pass by a greater margin
-    // than if we used a dumb ordering, and thus overall error will be improved)
-    std::uint32_t blockModeOrder[NUM_BLOCK_TYPES] = {4, 6, 3, 1, 0, 2, 7, 5};
-
-    for (std::uint32_t j1 = 0; j1 < NUM_BLOCK_TYPES; j1++)
-    {
-      std::uint32_t blockMode = blockModeOrder[j1];
-      std::uint32_t Mode = 0x0001 << blockMode;
-
-      if (!(validModeMask & Mode))
-      {
-        continue;
-      }
-
-      // Setup mode parameters for this block
-      BlockSetup(blockMode);
-
-      if (bti[blockMode].encodingType != SEPARATE_ALPHA)
-      {
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp,
-                "=================== CompressSingleIndexBlock "
-                "======================\n");
-#endif
-        thisError =
-          CompressSingleIndexBlock(in, temporaryOutputBlock, blockMode);
-      }
-      else
-      {
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-        fprintf(fp,
-                "==================  CompressDualIndexBlock "
-                "=======================\n");
-#endif
-
-        thisError = CompressDualIndexBlock(in, temporaryOutputBlock, blockMode);
-      }
-
-      // If this compression did better than all previous attempts then copy the
-      // result to the output block
-      if (thisError < bestError)
-      {
-        for (i = 0; i < COMPRESSED_BLOCK_SIZE; i++)
-        {
-          out[i] = temporaryOutputBlock[i];
-        }
-        bestError = thisError;
-        encodedBlock = TRUE;
-        bestblockMode = blockMode;
-      }
-
-      // If we have achieved an error lower than the requirement threshold then
-      // just exit now Early out if we  found we can compress with error below
-      // the quality threshold
-      if (m_errorThreshold > 0)
-      {
-        if (bestError <= m_errorThreshold)
-        {
-          break;
-        }
-      }
-    }
-
-    if (bestError < m_smallestError)
-    {
-      m_smallestError = bestError;
-    }
-    if (bestError > m_largestError)
-    {
-      m_largestError = bestError;
-    }
-
-    if (!encodedBlock)
-    {
-      // return some sort of error and abort sequence!
-      encodedBlock = FALSE;
-    }
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
-    fclose(fp);
-#endif
-
-    return bestError;
-
-#ifdef BC7_DEBUG_TO_RESULTS_TXT
+    m_blockMin[i] = DBL_MAX;
+    m_blockMax[i] = 0.0;
+    m_blockRange[i] = 0.0;
   }
-  else
-    return (0);
-#endif
+
+  // Check if the input block has any alpha values that are not 1
+  // We assume 8-bit input here, so 1 is mapped to 255.
+  // Also check if the block encodes an explicit zero or one in the
+  // alpha channel. If so then we might need also need special as the
+  // block may have a thresholded or punch-through alpha
+  for (i = 0; i < MAX_SUBSET_SIZE; i++)
+  {
+    if (in[i][COMP_ALPHA] != 255.0)
+    {
+      blockNeedsAlpha = TRUE;
+    }
+    else if ((in[i][COMP_ALPHA] == 255.0) || (in[i][COMP_ALPHA] == 0.0))
+    {
+      blockAlphaZeroOne = TRUE;
+    }
+  }
+
+  for (i = 0; i < MAX_SUBSET_SIZE; i++)
+  {
+    for (j = 0; j < MAX_DIMENSION_BIG; j++)
+    {
+      m_blockMin[j] = (in[i][j] < m_blockMin[j]) ? in[i][j] : m_blockMin[j];
+      m_blockMax[j] = (in[i][j] > m_blockMax[j]) ? in[i][j] : m_blockMax[j];
+    }
+  }
+
+  m_blockRange[0] = m_blockMax[0] - m_blockMin[0];
+  m_blockRange[1] = m_blockMax[1] - m_blockMin[1];
+  m_blockRange[2] = m_blockMax[2] - m_blockMin[2];
+  m_blockRange[3] = m_blockMax[3] - m_blockMin[3];
+  m_blockMaxRange = max(m_blockRange[0], m_blockRange[1]);
+  m_blockMaxRange = max(m_blockMaxRange, m_blockRange[2]);
+  m_blockMaxRange = max(m_blockMaxRange, m_blockRange[3]);
+
+  // Initial loop - go through the block modes and get the ones that are valid
+  for (std::uint32_t blockMode = 0; blockMode < NUM_BLOCK_TYPES; blockMode++)
+  {
+    // Check if this mode is allowed based on the global settings
+    if (!(validModeMask & (1 << blockMode)))
+    {
+      continue;
+    }
+
+    // If the block needs Alpha and this mode doesn't support alpha then
+    // indicate that this is not a valid mode and continue
+    if ((blockNeedsAlpha == TRUE) && (bti[blockMode].encodingType == NO_ALPHA))
+    {
+      validModeMask &= ~(1 << blockMode);
+    }
+
+    // Optional restriction for colour-only blocks so that they
+    // don't use modes that have combined colour+alpha - this
+    // avoids the possibility that the encoder might choose an
+    // alpha other than 1.0 (due to parity) and cause something to
+    // become accidentally slightly transparent (it's possible that
+    // when encoding 3-component texture applications will assume that
+    // the 4th component can safely be assumed to be 1.0 all the time)
+    if ((blockNeedsAlpha == FALSE) && (m_colourRestrict == TRUE) &&
+        (bti[blockMode].encodingType == COMBINED_ALPHA))
+    {
+      validModeMask &= ~(1 << blockMode);
+    }
+
+    // Optional restriction for blocks with alpha to avoid issues with
+    // punch-through or thresholded alpha encoding
+    if ((blockNeedsAlpha == TRUE) && (m_alphaRestrict == TRUE) &&
+        (blockAlphaZeroOne == TRUE) &&
+        (bti[blockMode].encodingType == COMBINED_ALPHA))
+    {
+      validModeMask &= ~(1 << blockMode);
+    }
+  }
+
+  assert(validModeMask != 0);
+
+  // Try all the legal block modes that we flagged
+
+  std::uint8_t temporaryOutputBlock[COMPRESSED_BLOCK_SIZE];
+  double bestError = DBL_MAX;
+  double thisError;
+  std::uint32_t bestblockMode = 99;
+
+  // We change the order in which we visit the block modes to try to maximize
+  // the chance that we manage to early out as quickly as possible. This is a
+  // significant performance optimization for the lower quality modes where
+  // the exit threshold is higher, and also tends to improve quality (as the
+  // generally higher quality modes are now enumerated earlier, so the first
+  // encoding that passes the threshold will tend to pass by a greater margin
+  // than if we used a dumb ordering, and thus overall error will be improved)
+  std::uint32_t blockModeOrder[NUM_BLOCK_TYPES] = {4, 6, 3, 1, 0, 2, 7, 5};
+
+  for (std::uint32_t j1 = 0; j1 < NUM_BLOCK_TYPES; j1++)
+  {
+    std::uint32_t blockMode = blockModeOrder[j1];
+    std::uint32_t Mode = 0x0001 << blockMode;
+
+    if (!(validModeMask & Mode))
+    {
+      continue;
+    }
+
+    // Setup mode parameters for this block
+    BlockSetup(blockMode);
+
+    if (bti[blockMode].encodingType != SEPARATE_ALPHA)
+    {
+      thisError = CompressSingleIndexBlock(in, temporaryOutputBlock, blockMode);
+    }
+    else
+    {
+      thisError = CompressDualIndexBlock(in, temporaryOutputBlock, blockMode);
+    }
+
+    // If this compression did better than all previous attempts then copy the
+    // result to the output block
+    if (thisError < bestError)
+    {
+      for (i = 0; i < COMPRESSED_BLOCK_SIZE; i++)
+      {
+        out[i] = temporaryOutputBlock[i];
+      }
+      bestError = thisError;
+      encodedBlock = TRUE;
+      bestblockMode = blockMode;
+    }
+
+    // If we have achieved an error lower than the requirement threshold then
+    // just exit now Early out if we  found we can compress with error below
+    // the quality threshold
+    if (m_errorThreshold > 0)
+    {
+      if (bestError <= m_errorThreshold)
+      {
+        break;
+      }
+    }
+  }
+
+  if (bestError < m_smallestError)
+  {
+    m_smallestError = bestError;
+  }
+  if (bestError > m_largestError)
+  {
+    m_largestError = bestError;
+  }
+
+  if (!encodedBlock)
+  {
+    // return some sort of error and abort sequence!
+    encodedBlock = FALSE;
+  }
+
+  return bestError;
 }
