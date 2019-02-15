@@ -18,9 +18,13 @@ if /i "%2"=="x86_32" (
 )
 echo ========== icu4c-60_2 ==========
 call icu4c-60_2 %1 %2
-echo ========== boost_1_67_0 ==========
+echo ========== boost_1_68_0 ==========
 call boost_1_68_0 %1 %2
+echo ========== boost_1_69_0 ==========
+call boost_1_69_0 %1 %2
 echo ========== breakpad-1459e5d ==========
 call breakpad-1459e5d %1 %2
 echo ========== glfw-3.2.1 ==========
 call glfw-3.2.1 %1 %2
+echo ========== openexr-2.3.0 ==========
+call openexr-2.3.0 %1 %2

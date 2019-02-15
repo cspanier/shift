@@ -73,8 +73,45 @@ msbuild shaderc.sln /t:Rebuild /p:Configuration=Debug;Platform=%BUILD_PLATFORM%
 msbuild shaderc.sln /t:Rebuild /p:Configuration=Release;Platform=%BUILD_PLATFORM%
 cd ..
 
-"%MINGW64%\cp" -v build/libshaderc/Debug/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined_d.lib
-"%MINGW64%\cp" -v build/libshaderc/Release/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined.lib
+REM "%MINGW64%\cp" -v build/libshaderc/Debug/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined_d.lib
+REM "%MINGW64%\cp" -v build/libshaderc/Release/shaderc_combined.lib !BUILD_PREFIX!/lib/shaderc_combined.lib
+
+"%MINGW64%\cp" -rv third_party/SPIRV-Tools/include/* !BUILD_PREFIX!/include
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/Debug/SPIRV-Tools.lib !BUILD_PREFIX!/lib/SPIRV-Tools-d.lib
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/Debug/SPIRV-Tools.pdb !BUILD_PREFIX!/lib/SPIRV-Tools-d.pdb
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/Release/SPIRV-Tools.lib !BUILD_PREFIX!/lib/SPIRV-Tools.lib
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/opt/Debug/SPIRV-Tools-opt.lib !BUILD_PREFIX!/lib/SPIRV-Tools-opt-d.lib
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/opt/Debug/SPIRV-Tools-opt.pdb !BUILD_PREFIX!/lib/SPIRV-Tools-opt-d.pdb
+"%MINGW64%\cp" -v build/third_party/spirv-tools/source/opt/Release/SPIRV-Tools-opt.lib !BUILD_PREFIX!/lib/SPIRV-Tools-opt.lib
+
+mkdir !BUILD_PREFIX!\include\SPIRV
+"%MINGW64%\cp" -v third_party/glslang/SPIRV/*.h !BUILD_PREFIX!/include/SPIRV
+"%MINGW64%\cp" -v build/third_party/glslang/SPIRV/Debug/SPIRVd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/third_party/glslang/SPIRV/Release/SPIRV.lib !BUILD_PREFIX!/lib
+
+mkdir !BUILD_PREFIX!\include\glslang\Include
+"%MINGW64%\cp" -v third_party/glslang/glslang/Include/*.h !BUILD_PREFIX!/include/glslang/Include
+mkdir !BUILD_PREFIX!\include\glslang\MachineIndependent
+"%MINGW64%\cp" -v third_party/glslang/glslang/MachineIndependent/*.h !BUILD_PREFIX!/include/glslang/MachineIndependent
+mkdir !BUILD_PREFIX!\include\glslang\Public
+"%MINGW64%\cp" -v third_party/glslang/glslang/Public/*.h !BUILD_PREFIX!/include/glslang/Public
+
+"%MINGW64%\cp" -v build/third_party/glslang/OSDependent/Windows/Debug/OSDependentd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/third_party/glslang/OSDependent/Windows/Release/OSDependent.lib !BUILD_PREFIX!/lib
+
+"%MINGW64%\cp" -v build/third_party/glslang/glslang/Debug/glslangd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/third_party/glslang/glslang/Release/glslang.lib !BUILD_PREFIX!/lib
+
+"%MINGW64%\cp" -v build/third_party/glslang/hlsl/Debug/HLSLd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/third_party/glslang/hlsl/Release/HLSL.lib !BUILD_PREFIX!/lib
+
+"%MINGW64%\cp" -v build/third_party/glslang/OGLCompilersDLL/Debug/OGLCompilerd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/third_party/glslang/OGLCompilersDLL/Release/OGLCompiler.lib !BUILD_PREFIX!/lib
+
+"%MINGW64%\cp" -v build/libshaderc/Debug/shadercd.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/libshaderc/Release/shaderc.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/libshaderc_util/Debug/shaderc_utild.lib !BUILD_PREFIX!/lib
+"%MINGW64%\cp" -v build/libshaderc_util/Release/shaderc_util.lib !BUILD_PREFIX!/lib
 "%MINGW64%\cp" -rv libshaderc/include/* !BUILD_PREFIX!/include
 
 popd
