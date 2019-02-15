@@ -2,7 +2,7 @@ if(NOT SPIRV_TOOLS_CORE_LIBRARY)
   find_path(SPIRV_TOOLS_CORE_INCLUDE_DIR "spirv-tools/libspirv.hpp")
   find_library(SPIRV_TOOLS_CORE_LIBRARY_DEBUG
     NAMES
-      # ToDo: Is there any debug library?
+      SPIRV-Tools-d  # Windows
       SPIRV-Tools
     PATH_SUFFIXES
       lib
@@ -58,7 +58,7 @@ if(NOT SPIRV_TOOLS_OPTIMIZER_LIBRARY)
   find_path(SPIRV_TOOLS_OPTIMIZER_INCLUDE_DIR "spirv-tools/optimizer.hpp")
   find_library(SPIRV_TOOLS_OPTIMIZER_LIBRARY_DEBUG
     NAMES
-      # ToDo: Is there any debug library?
+      SPIRV-Tools-opt-d  # Windows
       SPIRV-Tools-opt
     PATH_SUFFIXES
       lib

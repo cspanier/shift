@@ -2,7 +2,7 @@ if(NOT SPIRV_CORE_LIBRARY)
   find_path(SPIRV_CORE_INCLUDE_DIR "SPIRV/GlslangToSpv.h")
   find_library(SPIRV_CORE_LIBRARY_DEBUG
     NAMES
-      # ToDo: Is there any debug library?
+      SPIRVd  # Windows
       SPIRV
     PATH_SUFFIXES
       lib

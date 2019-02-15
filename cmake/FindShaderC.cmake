@@ -2,14 +2,14 @@ if(NOT SHADERC_CORE_LIBRARY)
   find_path(SHADERC_CORE_INCLUDE_DIR "shaderc/shaderc.hpp")
   find_library(SHADERC_CORE_LIBRARY_DEBUG
     NAMES
-      shaderc_d
-      shaderc
+      shadercd  # Windows
+      shaderc  # Arch Linux
     PATH_SUFFIXES
       lib
   )
   find_library(SHADERC_CORE_LIBRARY_RELEASE
     NAMES
-      shaderc
+      shaderc  # Arch Linux and Windows
     PATH_SUFFIXES
       lib
   )
@@ -58,14 +58,14 @@ if(NOT SHADERC_UTIL_LIBRARY)
   find_path(SHADERC_UTIL_INCLUDE_DIR "shaderc/shaderc.hpp")
   find_library(SHADERC_UTIL_LIBRARY_DEBUG
     NAMES
-      shaderc_util_d
-      shaderc_util
+      shaderc_utild  # Windows
+      shaderc_util  # Arch Linux
     PATH_SUFFIXES
       lib
   )
   find_library(SHADERC_UTIL_LIBRARY_RELEASE
     NAMES
-      shaderc_util
+      shaderc_util  # Arch Linux and Windows
     PATH_SUFFIXES
       lib
   )
