@@ -133,9 +133,6 @@ bool SupportsSSE2()
 
 CCodec* CreateCodec(CodecType nCodecType)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("nCodecType %d", nCodecType));
-#endif
   switch (nCodecType)
   {
   case CT_DXT1:
@@ -172,10 +169,6 @@ std::uint32_t CalcBufferSize(CodecType nCodecType, std::uint32_t dwWidth,
                              std::uint32_t dwHeight, std::uint8_t nBlockWidth,
                              std::uint8_t nBlockHeight)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("IN: nCodecType %d, dwWidth %d, dwHeight %d", nCodecType, dwWidth,
-            dwHeight));
-#endif
   std::uint32_t dwChannels;
   std::uint32_t dwBitsPerChannel;
   std::uint32_t buffsize = 0;
@@ -233,10 +226,6 @@ std::uint32_t CalcBufferSize(CodecType nCodecType, std::uint32_t dwWidth,
   default:
     return 0;
   }
-
-#ifdef USE_DBGTRACE
-  DbgTrace(("OUT: %d", buffsize));
-#endif
 
   return buffsize;
 }

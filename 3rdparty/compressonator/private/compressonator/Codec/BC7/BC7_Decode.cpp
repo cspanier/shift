@@ -53,9 +53,6 @@ static std::uint8_t testBlock[] = {0x36, 0x40, 0xf7, 0x87, 0x40, 0xf7,
 
 std::uint32_t BC7BlockDecoder::ReadBit(std::uint8_t base[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int byteLocation;
   int remainder;
   std::uint32_t bit = 0;
@@ -75,9 +72,6 @@ void BC7BlockDecoder::DecompressDualIndexBlock(
   std::uint8_t in[COMPRESSED_BLOCK_SIZE],
   std::uint32_t endpoint[2][MAX_DIMENSION_BIG])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, j, k;
 
   double ramp[MAX_DIMENSION_BIG][1 << MAX_INDEX_BITS];
@@ -169,9 +163,6 @@ void BC7BlockDecoder::DecompressBlock(
   FILE* gt_File_decode = fopen("decode_patterns.txt", "a");
 #endif
 
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i, j;
   std::uint32_t* partitionTable;
   std::uint32_t blockIndices[MAX_SUBSET_SIZE];
@@ -237,7 +228,7 @@ void BC7BlockDecoder::DecompressBlock(
   for (component = 0; component < MAX_DIMENSION_BIG; component++)
   {
     // loop over subsets
-    for (subset = 0; subset < (int)bti[m_blockMode].subsetCount; subset++)
+    for (subset = 0; subset < bti[m_blockMode].subsetCount; subset++)
     {
       // Loop over endpoints
       for (ep = 0; ep < 2; ep++)
@@ -254,7 +245,7 @@ void BC7BlockDecoder::DecompressBlock(
   // Now get any parity bits
   if (bti[m_blockMode].pBitType != NO_PBIT)
   {
-    for (subset = 0; subset < (int)bti[m_blockMode].subsetCount; subset++)
+    for (subset = 0; subset < bti[m_blockMode].subsetCount; subset++)
     {
       std::uint32_t pBit[2];
       if (bti[m_blockMode].pBitType == ONE_PBIT)
@@ -393,7 +384,7 @@ void BC7BlockDecoder::DecompressBlock(
   // Colour Ramps
   double c[MAX_SUBSETS][MAX_DIMENSION_BIG][1 << MAX_INDEX_BITS];
 
-  for (i = 0; i < (int)bti[m_blockMode].subsetCount; i++)
+  for (i = 0; i < bti[m_blockMode].subsetCount; i++)
   {
     // Unpack the colours
     GetRamp(endpoint[i], c[i], clusters, m_componentBits);

@@ -1583,7 +1583,7 @@ float BC6HBlockEncoder::EncodePattern(AMD_BC6H_Format& BC6H_data, float error)
 //==================================================================================
 // CompressBlock
 // in[]  is half float32 data  [0..1] for unsigned and [-1..+1] for signed
-// it will be converted to 16 bit half CMP_HALF (short with signed component)
+// it will be converted to 16 bit half (signed short)
 // for processing
 //
 // out is 128 bits BC6H Encoded data

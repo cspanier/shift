@@ -325,11 +325,6 @@ CodecError CCodec_BC6H::CInitializeBC6HLibrary()
 
         return CE_Unknown;
       }
-
-#ifdef USE_DBGTRACE
-      DbgTrace(
-        ("Encoder[%d]:ModeMask %X, Quality %f\n", i, m_ModeMask, m_Quality));
-#endif
     }
 
     // Create the encoding threads
@@ -471,9 +466,6 @@ CodecError CCodec_BC6H::Compress(CCodecBuffer& bufferIn,
   CompViewerClient g_CompClient;
   if (g_CompClient.connect())
   {
-#ifdef USE_DBGTRACE
-    DbgTrace(("-------> Remote Server Connected"));
-#endif
   }
 #endif
 

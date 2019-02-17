@@ -38,8 +38,8 @@ class BC7BlockEncoder
 {
 public:
   BC7BlockEncoder(std::uint32_t validModeMask, bool imageNeedsAlpha,
-                  double quality, bool colourRestrict,
-                  bool alphaRestrict, double performance = 1.0)
+                  double quality, bool colourRestrict, bool alphaRestrict,
+                  double performance = 1.0)
   {
     // Bug check : ModeMask must be > 0
     if (validModeMask <= 0)
@@ -97,11 +97,7 @@ public:
 
   ~BC7BlockEncoder()
   {
-#ifdef USE_DBGTRACE
-    DbgTrace(("Smallest Error %f\n", (float)m_smallestError));
-    DbgTrace(("Largest Error %f\n", (float)m_largestError));
-#endif
-  };
+  }
 
   // This routine compresses a block and returns the RMS error
   double CompressBlock(double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],

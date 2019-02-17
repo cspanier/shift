@@ -143,17 +143,10 @@ void Quant_DeInit(void)
 
 //=========================================================================================
 
-void sugar(void){
-#ifdef USE_DBGTRACE
-  DbgTrace(("sugar!"))
-#endif
-};
+void sugar(void){};
 
 inline int a_compare(const void* arg1, const void* arg2)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   if (((a*)arg1)->d - ((a*)arg2)->d > 0)
     return 1;
   if (((a*)arg1)->d - ((a*)arg2)->d < 0)
@@ -168,9 +161,6 @@ inline int a_compare(const void* arg1, const void* arg2)
 void sortProjection(double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
                     int numEntries)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i;
   a what[MAX_ENTRIES + MAX_PARTITIONS_TABLE];
 
@@ -186,9 +176,6 @@ void sortProjection(double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
 void covariance(double data[][DIMENSION], int numEntries,
                 double cov[DIMENSION][DIMENSION])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k;
 
   for (i = 0; i < DIMENSION; i++)
@@ -208,10 +195,6 @@ void covariance_d(double data[][MAX_DIMENSION_BIG], int numEntries,
                   double cov[MAX_DIMENSION_BIG][MAX_DIMENSION_BIG],
                   int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int i, j, k;
 
   for (i = 0; i < dimension; i++)
@@ -230,9 +213,6 @@ void covariance_d(double data[][MAX_DIMENSION_BIG], int numEntries,
 void centerInPlace(double data[][DIMENSION], int numEntries,
                    double mean[DIMENSION])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, k;
 
   for (i = 0; i < DIMENSION; i++)
@@ -256,9 +236,6 @@ void centerInPlace(double data[][DIMENSION], int numEntries,
 void centerInPlace_d(double data[][MAX_DIMENSION_BIG], int numEntries,
                      double mean[MAX_DIMENSION_BIG], int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, k;
 
   for (i = 0; i < dimension; i++)
@@ -282,9 +259,6 @@ void centerInPlace_d(double data[][MAX_DIMENSION_BIG], int numEntries,
 void project(double data[][DIMENSION], int numEntries, double vector[DIMENSION],
              double projection[MAX_ENTRIES])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // assume that vector is normalized already
   int i, k;
 
@@ -302,9 +276,6 @@ void project_d(double data[][MAX_DIMENSION_BIG], int numEntries,
                double vector[MAX_DIMENSION_BIG], double projection[MAX_ENTRIES],
                int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // assume that vector is normalized already
   int i, k;
 
@@ -320,9 +291,6 @@ void project_d(double data[][MAX_DIMENSION_BIG], int numEntries,
 
 void eigenVector(double cov[DIMENSION][DIMENSION], double vector[DIMENSION])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // calculate an eigenvecto corresponding to a biggest eigenvalue
   // will work for non-zero non-negative matricies only
 
@@ -412,10 +380,6 @@ void eigenVector(double cov[DIMENSION][DIMENSION], double vector[DIMENSION])
 void eigenVector_d(double cov[MAX_DIMENSION_BIG][MAX_DIMENSION_BIG],
                    double vector[MAX_DIMENSION_BIG], int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   // calculate an eigenvecto corresponding to a biggest eigenvalue
   // will work for non-zero non-negative matricies only
 
@@ -508,9 +472,6 @@ void eigenVector_d(double cov[MAX_DIMENSION_BIG][MAX_DIMENSION_BIG],
 
 double partition2(double data[][DIMENSION], int numEntries, int index[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k;
   double cov[2][DIMENSION][DIMENSION];
   double center[2][DIMENSION];
@@ -565,10 +526,6 @@ double partition2(double data[][DIMENSION], int numEntries, int index[])
 void quantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                int numClusters, int index[MAX_ENTRIES])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   // Data should be centered, otherwise will not work
   // The running time (number of iteration of the external loop) is
   //   binomial(numEntries+numClusters-2, numClusters-1)
@@ -676,10 +633,6 @@ void quantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 void quantLineConstr(double data[][DIMENSION], int order[MAX_ENTRIES],
                      int numEntries, int numClusters, int index[MAX_ENTRIES])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   // Data should be centered, otherwise will not work
   // The running time (number of iteration of the external loop) is
   //   binomial(numEntries+numClusters-2, numClusters-1)
@@ -784,9 +737,6 @@ void quantLineConstr(double data[][DIMENSION], int order[MAX_ENTRIES],
 double totalError(double data[MAX_ENTRIES][DIMENSION],
                   double data2[MAX_ENTRIES][DIMENSION], int numEntries)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j;
   double t = 0;
   for (i = 0; i < numEntries; i++)
@@ -799,9 +749,6 @@ double totalError_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
                     double data2[MAX_ENTRIES][MAX_DIMENSION_BIG],
                     int numEntries, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j;
   double t = 0;
   for (i = 0; i < numEntries; i++)
@@ -816,9 +763,6 @@ double optQuantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                     double out[MAX_ENTRIES][DIMENSION],
                     double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int maxTry = MAX_TRY;
   int i, j, k;
   double t, s;
@@ -920,11 +864,6 @@ double optQuantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 
   t = t - s * s * (double)numEntries;
 
-#ifdef USE_DBGTRACE
-  if (t == 0)
-    DbgTrace(("l;lkjk"));
-#endif
-
   assert(t != 0);
 
   t = (t == 0 ? 0. : 1 / t);
@@ -946,10 +885,6 @@ int requantize(double data[MAX_ENTRIES][DIMENSION],
                double centers[MAX_CLUSTERS][DIMENSION], int numEntries,
                int numClusters, int index[MAX_ENTRIES])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int i, j, k;
   double p, q;
   int cnt[MAX_CLUSTERS];
@@ -999,9 +934,6 @@ double optQuantLineConstr(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                           int numClusters, int index[MAX_ENTRIES],
                           double out[MAX_ENTRIES][DIMENSION])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int maxTry = MAX_TRY;
 
   int i, j, k;
@@ -1221,9 +1153,6 @@ void quantTrace_d(double data[MAX_ENTRIES_QUANT_TRACE][MAX_DIMENSION_BIG],
                   int numEntries, int numClusters,
                   int index[MAX_ENTRIES_QUANT_TRACE], int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // Data should be centered, otherwise will not work
 
   int i, j, k;
@@ -1364,9 +1293,6 @@ void quantTrace_d(double data[MAX_ENTRIES_QUANT_TRACE][MAX_DIMENSION_BIG],
   if (k < 0)
   {
 
-#ifdef USE_DBGTRACE
-    DbgTrace(("ERROR: quatnTrace\n"));
-#endif
     return;
   }
 
@@ -1387,10 +1313,6 @@ void quantTrace_d(double data[MAX_ENTRIES_QUANT_TRACE][MAX_DIMENSION_BIG],
 
 void quant_AnD_Shell(double* v_, int k, int n, int* idx)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
 // input:
 //
 // v_  points, might be uncentered
@@ -1488,10 +1410,6 @@ double optQuantTrace(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                      double out[MAX_ENTRIES][DIMENSION],
                      double direction[DIMENSION], double* step)
 {
-
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 
   int index[MAX_ENTRIES];
 
@@ -1602,11 +1520,6 @@ double optQuantTrace(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 
   t = t - s * s * (double)numEntries;
 
-#ifdef USE_DBGTRACE
-  if (t == 0)
-    DbgTrace(("l;lkjk"));
-#endif
-
   assert(t != 0);
 
   t = (t == 0 ? 0. : 1 / t);
@@ -1634,9 +1547,6 @@ double optQuantTrace_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
                        double direction[MAX_DIMENSION_BIG], double* step,
                        int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int index[MAX_ENTRIES];
   int maxTry = MAX_TRY;
   int i, j, k;
@@ -1815,15 +1725,7 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
     {
 
       if (abs(j[p] - k[p]) > 1)
-      {
-
-#ifdef USE_DBGTRACE
-        DbgTrace(("Driving trace generation error\n"));
-        for (p = 0; p < numClusters - 1; p++)
-          DbgTrace(("%d %d %d\n", k[p], j[p], n));
-#endif
         return;
-      }
 
       else if (j[p] - k[p] == 1)
       {
@@ -1850,18 +1752,7 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
             int i1, cc = 0;
             for (i1 = 0; i1 < numClusters; i1++)
               cc += i1 * i1 * h[i1];
-#ifdef USE_DBGTRACE
-            if (cc != q2)
-              DbgTrace(("1 - q2 %d %d\n", cc, q2));
-#endif
           };
-
-#ifdef USE_DBGTRACE
-          if (ci < 0 || ci >= numEntries || cn < 1 || cn >= numClusters ||
-              h[cn] < 0 || h[cn - 1] >= numEntries)
-            DbgTrace(("tre1 %d %d %d %d %d  %d \n", ci, cn, numEntries,
-                      numClusters, h[cn], h[cn - 1]));
-#endif
 
           cd |= (1 << k[p]);
           cd &= ~(1 << j[p]);
@@ -1909,19 +1800,7 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
             int i1, cc = 0;
             for (i1 = 0; i1 < numClusters; i1++)
               cc += i1 * i1 * h[i1];
-
-#ifdef USE_DBGTRACE
-            if (cc != q2)
-              DbgTrace(("2- q2 %d %d\n", cc, q2));
-#endif
-          };
-
-#ifdef USE_DBGTRACE
-          if (ci < 0 || ci >= numEntries || cn >= numClusters - 1 ||
-              h[cn] < 0 || h[cn + 1] >= numEntries)
-            DbgTrace(("tre2 %d %d %d %d %d  %d \n", ci, cn, numEntries,
-                      numClusters, h[cn], h[cn + 1]));
-#endif
+          }
 
           cd |= (1 << k[p]);
           cd &= ~(1 << j[p]);
@@ -1979,9 +1858,6 @@ double optQuantAnD(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                    double out[MAX_ENTRIES][DIMENSION],
                    double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int index_[MAX_ENTRIES];
   int maxTry = MAX_TRY * 10;
   int try_two = 50;
@@ -2123,10 +1999,6 @@ double optQuantAnD(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 
   t = t - s * s * (double)numEntries;
 
-#ifdef USE_DBGTRACE
-  if (t == 0)
-    DbgTrace(("l;lkjk"));
-#endif
   assert(t != 0);
 
   t = (t == 0 ? 0. : 1 / t);

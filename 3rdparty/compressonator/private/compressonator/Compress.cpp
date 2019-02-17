@@ -220,7 +220,7 @@ float findKneeValue(float x, float y)
   return (f0 + f1) / 2.f;
 }
 
-CMP_ERROR Byte2Float(CMP_HALF* hfBlock, std::uint8_t* cBlock,
+CMP_ERROR Byte2Float(short* hfBlock, std::uint8_t* cBlock,
                      std::uint32_t dwBlockSize)
 {
   assert(hfBlock);

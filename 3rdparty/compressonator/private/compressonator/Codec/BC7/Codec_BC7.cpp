@@ -326,11 +326,6 @@ CodecError CCodec_BC7::InitializeBC7Library()
 
         return CE_Unknown;
       }
-
-#ifdef USE_DBGTRACE
-      DbgTrace(
-        ("Encoder[%d]:ModeMask %X, Quality %f\n", i, m_ModeMask, m_Quality));
-#endif
     }
 
     // Create the encoding threads
@@ -527,9 +522,6 @@ CodecError CCodec_BC7::Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
   if (CompClient.connect())
   {
     m_Use_MultiThreading = false;
-#ifdef USE_DBGTRACE
-    DbgTrace(("-------> Remote Server Connected"));
-#endif
   }
 #endif
 
@@ -539,21 +531,6 @@ CodecError CCodec_BC7::Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
   int lineAtPercent = (dwBlocksY * 0.01);
   if (lineAtPercent <= 0)
     lineAtPercent = 1;
-
-#ifdef USE_DBGTRACE
-  DbgTrace(("IN : BufferType %d ChannelCount %d ChannelDepth %d",
-            bufferIn.GetBufferType(), bufferIn.GetChannelCount(),
-            bufferIn.GetChannelDepth()));
-  DbgTrace(("   : Height %d Width %d Pitch %d isFloat %d", bufferIn.GetHeight(),
-            bufferIn.GetWidth(), bufferIn.GetWidth(), bufferIn.IsFloat()));
-
-  DbgTrace(("OUT: BufferType %d ChannelCount %d ChannelDepth %d",
-            bufferOut.GetBufferType(), bufferOut.GetChannelCount(),
-            bufferOut.GetChannelDepth()));
-  DbgTrace(("   : Height %d Width %d Pitch %d isFloat %d",
-            bufferOut.GetHeight(), bufferOut.GetWidth(), bufferOut.GetWidth(),
-            bufferOut.IsFloat()));
-#endif
 
   char row, col, srcIndex;
 

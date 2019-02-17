@@ -44,14 +44,10 @@ CCodec_Block_8x8::~CCodec_Block_8x8()
 }
 
 CCodecBuffer* CCodec_Block_8x8::CreateBuffer(
-  std::uint8_t nBlockWidth, std::uint8_t nBlockHeight, std::uint8_t nBlockDepth,
-  std::uint32_t dwWidth, std::uint32_t dwHeight, std::uint32_t dwPitch,
-  std::uint8_t* pData) const
+  std::uint8_t /*nBlockWidth*/, std::uint8_t /*nBlockHeight*/,
+  std::uint8_t /*nBlockDepth*/, std::uint32_t dwWidth, std::uint32_t dwHeight,
+  std::uint32_t dwPitch, std::uint8_t* pData) const
 {
-  UNREFERENCED_PARAMETER(nBlockWidth);
-  UNREFERENCED_PARAMETER(nBlockHeight);
-  UNREFERENCED_PARAMETER(nBlockDepth);
-
   return CreateCodecBuffer(CBT_8x8Block_8BPP, 8, 8, 1, dwWidth, dwHeight,
                            dwPitch, pData);
 }

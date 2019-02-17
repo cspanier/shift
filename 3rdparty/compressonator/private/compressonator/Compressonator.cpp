@@ -40,7 +40,7 @@ extern CodecType GetCodecType(CMP_FORMAT format);
 extern CMP_ERROR GetError(CodecError err);
 #ifdef ENABLE_MAKE_COMPATIBLE_API
 extern bool IsFloatFormat(CMP_FORMAT InFormat);
-extern CMP_ERROR Byte2Float(CMP_HALF* hfBlock, std::uint8_t* cBlock,
+extern CMP_ERROR Byte2Float(short* hfBlock, std::uint8_t* cBlock,
                             std::uint32_t dwBlockSize);
 extern CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
                             CMP_Texture* srcTexture, CMP_FORMAT destFormat,
@@ -67,10 +67,6 @@ char DbgTracer::PrintBuff[MAX_DBGPPRINTBUFF_SIZE];
 
 std::uint32_t CMP_CalculateBufferSize(const CMP_Texture* pTexture)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("-------> pTexture [%x]", pTexture));
-#endif
-
   assert(pTexture);
   if (pTexture == nullptr)
     return 0;
@@ -103,11 +99,6 @@ std::uint32_t CalcBufferSize(CMP_FORMAT format, std::uint32_t dwWidth,
                              std::uint8_t nBlockWidth,
                              std::uint8_t nBlockHeight)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("format %d dwWidth %d dwHeight %d dwPitch %d", format, dwWidth,
-            dwHeight, dwPitch));
-#endif
-
   switch (format)
   {
   case CMP_FORMAT_RGBA_8888:
@@ -473,10 +464,6 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
                              CMP_Feedback_Proc pFeedbackProc,
                              std::size_t pUser1, std::size_t pUser2)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(("-------> pSourceTexture [%x] pDestTexture [%x] pOptions [%x]",
-            pSourceTexture, pDestTexture, pOptions));
-#endif
   CMP_ERROR tc_err = CheckTexture(pSourceTexture, true);
   if (tc_err != CMP_OK)
     return tc_err;
@@ -510,7 +497,7 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
   {
     std::uint32_t size = pSourceTexture->dwWidth * pSourceTexture->dwHeight;
     std::uint8_t* pbData = pSourceTexture->pData;
-    CMP_HALF* hfloatData = new CMP_HALF[size * 4];
+    auto* hfloatData = new short[size * 4];
     Byte2Float(hfloatData, pbData, size * 4);
     pSourceTexture->pData = (std::uint8_t*)hfloatData;
     pSourceTexture->format = CMP_FORMAT_ARGB_16F;

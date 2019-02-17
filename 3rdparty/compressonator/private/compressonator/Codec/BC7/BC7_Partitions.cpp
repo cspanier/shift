@@ -424,10 +424,6 @@ void Partition(std::uint32_t partition, double in[][MAX_DIMENSION_BIG],
                std::uint32_t count[MAX_SUBSETS], std::uint32_t blockType,
                int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int i, j;
   std::uint32_t* table = nullptr;
 

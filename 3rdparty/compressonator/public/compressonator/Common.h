@@ -39,9 +39,6 @@
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
-//  Show messages via Win Debug
-//#define USE_DBGTRACE
-
 //  Send debug info to a results text file
 // #define BC7_DEBUG_TO_RESULTS_TXT
 

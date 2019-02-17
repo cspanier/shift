@@ -224,9 +224,6 @@ void init_ramps(void)
 {
   if (ramp_init)
     return;
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int clog, bits;
   int p1;
   int p2;
@@ -353,9 +350,6 @@ inline int ep_find_floor(double v, int bits, int use_par, int odd)
 // find closest one
 inline int ep_find_near(double v, int bits, int use_par, int odd)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(use_par == 0 || use_par == 1 || odd == 0 || odd == 1);
   double* p = ep_d[BTT(bits)];
   int p1 = ep_find_floor(v, bits, use_par, odd);
@@ -369,9 +363,6 @@ inline int ep_find_near(double v, int bits, int use_par, int odd)
 
 inline void mean_d(double d[][DIMENSION], double mean[DIMENSION], int n)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j;
   assert(n != 0);
   for (j = 0; j < DIMENSION; j++)
@@ -386,9 +377,6 @@ inline void mean_d(double d[][DIMENSION], double mean[DIMENSION], int n)
 inline void mean_d_d(double d[][MAX_DIMENSION_BIG],
                      double mean[MAX_DIMENSION_BIG], int n, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j;
   assert(n != 0);
   for (j = 0; j < dimension; j++)
@@ -403,9 +391,6 @@ inline void mean_d_d(double d[][MAX_DIMENSION_BIG],
 inline int cluster_mean_d(double d[][DIMENSION], double mean[][DIMENSION],
                           int index[], int i_comp[], int i_cnt[], int n)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // unused index values are underfined
   int i, j, k;
   assert(n != 0);
@@ -437,9 +422,6 @@ inline int cluster_mean_d_d(double d[][MAX_DIMENSION_BIG],
                             double mean[][MAX_DIMENSION_BIG], int index[],
                             int i_comp[], int i_cnt[], int n, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   // unused index values are underfined
   int i, j, k;
   assert(n != 0);
@@ -469,9 +451,6 @@ inline int cluster_mean_d_d(double d[][MAX_DIMENSION_BIG],
 
 inline int all_same(double d[][DIMENSION], int n)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(n > 0);
   int i, j;
   int same = 1;
@@ -484,9 +463,6 @@ inline int all_same(double d[][DIMENSION], int n)
 
 inline int all_same_d(double d[][MAX_DIMENSION_BIG], int n, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(n > 0);
   int i, j;
   int same = 1;
@@ -499,9 +475,6 @@ inline int all_same_d(double d[][MAX_DIMENSION_BIG], int n, int dimension)
 
 inline int max_i(int a[], int n)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   assert(n > 0);
   int i, m = a[0];
   for (i = 0; i < n; i++)
@@ -552,10 +525,6 @@ double BC7BlockEncoder::quant_single_point_d(
   int bits[3],  // including parity
   int type, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int i, j;
 
   double err_0 = DBL_MAX;
@@ -713,9 +682,6 @@ double BC7BlockEncoder::ep_shaker_2_d(
 
 )
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k;
 
   //
@@ -1078,9 +1044,6 @@ double BC7BlockEncoder::ep_shaker_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
                                     int bits[3],  // including parity
                                     CMP_qt type, int dimension)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   //###############################
   int i, j, k;
 

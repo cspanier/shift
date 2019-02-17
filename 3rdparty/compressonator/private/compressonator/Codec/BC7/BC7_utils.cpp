@@ -34,9 +34,6 @@
 
 void WriteBit(std::uint8_t* base, int offset, std::uint8_t bitVal)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int byteLocation;
   int remainder;
   std::uint8_t val;
@@ -113,9 +110,6 @@ void DecodeEndPoints(std::uint32_t endpoint[][MAX_DIMENSION_BIG],
                      std::uint32_t componentBits[MAX_DIMENSION_BIG],
                      float ep[][MAX_DIMENSION_BIG])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   std::uint32_t i;
 
   // Expand each endpoint component to 8 bits by shifting the MSB to bit 7
@@ -150,9 +144,6 @@ void GetRamp(std::uint32_t endpoint[][MAX_DIMENSION_BIG],
              std::uint32_t clusters[2],
              std::uint32_t componentBits[MAX_DIMENSION_BIG])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double ep[2][MAX_DIMENSION_BIG];
   std::uint32_t i;
 

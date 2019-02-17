@@ -48,9 +48,6 @@ static double PCnt = 0;
 
 void histoStep(double step, double step1)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   if (histoInit == 0)
   {
     int i;
@@ -87,9 +84,6 @@ void histoStepCnt(int id, int cnt, double step1)
 
 void printStepHistoI(void)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k, l;
 
   for (l = 0; l < MAX_SUBSETS; l++)
@@ -109,9 +103,6 @@ void printStepHistoI(void)
 
 void printStepHisto(void)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k;
   k = 0;
   printf("[\n");
@@ -138,9 +129,6 @@ void printStepHisto(void)
 
 void printStep(void)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i;
   for (i = 0; i < MAX_CLUSTERS; i++)
     printf("step %2d %10g %10g  %10g %10g \n", i, minStep[i], minStep1[i],
@@ -155,9 +143,6 @@ void printCnt(void)
 void index_collapse  // assymtric of x->n-x, but this does not matter below
   (int index[], int numEntries)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int k;
   int d, D;
 
@@ -195,9 +180,6 @@ void index_collapse  // assymtric of x->n-x, but this does not matter below
 void index_expand  // assymtric of x->n-x, but this does not matter below
   (int index[], int numEntries, int max_clusters)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int k;
   int d;
 
@@ -217,9 +199,6 @@ void index_expand  // assymtric of x->n-x, but this does not matter below
 
 void sHisto(int index[], int numEntries, double step, double step1)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int Mi = 0;
   int k;
   for (k = 0; k < numEntries; k++)
@@ -242,9 +221,6 @@ double reconstruct(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                    int ns, double direction[DIMENSION], double* step)
 {
 
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double s = 0, t = 0, q = 0;
   int i, j, k;
   double mean[DIMENSION];
@@ -319,9 +295,6 @@ double reconstruct_new(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                        double out[MAX_ENTRIES][DIMENSION], int ns,
                        double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double s = 0, t = 0, q = 0;
   int i, j, k;
   double mean[DIMENSION];
@@ -400,9 +373,6 @@ void shake(double data[MAX_ENTRIES][DIMENSION], int numEntries, double idx_mean,
            int index_r[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION])
 
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double c[MAX_CLUSTERS][DIMENSION];
 
   double t2[MAX_CLUSTERS];
@@ -473,9 +443,6 @@ void shake_d_s(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                int index_r[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION])
 
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 #define MAX_CLUSTERS_1_16 16
 
   double c[MAX_CLUSTERS_1_16][DIMENSION];
@@ -555,9 +522,6 @@ void shake_d_s_s(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                  int index_r[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION])
 
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double c[MAX_CLUSTERS][DIMENSION];
 
   double t2[MAX_CLUSTERS];
@@ -629,9 +593,6 @@ void mds(double data[MAX_ENTRIES][DIMENSION], int numEntries,
          int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
          double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int j, k;
   double t = 0, s = 0, q1 = 0;
 
@@ -675,9 +636,6 @@ void mds_d(double data[MAX_ENTRIES][DIMENSION], int numEntries,
            int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
            double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k;
   double t = 0, s = 0, q1 = 0;
   double cc[MAX_CLUSTERS_BIG][DIMENSION];
@@ -741,9 +699,6 @@ void mds_d(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 // cube model
 void setMean(double mean[DIMENSION], double mr[8][DIMENSION], int div)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double idiv = 1.;  // full scale divider per component
   int sdiv = 1;      // Z/fcc/bcc swithc
 
@@ -878,9 +833,6 @@ double reconstruct_rnd(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                        double out[MAX_ENTRIES][DIMENSION], int ns,
                        double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 #define NP1 31
 
   static int code1[NP1][3] =  // step, mean div,diamond
@@ -1158,9 +1110,6 @@ double reconstruct_rnd_mean_clip(double data[MAX_ENTRIES][DIMENSION],
                                  double direction[DIMENSION], double* step,
                                  double in_mean[DIMENSION])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 #define NP1 31
 
   static int code1[NP1][3] =  // step, mean div,diamond
@@ -1499,9 +1448,6 @@ double reconstruct_rnd_mean_clip(double data[MAX_ENTRIES][DIMENSION],
 
 inline int getns(int partition[MAX_ENTRIES], int numEntries)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, c;
   int id[MAX_ENTRIES];
 
@@ -1526,9 +1472,6 @@ int block_mean_rnd(double data_[MAX_ENTRIES][DIMENSION], int numEntries,
 
 )
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   int i, j, k, l;
 
   double n[MAX_SUBSETS];  // number per set
@@ -1614,9 +1557,6 @@ double ep_shaker(
   double* step, int lock)
 
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   double s = 0, t = 0;
   int i, j, k;
   double mean[DIMENSION];
@@ -1898,19 +1838,12 @@ double ep_shaker(
 
 int expand(int bits, int v)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   return (v << (8 - bits) | v >> (2 * bits - 8));
 }
 
 void getRndRamp(int bits, double v, int size, double out[], int* parity,
                 int range[2], int ep[])
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int m;
   m = (int)floor(v / (double)(1 << (8 - bits)));
   m = m < 0 ? 0 : m;
@@ -1955,9 +1888,6 @@ void getRndRampN(int bits[DIMENSION], double v[DIMENSION], int size,
                  int range[2][DIMENSION], int ep[MAX_SHAKE_SIZE][DIMENSION],
                  int bcc)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
   static double out_[DIMENSION][MAX_SHAKE_SIZE];
   int range_[DIMENSION][2];
   int ep_[DIMENSION][MAX_SHAKE_SIZE];
@@ -2057,10 +1987,6 @@ double ep_shaker_2(
   double out[MAX_ENTRIES][DIMENSION], int epo_code[2][DIMENSION], int bits[3],
   int bcc, int nClusters, int size)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
-
   int i, j, k;
   double mean[DIMENSION];
   int index[MAX_ENTRIES];
@@ -2438,9 +2364,6 @@ double ep_shaker_2__(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                      int index_[MAX_ENTRIES],
                      double out[MAX_ENTRIES][DIMENSION], int ns)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 #define SIZE 6
   int i, j, k;
   double mean[DIMENSION];
@@ -2817,9 +2740,6 @@ double reconstruct_rnd__(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                          double out[MAX_ENTRIES][DIMENSION], int ns,
                          double direction[DIMENSION], double* step)
 {
-#ifdef USE_DBGTRACE
-  DbgTrace(());
-#endif
 #define NP1 31
 
   static int code1[NP1][3] =  // step, mean div,diamond
