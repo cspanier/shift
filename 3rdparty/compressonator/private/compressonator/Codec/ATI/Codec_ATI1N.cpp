@@ -40,11 +40,10 @@ CCodec_ATI1N::CCodec_ATI1N(CodecType codecType) : CCodec_DXTC(codecType)
 }
 
 CCodec_ATI1N::~CCodec_ATI1N()
-{
-}
+= default;
 
 CCodecBuffer* CCodec_ATI1N::CreateBuffer(
-  std::uint8_t nBlockWidth, std::uint8_t nBlockHeight, std::uint8_t nBlockDepth,
+  std::uint8_t  /*nBlockWidth*/, std::uint8_t  /*nBlockHeight*/, std::uint8_t  /*nBlockDepth*/,
   std::uint32_t dwWidth, std::uint32_t dwHeight, std::uint32_t dwPitch,
   std::uint8_t* pData) const
 {

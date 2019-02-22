@@ -39,8 +39,7 @@ CCodec_DXT5_xRBG::CCodec_DXT5_xRBG() : CCodec_DXT5_Swizzled(CT_DXT5_xRBG)
 }
 
 CCodec_DXT5_xRBG::~CCodec_DXT5_xRBG()
-{
-}
+= default;
 
 // Disable erroneous C4715 warning
 #pragma warning(push)

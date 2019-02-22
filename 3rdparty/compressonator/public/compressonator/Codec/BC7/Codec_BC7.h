@@ -83,7 +83,7 @@ public:
                                 std::size_t pUser1 = 0, std::size_t pUser2 = 0);
 
 private:
-  BC7EncodeThreadParam* m_EncodeParameterStorage;
+  BC7EncodeThreadParam* m_EncodeParameterStorage{};
 
   // BC7 User configurable variables
   std::uint32_t m_ModeMask;
@@ -103,8 +103,8 @@ private:
 
   // BC7 Encoders and decoders: for encding use the interfaces below
   std::thread* m_EncodingThreadHandle;
-  BC7BlockEncoder* m_encoder[MAX_BC7_THREADS];
-  BC7BlockDecoder* m_decoder;
+  BC7BlockEncoder* m_encoder[MAX_BC7_THREADS]{};
+  BC7BlockDecoder* m_decoder{};
 
   // Encoder interfaces
   CodecError InitializeBC7Library();

@@ -724,7 +724,7 @@ void CCodec_DXTC::DecompressRGBBlock(float rgbBlock[BLOCK_SIZE_4X4X4],
 }
 
 float* CCodec_DXTC::CalculateColourWeightings(
-  std::uint8_t block[BLOCK_SIZE_4X4X4])
+  const std::uint8_t block[BLOCK_SIZE_4X4X4])
 {
   if (!m_bUseChannelWeighting)
     return nullptr;

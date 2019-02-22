@@ -40,8 +40,7 @@ CCodec_DXT3::CCodec_DXT3() : CCodec_DXTC(CT_DXT3)
 }
 
 CCodec_DXT3::~CCodec_DXT3()
-{
-}
+= default;
 
 CodecError CCodec_DXT3::Compress(CCodecBuffer& bufferIn,
                                  CCodecBuffer& bufferOut,
@@ -52,7 +51,7 @@ CodecError CCodec_DXT3::Compress(CCodecBuffer& bufferIn,
   if (m_nCompressionSpeed == CMP_Speed_SuperFast && m_bUseSSE2)
     return Compress_SuperFast(bufferIn, bufferOut, pFeedbackProc, pUser1,
                               pUser2);
-  else if ((m_nCompressionSpeed == CMP_Speed_Fast ||
+  if ((m_nCompressionSpeed == CMP_Speed_Fast ||
             m_nCompressionSpeed == CMP_Speed_SuperFast) &&
            m_bUseSSE)
     return Compress_Fast(bufferIn, bufferOut, pFeedbackProc, pUser1, pUser2);

@@ -56,8 +56,7 @@ CCodecBuffer_RG16F::CCodecBuffer_RG16F(
 }
 
 CCodecBuffer_RG16F::~CCodecBuffer_RG16F()
-{
-}
+= default;
 
 void CCodecBuffer_RG16F::Copy(CCodecBuffer& srcBuffer)
 {
@@ -187,10 +186,7 @@ bool CCodecBuffer_RG16F::WriteBlockA(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
 bool CCodecBuffer_RG16F::WriteBlockR(std::uint32_t x, std::uint32_t y,
@@ -214,13 +210,10 @@ bool CCodecBuffer_RG16F::WriteBlockB(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * 4)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * 4)]
 bool CCodecBuffer_RG16F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                        std::uint8_t w, std::uint8_t h,
                                        half block[])

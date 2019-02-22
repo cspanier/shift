@@ -78,7 +78,7 @@ public:
     int max_subsets, int prec);
   void SwapIndices(
     int iEndPoints[MAX_SUBSETS][MAX_END_POINTS][MAX_DIMENSION_BIG],
-    int iIndices[3][MAX_SUBSET_SIZE], int entryCount[MAX_SUBSETS],
+    int iIndices[3][MAX_SUBSET_SIZE], const int entryCount[MAX_SUBSETS],
     int max_subsets, int mode, int shape_pattern);
   bool TransformEndPoints(
     AMD_BC6H_Format& BC6H_data,

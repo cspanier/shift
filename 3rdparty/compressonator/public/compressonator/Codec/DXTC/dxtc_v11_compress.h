@@ -50,9 +50,9 @@ extern "C"
   void DXTCV11CompressBlockMinimal(std::uint32_t block_32[16],
                                    std::uint32_t block_dxtc[2]);
 
-  void DXTCV11CompressAlphaBlock(std::uint8_t block_8[16],
+  void DXTCV11CompressAlphaBlock(const std::uint8_t block_8[16],
                                  std::uint32_t block_dxtc[2]);
-  void DXTCV11CompressExplicitAlphaBlock(std::uint8_t block_8[16],
+  void DXTCV11CompressExplicitAlphaBlock(const std::uint8_t block_8[16],
                                          std::uint32_t block_dxtc[2]);
 
 #ifdef _WIN32

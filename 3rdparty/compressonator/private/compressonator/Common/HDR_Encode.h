@@ -84,7 +84,7 @@ extern float optQuantAnD_d(float data[MAX_ENTRIES][MAX_DIMENSION_BIG],
 extern void GetEndPoints(
   float EndPoints[MAX_SUBSETS][MAX_END_POINTS][MAX_DIMENSION_BIG],
   float outB[MAX_SUBSETS][MAX_SUBSET_SIZE][MAX_DIMENSION_BIG], int max_subsets,
-  int entryCount[MAX_SUBSETS]);
+  const int entryCount[MAX_SUBSETS]);
 extern int PARTITIONS[MAX_SUBSETS][MAX_PARTITIONS][MAX_SUBSET_SIZE];
 
 extern float ep_shaker_HD(float data[MAX_ENTRIES][MAX_DIMENSION_BIG],

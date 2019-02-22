@@ -30,6 +30,8 @@
 #include "compressonator/Common.h"
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
 
+#include <cmath>
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -49,27 +51,26 @@ CCodec_DXTC::CCodec_DXTC(CodecType codecType) : CCodec_Block_4x4(codecType)
 }
 
 CCodec_DXTC::~CCodec_DXTC()
-{
-}
+= default;
 
 bool CCodec_DXTC::SetParameter(const char* pszParamName, char* sValue)
 {
   if (sValue == nullptr)
     return false;
   if (strcmp(pszParamName, "UseChannelWeighting") == 0)
-    m_bUseChannelWeighting = std::stoi(sValue) > 0 ? true : false;
+    m_bUseChannelWeighting = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "UseAdaptiveWeighting") == 0)
-    m_bUseAdaptiveWeighting = std::stoi(sValue) > 0 ? true : false;
+    m_bUseAdaptiveWeighting = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "3DRefinement") == 0)
-    m_b3DRefinement = std::stoi(sValue) > 0 ? true : false;
+    m_b3DRefinement = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "RefinementSteps") == 0)
     m_nRefinementSteps = (std::uint8_t)std::stoi(sValue);
   else if (strcmp(pszParamName, "ForceFloatPath") == 0)
-    m_bUseFloat = std::stoi(sValue) > 0 ? true : false;
+    m_bUseFloat = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "CompressionSpeed") == 0)
     m_nCompressionSpeed = (CMP_Speed)std::stoi(sValue);
   else if (strcmp(pszParamName, "SwizzleChannels") == 0)
-    m_bSwizzleChannels = std::stoi(sValue) > 0 ? true : false;
+    m_bSwizzleChannels = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "WeightR") == 0)
   {
     float fValue = std::stof(sValue);
@@ -93,19 +94,19 @@ bool CCodec_DXTC::SetParameter(const char* pszParamName, char* sValue)
 bool CCodec_DXTC::SetParameter(const char* pszParamName, std::uint32_t dwValue)
 {
   if (strcmp(pszParamName, "UseChannelWeighting") == 0)
-    m_bUseChannelWeighting = dwValue ? true : false;
+    m_bUseChannelWeighting = dwValue != 0;
   else if (strcmp(pszParamName, "UseAdaptiveWeighting") == 0)
-    m_bUseAdaptiveWeighting = dwValue ? true : false;
+    m_bUseAdaptiveWeighting = dwValue != 0;
   else if (strcmp(pszParamName, "3DRefinement") == 0)
-    m_b3DRefinement = dwValue ? true : false;
+    m_b3DRefinement = dwValue != 0;
   else if (strcmp(pszParamName, "RefinementSteps") == 0)
     m_nRefinementSteps = (std::uint8_t)dwValue;
   else if (strcmp(pszParamName, "ForceFloatPath") == 0)
-    m_bUseFloat = dwValue ? true : false;
+    m_bUseFloat = dwValue != 0;
   else if (strcmp(pszParamName, "CompressionSpeed") == 0)
     m_nCompressionSpeed = (CMP_Speed)dwValue;
   else if (strcmp(pszParamName, "SwizzleChannels") == 0)
-    m_bSwizzleChannels = dwValue > 0 ? true : false;
+    m_bSwizzleChannels = dwValue > 0;
   else
     return CCodec_Block_4x4::SetParameter(pszParamName, dwValue);
   return true;
@@ -146,11 +147,11 @@ bool CCodec_DXTC::SetParameter(const char* pszParamName, float fValue)
 bool CCodec_DXTC::GetParameter(const char* pszParamName, float& fValue)
 {
   if (strcmp(pszParamName, "WeightR") == 0)
-    fValue = sqrt(m_fBaseChannelWeights[0]);
+    fValue = std::sqrt(m_fBaseChannelWeights[0]);
   else if (strcmp(pszParamName, "WeightG") == 0)
-    fValue = sqrt(m_fBaseChannelWeights[1]);
+    fValue = std::sqrt(m_fBaseChannelWeights[1]);
   else if (strcmp(pszParamName, "WeightB") == 0)
-    fValue = sqrt(m_fBaseChannelWeights[2]);
+    fValue = std::sqrt(m_fBaseChannelWeights[2]);
   else
     return CCodec_Block_4x4::GetParameter(pszParamName, fValue);
   return true;

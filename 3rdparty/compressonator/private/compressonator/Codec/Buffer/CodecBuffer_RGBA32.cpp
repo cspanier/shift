@@ -56,8 +56,7 @@ CCodecBuffer_RGBA32::CCodecBuffer_RGBA32(
 }
 
 CCodecBuffer_RGBA32::~CCodecBuffer_RGBA32()
-{
-}
+= default;
 
 void CCodecBuffer_RGBA32::Copy(CCodecBuffer& srcBuffer)
 {
@@ -94,7 +93,7 @@ bool CCodecBuffer_RGBA32::ReadBlock(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData =
+    auto* pData =
       (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -129,7 +128,7 @@ bool CCodecBuffer_RGBA32::WriteBlock(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
+    auto* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
                                             (x * 4 * sizeof(std::uint32_t)));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {
@@ -196,7 +195,7 @@ bool CCodecBuffer_RGBA32::WriteBlockB(std::uint32_t x, std::uint32_t y,
   return WriteBlock(x, y, w, h, dwBlock, RGBA32_OFFSET_B);
 }
 
-#define GET_PIXEL(i, j) &dwBlock[(((j * w) + i) * 4)]
+#define GET_PIXEL(i, j) &dwBlock[((((j) * w) + (i)) * 4)]
 bool CCodecBuffer_RGBA32::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                         std::uint8_t w, std::uint8_t h,
                                         std::uint32_t dwBlock[])
@@ -214,7 +213,7 @@ bool CCodecBuffer_RGBA32::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData =
+    auto* pData =
       (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -249,7 +248,7 @@ bool CCodecBuffer_RGBA32::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData =
+    auto* pData =
       (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     memcpy(pData, GET_PIXEL(0, j), dwWidth * nPixelSize);
   }

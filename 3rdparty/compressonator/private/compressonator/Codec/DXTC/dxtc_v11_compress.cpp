@@ -129,14 +129,14 @@
 // reasons) Possibly test if 3 colour blocks would generate better results in
 // some cases (done, not apparent in most test images)
 
-#include <math.h>
-#include <assert.h>
-#include <string.h>
+#include <cmath>
+#include <cassert>
+#include <cstring>
 
 #include "compressonator/Codec/DXTC/dxtc_v11_compress.h"
 
 static void DXTCDecompressBlock(std::uint32_t block_32[16],
-                                std::uint32_t block_dxtc[2])
+                                const std::uint32_t block_dxtc[2])
 {
   std::uint32_t c0, c1, c2, c3;
   std::uint32_t r0, g0, b0, r1, g1, b1;
@@ -237,7 +237,7 @@ static void DXTCDecompressBlock(std::uint32_t block_32[16],
 }
 
 static void DXTCDecompressAlphaBlock(std::uint8_t block_8[16],
-                                     std::uint32_t block_dxtc[2])
+                                     const std::uint32_t block_dxtc[2])
 {
   std::uint8_t v[8];
 
@@ -339,10 +339,10 @@ static void DXTCDecompressAlphaBlock(std::uint8_t block_8[16],
 
 #define CS_RED(r, g, b) (r)
 #define CS_GREEN(r, g, b) (g)
-#define CS_BLUE(r, g, b) ((b + g) * 0.5f)
+#define CS_BLUE(r, g, b) (((b) + (g)) * 0.5f)
 #define DCS_RED(r, g, b) (r)
 #define DCS_GREEN(r, g, b) (g)
-#define DCS_BLUE(r, g, b) ((2.0f * b) - g)
+#define DCS_BLUE(r, g, b) ((2.0f * (b)) - (g))
 
 #elif AXIS_MUNGE2
 
@@ -359,15 +359,15 @@ static void DXTCDecompressAlphaBlock(std::uint8_t block_8[16],
 
 #define ROUND_AND_CLAMP(v, shift)          \
   {                                        \
-    if (v < 0)                             \
-      v = 0;                               \
-    else if (v > 255)                      \
-      v = 255;                             \
+    if ((v) < 0)                             \
+      (v) = 0;                               \
+    else if ((v) > 255)                      \
+      (v) = 255;                             \
     else                                   \
-      v += (0x80 >> shift) - (v >> shift); \
+      (v) += (0x80 >> (shift)) - ((v) >> (shift)); \
   }
 
-void DXTCV11CompressExplicitAlphaBlock(std::uint8_t block_8[16],
+void DXTCV11CompressExplicitAlphaBlock(const std::uint8_t block_8[16],
                                        std::uint32_t block_dxtc[2])
 {
   int i;
@@ -1931,7 +1931,7 @@ xstep*i1, y + 3 * ystep))
 
 #ifndef _WIN64
 
-void DXTCV11CompressAlphaBlock(std::uint8_t block_8[16],
+void DXTCV11CompressAlphaBlock(const std::uint8_t block_8[16],
                                std::uint32_t block_dxtc[2])
 {
   int i;

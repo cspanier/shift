@@ -40,7 +40,7 @@ private:
                                 std::uint8_t in[COMPRESSED_BLOCK_SIZE],
                                 std::uint32_t endpoint[2][MAX_DIMENSION_BIG]);
 
-  std::uint32_t ReadBit(std::uint8_t base[]);
+  std::uint32_t ReadBit(const std::uint8_t base[]);
   std::uint32_t m_blockMode;
   std::uint32_t m_partition;
   std::uint32_t m_rotation;

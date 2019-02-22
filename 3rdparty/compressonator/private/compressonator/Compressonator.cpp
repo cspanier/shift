@@ -33,19 +33,19 @@
 
 #include "compressonator/Compressonator.h"  // User shared: Keep priviate code out of this header
 #include "compressonator/Compress.h"
-#include <assert.h>
+#include <cassert>
 #include "compressonator/Internal/debug.h"
 
-extern CodecType GetCodecType(CMP_FORMAT format);
+extern CodecType GetCodecType(cmp_format format);
 extern CMP_ERROR GetError(CodecError err);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-extern bool IsFloatFormat(CMP_FORMAT InFormat);
-extern CMP_ERROR Byte2Float(short* hfBlock, std::uint8_t* cBlock,
+
+extern bool IsFloatFormat(cmp_format InFormat);
+extern CMP_ERROR Byte2Float(short* hfBlock, const std::uint8_t* cBlock,
                             std::uint32_t dwBlockSize);
 extern CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
-                            CMP_Texture* srcTexture, CMP_FORMAT destFormat,
+                            CMP_Texture* srcTexture, cmp_format destFormat,
                             const CMP_CompressOptions* pOptions);
-#endif
+
 extern CMP_ERROR CheckTexture(const CMP_Texture* pTexture, bool bSource);
 extern CMP_ERROR CompressTexture(const CMP_Texture* pSourceTexture,
                                  CMP_Texture* pDestTexture,
@@ -71,392 +71,81 @@ std::uint32_t CMP_CalculateBufferSize(const CMP_Texture* pTexture)
   if (pTexture == nullptr)
     return 0;
 
-  assert(pTexture->dwSize == sizeof(CMP_Texture));
-  if (pTexture->dwSize != sizeof(CMP_Texture))
+  assert(pTexture->width > 0);
+  if (pTexture->width <= 0)
     return 0;
 
-  assert(pTexture->dwWidth > 0);
-  if (pTexture->dwWidth <= 0)
+  assert(pTexture->height > 0);
+  if (pTexture->height <= 0)
     return 0;
 
-  assert(pTexture->dwHeight > 0);
-  if (pTexture->dwHeight <= 0)
-    return 0;
-
-  assert(pTexture->format >= CMP_FORMAT_ARGB_8888 &&
-         pTexture->format <= CMP_FORMAT_MAX);
-  if (pTexture->format < CMP_FORMAT_ARGB_8888 ||
-      pTexture->format > CMP_FORMAT_MAX)
-    return 0;
-
-  return CalcBufferSize(pTexture->format, pTexture->dwWidth, pTexture->dwHeight,
-                        pTexture->dwPitch, pTexture->nBlockWidth,
-                        pTexture->nBlockHeight);
+  return CalcBufferSize(pTexture->format, pTexture->width, pTexture->height,
+                        pTexture->pitch, pTexture->block_width,
+                        pTexture->block_height);
 }
 
-std::uint32_t CalcBufferSize(CMP_FORMAT format, std::uint32_t dwWidth,
-                             std::uint32_t dwHeight, std::uint32_t dwPitch,
-                             std::uint8_t nBlockWidth,
-                             std::uint8_t nBlockHeight)
+std::uint32_t CalcBufferSize(cmp_format format, std::uint32_t width,
+                             std::uint32_t height, std::uint32_t pitch,
+                             std::uint8_t block_width,
+                             std::uint8_t block_height)
 {
   switch (format)
   {
-  case CMP_FORMAT_RGBA_8888:
-  case CMP_FORMAT_BGRA_8888:
-  case CMP_FORMAT_ARGB_8888:
-  case CMP_FORMAT_ARGB_2101010:
-    return ((dwPitch) ? (dwPitch * dwHeight) : (dwWidth * 4 * dwHeight));
+  case cmp_format::RGBA_8888:
+  case cmp_format::BGRA_8888:
+  case cmp_format::ARGB_8888:
+  case cmp_format::ARGB_2101010:
+    return ((pitch) ? (pitch * height) : (width * 4 * height));
 
-  case CMP_FORMAT_BGR_888:
-  case CMP_FORMAT_RGB_888:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : ((((dwWidth * 3) + 3) >> 2) * 4 * dwHeight));
+  case cmp_format::BGR_888:
+  case cmp_format::RGB_888:
+    return ((pitch) ? (pitch * height)
+                    : ((((width * 3) + 3) >> 2) * 4 * height));
 
-  case CMP_FORMAT_RG_8:
-    return ((dwPitch) ? (dwPitch * dwHeight) : (dwWidth * 2 * dwHeight));
+  case cmp_format::RG_8:
+    return ((pitch) ? (pitch * height) : (width * 2 * height));
 
-  case CMP_FORMAT_R_8:
-    return ((dwPitch) ? (dwPitch * dwHeight) : (dwWidth * dwHeight));
+  case cmp_format::R_8:
+    return ((pitch) ? (pitch * height) : (width * height));
 
-  case CMP_FORMAT_ARGB_16:
-  case CMP_FORMAT_ARGB_16F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 4 * sizeof(std::uint16_t) * dwHeight));
+  case cmp_format::ARGB_16:
+  case cmp_format::ARGB_16F:
+    return ((pitch) ? (pitch * height)
+                    : (width * 4 * sizeof(std::uint16_t) * height));
 
-  case CMP_FORMAT_RG_16:
-  case CMP_FORMAT_RG_16F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 4 * sizeof(std::uint16_t) * dwHeight));
+  case cmp_format::RG_16:
+  case cmp_format::RG_16F:
+    return ((pitch) ? (pitch * height)
+                    : (width * 4 * sizeof(std::uint16_t) * height));
 
-  case CMP_FORMAT_R_16:
-  case CMP_FORMAT_R_16F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 4 * sizeof(std::uint16_t) * dwHeight));
-
-#ifdef ARGB_32_SUPPORT
-  case CMP_FORMAT_ARGB_32:
-#endif  // ARGB_32_SUPPORT
-  case CMP_FORMAT_ARGB_32F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 4 * sizeof(float) * dwHeight));
+  case cmp_format::R_16:
+  case cmp_format::R_16F:
+    return ((pitch) ? (pitch * height)
+                    : (width * 4 * sizeof(std::uint16_t) * height));
 
 #ifdef ARGB_32_SUPPORT
-  case CMP_FORMAT_RG_32:
+  case cmp_format::ARGB_32:
 #endif  // ARGB_32_SUPPORT
-  case CMP_FORMAT_RG_32F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 2 * sizeof(float) * dwHeight));
+  case cmp_format::ARGB_32F:
+    return ((pitch) ? (pitch * height) : (width * 4 * sizeof(float) * height));
 
 #ifdef ARGB_32_SUPPORT
-  case CMP_FORMAT_R_32:
+  case cmp_format::RG_32:
 #endif  // ARGB_32_SUPPORT
-  case CMP_FORMAT_R_32F:
-    return ((dwPitch) ? (dwPitch * dwHeight)
-                      : (dwWidth * 1 * sizeof(float) * dwHeight));
+  case cmp_format::RG_32F:
+    return ((pitch) ? (pitch * height) : (width * 2 * sizeof(float) * height));
+
+#ifdef ARGB_32_SUPPORT
+  case cmp_format::R_32:
+#endif  // ARGB_32_SUPPORT
+  case cmp_format::R_32F:
+    return ((pitch) ? (pitch * height) : (width * 1 * sizeof(float) * height));
 
   default:
-    return CalcBufferSize(GetCodecType(format), dwWidth, dwHeight, nBlockWidth,
-                          nBlockHeight);
+    return CalcBufferSize(GetCodecType(format), width, height, block_width,
+                          block_height);
   }
 }
-
-#ifndef USE_OLD_SWIZZLE
-void CMP_Map_Bytes(std::uint8_t* src, int width, int height,
-                   CMP_MAP_BYTES_SET map, std::uint8_t offset)
-{
-  int i, j;
-  std::uint8_t b[4];
-
-  for (i = 0; i < height; i++)
-  {
-    for (j = 0; j < width; j++)
-    {
-      if (offset == 4)
-      {
-        b[0] = *src;
-        b[1] = *(src + 1);
-        b[2] = *(src + 2);
-        b[3] = *(src + 3);
-        *(src) = b[map.B0];
-        *(src + 1) = b[map.B1];
-        *(src + 2) = b[map.B2];
-        *(src + 3) = b[map.B3];
-        src = src + 4;  // move to next set of bytes
-      }
-      else if (offset == 3)
-      {
-        b[0] = *src;
-        b[1] = *(src + 1);
-        b[2] = *(src + 2);
-        b[3] = *(src + 3);
-        *(src) = b[map.B0];
-        *(src + 1) = b[map.B1];
-        *(src + 2) = b[map.B2];
-        src = src + 3;  // move to next set of bytes
-      }
-    }
-  }
-}
-
-// For now this function will only handle a single case
-// where the source data remains the same size and only RGBA channels
-// are swizzled according output compressed formats,
-// if source is compressed then no change is performed
-
-void CMP_PrepareSourceForCMP_Destination(CMP_Texture* pTexture,
-                                         CMP_FORMAT DestFormat)
-{
-
-  std::uint32_t dwWidth = pTexture->dwWidth;
-  std::uint32_t dwHeight = pTexture->dwHeight;
-  CMP_FORMAT newSrcFormat = pTexture->format;
-  std::uint8_t* pData;
-
-  pData = pTexture->pData;
-
-  switch (newSrcFormat)
-  {
-  case CMP_FORMAT_BGRA_8888:
-  {
-    switch (DestFormat)
-    {
-    case CMP_FORMAT_ATI1N:
-    case CMP_FORMAT_ATI2N:
-    case CMP_FORMAT_ATI2N_XY:
-    case CMP_FORMAT_ATI2N_DXT5:
-    case CMP_FORMAT_ATC_RGB:
-    case CMP_FORMAT_ATC_RGBA_Explicit:
-    case CMP_FORMAT_ATC_RGBA_Interpolated:
-    case CMP_FORMAT_BC1:
-    case CMP_FORMAT_BC2:
-    case CMP_FORMAT_BC3:
-    case CMP_FORMAT_BC4:
-    case CMP_FORMAT_BC5:
-    case CMP_FORMAT_DXT1:
-    case CMP_FORMAT_DXT3:
-    case CMP_FORMAT_DXT5:
-    case CMP_FORMAT_DXT5_xGBR:
-    case CMP_FORMAT_DXT5_RxBG:
-    case CMP_FORMAT_DXT5_RBxG:
-    case CMP_FORMAT_DXT5_xRBG:
-    case CMP_FORMAT_DXT5_RGxB:
-    case CMP_FORMAT_DXT5_xGxR:
-    {
-      // The source format is correct for these codecs
-      break;
-    }
-    case CMP_FORMAT_ASTC:
-    case CMP_FORMAT_BC6H:
-    case CMP_FORMAT_BC7:
-    case CMP_FORMAT_GT:
-    case CMP_FORMAT_ETC_RGB:
-    case CMP_FORMAT_ETC2_RGB:
-    case CMP_FORMAT_ETC2_SRGB:
-    case CMP_FORMAT_ETC2_RGBA:
-    case CMP_FORMAT_ETC2_RGBA1:
-    case CMP_FORMAT_ETC2_SRGBA:
-    case CMP_FORMAT_ETC2_SRGBA1:
-    {
-      newSrcFormat = CMP_FORMAT_RGBA_8888;
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {2, 1, 0, 3}, 4);
-      break;
-    }
-    default:
-      break;
-    }
-    break;
-  }
-  case CMP_FORMAT_RGBA_8888:
-  {
-    switch (DestFormat)
-    {
-    case CMP_FORMAT_ATI1N:
-    case CMP_FORMAT_ATI2N:
-    case CMP_FORMAT_ATI2N_XY:
-    case CMP_FORMAT_ATI2N_DXT5:
-    case CMP_FORMAT_ATC_RGB:
-    case CMP_FORMAT_ATC_RGBA_Explicit:
-    case CMP_FORMAT_ATC_RGBA_Interpolated:
-    case CMP_FORMAT_BC1:
-    case CMP_FORMAT_BC2:
-    case CMP_FORMAT_BC3:
-    case CMP_FORMAT_BC4:
-    case CMP_FORMAT_BC5:
-    case CMP_FORMAT_DXT1:
-    case CMP_FORMAT_DXT3:
-    case CMP_FORMAT_DXT5:
-    case CMP_FORMAT_DXT5_xGBR:
-    case CMP_FORMAT_DXT5_RxBG:
-    case CMP_FORMAT_DXT5_RBxG:
-    case CMP_FORMAT_DXT5_xRBG:
-    case CMP_FORMAT_DXT5_RGxB:
-    case CMP_FORMAT_DXT5_xGxR:
-    {
-      newSrcFormat = CMP_FORMAT_BGRA_8888;
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {2, 1, 0, 3}, 4);
-      break;
-    }
-    case CMP_FORMAT_ASTC:
-    case CMP_FORMAT_BC6H:
-    case CMP_FORMAT_BC7:
-    case CMP_FORMAT_ETC_RGB:
-    case CMP_FORMAT_ETC2_RGB:
-    case CMP_FORMAT_ETC2_SRGB:
-    case CMP_FORMAT_ETC2_RGBA:
-    case CMP_FORMAT_ETC2_RGBA1:
-    case CMP_FORMAT_ETC2_SRGBA:
-    case CMP_FORMAT_ETC2_SRGBA1:
-    case CMP_FORMAT_GT:
-    {
-      // format is correct
-    }
-    default:
-      break;
-    }
-    break;
-  }
-  case CMP_FORMAT_ARGB_8888:
-  {
-    switch (DestFormat)
-    {
-    case CMP_FORMAT_ATI1N:
-    case CMP_FORMAT_ATI2N:
-    case CMP_FORMAT_ATI2N_XY:
-    case CMP_FORMAT_ATI2N_DXT5:
-    case CMP_FORMAT_ATC_RGB:
-    case CMP_FORMAT_ATC_RGBA_Explicit:
-    case CMP_FORMAT_ATC_RGBA_Interpolated:
-    case CMP_FORMAT_BC1:
-    case CMP_FORMAT_BC2:
-    case CMP_FORMAT_BC3:
-    case CMP_FORMAT_BC4:
-    case CMP_FORMAT_BC5:
-    case CMP_FORMAT_DXT1:
-    case CMP_FORMAT_DXT3:
-    case CMP_FORMAT_DXT5:
-    case CMP_FORMAT_DXT5_xGBR:
-    case CMP_FORMAT_DXT5_RxBG:
-    case CMP_FORMAT_DXT5_RBxG:
-    case CMP_FORMAT_DXT5_xRBG:
-    case CMP_FORMAT_DXT5_RGxB:
-    case CMP_FORMAT_DXT5_xGxR:
-    {
-      newSrcFormat = CMP_FORMAT_BGRA_8888;
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {3, 2, 1, 0}, 4);
-      break;
-    }
-    case CMP_FORMAT_ASTC:
-    case CMP_FORMAT_BC6H:
-    case CMP_FORMAT_BC7:
-    case CMP_FORMAT_ETC_RGB:
-    case CMP_FORMAT_ETC2_RGB:
-    case CMP_FORMAT_ETC2_SRGB:
-    case CMP_FORMAT_ETC2_RGBA:
-    case CMP_FORMAT_ETC2_RGBA1:
-    case CMP_FORMAT_ETC2_SRGBA:
-    case CMP_FORMAT_ETC2_SRGBA1:
-    case CMP_FORMAT_GT:
-    {
-      newSrcFormat = CMP_FORMAT_RGBA_8888;
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {1, 2, 3, 0}, 4);
-      break;
-    }
-    default:
-      break;
-    }
-    break;
-  }
-  default:
-    break;
-  }
-
-  // Update Source format to new one
-  pTexture->format = newSrcFormat;
-}
-
-// For now this function will only handle a single case
-// where the source data remains the same size and only RGBA channels
-// are swizzled according output compressed formats,
-// if source is compressed then no change is performed
-
-void CMP_PrepareCMPSourceForIMG_Destination(CMP_Texture* pDstTexture,
-                                            CMP_FORMAT SrcFormat)
-{
-
-  std::uint32_t dwWidth = pDstTexture->dwWidth;
-  std::uint32_t dwHeight = pDstTexture->dwHeight;
-  CMP_FORMAT newDstFormat = pDstTexture->format;
-  std::uint8_t* pData;
-
-  pData = pDstTexture->pData;
-
-  switch (SrcFormat)
-  {
-    // decompressed Data  is in the form BGRA
-  case CMP_FORMAT_ATI1N:
-  case CMP_FORMAT_ATI2N:
-  case CMP_FORMAT_ATI2N_XY:
-  case CMP_FORMAT_ATI2N_DXT5:
-  case CMP_FORMAT_ATC_RGB:
-  case CMP_FORMAT_ATC_RGBA_Explicit:
-  case CMP_FORMAT_ATC_RGBA_Interpolated:
-  case CMP_FORMAT_BC1:
-  case CMP_FORMAT_BC2:
-  case CMP_FORMAT_BC3:
-  case CMP_FORMAT_BC4:
-  case CMP_FORMAT_BC5:
-  case CMP_FORMAT_DXT1:
-  case CMP_FORMAT_DXT3:
-  case CMP_FORMAT_DXT5:
-  case CMP_FORMAT_DXT5_xGBR:
-  case CMP_FORMAT_DXT5_RxBG:
-  case CMP_FORMAT_DXT5_RBxG:
-  case CMP_FORMAT_DXT5_xRBG:
-  case CMP_FORMAT_DXT5_RGxB:
-  case CMP_FORMAT_DXT5_xGxR:
-  {
-    switch (newDstFormat)
-    {
-    case CMP_FORMAT_BGRA_8888:
-      break;
-    case CMP_FORMAT_RGBA_8888:
-    {
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {2, 1, 0, 3}, 4);
-      break;
-    }
-    default:
-      break;
-    }
-  }
-  // decompressed Data  is in the form RGBA_8888
-  case CMP_FORMAT_ASTC:
-  case CMP_FORMAT_BC6H:
-  case CMP_FORMAT_BC7:
-  case CMP_FORMAT_GT:
-  case CMP_FORMAT_ETC_RGB:
-  case CMP_FORMAT_ETC2_RGB:
-  case CMP_FORMAT_ETC2_SRGB:
-  case CMP_FORMAT_ETC2_RGBA:
-  case CMP_FORMAT_ETC2_RGBA1:
-  case CMP_FORMAT_ETC2_SRGBA:
-  case CMP_FORMAT_ETC2_SRGBA1:
-  {
-    switch (newDstFormat)
-    {
-    case CMP_FORMAT_RGBA_8888:
-      break;
-    case CMP_FORMAT_BGRA_8888:
-    {
-      CMP_Map_Bytes(pData, dwWidth, dwHeight, {2, 1, 0, 3}, 4);
-      break;
-    }
-    default:
-      break;
-    }
-  }
-  }
-}
-#endif
 
 CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
                              CMP_Texture* pDestTexture,
@@ -468,49 +157,48 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
   if (tc_err != CMP_OK)
     return tc_err;
 
-#ifdef ENABLE_MAKE_COMPATIBLE_API
   bool srcFloat = IsFloatFormat(pSourceTexture->format);
   bool destFloat = IsFloatFormat(pDestTexture->format);
 
   bool newBuffer = false;
   if (srcFloat && !destFloat)
   {
-    std::uint32_t size = pSourceTexture->dwWidth * pSourceTexture->dwHeight;
-    float* pfData = new float[pSourceTexture->dwDataSize];
+    std::uint32_t size = pSourceTexture->width * pSourceTexture->height;
+    auto* pfData = new float[pSourceTexture->data_size];
 
-    memcpy(pfData, pSourceTexture->pData, pSourceTexture->dwDataSize);
+    memcpy(pfData, pSourceTexture->data, pSourceTexture->data_size);
 
-    std::uint8_t* byteData = new std::uint8_t[size * 4];
+    auto* byteData = new std::uint8_t[size * 4];
 
     Float2Byte(byteData, pfData, pSourceTexture, pDestTexture->format,
                pOptions);
 
     delete[] pfData;
-    pSourceTexture->pData = byteData;
+    pSourceTexture->data = byteData;
 
-    pSourceTexture->format = CMP_FORMAT_ARGB_8888;
-    pSourceTexture->dwDataSize = size * 4;
+    pSourceTexture->format = cmp_format::ARGB_8888;
+    pSourceTexture->data_size = size * 4;
     newBuffer = true;
   }
 
   else if (!srcFloat && destFloat)
   {
-    std::uint32_t size = pSourceTexture->dwWidth * pSourceTexture->dwHeight;
-    std::uint8_t* pbData = pSourceTexture->pData;
+    std::uint32_t size = pSourceTexture->width * pSourceTexture->height;
+    std::uint8_t* pbData = pSourceTexture->data;
     auto* hfloatData = new short[size * 4];
     Byte2Float(hfloatData, pbData, size * 4);
-    pSourceTexture->pData = (std::uint8_t*)hfloatData;
-    pSourceTexture->format = CMP_FORMAT_ARGB_16F;
-    pSourceTexture->dwDataSize = size * 4 * 2;
+    pSourceTexture->data = (std::uint8_t*)hfloatData;
+    pSourceTexture->format = cmp_format::ARGB_16F;
+    pSourceTexture->data_size = size * 4 * 2;
     newBuffer = true;
   }
-#endif
+
   tc_err = CheckTexture(pDestTexture, false);
   if (tc_err != CMP_OK)
     return tc_err;
 
-  if (pSourceTexture->dwWidth != pDestTexture->dwWidth ||
-      pSourceTexture->dwHeight != pDestTexture->dwHeight)
+  if (pSourceTexture->width != pDestTexture->width ||
+      pSourceTexture->height != pDestTexture->height)
     return CMP_ERR_SIZE_MISMATCH;
 
   CodecType srcType = GetCodecType(pSourceTexture->format);
@@ -527,8 +215,8 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
   {
     // Easy case ?
     if (pSourceTexture->format == pDestTexture->format &&
-        pSourceTexture->dwPitch == pDestTexture->dwPitch)
-      memcpy(pDestTexture->pData, pSourceTexture->pData,
+        pSourceTexture->pitch == pDestTexture->pitch)
+      memcpy(pDestTexture->data, pSourceTexture->data,
              CMP_CalculateBufferSize(pSourceTexture));
     else
     {
@@ -537,18 +225,18 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
       CodecBufferType destBufferType = GetCodecBufferType(pDestTexture->format);
 
       CCodecBuffer* pSrcBuffer = CreateCodecBuffer(
-        srcBufferType, pSourceTexture->nBlockWidth,
-        pSourceTexture->nBlockHeight, pSourceTexture->nBlockDepth,
-        pSourceTexture->dwWidth, pSourceTexture->dwHeight,
-        pSourceTexture->dwPitch, pSourceTexture->pData);
+        srcBufferType, pSourceTexture->block_width,
+        pSourceTexture->block_height, pSourceTexture->block_depth,
+        pSourceTexture->width, pSourceTexture->height, pSourceTexture->pitch,
+        pSourceTexture->data);
       assert(pSrcBuffer);
       if (!pSrcBuffer)
         return CMP_ERR_GENERIC;
 
       CCodecBuffer* pDestBuffer = CreateCodecBuffer(
-        destBufferType, pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-        pDestTexture->nBlockDepth, pDestTexture->dwWidth,
-        pDestTexture->dwHeight, pDestTexture->dwPitch, pDestTexture->pData);
+        destBufferType, pDestTexture->block_width, pDestTexture->block_height,
+        pDestTexture->block_depth, pDestTexture->width, pDestTexture->height,
+        pDestTexture->pitch, pDestTexture->data);
       assert(pDestBuffer);
       if (!pDestBuffer)
       {
@@ -566,12 +254,8 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
 
     return CMP_OK;
   }
-  else if (srcType == CT_None && destType != CT_None)
+  if (srcType == CT_None && destType != CT_None)
   {
-
-#ifndef USE_OLD_SWIZZLE
-    CMP_PrepareSourceForCMP_Destination(pSourceTexture, pDestTexture->format);
-#endif
 
 #ifdef THREADED_COMPRESS
     // Note:
@@ -580,7 +264,7 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
     // has set DiableMultiThreading then numThreads will be set to 1 (regradless
     // of its original value)
     if (((!pOptions || !pOptions->bDisableMultiThreading) &&
-         f_dwProcessorCount > 1) &&
+         std::thread::hardware_concurrency() > 1) &&
         (destType != CT_BC7) && (destType != CT_BC6H) &&
         (destType != CT_BC6H_SF)
 #ifdef USE_GTC_HDR
@@ -590,29 +274,24 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
     {
       tc_err = ThreadedCompressTexture(pSourceTexture, pDestTexture, pOptions,
                                        pFeedbackProc, pUser1, pUser2, destType);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
+      if (pSourceTexture->data && newBuffer)
       {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
+        free(pSourceTexture->data);
+        pSourceTexture->data = nullptr;
       }
-#endif
       return tc_err;
     }
-    else
+
 #endif  // THREADED_COMPRESS
+
+    tc_err = CompressTexture(pSourceTexture, pDestTexture, pOptions,
+                             pFeedbackProc, pUser1, pUser2, destType);
+    if (pSourceTexture->data && newBuffer)
     {
-      tc_err = CompressTexture(pSourceTexture, pDestTexture, pOptions,
-                               pFeedbackProc, pUser1, pUser2, destType);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
-      {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
-      }
-#endif
-      return tc_err;
+      free(pSourceTexture->data);
+      pSourceTexture->data = nullptr;
     }
+    return tc_err;
   }
   else if (srcType != CT_None && destType == CT_None)
   {
@@ -622,31 +301,29 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
     assert(pCodec);
     if (pCodec == nullptr)
     {
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
+      if (pSourceTexture->data && newBuffer)
       {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
+        free(pSourceTexture->data);
+        pSourceTexture->data = nullptr;
       }
-#endif
       return CMP_ERR_UNABLE_TO_INIT_CODEC;
     }
 
     CodecBufferType destBufferType = GetCodecBufferType(pDestTexture->format);
 
     CCodecBuffer* pSrcBuffer = pCodec->CreateBuffer(
-      pSourceTexture->nBlockWidth, pSourceTexture->nBlockHeight,
-      pSourceTexture->nBlockDepth, pSourceTexture->dwWidth,
-      pSourceTexture->dwHeight, pSourceTexture->dwPitch, pSourceTexture->pData);
+      pSourceTexture->block_width, pSourceTexture->block_height,
+      pSourceTexture->block_depth, pSourceTexture->width,
+      pSourceTexture->height, pSourceTexture->pitch, pSourceTexture->data);
 
-    pDestTexture->nBlockWidth = pSourceTexture->nBlockWidth;
-    pDestTexture->nBlockHeight = pSourceTexture->nBlockHeight;
-    pDestTexture->nBlockDepth = pSourceTexture->nBlockDepth;
+    pDestTexture->block_width = pSourceTexture->block_width;
+    pDestTexture->block_height = pSourceTexture->block_height;
+    pDestTexture->block_depth = pSourceTexture->block_depth;
 
     CCodecBuffer* pDestBuffer = CreateCodecBuffer(
-      destBufferType, pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-      pDestTexture->nBlockDepth, pDestTexture->dwWidth, pDestTexture->dwHeight,
-      pDestTexture->dwPitch, pDestTexture->pData);
+      destBufferType, pDestTexture->block_width, pDestTexture->block_height,
+      pDestTexture->block_depth, pDestTexture->width, pDestTexture->height,
+      pDestTexture->pitch, pDestTexture->data);
 
     // assert(pDestBuffer);
     // assert(pSrcBuffer);
@@ -656,43 +333,34 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
       SAFE_DELETE(pCodec);
       SAFE_DELETE(pSrcBuffer);
       SAFE_DELETE(pDestBuffer);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
+      if (pSourceTexture->data && newBuffer)
       {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
+        free(pSourceTexture->data);
+        pSourceTexture->data = nullptr;
       }
-#endif
       return CMP_ERR_GENERIC;
     }
 
     DISABLE_FP_EXCEPTIONS;
 
-    pSrcBuffer->SetBlockHeight(pSourceTexture->nBlockHeight);
-    pSrcBuffer->SetBlockWidth(pSourceTexture->nBlockWidth);
-    pSrcBuffer->SetBlockDepth(pSourceTexture->nBlockDepth);
+    pSrcBuffer->SetBlockHeight(pSourceTexture->block_height);
+    pSrcBuffer->SetBlockWidth(pSourceTexture->block_width);
+    pSrcBuffer->SetBlockDepth(pSourceTexture->block_depth);
     pSrcBuffer->SetFormat(pSourceTexture->format);
 
     CodecError err1 = pCodec->Decompress(*pSrcBuffer, *pDestBuffer,
                                          pFeedbackProc, pUser1, pUser2);
     RESTORE_FP_EXCEPTIONS;
 
-#ifndef USE_OLD_SWIZZLE
-    CMP_PrepareCMPSourceForIMG_Destination(pDestTexture,
-                                           pSourceTexture->format);
-#endif
-
     SAFE_DELETE(pCodec);
     SAFE_DELETE(pSrcBuffer);
     SAFE_DELETE(pDestBuffer);
 
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-    if (pSourceTexture->pData && newBuffer)
+    if (pSourceTexture->data && newBuffer)
     {
-      free(pSourceTexture->pData);
-      pSourceTexture->pData = nullptr;
+      free(pSourceTexture->data);
+      pSourceTexture->data = nullptr;
     }
-#endif
     return GetError(err1);
   }
   else  // Decompressing & then compressing
@@ -707,27 +375,25 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
     {
       SAFE_DELETE(pCodecIn);
       SAFE_DELETE(pCodecOut);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
+      if (pSourceTexture->data && newBuffer)
       {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
+        free(pSourceTexture->data);
+        pSourceTexture->data = nullptr;
       }
-#endif
       return CMP_ERR_UNABLE_TO_INIT_CODEC;
     }
 
     CCodecBuffer* pSrcBuffer = pCodecIn->CreateBuffer(
-      pSourceTexture->nBlockWidth, pSourceTexture->nBlockHeight,
-      pSourceTexture->nBlockDepth, pSourceTexture->dwWidth,
-      pSourceTexture->dwHeight, pSourceTexture->dwPitch, pSourceTexture->pData);
+      pSourceTexture->block_width, pSourceTexture->block_height,
+      pSourceTexture->block_depth, pSourceTexture->width,
+      pSourceTexture->height, pSourceTexture->pitch, pSourceTexture->data);
     CCodecBuffer* pTempBuffer = CreateCodecBuffer(
-      CBT_RGBA32F, pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-      pDestTexture->nBlockDepth, pDestTexture->dwWidth, pDestTexture->dwHeight);
+      CBT_RGBA32F, pDestTexture->block_width, pDestTexture->block_height,
+      pDestTexture->block_depth, pDestTexture->width, pDestTexture->height);
     CCodecBuffer* pDestBuffer = pCodecOut->CreateBuffer(
-      pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-      pDestTexture->nBlockDepth, pDestTexture->dwWidth, pDestTexture->dwHeight,
-      pDestTexture->dwPitch, pDestTexture->pData);
+      pDestTexture->block_width, pDestTexture->block_height,
+      pDestTexture->block_depth, pDestTexture->width, pDestTexture->height,
+      pDestTexture->pitch, pDestTexture->data);
 
     assert(pSrcBuffer);
     assert(pTempBuffer);
@@ -740,13 +406,11 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
       SAFE_DELETE(pSrcBuffer);
       SAFE_DELETE(pTempBuffer);
       SAFE_DELETE(pDestBuffer);
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-      if (pSourceTexture->pData && newBuffer)
+      if (pSourceTexture->data && newBuffer)
       {
-        free(pSourceTexture->pData);
-        pSourceTexture->pData = nullptr;
+        free(pSourceTexture->data);
+        pSourceTexture->data = nullptr;
       }
-#endif
       return CMP_ERR_GENERIC;
     }
 
@@ -760,13 +424,11 @@ CMP_ERROR CMP_ConvertTexture(CMP_Texture* pSourceTexture,
     }
     RESTORE_FP_EXCEPTIONS;
 
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-    if (pSourceTexture->pData && newBuffer)
+    if (pSourceTexture->data && newBuffer)
     {
-      free(pSourceTexture->pData);
-      pSourceTexture->pData = nullptr;
+      free(pSourceTexture->data);
+      pSourceTexture->data = nullptr;
     }
-#endif
     return GetError(err2);
   }
 }

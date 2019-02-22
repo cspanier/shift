@@ -28,9 +28,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "compressonator/Common/HDR_Encode.h"
-#include <assert.h>
-#include <math.h>
-#include <float.h>
+#include <cassert>
+#include <cmath>
+#include <cfloat>
 #include <cstdlib>
 
 namespace HDR_Encode
@@ -47,7 +47,7 @@ inline int NBits(int n, bool bIsSigned)
   {
     return 0;  // no bits needed for 0, signed or not
   }
-  else if (n > 0)
+  if (n > 0)
   {
     for (nb = 0; n; ++nb, n >>= 1)
       ;
@@ -576,7 +576,7 @@ void Partition(int shape, float in[][MAX_DIMENSION_BIG],
 void GetEndPoints(
   float EndPoints[MAX_SUBSETS][MAX_END_POINTS][MAX_DIMENSION_BIG],
   float outB[MAX_SUBSETS][MAX_SUBSET_SIZE][MAX_DIMENSION_BIG], int max_subsets,
-  int entryCount[MAX_SUBSETS])
+  const int entryCount[MAX_SUBSETS])
 {
   // Should have some sort of error notification!
   if (max_subsets > MAX_SUBSETS)
@@ -757,7 +757,7 @@ void eigenVector_d(float cov[MAX_DIMENSION_BIG][MAX_DIMENSION_BIG],
 }
 
 void project_d(float data[][MAX_DIMENSION_BIG], int numEntries,
-               float vector[MAX_DIMENSION_BIG], float projection[MAX_ENTRIES],
+               const float vector[MAX_DIMENSION_BIG], float projection[MAX_ENTRIES],
                int dimension)
 {
   // assume that vector is normalized already
@@ -788,7 +788,7 @@ inline int a_compare(const void* arg1, const void* arg2)
   return 0;
 };
 
-void sortProjection(float projection[MAX_ENTRIES], int order[MAX_ENTRIES],
+void sortProjection(const float projection[MAX_ENTRIES], int order[MAX_ENTRIES],
                     int numEntries)
 {
   int i;
@@ -825,7 +825,7 @@ float totalError_d(float data[MAX_ENTRIES][MAX_DIMENSION_BIG],
 // output:
 // index, uncentered, in the range 0..k-1
 //
-void quant_AnD_Shell(float* v_, int k, int n, int* idx)
+void quant_AnD_Shell(const float* v_, int k, int n, int* idx)
 {
 #define MAX_BLOCK MAX_ENTRIES
   int i, j;
@@ -1089,8 +1089,8 @@ float optQuantAnD_d(float data[MAX_ENTRIES][MAX_DIMENSION_BIG], int numEntries,
 #define LOG_CL_RANGE 5
 #define BIT_RANGE 9
 #define MAX_CLUSTERS_BIG 16
-#define BTT(bits) (bits - BIT_BASE)
-#define CLT(cl) (cl - LOG_CL_BASE)
+#define BTT(bits) ((bits) - BIT_BASE)
+#define CLT(cl) ((cl) - LOG_CL_BASE)
 
 const float rampLerpWeights[5][16] = {
   {0.0},                                 // 0 bit index
@@ -1122,7 +1122,7 @@ int all_same_d(float d[][MAX_DIMENSION_BIG], int n, int dimension)
 }
 
 // return the max index from a set of indexes
-int max_index(int a[], int n)
+int max_index(const int a[], int n)
 {
   int i, m = a[0];
   for (i = 0; i < n; i++)
@@ -1131,7 +1131,7 @@ int max_index(int a[], int n)
 }
 
 int cluster_mean_d_d(float d[MAX_ENTRIES][MAX_DIMENSION_BIG],
-                     float mean[MAX_ENTRIES][MAX_DIMENSION_BIG], int index[],
+                     float mean[MAX_ENTRIES][MAX_DIMENSION_BIG], const int index[],
                      int i_comp[], int i_cnt[], int n, int dimension)
 {
   // unused index values are underfined
@@ -1206,7 +1206,7 @@ void index_collapse_kernel(int index[], int numEntries)
 //========================================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
-int max_i(int a[], int n)
+int max_i(const int a[], int n)
 {
   int i, m = a[0];
   for (i = 0; i < n; i++)
@@ -1360,7 +1360,7 @@ float quant_single_point_d(float data[MAX_ENTRIES][MAX_DIMENSION_BIG],
                            float out[MAX_ENTRIES][MAX_DIMENSION_BIG],
                            int epo_1[2][MAX_DIMENSION_BIG],
                            int Mi_,      // last cluster
-                           int bits[3],  // including parity
+                           const int bits[3],  // including parity
                            int type,
                            int dimension  // This should be either 3 or 4
 )

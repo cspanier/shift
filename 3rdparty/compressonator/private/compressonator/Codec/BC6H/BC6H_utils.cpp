@@ -27,7 +27,7 @@
 // Revision
 // 0.1    First implementation
 
-#include <math.h>
+#include <cmath>
 #include "compressonator/Codec/BC6H/BC6H_Definitions.h"
 #include "compressonator/Codec/BC6H/BC6H_utils.h"
 
@@ -36,8 +36,8 @@ FP32 half_to_float(float Halfin)
 {
   static const FP32 magic = {113 << 23};
   static const uint shifted_exp = 0x7c00 << 13;  // exponent mask after shift
-  FP32 o;
-  FP16 h;
+  FP32 o{};
+  FP16 h{};
   h.u = (unsigned short)Halfin;
 
   o.u = (h.u & 0x7fff) << 13;    // exponent/mantissa bits

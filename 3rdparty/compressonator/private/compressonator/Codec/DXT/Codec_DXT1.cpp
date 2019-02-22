@@ -42,13 +42,12 @@ CCodec_DXT1::CCodec_DXT1() : CCodec_DXTC(CT_DXT1)
 }
 
 CCodec_DXT1::~CCodec_DXT1()
-{
-}
+= default;
 
 bool CCodec_DXT1::SetParameter(const char* pszParamName, char* sValue)
 {
   if (strcmp(pszParamName, "DXT1UseAlpha") == 0)
-    m_bDXT1UseAlpha = (std::stoi(sValue) > 0) ? true : false;
+    m_bDXT1UseAlpha = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "AlphaThreshold") == 0)
     m_nAlphaThreshold = (std::uint8_t)(std::stoi(sValue) & 0xFF);
   else
@@ -59,7 +58,7 @@ bool CCodec_DXT1::SetParameter(const char* pszParamName, char* sValue)
 bool CCodec_DXT1::SetParameter(const char* pszParamName, std::uint32_t dwValue)
 {
   if (strcmp(pszParamName, "DXT1UseAlpha") == 0)
-    m_bDXT1UseAlpha = dwValue ? true : false;
+    m_bDXT1UseAlpha = dwValue != 0;
   else if (strcmp(pszParamName, "AlphaThreshold") == 0)
     m_nAlphaThreshold = (std::uint8_t)dwValue;
   else
@@ -96,7 +95,7 @@ CodecError CCodec_DXT1::Compress(CCodecBuffer& bufferIn,
   if (m_nCompressionSpeed == CMP_Speed_SuperFast && m_bUseSSE2)
     return Compress_SuperFast(bufferIn, bufferOut, pFeedbackProc, pUser1,
                               pUser2);
-  else if ((m_nCompressionSpeed == CMP_Speed_Fast ||
+  if ((m_nCompressionSpeed == CMP_Speed_Fast ||
             m_nCompressionSpeed == CMP_Speed_SuperFast) &&
            m_bUseSSE)
     return Compress_Fast(bufferIn, bufferOut, pFeedbackProc, pUser1, pUser2);

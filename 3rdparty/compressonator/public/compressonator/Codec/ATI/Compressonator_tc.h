@@ -59,7 +59,7 @@ extern "C"
                                          unsigned int (*pEncodedAlpha)[2]);
 
   extern void atiDecodeAlphaBlockATITCA4(unsigned char (*pAlphaOut)[4][4],
-                                         unsigned char* pEncodedData);
+                                         const unsigned char* pEncodedData);
 
 #ifdef __cplusplus
 }

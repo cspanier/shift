@@ -22,9 +22,9 @@
 // THE SOFTWARE.
 //
 
-#include <assert.h>
-#include <math.h>
-#include <float.h>
+#include <cassert>
+#include <cmath>
+#include <cfloat>
 
 #include "compressonator/Codec/BC7/3dquant_constants.h"
 #include "compressonator/Codec/BC7/3dquant_vpc.h"
@@ -39,8 +39,8 @@
 #define LOG_CL_RANGE 5
 #define BIT_RANGE 9
 
-#define CLT(cl) (cl - LOG_CL_BASE)
-#define BTT(bits) (bits - BIT_BASE)
+#define CLT(cl) ((cl) - LOG_CL_BASE)
+#define BTT(bits) ((bits) - BIT_BASE)
 
 int npv_nd[][2 * MAX_DIMENSION_BIG] = {
   {},                    // 0 - for alingment
@@ -220,7 +220,7 @@ int expand_(int bits, int v)
 
 static bool ramp_init = false;
 
-void init_ramps(void)
+void init_ramps()
 {
   if (ramp_init)
     return;
@@ -357,7 +357,7 @@ inline int ep_find_near(double v, int bits, int use_par, int odd)
   p2 = p2 < (1 << bits) ? p2 : p1;
   if (fabs(v - p[p2]) < fabs(v - p[p1]))
     return p2;
-  else
+  
     return p1;
 }
 
@@ -389,7 +389,7 @@ inline void mean_d_d(double d[][MAX_DIMENSION_BIG],
 }
 
 inline int cluster_mean_d(double d[][DIMENSION], double mean[][DIMENSION],
-                          int index[], int i_comp[], int i_cnt[], int n)
+                          const int index[], int i_comp[], int i_cnt[], int n)
 {
   // unused index values are underfined
   int i, j, k;
@@ -419,7 +419,7 @@ inline int cluster_mean_d(double d[][DIMENSION], double mean[][DIMENSION],
 }
 
 inline int cluster_mean_d_d(double d[][MAX_DIMENSION_BIG],
-                            double mean[][MAX_DIMENSION_BIG], int index[],
+                            double mean[][MAX_DIMENSION_BIG], const int index[],
                             int i_comp[], int i_cnt[], int n, int dimension)
 {
   // unused index values are underfined
@@ -473,7 +473,7 @@ inline int all_same_d(double d[][MAX_DIMENSION_BIG], int n, int dimension)
   return (same);
 }
 
-inline int max_i(int a[], int n)
+inline int max_i(const int a[], int n)
 {
   assert(n > 0);
   int i, m = a[0];
@@ -522,14 +522,14 @@ double BC7BlockEncoder::quant_single_point_d(
   int index[MAX_ENTRIES], double out[MAX_ENTRIES][MAX_DIMENSION_BIG],
   int epo_1[2][MAX_DIMENSION_BIG],
   int Mi_,      // last cluster
-  int bits[3],  // including parity
+  const int bits[3],  // including parity
   int type, int dimension)
 {
   int i, j;
 
-  double err_0 = DBL_MAX;
+  auto err_0 = DBL_MAX;
 
-  double err_1 = DBL_MAX;
+  auto err_1 = DBL_MAX;
   int idx = 0;
   int idx_1 = 0;
 
@@ -584,7 +584,7 @@ double BC7BlockEncoder::quant_single_point_d(
 
         for (j = 0; j < dimension; j++)
         {
-          double t_ = DBL_MAX;
+          auto t_ = DBL_MAX;
 
           for (t1 = o1[0][j]; t1 < o1[1][j]; t1++)
           {
@@ -719,7 +719,7 @@ double BC7BlockEncoder::ep_shaker_2_d(
 
   int better;
 
-  double err_o = DBL_MAX;
+  auto err_o = DBL_MAX;
 
   int epo_0[2][MAX_DIMENSION_BIG];
 
@@ -738,7 +738,7 @@ double BC7BlockEncoder::ep_shaker_2_d(
     int p, q;
     int p0 = -1, q0 = -1;
 
-    double err_0 = DBL_MAX;
+    auto err_0 = DBL_MAX;
 
     if (Mi == 0)
     {
@@ -861,7 +861,7 @@ double BC7BlockEncoder::ep_shaker_2_d(
         // shake odd/odd and even/even or                    - same parity
         // shake odd/odd odd/even , even/odd and even/even   - bcc
 
-        double err_1 = DBL_MAX;
+        auto err_1 = DBL_MAX;
         int epo_1[2][MAX_DIMENSION_BIG];
 
         double ed[2][2][MAX_DIMENSION_BIG];
@@ -970,7 +970,7 @@ double BC7BlockEncoder::ep_shaker_2_d(
 
     for (i = 0; i < numEntries; i++)
     {
-      double cmin = DBL_MAX;
+      auto cmin = DBL_MAX;
       int ci = 0;
       double* d = data[i];
 
@@ -1072,7 +1072,7 @@ double BC7BlockEncoder::ep_shaker_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
 
   int better;
 
-  double err_o = DBL_MAX;
+  auto err_o = DBL_MAX;
 
   // handled below automatically
   int alls = all_same_d(data, numEntries, dimension);
@@ -1088,7 +1088,7 @@ double BC7BlockEncoder::ep_shaker_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
     int p, q;
     int p0 = -1, q0 = -1;
 
-    double err_2 = DBL_MAX;
+    auto err_2 = DBL_MAX;
     double out_2[MAX_ENTRIES][MAX_DIMENSION_BIG];
     int idx_2[MAX_ENTRIES];
     int epo_2[2][MAX_DIMENSION_BIG];
@@ -1209,7 +1209,7 @@ double BC7BlockEncoder::ep_shaker_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
         // shake odd/odd odd/even , even/odd and even/even   - bcc
         int odd, flip1;
 
-        double err_1 = DBL_MAX;
+        auto err_1 = DBL_MAX;
         double out_1[MAX_ENTRIES][MAX_DIMENSION_BIG];
         int idx_1[MAX_ENTRIES];
         int epo_1[2][MAX_DIMENSION_BIG];
@@ -1289,7 +1289,7 @@ double BC7BlockEncoder::ep_shaker_d(double data[MAX_ENTRIES][MAX_DIMENSION_BIG],
               {
                 double* d = data[i];
                 int ci = 0;
-                double cmin = DBL_MAX;
+                auto cmin = DBL_MAX;
 
                 for (j = 0; j < (1 << clog); j++)
                 {

@@ -43,6 +43,7 @@ typedef enum _CodecBufferType
   CBT_RGBA8888,
   CBT_BGRA8888,  // Reserved for future work
   CBT_ARGB8888,  // Reserved for future work
+  CBT_ABGR8888,  // Reserved for future work
   CBT_RGB888,
   CBT_BGR888,  // Reserved for future work
   CBT_RG8,
@@ -334,12 +335,12 @@ public:
     m_dwPitch = dwPitch;
   };
 
-  inline const void SetFormat(CMP_FORMAT dwFormat)
+  inline const void SetFormat(cmp_format dwFormat)
   {
     m_dwFormat = dwFormat;
   };
 
-  inline const CMP_FORMAT GetFormat() const
+  inline const cmp_format GetFormat() const
   {
     return m_dwFormat;
   };
@@ -519,64 +520,64 @@ public:
   };
 
 protected:
-  void ConvertBlock(double dBlock[], float fBlock[], std::uint32_t dwBlockSize);
+  void ConvertBlock(double dBlock[], const float fBlock[], std::uint32_t dwBlockSize);
   void ConvertBlock(double dBlock[], half hBlock[], std::uint32_t dwBlockSize);
-  void ConvertBlock(double dBlock[], std::uint32_t dwBlock[],
+  void ConvertBlock(double dBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(double dBlock[], std::uint16_t wBlock[],
+  void ConvertBlock(double dBlock[], const std::uint16_t wBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(double dBlock[], std::uint8_t cBlock[],
+  void ConvertBlock(double dBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
-  void ConvertBlock(float fBlock[], double dBlock[], std::uint32_t dwBlockSize);
+  void ConvertBlock(float fBlock[], const double dBlock[], std::uint32_t dwBlockSize);
   void ConvertBlock(float fBlock[], half hBlock[], std::uint32_t dwBlockSize);
-  void ConvertBlock(float fBlock[], std::uint32_t dwBlock[],
+  void ConvertBlock(float fBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(float fBlock[], std::uint16_t wBlock[],
+  void ConvertBlock(float fBlock[], const std::uint16_t wBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(float fBlock[], std::uint8_t cBlock[],
+  void ConvertBlock(float fBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
   void ConvertBlock(half hBlock[], double dBlock[], std::uint32_t dwBlockSize);
   void ConvertBlock(half hBlock[], float fBlock[], std::uint32_t dwBlockSize);
-  void ConvertBlock(half hBlock[], std::uint32_t dwBlock[],
+  void ConvertBlock(half hBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(half hBlock[], std::uint16_t wBlock[],
+  void ConvertBlock(half hBlock[], const std::uint16_t wBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(half hBlock[], std::uint8_t cBlock[],
+  void ConvertBlock(half hBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
-  void ConvertBlock(std::uint32_t dwBlock[], double dBlock[],
+  void ConvertBlock(std::uint32_t dwBlock[], const double dBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint32_t dwBlock[], float fBlock[],
+  void ConvertBlock(std::uint32_t dwBlock[], const float fBlock[],
                     std::uint32_t dwBlockSize);
   void ConvertBlock(std::uint32_t dwBlock[], half hBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint32_t dwBlock[], std::uint16_t wBlock[],
+  void ConvertBlock(std::uint32_t dwBlock[], const std::uint16_t wBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint32_t dwBlock[], std::uint8_t cBlock[],
+  void ConvertBlock(std::uint32_t dwBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
-  void ConvertBlock(std::uint16_t wBlock[], double dBlock[],
+  void ConvertBlock(std::uint16_t wBlock[], const double dBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint16_t wBlock[], float fBlock[],
+  void ConvertBlock(std::uint16_t wBlock[], const float fBlock[],
                     std::uint32_t dwBlockSize);
   void ConvertBlock(std::uint16_t wBlock[], half hBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint16_t wBlock[], std::uint32_t dwBlock[],
+  void ConvertBlock(std::uint16_t wBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint16_t wBlock[], std::uint8_t cBlock[],
+  void ConvertBlock(std::uint16_t wBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
-  void ConvertBlock(std::uint8_t cBlock[], double dBlock[],
+  void ConvertBlock(std::uint8_t cBlock[], const double dBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint8_t cBlock[], float fBlock[],
+  void ConvertBlock(std::uint8_t cBlock[], const float fBlock[],
                     std::uint32_t dwBlockSize);
   void ConvertBlock(std::uint8_t cBlock[], half hBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint8_t cBlock[], std::uint32_t dwBlock[],
+  void ConvertBlock(std::uint8_t cBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
-  void ConvertBlock(std::uint8_t cBlock[], std::uint16_t wBlock[],
+  void ConvertBlock(std::uint8_t cBlock[], const std::uint16_t wBlock[],
                     std::uint32_t dwBlockSize);
 
   void SwizzleBlock(double dBlock[], std::uint32_t dwBlockSize);
@@ -587,9 +588,9 @@ protected:
 
   std::uint32_t m_dwWidth;   // Final Image Width
   std::uint32_t m_dwHeight;  // Final Image Height
-  std::uint32_t m_dwDepth;   // Final Image Depth
+  std::uint32_t m_dwDepth{};   // Final Image Depth
   std::uint32_t m_dwPitch;
-  CMP_FORMAT m_dwFormat;
+  cmp_format m_dwFormat;
 
   std::uint8_t m_nBlockWidth;   // DeCompression Block Sizes (Default is 4x4x1)
   std::uint8_t m_nBlockHeight;  //
@@ -601,10 +602,13 @@ protected:
   bool m_bPerformingConversion;
 };
 
-CCodecBuffer* CreateCodecBuffer(
-  CodecBufferType nCodecBufferType, std::uint8_t nBlockWidth,
-  std::uint8_t nBlockHeight, std::uint8_t nBlockDepth, std::uint32_t dwWidth,
-  std::uint32_t dwHeight, std::uint32_t dwPitch = 0, std::uint8_t* pData = nullptr);
-CodecBufferType GetCodecBufferType(CMP_FORMAT format);
+CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
+                                std::uint8_t nBlockWidth,
+                                std::uint8_t nBlockHeight,
+                                std::uint8_t nBlockDepth, std::uint32_t dwWidth,
+                                std::uint32_t dwHeight,
+                                std::uint32_t dwPitch = 0,
+                                std::uint8_t* pData = nullptr);
+CodecBufferType GetCodecBufferType(cmp_format format);
 
 #endif  // !defined(_CODECBUFFER_H_INCLUDED_)

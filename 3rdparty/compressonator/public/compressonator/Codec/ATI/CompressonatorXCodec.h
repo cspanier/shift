@@ -38,7 +38,7 @@ in DXT1 for mat int _NbrClrs = BLOCK_SIZE_4X4,            [IN]  actuall number
 of elements in the array bool _bUseSSE2 = true);                    [IN]  switch
 to SSE2 implementation
 ------------------------------------------------------------------------------------*/
-float CompRGBBlock(float* block_32, std::uint16_t dwBlockSize,
+float CompRGBBlock(const float* block_32, std::uint16_t dwBlockSize,
                    std::uint8_t nRedBits, std::uint8_t nGreenBits,
                    std::uint8_t nBlueBits, std::uint8_t nEndpoints[3][2],
                    std::uint8_t* pcIndices, std::uint8_t dwNumPoints,
@@ -98,7 +98,7 @@ implementation
                 )
 ---------------------------------------------------------------------------------------------*/
 
-float CompBlock1X(std::uint8_t* _Blk, std::uint16_t dwBlockSize,
+float CompBlock1X(const std::uint8_t* _Blk, std::uint16_t dwBlockSize,
                   std::uint8_t nEndpoints[2], std::uint8_t* pcIndices,
                   std::uint8_t dwNumPoints, bool bFixedRampPoints,
                   bool _bUseSSE2 = true, int _intPrec = 8, int _fracPrec = 0,

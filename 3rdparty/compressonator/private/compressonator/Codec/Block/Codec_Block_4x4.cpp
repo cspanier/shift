@@ -42,8 +42,7 @@ CCodec_Block_4x4::CCodec_Block_4x4(CodecType codecType)
 }
 
 CCodec_Block_4x4::~CCodec_Block_4x4()
-{
-}
+= default;
 
 CCodecBuffer* CCodec_Block_4x4::CreateBuffer(
   std::uint8_t nBlockWidth, std::uint8_t nBlockHeight, std::uint8_t nBlockDepth,

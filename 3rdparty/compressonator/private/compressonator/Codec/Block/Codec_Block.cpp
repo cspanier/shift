@@ -39,5 +39,4 @@ CCodec_Block::CCodec_Block(CodecType codecType) : CCodec(codecType)
 }
 
 CCodec_Block::~CCodec_Block()
-{
-}
+= default;

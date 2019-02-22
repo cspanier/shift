@@ -25,10 +25,10 @@
 //  BC7_Encode.cpp : A reference encoder for BC7
 //
 
-#include <assert.h>
-#include <float.h>
-#include <stdio.h>
-#include <math.h>
+#include <cassert>
+#include <cfloat>
+#include <cstdio>
+#include <cmath>
 #include "compressonator/Common.h"
 #include "compressonator/Codec/BC7/BC7_Definitions.h"
 #include "compressonator/Codec/BC7/BC7_Partitions.h"
@@ -133,7 +133,7 @@ void BC7BlockEncoder::EncodeSingleIndexBlock(
   std::uint32_t i, j, k;
   std::uint32_t* partitionTable;
   int bitPosition = 0;  // Position the pointer at the LSB
-  std::uint8_t* basePtr = (std::uint8_t*)block;
+  auto* basePtr = (std::uint8_t*)block;
   std::uint32_t blockIndices[MAX_SUBSET_SIZE];
 
   // Generate Unary header
@@ -455,7 +455,7 @@ double BC7BlockEncoder::CompressSingleIndexBlock(
   int bestIndices[MAX_SUBSETS][MAX_SUBSET_SIZE];
   std::uint32_t bestEntryCount[MAX_SUBSETS];
   std::uint32_t bestPartition = 0;
-  double bestError = DBL_MAX;
+  auto bestError = DBL_MAX;
 
   // Extensive shaking is most important when the ramp is short, and
   // when we have less indices. On a long ramp the quality of the
@@ -816,9 +816,9 @@ double BC7BlockEncoder::CompressDualIndexBlock(
   double step;
 
   double quantizerError;
-  double bestQuantizerError = DBL_MAX;
+  auto bestQuantizerError = DBL_MAX;
   double overallError;
-  double bestOverallError = DBL_MAX;
+  auto bestOverallError = DBL_MAX;
 
   // Go through each possible rotation and selection of indices
   for (rotation = 0; rotation < maxRotation; rotation++)
@@ -976,7 +976,7 @@ double BC7BlockEncoder::CompressDualIndexBlock(
 //
 //
 //
-#include <stdio.h>
+#include <cstdio>
 
 double BC7BlockEncoder::CompressBlock(
   double in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
@@ -1073,7 +1073,7 @@ double BC7BlockEncoder::CompressBlock(
   // Try all the legal block modes that we flagged
 
   std::uint8_t temporaryOutputBlock[COMPRESSED_BLOCK_SIZE];
-  double bestError = DBL_MAX;
+  auto bestError = DBL_MAX;
   double thisError;
   std::uint32_t bestblockMode = 99;
 
@@ -1086,9 +1086,8 @@ double BC7BlockEncoder::CompressBlock(
   // than if we used a dumb ordering, and thus overall error will be improved)
   std::uint32_t blockModeOrder[NUM_BLOCK_TYPES] = {4, 6, 3, 1, 0, 2, 7, 5};
 
-  for (std::uint32_t j1 = 0; j1 < NUM_BLOCK_TYPES; j1++)
+  for (unsigned int blockMode : blockModeOrder)
   {
-    std::uint32_t blockMode = blockModeOrder[j1];
     std::uint32_t Mode = 0x0001 << blockMode;
 
     if (!(validModeMask & Mode))

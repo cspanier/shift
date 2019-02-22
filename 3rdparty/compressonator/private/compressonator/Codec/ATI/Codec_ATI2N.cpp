@@ -41,8 +41,7 @@ CCodec_ATI2N::CCodec_ATI2N(CodecType codecType) : CCodec_DXTC(codecType)
 }
 
 CCodec_ATI2N::~CCodec_ATI2N()
-{
-}
+= default;
 
 CodecError CCodec_ATI2N::Compress(CCodecBuffer& bufferIn,
                                   CCodecBuffer& bufferOut,

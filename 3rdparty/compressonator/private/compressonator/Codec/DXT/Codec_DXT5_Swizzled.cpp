@@ -41,8 +41,7 @@ CCodec_DXT5_Swizzled::CCodec_DXT5_Swizzled(CodecType codecType)
 }
 
 CCodec_DXT5_Swizzled::~CCodec_DXT5_Swizzled()
-{
-}
+= default;
 
 CodecError CCodec_DXT5_Swizzled::Compress(CCodecBuffer& bufferIn,
                                           CCodecBuffer& bufferOut,
@@ -54,7 +53,7 @@ CodecError CCodec_DXT5_Swizzled::Compress(CCodecBuffer& bufferIn,
   if (m_nCompressionSpeed == CMP_Speed_SuperFast && m_bUseSSE2)
     return Compress_SuperFast(bufferIn, bufferOut, pFeedbackProc, pUser1,
                               pUser2);
-  else if ((m_nCompressionSpeed == CMP_Speed_Fast ||
+  if ((m_nCompressionSpeed == CMP_Speed_Fast ||
             m_nCompressionSpeed == CMP_Speed_SuperFast) &&
            m_bUseSSE)
     return Compress_Fast(bufferIn, bufferOut, pFeedbackProc, pUser1, pUser2);

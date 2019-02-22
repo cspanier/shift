@@ -51,7 +51,7 @@ static std::uint8_t testBlock[] = {0x36, 0x40, 0xf7, 0x87, 0x40, 0xf7,
 //              and increments the offset
 //
 
-std::uint32_t BC7BlockDecoder::ReadBit(std::uint8_t base[])
+std::uint32_t BC7BlockDecoder::ReadBit(const std::uint8_t base[])
 {
   int byteLocation;
   int remainder;

@@ -56,8 +56,7 @@ CCodecBuffer_RGBA8888::CCodecBuffer_RGBA8888(
 }
 
 CCodecBuffer_RGBA8888::~CCodecBuffer_RGBA8888()
-{
-}
+= default;
 
 void CCodecBuffer_RGBA8888::Copy(CCodecBuffer& srcBuffer)
 {
@@ -95,7 +94,7 @@ bool CCodecBuffer_RGBA8888::ReadBlock(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
+    auto* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
                                             (x * sizeof(std::uint32_t)));
     for (i = 0; i < dwWidth; i++)
       block[(j * w) + i] =
@@ -129,7 +128,7 @@ bool CCodecBuffer_RGBA8888::WriteBlock(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
+    auto* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
                                             (x * sizeof(std::uint32_t)));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {
@@ -209,12 +208,12 @@ bool CCodecBuffer_RGBA8888::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   if (x >= GetWidth() || y >= GetHeight())
     return false;
 
-  std::uint32_t* pdwBlock = (std::uint32_t*)block;
+  auto* pdwBlock = (std::uint32_t*)block;
   if (w == 4 && h == 4 && (x + w) <= GetWidth() && (y + h) <= GetHeight())
   {
     // Fastpath for the key case to alleviate the drag this code puts on the
     // really fast DXTC
-    std::uint32_t* pData = (std::uint32_t*)(GetData() + (y * m_dwPitch) +
+    auto* pData = (std::uint32_t*)(GetData() + (y * m_dwPitch) +
                                             (x * sizeof(std::uint32_t)));
     pdwBlock[0] = pData[0];
     pdwBlock[1] = pData[1];
@@ -242,7 +241,7 @@ bool CCodecBuffer_RGBA8888::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     std::uint32_t i, j;
     for (j = 0; j < h && (y + j) < GetHeight(); j++)
     {
-      std::uint32_t* pData =
+      auto* pData =
         (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
                          (x * sizeof(std::uint32_t)));
       for (i = 0; i < dwWidth; i++)
@@ -274,11 +273,11 @@ bool CCodecBuffer_RGBA8888::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     return false;
 
   std::uint32_t dwWidth = min(w, (GetWidth() - x));
-  std::uint32_t* pdwBlock = (std::uint32_t*)block;
+  auto* pdwBlock = (std::uint32_t*)block;
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
+    auto* pData = (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) +
                                             (x * sizeof(std::uint32_t)));
     for (std::uint32_t i = 0; i < dwWidth; i++)
       *pData++ = pdwBlock[(j * w) + i];

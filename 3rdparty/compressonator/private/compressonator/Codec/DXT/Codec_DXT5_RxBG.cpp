@@ -39,8 +39,7 @@ CCodec_DXT5_RxBG::CCodec_DXT5_RxBG() : CCodec_DXT5_Swizzled(CT_DXT5_RxBG)
 }
 
 CCodec_DXT5_RxBG::~CCodec_DXT5_RxBG()
-{
-}
+= default;
 
 void CCodec_DXT5_RxBG::ReadBlock(CCodecBuffer& buffer, std::uint32_t x,
                                  std::uint32_t y,

@@ -30,7 +30,7 @@
 /*********************************/
 double reconstruct(double data[MAX_ENTRIES][DIMENSION],  // input
                    int numEntries,                       // input
-                   int index_[MAX_ENTRIES],              // input
+                   const int index_[MAX_ENTRIES],              // input
                    double out[MAX_ENTRIES][DIMENSION],   // output
                    int ns,                               // input
                    double direction[DIMENSION],          // output
@@ -39,11 +39,11 @@ double reconstruct(double data[MAX_ENTRIES][DIMENSION],  // input
 /*********************************/
 
 double reconstruct_rnd(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-                       int index_[MAX_ENTRIES],
+                       const int index_[MAX_ENTRIES],
                        double out[MAX_ENTRIES][DIMENSION], int ns,
                        double direction[DIMENSION], double* step);
 int block_mean_rnd(double data_[MAX_ENTRIES][DIMENSION], int numEntries,
-                   int partition[MAX_ENTRIES], int ns,
+                   const int partition[MAX_ENTRIES], int ns,
 
                    double mean[MAX_SUBSETS][DIMENSION], double* clip,
                    double mm[DIMENSION],

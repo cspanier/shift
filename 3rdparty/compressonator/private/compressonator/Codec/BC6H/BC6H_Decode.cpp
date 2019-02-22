@@ -27,7 +27,7 @@
 // 0.1    First implementation
 //
 
-#include <assert.h>
+#include <cassert>
 #include "compressonator/Internal/debug.h"
 #include "compressonator/Common.h"
 #include "compressonator/Common/HDR_Encode.h"
@@ -35,7 +35,7 @@
 #include "compressonator/Codec/BC6H/BC6H_Decode.h"
 #include "compressonator/Codec/BC6H/BC6H_utils.h"
 #include <bitset>
-#include <stddef.h>
+#include <cstddef>
 
 #ifdef BC6H_DECODE_DEBUG
 int g_dblock = 0;
@@ -275,11 +275,10 @@ int finish_unquantize(AMD_BC6H_Format bc6h_format, int q)
 {
   if (bc6h_format.format == UNSIGNED_F16)
     return (q * 31) >> 6;  // scale the magnitude by 31/64
-  else if (bc6h_format.format == SIGNED_F16)
+  if (bc6h_format.format == SIGNED_F16)
     return (q < 0) ? -(((-q) * 31) >> 5)
                    : (q * 31) >> 5;  // scale the magnitude by 31/32
-  else
-    return q;
+  return q;
 }
 
 void generate_palette_quantized(int max, AMD_BC6H_Format& bc6h_format,
@@ -317,7 +316,7 @@ void generate_palette_quantized(int max, AMD_BC6H_Format& bc6h_format,
 
 AMD_BC6H_Format extract_format(std::uint8_t in[COMPRESSED_BLOCK_SIZE])
 {
-  AMD_BC6H_Format bc6h_format;
+  AMD_BC6H_Format bc6h_format{};
   unsigned short decvalue;
   std::uint8_t iData[COMPRESSED_BLOCK_SIZE];
   memcpy(iData, in, COMPRESSED_BLOCK_SIZE);
@@ -774,7 +773,7 @@ void BC6HBlockDecoder::DecompressBlock(
     }
   }
 
-  BC6H_Vec3 data;
+  BC6H_Vec3 data{};
   int indexPos = 0;
   half rgb[3];
 
@@ -782,8 +781,8 @@ void BC6HBlockDecoder::DecompressBlock(
   // Partitioning is always arranged such that index 0 is always in subset 0 of
   // BC6H_PARTIONS array Partition order goes from top-left to bottom-right,
   // moving left to right and then top to bottom.
-  for (int block_row = 0; block_row < 4; block_row++)
-    for (int block_col = 0; block_col < 4; block_col++)
+  for (const auto& indices : bc6h_format.indices)
+    for (auto paleteIndex : indices)
     {
       // Need to check region logic
       // gets the region (0 or 1) in the partition set
@@ -797,9 +796,6 @@ void BC6HBlockDecoder::DecompressBlock(
       int region = bc6h_format.region == BC6_ONE
                      ? 0
                      : PARTITIONS[1][bc6h_format.d_shape_index][indexPos];
-
-      // Index is validated as ok
-      int paleteIndex = bc6h_format.indices[block_row][block_col];
 
       // this result is validated ok for region = BC6_ONE , BC6_TWO To be
       // determined

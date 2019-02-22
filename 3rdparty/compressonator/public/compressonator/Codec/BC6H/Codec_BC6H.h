@@ -75,7 +75,7 @@ public:
                         std::size_t pUser2 = 0) override;
 
 private:
-  BC6HEncodeThreadParam* m_EncodeParameterStorage;
+  BC6HEncodeThreadParam* m_EncodeParameterStorage{};
 
   // BC6H User configurable variables
   std::uint16_t m_ModeMask;
@@ -94,8 +94,8 @@ private:
 
   // BC6H Encoders and decoders: for encding use the interfaces below
   std::thread* m_EncodingThreadHandle;
-  BC6HBlockEncoder* m_encoder[BC6H_MAX_THREADS];
-  BC6HBlockDecoder* m_decoder;
+  BC6HBlockEncoder* m_encoder[BC6H_MAX_THREADS]{};
+  BC6HBlockDecoder* m_decoder{};
 
   // Encoder interfaces
   CodecError CInitializeBC6HLibrary();

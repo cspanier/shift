@@ -58,7 +58,7 @@ extern CompViewerClient g_CompClient;
 
 unsigned int BC6HThreadProcEncode(void* param)
 {
-  BC6HEncodeThreadParam* tp = (BC6HEncodeThreadParam*)param;
+  auto* tp = (BC6HEncodeThreadParam*)param;
 
   while (tp->exit == FALSE)
   {
@@ -191,7 +191,7 @@ CCodec_BC6H::~CCodec_BC6H()
 #pragma warning(push)
 #pragma warning( \
   disable : 4127)  // warning C4127: conditional expression is constant
-        while (1)
+        while (true)
         {
           if (m_EncodeParameterStorage == nullptr)
             break;
@@ -236,7 +236,7 @@ CCodec_BC6H::~CCodec_BC6H()
 
     m_EncodingThreadHandle = nullptr;
 
-    if (m_EncodeParameterStorage)
+    
       delete[] m_EncodeParameterStorage;
     m_EncodeParameterStorage = nullptr;
 
@@ -263,10 +263,8 @@ CodecError CCodec_BC6H::CInitializeBC6HLibrary()
 {
   if (!m_LibraryInitialized)
   {
-    for (std::uint32_t i = 0; i < BC6H_MAX_THREADS; i++)
-    {
-      m_encoder[i] = nullptr;
-    }
+    for (auto & i : m_encoder)
+      i = nullptr;
 
     // Create threaded encoder instances
     m_LiveThreads = 0;
@@ -297,7 +295,7 @@ CodecError CCodec_BC6H::CInitializeBC6HLibrary()
     for (int i = 0; i < m_NumEncodingThreads; i++)
     {
       // Create single encoder instance
-      CMP_BC6H_BLOCK_PARAMETERS user_options;
+      CMP_BC6H_BLOCK_PARAMETERS user_options{};
 
       user_options.bIsSigned = m_bIsSigned;
       user_options.fQuality = m_Quality;
@@ -310,7 +308,7 @@ CodecError CCodec_BC6H::CInitializeBC6HLibrary()
       // Cleanup if problem!
       if (!m_encoder[i])
       {
-        if (m_EncodeParameterStorage)
+        
           delete[] m_EncodeParameterStorage;
         m_EncodeParameterStorage = nullptr;
 
@@ -415,7 +413,7 @@ CodecError CCodec_BC6H::CEncodeBC6HBlock(
   return CE_OK;
 }
 
-CodecError CCodec_BC6H::CFinishBC6HEncoding(void)
+CodecError CCodec_BC6H::CFinishBC6HEncoding()
 {
   if (!m_LibraryInitialized)
   {
@@ -549,7 +547,7 @@ CodecError CCodec_BC6H::Compress(CCodecBuffer& bufferIn,
         std::uint32_t compressedBlock[4];
         std::uint8_t out[16];
         std::uint8_t in[16];
-      } data;
+      } data{};
 
       memset(data.in, 0, sizeof(data));
       CEncodeBC6HBlock(blockToEncode, pOutBuffer + block);
@@ -651,13 +649,13 @@ CodecError CCodec_BC6H::Decompress(CCodecBuffer& bufferIn,
       union FBLOCKS {
         float decodedBlock[16][4];
         float destBlock[BLOCK_SIZE_4X4X4];
-      } DecData;
+      } DecData{};
 
       union BBLOCKS {
         std::uint32_t compressedBlock[4];
         std::uint8_t out[16];
         std::uint8_t in[16];
-      } CompData;
+      } CompData{};
 
       float destBlock[BLOCK_SIZE_4X4X4];
 
@@ -711,20 +709,20 @@ CodecError CCodec_BC6H::Decompress(CCodecBuffer& bufferIn,
 }
 
 // Not implemented
-CodecError CCodec_BC6H::Compress_Fast(CCodecBuffer& bufferIn,
-                                      CCodecBuffer& bufferOut,
-                                      Codec_Feedback_Proc pFeedbackProc,
-                                      std::size_t pUser1, std::size_t pUser2)
+CodecError CCodec_BC6H::Compress_Fast(CCodecBuffer&  /*bufferIn*/,
+                                      CCodecBuffer&  /*bufferOut*/,
+                                      Codec_Feedback_Proc  /*pFeedbackProc*/,
+                                      std::size_t  /*pUser1*/, std::size_t  /*pUser2*/)
 {
   return CE_OK;
 }
 
 // Not implemented
-CodecError CCodec_BC6H::Compress_SuperFast(CCodecBuffer& bufferIn,
-                                           CCodecBuffer& bufferOut,
-                                           Codec_Feedback_Proc pFeedbackProc,
-                                           std::size_t pUser1,
-                                           std::size_t pUser2)
+CodecError CCodec_BC6H::Compress_SuperFast(CCodecBuffer&  /*bufferIn*/,
+                                           CCodecBuffer&  /*bufferOut*/,
+                                           Codec_Feedback_Proc  /*pFeedbackProc*/,
+                                           std::size_t  /*pUser1*/,
+                                           std::size_t  /*pUser2*/)
 {
   return CE_OK;
 }

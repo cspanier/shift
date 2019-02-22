@@ -40,8 +40,7 @@ CCodec_ATI2N_DXT5::CCodec_ATI2N_DXT5() : CCodec_ATI2N(CT_ATI2N_DXT5)
 }
 
 CCodec_ATI2N_DXT5::~CCodec_ATI2N_DXT5()
-{
-}
+= default;
 
 CodecError CCodec_ATI2N_DXT5::Compress(CCodecBuffer& bufferIn,
                                        CCodecBuffer& bufferOut,

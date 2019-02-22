@@ -53,12 +53,6 @@
 // Enables debug info on decoder
 // #define BC6H_DECODE_DEBUG
 
-#define ENABLE_MAKE_COMPATIBLE_API  //  Byte<->Float to make all source and dest
-                                    //  compatible
-
-// V2.4 / V2.5 features and changes
-#define USE_OLD_SWIZZLE  //  Remove swizzle flag and abide by CMP_Formats
-
 // Model changes
 //#define USE_COMPUTE                                 // Enable compute code for
 // compression

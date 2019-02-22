@@ -40,8 +40,7 @@ CCodec_Block_8x8::CCodec_Block_8x8(CodecType codecType)
 }
 
 CCodec_Block_8x8::~CCodec_Block_8x8()
-{
-}
+= default;
 
 CCodecBuffer* CCodec_Block_8x8::CreateBuffer(
   std::uint8_t /*nBlockWidth*/, std::uint8_t /*nBlockHeight*/,

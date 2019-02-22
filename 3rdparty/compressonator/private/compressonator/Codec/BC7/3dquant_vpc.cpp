@@ -22,10 +22,10 @@
 // THE SOFTWARE.
 //
 
-#include <assert.h>
-#include <math.h>
-#include <float.h>
-#include <assert.h>
+#include <cassert>
+#include <cmath>
+#include <cfloat>
+#include <cassert>
 #include "compressonator/Common.h"
 #include "compressonator/Codec/BC7/3dquant_constants.h"
 #include "compressonator/Codec/BC7/3dquant_vpc.h"
@@ -69,7 +69,7 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
 
 std::mutex mtx;
 
-void Quant_Init(void)
+void Quant_Init()
 {
   if (g_Quant_init > 0)
   {
@@ -104,15 +104,15 @@ void Quant_Init(void)
   mtx.unlock();
 }
 
-void Quant_DeInit(void)
+void Quant_DeInit()
 {
   g_Quant_init--;
   if (g_Quant_init > 1)
   {
     return;
   }
-  else
-  {
+  
+  
     g_Quant_init = 0;  // Reset in case user called Quant_DeInit too many times
                        // without matching Quant_Init
     if (amd_codes[0][0] == nullptr)
@@ -138,12 +138,12 @@ void Quant_DeInit(void)
     }
 
 #endif
-  }
+  
 }
 
 //=========================================================================================
 
-void sugar(void){};
+void sugar(){};
 
 inline int a_compare(const void* arg1, const void* arg2)
 {
@@ -158,7 +158,7 @@ inline int a_compare(const void* arg1, const void* arg2)
 // We ignore the issue of ordering equal elements here, though it can affect
 // results abit
 //
-void sortProjection(double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
+void sortProjection(const double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
                     int numEntries)
 {
   int i;
@@ -256,7 +256,7 @@ void centerInPlace_d(double data[][MAX_DIMENSION_BIG], int numEntries,
   }
 }
 
-void project(double data[][DIMENSION], int numEntries, double vector[DIMENSION],
+void project(double data[][DIMENSION], int numEntries, const double vector[DIMENSION],
              double projection[MAX_ENTRIES])
 {
   // assume that vector is normalized already
@@ -273,7 +273,7 @@ void project(double data[][DIMENSION], int numEntries, double vector[DIMENSION],
 }
 
 void project_d(double data[][MAX_DIMENSION_BIG], int numEntries,
-               double vector[MAX_DIMENSION_BIG], double projection[MAX_ENTRIES],
+               const double vector[MAX_DIMENSION_BIG], double projection[MAX_ENTRIES],
                int dimension)
 {
   // assume that vector is normalized already
@@ -470,7 +470,7 @@ void eigenVector_d(double cov[MAX_DIMENSION_BIG][MAX_DIMENSION_BIG],
     vector[i] /= t;
 }
 
-double partition2(double data[][DIMENSION], int numEntries, int index[])
+double partition2(double data[][DIMENSION], int numEntries, const int index[])
 {
   int i, j, k;
   double cov[2][DIMENSION][DIMENSION];
@@ -630,7 +630,7 @@ void quantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
   }
 }
 
-void quantLineConstr(double data[][DIMENSION], int order[MAX_ENTRIES],
+void quantLineConstr(double data[][DIMENSION], const int order[MAX_ENTRIES],
                      int numEntries, int numClusters, int index[MAX_ENTRIES])
 {
   // Data should be centered, otherwise will not work
@@ -1311,7 +1311,7 @@ void quantTrace_d(double data[MAX_ENTRIES_QUANT_TRACE][MAX_DIMENSION_BIG],
   }
 }
 
-void quant_AnD_Shell(double* v_, int k, int n, int* idx)
+void quant_AnD_Shell(const double* v_, int k, int n, int* idx)
 {
 // input:
 //
@@ -1675,9 +1675,9 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
 {
 //=================
 #define DIG(J_IN, I, N, J_OUT, DIR, NC, NCC) \
-  for (I = J_IN; I < N || NC < NCC; I++)     \
+  for ((I) = J_IN; (I) < (N) || (NC) < (NCC); (I)++)     \
   {                                          \
-    J_OUT = ((((J_IN)&0x1) == DIR) ? I : N - 1 - (I - (J_IN)));
+    (J_OUT) = ((((J_IN)&0x1) == (DIR)) ? (I) : (N) - 1 - ((I) - (J_IN)));
 
   //=================
 
@@ -1727,7 +1727,7 @@ void traceBuilder(int numEntries, int numClusters, struct TRACE tr[],
       if (abs(j[p] - k[p]) > 1)
         return;
 
-      else if (j[p] - k[p] == 1)
+      if (j[p] - k[p] == 1)
       {
         int ci = k[p] - p;  // move it one cluster down "-"
         int cn = p + 1;

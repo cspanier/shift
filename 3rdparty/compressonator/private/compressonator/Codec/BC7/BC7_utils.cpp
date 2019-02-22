@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 //
 
-#include <math.h>
+#include <cmath>
 #include "compressonator/Codec/BC7/BC7_Definitions.h"
 #include "compressonator/Codec/BC7/BC7_utils.h"
 #include "compressonator/Internal/debug.h"
@@ -107,7 +107,7 @@ uint8_t interpolate(uint8_t e0, uint8_t e1, uint8_t index,
 #endif
 
 void DecodeEndPoints(std::uint32_t endpoint[][MAX_DIMENSION_BIG],
-                     std::uint32_t componentBits[MAX_DIMENSION_BIG],
+                     const std::uint32_t componentBits[MAX_DIMENSION_BIG],
                      float ep[][MAX_DIMENSION_BIG])
 {
   std::uint32_t i;
@@ -141,8 +141,8 @@ void DecodeEndPoints(std::uint32_t endpoint[][MAX_DIMENSION_BIG],
 
 void GetRamp(std::uint32_t endpoint[][MAX_DIMENSION_BIG],
              double ramp[MAX_DIMENSION_BIG][(1 << MAX_INDEX_BITS)],
-             std::uint32_t clusters[2],
-             std::uint32_t componentBits[MAX_DIMENSION_BIG])
+             const std::uint32_t clusters[2],
+             const std::uint32_t componentBits[MAX_DIMENSION_BIG])
 {
   double ep[2][MAX_DIMENSION_BIG];
   std::uint32_t i;

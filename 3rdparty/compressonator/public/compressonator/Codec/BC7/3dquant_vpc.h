@@ -31,18 +31,18 @@ typedef struct
   int i;
 } a;
 
-void sortProjection(double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
+void sortProjection(const double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
                     int numEntries);
 void covariance(double data[][DIMENSION], int numEntries,
                 double cov[DIMENSION][DIMENSION]);
 void centerInPlace(double datda[][DIMENSION], int numEntries,
                    double mean[DIMENSION]);
-void project(double data[][DIMENSION], int numEntries, double vector[DIMENSION],
+void project(double data[][DIMENSION], int numEntries, const double vector[DIMENSION],
              double projection[MAX_ENTRIES]);
-void sortProjection(double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
+void sortProjection(const double projection[MAX_ENTRIES], int order[MAX_ENTRIES],
                     int numEntries);
 void eigenVector(double cov[DIMENSION][DIMENSION], double vector[DIMENSION]);
-double partition2(double data[][DIMENSION], int numEntries, int index[]);
+double partition2(double data[][DIMENSION], int numEntries, const int index[]);
 
 double optQuantEven(double data[MAX_ENTRIES][DIMENSION], int numEntries,
                     int numClusters, int index[MAX_ENTRIES],

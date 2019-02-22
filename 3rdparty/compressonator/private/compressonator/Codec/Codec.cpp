@@ -50,9 +50,7 @@ CCodec::CCodec(CodecType codecType)
   m_CodecType = codecType;
 }
 
-CCodec::~CCodec()
-{
-}
+CCodec::~CCodec() = default;
 
 bool CCodec::SetParameter(const char* /*pszParamName*/, char* /*dwValue*/)
 {
@@ -166,8 +164,9 @@ CCodec* CreateCodec(CodecType nCodecType)
 }
 
 std::uint32_t CalcBufferSize(CodecType nCodecType, std::uint32_t dwWidth,
-                             std::uint32_t dwHeight, std::uint8_t nBlockWidth,
-                             std::uint8_t nBlockHeight)
+                             std::uint32_t dwHeight,
+                             std::uint8_t /*nBlockWidth*/,
+                             std::uint8_t /*nBlockHeight*/)
 {
   std::uint32_t dwChannels;
   std::uint32_t dwBitsPerChannel;

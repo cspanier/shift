@@ -123,16 +123,16 @@ protected:
 
   // Alpha decompression functions
   void GetCompressedAlphaRamp(std::uint8_t alpha[8],
-                              std::uint32_t compressedBlock[2]);
-  void GetCompressedAlphaRamp(float alpha[8], std::uint32_t compressedBlock[2]);
+                              const std::uint32_t compressedBlock[2]);
+  void GetCompressedAlphaRamp(float alpha[8], const std::uint32_t compressedBlock[2]);
 
   // RGB compression functions
-  float* CalculateColourWeightings(std::uint8_t block[BLOCK_SIZE_4X4X4]);
+  float* CalculateColourWeightings(const std::uint8_t block[BLOCK_SIZE_4X4X4]);
   float* CalculateColourWeightings(float block[BLOCK_SIZE_4X4X4]);
 
   void EncodeAlphaBlock(std::uint32_t compressedBlock[2],
-                        std::uint8_t nEndpoints[2],
-                        std::uint8_t nIndices[BLOCK_SIZE_4X4]);
+                        const std::uint8_t nEndpoints[2],
+                        const std::uint8_t nIndices[BLOCK_SIZE_4X4]);
 
   bool m_bUseChannelWeighting;
   bool m_bUseAdaptiveWeighting;
@@ -142,8 +142,8 @@ protected:
   std::uint8_t m_nRefinementSteps;
   CMP_Speed m_nCompressionSpeed;
 
-  float m_fBaseChannelWeights[3];
-  float m_fChannelWeights[3];
+  float m_fBaseChannelWeights[3]{};
+  float m_fChannelWeights[3]{};
 };
 
 #endif  // !defined(_CODEC_DXTC_H_INCLUDED_)

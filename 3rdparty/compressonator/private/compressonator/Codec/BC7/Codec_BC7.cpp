@@ -64,7 +64,7 @@ int bc7_total_MSE = 0;
 
 unsigned int BC7ThreadProcEncode(void* param)
 {
-  BC7EncodeThreadParam* tp = (BC7EncodeThreadParam*)param;
+  auto* tp = (BC7EncodeThreadParam*)param;
 
   while (tp->exit == FALSE)
   {
@@ -202,7 +202,7 @@ CCodec_BC7::~CCodec_BC7()
 #pragma warning(push)
 #pragma warning( \
   disable : 4127)  // warning C4127: conditional expression is constant
-        while (1)
+        while (true)
         {
           if (m_EncodeParameterStorage[i].run != TRUE)
           {
@@ -237,7 +237,7 @@ CCodec_BC7::~CCodec_BC7()
 
     m_EncodingThreadHandle = nullptr;
 
-    if (m_EncodeParameterStorage)
+    
       delete[] m_EncodeParameterStorage;
     m_EncodeParameterStorage = nullptr;
 
@@ -271,9 +271,9 @@ CodecError CCodec_BC7::InitializeBC7Library()
     Quant_Init();
     init_ramps();
 
-    for (std::uint32_t i = 0; i < MAX_BC7_THREADS; i++)
+    for (auto & i : m_encoder)
     {
-      m_encoder[i] = nullptr;
+      i = nullptr;
     }
 
     // Create threaded encoder instances
@@ -424,7 +424,7 @@ CodecError CCodec_BC7::EncodeBC7Block(
   return CE_OK;
 }
 
-CodecError CCodec_BC7::FinishBC7Encoding(void)
+CodecError CCodec_BC7::FinishBC7Encoding()
 {
   if (!m_LibraryInitialized)
     return CE_Unknown;
@@ -766,13 +766,13 @@ CodecError CCodec_BC7::Decompress(CCodecBuffer& bufferIn,
       union FBLOCKS {
         double decodedBlock[16][4];
         double destBlock[BLOCK_SIZE_4X4X4];
-      } DecData;
+      } DecData{};
 
       union BBLOCKS {
         std::uint32_t compressedBlock[4];
         std::uint8_t out[16];
         std::uint8_t in[16];
-      } CompData;
+      } CompData{};
 
       std::uint8_t destBlock[BLOCK_SIZE_4X4X4];
 

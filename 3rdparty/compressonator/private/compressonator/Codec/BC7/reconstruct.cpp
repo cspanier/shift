@@ -22,9 +22,9 @@
 // THE SOFTWARE.
 //
 
-#include <math.h>
-#include <string.h>
-#include <assert.h>
+#include <cmath>
+#include <cstring>
+#include <cassert>
 #include "compressonator/Codec/BC7/3dquant_constants.h"
 #include "compressonator/Codec/BC7/3dquant_vpc.h"
 #include "compressonator/Codec/BC7/reconstruct.h"
@@ -82,7 +82,7 @@ void histoStepCnt(int id, int cnt, double step1)
   stepHistoI[id][(int)floor(step1 + 1 / 2.)] += cnt;
 };
 
-void printStepHistoI(void)
+void printStepHistoI()
 {
   int i, j, k, l;
 
@@ -101,7 +101,7 @@ void printStepHistoI(void)
   }
 }
 
-void printStepHisto(void)
+void printStepHisto()
 {
   int i, j, k;
   k = 0;
@@ -127,14 +127,14 @@ void printStepHisto(void)
   printf("]\n");
 }
 
-void printStep(void)
+void printStep()
 {
   int i;
   for (i = 0; i < MAX_CLUSTERS; i++)
     printf("step %2d %10g %10g  %10g %10g \n", i, minStep[i], minStep1[i],
            maxStep[i], maxStep1[i]);
 }
-void printCnt(void)
+void printCnt()
 {
   printf("total pix %g rounded %g percentage %g\n", PCnt, PCnt - NShakeCnt,
          (PCnt - NShakeCnt) / PCnt);
@@ -197,7 +197,7 @@ void index_expand  // assymtric of x->n-x, but this does not matter below
     index[k] = (index[k] - mi) * d;
 }
 
-void sHisto(int index[], int numEntries, double step, double step1)
+void sHisto(const int index[], int numEntries, double step, double step1)
 {
   int Mi = 0;
   int k;
@@ -217,7 +217,7 @@ void sHisto(int index[], int numEntries, double step, double step1)
 }
 
 double reconstruct(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-                   int index_[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION],
+                   const int index_[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION],
                    int ns, double direction[DIMENSION], double* step)
 {
 
@@ -368,7 +368,7 @@ double reconstruct_new(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 void shake(double data[MAX_ENTRIES][DIMENSION], int numEntries, double idx_mean,
 
            double dir_r[4][DIMENSION], double mean_r[8][DIMENSION],
-           double step_r[2],
+           const double step_r[2],
 
            int index_r[MAX_ENTRIES], double out[MAX_ENTRIES][DIMENSION])
 
@@ -590,7 +590,7 @@ void shake_d_s_s(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 }
 
 void mds(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-         int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
+         const int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
          double direction[DIMENSION], double* step)
 {
   int j, k;
@@ -633,7 +633,7 @@ void mds(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 }
 
 void mds_d(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-           int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
+           const int index[MAX_ENTRIES], double mean[DIMENSION], double* idx_mean,
            double direction[DIMENSION], double* step)
 {
   int i, j, k;
@@ -697,7 +697,7 @@ void mds_d(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 
 // mean rounding setup
 // cube model
-void setMean(double mean[DIMENSION], double mr[8][DIMENSION], int div)
+void setMean(const double mean[DIMENSION], double mr[8][DIMENSION], int div)
 {
   double idiv = 1.;  // full scale divider per component
   int sdiv = 1;      // Z/fcc/bcc swithc
@@ -829,7 +829,7 @@ void setMean(double mean[DIMENSION], double mr[8][DIMENSION], int div)
 }
 
 double reconstruct_rnd(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-                       int index_[MAX_ENTRIES],
+                       const int index_[MAX_ENTRIES],
                        double out[MAX_ENTRIES][DIMENSION], int ns,
                        double direction[DIMENSION], double* step)
 {
@@ -1105,10 +1105,10 @@ double reconstruct_rnd(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 };
 
 double reconstruct_rnd_mean_clip(double data[MAX_ENTRIES][DIMENSION],
-                                 int numEntries, int index_[MAX_ENTRIES],
+                                 int numEntries, const int index_[MAX_ENTRIES],
                                  double out[MAX_ENTRIES][DIMENSION], int ns,
                                  double direction[DIMENSION], double* step,
-                                 double in_mean[DIMENSION])
+                                 const double in_mean[DIMENSION])
 {
 #define NP1 31
 
@@ -1446,7 +1446,7 @@ double reconstruct_rnd_mean_clip(double data[MAX_ENTRIES][DIMENSION],
   return totalError(data, out, numEntries);
 }
 
-inline int getns(int partition[MAX_ENTRIES], int numEntries)
+inline int getns(const int partition[MAX_ENTRIES], int numEntries)
 {
   int i, c;
   int id[MAX_ENTRIES];
@@ -1464,7 +1464,7 @@ inline int getns(int partition[MAX_ENTRIES], int numEntries)
 }
 
 int block_mean_rnd(double data_[MAX_ENTRIES][DIMENSION], int numEntries,
-                   int partition[MAX_ENTRIES], int ns,
+                   const int partition[MAX_ENTRIES], int ns,
 
                    double mean[MAX_SUBSETS][DIMENSION], double* clip,
                    double mm[DIMENSION],
@@ -1666,7 +1666,7 @@ double ep_shaker(
             out[i][j] = m[j];
         return totalError(data, out, numEntries);
       }
-      else
+      
         return totalError(data, out, numEntries);
     }
 
@@ -2736,7 +2736,7 @@ double ep_shaker_2__(double data[MAX_ENTRIES][DIMENSION], int numEntries,
 
 //################################
 double reconstruct_rnd__(double data[MAX_ENTRIES][DIMENSION], int numEntries,
-                         int index_[MAX_ENTRIES],
+                         const int index_[MAX_ENTRIES],
                          double out[MAX_ENTRIES][DIMENSION], int ns,
                          double direction[DIMENSION], double* step)
 {

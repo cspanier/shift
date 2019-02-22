@@ -31,6 +31,7 @@
 #include "compressonator/Common.h"
 
 #include <algorithm>
+#include <cmath>
 
 #ifdef USE_SSE
 #include <xmmintrin.h>
@@ -54,8 +55,8 @@
 
 #define BLOCK_SIZE MAX_BLOCK
 
-#define EPS (2.f / 255.f) * (2.f / 255.f)
-#define EPS2 3.f * (2.f / 255.f) * (2.f / 255.f)
+#define EPS ((2.f / 255.f) * (2.f / 255.f))
+#define EPS2 (3.f * (2.f / 255.f) * (2.f / 255.f))
 #ifndef MAX_ERROR
 #define MAX_ERROR 128000.f
 #endif
@@ -113,14 +114,14 @@ static int QSortIntCmp(const void* Elem1, const void* Elem2)
 
 static int QSortFloatCmp(const void* Elem1, const void* Elem2)
 {
-  std::uint32_t* pdwElem1 = (std::uint32_t*)Elem1;
-  std::uint32_t* pdwElem2 = (std::uint32_t*)Elem2;
+  auto* pdwElem1 = (std::uint32_t*)Elem1;
+  auto* pdwElem2 = (std::uint32_t*)Elem2;
   if ((pdwElem1[2] > pdwElem2[2]) ||
       (pdwElem1[2] == pdwElem2[2] && pdwElem1[1] > pdwElem2[1]) ||
       (pdwElem1[2] == pdwElem2[2] && pdwElem1[1] == pdwElem2[1] &&
        pdwElem1[0] > pdwElem2[0]))
     return 1;
-  else if ((pdwElem1[2] < pdwElem2[2]) ||
+  if ((pdwElem1[2] < pdwElem2[2]) ||
            (pdwElem1[2] == pdwElem2[2] && pdwElem1[1] < pdwElem2[1]) ||
            (pdwElem1[2] == pdwElem2[2] && pdwElem1[1] == pdwElem2[1] &&
             pdwElem1[0] < pdwElem2[0]))
@@ -151,17 +152,17 @@ static void MkRmpOnGrid(float _RmpF[NUM_CHANNELS][NUM_ENDPOINTS],
   {
     for (int k = 0; k < 2; k++)
     {
-      _RmpF[j][k] = floor(_MnMx[j][k]);
+      _RmpF[j][k] = std::floor(_MnMx[j][k]);
       if (_RmpF[j][k] <= _Min)
         _RmpF[j][k] = _Min;
       else
       {
         _RmpF[j][k] +=
-          floor(128.f / Fctrs1[j]) - floor(_RmpF[j][k] / Fctrs1[j]);
+          std::floor(128.f / Fctrs1[j]) - std::floor(_RmpF[j][k] / Fctrs1[j]);
         _RmpF[j][k] = min(_RmpF[j][k], _Max);
       }
 
-      _RmpF[j][k] = floor(_RmpF[j][k] / Fctrs0[j]) * Fctrs0[j];
+      _RmpF[j][k] = std::floor(_RmpF[j][k] / Fctrs0[j]) * Fctrs0[j];
     }
   }
 }
@@ -191,7 +192,7 @@ inline void MkWkRmpPts(bool* _bEq,
     for (int k = 0; k < 2; k++)
     {
       // Apply the lower bit replication to give full dynamic range
-      _OutRmpPts[j][k] = _InpRmpPts[j][k] + floor(_InpRmpPts[j][k] / Fctrs[j]);
+      _OutRmpPts[j][k] = _InpRmpPts[j][k] + std::floor(_InpRmpPts[j][k] / Fctrs[j]);
       _OutRmpPts[j][k] = max(_OutRmpPts[j][k], 0.f);
       _OutRmpPts[j][k] = min(_OutRmpPts[j][k], 255.f);
     }
@@ -203,7 +204,7 @@ std::uint32_t dwRndAmount[] = {0, 0, 0, 0, 1, 1, 2, 2, 3};
 /*------------------------------------------------------------------------------------------------
 1 DIM ramp
 ------------------------------------------------------------------------------------------------*/
-inline void BldClrRmp(float _Rmp[MAX_POINTS], float _InpRmp[NUM_ENDPOINTS],
+inline void BldClrRmp(float _Rmp[MAX_POINTS], const float _InpRmp[NUM_ENDPOINTS],
                       std::uint8_t dwNumPoints)
 {
   // linear interpolate end points to get the ramp
@@ -213,7 +214,7 @@ inline void BldClrRmp(float _Rmp[MAX_POINTS], float _InpRmp[NUM_ENDPOINTS],
     _Rmp[dwNumPoints] =
       1000000.f;  // for 3 point ramp; not to select the 4th point as min
   for (int e = 1; e < dwNumPoints - 1; e++)
-    _Rmp[e] = floor((_Rmp[0] * (dwNumPoints - 1 - e) +
+    _Rmp[e] = std::floor((_Rmp[0] * (dwNumPoints - 1 - e) +
                      _Rmp[dwNumPoints - 1] * e + dwRndAmount[dwNumPoints]) /
                     (float)(dwNumPoints - 1));
 }
@@ -233,9 +234,9 @@ inline void BldRmp(float _Rmp[NUM_CHANNELS][MAX_POINTS],
 Compute cumulative error for the current cluster
 ------------------------------------------------------------------------------------------------*/
 static float ClstrErr(float _Blk[MAX_BLOCK][NUM_CHANNELS],
-                      float _Rpt[MAX_BLOCK],
+                      const float _Rpt[MAX_BLOCK],
                       float _Rmp[NUM_CHANNELS][MAX_POINTS], int _NmbClrs,
-                      int _blcktp, bool _ConstRamp, float* _pfWeights)
+                      int _blcktp, bool _ConstRamp, const float* _pfWeights)
 {
   float fError = 0.f;
   int rmp_l = (_ConstRamp) ? 1 : _blcktp;
@@ -285,7 +286,7 @@ static float ClstrIntnl(float _Blk[MAX_BLOCK][NUM_CHANNELS],
                         std::uint8_t* _Indxs,
                         float _Rmp[NUM_CHANNELS][MAX_POINTS], int dwBlockSize,
                         std::uint8_t dwNumPoints, bool _ConstRamp,
-                        float* _pfWeights, bool _bUseAlpha)
+                        const float* _pfWeights, bool _bUseAlpha)
 {
   float Err = 0.f;
   std::uint8_t rmp_l = (_ConstRamp) ? 1 : dwNumPoints;
@@ -375,7 +376,7 @@ static float ClstrBas(std::uint8_t* _Indxs, float _Blk[MAX_BLOCK][NUM_CHANNELS],
 Clusterization the way it looks from the DXTC decompressor
 ------------------------------------------------------------------------------------------------*/
 
-float Clstr(std::uint32_t block_32[MAX_BLOCK], std::uint16_t dwBlockSize,
+float Clstr(const std::uint32_t block_32[MAX_BLOCK], std::uint16_t dwBlockSize,
             std::uint8_t nEndpoints[3][NUM_ENDPOINTS], std::uint8_t* pcIndices,
             std::uint8_t dwNumPoints, float* _pfWeights, bool _bUseAlpha,
             std::uint8_t _nAlphaThreshold, std::uint8_t nRedBits,
@@ -418,7 +419,7 @@ float Clstr(std::uint32_t block_32[MAX_BLOCK], std::uint16_t dwBlockSize,
                   _bUseAlpha, nRedBits, nGreenBits, nBlueBits);
 }
 
-float Clstr(float block_32[MAX_BLOCK * 4], std::uint16_t dwBlockSize,
+float Clstr(const float block_32[MAX_BLOCK * 4], std::uint16_t dwBlockSize,
             std::uint8_t nEndpoints[3][NUM_ENDPOINTS], std::uint8_t* pcIndices,
             std::uint8_t dwNumPoints, float* _pfWeights, bool _bUseAlpha,
             float _fAlphaThreshold, std::uint8_t nRedBits,
@@ -542,8 +543,8 @@ static float RampSrchWSS2E(ALIGN_16 float _Blck[MAX_BLOCK],
 /*------------------------------------------------------------------------------------------------
 1 dim error
 ------------------------------------------------------------------------------------------------*/
-static float RampSrchW(float _Blck[MAX_BLOCK], float _BlckErr[MAX_BLOCK],
-                       float _Rpt[MAX_BLOCK], float _maxerror, float _min_ex,
+static float RampSrchW(const float _Blck[MAX_BLOCK], const float _BlckErr[MAX_BLOCK],
+                       const float _Rpt[MAX_BLOCK], float _maxerror, float _min_ex,
                        float _max_ex, int _NmbClrs, int _block)
 {
   float error = 0;
@@ -562,7 +563,7 @@ static float RampSrchW(float _Blck[MAX_BLOCK], float _BlckErr[MAX_BLOCK],
     else if (_Blck[i] - _max_ex >= 0)
       v = _max_ex;
     else
-      v = floor((del + step_h) * rstep) * step + _min_ex;
+      v = std::floor((del + step_h) * rstep) * step + _min_ex;
 
     // And accumulate the error
     float d = (_Blck[i] - v);
@@ -587,7 +588,7 @@ static void FindAxis(float _outBlk[MAX_BLOCK][NUM_CHANNELS],
                      float fLineDirection[NUM_CHANNELS],
                      float fBlockCenter[NUM_CHANNELS], bool* _pbSmall,
                      float _inpBlk[MAX_BLOCK][NUM_CHANNELS],
-                     float _inpRpt[MAX_BLOCK], int nDimensions, int nNumColors)
+                     const float _inpRpt[MAX_BLOCK], int nDimensions, int nNumColors)
 {
   float Crrl[NUM_CHANNELS];
   float RGB2[NUM_CHANNELS];
@@ -674,7 +675,7 @@ static void FindAxis(float _outBlk[MAX_BLOCK][NUM_CHANNELS],
     for (j = 0; j < nDimensions; j++)
     {
       float Det = RGB2[j] * RGB2[(j + 1) % 3] - Crrl[j] * Crrl[j];
-      Cs[j] = abs(Crrl[j] / sqrt(RGB2[j] * RGB2[(j + 1) % 3]));
+      Cs[j] = abs(Crrl[j] / std::sqrt(RGB2[j] * RGB2[(j + 1) % 3]));
       if (maxDet < Det)
       {
         maxDet = Det;
@@ -714,7 +715,7 @@ static void FindAxis(float _outBlk[MAX_BLOCK][NUM_CHANNELS],
   float Len = fLineDirection[0] * fLineDirection[0] +
               fLineDirection[1] * fLineDirection[1] +
               fLineDirection[2] * fLineDirection[2];
-  Len = sqrt(Len);
+  Len = std::sqrt(Len);
 
   for (j = 0; j < 3; j++)
     fLineDirection[j] = (Len > 0.f) ? fLineDirection[j] / Len : 0.f;
@@ -2273,7 +2274,7 @@ static void CompressRGBBlockX(float _RsltRmpPnts[NUM_CHANNELS][NUM_ENDPOINTS],
           else if (Prj0[i] - Pos[1] >= 0)
             RmpIndxs[i] = (float)(dwNumPoints - 1);
           else
-            RmpIndxs[i] = floor((del + step_h) * rstep);
+            RmpIndxs[i] = std::floor((del + step_h) * rstep);
           // shift and normalization
           RmpIndxs[i] = (RmpIndxs[i] - indxAvrg) * overBlkTp;
         }
@@ -2301,7 +2302,7 @@ static void CompressRGBBlockX(float _RsltRmpPnts[NUM_CHANNELS][NUM_ENDPOINTS],
           //  7. Goto 1.
           Len2 = LineDir[0] * LineDir[0] + LineDir[1] * LineDir[1] +
                  LineDir[2] * LineDir[2];
-          Len2 = sqrt(Len2);
+          Len2 = std::sqrt(Len2);
 
           LineDir[0] /= Len2;
           LineDir[1] /= Len2;
@@ -2341,7 +2342,7 @@ static void CompressRGBBlockX(float _RsltRmpPnts[NUM_CHANNELS][NUM_ENDPOINTS],
 
 --------------------------------------------------------------------------------------------------------*/
 
-float CompRGBBlock(float* block_32, std::uint16_t dwBlockSize,
+float CompRGBBlock(const float* block_32, std::uint16_t dwBlockSize,
                    std::uint8_t nRedBits, std::uint8_t nGreenBits,
                    std::uint8_t nBlueBits,
                    std::uint8_t nEndpoints[3][NUM_ENDPOINTS],
@@ -2432,14 +2433,14 @@ float CompRGBBlock(float* block_32, std::uint16_t dwBlockSize,
                  _pfChannelWeights, _bUseAlpha, _fAlphaThreshold, nRedBits,
                  nGreenBits, nBlueBits);
   }
-  else
-  {
+  
+  
     // All colors transparent
     nEndpoints[0][0] = nEndpoints[1][0] = nEndpoints[2][0] = 0;
     nEndpoints[0][1] = nEndpoints[1][1] = nEndpoints[2][1] = 0xff;
     memset(pcIndices, 0xff, dwBlockSize);
     return 0.0;
-  }
+  
 }
 
 /*--------------------------------------------------------------------------------------------------------
@@ -2527,14 +2528,14 @@ float CompRGBBlock(std::uint32_t* block_32, std::uint16_t dwBlockSize,
                  _pfChannelWeights, _bUseAlpha, _nAlphaThreshold, nRedBits,
                  nGreenBits, nBlueBits);
   }
-  else
-  {
+  
+  
     // All colors transparent
     nEndpoints[0][0] = nEndpoints[1][0] = nEndpoints[2][0] = 0;
     nEndpoints[0][1] = nEndpoints[1][1] = nEndpoints[2][1] = 0xff;
     memset(pcIndices, 0xff, dwBlockSize);
     return 0.0;
-  }
+  
 }
 
 /*----------------------------------------------------------------------------
@@ -2551,7 +2552,7 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
                         int _FracPrc = 0, bool _bFixedRamp = true,
                         bool _bUseSSE2 = true);
 
-static float Clstr1(std::uint8_t* pcIndices, float _blockIn[MAX_BLOCK],
+static float Clstr1(std::uint8_t* pcIndices, const float _blockIn[MAX_BLOCK],
                     float _ramp[NUM_ENDPOINTS], int _NmbrClrs, int nNumPoints,
                     bool bFixedRampPoints, int _intPrec = 8, int _fracPrec = 0,
                     bool _bFixedRamp = true);
@@ -2559,7 +2560,7 @@ static float Clstr1(std::uint8_t* pcIndices, float _blockIn[MAX_BLOCK],
 /*------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------*/
-static void BldRmp1(float _Rmp[MAX_POINTS], float _InpRmp[NUM_ENDPOINTS],
+static void BldRmp1(float _Rmp[MAX_POINTS], const float _InpRmp[NUM_ENDPOINTS],
                     int nNumPoints)
 {
   // for 3 point ramp; not to select the 4th point in min
@@ -2593,8 +2594,8 @@ static void GetRmp1(float _rampDat[MAX_POINTS], float _ramp[NUM_ENDPOINTS],
   _rampDat[0] = _ramp[0];
   _rampDat[1] = _ramp[1];
 
-  float IntFctr = (float)(1 << _intPrec);
-  float FracFctr = (float)(1 << _fracPrec);
+  auto IntFctr = (float)(1 << _intPrec);
+  auto FracFctr = (float)(1 << _fracPrec);
 
   float ramp[NUM_ENDPOINTS];
   ramp[0] = _ramp[0] * FracFctr;
@@ -2611,7 +2612,7 @@ static void GetRmp1(float _rampDat[MAX_POINTS], float _ramp[NUM_ENDPOINTS],
   {
     for (int i = 0; i < nNumPoints; i++)
     {
-      _rampDat[i] = floor(_rampDat[i] + 0.5f);
+      _rampDat[i] = std::floor(_rampDat[i] + 0.5f);
       _rampDat[i] /= FracFctr;
     }
   }
@@ -2620,7 +2621,7 @@ static void GetRmp1(float _rampDat[MAX_POINTS], float _ramp[NUM_ENDPOINTS],
 /*--------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------------------*/
-static float Clstr1(std::uint8_t* pcIndices, float _blockIn[MAX_BLOCK],
+static float Clstr1(std::uint8_t* pcIndices, const float _blockIn[MAX_BLOCK],
                     float _ramp[NUM_ENDPOINTS], int _NmbrClrs, int nNumPoints,
                     bool bFixedRampPoints, int _intPrec, int _fracPrec,
                     bool _bFixedRamp)
@@ -2725,7 +2726,7 @@ static float RmpSrch1SSE2(ALIGN_16 float _Blck[MAX_BLOCK],
 /*--------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------------------*/
-static float RmpSrch1(float _Blk[MAX_BLOCK], float _Rpt[MAX_BLOCK],
+static float RmpSrch1(const float _Blk[MAX_BLOCK], const float _Rpt[MAX_BLOCK],
                       float _maxerror, float _min_ex, float _max_ex,
                       int _NmbrClrs, std::uint8_t nNumPoints)
 {
@@ -2745,7 +2746,7 @@ static float RmpSrch1(float _Blk[MAX_BLOCK], float _Rpt[MAX_BLOCK],
     else if (_Blk[i] - _max_ex >= 0)
       v = _max_ex;
     else
-      v = (floor((del + step_h) * rstep) * step) + _min_ex;
+      v = (std::floor((del + step_h) * rstep) * step) + _min_ex;
 
     // And accumulate the error
     float del2 = (_Blk[i] - v);
@@ -2861,7 +2862,7 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
 
   float Ramp[NUM_ENDPOINTS];
 
-  float IntFctr = (float)(1 << _IntPrc);
+  auto IntFctr = (float)(1 << _IntPrc);
   //    float FracFctr = (float)(1 << _FracPrc);
 
   ALIGN_16 float afUniqueValues[MAX_BLOCK];
@@ -2914,12 +2915,12 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
     {
       if (dwUniqueValues == 2)  // if 2, take them
       {
-        Ramp[0] = floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
-        Ramp[1] = floor(afUniqueValues[1] * (IntFctr - 1) + 0.5f);
+        Ramp[0] = std::floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
+        Ramp[1] = std::floor(afUniqueValues[1] * (IntFctr - 1) + 0.5f);
       }
       else if (dwUniqueValues == 1)  // if 1, add another one
       {
-        Ramp[0] = floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
+        Ramp[0] = std::floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
         Ramp[1] = Ramp[0] + 1.f;
       }
       else  // if 0, invent them
@@ -2949,11 +2950,11 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
     // if number of unique colors is less or eq 2, we've done
     if (dwUniqueValues <= 2)
     {
-      Ramp[0] = floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
+      Ramp[0] = std::floor(afUniqueValues[0] * (IntFctr - 1) + 0.5f);
       if (dwUniqueValues == 1)
         Ramp[1] = Ramp[0] + 1.f;
       else
-        Ramp[1] = floor(afUniqueValues[1] * (IntFctr - 1) + 0.5f);
+        Ramp[1] = std::floor(afUniqueValues[1] * (IntFctr - 1) + 0.5f);
       fMaxError = 0.f;
       requiresCalculation = false;
     }
@@ -3037,14 +3038,14 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
     the integer grid and step equal 1.
     */
     if (!_INT_GRID && max_ex - min_ex > 0. &&
-        floor(min_ex + 0.5f) == floor(max_ex + 0.5f))
+        std::floor(min_ex + 0.5f) == std::floor(max_ex + 0.5f))
     {
       m_step = 1.;
       gbl_err = MAX_ERROR;
       for (std::uint32_t i = 0; i < dwUniqueValues; i++)
         afUniqueValues[i] *= (IntFctr - 1);
 
-      max_ex = min_ex = floor(min_ex + 0.5f);
+      max_ex = min_ex = std::floor(min_ex + 0.5f);
 
       gbl_err =
         Refine1(afUniqueValues, afValueRepeats, gbl_err, min_ex, max_ex, m_step,
@@ -3052,8 +3053,8 @@ static float CompBlock1(float _RmpPnts[NUM_ENDPOINTS], float _Blk[MAX_BLOCK],
 
       fMaxError = gbl_err;
     }
-    Ramp[1] = floor(max_ex + 0.5f);
-    Ramp[0] = floor(min_ex + 0.5f);
+    Ramp[1] = std::floor(max_ex + 0.5f);
+    Ramp[0] = std::floor(min_ex + 0.5f);
   }
 
   // Ensure that the two endpoints are not the same
@@ -3125,7 +3126,7 @@ SSE2-based assembler implementation
                )
 ---------------------------------------------------------------------------------------------*/
 
-float CompBlock1X(std::uint8_t* _Blk, std::uint16_t dwBlockSize,
+float CompBlock1X(const std::uint8_t* _Blk, std::uint16_t dwBlockSize,
                   std::uint8_t nEndpoints[2], std::uint8_t* pcIndices,
                   std::uint8_t dwNumPoints, bool bFixedRampPoints,
                   bool _bUseSSE2, int _intPrec, int _fracPrec, bool _bFixedRamp)

@@ -80,8 +80,8 @@ CodecError CCodec_DXTC::CompressAlphaBlock(float alphaBlock[BLOCK_SIZE_4X4X4],
 }
 
 void CCodec_DXTC::EncodeAlphaBlock(std::uint32_t compressedBlock[2],
-                                   std::uint8_t nEndpoints[2],
-                                   std::uint8_t nIndices[BLOCK_SIZE_4X4])
+                                   const std::uint8_t nEndpoints[2],
+                                   const std::uint8_t nIndices[BLOCK_SIZE_4X4])
 {
   compressedBlock[0] = ((int)nEndpoints[0]) | (((int)nEndpoints[1]) << 8);
   compressedBlock[1] = 0;
@@ -184,7 +184,7 @@ CodecError CCodec_DXTC::CompressExplicitAlphaBlock(
   for (int i = 0; i < 16; i++)
   {
     int nBlock = i < 8 ? 0 : 1;
-    std::uint8_t cAlpha = CONVERT_FLOAT_TO_BYTE(alphaBlock[i]);
+    auto cAlpha = CONVERT_FLOAT_TO_BYTE(alphaBlock[i]);
     cAlpha = (std::uint8_t)(
       (cAlpha + ((cAlpha >> EXPLICIT_ALPHA_PIXEL_BPP) < 0x8 ? 7 : 8) -
        (cAlpha >> EXPLICIT_ALPHA_PIXEL_BPP)) >>
@@ -206,7 +206,7 @@ void CCodec_DXTC::DecompressExplicitAlphaBlock(
   for (int i = 0; i < 16; i++)
   {
     int nBlock = i < 8 ? 0 : 1;
-    std::uint8_t cAlpha = (std::uint8_t)(
+    auto cAlpha = (std::uint8_t)(
       (compressedBlock[nBlock] >> ((i % 8) * EXPLICIT_ALPHA_PIXEL_BPP)) &
       EXPLICIT_ALPHA_PIXEL_MASK);
     alphaBlock[i] =
@@ -220,7 +220,7 @@ void CCodec_DXTC::DecompressExplicitAlphaBlock(float alphaBlock[BLOCK_SIZE_4X4],
   for (int i = 0; i < 16; i++)
   {
     int nBlock = i < 8 ? 0 : 1;
-    std::uint8_t cAlpha = (std::uint8_t)(
+    auto cAlpha = (std::uint8_t)(
       (compressedBlock[nBlock] >> ((i % 8) * EXPLICIT_ALPHA_PIXEL_BPP)) &
       EXPLICIT_ALPHA_PIXEL_MASK);
     alphaBlock[i] =
@@ -229,7 +229,7 @@ void CCodec_DXTC::DecompressExplicitAlphaBlock(float alphaBlock[BLOCK_SIZE_4X4],
 }
 
 void CCodec_DXTC::GetCompressedAlphaRamp(std::uint8_t alpha[8],
-                                         std::uint32_t compressedBlock[2])
+                                         const std::uint32_t compressedBlock[2])
 {
   alpha[0] = (std::uint8_t)(compressedBlock[0] & 0xff);
   alpha[1] = (std::uint8_t)((compressedBlock[0] >> 8) & 0xff);
@@ -269,7 +269,7 @@ void CCodec_DXTC::GetCompressedAlphaRamp(std::uint8_t alpha[8],
 }
 
 void CCodec_DXTC::GetCompressedAlphaRamp(float alpha[8],
-                                         std::uint32_t compressedBlock[2])
+                                         const std::uint32_t compressedBlock[2])
 {
   alpha[0] = CONVERT_BYTE_TO_FLOAT(compressedBlock[0] & 0xff);
   alpha[1] = CONVERT_BYTE_TO_FLOAT((compressedBlock[0] >> 8) & 0xff);

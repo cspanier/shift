@@ -34,7 +34,7 @@
 
 #ifdef _MSC_VER
 #if _MSC_VER < 1400
-#define DISABLE_FP_EXCEPTIONS         \
+#define DISABLE_FP_EXCEPTIONS                 \
   std::int32_t nCurrentFP = _controlfp(0, 0); \
   _controlfp(FP_EXCEPTION_MASK, _MCW_EM);
 #define RESTORE_FP_EXCEPTIONS _controlfp(nCurrentFP, _MCW_EM);
@@ -49,23 +49,11 @@
 #define RESTORE_FP_EXCEPTIONS
 #endif
 
-/*******************************
-For prototyping Multithreaded Compression is been disabled
-Navin May 2014
-was #define THREADED_COMPRESS
-*******************************/
 #define THREADED_COMPRESS
 
 #ifdef THREADED_COMPRESS
 #include <thread>
 
-#define MAX_THREADS 64u
-static std::uint32_t GetProcessorCount()
-{
-  return std::thread::hardware_concurrency();
-}
-
-const std::uint32_t f_dwProcessorCount = GetProcessorCount();
 #endif
 
 #endif  // !COMPRESS_H

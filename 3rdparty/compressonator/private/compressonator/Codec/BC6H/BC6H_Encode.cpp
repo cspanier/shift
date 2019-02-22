@@ -26,10 +26,10 @@
 // 0.1    First implementation
 // 0.2    Removed unused code and disabeled optimization
 //
-#include <assert.h>
-#include <float.h>
-#include <stdio.h>
-#include <math.h>
+#include <cassert>
+#include <cfloat>
+#include <cstdio>
+#include <cmath>
 #include "compressonator/Internal/debug.h"
 #include "compressonator/Codec/BC6H/BC6H_Encode.h"
 #include "compressonator/Common.h"
@@ -526,7 +526,7 @@ void BC6HBlockEncoder::QuantizeEndPointToF16Prec(
 
 void BC6HBlockEncoder::SwapIndices(
   int iEndPoints[MAX_SUBSETS][MAX_END_POINTS][MAX_DIMENSION_BIG],
-  int iIndices[3][BC6H_MAX_SUBSET_SIZE], int entryCount[BC6H_MAX_SUBSETS],
+  int iIndices[3][BC6H_MAX_SUBSET_SIZE], const int entryCount[BC6H_MAX_SUBSETS],
   int max_subsets, int mode, int shape_pattern)
 {
   using std::swap;
@@ -570,7 +570,7 @@ bool isOverflow(int endpoint, int nbit, bool bIsSigned)
     {
       return false;  // no overflow
     }
-    else if (endpoint > 0)
+    if (endpoint > 0)
     {
       for (nb = 0; endpoint; ++nb, endpoint >>= 1)
         ;
@@ -592,17 +592,15 @@ bool isOverflow(int endpoint, int nbit, bool bIsSigned)
 
     return false;
   }
-  else
-  {
-    int maxRange = (int)pow(2, nbit - 1) - 1;
-    int minRange = (int)-(pow(2, nbit - 1));
 
-    // no overflow
-    if ((endpoint >= minRange) && (endpoint <= maxRange))
-      return false;
-    else  // overflow
-      return true;
-  }
+  int maxRange = (int)pow(2, nbit - 1) - 1;
+  int minRange = (int)-(pow(2, nbit - 1));
+
+  // no overflow
+  if ((endpoint >= minRange) && (endpoint <= maxRange))
+    return false;
+  // overflow
+  return true;
 }
 
 // Bug in this code : Need to add signed bit to values
@@ -1062,8 +1060,8 @@ int finish_unquantizeF16(int q, bool isSigned)
   if (isSigned)
     return (q < 0) ? -(((-q) * 31) >> 5)
                    : (q * 31) >> 5;  // scale the magnitude by 31/32
-  else
-    return (q * 31) >> 6;  // scale the magnitude by 31/64
+
+  return (q * 31) >> 6;  // scale the magnitude by 31/64
 
   // Note for Undefined we should return q as is
 }
@@ -1632,7 +1630,7 @@ float BC6HBlockEncoder::CompressBlock(
   int bestShape = 0;
   int shape_pattern = -1;  // init to no shapes found
 
-  AMD_BC6H_Format BC6H_data;
+  AMD_BC6H_Format BC6H_data{};
 
   memset(&BC6H_data, 0, sizeof(AMD_BC6H_Format));
 
@@ -1646,13 +1644,14 @@ float BC6HBlockEncoder::CompressBlock(
 
     // using if ( < 0.00001) to avoid case of values been -0.0 which is not
     // processed when using if ( < 0)
-    if (in[i][0] < 0.00001 || isnan(in[i][0]))
+    if (in[i][0] < 0.00001 || std::isnan(in[i][0]))
     {
       if (m_isSigned)
       {
-        BC6H_data.din[i][0] = (isnan(in[i][0]))
-                                ? F16NEGPREC_LIMIT_VAL
-                                : -half(abs(in[i][0] / normalization)).bits();
+        BC6H_data.din[i][0] =
+          (std::isnan(in[i][0]))
+            ? F16NEGPREC_LIMIT_VAL
+            : -half(std::abs(in[i][0] / normalization)).bits();
         if (BC6H_data.din[i][0] < F16NEGPREC_LIMIT_VAL)
         {
           BC6H_data.din[i][0] = F16NEGPREC_LIMIT_VAL;
@@ -1664,13 +1663,14 @@ float BC6HBlockEncoder::CompressBlock(
     else
       BC6H_data.din[i][0] = half(in[i][0] / normalization).bits();
 
-    if (in[i][1] < 0.00001 || isnan(in[i][1]))
+    if (in[i][1] < 0.00001 || std::isnan(in[i][1]))
     {
       if (m_isSigned)
       {
-        BC6H_data.din[i][1] = (isnan(in[i][1]))
-                                ? F16NEGPREC_LIMIT_VAL
-                                : -half(abs(in[i][1] / normalization)).bits();
+        BC6H_data.din[i][1] =
+          (std::isnan(in[i][1]))
+            ? F16NEGPREC_LIMIT_VAL
+            : -half(std::abs(in[i][1] / normalization)).bits();
         if (BC6H_data.din[i][1] < F16NEGPREC_LIMIT_VAL)
         {
           BC6H_data.din[i][1] = F16NEGPREC_LIMIT_VAL;
@@ -1682,13 +1682,14 @@ float BC6HBlockEncoder::CompressBlock(
     else
       BC6H_data.din[i][1] = half(in[i][1] / normalization).bits();
 
-    if (in[i][2] < 0.00001 || isnan(in[i][2]))
+    if (in[i][2] < 0.00001 || std::isnan(in[i][2]))
     {
       if (m_isSigned)
       {
-        BC6H_data.din[i][2] = (isnan(in[i][2]))
-                                ? F16NEGPREC_LIMIT_VAL
-                                : -half(abs(in[i][2] / normalization)).bits();
+        BC6H_data.din[i][2] =
+          (std::isnan(in[i][2]))
+            ? F16NEGPREC_LIMIT_VAL
+            : -half(std::abs(in[i][2] / normalization)).bits();
         if (BC6H_data.din[i][2] < F16NEGPREC_LIMIT_VAL)
         {
           BC6H_data.din[i][2] = F16NEGPREC_LIMIT_VAL;

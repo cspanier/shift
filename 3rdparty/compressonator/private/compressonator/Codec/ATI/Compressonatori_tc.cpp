@@ -34,11 +34,11 @@
 #else
 #include <memory.h>
 #endif
-#include <stdio.h>
+#include <cstdio>
 #include "compressonator/Codec/ATI/Compressonator_tc.h"
 
 #ifndef BOOL
-typedef int BOOL;
+using BOOL = int;
 #endif
 
 #ifndef TRUE
@@ -70,9 +70,9 @@ typedef int BOOL;
 // hardware exactly.
 #define LUMINANCE(R, G, B) ((19 * (R) + 38 * (G) + 7 * (B)) >> 6)
 
-typedef long MSE_t;
+using MSE_t = long;
 #define MSE_ZERO 0
-#define MSE_HIGHEST 255 * 255 * 16
+#define MSE_HIGHEST (255 * 255 * 16)
 
 static long ErrSquared(const Color888_t* pColor1, const Color888_t* pColor2)
 {
@@ -137,10 +137,9 @@ static void Color565To888(unsigned int color565, Color888_t* pColor888Ret)
 
 /*
  * Color888To1555() - Converts an 8:8:8 color to a 1:5:5:5 color.  The high bit
- *                    is used to hold "boolBlackTrick"
+ *                    is used to hold "blackTrick"
  */
-static unsigned int Color888To1555(const Color888_t* pColor888,
-                                   BOOL boolBlackTrick)
+static unsigned int Color888To1555(const Color888_t* pColor888, bool blackTrick)
 {
   unsigned int r, g, b;
   unsigned int r_a, g_a, b_a, r_b, g_b, b_b;
@@ -166,7 +165,7 @@ static unsigned int Color888To1555(const Color888_t* pColor888,
     b = b_b;
 
   color1555 = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3);
-  return (boolBlackTrick ? color1555 | 0x00008000 : color1555);
+  return (blackTrick ? color1555 | 0x00008000 : color1555);
 }
 
 /*
@@ -687,7 +686,7 @@ static BOOL ApplyBlackTrickIfHelpful(
   Color888_t* pColorMedLow888,   // IN/OUT: Ave. color for MedLow region
   Color888_t* pColorMedHigh888,  // IN/OUT: Ave. color for MedHigh region
   Color888_t* pColorHigh888,     // IN/OUT: Ave. color for High region
-  int* pcLow,                    // IN/OUT: Num colors in Low region
+  const int* pcLow,                    // IN/OUT: Num colors in Low region
   int* pcMedLow,                 // IN/OUT: Num colors in MedLow region
   int* pcMedHigh                 // IN/OUT: Num colors in MedHigh region
 )
@@ -1180,7 +1179,7 @@ void atiEncodeAlphaBlockATITCA4(unsigned char (*pSrcAlpha)[4][4],
  * 8 bits of alpha per pixel
  */
 void atiDecodeAlphaBlockATITCA4(unsigned char (*pAlphaOut)[4][4],
-                                unsigned char* pEncodedData)
+                                const unsigned char* pEncodedData)
 {
   unsigned int encodedAlpha = *((unsigned int*)pEncodedData);
   unsigned int alpha;

@@ -56,8 +56,7 @@ CCodecBuffer_RGB9995EF::CCodecBuffer_RGB9995EF(
 }
 
 CCodecBuffer_RGB9995EF::~CCodecBuffer_RGB9995EF()
-{
-}
+= default;
 
 void CCodecBuffer_RGB9995EF::Copy(CCodecBuffer& srcBuffer)
 {
@@ -172,7 +171,7 @@ typedef struct _R9G9B9E5
 
 #pragma warning(pop)
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * 4)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * 4)]
 bool CCodecBuffer_RGB9995EF::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                            std::uint8_t w, std::uint8_t h,
                                            float block[])
@@ -189,12 +188,12 @@ bool CCodecBuffer_RGB9995EF::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   union {
     float f;
     int32_t i;
-  } fi;
+  } fi{};
   float Scale = 0.0f;
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint32_t* pData =
+    auto* pData =
       (std::uint32_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     R9G9B9E5 pTemp;
 
@@ -251,7 +250,7 @@ bool CCodecBuffer_RGB9995EF::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     memcpy(pData, GET_PIXEL(0, j), dwWidth * nPixelSize);
   }

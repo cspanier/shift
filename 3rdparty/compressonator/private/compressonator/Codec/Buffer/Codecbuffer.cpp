@@ -61,6 +61,7 @@ CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
   case CBT_RGBA8888:
   case CBT_BGRA8888:
   case CBT_ARGB8888:
+  case CBT_ABGR8888:
     return new CCodecBuffer_RGBA8888(nBlockWidth, nBlockHeight, nBlockDepth,
                                      dwWidth, dwHeight, dwPitch, pData);
   case CBT_RGB888:
@@ -136,50 +137,50 @@ CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
   }
 }
 
-CodecBufferType GetCodecBufferType(CMP_FORMAT format)
+CodecBufferType GetCodecBufferType(cmp_format format)
 {
   CodecBufferType CBT_type;
-  // ToDo Expand the CBT data types listed below so that CMP_FORMAT maps to a
+  // ToDo Expand the CBT data types listed below so that cmp_format maps to a
   // single CBT_ type
   switch (format)
   {
-  case CMP_FORMAT_ARGB_32F:
-  case CMP_FORMAT_ABGR_32F:
-  case CMP_FORMAT_RGBA_32F:
-  case CMP_FORMAT_BGRA_32F:
+  case cmp_format::ARGB_32F:
+  case cmp_format::ABGR_32F:
+  case cmp_format::RGBA_32F:
+  case cmp_format::BGRA_32F:
     CBT_type = CBT_RGBA32F;
     break;
-  case CMP_FORMAT_RG_32F:
+  case cmp_format::RG_32F:
     CBT_type = CBT_RG32F;
     break;
-  case CMP_FORMAT_R_32F:
+  case cmp_format::R_32F:
     CBT_type = CBT_R32F;
     break;
-  case CMP_FORMAT_ARGB_16F:
-  case CMP_FORMAT_ABGR_16F:
-  case CMP_FORMAT_RGBA_16F:
-  case CMP_FORMAT_BGRA_16F:
+  case cmp_format::ARGB_16F:
+  case cmp_format::ABGR_16F:
+  case cmp_format::RGBA_16F:
+  case cmp_format::BGRA_16F:
     CBT_type = CBT_RGBA16F;
     break;
-  case CMP_FORMAT_RGBE_32F:
+  case cmp_format::RGBE_32F:
     CBT_type = CBT_RGBE32F;
     break;
-  case CMP_FORMAT_RG_16F:
+  case cmp_format::RG_16F:
     CBT_type = CBT_RG16F;
     break;
-  case CMP_FORMAT_R_16F:
+  case cmp_format::R_16F:
     CBT_type = CBT_R16F;
     break;
-  case CMP_FORMAT_ARGB_16:
-  case CMP_FORMAT_ABGR_16:
-  case CMP_FORMAT_RGBA_16:
-  case CMP_FORMAT_BGRA_16:
+  case cmp_format::ARGB_16:
+  case cmp_format::ABGR_16:
+  case cmp_format::RGBA_16:
+  case cmp_format::BGRA_16:
     CBT_type = CBT_RGBA16;
     break;
-  case CMP_FORMAT_RG_16:
+  case cmp_format::RG_16:
     CBT_type = CBT_RG16;
     break;
-  case CMP_FORMAT_R_16:
+  case cmp_format::R_16:
     CBT_type = CBT_R16;
     break;
 
@@ -194,22 +195,23 @@ CodecBufferType GetCodecBufferType(CMP_FORMAT format)
     CBT_type = CBT_R32;
     break;
 #endif  // ARGB_32_SUPPORT
-  case CMP_FORMAT_ARGB_2101010:
+  case cmp_format::ARGB_2101010:
     CBT_type = CBT_RGBA2101010;
     break;
-  case CMP_FORMAT_ARGB_8888:  // Need to expand on this format
-  case CMP_FORMAT_BGRA_8888:  // Need to expand on this format
-  case CMP_FORMAT_RGBA_8888:
+  case cmp_format::ARGB_8888:  // Need to expand on this format
+  case cmp_format::ABGR_8888:  // Need to expand on this format
+  case cmp_format::BGRA_8888:  // Need to expand on this format
+  case cmp_format::RGBA_8888:
     CBT_type = CBT_RGBA8888;
     break;
-  case CMP_FORMAT_BGR_888:  // Need to expand on this format
-  case CMP_FORMAT_RGB_888:
+  case cmp_format::BGR_888:  // Need to expand on this format
+  case cmp_format::RGB_888:
     CBT_type = CBT_RGB888;
     break;
-  case CMP_FORMAT_RG_8:
+  case cmp_format::RG_8:
     CBT_type = CBT_RG8;
     break;
-  case CMP_FORMAT_R_8:
+  case cmp_format::R_8:
     CBT_type = CBT_R8;
     break;
   default:
@@ -296,8 +298,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(cBlock, R, double);
@@ -309,7 +311,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -322,8 +324,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(cBlock, G, double);
@@ -335,7 +337,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -348,8 +350,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(cBlock, B, double);
@@ -361,7 +363,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -374,8 +376,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(cBlock, A, double);
@@ -387,7 +389,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -400,8 +402,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(wBlock, R, double);
@@ -413,7 +415,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -426,8 +428,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(wBlock, G, double);
@@ -439,7 +441,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -452,8 +454,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(wBlock, B, double);
@@ -465,7 +467,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -478,8 +480,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(wBlock, A, double);
@@ -491,7 +493,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -504,8 +506,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dwBlock, R, double);
@@ -517,7 +519,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -530,8 +532,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dwBlock, G, double);
@@ -543,7 +545,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -556,8 +558,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dwBlock, B, double);
@@ -569,7 +571,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -582,8 +584,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dwBlock, A, double);
@@ -595,7 +597,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -608,8 +610,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(hBlock, R, double);
@@ -621,7 +623,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -634,8 +636,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(hBlock, G, double);
@@ -647,7 +649,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -660,8 +662,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(hBlock, B, double);
@@ -673,7 +675,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -686,8 +688,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(hBlock, A, double);
@@ -699,7 +701,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -712,8 +714,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(fBlock, R, double);
@@ -725,7 +727,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -738,8 +740,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(fBlock, G, double);
@@ -751,7 +753,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -764,8 +766,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(fBlock, B, double);
@@ -777,7 +779,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -790,8 +792,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(fBlock, A, double);
@@ -803,7 +805,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -816,8 +818,8 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dBlock, R, float);
@@ -829,7 +831,7 @@ bool CCodecBuffer::ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -842,8 +844,8 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dBlock, G, float);
@@ -855,7 +857,7 @@ bool CCodecBuffer::ReadBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -868,8 +870,8 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dBlock, B, float);
@@ -881,7 +883,7 @@ bool CCodecBuffer::ReadBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -894,8 +896,8 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_READ(dBlock, A, float);
@@ -907,7 +909,7 @@ bool CCodecBuffer::ReadBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 #define ATTEMPT_BLOCK_WRITE(b, c, t)      \
@@ -931,8 +933,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(cBlock, R, std::uint32_t);
@@ -944,7 +946,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -957,8 +959,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(cBlock, G, std::uint32_t);
@@ -970,7 +972,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -983,8 +985,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(cBlock, B, std::uint32_t);
@@ -996,7 +998,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1009,8 +1011,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(cBlock, A, std::uint32_t);
@@ -1022,7 +1024,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1035,8 +1037,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(wBlock, R, std::uint32_t);
@@ -1048,7 +1050,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1061,8 +1063,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(wBlock, G, std::uint32_t);
@@ -1074,7 +1076,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1087,8 +1089,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(wBlock, B, std::uint32_t);
@@ -1100,7 +1102,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1113,8 +1115,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(wBlock, A, std::uint32_t);
@@ -1126,7 +1128,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1139,8 +1141,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dwBlock, R, double);
@@ -1152,7 +1154,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1165,8 +1167,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dwBlock, G, double);
@@ -1178,7 +1180,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1191,8 +1193,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dwBlock, B, double);
@@ -1204,7 +1206,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1217,8 +1219,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dwBlock, A, double);
@@ -1230,7 +1232,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1243,8 +1245,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(hBlock, R, double);
@@ -1256,7 +1258,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1269,8 +1271,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(hBlock, G, double);
@@ -1282,7 +1284,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1295,8 +1297,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(hBlock, B, double);
@@ -1308,7 +1310,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1321,8 +1323,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(hBlock, A, double);
@@ -1334,7 +1336,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1347,8 +1349,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(fBlock, R, double);
@@ -1360,7 +1362,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1373,8 +1375,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(fBlock, G, double);
@@ -1386,7 +1388,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1399,8 +1401,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(fBlock, B, double);
@@ -1412,7 +1414,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1425,8 +1427,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(fBlock, A, double);
@@ -1438,7 +1440,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1451,8 +1453,8 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dBlock, R, float);
@@ -1464,7 +1466,7 @@ bool CCodecBuffer::WriteBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1477,8 +1479,8 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dBlock, G, float);
@@ -1490,7 +1492,7 @@ bool CCodecBuffer::WriteBlockG(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1503,8 +1505,8 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dBlock, B, float);
@@ -1516,7 +1518,7 @@ bool CCodecBuffer::WriteBlockB(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
@@ -1529,8 +1531,8 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     ATTEMPT_BLOCK_WRITE(dBlock, A, float);
@@ -1542,7 +1544,7 @@ bool CCodecBuffer::WriteBlockA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1556,8 +1558,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     std::uint32_t dwBlock[MAX_BLOCK * 4];
@@ -1608,7 +1610,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1622,8 +1624,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1674,7 +1676,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1688,8 +1690,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1728,7 +1730,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1742,8 +1744,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1790,7 +1792,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1804,8 +1806,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1844,7 +1846,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1858,8 +1860,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1898,7 +1900,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1911,8 +1913,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -1951,7 +1953,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -1964,8 +1966,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -2004,7 +2006,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -2018,8 +2020,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -2058,7 +2060,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -2071,8 +2073,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     double dBlock[MAX_BLOCK * 4];
@@ -2111,7 +2113,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -2125,8 +2127,8 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     float fBlock[MAX_BLOCK * 4];
@@ -2165,7 +2167,7 @@ bool CCodecBuffer::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
@@ -2179,8 +2181,8 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   {
     return false;
   }
-  else
-  {
+  
+  
     m_bPerformingConversion = true;
 
     float fBlock[MAX_BLOCK * 4];
@@ -2219,7 +2221,7 @@ bool CCodecBuffer::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
     assert(0);
     m_bPerformingConversion = false;
     return false;
-  }
+  
 }
 
 bool CCodecBuffer::WriteBlock(std::uint32_t /*x*/, std::uint32_t /*y*/,
@@ -2238,7 +2240,7 @@ bool CCodecBuffer::ReadBlock(std::uint32_t /*x*/, std::uint32_t /*y*/,
   return false;
 }
 
-void CCodecBuffer::ConvertBlock(double dBlock[], float fBlock[],
+void CCodecBuffer::ConvertBlock(double dBlock[], const float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dBlock);
@@ -2264,7 +2266,7 @@ void CCodecBuffer::ConvertBlock(double dBlock[], half hBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(double dBlock[], std::uint32_t dwBlock[],
+void CCodecBuffer::ConvertBlock(double dBlock[], const std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dBlock);
@@ -2277,7 +2279,7 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint32_t dwBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(double dBlock[], std::uint16_t wBlock[],
+void CCodecBuffer::ConvertBlock(double dBlock[], const std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dBlock);
@@ -2290,7 +2292,7 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint16_t wBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(double dBlock[], std::uint8_t cBlock[],
+void CCodecBuffer::ConvertBlock(double dBlock[], const std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dBlock);
@@ -2303,7 +2305,7 @@ void CCodecBuffer::ConvertBlock(double dBlock[], std::uint8_t cBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(float fBlock[], double dBlock[],
+void CCodecBuffer::ConvertBlock(float fBlock[], const double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(fBlock);
@@ -2329,7 +2331,7 @@ void CCodecBuffer::ConvertBlock(float fBlock[], half hBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(float fBlock[], std::uint32_t dwBlock[],
+void CCodecBuffer::ConvertBlock(float fBlock[], const std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(fBlock);
@@ -2342,7 +2344,7 @@ void CCodecBuffer::ConvertBlock(float fBlock[], std::uint32_t dwBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(float fBlock[], std::uint16_t wBlock[],
+void CCodecBuffer::ConvertBlock(float fBlock[], const std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(fBlock);
@@ -2355,7 +2357,7 @@ void CCodecBuffer::ConvertBlock(float fBlock[], std::uint16_t wBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(float fBlock[], std::uint8_t cBlock[],
+void CCodecBuffer::ConvertBlock(float fBlock[], const std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(fBlock);
@@ -2394,7 +2396,7 @@ void CCodecBuffer::ConvertBlock(half hBlock[], float fBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(half hBlock[], std::uint32_t dwBlock[],
+void CCodecBuffer::ConvertBlock(half hBlock[], const std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(hBlock);
@@ -2407,7 +2409,7 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint32_t dwBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(half hBlock[], std::uint16_t wBlock[],
+void CCodecBuffer::ConvertBlock(half hBlock[], const std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(hBlock);
@@ -2420,7 +2422,7 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint16_t wBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(half hBlock[], std::uint8_t cBlock[],
+void CCodecBuffer::ConvertBlock(half hBlock[], const std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(hBlock);
@@ -2433,7 +2435,7 @@ void CCodecBuffer::ConvertBlock(half hBlock[], std::uint8_t cBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], double dBlock[],
+void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], const double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dwBlock);
@@ -2446,7 +2448,7 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], double dBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], float fBlock[],
+void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], const float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dwBlock);
@@ -2472,7 +2474,7 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], half hBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint16_t wBlock[],
+void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], const std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dwBlock);
@@ -2485,7 +2487,7 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint16_t wBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint8_t cBlock[],
+void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], const std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(dwBlock);
@@ -2498,7 +2500,7 @@ void CCodecBuffer::ConvertBlock(std::uint32_t dwBlock[], std::uint8_t cBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], double dBlock[],
+void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], const double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(wBlock);
@@ -2511,7 +2513,7 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], double dBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], float fBlock[],
+void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], const float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(wBlock);
@@ -2537,7 +2539,7 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], half hBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint32_t dwBlock[],
+void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], const std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(wBlock);
@@ -2550,7 +2552,7 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint32_t dwBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint8_t cBlock[],
+void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], const std::uint8_t cBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(wBlock);
@@ -2563,7 +2565,7 @@ void CCodecBuffer::ConvertBlock(std::uint16_t wBlock[], std::uint8_t cBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], double dBlock[],
+void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], const double dBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(cBlock);
@@ -2576,7 +2578,7 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], double dBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], float fBlock[],
+void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], const float fBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(cBlock);
@@ -2602,7 +2604,7 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], half hBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint32_t dwBlock[],
+void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], const std::uint32_t dwBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(cBlock);
@@ -2615,7 +2617,7 @@ void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint32_t dwBlock[],
   }
 }
 
-void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], std::uint16_t wBlock[],
+void CCodecBuffer::ConvertBlock(std::uint8_t cBlock[], const std::uint16_t wBlock[],
                                 std::uint32_t dwBlockSize)
 {
   assert(cBlock);

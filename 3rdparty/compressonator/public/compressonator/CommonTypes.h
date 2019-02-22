@@ -37,146 +37,144 @@ union CMP_COLOR {
 /// These enum are all used internally for each version of the SDK the order may
 /// change Typically reordered in alpha betical order per catagory for easy
 /// referance
-enum CMP_FORMAT
+enum class cmp_format
 {
-  CMP_FORMAT_Unknown,  /// Undefined texture format.
+  Unknown,  /// Undefined texture format.
   // Channel Component formats
   // --------------------------------------------------------------------------------
   /// ARGB format with 8-bit fixed channels.
-  CMP_FORMAT_ARGB_8888,
+  ARGB_8888,
   /// ABGR format with 8-bit fixed channels.
-  CMP_FORMAT_ABGR_8888,
+  ABGR_8888,
   /// RGBA format with 8-bit fixed channels.
-  CMP_FORMAT_RGBA_8888,
+  RGBA_8888,
   /// BGRA format with 8-bit fixed channels.
-  CMP_FORMAT_BGRA_8888,
+  BGRA_8888,
   /// RGB format with 8-bit fixed channels.
-  CMP_FORMAT_RGB_888,
+  RGB_888,
   /// BGR format with 8-bit fixed channels.
-  CMP_FORMAT_BGR_888,
+  BGR_888,
   /// Two component format with 8-bit fixed channels.
-  CMP_FORMAT_RG_8,
+  RG_8,
   /// Single component format with 8-bit fixed channels.
-  CMP_FORMAT_R_8,
+  R_8,
   /// ARGB format with 10-bit fixed channels for color & a 2-bit fixed channel
   /// for alpha.
-  CMP_FORMAT_ARGB_2101010,
+  ARGB_2101010,
   /// ARGB format with 16-bit fixed channels.
-  CMP_FORMAT_ARGB_16,
+  ARGB_16,
   /// ABGR format with 16-bit fixed channels.
-  CMP_FORMAT_ABGR_16,
+  ABGR_16,
   /// RGBA format with 16-bit fixed channels.
-  CMP_FORMAT_RGBA_16,
+  RGBA_16,
   /// BGRA format with 16-bit fixed channels.
-  CMP_FORMAT_BGRA_16,
+  BGRA_16,
   /// Two component format with 16-bit fixed channels.
-  CMP_FORMAT_RG_16,
+  RG_16,
   /// Single component format with 16-bit fixed channels.
-  CMP_FORMAT_R_16,
+  R_16,
   /// RGB format with 9-bit floating point each channel and shared 5 bit
   /// exponent
-  CMP_FORMAT_RGBE_32F,
+  RGBE_32F,
   /// ARGB format with 16-bit floating-point channels.
-  CMP_FORMAT_ARGB_16F,
+  ARGB_16F,
   /// ABGR format with 16-bit floating-point channels.
-  CMP_FORMAT_ABGR_16F,
+  ABGR_16F,
   /// RGBA format with 16-bit floating-point channels.
-  CMP_FORMAT_RGBA_16F,
+  RGBA_16F,
   /// BGRA format with 16-bit floating-point channels.
-  CMP_FORMAT_BGRA_16F,
+  BGRA_16F,
   /// Two component format with 16-bit floating-point channels.
-  CMP_FORMAT_RG_16F,
+  RG_16F,
   /// Single component with 16-bit floating-point channels.
-  CMP_FORMAT_R_16F,
+  R_16F,
   /// ARGB format with 32-bit floating-point channels.
-  CMP_FORMAT_ARGB_32F,
+  ARGB_32F,
   /// ABGR format with 32-bit floating-point channels.
-  CMP_FORMAT_ABGR_32F,
+  ABGR_32F,
   /// RGBA format with 32-bit floating-point channels.
-  CMP_FORMAT_RGBA_32F,
+  RGBA_32F,
   /// BGRA format with 32-bit floating-point channels.
-  CMP_FORMAT_BGRA_32F,
+  BGRA_32F,
   /// RGB format with 32-bit floating-point channels.
-  CMP_FORMAT_RGB_32F,
+  RGB_32F,
   /// BGR format with 32-bit floating-point channels.
-  CMP_FORMAT_BGR_32F,
+  BGR_32F,
   /// Two component format with 32-bit floating-point channels.
-  CMP_FORMAT_RG_32F,
+  RG_32F,
   /// Single component with 32-bit floating-point channels.
-  CMP_FORMAT_R_32F,
+  R_32F,
 
   // Compression formats:
   /// Single component compression format using the same technique as DXT5
   /// alpha. Four bits per pixel.
-  CMP_FORMAT_ATI1N,
+  ATI1N,
   /// Two component compression format using the same technique as DXT5 alpha.
   /// Designed for compression of tangent space normal maps. Eight bits per
   /// pixel.
-  CMP_FORMAT_ATI2N,
+  ATI2N,
   /// Two component compression format using the same technique as DXT5 alpha.
   /// The same as ATI2N but with the channels swizzled. Eight bits per pixel.
-  CMP_FORMAT_ATI2N_XY,
+  ATI2N_XY,
   /// ATI2N like format using DXT5. Intended for use on GPUs that do not
   /// natively support ATI2N. Eight bits per pixel.
-  CMP_FORMAT_ATI2N_DXT5,
+  ATI2N_DXT5,
   /// A compressed RGB format.
-  CMP_FORMAT_ATC_RGB,
+  ATC_RGB,
   /// A compressed ARGB format with explicit alpha.
-  CMP_FORMAT_ATC_RGBA_Explicit,
+  ATC_RGBA_Explicit,
   /// A compressed ARGB format with interpolated alpha.
-  CMP_FORMAT_ATC_RGBA_Interpolated,
+  ATC_RGBA_Interpolated,
   /// A four component opaque (or 1-bit alpha) compressed texture format for
   /// Microsoft DirectX10. Identical to DXT1. Four bits per pixel.
-  CMP_FORMAT_BC1,
+  BC1,
   /// A four component compressed texture format with explicit alpha for
   /// Microsoft DirectX10. Identical to DXT3. Eight bits per pixel.
-  CMP_FORMAT_BC2,
+  BC2,
   /// A four component compressed texture format with interpolated alpha for
   /// Microsoft DirectX10. Identical to DXT5. Eight bits per pixel.
-  CMP_FORMAT_BC3,
+  BC3,
   /// A single component compressed texture format for Microsoft DirectX10.
   /// Identical to ATI1N. Four bits per pixel.
-  CMP_FORMAT_BC4,
+  BC4,
   /// A two component compressed texture format for Microsoft DirectX10.
   /// Identical to ATI2N_XY. Eight bits per pixel.
-  CMP_FORMAT_BC5,
+  BC5,
   /// BC6H compressed texture format (UF)
-  CMP_FORMAT_BC6H,
+  BC6H,
   /// BC6H compressed texture format (SF)
-  CMP_FORMAT_BC6H_SF,
+  BC6H_SF,
   /// BC7  compressed texture format
-  CMP_FORMAT_BC7,
+  BC7,
   /// An DXTC compressed texture matopaque (or 1-bit alpha). Four bits per
   /// pixel.
-  CMP_FORMAT_DXT1,
+  DXT1,
   /// DXTC compressed texture format with explicit alpha. Eight bits per pixel.
-  CMP_FORMAT_DXT3,
+  DXT3,
   /// DXTC compressed texture format with interpolated alpha. Eight bits per
   /// pixel.
-  CMP_FORMAT_DXT5,
+  DXT5,
   /// DXT5 with the red component swizzled into the alpha channel. Eight bits
   /// per pixel.
-  CMP_FORMAT_DXT5_xGBR,
+  DXT5_xGBR,
   /// swizzled DXT5 format with the green component swizzled into the alpha
   /// channel. Eight bits per pixel.
-  CMP_FORMAT_DXT5_RxBG,
+  DXT5_RxBG,
   /// swizzled DXT5 format with the green component swizzled into the alpha
   /// channel & the blue component swizzled into the green channel. Eight bits
   /// per pixel.
-  CMP_FORMAT_DXT5_RBxG,
+  DXT5_RBxG,
   /// swizzled DXT5 format with the green component swizzled into the alpha
   /// channel & the red component swizzled into the green channel. Eight bits
   /// per pixel.
-  CMP_FORMAT_DXT5_xRBG,
+  DXT5_xRBG,
   /// swizzled DXT5 format with the blue component swizzled into the alpha
   /// channel. Eight bits per pixel.
-  CMP_FORMAT_DXT5_RGxB,
+  DXT5_RGxB,
   /// two-component swizzled DXT5 format with the red component swizzled into
   /// the alpha channel & the green component in the green channel. Eight bits
   /// per pixel.
-  CMP_FORMAT_DXT5_xGxR,
-
-  CMP_FORMAT_MAX = CMP_FORMAT_DXT5_xGxR
+  DXT5_xGxR
 };
 
 /// Compress error codes
@@ -211,24 +209,22 @@ enum CMP_ERROR
 /// The structure describing a texture.
 struct CMP_Texture
 {
-  /// Size of this structure.
-  std::uint32_t dwSize;
   /// Width of the texture.
-  std::uint32_t dwWidth;
+  std::uint32_t width;
   /// Height of the texture.
-  std::uint32_t dwHeight;
+  std::uint32_t height;
   /// Distance to start of next line - necessary only for uncompressed textures.
-  std::uint32_t dwPitch;
+  std::uint32_t pitch;
   /// Format of the texture.
-  CMP_FORMAT format;
+  cmp_format format;
   /// Size Block to use (Default is 4x4x1).
-  std::uint8_t nBlockHeight;
-  std::uint8_t nBlockWidth;
-  std::uint8_t nBlockDepth;
+  std::uint8_t block_height;
+  std::uint8_t block_width;
+  std::uint8_t block_depth;
   /// Size of the allocated texture data.
-  std::uint32_t dwDataSize;
+  std::uint32_t data_size;
   /// Pointer to the texture data
-  std::uint8_t* pData;
+  std::uint8_t* data;
 };
 
 extern "C"

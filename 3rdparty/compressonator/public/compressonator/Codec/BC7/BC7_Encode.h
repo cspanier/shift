@@ -109,7 +109,7 @@ private:
                               double out[MAX_ENTRIES][MAX_DIMENSION_BIG],
                               int epo_1[2][MAX_DIMENSION_BIG],
                               int Mi_,      // last cluster
-                              int bits[3],  // including parity
+                              const int bits[3],  // including parity
                               int type, int dimension);
 
   double ep_shaker_2_d(

@@ -56,8 +56,7 @@ CCodecBuffer_RGBA16F::CCodecBuffer_RGBA16F(
 }
 
 CCodecBuffer_RGBA16F::~CCodecBuffer_RGBA16F()
-{
-}
+= default;
 
 void CCodecBuffer_RGBA16F::Copy(CCodecBuffer& srcBuffer)
 {
@@ -193,7 +192,7 @@ bool CCodecBuffer_RGBA16F::WriteBlockB(std::uint32_t x, std::uint32_t y,
   return WriteBlock(x, y, w, h, block, CHANNEL_INDEX_B);
 }
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * nChannelCount)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * nChannelCount)]
 bool CCodecBuffer_RGBA16F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                          std::uint8_t w, std::uint8_t h,
                                          half block[])

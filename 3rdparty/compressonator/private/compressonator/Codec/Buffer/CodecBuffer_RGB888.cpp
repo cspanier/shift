@@ -58,8 +58,7 @@ CCodecBuffer_RGB888::CCodecBuffer_RGB888(
 }
 
 CCodecBuffer_RGB888::~CCodecBuffer_RGB888()
-{
-}
+= default;
 
 void CCodecBuffer_RGB888::Copy(CCodecBuffer& srcBuffer)
 {
@@ -217,13 +216,13 @@ bool CCodecBuffer_RGB888::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   std::uint32_t dwWidth = min(w, (GetWidth() - x));
 
-  std::uint32_t* pdwBlock = (std::uint32_t*)block;
+  auto* pdwBlock = (std::uint32_t*)block;
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pSrcData = (std::uint8_t*)((
+    auto* pSrcData = (std::uint8_t*)((
       GetData() + ((y + j) * m_dwPitch) + (x * nChannelCount)));
-    std::uint8_t* pDestData = (std::uint8_t*)&pdwBlock[(j * w)];
+    auto* pDestData = (std::uint8_t*)&pdwBlock[(j * w)];
     for (i = 0; i < dwWidth; i++)
     {
       *pDestData++ = *pSrcData++;
@@ -257,12 +256,12 @@ bool CCodecBuffer_RGB888::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
     return false;
 
   std::uint32_t dwWidth = min(w, (GetWidth() - x));
-  std::uint32_t* pdwBlock = (std::uint32_t*)block;
+  auto* pdwBlock = (std::uint32_t*)block;
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pSrcData = (std::uint8_t*)&pdwBlock[(j * w)];
-    std::uint8_t* pDestData =
+    auto* pSrcData = (std::uint8_t*)&pdwBlock[(j * w)];
+    auto* pDestData =
       (std::uint8_t*)(GetData() + ((y + j) * m_dwPitch) +
                       (x * sizeof(nChannelCount)));
     for (std::uint32_t i = 0; i < dwWidth; i++)

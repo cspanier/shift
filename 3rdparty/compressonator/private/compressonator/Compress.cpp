@@ -30,121 +30,123 @@
 
 #include "compressonator/Compressonator.h"
 #include "compressonator/Compress.h"
-#include <assert.h>
-
+#include <cassert>
+#include <vector>
 #include <algorithm>
 
-CodecType GetCodecType(CMP_FORMAT format)
+CodecType GetCodecType(cmp_format format)
 {
   switch (format)
   {
-  case CMP_FORMAT_ARGB_2101010:
+  case cmp_format::ARGB_2101010:
     return CT_None;
-  case CMP_FORMAT_RGBA_8888:
+  case cmp_format::RGBA_8888:
     return CT_None;
-  case CMP_FORMAT_BGRA_8888:
+  case cmp_format::BGRA_8888:
     return CT_None;
-  case CMP_FORMAT_ARGB_8888:
+  case cmp_format::ARGB_8888:
     return CT_None;
-  case CMP_FORMAT_BGR_888:
+  case cmp_format::ABGR_8888:
     return CT_None;
-  case CMP_FORMAT_RGB_888:
+  case cmp_format::BGR_888:
     return CT_None;
-  case CMP_FORMAT_RG_8:
+  case cmp_format::RGB_888:
     return CT_None;
-  case CMP_FORMAT_R_8:
+  case cmp_format::RG_8:
     return CT_None;
-  case CMP_FORMAT_ARGB_16:
+  case cmp_format::R_8:
     return CT_None;
-  case CMP_FORMAT_RG_16:
+  case cmp_format::ARGB_16:
     return CT_None;
-  case CMP_FORMAT_R_16:
+  case cmp_format::RG_16:
     return CT_None;
-  case CMP_FORMAT_ARGB_16F:
+  case cmp_format::R_16:
     return CT_None;
-  case CMP_FORMAT_RG_16F:
+  case cmp_format::ARGB_16F:
     return CT_None;
-  case CMP_FORMAT_R_16F:
+  case cmp_format::RG_16F:
     return CT_None;
-  case CMP_FORMAT_ARGB_32F:
+  case cmp_format::R_16F:
     return CT_None;
-  case CMP_FORMAT_RG_32F:
+  case cmp_format::ARGB_32F:
     return CT_None;
-  case CMP_FORMAT_R_32F:
+  case cmp_format::RG_32F:
     return CT_None;
-  case CMP_FORMAT_RGBE_32F:
+  case cmp_format::R_32F:
+    return CT_None;
+  case cmp_format::RGBE_32F:
     return CT_None;
 #ifdef ARGB_32_SUPPORT
-  case CMP_FORMAT_ARGB_32:
+  case cmp_format::ARGB_32:
     return CT_None;
-  case CMP_FORMAT_RG_32:
+  case cmp_format::RG_32:
     return CT_None;
-  case CMP_FORMAT_R_32:
+  case cmp_format::R_32:
     return CT_None;
 #endif  // ARGB_32_SUPPORT
-  case CMP_FORMAT_DXT1:
+  case cmp_format::DXT1:
     return CT_DXT1;
-  case CMP_FORMAT_DXT3:
+  case cmp_format::DXT3:
     return CT_DXT3;
-  case CMP_FORMAT_DXT5:
+  case cmp_format::DXT5:
     return CT_DXT5;
-  case CMP_FORMAT_DXT5_xGBR:
+  case cmp_format::DXT5_xGBR:
     return CT_DXT5_xGBR;
-  case CMP_FORMAT_DXT5_RxBG:
+  case cmp_format::DXT5_RxBG:
     return CT_DXT5_RxBG;
-  case CMP_FORMAT_DXT5_RBxG:
+  case cmp_format::DXT5_RBxG:
     return CT_DXT5_RBxG;
-  case CMP_FORMAT_DXT5_xRBG:
+  case cmp_format::DXT5_xRBG:
     return CT_DXT5_xRBG;
-  case CMP_FORMAT_DXT5_RGxB:
+  case cmp_format::DXT5_RGxB:
     return CT_DXT5_RGxB;
-  case CMP_FORMAT_DXT5_xGxR:
+  case cmp_format::DXT5_xGxR:
     return CT_DXT5_xGxR;
-  case CMP_FORMAT_BC1:
+  case cmp_format::BC1:
     return CT_DXT1;
-  case CMP_FORMAT_BC2:
+  case cmp_format::BC2:
     return CT_DXT3;
-  case CMP_FORMAT_BC3:
+  case cmp_format::BC3:
     return CT_DXT5;
-  case CMP_FORMAT_BC4:
+  case cmp_format::BC4:
     return CT_ATI1N;
-  case CMP_FORMAT_BC5:
+  case cmp_format::BC5:
     return CT_ATI2N_XY;
-  case CMP_FORMAT_BC6H:
+  case cmp_format::BC6H:
     return CT_BC6H;
-  case CMP_FORMAT_BC6H_SF:
+  case cmp_format::BC6H_SF:
     return CT_BC6H_SF;
-  case CMP_FORMAT_BC7:
+  case cmp_format::BC7:
     return CT_BC7;
   default:
     assert(0);
     return CT_Unknown;
   }
 }
-#ifdef ENABLE_MAKE_COMPATIBLE_API
-bool IsFloatFormat(CMP_FORMAT InFormat)
+
+bool IsFloatFormat(cmp_format InFormat)
 {
   switch (InFormat)
   {
-  case CMP_FORMAT_ARGB_16F:
-  case CMP_FORMAT_ABGR_16F:
-  case CMP_FORMAT_RGBA_16F:
-  case CMP_FORMAT_BGRA_16F:
-  case CMP_FORMAT_RG_16F:
-  case CMP_FORMAT_R_16F:
-  case CMP_FORMAT_ARGB_32F:
-  case CMP_FORMAT_ABGR_32F:
-  case CMP_FORMAT_RGBA_32F:
-  case CMP_FORMAT_BGRA_32F:
-  case CMP_FORMAT_RGB_32F:
-  case CMP_FORMAT_BGR_32F:
-  case CMP_FORMAT_RG_32F:
-  case CMP_FORMAT_R_32F:
-  case CMP_FORMAT_BC6H:
-  case CMP_FORMAT_BC6H_SF:
-  case CMP_FORMAT_RGBE_32F:
+  case cmp_format::ARGB_16F:
+  case cmp_format::ABGR_16F:
+  case cmp_format::RGBA_16F:
+  case cmp_format::BGRA_16F:
+  case cmp_format::RG_16F:
+  case cmp_format::R_16F:
+  case cmp_format::ARGB_32F:
+  case cmp_format::ABGR_32F:
+  case cmp_format::RGBA_32F:
+  case cmp_format::BGRA_32F:
+  case cmp_format::RGB_32F:
+  case cmp_format::BGR_32F:
+  case cmp_format::RG_32F:
+  case cmp_format::R_32F:
+  case cmp_format::BC6H:
+  case cmp_format::BC6H_SF:
+  case cmp_format::RGBE_32F:
 #ifdef USE_GTC_HDR
-  case CMP_FORMAT_GTCH:
+  case cmp_format::GTCH:
 #endif
     return true;
 
@@ -153,26 +155,26 @@ bool IsFloatFormat(CMP_FORMAT InFormat)
   }
 }
 
-bool NeedSwizzle(CMP_FORMAT destformat)
+bool NeedSwizzle(cmp_format destformat)
 {
   // determin of the swizzle flag needs to be turned on!
   switch (destformat)
   {
-  case CMP_FORMAT_BC4:
-  case CMP_FORMAT_ATI1N:  // same as BC4
-  case CMP_FORMAT_ATI2N:  // same as BC4
-  case CMP_FORMAT_BC5:
-  case CMP_FORMAT_ATI2N_XY:    // same as BC5
-  case CMP_FORMAT_ATI2N_DXT5:  // same as BC5
-  case CMP_FORMAT_BC1:
-  case CMP_FORMAT_DXT1:  // same as BC1
-  case CMP_FORMAT_BC2:
-  case CMP_FORMAT_DXT3:  // same as BC2
-  case CMP_FORMAT_BC3:
-  case CMP_FORMAT_DXT5:  // same as BC3
-  case CMP_FORMAT_ATC_RGB:
-  case CMP_FORMAT_ATC_RGBA_Explicit:
-  case CMP_FORMAT_ATC_RGBA_Interpolated:
+  case cmp_format::BC4:
+  case cmp_format::ATI1N:  // same as BC4
+  case cmp_format::ATI2N:  // same as BC4
+  case cmp_format::BC5:
+  case cmp_format::ATI2N_XY:    // same as BC5
+  case cmp_format::ATI2N_DXT5:  // same as BC5
+  case cmp_format::BC1:
+  case cmp_format::DXT1:  // same as BC1
+  case cmp_format::BC2:
+  case cmp_format::DXT3:  // same as BC2
+  case cmp_format::BC3:
+  case cmp_format::DXT5:  // same as BC3
+  case cmp_format::ATC_RGB:
+  case cmp_format::ATC_RGBA_Explicit:
+  case cmp_format::ATC_RGBA_Interpolated:
     return true;
 
   default:
@@ -220,7 +222,7 @@ float findKneeValue(float x, float y)
   return (f0 + f1) / 2.f;
 }
 
-CMP_ERROR Byte2Float(short* hfBlock, std::uint8_t* cBlock,
+CMP_ERROR Byte2Float(short* hfBlock, const std::uint8_t* cBlock,
                      std::uint32_t dwBlockSize)
 {
   assert(hfBlock);
@@ -238,12 +240,12 @@ CMP_ERROR Byte2Float(short* hfBlock, std::uint8_t* cBlock,
 }
 
 CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
-                     CMP_Texture* srcTexture, CMP_FORMAT destFormat,
+                     CMP_Texture* srcTexture, cmp_format destFormat,
                      const CMP_CompressOptions* pOptions)
 {
   assert(cBlock);
   assert(fBlock);
-  assert(&srcTexture);
+  assert(srcTexture != nullptr);
 
   if (cBlock && fBlock)
   {
@@ -256,14 +258,14 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
     float luminance3f = powf(2, -3.5);  // always assume max intensity is 1
                                         // and 3.5f darker for scale later
     float invGamma = 1 / pOptions->fInputGamma;  // for gamma correction
-    float scale = (float)255.0 * powf(luminance3f, invGamma);
+    float scale = 255.0f * powf(luminance3f, invGamma);
     int i = 0;
     bool needSwizzle = NeedSwizzle(destFormat);
-    for (unsigned int y = 0; y < srcTexture->dwHeight; y++)
+    for (unsigned int y = 0; y < srcTexture->height; y++)
     {
-      for (unsigned int x = 0; x < srcTexture->dwWidth; x++)
+      for (unsigned int x = 0; x < srcTexture->width; x++)
       {
-        if (srcTexture->format == CMP_FORMAT_ARGB_16F)
+        if (srcTexture->format == cmp_format::ARGB_16F)
         {
           if (needSwizzle)
           {
@@ -288,7 +290,7 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
             hfData++;
           }
         }
-        else if (srcTexture->format == CMP_FORMAT_ARGB_32F)
+        else if (srcTexture->format == cmp_format::ARGB_32F)
         {
           if (needSwizzle)
           {
@@ -401,7 +403,7 @@ CMP_ERROR Float2Byte(std::uint8_t cBlock[], float* fBlock,
 
   return CMP_OK;
 }
-#endif
+
 CMP_ERROR GetError(CodecError err)
 {
   switch (err)
@@ -424,46 +426,33 @@ CMP_ERROR CheckTexture(const CMP_Texture* pTexture, bool bSource)
     return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
                     : CMP_ERR_INVALID_DEST_TEXTURE);
 
-  assert(pTexture->dwSize == sizeof(CMP_Texture));
-  if (pTexture->dwSize != sizeof(CMP_Texture))
+  assert(pTexture->width > 0);
+  if (pTexture->width <= 0)
     return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
                     : CMP_ERR_INVALID_DEST_TEXTURE);
 
-  assert(pTexture->dwWidth > 0);
-  if (pTexture->dwWidth <= 0)
+  assert(pTexture->height > 0);
+  if (pTexture->height <= 0)
     return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
                     : CMP_ERR_INVALID_DEST_TEXTURE);
 
-  assert(pTexture->dwHeight > 0);
-  if (pTexture->dwHeight <= 0)
-    return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
-                    : CMP_ERR_INVALID_DEST_TEXTURE);
-
-  assert(pTexture->format >= CMP_FORMAT_ARGB_8888 &&
-         pTexture->format <= CMP_FORMAT_MAX);
-  if (pTexture->format < CMP_FORMAT_ARGB_8888 ||
-      pTexture->format > CMP_FORMAT_MAX)
+  assert((pTexture->format != cmp_format::ARGB_8888 &&
+          pTexture->format != cmp_format::ARGB_2101010) ||
+         pTexture->pitch == 0 || pTexture->pitch >= (pTexture->width * 4));
+  if ((pTexture->format == cmp_format::ARGB_8888 ||
+       pTexture->format == cmp_format::ARGB_2101010) &&
+      pTexture->pitch != 0 && pTexture->pitch < (pTexture->width * 4))
     return (bSource ? CMP_ERR_UNSUPPORTED_SOURCE_FORMAT
                     : CMP_ERR_UNSUPPORTED_DEST_FORMAT);
 
-  assert((pTexture->format != CMP_FORMAT_ARGB_8888 &&
-          pTexture->format != CMP_FORMAT_ARGB_2101010) ||
-         pTexture->dwPitch == 0 ||
-         pTexture->dwPitch >= (pTexture->dwWidth * 4));
-  if ((pTexture->format == CMP_FORMAT_ARGB_8888 ||
-       pTexture->format == CMP_FORMAT_ARGB_2101010) &&
-      pTexture->dwPitch != 0 && pTexture->dwPitch < (pTexture->dwWidth * 4))
-    return (bSource ? CMP_ERR_UNSUPPORTED_SOURCE_FORMAT
-                    : CMP_ERR_UNSUPPORTED_DEST_FORMAT);
-
-  assert(pTexture->pData);
-  if (pTexture->pData == nullptr)
+  assert(pTexture->data);
+  if (pTexture->data == nullptr)
     return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
                     : CMP_ERR_INVALID_DEST_TEXTURE);
 
-  std::uint32_t dwDataSize = CMP_CalculateBufferSize(pTexture);
-  assert(pTexture->dwDataSize >= dwDataSize);
-  if (pTexture->dwDataSize < dwDataSize)
+  std::uint32_t data_size = CMP_CalculateBufferSize(pTexture);
+  assert(pTexture->data_size >= data_size);
+  if (pTexture->data_size < data_size)
     return (bSource ? CMP_ERR_INVALID_SOURCE_TEXTURE
                     : CMP_ERR_INVALID_DEST_TEXTURE);
 
@@ -577,13 +566,13 @@ CMP_ERROR CompressTexture(const CMP_Texture* pSourceTexture,
   CodecBufferType srcBufferType = GetCodecBufferType(pSourceTexture->format);
 
   CCodecBuffer* pSrcBuffer = CreateCodecBuffer(
-    srcBufferType, pSourceTexture->nBlockWidth, pSourceTexture->nBlockHeight,
-    pSourceTexture->nBlockDepth, pSourceTexture->dwWidth,
-    pSourceTexture->dwHeight, pSourceTexture->dwPitch, pSourceTexture->pData);
+    srcBufferType, pSourceTexture->block_width, pSourceTexture->block_height,
+    pSourceTexture->block_depth, pSourceTexture->width, pSourceTexture->height,
+    pSourceTexture->pitch, pSourceTexture->data);
   CCodecBuffer* pDestBuffer = pCodec->CreateBuffer(
-    pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-    pDestTexture->nBlockDepth, pDestTexture->dwWidth, pDestTexture->dwHeight,
-    pDestTexture->dwPitch, pDestTexture->pData);
+    pDestTexture->block_width, pDestTexture->block_height,
+    pDestTexture->block_depth, pDestTexture->width, pDestTexture->height,
+    pDestTexture->pitch, pDestTexture->data);
 
   assert(pSrcBuffer);
   assert(pDestBuffer);
@@ -615,23 +604,16 @@ public:
   CATICompressThreadData();
   ~CATICompressThreadData();
 
-  CCodec* m_pCodec;
-  CCodecBuffer* m_pSrcBuffer;
-  CCodecBuffer* m_pDestBuffer;
-  CMP_Feedback_Proc m_pFeedbackProc;
-  std::size_t m_pUser1;
-  std::size_t m_pUser2;
-  CodecError m_errorCode;
+  CCodec* m_pCodec{nullptr};
+  CCodecBuffer* m_pSrcBuffer{nullptr};
+  CCodecBuffer* m_pDestBuffer{nullptr};
+  CMP_Feedback_Proc m_pFeedbackProc{nullptr};
+  std::size_t m_pUser1{0};
+  std::size_t m_pUser2{0};
+  CodecError m_errorCode{CE_OK};
 };
 
 CATICompressThreadData::CATICompressThreadData()
-: m_pCodec(nullptr),
-  m_pSrcBuffer(nullptr),
-  m_pDestBuffer(nullptr),
-  m_pFeedbackProc(nullptr),
-  m_pUser1(0),
-  m_pUser2(0),
-  m_errorCode(CE_OK)
 {
 }
 
@@ -644,7 +626,7 @@ CATICompressThreadData::~CATICompressThreadData()
 
 void ThreadedCompressProc(void* lpParameter)
 {
-  CATICompressThreadData* pThreadData = (CATICompressThreadData*)lpParameter;
+  auto* pThreadData = (CATICompressThreadData*)lpParameter;
   DISABLE_FP_EXCEPTIONS;
   CodecError err = pThreadData->m_pCodec->Compress(
     *pThreadData->m_pSrcBuffer, *pThreadData->m_pDestBuffer,
@@ -664,19 +646,21 @@ CMP_ERROR ThreadedCompressTexture(const CMP_Texture* pSourceTexture,
   if (destType == CT_BC7)
     return CMP_ABORTED;
 
-  std::uint32_t dwMaxThreadCount = min(f_dwProcessorCount, MAX_THREADS);
-  std::uint32_t dwLinesRemaining = pDestTexture->dwHeight;
-  std::uint8_t* pSourceData = pSourceTexture->pData;
-  std::uint8_t* pDestData = pDestTexture->pData;
+  std::uint32_t dwMaxThreadCount = std::thread::hardware_concurrency();
+  std::uint32_t dwLinesRemaining = pDestTexture->height;
+  std::uint8_t* pSourceData = pSourceTexture->data;
+  std::uint8_t* pDestData = pDestTexture->data;
 
 #ifdef _DEBUG
-  if ((pDestTexture->format == CMP_FORMAT_ETC2_RGBA) ||
-      (pDestTexture->format == CMP_FORMAT_ETC2_RGBA1))
+  if ((pDestTexture->format == cmp_format::ETC2_RGBA) ||
+      (pDestTexture->format == cmp_format::ETC2_RGBA1))
     dwMaxThreadCount = 1;
 #endif
 
-  CATICompressThreadData aThreadData[MAX_THREADS];
-  std::thread ahThread[MAX_THREADS];
+  std::vector<CATICompressThreadData> aThreadData;
+  aThreadData.resize(dwMaxThreadCount);
+  std::vector<std::thread> ahThread;
+  ahThread.resize(dwMaxThreadCount);
 
   std::uint32_t dwThreadCount = 0;
   for (std::uint32_t dwThread = 0; dwThread < dwMaxThreadCount; dwThread++)
@@ -775,38 +759,37 @@ CMP_ERROR ThreadedCompressTexture(const CMP_Texture* pSourceTexture,
     }
 
     std::uint32_t dwThreadsRemaining = dwMaxThreadCount - dwThread;
-    std::uint32_t dwHeight = 0;
+    std::uint32_t height = 0;
     if (dwThreadsRemaining > 1)
     {
       std::uint32_t dwBlockHeight = threadData.m_pCodec->GetBlockHeight();
-      dwHeight = dwLinesRemaining / dwThreadsRemaining;
-      dwHeight =
-        min(((dwHeight + dwBlockHeight - 1) / dwBlockHeight) * dwBlockHeight,
+      height = dwLinesRemaining / dwThreadsRemaining;
+      height =
+        min(((height + dwBlockHeight - 1) / dwBlockHeight) * dwBlockHeight,
             dwLinesRemaining);  // Round by block height
-      dwLinesRemaining -= dwHeight;
+      dwLinesRemaining -= height;
     }
     else
-      dwHeight = dwLinesRemaining;
+      height = dwLinesRemaining;
 
-    if (dwHeight > 0)
+    if (height > 0)
     {
-      threadData.m_pSrcBuffer =
-        CreateCodecBuffer(srcBufferType, pSourceTexture->nBlockWidth,
-                          pSourceTexture->nBlockHeight,
-                          pSourceTexture->nBlockDepth, pSourceTexture->dwWidth,
-                          dwHeight, pSourceTexture->dwPitch, pSourceData);
+      threadData.m_pSrcBuffer = CreateCodecBuffer(
+        srcBufferType, pSourceTexture->block_width,
+        pSourceTexture->block_height, pSourceTexture->block_depth,
+        pSourceTexture->width, height, pSourceTexture->pitch, pSourceData);
       threadData.m_pDestBuffer = threadData.m_pCodec->CreateBuffer(
-        pDestTexture->nBlockWidth, pDestTexture->nBlockHeight,
-        pDestTexture->nBlockDepth, pDestTexture->dwWidth, dwHeight,
-        pDestTexture->dwPitch, pDestData);
+        pDestTexture->block_width, pDestTexture->block_height,
+        pDestTexture->block_depth, pDestTexture->width, height,
+        pDestTexture->pitch, pDestData);
 
-      pSourceData += CalcBufferSize(
-        pSourceTexture->format, pSourceTexture->dwWidth, dwHeight,
-        pSourceTexture->dwPitch, pSourceTexture->nBlockWidth,
-        pSourceTexture->nBlockHeight);
+      pSourceData +=
+        CalcBufferSize(pSourceTexture->format, pSourceTexture->width, height,
+                       pSourceTexture->pitch, pSourceTexture->block_width,
+                       pSourceTexture->block_height);
       pDestData +=
-        CalcBufferSize(destType, pDestTexture->dwWidth, dwHeight,
-                       pDestTexture->nBlockWidth, pDestTexture->nBlockHeight);
+        CalcBufferSize(destType, pDestTexture->width, height,
+                       pDestTexture->block_width, pDestTexture->block_height);
 
       assert(threadData.m_pSrcBuffer);
       assert(threadData.m_pDestBuffer);

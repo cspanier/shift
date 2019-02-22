@@ -56,8 +56,7 @@ CCodecBuffer_RGBA32F::CCodecBuffer_RGBA32F(
 }
 
 CCodecBuffer_RGBA32F::~CCodecBuffer_RGBA32F()
-{
-}
+= default;
 
 void CCodecBuffer_RGBA32F::Copy(CCodecBuffer& srcBuffer)
 {
@@ -94,7 +93,7 @@ bool CCodecBuffer_RGBA32F::ReadBlock(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -129,7 +128,7 @@ bool CCodecBuffer_RGBA32F::WriteBlock(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {
@@ -196,7 +195,7 @@ bool CCodecBuffer_RGBA32F::WriteBlockB(std::uint32_t x, std::uint32_t y,
   return WriteBlock(x, y, w, h, block, CHANNEL_INDEX_B);
 }
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * nChannelCount)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * nChannelCount)]
 bool CCodecBuffer_RGBA32F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                          std::uint8_t w, std::uint8_t h,
                                          float block[])
@@ -214,7 +213,7 @@ bool CCodecBuffer_RGBA32F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -249,7 +248,7 @@ bool CCodecBuffer_RGBA32F::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     memcpy(pData, GET_PIXEL(0, j), dwWidth * nPixelSize);
   }

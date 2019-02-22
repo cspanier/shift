@@ -58,8 +58,7 @@ CCodecBuffer_R32F::CCodecBuffer_R32F(std::uint8_t nBlockWidth,
 }
 
 CCodecBuffer_R32F::~CCodecBuffer_R32F()
-{
-}
+= default;
 
 void CCodecBuffer_R32F::Copy(CCodecBuffer& srcBuffer)
 {
@@ -96,7 +95,7 @@ bool CCodecBuffer_R32F::ReadBlock(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -130,7 +129,7 @@ bool CCodecBuffer_R32F::WriteBlock(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {
@@ -200,10 +199,7 @@ bool CCodecBuffer_R32F::WriteBlockA(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
 bool CCodecBuffer_R32F::WriteBlockR(std::uint32_t x, std::uint32_t y,
@@ -220,10 +216,7 @@ bool CCodecBuffer_R32F::WriteBlockG(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
 bool CCodecBuffer_R32F::WriteBlockB(std::uint32_t x, std::uint32_t y,
@@ -233,13 +226,10 @@ bool CCodecBuffer_R32F::WriteBlockB(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * 4)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * 4)]
 bool CCodecBuffer_R32F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                       std::uint8_t w, std::uint8_t h,
                                       float block[])
@@ -257,7 +247,7 @@ bool CCodecBuffer_R32F::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -295,7 +285,7 @@ bool CCodecBuffer_R32F::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    float* pData =
+    auto* pData =
       (float*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {

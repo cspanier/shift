@@ -124,8 +124,7 @@ CCodecBuffer_Block::CCodecBuffer_Block(
 }
 
 CCodecBuffer_Block::~CCodecBuffer_Block()
-{
-}
+= default;
 
 bool CCodecBuffer_Block::ReadBlock(std::uint32_t x, std::uint32_t y,
                                    std::uint32_t* pBlock,

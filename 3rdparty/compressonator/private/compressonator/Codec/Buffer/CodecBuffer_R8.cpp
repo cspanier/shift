@@ -57,8 +57,7 @@ CCodecBuffer_R8::CCodecBuffer_R8(std::uint8_t nBlockWidth,
 }
 
 CCodecBuffer_R8::~CCodecBuffer_R8()
-{
-}
+= default;
 
 void CCodecBuffer_R8::Copy(CCodecBuffer& srcBuffer)
 {
@@ -95,7 +94,7 @@ bool CCodecBuffer_R8::ReadBlock(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pData =
+    auto* pData =
       (std::uint8_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
       block[(j * w) + i] = *pData++;
@@ -126,7 +125,7 @@ bool CCodecBuffer_R8::WriteBlock(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pData =
+    auto* pData =
       (std::uint8_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (std::uint32_t i = 0; i < dwWidth; i++)
       *pData++ = block[(j * w) + i];
@@ -193,10 +192,7 @@ bool CCodecBuffer_R8::WriteBlockA(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
 bool CCodecBuffer_R8::WriteBlockR(std::uint32_t x, std::uint32_t y,
@@ -213,10 +209,7 @@ bool CCodecBuffer_R8::WriteBlockG(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
 bool CCodecBuffer_R8::WriteBlockB(std::uint32_t x, std::uint32_t y,
@@ -226,13 +219,10 @@ bool CCodecBuffer_R8::WriteBlockB(std::uint32_t x, std::uint32_t y,
   assert(x < GetWidth());
   assert(y < GetHeight());
 
-  if (x >= GetWidth() || y >= GetHeight())
-    return false;
-
-  return true;
+  return !(x >= GetWidth() || y >= GetHeight());
 }
 
-#define GET_PIXEL(i, j) &block[(((j * w) + i) * 4)]
+#define GET_PIXEL(i, j) &block[((((j) * w) + (i)) * 4)]
 bool CCodecBuffer_R8::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
                                     std::uint8_t w, std::uint8_t h,
                                     std::uint8_t block[])
@@ -250,7 +240,7 @@ bool CCodecBuffer_R8::ReadBlockRGBA(std::uint32_t x, std::uint32_t y,
   std::uint32_t i, j;
   for (j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pData =
+    auto* pData =
       (std::uint8_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (i = 0; i < dwWidth; i++)
     {
@@ -289,7 +279,7 @@ bool CCodecBuffer_R8::WriteBlockRGBA(std::uint32_t x, std::uint32_t y,
 
   for (std::uint32_t j = 0; j < h && (y + j) < GetHeight(); j++)
   {
-    std::uint8_t* pData =
+    auto* pData =
       (std::uint8_t*)(GetData() + ((y + j) * m_dwPitch) + (x * nPixelSize));
     for (std::uint32_t i = 0; i < dwWidth; i++)
     {
