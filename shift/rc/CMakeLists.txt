@@ -60,27 +60,4 @@ if (NOT NO_VULKAN)
       Boost::context
       Boost::unit_test_framework
   )
-
-  shift_add_executable(shift.rc.tiff
-    VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
-    SOURCEDIRS
-      "${CMAKE_CURRENT_SOURCE_DIR}/tiff"
-    INCLUDEDIRS
-      ${CMAKE_SOURCE_DIR}/shift/math/public
-    DEPENDENCIES
-      shift.application
-      shift.rc
-      shift.resource_db
-      shift.parser.json
-      shift.serialization2
-      shift.log
-      shift.crypto
-      shift.task
-      shift.core
-      shift.platform
-      Boost::boost
-      Boost::iostreams
-      Boost::context
-      3rdparty.compressonator
-  )
 endif()
