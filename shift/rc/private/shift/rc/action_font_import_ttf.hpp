@@ -189,7 +189,7 @@ private:
                    ttf::font& ttf, const std::vector<glyph_t>& glyph_meshes);
 
   /// Write HTML5 document for debugging purposes.
-  static void write_html(const boost::filesystem::path& input_filename,
+  static void write_html(const std::filesystem::path& input_filename,
                          const std::vector<glyph_t>& glyph_meshes);
 };
 }

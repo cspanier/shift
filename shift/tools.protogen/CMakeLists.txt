@@ -11,6 +11,5 @@ shift_add_executable(shift.tools.protogen
     shift.log
     shift.core
     shift.platform
-    Boost::filesystem
     Boost::program_options
 )

@@ -5,7 +5,7 @@
 #include <memory>
 #include <stack>
 #include <chrono>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/core/singleton.hpp>
 #include "shift/resource_db/resource.hpp"
 #include "shift/resource_db/resource_ptr.hpp"
@@ -25,7 +25,7 @@ public:
   ~repository();
 
   /// Mount a folder or archive file into the repository.
-  mountable* mount(boost::filesystem::path path, bool read_only = true);
+  mountable* mount(std::filesystem::path path, bool read_only = true);
 
   ///
   void unmount(mountable* handle);
@@ -39,7 +39,7 @@ public:
   ///   doesn't exist in the manager's database, or if the resource types
   ///   don't match.
   template <typename Resource>
-  resource_ptr<Resource> load(const boost::filesystem::path& absolute_path)
+  resource_ptr<Resource> load(const std::filesystem::path& absolute_path)
   {
     if (auto [new_resource, id] =
           load(absolute_path, resource_traits<Resource>::type_id);
@@ -72,22 +72,22 @@ public:
 
   template <typename Resource>
   bool save(resource_ptr<Resource>& resource,
-            const boost::filesystem::path& absolute_path)
+            const std::filesystem::path& absolute_path)
   {
     return save(*resource.get(), resource_traits<Resource>::type_id,
                 resource.id(), absolute_path);
   }
 
-  /// Implementation for load<Resource>(const boost::filesystem::path&) method.
+  /// Implementation for load<Resource>(const std::filesystem::path&) method.
   std::pair<std::shared_ptr<resource_base>, resource_id> load(
-    const boost::filesystem::path& absolute_path, resource_type type);
+    const std::filesystem::path& absolute_path, resource_type type);
 
   /// Implementation for load<Resource>(resource_id) method.
   std::shared_ptr<resource_base> load(resource_id id, resource_type type);
 
   ///
   bool save(const resource_base& resource, resource_type type, resource_id id,
-            const boost::filesystem::path& absolute_path);
+            const std::filesystem::path& absolute_path);
 
 private:
   struct impl;

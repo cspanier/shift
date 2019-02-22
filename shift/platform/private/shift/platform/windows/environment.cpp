@@ -46,7 +46,7 @@ std::string environment::username()
     return UNKNOWN_USERNAME;
 }
 
-boost::filesystem::path environment::executable_path()
+std::filesystem::path environment::executable_path()
 {
   std::vector<char> buffer;
   buffer.resize(MAX_PATH, 0);
@@ -58,8 +58,8 @@ boost::filesystem::path environment::executable_path()
     GetModuleFileName(nullptr, buffer.data(),
                       static_cast<std::uint32_t>(buffer.size()));
   }
-  return boost::filesystem::system_complete(
-    boost::filesystem::path(buffer.data()));
+  return std::filesystem::system_complete(
+    std::filesystem::path(buffer.data()));
 }
 
 #pragma pack(push, 8)

@@ -9,8 +9,8 @@
 #include <chrono>
 #include <regex>
 #include <mutex>
+#include <filesystem>
 #include <boost/functional/hash/hash.hpp>
-#include <boost/filesystem/path.hpp>
 #include <shift/core/types.hpp>
 #include <shift/core/bit_field.hpp>
 #include <shift/parser/json/json.hpp>
@@ -18,7 +18,7 @@
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 class resource_compiler;
 class resource_compiler_impl;
@@ -224,7 +224,7 @@ struct file_description
   /// match it against rule regexes.
   std::string generic_string;
   std::size_t hash;
-  time_t last_write_time = 0;
+  std::chrono::system_clock::time_point last_write_time;
   std::uint32_t pass = 0;
   entity_flags flags = entity_flags{0};
   file_description* alias = nullptr;
@@ -241,9 +241,9 @@ std::string merge_slashes(const std::string& input);
 namespace std
 {
 template <>
-struct hash<boost::filesystem::path>
+struct hash<std::filesystem::path>
 {
-  std::size_t operator()(const boost::filesystem::path& path) const
+  std::size_t operator()(const std::filesystem::path& path) const
   {
     return std::hash<std::string>{}(path.generic_string());
   }

@@ -4,9 +4,9 @@
 #include <shift/core/stream_util.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <fstream>
 
 namespace shift::tools::protogen::generators
@@ -338,7 +338,7 @@ namespace shift::tools::protogen::generators
 //  return !dot_output_path.empty();
 //}
 
-// std::vector<boost::filesystem::path> dot_generator::output_paths() const
+// std::vector<std::filesystem::path> dot_generator::output_paths() const
 //{
 //  return {dot_output_path};
 //}

@@ -111,10 +111,10 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND NOT MSVC)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g -fno-omit-frame-pointer -DBUILD_CONFIG_RELWITHDEBINFO")
 
   # -fuse-ld=(gold|lld)        # Prefer gold|lld linker over ld
-  set(CMAKE_EXE_LINKER_FLAGS_INIT "-lpthread -fuse-ld=gold")
+  set(CMAKE_EXE_LINKER_FLAGS_INIT "-lpthread -lstdc++fs -fuse-ld=gold")
   set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
   set(CMAKE_STATIC_LINKER_FLAGS_INIT "")
-  set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=gold")
+  set(CMAKE_SHARED_LINKER_FLAGS_INIT " -lstdc++fs -fuse-ld=gold")
 
   # ToDo: This is only needed when using a foreign compiler toolchain which uses
   # a ld-linux-armhf.so.3 different from the target OS installation.

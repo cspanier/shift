@@ -8,6 +8,7 @@ shift_add_library(shift.platform STATIC
     ${CMAKE_SOURCE_DIR}/shift/core/public
   DEPENDENCIES
     Boost::boost
+    Boost::filesystem
     OSLibs::iphlpapi
     BREAKPAD
 )

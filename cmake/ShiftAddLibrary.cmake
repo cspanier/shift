@@ -103,6 +103,11 @@ macro(shift_add_library target)
     endif()
   endforeach()
 
+  # ToDo: Only for GCC version before 9.0. Since version 9.0 libstdc++fs is integrated into libstdc++.
+  if (CMAKE_COMPILER_IS_GNUCXX)
+    list(APPEND ARG_LIBRARIES "stdc++fs")
+  endif()
+
   set(build_file_suffix "${version_tag}.${SHIFT_SYSTEM_PROCESSOR}.${SHIFT_COMPILER_ACRONYM}")
 
   set(definitions "${SHIFT_GLOBAL_DEFINITIONS}")

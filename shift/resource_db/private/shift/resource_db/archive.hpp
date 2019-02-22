@@ -6,11 +6,11 @@
 #include <unordered_map>
 #include <fstream>
 #include <shared_mutex>
+#include <filesystem>
 #include <shift/core/bit_field.hpp>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/member.hpp>
 #include <boost/multi_index/ordered_index.hpp>
-#include <boost/filesystem/path.hpp>
 #include "shift/resource_db/resource.hpp"
 #include "shift/resource_db/mountable.hpp"
 
@@ -111,7 +111,7 @@ class archive final : public mountable
 {
 public:
   ///
-  archive(const boost::filesystem::path& path);
+  archive(const std::filesystem::path& path);
 
   ///
   ~archive() override;
@@ -123,7 +123,7 @@ public:
   void close() override;
 
   ///
-  resource_id lookup_id(const boost::filesystem::path& relative_path) override;
+  resource_id lookup_id(const std::filesystem::path& relative_path) override;
 
   ///
   bool load(resource_id id, resource_base& resource,
@@ -131,7 +131,7 @@ public:
 
   ///
   bool save(const resource_base& resource, resource_type type, resource_id id,
-            const boost::filesystem::path& relative_path) override;
+            const std::filesystem::path& relative_path) override;
 
   ///
   void erase(resource_id id) override;
@@ -150,7 +150,7 @@ public:
 
 private:
   ///
-  static boost::filesystem::path to_path(resource_id id);
+  static std::filesystem::path to_path(resource_id id);
 
   bool _read_only = true;
 

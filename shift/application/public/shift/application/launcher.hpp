@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <filesystem>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include <shift/core/exception.hpp>
@@ -56,11 +56,11 @@ public:
 
 protected:
   /// Returns the application executable's complete path.
-  boost::filesystem::path executable_path() const;
+  std::filesystem::path executable_path() const;
 
   /// Returns the application's initial executable path, which this class
   /// automatically changed to.
-  boost::filesystem::path initial_working_directory() const;
+  std::filesystem::path initial_working_directory() const;
 
   ///
   virtual void start();
@@ -84,8 +84,8 @@ private:
 
   int _argc;
   char** _argv;
-  boost::filesystem::path _executable_path;
-  boost::filesystem::path _initial_working_directory;
+  std::filesystem::path _executable_path;
+  std::filesystem::path _initial_working_directory;
   pre_init_helper_t _pre_init_helper;
   platform::single_instance _single_instance;
   platform::crash_guard _crash_guard;

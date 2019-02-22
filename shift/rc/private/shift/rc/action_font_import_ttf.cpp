@@ -7,7 +7,7 @@
 #include <shift/log/log.hpp>
 #include <shift/math/line.hpp>
 #include <shift/math/intersection.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <fstream>
 #include <queue>
 #include <memory>
@@ -22,7 +22,7 @@ action_font_import_ttf::action_font_import_ttf()
 bool action_font_import_ttf::process(resource_compiler_impl& compiler,
                                      job_description& job) const
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   if (job.inputs.size() != 1)
   {
@@ -599,7 +599,7 @@ void action_font_import_ttf::save(resource_compiler_impl& compiler,
 }
 
 void action_font_import_ttf::write_html(
-  const boost::filesystem::path& input_filename,
+  const std::filesystem::path& input_filename,
   const std::vector<glyph_t>& glyph_meshes)
 {
   std::ofstream test_file;

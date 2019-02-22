@@ -6,8 +6,8 @@
 #include <shift/math/vector.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
+#include <filesystem>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
 #define png_infopp_NULL nullptr
 #define int_p_NULL nullptr
 #include <boost/gil/extension/io/png.hpp>
@@ -21,7 +21,7 @@
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 namespace mpl = boost::mpl;
 namespace gil = boost::gil;
 
@@ -70,7 +70,7 @@ class image_converter
 public:
   ///
   image_converter(resource_db::image& image,
-                  const boost::filesystem::path& source_name,
+                  const std::filesystem::path& source_name,
                   img_file_type source_type, bool normalized)
   : image(image),
     source_name(source_name),
@@ -234,7 +234,7 @@ private:
   }
 
   resource_db::image& image;
-  const boost::filesystem::path& source_name;
+  const std::filesystem::path& source_name;
   img_file_type source_type;
   bool normalized;
 };

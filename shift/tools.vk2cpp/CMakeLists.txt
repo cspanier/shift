@@ -12,6 +12,5 @@ shift_add_executable(shift.tools.vk2cpp
     shift.core
     shift.platform
     Boost::boost
-    Boost::filesystem
     Boost::program_options
 )

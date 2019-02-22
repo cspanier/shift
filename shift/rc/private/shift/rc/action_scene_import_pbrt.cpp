@@ -5,15 +5,16 @@
 #include <shift/math/matrix.hpp>
 #include <shift/math/vector.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+#include <filesystem>
+#include <fstream>
 #include <cctype>
 
 namespace shift::rc
 {
 using namespace std::string_literals;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 enum class texture_format
 {
@@ -35,7 +36,8 @@ struct texture_description
 {
   fs::path filename;
   // texture_mapping mapping = texture_mapping::undefined;
-  resource_db::sampler_address_mode wrap = resource_db::sampler_address_mode::repeat;
+  resource_db::sampler_address_mode wrap =
+    resource_db::sampler_address_mode::repeat;
   math::vector2<float> scale = math::vector2<float>(1.0f, 1.0f);
   math::vector2<float> offset = math::vector2<float>(0.0f, 0.0f);
   float max_anisotropy = 1.0f;
@@ -408,147 +410,146 @@ bool action_scene_import_pbrt::parse_token_group(
     auto& repository = resource_db::repository::singleton_instance();
 
     // Creates a 1x1 texture containing a single pixel of the requested color.
-    auto assign_color =
-      [&](math::vector4<float> color,
-          std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
-        auto& image_reference = image_map.first;
-        auto& sampler = image_map.second;
+    auto assign_color = [&](math::vector4<float> color,
+                            std::pair<resource_db::image_reference,
+                                      resource_db::sampler>& image_map) {
+      auto& image_reference = image_map.first;
+      auto& sampler = image_map.second;
 
-        auto color_image_iter = context.color_images.find(color);
-        if (color_image_iter == context.color_images.end())
+      auto color_image_iter = context.color_images.find(color);
+      if (color_image_iter == context.color_images.end())
+      {
+        image_reference.image = std::make_shared<resource_db::image>();
+        image_reference.image->format =
+          resource_db::image_format::r32g32b32a32_sfloat;
+        image_reference.image->array_element_count = 1;
+        image_reference.image->face_count = 1;
+
         {
-          image_reference.image = std::make_shared<resource_db::image>();
-          image_reference.image->format =
-            resource_db::image_format::r32g32b32a32_sfloat;
-          image_reference.image->array_element_count = 1;
-          image_reference.image->face_count = 1;
+          resource_db::mipmap_info mipmap;
+          mipmap.width = 1;
+          mipmap.height = 1;
+          mipmap.depth = 1;
+          mipmap.buffer = std::make_shared<resource_db::buffer>();
+          mipmap.buffer->storage.resize(sizeof(color));
+          std::memcpy(mipmap.buffer->storage.data(), &color, sizeof(color));
+          mipmap.offset = 0;
+          image_reference.image->mipmaps.push_back(std::move(mipmap));
+        }
 
-          {
-            resource_db::mipmap_info mipmap;
-            mipmap.width = 1;
-            mipmap.height = 1;
-            mipmap.depth = 1;
-            mipmap.buffer = std::make_shared<resource_db::buffer>();
-            mipmap.buffer->storage.resize(sizeof(color));
-            std::memcpy(mipmap.buffer->storage.data(), &color, sizeof(color));
-            mipmap.offset = 0;
-            image_reference.image->mipmaps.push_back(std::move(mipmap));
-          }
+        std::stringstream color_name;
+        for (auto i = 0u; i < color.row_count; ++i)
+        {
+          color_name << std::hex << std::setfill('0') << std::setw(4)
+                     << core::clamp(static_cast<std::int32_t>(color(i) * 65535),
+                                    0, 65535);
+        }
 
-          std::stringstream color_name;
-          for (auto i = 0u; i < color.row_count; ++i)
-          {
-            color_name << std::hex << std::setfill('0') << std::setw(4)
-                       << core::clamp(
-                            static_cast<std::int32_t>(color(i) * 65535), 0,
-                            65535);
-          }
+        auto image_buffer_filename = context.job.output_file_path(
+          "material-image-buffer",
+          {std::make_pair("image-color", color_name.str())});
+        for (auto& mipmap : image_reference.image->mipmaps)
+          mipmap.buffer.update_id();
+        context.compiler.save(*image_reference.image->mipmaps.front().buffer,
+                              image_buffer_filename, context.job);
 
-          auto image_buffer_filename = context.job.output_file_path(
-            "material-image-buffer",
-            {std::make_pair("image-color", color_name.str())});
-          for (auto& mipmap : image_reference.image->mipmaps)
-            mipmap.buffer.update_id();
-          context.compiler.save(*image_reference.image->mipmaps.front().buffer,
-                                image_buffer_filename, context.job);
+        auto image_header_filename = context.job.output_file_path(
+          "material-image-header",
+          {std::make_pair("image-color", color_name.str())});
+        image_reference.image.update_id();
+        context.compiler.save(*image_reference.image, image_header_filename,
+                              context.job);
 
-          auto image_header_filename = context.job.output_file_path(
-            "material-image-header",
-            {std::make_pair("image-color", color_name.str())});
-          image_reference.image.update_id();
-          context.compiler.save(*image_reference.image, image_header_filename,
-                                context.job);
+        context.color_images.insert_or_assign(
+          color, image_reference.image.get_shared());
+      }
+      else
+        image_reference.image = color_image_iter->second;
 
-          context.color_images.insert_or_assign(
-            color, image_reference.image.get_shared());
+      image_reference.offset = math::make_vector_from(0.0f, 0.0f);
+      image_reference.scale = math::make_vector_from(1.0f, 1.0f);
+      sampler.address_mode_u = resource_db::sampler_address_mode::repeat;
+      sampler.address_mode_v = resource_db::sampler_address_mode::repeat;
+      sampler.address_mode_w = resource_db::sampler_address_mode::repeat;
+      sampler.max_anisotropy = 1.0f;
+      sampler.min_lod = 0.0f;
+      sampler.max_lod = 0.25f;
+    };
+
+    auto assign_texture = [&](const std::string& texture_name,
+                              std::pair<resource_db::image_reference,
+                                        resource_db::sampler>& image_map) {
+      auto& image_reference = image_map.first;
+      auto& sampler = image_map.second;
+
+      resource_db::resource_ptr<resource_db::image> image;
+      std::shared_ptr<texture_description> texture;
+      if (!texture_name.empty())
+      {
+        auto& current_scope = context.scope.top();
+        auto texture_iter = current_scope.named_textures.find(texture_name);
+        if (texture_iter != current_scope.named_textures.end())
+        {
+          texture = texture_iter->second;
+          auto current_pass = context.job.rule->pass;
+          auto* texture_file = context.compiler.alias(
+            context.compiler.get_file(texture->filename), current_pass);
+          if (texture_file)
+            image = repository.load<resource_db::image>(texture_file->path);
         }
         else
-          image_reference.image = color_image_iter->second;
-
-        image_reference.offset = math::make_vector_from(0.0f, 0.0f);
-        image_reference.scale = math::make_vector_from(1.0f, 1.0f);
-        sampler.address_mode_u = resource_db::sampler_address_mode::repeat;
-        sampler.address_mode_v = resource_db::sampler_address_mode::repeat;
-        sampler.address_mode_w = resource_db::sampler_address_mode::repeat;
-        sampler.max_anisotropy = 1.0f;
-        sampler.min_lod = 0.0f;
-        sampler.max_lod = 0.25f;
-      };
-
-    auto assign_texture =
-      [&](const std::string& texture_name,
-          std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
-        auto& image_reference = image_map.first;
-        auto& sampler = image_map.second;
-
-        resource_db::resource_ptr<resource_db::image> image;
-        std::shared_ptr<texture_description> texture;
-        if (!texture_name.empty())
         {
-          auto& current_scope = context.scope.top();
-          auto texture_iter = current_scope.named_textures.find(texture_name);
-          if (texture_iter != current_scope.named_textures.end())
-          {
-            texture = texture_iter->second;
-            auto current_pass = context.job.rule->pass;
-            auto* texture_file = context.compiler.alias(
-              context.compiler.get_file(texture->filename), current_pass);
-            if (texture_file)
-              image = repository.load<resource_db::image>(texture_file->path);
-          }
-          else
-          {
-            log::warning() << "Cannot find referenced texture \""
-                           << texture_name << "\".";
-          }
+          log::warning() << "Cannot find referenced texture \"" << texture_name
+                         << "\".";
         }
+      }
 
-        if (!image)
-          return;
+      if (!image)
+        return;
 
-        image_reference.image = image;
-        image_reference.image.update_id();
-        if (texture)
-        {
-          image_reference.scale = texture->scale;
-          image_reference.offset = texture->offset;
-          sampler.address_mode_u = texture->wrap;
-          sampler.address_mode_v = texture->wrap;
-          sampler.address_mode_w = texture->wrap;
-          sampler.max_anisotropy = texture->max_anisotropy;
-        }
-        sampler.min_lod = 0.0f;
-        sampler.max_lod = image->mipmaps.size();
-      };
+      image_reference.image = image;
+      image_reference.image.update_id();
+      if (texture)
+      {
+        image_reference.scale = texture->scale;
+        image_reference.offset = texture->offset;
+        sampler.address_mode_u = texture->wrap;
+        sampler.address_mode_v = texture->wrap;
+        sampler.address_mode_w = texture->wrap;
+        sampler.max_anisotropy = texture->max_anisotropy;
+      }
+      sampler.min_lod = 0.0f;
+      sampler.max_lod = image->mipmaps.size();
+    };
 
-    auto assign_replaceme =
-      [&](std::pair<resource_db::image_reference, resource_db::sampler>& image_map) {
-        auto& image_reference = image_map.first;
-        auto& sampler = image_map.second;
+    auto assign_replaceme = [&](std::pair<resource_db::image_reference,
+                                          resource_db::sampler>& image_map) {
+      auto& image_reference = image_map.first;
+      auto& sampler = image_map.second;
 
-        if (image_reference.image)
-          return true;
-
-        auto current_pass = context.job.rule->pass;
-        auto* image_file = context.compiler.alias(
-          context.compiler.get_file(
-            fs::path{"private/textures/engine/replaceme.png"}),
-          current_pass);
-        if (!image_file)
-          return false;
-        /// ToDo: Pass the exact path using rule options!
-        auto image = repository.load<resource_db::image>(image_file->path);
-        if (!image)
-        {
-          log::error() << "Cannot find \"replaceme.png\" dummy texture.";
-          return false;
-        }
-
-        image_reference.image = image;
-        sampler.min_lod = 0.0f;
-        sampler.max_lod = image->mipmaps.size();
+      if (image_reference.image)
         return true;
-      };
+
+      auto current_pass = context.job.rule->pass;
+      auto* image_file = context.compiler.alias(
+        context.compiler.get_file(
+          fs::path{"private/textures/engine/replaceme.png"}),
+        current_pass);
+      if (!image_file)
+        return false;
+      /// ToDo: Pass the exact path using rule options!
+      auto image = repository.load<resource_db::image>(image_file->path);
+      if (!image)
+      {
+        log::error() << "Cannot find \"replaceme.png\" dummy texture.";
+        return false;
+      }
+
+      image_reference.image = image;
+      sampler.min_lod = 0.0f;
+      sampler.max_lod = image->mipmaps.size();
+      return true;
+    };
 
     while (has_tokens())
     {
@@ -899,7 +900,8 @@ bool action_scene_import_pbrt::parse_token_group(
           if (!mesh_file)
             return false;
           /// ToDo: Pass the exact path using rule options!
-          current_node->mesh = repository.load<resource_db::mesh>(mesh_file->path);
+          current_node->mesh =
+            repository.load<resource_db::mesh>(mesh_file->path);
           if (!current_node->mesh)
           {
             log::warning() << "Cannot find mesh \"" << mesh_file->generic_string

@@ -3,13 +3,13 @@
 
 #include <memory>
 #include <string_view>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/core/singleton.hpp>
 #include <shift/core/exception.hpp>
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 struct rc_error : virtual core::runtime_error
 {
@@ -62,13 +62,13 @@ public:
   void load_rules(const std::string_view rules_filename);
 
   ///
-  bool load_cache(const boost::filesystem::path& cache_filename);
+  bool load_cache(const fs::path& cache_filename);
 
   ///
-  void save_cache(const boost::filesystem::path& cache_filename);
+  void save_cache(const fs::path& cache_filename);
 
   ///
-  void save_cache_graph(const boost::filesystem::path& cache_graph_filename);
+  void save_cache_graph(const fs::path& cache_graph_filename);
 
   ///
   std::tuple<std::size_t /*succeeded_job_count*/,

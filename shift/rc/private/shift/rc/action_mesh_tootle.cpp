@@ -3,13 +3,13 @@
 #include <shift/resource_db/buffer.hpp>
 #include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
-#include <boost/filesystem/operations.hpp>
 #if defined(PLATFORM_LINUX)
 #define _LINUX
 #endif
-#include <tootlelib.h>
+#include <filesystem>
 #include <fstream>
 #include <unordered_map>
+#include <tootlelib.h>
 
 namespace std
 {
@@ -29,7 +29,7 @@ struct hash<shift::math::vector4<float>>
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 action_mesh_tootle::action_mesh_tootle()
 : action_base(action_name, action_version, support_multithreading)
@@ -98,7 +98,8 @@ bool action_mesh_tootle::process(resource_compiler_impl& compiler,
       }
       position_attribute = &vertex_attribute;
     }
-    else if (vertex_attribute.usage == resource_db::vertex_attribute_usage::normal)
+    else if (vertex_attribute.usage ==
+             resource_db::vertex_attribute_usage::normal)
     {
       if (normal_attribute)
       {

@@ -47,7 +47,7 @@ void log_server::add_console_sink(bool enable_timestamp, bool enable_channel,
     enable_timestamp, enable_channel, enable_separator, record_separator));
 }
 
-void log_server::add_file_sink(boost::filesystem::path log_folder,
+void log_server::add_file_sink(std::filesystem::path log_folder,
                                std::string_view application_name,
                                std::string_view suffix, bool enable_timestamp,
                                bool enable_channel, bool enable_separator)

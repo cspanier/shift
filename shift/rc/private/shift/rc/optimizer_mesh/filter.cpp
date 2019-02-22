@@ -3,8 +3,8 @@
 #include <shift/log/log.hpp>
 #include <shift/math/vector.hpp>
 #include <shift/core/hash_table.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/endian/conversion.hpp>
+#include <filesystem>
 #include <queue>
 #include <memory>
 
@@ -96,7 +96,7 @@ struct equal_to<const void*>
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 bool optimize_mesh(const job_description& /*job*/)
 {
@@ -140,7 +140,7 @@ std::vector<std::uint8_t> resolve_vertex_indices(resource_db::mesh& mesh,
   for (auto& attribute : mesh.vertex_attributes)
   {
     vertex_size += resource_db::vertex_attribute_size(attribute.component_type,
-                                                   attribute.data_type);
+                                                      attribute.data_type);
   }
   const auto& index_buffer = mesh.index_buffer_view.buffer->storage;
 

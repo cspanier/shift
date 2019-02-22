@@ -7,7 +7,7 @@
 #include <iostream>
 
 using namespace shift::rc;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 // Start resource compiler without any rules.
 // BOOST_AUTO_TEST_CASE(rc_rules_empty)

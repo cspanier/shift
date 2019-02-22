@@ -10,7 +10,7 @@ using namespace shift::rc;
 
 BOOST_AUTO_TEST_CASE(rc_cache)
 {
-  boost::system::error_code error_code;
+  std::error_code error_code;
   auto settings = create_working_folders();
 
   write_png_image(settings.input_path / "test_image1.png", 32, 32, 0xFF0077FF);

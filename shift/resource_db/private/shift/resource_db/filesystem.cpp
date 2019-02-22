@@ -5,22 +5,22 @@
 #include <shift/core/substream_device.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iostreams/filter/zlib.hpp>
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
+#include <filesystem>
 #include <fstream>
 #include <array>
 
 namespace shift::resource_db
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 static const std::string index_filename = ".index.json";
 
-filesystem::filesystem(const boost::filesystem::path& path) : mountable(path)
+filesystem::filesystem(const std::filesystem::path& path) : mountable(path)
 {
 }
 
@@ -136,7 +136,7 @@ void filesystem::close()
   file.close();
 }
 
-resource_id filesystem::lookup_id(const boost::filesystem::path& relative_path)
+resource_id filesystem::lookup_id(const std::filesystem::path& relative_path)
 {
   std::shared_lock read_lock(_index_mutex);
   const auto& path_index = _index.get<by_path>();
@@ -184,7 +184,7 @@ bool filesystem::load(resource_id id, resource_base& resource,
 
 bool filesystem::save(const resource_base& resource, resource_type type,
                       resource_id id,
-                      const boost::filesystem::path& relative_path)
+                      const std::filesystem::path& relative_path)
 {
   if (_read_only)
   {
@@ -212,7 +212,7 @@ void filesystem::erase(resource_id id)
       auto absolute_path = _path / index_iter->generic_path;
       if (fs::exists(absolute_path))
       {
-        boost::system::error_code error_code;
+        std::error_code error_code;
         fs::remove(absolute_path, error_code);
       }
     }
@@ -221,7 +221,7 @@ void filesystem::erase(resource_id id)
 
 bool filesystem::save_impl(const resource_base& resource,
                            resource_type /*type*/, resource_id id,
-                           const boost::filesystem::path& relative_path)
+                           const std::filesystem::path& relative_path)
 {
   auto absolute_path = _path / relative_path;
   fs::create_directories(absolute_path.parent_path());
@@ -242,7 +242,7 @@ bool filesystem::save_impl(const resource_base& resource,
       }
       else if (fs::exists(other_path))
       {
-        boost::system::error_code error_code;
+        std::error_code error_code;
         fs::create_hard_link(other_path, absolute_path, error_code);
         /// ToDo: What to do if the file already exists? This may happen if only
         /// the rc db is deleted but output files are still there.

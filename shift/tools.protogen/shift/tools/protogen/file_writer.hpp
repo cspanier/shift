@@ -1,11 +1,9 @@
 #ifndef SHIFT_TOOLS_PROTOGEN_FILE_WRITER_HPP
 #define SHIFT_TOOLS_PROTOGEN_FILE_WRITER_HPP
 
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
 #include <functional>
 #include <sstream>
+#include <filesystem>
 
 namespace shift::tools::protogen
 {
@@ -31,8 +29,8 @@ public:
   /// Write the buffered stream to the specified file, but only if buffer
   /// content is different to the file content. Optionally, it can apply
   /// clang-format to the written source file.
-  void write(boost::filesystem::path filename,
-             boost::filesystem::path clangFormat = "");
+  void write(std::filesystem::path filename,
+             std::filesystem::path clangFormat = "");
 
   /// Clears the file content buffer.
   void clear();

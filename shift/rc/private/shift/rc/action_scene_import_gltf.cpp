@@ -13,7 +13,7 @@
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 namespace json = parser::json;
 
 struct action_scene_import_gltf::context_t

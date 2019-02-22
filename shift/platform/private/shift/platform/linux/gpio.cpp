@@ -1,8 +1,6 @@
 #include "shift/platform/gpio.hpp"
 #include "shift/platform/types.hpp"
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <chrono>
 #include <array>
 #include <poll.h>
@@ -12,10 +10,9 @@ namespace shift::platform
 {
 gpio::gpio(std::string source) : _source(std::move(source))
 {
-  _direction_file.open(
-    (boost::filesystem::path(_source) / "direction").string(),
-    std::ios_base::out);
-  _edge_file.open((boost::filesystem::path(_source) / "edge").string(),
+  _direction_file.open((std::filesystem::path(_source) / "direction").string(),
+                       std::ios_base::out);
+  _edge_file.open((std::filesystem::path(_source) / "edge").string(),
                   std::ios_base::out);
   /// ToDo: Read the initial state rather than setting a predefined one.
   direction(io_direction::in);
@@ -40,7 +37,7 @@ bool gpio::open()
 {
   if (_value_handle >= 0)
     close();
-  std::string path = (boost::filesystem::path(_source) / "value").string();
+  std::string path = (std::filesystem::path(_source) / "value").string();
   if (_direction == io_direction::in)
   {
     if (_edge == edge_trigger::none)

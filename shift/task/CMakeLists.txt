@@ -18,6 +18,5 @@ shift_add_test(test.shift.task
     shift.platform
     shift.core
     Boost::unit_test_framework
-    Boost::filesystem
     Boost::context
 )

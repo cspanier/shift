@@ -3,7 +3,7 @@
 #include <shift/resource_db/buffer.hpp>
 #include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 #include <fstream>
 #include <unordered_map>
 
@@ -25,7 +25,7 @@ struct hash<shift::math::vector4<float>>
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 action_mesh_export_obj::action_mesh_export_obj()
 : action_base(action_name, action_version)
@@ -84,7 +84,8 @@ bool action_mesh_export_obj::process(resource_compiler_impl& compiler,
       }
       position_attribute = &vertex_attribute;
     }
-    else if (vertex_attribute.usage == resource_db::vertex_attribute_usage::normal)
+    else if (vertex_attribute.usage ==
+             resource_db::vertex_attribute_usage::normal)
     {
       if (normal_attribute)
       {

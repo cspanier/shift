@@ -1,8 +1,8 @@
 #include <shift/parser/xml/xml.hpp>
 #include <shift/platform/environment.hpp>
 #include <iostream>
+#include <filesystem>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 
@@ -10,8 +10,8 @@ struct init_current_working_path
 {
   init_current_working_path() noexcept
   {
-    using namespace boost::filesystem;
-    boost::system::error_code error;
+    using namespace std::filesystem;
+    std::error_code error;
     current_path(path(shift::platform::environment::executable_path())
                    .parent_path()
                    .parent_path(),

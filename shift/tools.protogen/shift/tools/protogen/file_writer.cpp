@@ -9,10 +9,8 @@
 #include <ios>
 #include <string>
 #include <utility>
+#include <filesystem>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/path_traits.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 
@@ -40,10 +38,10 @@ namespace shift::tools::protogen
 //  return *_current_scope;
 //}
 
-// void file_writer::write(boost::filesystem::path filename,
-//                        boost::filesystem::path clang_format)
+// void file_writer::write(std::filesystem::path filename,
+//                        std::filesystem::path clang_format)
 //{
-//  namespace fs = boost::filesystem;
+//  namespace fs = std::filesystem;
 
 //  BOOST_ASSERT(_current_scope == _global_scope);
 

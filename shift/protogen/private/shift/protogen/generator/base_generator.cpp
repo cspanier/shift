@@ -1,11 +1,10 @@
 #include "shift/protogen/generator/base_generator.hpp"
 #include "shift/core/string_util.hpp"
+#include <filesystem>
 #include <sstream>
 #include <vector>
 #include <functional>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/path_traits.hpp>
 #include <boost/program_options/value_semantic.hpp>
 #include <boost/program_options/errors.hpp>
 #include <boost/program_options/options_description.hpp>

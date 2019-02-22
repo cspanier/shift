@@ -2,7 +2,7 @@
 #define SHIFT_RC_TTF_FONT_HPP
 
 #include <map>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/math/interval.hpp>
 #include <shift/serialization2/types.hpp>
 
@@ -111,7 +111,7 @@ public:
   font();
 
   ///
-  void load(boost::filesystem::path input_filename);
+  void load(std::filesystem::path input_filename);
 
   ///
   std::uint16_t code_to_index(char16_t code) const;

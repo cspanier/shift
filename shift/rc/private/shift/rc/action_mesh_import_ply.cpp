@@ -4,14 +4,15 @@
 #include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/vector.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/endian/conversion.hpp>
+#include <filesystem>
+#include <fstream>
 #include <queue>
 #include <memory>
 
 namespace shift::rc
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 enum class vertex_property_type
 {
@@ -442,7 +443,8 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
     position_attribute.usage = resource_db::vertex_attribute_usage::position;
     position_attribute.component_type =
       resource_db::vertex_attribute_component_type::float32;
-    position_attribute.data_type = resource_db::vertex_attribute_data_type::vec3;
+    position_attribute.data_type =
+      resource_db::vertex_attribute_data_type::vec3;
     position_attribute.size = resource_db::vertex_attribute_size(
       position_attribute.component_type, position_attribute.data_type);
 
@@ -482,7 +484,8 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
     texcoord_attribute.usage = resource_db::vertex_attribute_usage::texcoord;
     texcoord_attribute.component_type =
       resource_db::vertex_attribute_component_type::float32;
-    texcoord_attribute.data_type = resource_db::vertex_attribute_data_type::vec2;
+    texcoord_attribute.data_type =
+      resource_db::vertex_attribute_data_type::vec2;
     texcoord_attribute.size = resource_db::vertex_attribute_size(
       texcoord_attribute.component_type, texcoord_attribute.data_type);
 
@@ -588,7 +591,8 @@ bool action_mesh_import_ply::process(resource_compiler_impl& compiler,
         if (flip_nz)
           target.z = -target.z;
       }
-      else if (attribute.usage == resource_db::vertex_attribute_usage::texcoord &&
+      else if (attribute.usage ==
+                 resource_db::vertex_attribute_usage::texcoord &&
                attribute.component_type ==
                  resource_db::vertex_attribute_component_type::float32 &&
                attribute.data_type ==

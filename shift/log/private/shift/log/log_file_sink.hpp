@@ -4,9 +4,7 @@
 #include <chrono>
 #include <fstream>
 #include <string>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include "shift/core/singleton.hpp"
 #include "shift/log/log_sink.hpp"
 
@@ -19,7 +17,7 @@ class log_file_sink
 {
 public:
   /// Constructor.
-  log_file_sink(boost::filesystem::path log_folder,
+  log_file_sink(std::filesystem::path log_folder,
                 std::string_view application_name, std::string_view suffix,
                 bool enable_timestamp, bool enable_channel,
                 bool enable_separator);
@@ -33,7 +31,7 @@ public:
              std::string_view message, bool is_spam) override;
 
 private:
-  boost::filesystem::path _filename;
+  std::filesystem::path _filename;
   std::ofstream _file;
   bool _enable_timestamp;
   bool _enable_channel;

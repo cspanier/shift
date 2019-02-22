@@ -20,5 +20,4 @@ shift_add_test(test.shift.parser.xml
     shift.core
     shift.platform
     Boost::unit_test_framework
-    Boost::filesystem
 )

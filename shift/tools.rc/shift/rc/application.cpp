@@ -4,7 +4,7 @@
 #include <shift/core/exception.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <fstream>
 #include <memory>
 
@@ -12,9 +12,9 @@ namespace shift
 {
 namespace rc
 {
-  boost::filesystem::path program_options::input_path;
-  boost::filesystem::path program_options::build_path;
-  boost::filesystem::path program_options::output_path;
+  std::filesystem::path program_options::input_path;
+  std::filesystem::path program_options::build_path;
+  std::filesystem::path program_options::output_path;
   std::string program_options::rules_filename;
   std::string program_options::cache_filename;
   std::uint32_t program_options::verbose;
@@ -24,7 +24,7 @@ namespace rc
 
   int application::run()
   {
-    namespace fs = boost::filesystem;
+    namespace fs = std::filesystem;
     using std::begin;
     using std::end;
 

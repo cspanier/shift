@@ -2,9 +2,7 @@
 #include <shift/log/log.hpp>
 #include <shift/core/string_util.hpp>
 #include <shift/core/stream_util.hpp>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <set>
 
 namespace shift::proto::generator
@@ -362,7 +360,7 @@ bool proto_generator::active() const
   return !proto_output_path.empty();
 }
 
-std::vector<boost::filesystem::path> proto_generator::output_paths() const
+std::vector<std::filesystem::path> proto_generator::output_paths() const
 {
   return {proto_output_path};
 }

@@ -9,9 +9,8 @@
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/any.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <vector>
 #include <string>
 #include <iomanip>
@@ -24,7 +23,7 @@ translator::translator() = default;
 
 int translator::run()
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   int result = EXIT_SUCCESS;
 

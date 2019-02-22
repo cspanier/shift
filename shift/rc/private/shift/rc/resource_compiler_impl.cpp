@@ -13,13 +13,14 @@
 #include <shift/resource_db/repository.hpp>
 #include <shift/parser/json/json.hpp>
 #include <shift/log/log.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/lexical_cast.hpp>
 #include <chrono>
 #include <map>
 #include <set>
+#include <fstream>
 #include <iostream>
+#include <filesystem>
 
 namespace shift::rc
 {
@@ -119,46 +120,42 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
 
     if (!json::has(rule_object, "pass"))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id << R"(" lacks the required attribute "pass".)";
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
+                     << R"(" lacks the required attribute "pass".)";
       continue;
     }
     const auto& pass_value = rule_object.at("pass");
     if (!get_if<double>(&pass_value))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"("'s "pass" attribute must be of number type.)";
       continue;
     }
 
     if (!json::has(rule_object, "action"))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"(" lacks the required attribute "action".)";
       continue;
     }
     const auto& action_value = rule_object.at("action");
     if (!get_if<std::string>(&action_value))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"("'s "action" attribute must be of string type.)";
       continue;
     }
 
     if (!json::has(rule_object, "input"))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id << R"(" lacks the required attribute "input".)";
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
+                     << R"(" lacks the required attribute "input".)";
       continue;
     }
     const auto& input_value = rule_object.at("input");
     if (!get_if<json::object>(&input_value))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"("'s "input" attribute must be of object type.)";
       continue;
     }
@@ -174,7 +171,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
         !get_if<json::object>(&output_value))
     {
       log::warning()
-        << rules_file_path.generic_path() << R"(: The rule ")" << rule_id
+        << rules_file_path << R"(: The rule ")" << rule_id
         << R"("'s "output" attribute must be of either string or object type.)";
       continue;
     }
@@ -204,9 +201,9 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
     rule_info.action = cache.find_action(action_name);
     if (rule_info.action == nullptr)
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id << R"(" references a non-existing action ")"
-                     << action_name << R"(".)";
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
+                     << R"(" references a non-existing action ")" << action_name
+                     << R"(".)";
       continue;
     }
     rule_info.path = rule_path;
@@ -215,7 +212,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       if (!get_if<std::string>(&input_object_value.second))
       {
         log::warning()
-          << rules_file_path.generic_path() << R"(: The rule ")" << rule_id
+          << rules_file_path << R"(: The rule ")" << rule_id
           << R"("'s "input" attribute object may only contain string values.)";
         continue;
       }
@@ -229,8 +226,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       const auto& group_by_value = rule_object.at("group-by");
       if (!get_if<json::array>(&group_by_value))
       {
-        log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                       << rule_id
+        log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                        << R"("'s "group-by" attribute must be of array type.)";
         continue;
       }
@@ -239,7 +235,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
         if (!get_if<double>(&group_by_array_value))
         {
           log::warning()
-            << rules_file_path.generic_path() << R"(: The rule ")" << rule_id
+            << rules_file_path << R"(: The rule ")" << rule_id
             << R"("'s "group-by" attribute array may only contain number values.)";
           continue;
         }
@@ -261,7 +257,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
         if (!get_if<std::string>(&output_object_attribute.second))
         {
           log::warning()
-            << rules_file_path.generic_path() << R"(: The rule ")" << rule_id
+            << rules_file_path << R"(: The rule ")" << rule_id
             << R"("'s "output" attribute object may only contain string attributes.)";
           continue;
         }
@@ -278,8 +274,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
 
     if (!json::has(rule_object, "options"))
     {
-      log::warning() << rules_file_path.generic_path() << R"(: The rule ")"
-                     << rule_id
+      log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"(" lacks the required attribute "options".)";
       continue;
     }
@@ -345,7 +340,7 @@ file_description* resource_compiler_impl::add_file(const fs::path& file_path,
 {
   std::unique_lock lock(files_mutex);
 
-  boost::system::error_code error_code;
+  std::error_code error_code;
   if (!fs::is_regular_file(file_path, error_code) || error_code)
     return nullptr;
 

@@ -4,9 +4,7 @@
 #include <cstdint>
 #include <memory>
 #include <list>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <shift/core/bit_field.hpp>
 #include <shift/core/singleton.hpp>
 
@@ -52,7 +50,7 @@ class crash_guard : public core::singleton<crash_guard, core::create::on_stack>
 {
 public:
   /// Constructor.
-  crash_guard(boost::filesystem::path dump_path);
+  crash_guard(std::filesystem::path dump_path);
 
   /// Destructor.
   ~crash_guard();

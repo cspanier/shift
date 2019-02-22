@@ -1,9 +1,7 @@
 #define BOOST_USE_WINDOWS_H
 #include "shift/platform/crash_guard.hpp"
 #include "shift/platform/environment.hpp"
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <string>
 #include <client/windows/handler/exception_handler.h>
 
@@ -99,9 +97,9 @@ bool crash_guard::impl::minidump_callback(const wchar_t* dump_path,
   return succeeded;
 }
 
-crash_guard::crash_guard(boost::filesystem::path dump_path)
+crash_guard::crash_guard(std::filesystem::path dump_path)
 {
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
 
   if (!exists(dump_path))
   {

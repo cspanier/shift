@@ -1,7 +1,9 @@
 #include "shift/platform/environment.hpp"
+#include <boost/filesystem.hpp>
 #include <vector>
 #include <csignal>
 #include <fcntl.h>
+#include <unistd.h>
 
 namespace shift::platform
 {
@@ -27,7 +29,7 @@ std::string environment::username()
     return UNKNOWN_USERNAME;
 }
 
-boost::filesystem::path environment::executable_path()
+std::filesystem::path environment::executable_path()
 {
   std::vector<char> buffer;
   buffer.resize(256, 0);
@@ -37,8 +39,9 @@ boost::filesystem::path environment::executable_path()
     buffer.resize(buffer.size() * 2, 0);
     readlink("/proc/self/exe", buffer.data(), buffer.size());
   }
-  return boost::filesystem::system_complete(
-    boost::filesystem::path(buffer.data()));
+  return std::filesystem::path{
+    boost::filesystem::system_complete(boost::filesystem::path{buffer.data()})
+      .generic_string()};
 }
 
 void environment::thread_debug_name(const std::string& /*name*/)

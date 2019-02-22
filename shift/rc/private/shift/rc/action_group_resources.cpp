@@ -5,7 +5,7 @@
 #include <shift/resource_db/mesh.hpp>
 #include <shift/log/log.hpp>
 #include <shift/core/exception.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <queue>
 #include <memory>
 
@@ -19,7 +19,7 @@ action_group_resources::action_group_resources()
 bool action_group_resources::process(resource_compiler_impl& compiler,
                                      job_description& job) const
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   if (job.inputs.empty())
     return false;

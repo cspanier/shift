@@ -2,7 +2,7 @@
 #include "shift/rc/resource_compiler_impl.hpp"
 #include <shift/parser/json/json.hpp>
 #include <shift/log/log.hpp>
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 #include <fstream>
 
 namespace shift::rc
@@ -27,7 +27,7 @@ void data_cache::register_action(std::string name, action_version version,
   _actions.insert_or_assign(key, std::move(new_action));
 }
 
-bool data_cache::load(const boost::filesystem::path& cache_filename)
+bool data_cache::load(const std::filesystem::path& cache_filename)
 {
   using namespace shift::parser;
 
@@ -233,8 +233,9 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
             (json::get_if<double>(&cached_file_object->at("write-time")) !=
              nullptr))
         {
-          new_file->last_write_time = static_cast<time_t>(
-            json::get<double>(cached_file_object->at("write-time")));
+          new_file->last_write_time =
+            std::chrono::system_clock::from_time_t(static_cast<time_t>(
+              json::get<double>(cached_file_object->at("write-time"))));
         }
 
         if (json::has(*cached_file_object, "pass") &&
@@ -451,7 +452,7 @@ bool data_cache::load(const boost::filesystem::path& cache_filename)
   return true;
 }
 
-void data_cache::save(const boost::filesystem::path& cache_filename) const
+void data_cache::save(const std::filesystem::path& cache_filename) const
 {
   using namespace shift::parser;
 
@@ -533,8 +534,8 @@ void data_cache::save(const boost::filesystem::path& cache_filename) const
     /// ToDo: This hack is required because some files magically change their
     /// time-stamp when it is queried right after the files were closed.
     file.second->last_write_time = fs::last_write_time(file.first);
-    file_object["write-time"] =
-      static_cast<double>(file.second->last_write_time);
+    file_object["write-time"] = static_cast<double>(
+      std::chrono::system_clock::to_time_t(file.second->last_write_time));
     if (file.second->pass > 0)
       file_object["pass"] = static_cast<double>(file.second->pass);
     if ((file.second->alias != nullptr) &&

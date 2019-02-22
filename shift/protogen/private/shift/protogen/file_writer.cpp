@@ -3,6 +3,7 @@
 #include <shift/proto/proto.hpp>
 #include <shift/platform/assert.hpp>
 #include <shift/log/log.hpp>
+#include <filesystem>
 #include <fstream>
 #include <iterator>
 #include <string>
@@ -10,9 +11,6 @@
 #include <string>
 #include <utility>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/path_traits.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 
@@ -40,10 +38,10 @@ const namescope& file_writer::current_scope() const
   return *_current_scope;
 }
 
-void file_writer::write(boost::filesystem::path filename,
-                        boost::filesystem::path clang_format)
+void file_writer::write(std::filesystem::path filename,
+                        std::filesystem::path clang_format)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   BOOST_ASSERT(_current_scope == _global_scope);
 

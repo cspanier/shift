@@ -19,7 +19,7 @@ namespace mat
   struct converter
   {
     /// Main converter routine.
-    static int run(const boost::filesystem::path& input_filename,
+    static int run(const std::filesystem::path& input_filename,
                    resource_db::archive& target,
                    const parser::json::object& options);
   };

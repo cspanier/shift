@@ -1,9 +1,7 @@
 #ifndef SHIFT_LIVEDEBUG_REQUEST_HANDLER_HPP
 #define SHIFT_LIVEDEBUG_REQUEST_HANDLER_HPP
 
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include "shift/livedebug/session.hpp"
 
 namespace shift::livedebug
@@ -31,7 +29,7 @@ public:
 class file_request_handler : public request_handler
 {
 public:
-  file_request_handler(boost::filesystem::path&& path);
+  file_request_handler(std::filesystem::path&& path);
 
   /// Destructor.
   ~file_request_handler() override = default;
@@ -42,7 +40,7 @@ public:
     livedebug::session& session) override;
 
 private:
-  boost::filesystem::path _path;
+  std::filesystem::path _path;
 };
 }
 

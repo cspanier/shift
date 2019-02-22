@@ -14,16 +14,16 @@
 #include <shift/core/bit_field.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
+#include <filesystem>
 #include <map>
 #include <array>
 
 namespace shift::resource_db
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 thread_local std::stack<mountable*> repository::impl::target_archives;
 
@@ -43,7 +43,7 @@ repository::repository() : _impl(std::make_unique<impl>())
 
 repository::~repository() = default;
 
-mountable* repository::mount(boost::filesystem::path path, bool read_only)
+mountable* repository::mount(std::filesystem::path path, bool read_only)
 {
   fs::path mount_path;
   try
@@ -106,7 +106,7 @@ void repository::add(std::shared_ptr<resource_base> resource, resource_id id)
   _impl->cache[id] = resource;
 }
 
-// resource_id repository::query(const boost::filesystem::path& name)
+// resource_id repository::query(const std::filesystem::path& name)
 //{
 //  // std::shared_lockread_lock(_impl->mount_point_mutex);
 //  // auto id = name_to_id(name);
@@ -117,7 +117,7 @@ void repository::add(std::shared_ptr<resource_base> resource, resource_id id)
 //  return 0;
 //}
 
-// resource_id repository::name_to_id(const boost::filesystem::path& name)
+// resource_id repository::name_to_id(const std::filesystem::path& name)
 //{
 //  crypto::sha256::digest digest;
 //  crypto::sha256 context(digest);
@@ -126,7 +126,7 @@ void repository::add(std::shared_ptr<resource_base> resource, resource_id id)
 //}
 
 std::pair<std::shared_ptr<resource_base>, resource_id> repository::load(
-  const boost::filesystem::path& absolute_path, resource_type type)
+  const std::filesystem::path& absolute_path, resource_type type)
 {
   auto resource = _impl->resource_factory.create_instance(type);
   std::shared_lock mount_read_lock(_impl->mount_point_mutex);
@@ -204,9 +204,9 @@ std::shared_ptr<resource_base> repository::load(resource_id id,
 
 bool repository::save(const resource_base& resource, resource_type type,
                       resource_id id,
-                      const boost::filesystem::path& absolute_path)
+                      const std::filesystem::path& absolute_path)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   mountable* target_mount_point = nullptr;
   {
@@ -235,7 +235,7 @@ bool repository::save(const resource_base& resource, resource_type type,
       return false;
   }
 
-  boost::system::error_code error_code;
+  std::error_code error_code;
   auto relative_path =
     fs::relative(absolute_path, target_mount_point->path(), error_code);
   if (error_code)

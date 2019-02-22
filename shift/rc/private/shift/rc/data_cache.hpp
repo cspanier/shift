@@ -1,7 +1,7 @@
 #ifndef SHIFT_RC_DATA_CACHE_HPP
 #define SHIFT_RC_DATA_CACHE_HPP
 
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include "shift/rc/types.hpp"
 
 namespace shift::rc
@@ -36,10 +36,10 @@ public:
   ///   Only those that are found in this cache are reset to unmodified. Note
   ///   that jobs and files are created dynamically during run-time and their
   ///   modification state get evaluated later on.
-  bool load(const boost::filesystem::path& cache_filename);
+  bool load(const std::filesystem::path& cache_filename);
 
   /// Saves all cached data to a JSON file.
-  void save(const boost::filesystem::path& cache_filename) const;
+  void save(const std::filesystem::path& cache_filename) const;
 
   /// Saves a GraphViz document of the file cache.
   void save_graph(const fs::path& graph_filename) const;

@@ -17,7 +17,7 @@ public:
   bool active() const override;
 
   /// @see base_generator::output_paths.
-  std::vector<boost::filesystem::path> output_paths() const override;
+  std::vector<std::filesystem::path> output_paths() const override;
 
   ///
   bool generate(namescope& root_scope, namescope& limit_scope) override;

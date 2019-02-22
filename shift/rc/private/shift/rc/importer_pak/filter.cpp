@@ -3,11 +3,11 @@
 #include <shift/log/log.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace shift::rc::pak
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 int converter::run()
 {

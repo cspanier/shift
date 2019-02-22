@@ -2,9 +2,7 @@
 #define SHIFT_PLATFORM_ENVIRONMENT_HPP
 
 #include <string>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 
 namespace shift::platform
 {
@@ -33,7 +31,7 @@ public:
   static std::string username();
 
   /// Returns a full path to the current executable.
-  static boost::filesystem::path executable_path();
+  static std::filesystem::path executable_path();
 
   /// Assigns the current thread a readable name to support debugging.
   static void thread_debug_name(const std::string& name);

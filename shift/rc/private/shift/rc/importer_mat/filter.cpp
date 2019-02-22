@@ -5,7 +5,7 @@
 #include <shift/math/vector.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace shift::resource_db
 {
@@ -16,9 +16,9 @@ namespace shift::rc
 {
 namespace mat
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
-  int converter::run(const boost::filesystem::path& input_filename,
+  int converter::run(const std::filesystem::path& input_filename,
                      resource_db::archive& /*target*/,
                      const parser::json::object& /*options*/)
   {

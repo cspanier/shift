@@ -455,7 +455,7 @@ namespace shift::tools::protogen::generators
 //  return !cs_output_path.empty();
 //}
 
-// std::vector<boost::filesystem::path> cs_generator::output_paths() const
+// std::vector<std::filesystem::path> cs_generator::output_paths() const
 //{
 //  return {cs_output_path};
 //}

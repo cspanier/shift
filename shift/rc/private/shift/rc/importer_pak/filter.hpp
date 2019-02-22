@@ -1,7 +1,7 @@
 #ifndef SHIFT_RC_IMPORTER_PAK_FILTER_HPP
 #define SHIFT_RC_IMPORTER_PAK_FILTER_HPP
 
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/core/exception.hpp>
 #include <shift/parser/json/json.hpp>
 #include "shift/rc/types.hpp"
@@ -24,8 +24,7 @@ struct converter
 
 private:
   template <typename Image>
-  static bool read(const boost::filesystem::path& filename,
-                   file_type input_type);
+  static bool read(const std::filesystem::path& filename, file_type input_type);
 };
 }
 

@@ -9,9 +9,8 @@
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/any.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <vector>
 #include <string>
 #include <iomanip>
@@ -20,36 +19,36 @@
 
 namespace shift::tools::protogen
 {
-boost::filesystem::path translator::cache_filename;
-std::vector<boost::filesystem::path> translator::proto_sources;
+std::filesystem::path translator::cache_filename;
+std::vector<std::filesystem::path> translator::proto_sources;
 bool translator::verbose;
 std::string translator::strip_namescopes;
 std::string translator::limit_namescopes;
 std::vector<std::string> translator::exclude_namescopes;
 std::vector<std::pair<std::string, std::string>> translator::definitions;
 bool translator::force_rewrite;
-boost::filesystem::path translator::cpp_source_output_path;
-boost::filesystem::path translator::cpp_include_output_path;
+std::filesystem::path translator::cpp_source_output_path;
+std::filesystem::path translator::cpp_include_output_path;
 std::string translator::cpp_folder;
 std::string translator::cpp_namespace;
 std::vector<std::string> translator::cpp_includes;
 std::string translator::cpp_naming_convention_name;
 std::uint32_t translator::cpp_indent_width;
 std::string translator::cpp_clang_format;
-boost::filesystem::path translator::cs_output_path;
+std::filesystem::path translator::cs_output_path;
 std::string translator::cs_namespace;
 std::vector<std::string> translator::cs_usings;
 std::uint32_t translator::cs_indent_width;
-boost::filesystem::path translator::dot_output_path;
+std::filesystem::path translator::dot_output_path;
 std::uint32_t translator::dot_indent_width;
-boost::filesystem::path translator::proto_output_path;
+std::filesystem::path translator::proto_output_path;
 std::uint32_t translator::proto_indent_width;
 
 translator::translator() = default;
 
 int translator::run()
 {
-  //  namespace fs = boost::filesystem;
+  //  namespace fs = std::filesystem;
 
   //  int result = EXIT_SUCCESS;
 

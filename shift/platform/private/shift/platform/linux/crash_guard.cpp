@@ -1,7 +1,5 @@
 #include "shift/platform/crash_guard.hpp"
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <iostream>
 #include <client/linux/handler/exception_handler.h>
 
@@ -43,13 +41,13 @@ bool crash_guard::impl::dump_callback(
   return succeeded;
 }
 
-crash_guard::crash_guard(boost::filesystem::path dump_path)
+crash_guard::crash_guard(std::filesystem::path dump_path)
 {
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
 
   if (!exists(dump_path))
   {
-    boost::system::error_code error;
+    std::error_code error;
     create_directories(dump_path, error);
     if (error)
       dump_path = current_path();

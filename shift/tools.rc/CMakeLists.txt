@@ -18,7 +18,6 @@ if(NOT NO_RC)
       shift.core
       shift.platform
       Boost::boost
-      Boost::filesystem
       Boost::iostreams
       Boost::context
   )

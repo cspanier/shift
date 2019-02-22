@@ -4,11 +4,11 @@
 #include <shift/core/substream_device.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/string_util.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iostreams/filter/zlib.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
+#include <filesystem>
 #include <array>
 
 #include <iostream>
@@ -51,7 +51,7 @@ serialization2::compact_output_archive<>& operator<<(
   return archive;
 }
 
-archive::archive(const boost::filesystem::path& path) : mountable(path)
+archive::archive(const std::filesystem::path& path) : mountable(path)
 {
 }
 
@@ -62,7 +62,7 @@ archive::~archive()
 
 bool archive::open(bool read_only)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   _read_only = read_only;
 
@@ -206,7 +206,7 @@ void archive::close()
   }
 }
 
-resource_id archive::lookup_id(const boost::filesystem::path& /*relative_path*/)
+resource_id archive::lookup_id(const std::filesystem::path& /*relative_path*/)
 {
   return 0;
 }
@@ -235,9 +235,9 @@ bool archive::load(resource_id id, resource_base& resource,
 
 bool archive::save(const resource_base& resource, resource_type type,
                    resource_id id,
-                   const boost::filesystem::path& /*relative_path*/)
+                   const std::filesystem::path& /*relative_path*/)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   if (_read_only)
   {
@@ -310,7 +310,7 @@ void archive::erase(resource_id /*id*/)
 //  _names.insert(named_resource{id, name, last_write_time});
 //}
 
-boost::filesystem::path archive::to_path(resource_id id)
+std::filesystem::path archive::to_path(resource_id id)
 {
   std::stringstream path;
   path << std::hex << std::setw(2) << std::setfill('0')

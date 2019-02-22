@@ -7,11 +7,11 @@
 #include <shift/log/log.hpp>
 #include <shift/core/exception.hpp>
 #include <shift/core/at_exit_scope.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <QQmlComponent>
 #include <QQuickStyle>
 #include <QQmlContext>
 #include <QQmlEngine>
+#include <filesystem>
 #include <string>
 #include <cstdlib>
 #include <GLFW/glfw3.h>
@@ -69,7 +69,7 @@ int editor_application::run()
   QObject::connect(this, SIGNAL(aboutToQuit()), this, SLOT(prepare_quit()));
 
   _qml_engine.addImportPath(QString::fromStdWString(
-    (boost::filesystem::current_path() / L"qml").generic_wstring()));
+    (std::filesystem::current_path() / L"qml").generic_wstring()));
   refresh_qml();
 
   // tbb::task_scheduler_init tbb_task_scheduler_init;
@@ -92,8 +92,8 @@ void editor_application::refresh_qml()
   root_context->setContextProperty("schematicsController",
                                    &_schematics_controller);
   _qml_engine.clearComponentCache();
-  _qml_engine.load(QUrl::fromLocalFile(QString::fromStdWString(
-    boost::filesystem::absolute(qml_source).wstring())));
+  _qml_engine.load(QUrl::fromLocalFile(
+    QString::fromStdWString(std::filesystem::absolute(qml_source).wstring())));
 
   auto root_objects = _qml_engine.rootObjects();
   if (root_objects.empty())

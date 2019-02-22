@@ -20,7 +20,6 @@ if (NOT NO_VULKAN)
       shift.core
       shift.platform
       Boost::boost
-      Boost::filesystem
       Boost::iostreams
       GLFW3
       Vulkan::Vulkan

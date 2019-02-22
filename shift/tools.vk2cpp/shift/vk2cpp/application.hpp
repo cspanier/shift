@@ -5,9 +5,10 @@
 #include <set>
 #include <unordered_set>
 #include <unordered_map>
+#include <fstream>
 #include <future>
+#include <filesystem>
 #include <boost/program_options.hpp>
-#include <boost/filesystem/path.hpp>
 #include <shift/core/bit_field.hpp>
 #include <shift/application/launcher.hpp>
 #include <shift/parser/xml/xml.hpp>
@@ -126,12 +127,12 @@ struct extension_descriptor : public entity_descriptor
 
 struct program_options
 {
-  static boost::filesystem::path input_path;
-  static boost::filesystem::path output_filename;
-  static boost::filesystem::path clang_format;
-  static boost::filesystem::path snippets_vs_path;
-  static boost::filesystem::path snippets_qt_path;
-  static boost::filesystem::path graph_filename;
+  static std::filesystem::path input_path;
+  static std::filesystem::path output_filename;
+  static std::filesystem::path clang_format;
+  static std::filesystem::path snippets_vs_path;
+  static std::filesystem::path snippets_qt_path;
+  static std::filesystem::path graph_filename;
 };
 
 template <typename NextModule>

@@ -2,7 +2,8 @@
 #include "shift/rc/resource_compiler_impl.hpp"
 #include <shift/resource_db/shader.hpp>
 #include <shift/log/log.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
+#include <fstream>
 #include <queue>
 #include <memory>
 #include <spirv_cross/spirv_cross.hpp>
@@ -195,7 +196,7 @@ action_shader_compile::action_shader_compile()
 bool action_shader_compile::process(resource_compiler_impl& compiler,
                                     job_description& job) const
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   if (job.inputs.size() != 1)
   {

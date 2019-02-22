@@ -3,18 +3,18 @@
 #include <shift/log/log.hpp>
 #include <shift/math/line.hpp>
 #include <shift/math/intersection.hpp>
-#include <boost/filesystem.hpp>
 #include <fstream>
 #include <queue>
 #include <memory>
+#include <filesystem>
 
 namespace shift::rc::ttf
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 font::font() = default;
 
-void font::load(boost::filesystem::path input_filename)
+void font::load(std::filesystem::path input_filename)
 {
   if (!fs::exists(input_filename) || !fs::is_regular_file(input_filename))
   {

@@ -6,12 +6,12 @@
 #include <unordered_map>
 #include <fstream>
 #include <shared_mutex>
+#include <filesystem>
 #include <shift/core/bit_field.hpp>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/member.hpp>
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/hashed_index.hpp>
-#include <boost/filesystem/path.hpp>
 #include "shift/resource_db/resource.hpp"
 #include "shift/resource_db/mountable.hpp"
 
@@ -22,7 +22,7 @@ class filesystem final : public mountable
 {
 public:
   ///
-  filesystem(const boost::filesystem::path& path);
+  filesystem(const std::filesystem::path& path);
 
   ///
   ~filesystem() override;
@@ -34,7 +34,7 @@ public:
   void close() override;
 
   ///
-  resource_id lookup_id(const boost::filesystem::path& relative_path) override;
+  resource_id lookup_id(const std::filesystem::path& relative_path) override;
 
   ///
   bool load(resource_id id, resource_base& resource,
@@ -42,7 +42,7 @@ public:
 
   ///
   bool save(const resource_base& resource, resource_type type, resource_id id,
-            const boost::filesystem::path& relative_path) override;
+            const std::filesystem::path& relative_path) override;
 
   ///
   void erase(resource_id id) override;
@@ -75,7 +75,7 @@ private:
 
   ///
   bool save_impl(const resource_base& resource, resource_type type,
-                 resource_id id, const boost::filesystem::path& relative_path);
+                 resource_id id, const std::filesystem::path& relative_path);
 
   bool _read_only;
   std::shared_mutex _index_mutex;

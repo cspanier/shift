@@ -91,6 +91,11 @@ macro(shift_add_executable target)
     endif()
   endforeach()
 
+  # ToDo: Only for GCC version before 9.0. Since version 9.0 libstdc++fs is integrated into libstdc++.
+  if (CMAKE_COMPILER_IS_GNUCXX)
+    list(APPEND ARG_LIBRARIES "stdc++fs")
+  endif()
+
   if(ARG_WIN32)
     set(BUILD_MODE WIN32)
   else()

@@ -3,9 +3,9 @@
 #include <shift/log/log.hpp>
 #include <shift/core/stream_util.hpp>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
+#include <filesystem>
 #include <fstream>
 #include <string_view>
 
@@ -57,12 +57,12 @@ bool convert(std::string& output, const crypto::sha256::digest_t& input)
   return true;
 }
 
-void file_cache::base_path(boost::filesystem::path base_path)
+void file_cache::base_path(std::filesystem::path base_path)
 {
   _base_path = std::move(base_path);
 }
 
-bool file_cache::read_cache(const boost::filesystem::path& cache_filename)
+bool file_cache::read_cache(const std::filesystem::path& cache_filename)
 {
   std::ifstream cache_file;
   cache_file.open(cache_filename.generic_string(),
@@ -117,7 +117,7 @@ bool file_cache::read_cache(const boost::filesystem::path& cache_filename)
 }
 
 bool file_cache::write_cache(
-  const boost::filesystem::path& cache_filename,
+  const std::filesystem::path& cache_filename,
   const crypto::sha256::digest_t& combined_input_hash)
 {
   std::ofstream cache_file(
@@ -140,8 +140,8 @@ bool file_cache::write_cache(
     for (const auto& entry : _output_cache)
     {
       // Cut _base_path off each filename.
-      boost::filesystem::path full_filename = entry.first;
-      boost::filesystem::path truncated_filename;
+      std::filesystem::path full_filename = entry.first;
+      std::filesystem::path truncated_filename;
       auto folder1 = _base_path.begin();
       auto folder2 = full_filename.begin();
       while (folder1 != _base_path.end() && folder2 != full_filename.end() &&
@@ -188,7 +188,7 @@ bool file_cache::check_input_hash(
 
 bool file_cache::check_output_hashes()
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
   for (const auto& output_file : _output_cache)
   {
     const auto& filename = output_file.first;
@@ -223,7 +223,7 @@ bool file_cache::check_output_hashes()
 
 void file_cache::unlink_unchecked_files()
 {
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
 
   auto i = _output_cache.begin();
   while (i != _output_cache.end())
@@ -231,7 +231,7 @@ void file_cache::unlink_unchecked_files()
     if (!i->second.checked)
     {
       log::info() << "Removing obsolete file " << i->first;
-      boost::system::error_code error;
+      std::error_code error;
       if (exists(i->first))
         remove(i->first, error);
       _output_cache.erase(i++);
@@ -241,10 +241,10 @@ void file_cache::unlink_unchecked_files()
   }
 }
 
-bool file_cache::output_changed(const boost::filesystem::path& filename,
+bool file_cache::output_changed(const std::filesystem::path& filename,
                                 const crypto::sha256::digest_t& pre_filter_hash)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
 
   auto output = _output_cache.find(filename.generic_string());
   if (output == _output_cache.end())
@@ -291,7 +291,7 @@ bool file_cache::output_changed(const boost::filesystem::path& filename,
 }
 
 void file_cache::update_cache(
-  const boost::filesystem::path& filename,
+  const std::filesystem::path& filename,
   const crypto::sha256::digest_t& pre_filter_hash,
   std::shared_ptr<crypto::sha256::digest_t> post_filter_hash)
 {

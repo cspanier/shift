@@ -4,8 +4,8 @@
 #include <memory>
 #include <unordered_map>
 #include <string>
+#include <filesystem>
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/path.hpp>
 #include <boost/program_options.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include <shift/application/launcher.hpp>

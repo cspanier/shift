@@ -64,7 +64,7 @@ std::string_view mime_type(std::string_view path)
   return "application/text";
 }
 
-file_request_handler::file_request_handler(boost::filesystem::path&& path)
+file_request_handler::file_request_handler(std::filesystem::path&& path)
 : _path(std::move(path))
 {
 }

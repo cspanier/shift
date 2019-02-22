@@ -7,7 +7,7 @@
 #include <iostream>
 
 using namespace shift::rc;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 // BOOST_AUTO_TEST_CASE(rc_action_image_import)
 //{

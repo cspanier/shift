@@ -27,7 +27,7 @@ class dot_generator : public base_generator
   //  virtual bool active() const override;
 
   //  /// @see base_generator::output_paths.
-  //  virtual std::vector<boost::filesystem::path> output_paths() const
+  //  virtual std::vector<std::filesystem::path> output_paths() const
   //  override;
 
   //  /// The main entry point for the code generator.

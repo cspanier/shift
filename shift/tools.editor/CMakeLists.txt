@@ -62,7 +62,6 @@ if(NOT NO_VULKAN AND NOT NO_QT5)
       Qt5::Core
       Boost::boost
       Boost::iostreams
-      Boost::filesystem
       OSLibs::dwmapi
   )
 endif()

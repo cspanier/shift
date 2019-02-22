@@ -5,7 +5,7 @@
 #include <shift/log/log.hpp>
 #include <shift/core/stream_util.hpp>
 #include <boost/iostreams/device/file.hpp>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace shift::rc
 {
@@ -117,8 +117,8 @@ void resource_compiler::load_rules(const std::string_view rules_filename)
   _impl->rules_filename = rules_filename;
 
   // Scan for rules files.
-  for (auto input_iterator = fs::recursive_directory_iterator(
-         _impl->input_path, fs::symlink_option::no_recurse);
+  for (auto input_iterator =
+         fs::recursive_directory_iterator(_impl->input_path);
        input_iterator != fs::recursive_directory_iterator(); ++input_iterator)
   {
     const auto& rules_file_path = input_iterator->path();
@@ -134,8 +134,7 @@ void resource_compiler::load_rules(const std::string_view rules_filename)
   }
 }
 
-bool resource_compiler::load_cache(
-  const boost::filesystem::path& cache_filename)
+bool resource_compiler::load_cache(const std::filesystem::path& cache_filename)
 {
   std::unique_lock lock(_impl->global_mutex);
 
@@ -145,8 +144,7 @@ bool resource_compiler::load_cache(
   return _impl->cache.load(cache_filename);
 }
 
-void resource_compiler::save_cache(
-  const boost::filesystem::path& cache_filename)
+void resource_compiler::save_cache(const std::filesystem::path& cache_filename)
 {
   std::unique_lock lock(_impl->global_mutex);
 
@@ -161,7 +159,7 @@ void resource_compiler::save_cache(
 }
 
 void resource_compiler::save_cache_graph(
-  const boost::filesystem::path& cache_graph_filename)
+  const std::filesystem::path& cache_graph_filename)
 {
   std::unique_lock lock(_impl->global_mutex);
 

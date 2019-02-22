@@ -15,7 +15,7 @@
 #include <regex>
 #include <fstream>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 using namespace shift;
 
 fs::path working_path()
@@ -94,31 +94,31 @@ void remove_working_folders(const settings_t& settings)
   fs::remove_all(settings.output_path);
 }
 
-void copy_files(const boost::filesystem::path& source_folder,
-                const boost::filesystem::path& target_folder,
+void copy_files(const std::filesystem::path& source_folder,
+                const std::filesystem::path& target_folder,
                 std::string regex_pattern)
 {
   std::regex regex(regex_pattern);
 
-  boost::system::error_code error_code;
+  std::error_code error_code;
   fs::create_directories(target_folder, error_code);
 
   fs::directory_iterator end;
   for (fs::directory_iterator i{source_folder}; i != end; ++i)
   {
-    if ((i->status().type() & fs::file_type::regular_file) != 0)
+    if (i->status().type() == fs::file_type::regular)
     {
       auto filename = i->path().filename();
       if (std::regex_match(filename.generic_string(), regex))
       {
         fs::copy_file(i->path(), target_folder / filename,
-                      fs::copy_option::overwrite_if_exists);
+                      fs::copy_options::overwrite_existing);
       }
     }
   }
 }
 
-void write_text_file(const boost::filesystem::path& filename,
+void write_text_file(const std::filesystem::path& filename,
                      std::string_view content)
 {
   std::ofstream file(filename.generic_string(),
@@ -127,9 +127,8 @@ void write_text_file(const boost::filesystem::path& filename,
     file << content;
 }
 
-void write_png_image(const boost::filesystem::path& filename,
-                     std::uint32_t width, std::uint32_t height,
-                     std::uint32_t rgba)
+void write_png_image(const std::filesystem::path& filename, std::uint32_t width,
+                     std::uint32_t height, std::uint32_t rgba)
 {
   using namespace boost;
   gil::rgba8_image_t image(width, height);

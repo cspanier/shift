@@ -114,12 +114,12 @@ char** launcher_core::argv()
   return _argv;
 }
 
-boost::filesystem::path launcher_core::executable_path() const
+std::filesystem::path launcher_core::executable_path() const
 {
   return _executable_path;
 }
 
-boost::filesystem::path launcher_core::initial_working_directory() const
+std::filesystem::path launcher_core::initial_working_directory() const
 {
   return _initial_working_directory;
 }
@@ -246,7 +246,7 @@ launcher_core::pre_init_helper_t::pre_init_helper_t(launcher_core& launcher)
 
   // Change the current working directory to the parent folder of the folder
   // which contains the current executable file (e.g. /a/b/exe -> /a/).
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
   if (launcher._initial_working_directory != fs::current_path())
   {
     log::info() << "Changing current working directory to "

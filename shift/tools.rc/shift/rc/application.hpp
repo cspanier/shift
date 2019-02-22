@@ -2,7 +2,7 @@
 #define SHIFT_RC_APPLICATION_HPP
 
 #include <string>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/rc/resource_compiler.hpp>
 #include "shift/rc/program_options.hpp"
 
@@ -21,7 +21,7 @@ namespace rc
     int run();
 
     ///
-    void queue_job(boost::filesystem::path filename);
+    void queue_job(std::filesystem::path filename);
 
   private:
     resource_compiler _compiler;

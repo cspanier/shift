@@ -3,7 +3,7 @@
 
 #include <sstream>
 #include <functional>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <shift/proto/proto.hpp>
 #include "shift/protogen/program_options.hpp"
 
@@ -27,7 +27,7 @@ public:
   virtual bool active() const = 0;
 
   /// Returns all generator's output paths.
-  virtual std::vector<boost::filesystem::path> output_paths() const = 0;
+  virtual std::vector<std::filesystem::path> output_paths() const = 0;
 
   ///
   virtual bool generate(namescope& root_scope, namescope& limit_scope) = 0;

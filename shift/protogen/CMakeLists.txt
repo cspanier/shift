@@ -12,5 +12,4 @@ shift_add_executable(shift.protogen
     shift.core
     shift.platform
     Boost::program_options
-    Boost::filesystem
 )

@@ -22,6 +22,5 @@ shift_add_test(test.shift.serialization2
     shift.core
     shift.platform
     Boost::unit_test_framework
-    Boost::filesystem
     Boost::system
 )

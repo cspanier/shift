@@ -5,8 +5,8 @@
 #include <shift/core/algorithm.hpp>
 #include <shift/core/at_exit_scope.hpp>
 #include <shift/platform/environment.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
+#include <filesystem>
 #include <fstream>
 #include <array>
 
@@ -14,7 +14,7 @@
 //{
 //  init_current_working_path() noexcept
 //  {
-//    using namespace boost::filesystem;
+//    using namespace std::filesystem;
 //    try
 //    {
 //      current_path(path(shift::platform::environment::executable_path())

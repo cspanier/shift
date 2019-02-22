@@ -4,11 +4,11 @@
 #include <shift/core/stream_util.hpp>
 #include <boost/assert.hpp>
 #include <boost/iostreams/device/file.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/variant.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/adaptor/reversed.hpp>
+#include <filesystem>
 #include <queue>
 #include <future>
 #include <regex>
@@ -28,7 +28,7 @@
 
 namespace shift::vk2cpp
 {
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 namespace xml = parser::xml;
 
 using core::dec_indent;
@@ -211,12 +211,12 @@ static std::string type_to_string(const member_descriptor& member,
   return result.str();
 }
 
-boost::filesystem::path program_options::input_path;
-boost::filesystem::path program_options::output_filename;
-boost::filesystem::path program_options::clang_format;
-boost::filesystem::path program_options::snippets_vs_path;
-boost::filesystem::path program_options::snippets_qt_path;
-boost::filesystem::path program_options::graph_filename;
+std::filesystem::path program_options::input_path;
+std::filesystem::path program_options::output_filename;
+std::filesystem::path program_options::clang_format;
+std::filesystem::path program_options::snippets_vs_path;
+std::filesystem::path program_options::snippets_qt_path;
+std::filesystem::path program_options::graph_filename;
 
 application::application() = default;
 

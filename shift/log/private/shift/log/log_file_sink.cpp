@@ -1,23 +1,18 @@
 #include "shift/log/log_file_sink.hpp"
 #include "shift/log/log.hpp"
 #include <shift/platform/assert.hpp>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/path_traits.hpp>
-#include <boost/system/error_code.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
 #include <cwchar>
 #include <chrono>
 #include <iomanip>
 #include <string>
 #include <memory>
 #include <ctime>
+#include <cstring>
 #include <ios>
 
 namespace shift::log
 {
-log_file_sink::log_file_sink(boost::filesystem::path log_folder,
+log_file_sink::log_file_sink(std::filesystem::path log_folder,
                              std::string_view application_name,
                              std::string_view suffix, bool enable_timestamp,
                              bool enable_channel, bool enable_separator)
@@ -25,10 +20,10 @@ log_file_sink::log_file_sink(boost::filesystem::path log_folder,
   _enable_channel(enable_channel),
   _enable_separator(enable_separator)
 {
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
   if (!fs::exists(log_folder))
   {
-    boost::system::error_code error;
+    std::error_code error;
     info() << "Creating missing log file folder " << log_folder;
     fs::create_directory(log_folder, error);
     if (error)
