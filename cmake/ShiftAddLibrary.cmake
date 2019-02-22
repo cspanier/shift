@@ -103,8 +103,10 @@ macro(shift_add_library target)
     endif()
   endforeach()
 
-  # ToDo: Only for GCC version before 9.0. Since version 9.0 libstdc++fs is integrated into libstdc++.
-  if (CMAKE_COMPILER_IS_GNUCXX)
+  # ToDo: Only for GCC version before 9.0.
+  #       Since version 9.0 libstdc++fs is integrated into libstdc++.
+  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR
+      "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     list(APPEND ARG_LIBRARIES "stdc++fs")
   endif()
 
