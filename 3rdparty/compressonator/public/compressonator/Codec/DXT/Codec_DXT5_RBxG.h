@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_DXT5_RBXG_H_INCLUDED_
-#define _CODEC_DXT5_RBXG_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_DXT5_RBXG_H
+#define COMPRESSONATOR_CODEC_DXT5_RBXG_H
 
 #include "compressonator/Codec/DXT/Codec_DXT5_Swizzled.h"
 
@@ -54,4 +54,4 @@ protected:
                           std::uint32_t y, float block[BLOCK_SIZE_4X4X4]);
 };
 
-#endif  // !defined(_CODEC_DXT5_RBXG_H_INCLUDED_)
+#endif

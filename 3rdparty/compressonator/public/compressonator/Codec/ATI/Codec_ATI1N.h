@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_ATI1N_H_INCLUDED_
-#define _CODEC_ATI1N_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_ATI1N_H
+#define COMPRESSONATOR_CODEC_ATI1N_H
 
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
 
@@ -37,19 +37,18 @@ public:
   CCodec_ATI1N(CodecType codecType = CT_ATI1N);
   ~CCodec_ATI1N() override;
 
-  virtual CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
-                              Codec_Feedback_Proc pFeedbackProc = nullptr,
-                              std::uint32_t pUser1 = 0,
-                              std::uint32_t pUser2 = 0);
+  CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
+                      Codec_Feedback_Proc pFeedbackProc = nullptr,
+                      std::size_t pUser1 = 0, std::size_t pUser2 = 0) override;
   virtual CodecError Compress_Fast(CCodecBuffer& bufferIn,
                                    CCodecBuffer& bufferOut,
                                    Codec_Feedback_Proc pFeedbackProc = nullptr,
-                                   std::uint32_t pUser1 = 0,
-                                   std::uint32_t pUser2 = 0);
-  virtual CodecError Decompress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
-                                Codec_Feedback_Proc pFeedbackProc = nullptr,
-                                std::uint32_t pUser1 = 0,
-                                std::uint32_t pUser2 = 0);
+                                   std::size_t pUser1 = 0,
+                                   std::size_t pUser2 = 0);
+  CodecError Decompress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
+                        Codec_Feedback_Proc pFeedbackProc = nullptr,
+                        std::size_t pUser1 = 0,
+                        std::size_t pUser2 = 0) override;
 
   CCodecBuffer* CreateBuffer(std::uint8_t nBlockWidth,
                              std::uint8_t nBlockHeight,
@@ -58,4 +57,4 @@ public:
                              std::uint8_t* pData = nullptr) const override;
 };
 
-#endif  // !defined(_CODEC_ATI1N_H_INCLUDED_)
+#endif

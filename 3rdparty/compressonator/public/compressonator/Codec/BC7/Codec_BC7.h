@@ -25,8 +25,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_BC7_H_INCLUDED_
-#define _CODEC_BC7_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_BC7_H
+#define COMPRESSONATOR_CODEC_BC7_H
 
 #include "compressonator/Compressonator.h"
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
@@ -123,4 +123,4 @@ public:
 #endif
 };
 
-#endif  // !defined(_CODEC_DXT5_H_INCLUDED_)
+#endif

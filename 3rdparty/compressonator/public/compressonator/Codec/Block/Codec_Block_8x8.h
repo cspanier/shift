@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_BLOCK_8x8_H_INCLUDED_
-#define _CODEC_BLOCK_8x8_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_BLOCK_8x8_H
+#define COMPRESSONATOR_CODEC_BLOCK_8x8_H
 
 #include "compressonator/Codec/Block/Codec_Block.h"
 
@@ -48,4 +48,4 @@ public:
   }
 };
 
-#endif  // !defined(_CODEC_BLOCK_8x8_H_INCLUDED_)
+#endif

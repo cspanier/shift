@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_DXTC_H_INCLUDED_
-#define _CODEC_DXTC_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_DXTC_H
+#define COMPRESSONATOR_CODEC_DXTC_H
 
 #include "compressonator/Codec/Block/Codec_Block_4x4.h"
 
@@ -124,7 +124,8 @@ protected:
   // Alpha decompression functions
   void GetCompressedAlphaRamp(std::uint8_t alpha[8],
                               const std::uint32_t compressedBlock[2]);
-  void GetCompressedAlphaRamp(float alpha[8], const std::uint32_t compressedBlock[2]);
+  void GetCompressedAlphaRamp(float alpha[8],
+                              const std::uint32_t compressedBlock[2]);
 
   // RGB compression functions
   float* CalculateColourWeightings(const std::uint8_t block[BLOCK_SIZE_4X4X4]);
@@ -146,4 +147,4 @@ protected:
   float m_fChannelWeights[3]{};
 };
 
-#endif  // !defined(_CODEC_DXTC_H_INCLUDED_)
+#endif

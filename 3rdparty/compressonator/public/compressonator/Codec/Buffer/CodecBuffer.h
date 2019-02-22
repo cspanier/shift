@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_H_INCLUDED_
-#define _CODECBUFFER_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_H
+#define COMPRESSONATOR_CODECBUFFER_H
 
 #include "compressonator/Internal/debug.h"
 #include "compressonator/MathMacros.h"
@@ -312,64 +312,64 @@ public:
   virtual CodecBufferType GetBufferType() const
   {
     return CBT_Unknown;
-  };
+  }
   virtual std::uint32_t GetChannelDepth() const = 0;
   virtual std::uint32_t GetChannelCount() const = 0;
   virtual bool IsFloat() const = 0;
 
-  inline const std::uint32_t GetWidth() const
+  std::uint32_t GetWidth() const
   {
     return m_dwWidth;
-  };
-  inline const std::uint32_t GetHeight() const
+  }
+  std::uint32_t GetHeight() const
   {
     return m_dwHeight;
-  };
-  inline const std::uint32_t GetPitch() const
+  }
+  std::uint32_t GetPitch() const
   {
     return m_dwPitch;
-  };
+  }
 
-  inline const void SetPitch(std::uint32_t dwPitch)
+  void SetPitch(std::uint32_t dwPitch)
   {
     m_dwPitch = dwPitch;
-  };
+  }
 
-  inline const void SetFormat(cmp_format dwFormat)
+  void SetFormat(cmp_format dwFormat)
   {
     m_dwFormat = dwFormat;
-  };
+  }
 
-  inline const cmp_format GetFormat() const
+  cmp_format GetFormat() const
   {
     return m_dwFormat;
-  };
+  }
 
-  inline const std::uint8_t GetBlockWidth() const
+  std::uint8_t GetBlockWidth() const
   {
     return m_nBlockWidth;
-  };
-  inline const std::uint8_t GetBlockHeight() const
+  }
+  std::uint8_t GetBlockHeight() const
   {
     return m_nBlockHeight;
-  };
-  inline const std::uint8_t GetBlockDepth() const
+  }
+  std::uint8_t GetBlockDepth() const
   {
     return m_nBlockDepth;
-  };
+  }
 
-  inline const void SetBlockWidth(std::uint8_t BlockWidth)
+  void SetBlockWidth(std::uint8_t BlockWidth)
   {
     m_nBlockWidth = BlockWidth;
-  };
-  inline const void SetBlockHeight(std::uint8_t BlockHeight)
+  }
+  void SetBlockHeight(std::uint8_t BlockHeight)
   {
     m_nBlockHeight = BlockHeight;
-  };
-  inline const void SetBlockDepth(std::uint8_t BlockDepth)
+  }
+  void SetBlockDepth(std::uint8_t BlockDepth)
   {
     m_nBlockDepth = BlockDepth;
-  };
+  }
 
   virtual bool ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                           std::uint8_t h, std::uint8_t cBlock[]);
@@ -514,13 +514,14 @@ public:
   virtual bool WriteBlock(std::uint32_t x, std::uint32_t y,
                           std::uint32_t* pBlock, std::uint32_t dwBlockSize);
 
-  inline std::uint8_t* GetData() const
+  std::uint8_t* GetData() const
   {
     return m_pData;
-  };
+  }
 
 protected:
-  void ConvertBlock(double dBlock[], const float fBlock[], std::uint32_t dwBlockSize);
+  void ConvertBlock(double dBlock[], const float fBlock[],
+                    std::uint32_t dwBlockSize);
   void ConvertBlock(double dBlock[], half hBlock[], std::uint32_t dwBlockSize);
   void ConvertBlock(double dBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
@@ -529,7 +530,8 @@ protected:
   void ConvertBlock(double dBlock[], const std::uint8_t cBlock[],
                     std::uint32_t dwBlockSize);
 
-  void ConvertBlock(float fBlock[], const double dBlock[], std::uint32_t dwBlockSize);
+  void ConvertBlock(float fBlock[], const double dBlock[],
+                    std::uint32_t dwBlockSize);
   void ConvertBlock(float fBlock[], half hBlock[], std::uint32_t dwBlockSize);
   void ConvertBlock(float fBlock[], const std::uint32_t dwBlock[],
                     std::uint32_t dwBlockSize);
@@ -586,9 +588,9 @@ protected:
   void SwizzleBlock(std::uint32_t dwBlock[], std::uint32_t dwBlockSize);
   void SwizzleBlock(std::uint16_t wBlock[], std::uint32_t dwBlockSize);
 
-  std::uint32_t m_dwWidth;   // Final Image Width
-  std::uint32_t m_dwHeight;  // Final Image Height
-  std::uint32_t m_dwDepth{};   // Final Image Depth
+  std::uint32_t m_dwWidth;    // Final Image Width
+  std::uint32_t m_dwHeight;   // Final Image Height
+  std::uint32_t m_dwDepth{};  // Final Image Depth
   std::uint32_t m_dwPitch;
   cmp_format m_dwFormat;
 
@@ -611,4 +613,4 @@ CCodecBuffer* CreateCodecBuffer(CodecBufferType nCodecBufferType,
                                 std::uint8_t* pData = nullptr);
 CodecBufferType GetCodecBufferType(cmp_format format);
 
-#endif  // !defined(_CODECBUFFER_H_INCLUDED_)
+#endif

@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_BLOCK_H_INCLUDED_
-#define _CODECBUFFER_BLOCK_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_BLOCK_H
+#define COMPRESSONATOR_CODECBUFFER_BLOCK_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -71,4 +71,4 @@ protected:
   std::uint32_t m_dwBlockBPP;
 };
 
-#endif  // !defined(_CODECBUFFER_BLOCK_H_INCLUDED_)
+#endif

@@ -29,20 +29,20 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __CMP_H__
-#define __CMP_H__
+#ifndef COMPRESSONATOR_TC_H
+#define COMPRESSONATOR_TC_H
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-  typedef struct _Color888
+  struct Color888_t
   {
     unsigned char red;
     unsigned char green;
     unsigned char blue;
-  } Color888_t;
+  };
 
   extern unsigned int atiEncodeRGBBlockATITC(
     Color888_t (*pPixels)[4][4],
@@ -65,4 +65,4 @@ extern "C"
 }
 #endif
 
-#endif /* __CMP_H__ */
+#endif

@@ -28,8 +28,8 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef _BC6H_LIBRARY_H_
-#define _BC6H_LIBRARY_H_
+#ifndef COMPRESSONATOR_BC6H_LIBRARY_H
+#define COMPRESSONATOR_BC6H_LIBRARY_H
 
 #include "compressonator/Compressonator.h"
 #include "compressonator/Codec/BC6H/BC6H_Definitions.h"

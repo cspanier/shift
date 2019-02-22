@@ -21,8 +21,8 @@
 // THE SOFTWARE.
 //=====================================================================
 
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef COMPRESSONATOR_COMMON_H
+#define COMPRESSONATOR_COMMON_H
 
 #include <cstdio>
 #include <cstring>

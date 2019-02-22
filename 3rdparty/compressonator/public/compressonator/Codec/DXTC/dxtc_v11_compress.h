@@ -21,12 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef AMD_DXTC_COMP_H
-#define AMD_DXTC_COMP_H
-
-///
-//    Public Functions
-//
+#ifndef COMPRESSONATOR_AMD_DXTC_COMP_H
+#define COMPRESSONATOR_AMD_DXTC_COMP_H
 
 #include <cstdint>
 
@@ -71,4 +67,4 @@ extern "C"
 };
 #endif
 
-#endif /* AMD_DXTC_COMP_H */
+#endif

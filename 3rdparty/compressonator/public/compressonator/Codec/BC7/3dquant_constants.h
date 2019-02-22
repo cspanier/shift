@@ -24,8 +24,8 @@
 //  Email:        gputools.support@amd.com
 //
 
-#ifndef _3DQUANT_CONSTANTS_H_
-#define _3DQUANT_CONSTANTS_H_
+#ifndef COMPRESSONATOR_BC7_3DQUANT_CONSTANTS_H
+#define COMPRESSONATOR_BC7_3DQUANT_CONSTANTS_H
 
 #define MAX_DIMENSION_BIG 4
 
@@ -45,4 +45,5 @@ typedef enum
   FCC,
   FCC_SAME_BCC,
 } CMP_qt;
+
 #endif

@@ -39,14 +39,12 @@ CCodec_ATI2N_DXT5::CCodec_ATI2N_DXT5() : CCodec_ATI2N(CT_ATI2N_DXT5)
 {
 }
 
-CCodec_ATI2N_DXT5::~CCodec_ATI2N_DXT5()
-= default;
+CCodec_ATI2N_DXT5::~CCodec_ATI2N_DXT5() = default;
 
 CodecError CCodec_ATI2N_DXT5::Compress(CCodecBuffer& bufferIn,
                                        CCodecBuffer& bufferOut,
                                        Codec_Feedback_Proc pFeedbackProc,
-                                       std::uint32_t pUser1,
-                                       std::uint32_t pUser2)
+                                       std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());
@@ -109,8 +107,7 @@ CodecError CCodec_ATI2N_DXT5::Compress(CCodecBuffer& bufferIn,
 CodecError CCodec_ATI2N_DXT5::Decompress(CCodecBuffer& bufferIn,
                                          CCodecBuffer& bufferOut,
                                          Codec_Feedback_Proc pFeedbackProc,
-                                         std::uint32_t pUser1,
-                                         std::uint32_t pUser2)
+                                         std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());

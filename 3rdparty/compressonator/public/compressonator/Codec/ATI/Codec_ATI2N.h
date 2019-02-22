@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_ATI2N_H_INCLUDED_
-#define _CODEC_ATI2N_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_ATI2N_H
+#define COMPRESSONATOR_CODEC_ATI2N_H
 
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
 
@@ -37,22 +37,21 @@ public:
   CCodec_ATI2N(CodecType codecType = CT_ATI2N);
   ~CCodec_ATI2N() override;
 
-  virtual CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
-                              Codec_Feedback_Proc pFeedbackProc = nullptr,
-                              std::uint32_t pUser1 = 0,
-                              std::uint32_t pUser2 = 0);
+  CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
+                      Codec_Feedback_Proc pFeedbackProc = nullptr,
+                      std::size_t pUser1 = 0, std::size_t pUser2 = 0) override;
   virtual CodecError Compress_Fast(CCodecBuffer& bufferIn,
                                    CCodecBuffer& bufferOut,
                                    Codec_Feedback_Proc pFeedbackProc = nullptr,
-                                   std::uint32_t pUser1 = 0,
-                                   std::uint32_t pUser2 = 0);
-  virtual CodecError Decompress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
-                                Codec_Feedback_Proc pFeedbackProc = nullptr,
-                                std::uint32_t pUser1 = 0,
-                                std::uint32_t pUser2 = 0);
+                                   std::size_t pUser1 = 0,
+                                   std::size_t pUser2 = 0);
+  CodecError Decompress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
+                        Codec_Feedback_Proc pFeedbackProc = nullptr,
+                        std::size_t pUser1 = 0,
+                        std::size_t pUser2 = 0) override;
 
 protected:
   CodecType m_codecType;
 };
 
-#endif  // !defined(_CODEC_ATI2N_H_INCLUDED_)
+#endif

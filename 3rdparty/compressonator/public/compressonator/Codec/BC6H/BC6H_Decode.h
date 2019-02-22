@@ -22,8 +22,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BC6H_DECODE_H_
-#define _BC6H_DECODE_H_
+#ifndef COMPRESSONATOR_BC6H_DECODE_H
+#define COMPRESSONATOR_BC6H_DECODE_H
 
 #include <float.h>
 #include "BC6H_Library.h"

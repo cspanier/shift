@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ATIXCODEC_H_
-#define _ATIXCODEC_H_
+#ifndef COMPRESSONATOR_ATIXCODEC_H
+#define COMPRESSONATOR_ATIXCODEC_H
 
 #include <cstdint>
 

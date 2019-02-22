@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_DXT1_H_INCLUDED_
-#define _CODEC_DXT1_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_DXT1_H
+#define COMPRESSONATOR_CODEC_DXT1_H
 
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
 
@@ -67,4 +67,4 @@ protected:
   std::uint8_t m_nAlphaThreshold;
 };
 
-#endif  // !defined(_CODEC_DXT1_H_INCLUDED_)
+#endif

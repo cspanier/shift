@@ -24,8 +24,8 @@
 //
 //=====================================================================
 
-#ifndef COMPRESSONATOR_H
-#define COMPRESSONATOR_H
+#ifndef COMPRESSONATOR_COMPRESSONATOR_H
+#define COMPRESSONATOR_COMPRESSONATOR_H
 
 #include <cstdint>
 #include "compressonator/Common.h"

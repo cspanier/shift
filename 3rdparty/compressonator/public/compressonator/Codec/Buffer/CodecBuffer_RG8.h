@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_RG8_H_INCLUDED_
-#define _CODECBUFFER_RG8_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_RG8_H
+#define COMPRESSONATOR_CODECBUFFER_RG8_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -45,19 +45,19 @@ public:
   virtual CodecBufferType GetBufferType() const
   {
     return CBT_RG8;
-  };
+  }
   virtual std::uint32_t GetChannelDepth() const
   {
     return 8;
-  };
+  }
   virtual std::uint32_t GetChannelCount() const
   {
     return 2;
-  };
+  }
   virtual bool IsFloat() const
   {
     return false;
-  };
+  }
 
   virtual bool ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                           std::uint8_t h, std::uint8_t block[]);
@@ -91,4 +91,4 @@ protected:
                           std::uint32_t dwChannelOffset);
 };
 
-#endif  // !defined(_CODECBUFFER_RG8_H_INCLUDED_)
+#endif

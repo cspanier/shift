@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_BLOCK_H_INCLUDED_
-#define _CODEC_BLOCK_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_BLOCK_H
+#define COMPRESSONATOR_CODEC_BLOCK_H
 
 #include "compressonator/Codec/Codec.h"
 
@@ -38,4 +38,4 @@ public:
   virtual ~CCodec_Block();
 };
 
-#endif  // !defined(_CODEC_BLOCK_H_INCLUDED_)
+#endif

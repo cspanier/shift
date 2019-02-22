@@ -39,13 +39,12 @@ CCodec_ATI1N::CCodec_ATI1N(CodecType codecType) : CCodec_DXTC(codecType)
 {
 }
 
-CCodec_ATI1N::~CCodec_ATI1N()
-= default;
+CCodec_ATI1N::~CCodec_ATI1N() = default;
 
 CCodecBuffer* CCodec_ATI1N::CreateBuffer(
-  std::uint8_t  /*nBlockWidth*/, std::uint8_t  /*nBlockHeight*/, std::uint8_t  /*nBlockDepth*/,
-  std::uint32_t dwWidth, std::uint32_t dwHeight, std::uint32_t dwPitch,
-  std::uint8_t* pData) const
+  std::uint8_t /*nBlockWidth*/, std::uint8_t /*nBlockHeight*/,
+  std::uint8_t /*nBlockDepth*/, std::uint32_t dwWidth, std::uint32_t dwHeight,
+  std::uint32_t dwPitch, std::uint8_t* pData) const
 {
   return CreateCodecBuffer(CBT_4x4Block_4BPP, 4, 4, 1, dwWidth, dwHeight,
                            dwPitch, pData);
@@ -54,7 +53,7 @@ CCodecBuffer* CCodec_ATI1N::CreateBuffer(
 CodecError CCodec_ATI1N::Compress(CCodecBuffer& bufferIn,
                                   CCodecBuffer& bufferOut,
                                   Codec_Feedback_Proc pFeedbackProc,
-                                  std::uint32_t pUser1, std::uint32_t pUser2)
+                                  std::size_t pUser1, std::size_t pUser2)
 {
   if ((m_nCompressionSpeed == CMP_Speed_Fast ||
        m_nCompressionSpeed == CMP_Speed_SuperFast) &&
@@ -108,8 +107,7 @@ CodecError CCodec_ATI1N::Compress(CCodecBuffer& bufferIn,
 CodecError CCodec_ATI1N::Compress_Fast(CCodecBuffer& bufferIn,
                                        CCodecBuffer& bufferOut,
                                        Codec_Feedback_Proc pFeedbackProc,
-                                       std::uint32_t pUser1,
-                                       std::uint32_t pUser2)
+                                       std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());
@@ -146,7 +144,7 @@ CodecError CCodec_ATI1N::Compress_Fast(CCodecBuffer& bufferIn,
 CodecError CCodec_ATI1N::Decompress(CCodecBuffer& bufferIn,
                                     CCodecBuffer& bufferOut,
                                     Codec_Feedback_Proc pFeedbackProc,
-                                    std::uint32_t pUser1, std::uint32_t pUser2)
+                                    std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());

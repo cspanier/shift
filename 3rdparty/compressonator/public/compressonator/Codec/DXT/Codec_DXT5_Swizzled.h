@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_DXT5_SWIZZLED_H_INCLUDED_
-#define _CODEC_DXT5_SWIZZLED_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_DXT5_SWIZZLED_H
+#define COMPRESSONATOR_CODEC_DXT5_SWIZZLED_H
 
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
 
@@ -66,4 +66,4 @@ protected:
                           std::uint32_t y, float block[BLOCK_SIZE_4X4X4]) = 0;
 };
 
-#endif  // !defined(_CODEC_DXT5_SWIZZLED_H_INCLUDED_)
+#endif

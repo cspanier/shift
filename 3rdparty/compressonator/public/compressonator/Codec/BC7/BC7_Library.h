@@ -29,8 +29,8 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef _BC7_LIBRARY_H_
-#define _BC7_LIBRARY_H_
+#ifndef COMPRESSONATOR_BC7_LIBRARY_H
+#define COMPRESSONATOR_BC7_LIBRARY_H
 
 #include "compressonator/Codec/BC7/3dquant_vpc.h"
 #include "compressonator/Codec/BC7/shake.h"

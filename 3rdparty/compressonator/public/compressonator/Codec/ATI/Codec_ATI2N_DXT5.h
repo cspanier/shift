@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _Codec_ATI2N_DXT5_H_INCLUDED_
-#define _Codec_ATI2N_DXT5_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_ATI2N_DXT5_H
+#define COMPRESSONATOR_CODEC_ATI2N_DXT5_H
 
 #include "compressonator/Codec/ATI/Codec_ATI2N.h"
 
@@ -39,12 +39,11 @@ public:
 
   CodecError Compress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
                       Codec_Feedback_Proc pFeedbackProc = nullptr,
-                      std::uint32_t pUser1 = 0,
-                      std::uint32_t pUser2 = 0) override;
+                      std::size_t pUser1 = 0, std::size_t pUser2 = 0) override;
   CodecError Decompress(CCodecBuffer& bufferIn, CCodecBuffer& bufferOut,
                         Codec_Feedback_Proc pFeedbackProc = nullptr,
-                        std::uint32_t pUser1 = 0,
-                        std::uint32_t pUser2 = 0) override;
+                        std::size_t pUser1 = 0,
+                        std::size_t pUser2 = 0) override;
 };
 
-#endif  // !defined(_Codec_ATI2N_DXT5_H_INCLUDED_)
+#endif

@@ -40,13 +40,12 @@ CCodec_ATI2N::CCodec_ATI2N(CodecType codecType) : CCodec_DXTC(codecType)
   m_codecType = codecType;
 }
 
-CCodec_ATI2N::~CCodec_ATI2N()
-= default;
+CCodec_ATI2N::~CCodec_ATI2N() = default;
 
 CodecError CCodec_ATI2N::Compress(CCodecBuffer& bufferIn,
                                   CCodecBuffer& bufferOut,
                                   Codec_Feedback_Proc pFeedbackProc,
-                                  std::uint32_t pUser1, std::uint32_t pUser2)
+                                  std::size_t pUser1, std::size_t pUser2)
 {
   if ((m_nCompressionSpeed == CMP_Speed_Fast ||
        m_nCompressionSpeed == CMP_Speed_SuperFast) &&
@@ -118,8 +117,7 @@ CodecError CCodec_ATI2N::Compress(CCodecBuffer& bufferIn,
 CodecError CCodec_ATI2N::Compress_Fast(CCodecBuffer& bufferIn,
                                        CCodecBuffer& bufferOut,
                                        Codec_Feedback_Proc pFeedbackProc,
-                                       std::uint32_t pUser1,
-                                       std::uint32_t pUser2)
+                                       std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());
@@ -167,7 +165,7 @@ CodecError CCodec_ATI2N::Compress_Fast(CCodecBuffer& bufferIn,
 CodecError CCodec_ATI2N::Decompress(CCodecBuffer& bufferIn,
                                     CCodecBuffer& bufferOut,
                                     Codec_Feedback_Proc pFeedbackProc,
-                                    std::uint32_t pUser1, std::uint32_t pUser2)
+                                    std::size_t pUser1, std::size_t pUser2)
 {
   assert(bufferIn.GetWidth() == bufferOut.GetWidth());
   assert(bufferIn.GetHeight() == bufferOut.GetHeight());

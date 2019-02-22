@@ -21,8 +21,8 @@
 //
 //=====================================================================
 
-#ifndef COMMONTYPES_H
-#define COMMONTYPES_H
+#ifndef COMPRESSONATOR_COMMON_TYPES_H
+#define COMPRESSONATOR_COMMON_TYPES_H
 
 #include <cstdint>
 

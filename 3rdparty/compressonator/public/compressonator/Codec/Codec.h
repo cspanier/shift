@@ -25,8 +25,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_H_INCLUDED_
-#define _CODEC_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_H
+#define COMPRESSONATOR_CODEC_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -127,4 +127,4 @@ std::uint32_t CalcBufferSize(cmp_format format, std::uint32_t dwWidth,
 std::uint8_t DeriveB(std::uint8_t R, std::uint8_t G);
 float DeriveB(float R, float G);
 
-#endif  // !defined(_CODEC_H_INCLUDED_)
+#endif

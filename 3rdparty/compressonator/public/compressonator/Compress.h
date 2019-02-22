@@ -24,8 +24,8 @@
 //
 //=====================================================================
 
-#ifndef COMPRESS_H
-#define COMPRESS_H
+#ifndef COMPRESSONATOR_COMPRESS_H
+#define COMPRESSONATOR_COMPRESS_H
 
 #include "compressonator/Codec/Codec.h"
 #include "float.h"

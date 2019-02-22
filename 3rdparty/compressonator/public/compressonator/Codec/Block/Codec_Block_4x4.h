@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_BLOCK_4x4_H_INCLUDED_
-#define _CODEC_BLOCK_4x4_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_BLOCK_4x4_H
+#define COMPRESSONATOR_CODEC_BLOCK_4x4_H
 
 #include "compressonator/Codec/Block/Codec_Block.h"
 
@@ -59,4 +59,4 @@ protected:
   bool m_bUseSSE2;
 };
 
-#endif  // !defined(_CODEC_BLOCK_4x4_H_INCLUDED_)
+#endif

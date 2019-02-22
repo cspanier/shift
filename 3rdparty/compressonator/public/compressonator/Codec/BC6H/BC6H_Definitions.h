@@ -22,8 +22,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BC6H_DEFINITIONS_H_
-#define _BC6H_DEFINITIONS_H_
+#ifndef COMPRESSONATOR_BC6H_DEFINITIONS_H
+#define COMPRESSONATOR_BC6H_DEFINITIONS_H
 
 #include "compressonator/Common/HDR_Encode.h"
 

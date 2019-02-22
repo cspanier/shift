@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_R16_H_INCLUDED_
-#define _CODECBUFFER_R16_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_R16_H
+#define COMPRESSONATOR_CODECBUFFER_R16_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -89,4 +89,4 @@ protected:
                           std::uint8_t h, std::uint16_t block[]);
 };
 
-#endif  // !defined(_CODECBUFFER_R16_H_INCLUDED_)
+#endif

@@ -21,16 +21,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _BC7_DECODE_H_
-#define _BC7_DECODE_H_
+#ifndef COMPRESSONATOR_BC7_DECODE_H
+#define COMPRESSONATOR_BC7_DECODE_H
 
 #include "compressonator/Codec/BC7/BC7_Definitions.h"
 
 class BC7BlockDecoder
 {
 public:
-  BC7BlockDecoder(){};
-  ~BC7BlockDecoder(){};
+  BC7BlockDecoder()
+  {
+  }
+  ~BC7BlockDecoder()
+  {
+  }
 
   void DecompressBlock(double out[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
                        std::uint8_t in[COMPRESSED_BLOCK_SIZE]);

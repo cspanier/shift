@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _BC7_ENCODE_H_
-#define _BC7_ENCODE_H_
+#ifndef COMPRESSONATOR_BC7_ENCODE_H
+#define COMPRESSONATOR_BC7_ENCODE_H
 
 #include <float.h>
 #include "compressonator/Codec/BC7/BC7_Definitions.h"
@@ -93,7 +93,7 @@ public:
         m_partitionSearchSize = 1.0;  // use all partitions for best quality
       }
     }
-  };
+  }
 
   ~BC7BlockEncoder()
   {
@@ -108,7 +108,7 @@ private:
                               int numEntries, int index[MAX_ENTRIES],
                               double out[MAX_ENTRIES][MAX_DIMENSION_BIG],
                               int epo_1[2][MAX_DIMENSION_BIG],
-                              int Mi_,      // last cluster
+                              int Mi_,            // last cluster
                               const int bits[3],  // including parity
                               int type, int dimension);
 

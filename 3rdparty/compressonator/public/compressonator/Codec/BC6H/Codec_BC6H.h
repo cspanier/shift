@@ -25,8 +25,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#if !defined(_CODEC_BC6H_H_INCLUDED_)
-#define _CODEC_BC6H_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODEC_BC6H_H
+#define COMPRESSONATOR_CODEC_BC6H_H
 
 #include "compressonator/Compressonator.h"
 #include "compressonator/Codec/DXTC/Codec_DXTC.h"
@@ -104,4 +104,4 @@ private:
   CodecError CFinishBC6HEncoding(void);
 };
 
-#endif  // !defined(_CODEC_DXT5_H_INCLUDED_)
+#endif

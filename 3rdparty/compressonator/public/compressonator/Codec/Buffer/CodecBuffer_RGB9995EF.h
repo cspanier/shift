@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_RGB9995EF_H_INCLUDED_
-#define _CODECBUFFER_RGB9995EF_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_RGB9995EF_H
+#define COMPRESSONATOR_CODECBUFFER_RGB9995EF_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -47,19 +47,19 @@ public:
   virtual CodecBufferType GetBufferType() const
   {
     return CBT_RGBE32F;
-  };
+  }
   virtual std::uint32_t GetChannelDepth() const
   {
     return 32;
-  };
+  }
   virtual std::uint32_t GetChannelCount() const
   {
     return 3;
-  };
+  }
   virtual bool IsFloat() const
   {
     return true;
-  };
+  }
 
   virtual bool ReadBlockRGBA(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                              std::uint8_t h, float block[]);
@@ -75,4 +75,4 @@ protected:
                           std::uint32_t dwChannelIndex);
 };
 
-#endif  // !defined(_CODECBUFFER_RGB9995EF_H_INCLUDED_)
+#endif

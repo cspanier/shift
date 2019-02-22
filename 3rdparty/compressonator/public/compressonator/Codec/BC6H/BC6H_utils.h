@@ -24,8 +24,8 @@
 // decoder Revision 0.1    First implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BC6H_UTILS_H_
-#define _BC6H_UTILS_H_
+#ifndef COMPRESSONATOR_BC6H_UTILS_H
+#define COMPRESSONATOR_BC6H_UTILS_H
 
 #include "compressonator/Codec/BC6H/BC6H_Definitions.h"
 #include <bitset>

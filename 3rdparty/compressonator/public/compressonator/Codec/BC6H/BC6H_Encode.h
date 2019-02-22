@@ -22,8 +22,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BC6H_ENCODE_H_
-#define _BC6H_ENCODE_H_
+#ifndef COMPRESSONATOR_BC6H_ENCODE_H
+#define COMPRESSONATOR_BC6H_ENCODE_H
 
 #include "compressonator/Compressonator.h"
 #include "compressonator/Codec/BC6H/BC6H_Definitions.h"
@@ -60,9 +60,11 @@ public:
     m_Exposure = user_options.fExposure;
     m_bAverageEndPoint = true;
     m_DiffLevel = 0.01f;
-  };
+  }
 
-  ~BC6HBlockEncoder(){};
+  ~BC6HBlockEncoder()
+  {
+  }
 
   float CompressBlock(float in[MAX_SUBSET_SIZE][MAX_DIMENSION_BIG],
                       std::uint8_t out[COMPRESSED_BLOCK_SIZE]);

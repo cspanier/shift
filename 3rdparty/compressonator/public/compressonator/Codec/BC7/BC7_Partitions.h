@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _BC7_PARTITIONS_H_
-#define _BC7_PARTITIONS_H_
+#ifndef COMPRESSONATOR_BC7_PARTITIONS_H
+#define COMPRESSONATOR_BC7_PARTITIONS_H
 
 #include "compressonator/Codec/BC7/BC7_Definitions.h"
 #include "compressonator/Internal/debug.h"

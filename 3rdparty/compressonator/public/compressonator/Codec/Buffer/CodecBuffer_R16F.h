@@ -26,8 +26,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODECBUFFER_R16F_H_INCLUDED_
-#define _CODECBUFFER_R16F_H_INCLUDED_
+#ifndef COMPRESSONATOR_CODECBUFFER_R16F_H
+#define COMPRESSONATOR_CODECBUFFER_R16F_H
 
 #include "compressonator/Codec/Buffer/CodecBuffer.h"
 
@@ -47,19 +47,19 @@ public:
   virtual CodecBufferType GetBufferType() const
   {
     return CBT_R16F;
-  };
+  }
   virtual std::uint32_t GetChannelDepth() const
   {
     return 16;
-  };
+  }
   virtual std::uint32_t GetChannelCount() const
   {
     return 1;
-  };
+  }
   virtual bool IsFloat() const
   {
     return true;
-  };
+  }
 
   virtual bool ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                           std::uint8_t h, half block[]);
@@ -93,4 +93,4 @@ protected:
                           std::uint32_t dwChannelIndex);
 };
 
-#endif  // !defined(_CODECBUFFER_R16F_H_INCLUDED_)
+#endif
