@@ -472,7 +472,7 @@ CMP_ERROR CompressTexture(const CMP_Texture* pSourceTexture,
     return CMP_ERR_UNABLE_TO_INIT_CODEC;
 
   // Have we got valid options ?
-  if (pOptions && pOptions->dwSize == sizeof(CMP_CompressOptions))
+  if (pOptions)
   {
     // Set weightings ?
     if (pOptions->bUseChannelWeighting &&
@@ -674,7 +674,7 @@ CMP_ERROR ThreadedCompressTexture(const CMP_Texture* pSourceTexture,
       return CMP_ERR_UNABLE_TO_INIT_CODEC;
 
     // Have we got valid options ?
-    if (pOptions && pOptions->dwSize == sizeof(CMP_CompressOptions))
+    if (pOptions)
     {
       // Set weightings ?
       if (pOptions->bUseChannelWeighting &&

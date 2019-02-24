@@ -164,9 +164,6 @@ struct AMD_CMD_SET
 /// Passing this structure is optional
 struct CMP_CompressOptions
 {
-  /// The size of this structure.
-  std::uint32_t dwSize;
-
   /// Use channel weightings. With swizzled formats the weighting applies to the
   /// data within the specified channel not the channel itself. channel
   /// weigthing is not implemented for BC6H and BC7
