@@ -1,7 +1,8 @@
 #include "shift/rc/resource_compiler_impl.hpp"
 #include "shift/rc/types.hpp"
 #include "shift/rc/action_group_resources.hpp"
-#include "shift/rc/action_image_import.hpp"
+#include "shift/rc/action_image_import_tiff.hpp"
+#include "shift/rc/action_image_export_tiff.hpp"
 #include "shift/rc/action_mesh_tootle.hpp"
 #include "shift/rc/action_mesh_import_ply.hpp"
 #include "shift/rc/action_mesh_export_obj.hpp"
@@ -50,7 +51,8 @@ resource_compiler_impl::resource_compiler_impl() : cache(*this)
 
   // Register all available actions.
   add_action(action_group_resources::singleton_create());
-  add_action(action_image_import::singleton_create());
+  add_action(action_image_import_tiff::singleton_create());
+  add_action(action_image_export_tiff::singleton_create());
   add_action(action_mesh_export_obj::singleton_create());
   add_action(action_mesh_import_ply::singleton_create());
   add_action(action_mesh_tootle::singleton_create());
