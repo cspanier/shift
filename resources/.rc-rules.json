@@ -1,0 +1,14 @@
+{
+  "global-cache": {
+    "pass": 9,
+    "action": "group-resources",
+    "input": {
+      "images": "<build-path/>(.*)\\.image_header$"
+    },
+    "group-by": [ 1 ],
+    "output": {
+      "group": "<output-path/>global.cache"
+    },
+    "options": {}
+  }
+}

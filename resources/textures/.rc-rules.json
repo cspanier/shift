@@ -1,0 +1,77 @@
+{
+  "textures-freepbr-albedo-import": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>(.*-albedo)\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "rgba8_srgb",
+      "normalized": false
+    }
+  },
+  "textures-freepbr-height-import": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>(.*-height)\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "r8_snorm",
+      "normalized": false
+    }
+  },
+  "textures-freepbr-metalness-import": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>(.*-metalness)\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "r8_unorm",
+      "normalized": false
+    }
+  },
+  "textures-freepbr-normal-import": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>(.*-normal)\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "rgb8_snorm",
+      "normalized": false
+    }
+  },
+  "textures-freepbr-roughness-import": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>(.*-roughness)\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "r8_unorm",
+      "normalized": false
+    }
+  }
+}
