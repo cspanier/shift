@@ -3,12 +3,14 @@ if(NOT LCMS_LCMS2_LIBRARY)
   find_library(LCMS_LCMS2_LIBRARY_DEBUG
     NAMES
       lcms2  # Arch Linux
+      lcms2_static  # Windows
     PATH_SUFFIXES
       lib
   )
   find_library(LCMS_LCMS2_LIBRARY_RELEASE
     NAMES
-      lcms2  # Arch Linux and Windows
+      lcms2  # Arch Linux
+      lcms2_static  # Windows
     PATH_SUFFIXES
       lib
   )
