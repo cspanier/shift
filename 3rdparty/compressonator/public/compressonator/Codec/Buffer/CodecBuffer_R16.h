@@ -45,19 +45,19 @@ public:
   virtual CodecBufferType GetBufferType() const
   {
     return CBT_R16;
-  };
+  }
   virtual std::uint32_t GetChannelDepth() const
   {
     return 16;
-  };
+  }
   virtual std::uint32_t GetChannelCount() const
   {
     return 1;
-  };
+  }
   virtual bool IsFloat() const
   {
     return false;
-  };
+  }
 
   virtual bool ReadBlockR(std::uint32_t x, std::uint32_t y, std::uint8_t w,
                           std::uint8_t h, std::uint16_t wBlock[]);
