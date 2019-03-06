@@ -2,8 +2,9 @@ if (NOT NO_VULKAN)
   find_package(GLFW3)
   find_package(Vulkan)
 
-  find_package(PNG)
-  find_package(JPEG)
+  find_package(LCMS)
+  find_package(PNG)  # ToDo: Get rid of PNG support
+  find_package(JPEG)  # ToDo: Get rid of JPEG support
   find_package(TIFF)
   find_package(SPIRVCross)
   find_package(SPIRVTools)

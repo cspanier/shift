@@ -77,7 +77,7 @@ Each file may contain many rules and each input, output, and options section may
     "pass": 1,
     "action": "image-import",
     "input": {
-      "image": "<input-path>/<rule-path>/(.*)\\.(png|jpg|tif)$"
+      "image": "<input-path>/<rule-path>/(.*)\\.tif(f?)$"
     },
     "output": {
       "header": "<build-path>/<rule-path>/<image:1>.image_header",
@@ -90,4 +90,4 @@ Each file may contain many rules and each input, output, and options section may
   }
 }
 ```
-This rule imports texture images in PNG, JPEG, or TIFF format and stores the image header information in the build folder and different mipmaps in the output folder. While `<input-path>`, `<build-path>`, `<output-path>`, and `<rule-path>` are global variables, `<image:1>` references the first capture group in the input `image`, which is the resolved value of `(.*)`. `<lod-level>` is an action specific variable.
+This rule imports texture images in TIFF format and stores the image header information in the build folder and different mipmaps in the output folder. While `<input-path>`, `<build-path>`, `<output-path>`, and `<rule-path>` are global variables, `<image:1>` references the first capture group in the input `image`, which is the resolved value of `(.*)`. `<lod-level>` is an action specific variable.

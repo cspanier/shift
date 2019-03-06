@@ -35,6 +35,7 @@ if (NOT NO_VULKAN)
       TIFF::TIFF
       JPEG::JPEG
       PNG::PNG
+      LCMS::LCMS2
       BZip2::BZip2
       ZLIB::ZLIB
   )

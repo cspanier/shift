@@ -30,7 +30,7 @@ enum class image_format : std::uint8_t
   r16_snorm,
   // r16_uint,
   // r16_sint,
-  // r16_sfloat,
+  r16_sfloat,
   // r32_uint,
   // r32_sint,
   r32_sfloat,
