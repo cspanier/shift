@@ -30,39 +30,10 @@
 extern "C"
 {
 #endif
-
-  void DXTCV11CompressBlockSSE(std::uint32_t* block_32,
-                               std::uint32_t* block_dxtc);
-
-#ifdef _WIN32
-#ifndef DISABLE_TESTCODE
-  void __cdecl DXTCV11CompressBlockSSE2(std::uint32_t* block_32,
-                                        std::uint32_t* block_dxtc);
-#endif
-#endif
-
-  void DXTCV11CompressBlockSSEMinimal(std::uint32_t* block_32,
-                                      std::uint32_t* block_dxtc);
-  void DXTCV11CompressBlockMinimal(std::uint32_t block_32[16],
-                                   std::uint32_t block_dxtc[2]);
-
   void DXTCV11CompressAlphaBlock(const std::uint8_t block_8[16],
                                  std::uint32_t block_dxtc[2]);
   void DXTCV11CompressExplicitAlphaBlock(const std::uint8_t block_8[16],
                                          std::uint32_t block_dxtc[2]);
-
-#ifdef _WIN32
-#ifndef DISABLE_TESTCODE
-#if defined(_WIN64) || defined(__linux__)
-  void DXTCV11CompressExplicitAlphaBlockMMX(std::uint8_t block_8[16],
-                                            std::uint32_t block_dxtc[2]);
-#else
-  void __fastcall DXTCV11CompressExplicitAlphaBlockMMX(
-    std::uint8_t block_8[16], std::uint32_t block_dxtc[2]);
-#endif  // !_WIN64
-#endif
-#endif  //_WIN32
-
 #ifdef __cplusplus
 };
 #endif

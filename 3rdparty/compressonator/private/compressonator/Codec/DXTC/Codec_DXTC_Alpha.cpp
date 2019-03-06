@@ -157,23 +157,13 @@ CodecError CCodec_DXTC::CompressExplicitAlphaBlock(
   std::uint8_t alphaBlock[BLOCK_SIZE_4X4], std::uint32_t compressedBlock[2])
 {
   DXTCV11CompressExplicitAlphaBlock(alphaBlock, compressedBlock);
-
   return CE_OK;
 }
 
 CodecError CCodec_DXTC::CompressExplicitAlphaBlock_Fast(
   std::uint8_t alphaBlock[BLOCK_SIZE_4X4], std::uint32_t compressedBlock[2])
 {
-#ifdef _WIN32
-#ifndef DISABLE_TESTCODE
-  DXTCV11CompressExplicitAlphaBlockMMX(alphaBlock, compressedBlock);
-#else
   CompressExplicitAlphaBlock(alphaBlock, compressedBlock);
-#endif
-#else
-  CompressExplicitAlphaBlock(alphaBlock, compressedBlock);
-#endif
-
   return CE_OK;
 }
 

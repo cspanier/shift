@@ -119,11 +119,11 @@ bool CCodec_BC7::SetParameter(const char* pszParamName, char* sValue)
       m_ModeMask = 0xCF;
   }
   else if (strcmp(pszParamName, "ColourRestrict") == 0)
-    m_ColourRestrict = (bool)std::stoi(sValue) > 0;
+    m_ColourRestrict = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "AlphaRestrict") == 0)
-    m_AlphaRestrict = (bool)std::stoi(sValue) > 0;
+    m_AlphaRestrict = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "ImageNeedsAlpha") == 0)
-    m_ImageNeedsAlpha = (bool)std::stoi(sValue) > 0;
+    m_ImageNeedsAlpha = std::stoi(sValue) > 0;
   else if (strcmp(pszParamName, "NumThreads") == 0)
   {
     m_NumThreads = (std::uint8_t)std::stoi(sValue) & 0xFF;

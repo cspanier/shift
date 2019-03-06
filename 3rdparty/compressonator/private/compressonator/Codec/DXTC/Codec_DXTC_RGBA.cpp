@@ -190,34 +190,14 @@ CodecError CCodec_DXTC::CompressRGBBlock(
 CodecError CCodec_DXTC::CompressRGBBlock_Fast(
   std::uint8_t rgbBlock[BLOCK_SIZE_4X4X4], std::uint32_t compressedBlock[2])
 {
-#ifdef _WIN32
-#ifndef DISABLE_TESTCODE
-  DXTCV11CompressBlockSSE((std::uint32_t*)rgbBlock, compressedBlock);
-#else
-  this->CompressRGBBlock(rgbBlock, compressedBlock);
-#endif
-#else
-  this->CompressRGBBlock(rgbBlock, compressedBlock);
-#endif
+  CompressRGBBlock(rgbBlock, compressedBlock);
   return CE_OK;
 }
 
 CodecError CCodec_DXTC::CompressRGBBlock_SuperFast(
   std::uint8_t rgbBlock[BLOCK_SIZE_4X4X4], std::uint32_t compressedBlock[2])
 {
-#if defined(USE_SSE2)
-#ifdef _WIN64
-  // todo: fix sse2 asm function
-  DXTCV11CompressBlockSSE2((std::uint32_t*)rgbBlock, compressedBlock);
-#else
-  DXTCV11CompressBlockSSEMinimal((std::uint32_t*)rgbBlock, compressedBlock);
-#endif
-#elif defined(USE_SSE)
-  DXTCV11CompressBlockSSE((std::uint32_t*)rgbBlock, compressedBlock);
-#else
   CompressRGBBlock(rgbBlock, compressedBlock);
-#endif
-
   return CE_OK;
 }
 
