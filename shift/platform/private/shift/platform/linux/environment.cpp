@@ -39,6 +39,8 @@ std::filesystem::path environment::executable_path()
     buffer.resize(buffer.size() * 2, 0);
     readlink("/proc/self/exe", buffer.data(), buffer.size());
   }
+  /// ToDo: Find a better alternative for using
+  /// boost::filesystem::system_complete.
   return std::filesystem::path{
     boost::filesystem::system_complete(boost::filesystem::path{buffer.data()})
       .generic_string()};

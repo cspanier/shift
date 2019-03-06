@@ -1,5 +1,6 @@
 #include "shift/platform/environment.hpp"
 #include "shift/core/string_util.hpp"
+#include <boost/filesystem.hpp>
 #include <vector>
 #include <string>
 #include <utility>
@@ -58,8 +59,11 @@ std::filesystem::path environment::executable_path()
     GetModuleFileName(nullptr, buffer.data(),
                       static_cast<std::uint32_t>(buffer.size()));
   }
-  return std::filesystem::system_complete(
-    std::filesystem::path(buffer.data()));
+  /// ToDo: Find a better alternative for using
+  /// boost::filesystem::system_complete.
+  return std::filesystem::path{
+    boost::filesystem::system_complete(boost::filesystem::path{buffer.data()})
+      .generic_string()};
 }
 
 #pragma pack(push, 8)

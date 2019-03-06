@@ -103,7 +103,7 @@ crash_guard::crash_guard(std::filesystem::path dump_path)
 
   if (!exists(dump_path))
   {
-    boost::system::error_code error;
+    std::error_code error;
     create_directories(dump_path, error);
     if (error)
       dump_path = current_path();
