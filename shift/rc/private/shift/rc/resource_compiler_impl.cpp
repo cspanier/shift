@@ -351,9 +351,23 @@ file_description* resource_compiler_impl::add_file(const fs::path& file_path,
     insert_result.first->second = std::make_unique<file_description>(file_path);
   auto* file = insert_result.first->second.get();
 
+#if defined(_MSC_VER)
+  // This ugly hack attempts to convert a std::filesystem::file_time_type to
+  // std::chrono::system_clock::time_point. It likely produces wrong results
+  // because there is no guarantee that both clocks have the same epoch.
+  // C++20 will fix this issue and make clocks convertible.
+  auto last_write_time = fs::last_write_time(file_path, error_code);
+  if (error_code)
+    return nullptr;
+  file->last_write_time =
+    std::chrono::system_clock::time_point(std::chrono::system_clock::duration(
+      decltype(last_write_time)::clock::duration::rep{
+        last_write_time.time_since_epoch().count()}));
+#else
   file->last_write_time = fs::last_write_time(file_path, error_code);
   if (error_code)
     return nullptr;
+#endif
   if (file->pass < pass)
     file->pass = pass;
   file->flags.set(entity_flag::exists).set(entity_flag::modified);

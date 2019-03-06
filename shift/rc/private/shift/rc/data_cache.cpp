@@ -533,7 +533,19 @@ void data_cache::save(const std::filesystem::path& cache_filename) const
       files_object[file.first.generic_string()] = json::object{});
     /// ToDo: This hack is required because some files magically change their
     /// time-stamp when it is queried right after the files were closed.
+#if defined(_MSC_VER)
+    // This ugly hack attempts to convert a std::filesystem::file_time_type to
+    // std::chrono::system_clock::time_point. It likely produces wrong results
+    // because there is no guarantee that both clocks have the same epoch.
+    // C++20 will fix this issue and make clocks convertible.
+    auto last_write_time = fs::last_write_time(file.first);
+    file.second->last_write_time =
+      std::chrono::system_clock::time_point(std::chrono::system_clock::duration(
+        decltype(last_write_time)::clock::duration::rep{
+          last_write_time.time_since_epoch().count()}));
+#else
     file.second->last_write_time = fs::last_write_time(file.first);
+#endif
     file_object["write-time"] = static_cast<double>(
       std::chrono::system_clock::to_time_t(file.second->last_write_time));
     if (file.second->pass > 0)

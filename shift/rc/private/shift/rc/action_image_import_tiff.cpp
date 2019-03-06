@@ -632,9 +632,13 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
     parser::json::has(job.rule->options, "generate-mip-maps")
       ? parser::json::get<bool>(job.rule->options.at("generate-mip-maps"))
       : true;
+  auto ignore_icc_profile =
+    parser::json::has(job.rule->options, "ignore-icc-profile")
+      ? parser::json::get<bool>(job.rule->options.at("ignore-icc-profile"))
+      : false;
 
   std::vector<tiff_image> source_images;
-  if (!io.load(input.file->path, source_images, false) || source_images.empty())
+  if (!io.load(input.file->path, source_images, ignore_icc_profile) || source_images.empty())
   {
     log::error() << "Failed loading image.";
     return false;

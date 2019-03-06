@@ -1,12 +1,15 @@
 #include "shift/rc/image/tiff_io.hpp"
+#include "shift/rc/image/built_in_icc_profiles.hpp"
 #include <shift/log/log.hpp>
 #include <fstream>
+#include <array>
 #include <tiffio.h>
+#define register
 #include <lcms2_plugin.h>
+#undef register
 
 namespace shift::rc
 {
-
 static void tiff_warning(thandle_t, const char* function, const char* message,
                          va_list)
 {
@@ -23,6 +26,134 @@ void cms_profile_deleter::operator()(cms_profile* profile)
 {
   static_assert(std::is_same_v<cms_profile*, cmsHPROFILE>);
   cmsCloseProfile(profile);
+}
+
+static int cms_pixel_type_from_sample_count(int color_samples)
+{
+  switch (color_samples)
+  {
+  case 1:
+    return PT_GRAY;
+  case 2:
+    return PT_MCH2;
+  case 3:
+    return PT_MCH3;
+  case 4:
+    return PT_CMYK;
+  case 5:
+    return PT_MCH5;
+  case 6:
+    return PT_MCH6;
+  case 7:
+    return PT_MCH7;
+  case 8:
+    return PT_MCH8;
+  case 9:
+    return PT_MCH9;
+  case 10:
+    return PT_MCH10;
+  case 11:
+    return PT_MCH11;
+  case 12:
+    return PT_MCH12;
+  case 13:
+    return PT_MCH13;
+  case 14:
+    return PT_MCH14;
+  case 15:
+    return PT_MCH15;
+
+  default:
+    log::error() << "What a weird separation of " << color_samples
+                 << " channels.";
+    return -1;
+  }
+}
+
+static cmsUInt32Number cms_get_input_pixel_type(const tiff_image& image)
+{
+  int is_planar;
+  switch (image.planar_config)
+  {
+  case PLANARCONFIG_CONTIG:
+    is_planar = 0;
+    break;
+  case PLANARCONFIG_SEPARATE:
+    is_planar = 1;
+    break;
+  default:
+    BOOST_ASSERT(false);
+    return 0;
+  }
+
+  // Reset planar configuration if the number of samples per pixel == 1.
+  if (image.samples_per_pixel == 1)
+    is_planar = 0;
+
+  int extra_samples;
+  int color_samples;
+  if (false)  // if (StoreAsAlpha)
+  {
+    // Read alpha channels as colorant
+    extra_samples = 0;
+    color_samples = image.samples_per_pixel;
+  }
+  else
+  {
+    extra_samples = image.extra_samples;
+    color_samples = image.samples_per_pixel - extra_samples;
+  }
+
+  int pixel_type = 0;
+  int reverse = 0;
+  int lab_tiff_special = 0;
+  switch (image.photometric)
+  {
+  case PHOTOMETRIC_MINISWHITE:
+    reverse = 1;
+    [[fallthrough]];
+
+  case PHOTOMETRIC_MINISBLACK:
+    pixel_type = PT_GRAY;
+    break;
+
+  case PHOTOMETRIC_RGB:
+    pixel_type = PT_RGB;
+    break;
+
+  case PHOTOMETRIC_SEPARATED:
+    pixel_type = cms_pixel_type_from_sample_count(color_samples);
+    break;
+
+  case PHOTOMETRIC_YCBCR:
+    pixel_type = PT_YCbCr;
+    break;
+
+  case PHOTOMETRIC_ICCLAB:
+    pixel_type = PT_LabV2;
+    break;
+
+  case PHOTOMETRIC_CIELAB:
+    pixel_type = PT_Lab;
+    lab_tiff_special = 1;
+    break;
+
+  case PHOTOMETRIC_LOGLUV:
+    pixel_type = PT_YUV;
+    break;
+
+  default:
+    BOOST_ASSERT(false);
+    return 0;
+  }
+
+  auto bytes_per_sample = image.bits_per_sample >> 3;
+  int is_float = (bytes_per_sample == 0) || (bytes_per_sample == 4) ? 1 : 0;
+
+  return (FLOAT_SH(is_float) | COLORSPACE_SH(pixel_type) |
+          PLANAR_SH(is_planar) | EXTRA_SH(extra_samples) |
+          CHANNELS_SH(color_samples) | BYTES_SH(bytes_per_sample) |
+          FLAVOR_SH(reverse) | (lab_tiff_special << 23));
 }
 
 tiff_io::tiff_io()
@@ -60,12 +191,16 @@ tiff_io::tiff_io()
     case COMPRESSION_LZMA:
       log::info() << "  LZMA";
       break;
+#if defined(COMPRESSION_ZSTD)
     case COMPRESSION_ZSTD:
       log::info() << "  ZSTD";
       break;
+#endif
+#if defined(COMPRESSION_WEBP)
     case COMPRESSION_WEBP:
       log::info() << "  WEBP";
       break;
+#endif
     default:
       break;
     }
@@ -181,9 +316,23 @@ bool tiff_io::load(const std::filesystem::path& filename,
       return false;
     }
 
+    {
+      // TIFF extra samples are usually used for the number of alpha channels.
+      std::uint16_t* extra_samples_info;
+      TIFFGetFieldDefaulted(tiff, TIFFTAG_EXTRASAMPLES, &image.extra_samples,
+                            &extra_samples_info);
+    }
+
     if (!TIFFGetField(tiff, TIFFTAG_BITSPERSAMPLE, &image.bits_per_sample))
     {
       log::error() << "Missing required TIFF field 'TIFFTAG_BITSPERSAMPLE'.";
+      return false;
+    }
+    BOOST_ASSERT(image.bits_per_sample == 8 || image.bits_per_sample == 16 ||
+                 image.bits_per_sample == 32);
+    if (image.bits_per_sample == 1)
+    {
+      log::error() << "Bilevel TIFF images are not supported.";
       return false;
     }
 
@@ -231,6 +380,62 @@ bool tiff_io::load(const std::filesystem::path& filename,
     if (!TIFFGetField(tiff, TIFFTAG_ROWSPERSTRIP, &image.rows_per_strip))
     {
       log::error() << "Missing required TIFF field 'TIFFTAG_ROWSPERSTRIP'.";
+      return false;
+    }
+
+    if (!TIFFGetField(tiff, TIFFTAG_PLANARCONFIG, &image.planar_config))
+    {
+      log::error() << "Missing required TIFF field 'TIFFTAG_PLANARCONFIG'.";
+      return false;
+    }
+    if (image.planar_config != PLANARCONFIG_CONTIG &&
+        image.planar_config != PLANARCONFIG_SEPARATE)
+    {
+      log::error() << "Unsupported planar configuration ("
+                   << image.planar_config << ").";
+      return 0;
+    }
+
+    if (!TIFFGetField(tiff, TIFFTAG_PHOTOMETRIC, &image.photometric))
+    {
+      log::error() << "Missing required TIFF field 'TIFFTAG_PHOTOMETRIC'.";
+      return false;
+    }
+
+    switch (image.photometric)
+    {
+    case PHOTOMETRIC_MINISWHITE:
+    case PHOTOMETRIC_MINISBLACK:
+    case PHOTOMETRIC_RGB:
+    case PHOTOMETRIC_SEPARATED:
+    case PHOTOMETRIC_CIELAB:
+    case PHOTOMETRIC_ICCLAB:
+      // NOP.
+      break;
+
+    case PHOTOMETRIC_YCBCR:
+      if (std::uint16_t subsampling_x = 1, subsampling_y = 1;
+          !TIFFGetFieldDefaulted(tiff, TIFFTAG_YCBCRSUBSAMPLING, &subsampling_x,
+                                 &subsampling_y) ||
+          subsampling_x != 1 || subsampling_y != 1)
+      {
+        log::error() << "Subsampled images are not supported.";
+        return false;
+      }
+      break;
+
+    case PHOTOMETRIC_LOGLUV:
+      if (image.bits_per_sample != 16)
+      {
+        log::error() << "TIFF images with color space CIE Log2(L) (u',v') are "
+                        "required to have 16bits per sample.";
+        return false;
+      }
+      break;
+
+    default:
+      log::error() << "Unsupported TIFF color space (photometric "
+                   << image.photometric << ").";
       return false;
     }
 
@@ -361,9 +566,29 @@ bool tiff_io::save(const std::filesystem::path& filename,
     TIFFSetField(tiff, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
     TIFFSetField(tiff, TIFFTAG_SAMPLESPERPIXEL, image.samples_per_pixel);
     TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
-    TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+    TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, image.photometric);
     TIFFSetField(tiff, TIFFTAG_COMPRESSION, image.compression);
     TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, image.rows_per_strip);
+    TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, image.planar_config);
+
+    switch (image.photometric)
+    {
+    case PHOTOMETRIC_YCBCR:
+    {
+      std::uint16_t subsampling_x = 1;
+      std::uint16_t subsampling_y = 1;
+      TIFFSetField(tiff, TIFFTAG_YCBCRSUBSAMPLING, &subsampling_x,
+                   &subsampling_y);
+    }
+
+    case PHOTOMETRIC_LOGLUV:
+      TIFFSetField(tiff, TIFFTAG_SGILOGDATAFMT, SGILOGDATAFMT_16BIT);
+      break;
+
+    default:
+      // NOP.
+      break;
+    }
 
     if (!ignore_icc_profile)
     {
@@ -390,8 +615,43 @@ bool tiff_io::save(const std::filesystem::path& filename,
   return true;
 }
 
+bool tiff_io::override_icc_profile(tiff_image& image,
+                                   tiff_icc_profile_category profile_category)
+{
+  switch (profile_category)
+  {
+  case tiff_icc_profile_category::linear:
+  {
+    const auto& icc_buffer = linear_icc();
+    image.icc_profile.reset(
+      cmsOpenProfileFromMem(icc_buffer.data(), icc_buffer.size()));
+    image.icc_profile_category = profile_category;
+    return true;
+  }
+
+  case tiff_icc_profile_category::srgb:
+  {
+    const auto& icc_buffer = srgb_icc();
+    image.icc_profile.reset(
+      cmsOpenProfileFromMem(icc_buffer.data(), icc_buffer.size()));
+    image.icc_profile_category = profile_category;
+    return true;
+  }
+
+  case tiff_icc_profile_category::custom:
+    // This doesn't make sense.
+    return false;
+  }
+}
+
 bool tiff_io::convert_to_linear(const tiff_image& source, tiff_image& target)
 {
+  //  cmsHPROFILE hIn, hOut, hProof, hInkLimit = nullptr;
+  //  cmsHTRANSFORM xform;
+  //  cmsUInt32Number wTarget;
+  //  int bps = Width / 8;
+  //  int nPlanes;
+
   /// ToDo: Make these constants configurable.
   // (values [0..1])
   static constexpr double observer_adaption_state = 1.0;
@@ -400,12 +660,18 @@ bool tiff_io::convert_to_linear(const tiff_image& source, tiff_image& target)
   static constexpr std::uint32_t precalc_mode = 1;
   // Marks out-of-gamut colors on softproof
   static constexpr bool gamut_check = false;
-  // Override source color profile with one found in external file.
-  static constexpr bool is_device_link = false;
   //
   static constexpr bool do_proofing = false;
 
-  // Observer adaptation state (only meaningful on absolute colorimetric intent)
+  if (source.icc_profile == nullptr)
+  {
+    // The source image does not have any ICC profile. Please assign one with
+    // override_icc_profile(source, tiff_icc_profile_category::linear); first.
+    return false;
+  }
+
+  // Observer adaptation state (only meaningful on absolute colorimetric
+  // intent)
   cmsSetAdaptationState(observer_adaption_state);
 
   //  if (EmbedProfile && cOutProf)
@@ -438,6 +704,8 @@ bool tiff_io::convert_to_linear(const tiff_image& source, tiff_image& target)
   if (gamut_check)
     flags |= cmsFLAGS_GAMUTCHECK;
 
-  return true;
+  cmsHPROFILE source_profile = source.icc_profile.get();
+
+  return false;
 }
 }
