@@ -48,9 +48,17 @@ cmake -G "%CMAKE_GENERATOR%" .. ^
 msbuild lib\libzstd_static.vcxproj /t:Rebuild /p:Configuration=Debug;Platform=%BUILD_PLATFORM%
 msbuild lib\libzstd_static.vcxproj /t:Rebuild /p:Configuration=Release;Platform=%BUILD_PLATFORM%
 
-%GNUWIN32%\cp -v lib\Debug\zstd_static.lib %BUILD_PREFIX%\lib\zstd_static_d.lib
-%GNUWIN32%\cp -v lib\Release\zstd_static.lib %BUILD_PREFIX%\lib
-%GNUWIN32%\cp -v ..\..\..\lib\zstd.h %BUILD_PREFIX%\include
+%GNUWIN32%\cp -v lib/Debug/zstd_static.lib %BUILD_PREFIX%/lib/zstd_static_d.lib
+%GNUWIN32%\cp -v lib/libzstd_static.dir/Debug/libzstd_static.pdb %BUILD_PREFIX%/lib
+%GNUWIN32%\cp -v lib/Release/zstd_static.lib %BUILD_PREFIX%/lib
+if NOT EXIST %BUILD_PREFIX%\include\deprecated  mkdir %BUILD_PREFIX%\include\deprecated
+if NOT EXIST %BUILD_PREFIX%\include\dictBuilder mkdir %BUILD_PREFIX%\include\dictBuilder
+if NOT EXIST %BUILD_PREFIX%\include\common      mkdir %BUILD_PREFIX%\include\common
+%GNUWIN32%\cp -v ../../../lib/zstd.h %BUILD_PREFIX%/include
+%GNUWIN32%\cp -v ../../../lib/deprecated/zbuff.h %BUILD_PREFIX%/include/deprecated
+%GNUWIN32%\cp -v ../../../lib/dictBuilder/zdict.h %BUILD_PREFIX%/include/dictBuilder
+%GNUWIN32%\cp -v ../../../lib/dictBuilder/cover.h %BUILD_PREFIX%/include/dictBuilder
+%GNUWIN32%\cp -v ../../../lib/common/zstd_errors.h %BUILD_PREFIX%/include/common
 
 :end
 popd
