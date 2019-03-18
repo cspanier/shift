@@ -39,48 +39,31 @@ CodecType GetCodecType(cmp_format format)
   switch (format)
   {
   case cmp_format::ARGB_2101010:
-    return CT_None;
   case cmp_format::RGBA_8888:
-    return CT_None;
   case cmp_format::BGRA_8888:
-    return CT_None;
   case cmp_format::ARGB_8888:
-    return CT_None;
   case cmp_format::ABGR_8888:
-    return CT_None;
   case cmp_format::BGR_888:
-    return CT_None;
   case cmp_format::RGB_888:
-    return CT_None;
   case cmp_format::RG_8:
-    return CT_None;
   case cmp_format::R_8:
-    return CT_None;
   case cmp_format::ARGB_16:
-    return CT_None;
+  case cmp_format::ABGR_16:
+  case cmp_format::RGBA_16:
+  case cmp_format::BGRA_16:
   case cmp_format::RG_16:
-    return CT_None;
   case cmp_format::R_16:
-    return CT_None;
   case cmp_format::ARGB_16F:
-    return CT_None;
   case cmp_format::RG_16F:
-    return CT_None;
   case cmp_format::R_16F:
-    return CT_None;
   case cmp_format::ARGB_32F:
-    return CT_None;
   case cmp_format::RG_32F:
-    return CT_None;
   case cmp_format::R_32F:
-    return CT_None;
   case cmp_format::RGBE_32F:
     return CT_None;
 #ifdef ARGB_32_SUPPORT
   case cmp_format::ARGB_32:
-    return CT_None;
   case cmp_format::RG_32:
-    return CT_None;
   case cmp_format::R_32:
     return CT_None;
 #endif  // ARGB_32_SUPPORT
