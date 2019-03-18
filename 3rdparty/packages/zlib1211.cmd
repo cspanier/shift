@@ -1,5 +1,5 @@
 @echo off
-REM Copyright (C) 2012-2018 Christian Spanier
+REM Copyright (C) 2012-2019 Christian Spanier
 REM
 REM Permission is hereby granted, free of charge, to any person obtaining a copy
 REM of this software and associated documentation files (the "Software"), to deal
