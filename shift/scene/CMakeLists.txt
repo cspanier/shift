@@ -5,10 +5,9 @@ if(NOT NO_VULKAN)
       ${CMAKE_CURRENT_SOURCE_DIR}/public
     PRIVATESOURCEDIRS
       ${CMAKE_CURRENT_SOURCE_DIR}/private
-    INCLUDEDIRS
-      ${CMAKE_SOURCE_DIR}/shift/math/public
     DEPENDENCIES
       shift.log
+      shift.math
       shift.core
       shift.platform
       Boost::boost

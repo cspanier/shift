@@ -5,8 +5,6 @@ if (NOT NO_VULKAN)
       ${CMAKE_CURRENT_SOURCE_DIR}/public
     PRIVATESOURCEDIRS
       ${CMAKE_CURRENT_SOURCE_DIR}/private
-    INCLUDEDIRS
-      ${CMAKE_SOURCE_DIR}/shift/math/public
     DEPENDENCIES
       # shift.graphics
       shift.resource_db
@@ -15,6 +13,7 @@ if (NOT NO_VULKAN)
       shift.log
       shift.crypto
       shift.task
+      shift.math
       shift.core
       shift.platform
       Boost::boost
@@ -54,6 +53,7 @@ if (NOT NO_VULKAN)
       shift.log
       shift.crypto
       shift.task
+      shift.math
       shift.core
       shift.platform
       Boost::boost

@@ -3,8 +3,6 @@ if(NOT NO_RC)
     VERSION ${SHIFT_VERSION_MAJOR}.${SHIFT_VERSION_MINOR}
     SOURCEDIRS
       "${CMAKE_CURRENT_SOURCE_DIR}"
-    INCLUDEDIRS
-      ${CMAKE_SOURCE_DIR}/shift/math/public
     DEPENDENCIES
       shift.application
       shift.rc
@@ -15,6 +13,7 @@ if(NOT NO_RC)
       shift.log
       shift.crypto
       shift.task
+      shift.math
       shift.core
       shift.platform
       Boost::boost
