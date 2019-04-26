@@ -147,13 +147,35 @@ template <typename Source, typename Destination,
           template <typename Container, typename Element> class Transform>
 using fold_t = typename fold<Source, Destination, Transform>::type;
 
-/// finds values within a map, which are associated with a Key.
+/// This type finds values within a map, which are associated with a key.
+/// @tparam Map
+///   The map to search.
+/// @tparam Key
+///   The key to search for.
 template <typename Map, typename Key>
 struct find;
 
 /// A shortcut type for find.
 template <typename Map, typename Key>
 using find_t = typename find<Map, Key>::type;
+
+/// This type swaps first and second types of a pair.
+template <typename Pair>
+struct reverse_pair;
+
+/// A shortcut type for reverse_pair.
+template <typename Pair>
+using reverse_pair_t = typename reverse_pair<Pair>::type;
+
+/// This type swaps key and value in each of the maps key value pairs. If the
+/// passed map's values are not unique a multimap will be generated. Otherwise,
+/// the resulting type will be a regular map.
+template <typename Map>
+struct reverse_map;
+
+/// A shortcut type for reverse_map.
+template <typename Map>
+using reverse_map_t = typename reverse_map<Map>::type;
 
 /// Transform Ts from Source container to Destination container.
 /// @remarks
@@ -253,6 +275,19 @@ struct pair
   using second = T2;
 };
 
+template <typename T>
+struct is_pair : std::false_type
+{
+};
+
+template <typename T1, typename T2>
+struct is_pair<pair<T1, T2>> : std::true_type
+{
+};
+
+template <typename T>
+constexpr bool is_pair_v = is_pair<T>::value;
+
 /// Returns the first type of a pair.
 template <typename Pair>
 struct first;
@@ -279,23 +314,77 @@ struct vector : public detail::sequence_t<vector, Ts...>
 {
 };
 
+template <typename T>
+struct is_vector : std::false_type
+{
+};
+
+template <typename... Ts>
+struct is_vector<vector<Ts...>> : std::true_type
+{
+};
+
+template <typename T>
+constexpr bool is_vector_v = is_vector<T>::value;
+
 ///
 template <typename... Ts>
 struct set : public detail::sequence_t<set, Ts...>
 {
 };
 
+template <typename T>
+struct is_set : std::false_type
+{
+};
+
+template <typename... Ts>
+struct is_set<set<Ts...>> : std::true_type
+{
+};
+
+template <typename T>
+constexpr bool is_set_v = is_set<T>::value;
+
 /// A type map, which is organized as a vector of type pairs.
 template <typename... Pairs>
 struct multimap : public detail::sequence_t<multimap, Pairs...>
 {
+  static_assert((is_pair_v<Pairs> && ...));
 };
+
+template <typename T>
+struct is_multimap : std::false_type
+{
+};
+
+template <typename... Pairs>
+struct is_multimap<multimap<Pairs...>> : std::true_type
+{
+};
+
+template <typename T>
+constexpr bool is_multimap_v = is_multimap<T>::value;
 
 /// A type map, which is organized as a set of type pairs.
 template <typename... Pairs>
 struct map : public detail::sequence_t<map, Pairs...>
 {
+  static_assert((is_pair_v<Pairs> && ...));
 };
+
+template <typename T>
+struct is_map : std::false_type
+{
+};
+
+template <typename... Pairs>
+struct is_map<map<Pairs...>> : std::true_type
+{
+};
+
+template <typename T>
+constexpr bool is_map_v = is_map<T>::value;
 
 /// End of recursion.
 template <typename T, template <typename...> class Container, typename... Ts>
@@ -578,21 +667,12 @@ struct insert<map<Pairs...>, pair<K, V>>
   using type = map<Pairs..., pair<K, V>>;
 };
 
-/// Special case for empty source containers.
+/// End recursion when source container is empty.
 template <template <typename...> class Source, typename Destination,
           template <typename Container, typename Element> class Transform>
 struct fold<Source<>, Destination, Transform>
 {
   using type = Destination;
-};
-
-/// End of recursion.
-template <template <typename...> class Source, typename Destination,
-          template <typename Container, typename Element> class Transform,
-          typename T>
-struct fold<Source<T>, Destination, Transform>
-{
-  using type = typename Transform<Destination, T>::type;
 };
 
 /// Recursively transform all source elements into destination.
@@ -701,6 +781,8 @@ private:
   template <typename Container, typename Pair>
   struct helper
   {
+    static_assert(is_pair_v<Pair>);
+
     using type =
       std::conditional_t<std::is_same<typename Pair::first, Key>::value,
                          insert_t<Container, typename Pair::second>, Container>;
@@ -716,6 +798,22 @@ template <typename... Pairs, typename Key>
 struct find<map<Pairs...>, Key>
 {
   using type = typename find<multimap<Pairs...>, Key>::type::head;
+};
+
+/// Implementation of reverse_pair.
+template <typename T1, typename T2>
+struct reverse_pair<pair<T1, T2>>
+{
+  using type = pair<T2, T1>;
+};
+
+/// Implementation of reverse_map.
+template <typename... Pairs>
+struct reverse_map<map<Pairs...>>
+{
+  using type = std::conditional_t<
+    (make_set_t<typename Pairs::second...>::size == sizeof...(Pairs)),
+    map<reverse_pair_t<Pairs>...>, multimap<reverse_pair_t<Pairs>...>>;
 };
 
 /// End of recursion.
@@ -791,7 +889,8 @@ struct for_each<Container<>>
 template <template <typename...> class Container, typename T, typename... Ts>
 struct for_each<Container<T, Ts...>>
 {
-  /// Constructor taking a type with an operator()(const T*) for each T in Ts.
+  /// Constructor taking a type with an operator()(const T*, Args&&...) for each
+  /// type T in Container<Ts...>.
   template <typename Visitor, typename... Args>
   for_each(Visitor& visitor, Args&&... args)
   {
@@ -800,7 +899,8 @@ struct for_each<Container<T, Ts...>>
     for_each<Container<Ts...>> f(visitor, std::forward<Args>(args)...);
   }
 
-  /// Constructor taking a type with an operator()(const T*) for each T in Ts.
+  /// Constructor taking a type with an operator()(const T*, Args&&...) const
+  /// for each type T in Container<Ts...>.
   template <typename Visitor, typename... Args>
   for_each(const Visitor& visitor, Args&&... args)
   {
