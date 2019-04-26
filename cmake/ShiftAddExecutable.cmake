@@ -197,7 +197,7 @@ macro(shift_add_executable target)
   endif()
 
   # Setup Google Breakpad toolchain on Linux
-  if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT SHIFT_NO_BREAKPAD_SYMBOLS)
     add_custom_target(breakpad.${target} ALL
       COMMAND ${CMAKE_SOURCE_DIR}/scripts/breakpad-process-binary.sh
         "$<TARGET_FILE:${target}>"
