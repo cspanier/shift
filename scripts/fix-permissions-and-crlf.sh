@@ -23,6 +23,8 @@ find . -type f -name "*.sh" \
 done
 find . -type f -\( \
 	-name "*.cpp" -o \
+	-name "*.hpp" -o \
+	-name "*.c" -o \
 	-name "*.h" -o \
 	-name "*.cs" -o \
 	-name "*.sh" -o \
