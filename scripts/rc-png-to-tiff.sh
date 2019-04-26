@@ -5,7 +5,7 @@
 # Albedo color textures should all be stored in sRGB format.
 for i in $(find resources/textures/freepbr.com/ -name "*-albedo.png"); do
   echo $i
-  mogrify -format tiff -colorspace sRGB -set colorspace:auto-grayscale off $i
+  mogrify -format tiff -compress zstd -colorspace sRGB -set colorspace:auto-grayscale off $i
 done
 # All other textures store data for which sRGB doesn't make much sense.
 # However, many textures still have a sRGB color profile assigned. These
@@ -13,25 +13,27 @@ done
 # profiles from the images.
 for i in $(find resources/textures/freepbr.com/ -name "*-ao.png"); do
   echo $i
-  mogrify -format tiff -set colorspace RGB -colorspace RGB -alpha off -strip $i
+  mogrify -format tiff -compress zstd -set colorspace RGB -colorspace RGB -alpha off -strip $i
 done
 for i in $(find resources/textures/freepbr.com/ -name "*-height.png"); do
   echo $i
-  mogrify -format tiff -set colorspace RGB -colorspace RGB -alpha off -strip $i
+  mogrify -format tiff -compress zstd -set colorspace RGB -colorspace RGB -alpha off -strip $i
 done
 for i in $(find resources/textures/freepbr.com/ -name "*-metalness.png"); do
   echo $i
-  mogrify -format tiff -set colorspace RGB -colorspace RGB -alpha off -strip $i
+  mogrify -format tiff -compress zstd -set colorspace RGB -colorspace RGB -alpha off -strip $i
 done
 for i in $(find resources/textures/freepbr.com/ -name "*-normal.png"); do
   echo $i
-  mogrify -format tiff -set colorspace RGB -colorspace RGB -alpha off -strip $i
+  mogrify -format tiff -compress zstd -set colorspace RGB -colorspace RGB -alpha off -strip $i
 done
 for i in $(find resources/textures/freepbr.com/ -name "*-roughness.png"); do
   echo $i
-  mogrify -format tiff -set colorspace RGB -colorspace RGB -alpha off -strip $i
+  mogrify -format tiff -compress zstd -set colorspace RGB -colorspace RGB -alpha off -strip $i
 done
 
+# Change image compression:
+#   -compress (lzw|zip|zstd|...)
 # Assume input to be linear instead of sRGB:
 #   -set colorspace RGB
 # Assume input signed integer:
