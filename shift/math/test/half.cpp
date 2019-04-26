@@ -485,16 +485,29 @@ BOOST_AUTO_TEST_CASE(half_tables)
   //            << std::endl;
   //}
 
-  for (auto i = 0; i < mantissa_table.size(); ++i)
+  for (auto i = 0u; i < mantissa_table.size(); ++i)
     BOOST_CHECK_EQUAL(mantissa_table[i], mantissa_table_ref[i]);
-  for (auto i = 0; i < exponent_table.size(); ++i)
+  for (auto i = 0u; i < exponent_table.size(); ++i)
     BOOST_CHECK_EQUAL(exponent_table[i], exponent_table_ref[i]);
-  for (auto i = 0; i < offset_table.size(); ++i)
+  for (auto i = 0u; i < offset_table.size(); ++i)
     BOOST_CHECK_EQUAL(offset_table[i], offset_table_ref[i]);
+  /// ToDo: These two tables differ between the paper and the reference
+  /// implementation. Find which ones are correct!
   // for (auto i = 0; i < base_table.size(); ++i)
   //  BOOST_CHECK_EQUAL(base_table[i], base_table_ref[i]);
   // for (auto i = 0; i < shift_table.size(); ++i)
   //  BOOST_CHECK_EQUAL(shift_table[i], shift_table_ref[i]);
+}
+
+BOOST_AUTO_TEST_CASE(half_conversion)
+{
+  for (auto i = 0u; i < 256; ++i)
+    BOOST_CHECK_EQUAL(half_cast<int>(half(i * 1.0f)), i);
+  for (auto i = 1u; i < 256; ++i)
+  {
+    BOOST_CHECK_EQUAL(std::roundf(half_cast<float>(half(1000.0f / i))),
+                      std::roundf(1000.0f / i));
+  }
 }
 
 BOOST_AUTO_TEST_CASE(half_ops)

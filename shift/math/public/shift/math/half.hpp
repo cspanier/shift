@@ -1068,7 +1068,7 @@ private:
   friend struct detail::binary_specialized<half, half>;
   template <typename, typename, std::float_round_style>
   friend struct detail::half_caster;
-  friend struct std::numeric_limits<half>;
+  friend class std::numeric_limits<half>;
   friend struct std::hash<half>;
   friend half literals::operator""_h(long double);
 
