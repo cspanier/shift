@@ -565,7 +565,7 @@ bool cpp_generator::generate(namescope& root_scope, namescope& /*limit_scope*/)
     _source->switch_namescope(root_scope);
     *_header << indent << br2 "#endif" br;
     if (_use_header)
-      _header->write(cpp_include_output_path / (groupName + ".h"),
+      _header->write(cpp_include_output_path / (groupName + ".hpp"),
                      cpp_clang_format);
     if (_use_source)
     {
