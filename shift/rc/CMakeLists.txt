@@ -29,8 +29,7 @@ if (NOT NO_VULKAN)
       SpirVCross::util
       SpirVCross::core
       3rdparty.amd-tootle
-      3rdparty.compressonator
-      3rdparty.squish
+      3rdparty.squish-ccr
       TIFF::TIFF
       JPEG::JPEG
       PNG::PNG
