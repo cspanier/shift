@@ -33,11 +33,6 @@
 
 #include "hdrfit.h"
 
-// pull in structure definitions
-#if defined(SQUISH_USE_AMP)
-#include "hdrsinglelookup_ccr.inl"
-#endif
-
 namespace squish
 {
 struct HDRSingleLookup2;
