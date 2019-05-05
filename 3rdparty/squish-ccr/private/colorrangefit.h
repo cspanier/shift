@@ -25,38 +25,32 @@
 
    -------------------------------------------------------------------------- */
 
-#include "colourfit.h"
-#include "colourset.h"
+#ifndef SQUISH_colorRANGEFIT_H
+#define SQUISH_colorRANGEFIT_H
+
+#include <squish.h>
+#include "colorfit.h"
+#include "maths_all.h"
 
 namespace squish {
 
-/* *****************************************************************************
- */
-extern Vec4 g_metric[8];
-
-ColourFit::ColourFit( ColourSet const* colours, int flags )
-  : m_colours(colours), m_flags(flags)
+// -----------------------------------------------------------------------------
+class colorSet;
+class colorRangeFit : public colorFit
 {
-  // initialize the metric
-  m_metric = KillW(g_metric[(flags & kColourMetrics) >> 4]);
+public:
+  colorRangeFit(colorSet const* colors, int flags);
 
-  // initialize the best error
-  m_besterror = Scr4(FLT_MAX);
-}
+private:
+  void ComputeEndPoints();
 
-void ColourFit::Compress( void* block )
-{
-  const bool isBtc1f = ((m_flags & kBtcp) == kBtc1);
-  const bool isBtc1b = ((m_flags & kExcludeAlphaFromPalette) != 0);
+  virtual void Compress3b(void* block);
+  virtual void Compress3(void* block);
+  virtual void Compress4(void* block);
 
-  if (isBtc1f) {
-    Compress3(block);
-    if (!m_colours->IsTransparent())
-      Compress4(block);
-    if (isBtc1b)
-      Compress3b(block);
-  }
-  else
-    Compress4(block);
-}
-} // namespace squish
+  Vec3 m_start;
+  Vec3 m_end;
+};
+} // squish
+
+#endif // ndef SQUISH_colorRANGEFIT_H

@@ -55,7 +55,7 @@ PaletteClusterFit::PaletteClusterFit(PaletteSet const* palette, int flags,
 
   // set the iteration count
   m_iterationCount =
-    (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+    (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
 
   // loop over all sets
   for (int s = 0; s < (isets + asets); s++)

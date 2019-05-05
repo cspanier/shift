@@ -166,9 +166,9 @@ PaletteFit::PaletteFit(PaletteSet const* palette, int flags, int swap, int share
 {
   int const ix = m_palette->GetRotation();
 
-  // the weighting of colour against alpha is 1:1, which
+  // the weighting of color against alpha is 1:1, which
   // is a middle-ground of quality. increasing the alpha-weight
-  // will start showing false colour assignments, decreasing
+  // will start showing false color assignments, decreasing
   // alpha-weight will start showing flatness of moderately
   // transparent areas
 #ifdef FEATURE_METRIC_ROOTED
@@ -180,7 +180,7 @@ PaletteFit::PaletteFit(PaletteSet const* palette, int flags, int swap, int share
 #endif
 
   // initialize the metric
-  m_metric[0] = g_metric[(flags & kColourMetrics) >> 4];
+  m_metric[0] = g_metric[(flags & kcolorMetrics) >> 4];
 
   // sum is 1.0f
   if (!m_palette->IsTransparent())

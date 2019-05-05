@@ -243,7 +243,7 @@ void BitoneNormalFit::kMeans4()
   Vec3 l_start = m_start, l_end = m_end;
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
   
-  int trie = 1 + (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+  int trie = 1 + (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
   do {
     Vec3 means[4];
 
@@ -375,9 +375,9 @@ void BitoneNormalFit::Compress4(void* block)
   // use a fitting algorithm
   m_start = m_start_candidate;
   m_end   = m_end_candidate;
-  if (m_flags & kColourIterativeClusterFits)
+  if (m_flags & kcolorIterativeClusterFits)
     kMeans4();
-//if ((m_flags & kColourIterativeClusterFits) >= (kColourIterativeClusterFit))
+//if ((m_flags & kcolorIterativeClusterFits) >= (kcolorIterativeClusterFit))
 //  Permute4();
   
   // create a codebook

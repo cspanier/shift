@@ -25,37 +25,38 @@
 
    -------------------------------------------------------------------------- */
 
-#ifndef SQUISH_COLOURSINGLESNAP_H
-#define SQUISH_COLOURSINGLESNAP_H
-
-#include <squish.h>
-#include <limits.h>
-#include "colourfit.h"
+#include "colorfit.h"
+#include "colorset.h"
 
 namespace squish {
 
-// -----------------------------------------------------------------------------
-class ColourSet;
-struct ColourSingleLookup;
-class ColourSingleSnap : public ColourFit
+/* *****************************************************************************
+ */
+extern Vec4 g_metric[8];
+
+colorFit::colorFit( colorSet const* colors, int flags )
+  : m_colors(colors), m_flags(flags)
 {
-public:
-  ColourSingleSnap(ColourSet const* colours, int flags);
-  
-  // error management
-  void SetError(Scr4 &error) { m_besterror = error; }
-  void SetError(Scr3 &error) { m_besterror = error; }
-  Scr3 GetError() { return m_besterror; }
+  // initialize the metric
+  m_metric = KillW(g_metric[(flags & kcolorMetrics) >> 4]);
 
-private:
-  virtual void Compress3b(void* block);
-  virtual void Compress3(void* block);
-  virtual void Compress4(void* block);
+  // initialize the best error
+  m_besterror = Scr4(FLT_MAX);
+}
 
-  std::uint8_t   m_colour[4];
-  Vec3 m_start;
-  Vec3 m_end;
-};
+void colorFit::Compress( void* block )
+{
+  const bool isBtc1f = ((m_flags & kBtcp) == kBtc1);
+  const bool isBtc1b = ((m_flags & kExcludeAlphaFromPalette) != 0);
+
+  if (isBtc1f) {
+    Compress3(block);
+    if (!m_colors->IsTransparent())
+      Compress4(block);
+    if (isBtc1b)
+      Compress3b(block);
+  }
+  else
+    Compress4(block);
+}
 } // namespace squish
-
-#endif // ndef SQUISH_COLOURSINGLESNAP_H

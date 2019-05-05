@@ -25,8 +25,8 @@
 
    -------------------------------------------------------------------------- */
 
-#ifndef SQUISH_COLOURBLOCK_H
-#define SQUISH_COLOURBLOCK_H
+#ifndef SQUISH_colorSET_H
+#define SQUISH_colorSET_H
 
 #include <squish.h>
 #include "maths_all.h"
@@ -34,12 +34,32 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-  void WriteColourBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
-  void WriteColourBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
-  
-  void DecompressColoursBtc1u(std::uint8_t * rgba, void const* block, bool isBtc1);
-  void DecompressColoursBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1);
-  void DecompressColoursBtc1u(float* rgba, void const* block, bool isBtc1);
-} // namespace squish
+/*! @brief Represents a set of block colors
+ */
+class colorSet
+{
+public:
+  colorSet(std::uint8_t  const* rgba, int mask, int flags);
+  colorSet(std::uint16_t const* rgba, int mask, int flags);
+  colorSet(float const* rgba, int mask, int flags);
 
-#endif // ndef SQUISH_COLOURBLOCK_H
+  bool IsTransparent() const { return m_transparent; }
+  bool IsUnweighted() const { return m_unweighted; }
+
+  int GetCount() const { return m_count; }
+  Vec3 const* GetPoints() const { return m_points; }
+  Scr3 const* GetWeights() const { return m_weights; }
+
+  bool RemoveBlack(const Vec3 &metric, Scr3 &error);
+  void RemapIndices(std::uint8_t const* source, std::uint8_t* target) const;
+
+private:
+  bool  m_transparent, m_unweighted;
+  int   m_count;
+  Vec3  m_points[16];
+  Scr3  m_weights[16];
+  char  m_remap[16];
+};
+} // namespace sqish
+
+#endif // ndef SQUISH_colorSET_H

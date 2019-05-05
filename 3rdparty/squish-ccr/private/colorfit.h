@@ -25,32 +25,34 @@
 
    -------------------------------------------------------------------------- */
 
-#ifndef SQUISH_COLOURRANGEFIT_H
-#define SQUISH_COLOURRANGEFIT_H
+#ifndef SQUISH_colorFIT_H
+#define SQUISH_colorFIT_H
 
 #include <squish.h>
-#include "colourfit.h"
 #include "maths_all.h"
 
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class ColourSet;
-class ColourRangeFit : public ColourFit
+class colorSet;
+class colorFit
 {
 public:
-  ColourRangeFit(ColourSet const* colours, int flags);
+  colorFit( colorSet const* colors, int flags );
 
-private:
-  void ComputeEndPoints();
+  void Compress( void* block );
 
-  virtual void Compress3b(void* block);
-  virtual void Compress3(void* block);
-  virtual void Compress4(void* block);
+protected:
+  virtual void Compress3b(void* block) = 0;
+  virtual void Compress3(void* block) = 0;
+  virtual void Compress4(void* block) = 0;
 
-  Vec3 m_start;
-  Vec3 m_end;
+  colorSet const* m_colors;
+  int m_flags;
+
+  Vec3 m_metric;
+  Scr3 m_besterror;
 };
-} // squish
+} // namespace squish
 
-#endif // ndef SQUISH_COLOURRANGEFIT_H
+#endif // ndef SQUISH_colorFIT_H

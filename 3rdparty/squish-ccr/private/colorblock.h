@@ -25,8 +25,8 @@
 
    -------------------------------------------------------------------------- */
 
-#ifndef SQUISH_COLOURFIT_H
-#define SQUISH_COLOURFIT_H
+#ifndef SQUISH_colorBLOCK_H
+#define SQUISH_colorBLOCK_H
 
 #include <squish.h>
 #include "maths_all.h"
@@ -34,25 +34,12 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class ColourSet;
-class ColourFit
-{
-public:
-  ColourFit( ColourSet const* colours, int flags );
-
-  void Compress( void* block );
-
-protected:
-  virtual void Compress3b(void* block) = 0;
-  virtual void Compress3(void* block) = 0;
-  virtual void Compress4(void* block) = 0;
-
-  ColourSet const* m_colours;
-  int m_flags;
-
-  Vec3 m_metric;
-  Scr3 m_besterror;
-};
+  void WritecolorBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
+  void WritecolorBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
+  
+  void DecompresscolorsBtc1u(std::uint8_t * rgba, void const* block, bool isBtc1);
+  void DecompresscolorsBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1);
+  void DecompresscolorsBtc1u(float* rgba, void const* block, bool isBtc1);
 } // namespace squish
 
-#endif // ndef SQUISH_COLOURFIT_H
+#endif // ndef SQUISH_colorBLOCK_H

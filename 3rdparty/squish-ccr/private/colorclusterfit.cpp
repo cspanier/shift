@@ -28,12 +28,12 @@
 
 #include <assert.h>
 
-#include "colourclusterfit.h"
-#include "colourset.h"
-#include "colourblock.h"
+#include "colorclusterfit.h"
+#include "colorset.h"
+#include "colorblock.h"
 
-#include "coloursinglefit.h"
-#include "coloursinglesnap.h"
+#include "colorsinglefit.h"
+#include "colorsinglesnap.h"
 
 #include "inlineables.inl"
 
@@ -42,23 +42,22 @@ namespace squish
 
 /* *****************************************************************************
  */
-ColourClusterFit::ColourClusterFit(ColourSet const* colours, int flags)
-: ColourFit(colours, flags)
+colorClusterFit::colorClusterFit(colorSet const* colors, int flags)
+: colorFit(colors, flags)
 {
   // set the iteration count
-  m_iterationCount =
-    (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+  m_iterationCount = (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
 
   // initialize endpoints
   ComputeEndPoints();
 }
 
-void ColourClusterFit::ComputeEndPoints()
+void colorClusterFit::ComputeEndPoints()
 {
   // cache some values
-  bool const unweighted = m_colours->IsUnweighted();
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
+  bool const unweighted = m_colors->IsUnweighted();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
 
   Sym3x3 covariance;
   Vec3 centroid;
@@ -68,7 +67,7 @@ void ColourClusterFit::ComputeEndPoints()
     ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric);
   else
     ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric,
-                               m_colours->GetWeights());
+                               m_colors->GetWeights());
 
   // compute the principle component
   GetPrincipleComponent(covariance, m_principle);
@@ -77,8 +76,8 @@ void ColourClusterFit::ComputeEndPoints()
   m_optimizable = unweighted & ((count == 16) | ((m_flags & kBtcp) == kBtc1));
 }
 
-void ColourClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
-                                 Vec4& bestend, Scr4& besterror)
+void colorClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
+                                Vec4& bestend, Scr4& besterror)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -87,9 +86,9 @@ void ColourClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
   Vec3 end = q.SnapToLattice(bestend);
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
@@ -102,8 +101,8 @@ void ColourClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
       LengthSquared(m_metric * values[i] - codes[closest[i]]) * freq[i];
 }
 
-void ColourClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
-                                 Vec4& bestend, Scr4& besterror)
+void colorClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
+                                Vec4& bestend, Scr4& besterror)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -112,9 +111,9 @@ void ColourClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
   Vec3 end = q.SnapToLattice(bestend);
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
@@ -127,11 +126,11 @@ void ColourClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
       LengthSquared(m_metric * values[i] - codes[closest[i]]) * freq[i];
 }
 
-bool ColourClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
+bool colorClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
 {
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
 
   // build the list of dot products
   float dps[16];
@@ -165,8 +164,8 @@ bool ColourClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
   }
 
   // copy the ordering and weight all the points
-  Vec3 const* unweighted = m_colours->GetPoints();
-  Scr3 const* weights = m_colours->GetWeights();
+  Vec3 const* unweighted = m_colors->GetPoints();
+  Scr3 const* weights = m_colors->GetWeights();
 
   m_xsum_wsum = Vec4(0.0f);
   for (int i = 0; i < count; ++i)
@@ -190,12 +189,12 @@ bool ColourClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
 #define CMetric(m) m
 #endif
 
-void ColourClusterFit::ClusterFit3(void* block)
+void colorClusterFit::ClusterFit3(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
   // declare variables
-  int const count = m_colours->GetCount();
+  int const count = m_colors->GetCount();
   Vec4 const two = Vec4(2.0f);
   Vec4 const one = Vec4(1.0f);
   Vec4 const half_half2(0.5f, 0.5f, 0.5f, 0.25f);
@@ -322,11 +321,11 @@ void ColourClusterFit::ClusterFit3(void* block)
     m_besterror = besterror;
 
     // remap the indices
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #else
   Vec4 m_xxsum_wwsum = Vec4(0.0f);
@@ -352,21 +351,21 @@ void ColourClusterFit::ClusterFit3(void* block)
     for (int m = bestj; m < count; ++m)
       unordered[order[m]] = 1;
 
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #endif
 }
 
-void ColourClusterFit::ClusterFit4(void* block)
+void colorClusterFit::ClusterFit4(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
   // declare variables
-  int const count = m_colours->GetCount();
+  int const count = m_colors->GetCount();
   Vec4 const two = Vec4(2.0f);
   Vec4 const one = Vec4(1.0f);
 
@@ -516,11 +515,11 @@ void ColourClusterFit::ClusterFit4(void* block)
     m_besterror = besterror;
 
     // remap the indices
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #else
   Vec4 m_xxsum_wwsum = Vec4(0.0f);
@@ -548,23 +547,23 @@ void ColourClusterFit::ClusterFit4(void* block)
     for (int m = bestk; m < count; ++m)
       unordered[order[m]] = 1;
 
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #endif
 }
 
-#include "colourclusterfit.inl"
+#include "colorclusterfit.inl"
 
-void ColourClusterFit::ClusterFit3Constant(void* block)
+void colorClusterFit::ClusterFit3Constant(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
   // declare variables
-  int const count = m_colours->GetCount();
+  int const count = m_colors->GetCount();
   Vec4 const two = Vec4(2.0f);
   Vec4 const one = Vec4(1.0f);
   Vec4 const half_half2(0.5f, 0.5f, 0.5f, 0.25f);
@@ -761,11 +760,11 @@ void ColourClusterFit::ClusterFit3Constant(void* block)
     m_besterror = besterror;
 
     // remap the indices
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #else
   Vec4 m_xxsum_wwsum = Vec4(0.0f);
@@ -791,21 +790,21 @@ void ColourClusterFit::ClusterFit3Constant(void* block)
     for (int m = bestj; m < count; ++m)
       unordered[order[m]] = 1;
 
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock3(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #endif
 }
 
-void ColourClusterFit::ClusterFit4Constant(void* block)
+void colorClusterFit::ClusterFit4Constant(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
   // declare variables
-  int const count = m_colours->GetCount();
+  int const count = m_colors->GetCount();
   Vec4 const two = Vec4(2.0f);
   Vec4 const one = Vec4(1.0f);
 
@@ -875,8 +874,7 @@ void ColourClusterFit::ClusterFit4Constant(void* block)
           Vec4 const betax_sum =
             /*MultiplyAdd(part1, onethird_onethird2, MultiplyAdd(part2,
                twothirds_twothirds2, part3))*/
-            xsum_wsum -
-            alphax_sum;
+            xsum_wsum - alphax_sum;
 
           Vec4 const alpha2_sum = alphabeta_val.SplatX();
           Vec4 const beta2_sum = alphabeta_val.SplatY();
@@ -1031,11 +1029,11 @@ void ColourClusterFit::ClusterFit4Constant(void* block)
     m_besterror = besterror;
 
     // remap the indices
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #else
   Vec4 m_xxsum_wwsum = Vec4(0.0f);
@@ -1063,19 +1061,19 @@ void ColourClusterFit::ClusterFit4Constant(void* block)
     for (int m = bestk; m < count; ++m)
       unordered[order[m]] = 1;
 
-    m_colours->RemapIndices(unordered, bestindices);
+    m_colors->RemapIndices(unordered, bestindices);
 
     // save the block
-    WriteColourBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
-                      block);
+    WritecolorBlock4(beststart.GetVec3(), bestend.GetVec3(), bestindices,
+                     block);
   }
 #endif
 }
 
-void ColourClusterFit::Compress3b(void* block)
+void colorClusterFit::Compress3b(void* block)
 {
-  ColourSet copy = *m_colours;
-  m_colours = &copy;
+  colorSet copy = *m_colors;
+  m_colors = &copy;
 
   Scr3 m_destroyed = Scr3(0.0f);
   while (copy.RemoveBlack(m_metric, m_destroyed) &&
@@ -1085,8 +1083,8 @@ void ColourClusterFit::Compress3b(void* block)
 
     if (copy.GetCount() == 1)
     {
-      // always do a single colour fit
-      ColourSingleMatch fit(m_colours, m_flags);
+      // always do a single color fit
+      colorSingleMatch fit(m_colors, m_flags);
 
       fit.SetError(m_besterror);
       fit.Compress(block);
@@ -1103,7 +1101,7 @@ void ColourClusterFit::Compress3b(void* block)
   }
 }
 
-void ColourClusterFit::Compress3(void* block)
+void colorClusterFit::Compress3(void* block)
 {
 #if defined(TRACK_STATISTICS)
   /* there is a clear skew towards unweighted clusterfit (all weights == 1)
@@ -1123,7 +1121,7 @@ void ColourClusterFit::Compress3(void* block)
     ClusterFit3(block);
 }
 
-void ColourClusterFit::Compress4(void* block)
+void colorClusterFit::Compress4(void* block)
 {
 #if defined(TRACK_STATISTICS)
   /* there is a clear skew towards unweighted clusterfit (all weights == 1)
@@ -1131,13 +1129,13 @@ void ColourClusterFit::Compress4(void* block)
    * C == 4, numset ==
    *  [0]  0x00f796e0 {13856, 5184}
    */
-  if (m_optimizable & (m_colours->GetCount() == 16))
+  if (m_optimizable & (m_colors->GetCount() == 16))
     gstat.has_noweightsets[1][0][0]++;
   else
     gstat.has_noweightsets[1][0][1]++;
 #endif
 
-  if (m_optimizable & (m_colours->GetCount() == 16))
+  if (m_optimizable & (m_colors->GetCount() == 16))
     ClusterFit4Constant(block);
   else
     ClusterFit4(block);

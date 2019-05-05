@@ -44,7 +44,7 @@ class PaletteSet;
 class PaletteSingleFit : public virtual PaletteFit
 {
 public:
-  PaletteSingleFit(PaletteSet const* colours, int flags, int swap = -1, int shared = 0);
+  PaletteSingleFit(PaletteSet const* colors, int flags, int swap = -1, int shared = 0);
 
 private:
   Scr4 ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t cmask);

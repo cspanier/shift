@@ -25,9 +25,9 @@
 
    -------------------------------------------------------------------------- */
 
-#include "colournormalfit.h"
-#include "colourset.h"
-#include "colourblock.h"
+#include "colornormalfit.h"
+#include "colorset.h"
+#include "colorblock.h"
 
 #include "inlineables.inl"
 
@@ -35,15 +35,15 @@ namespace squish {
 
 /* *****************************************************************************
  */
-ColourNormalFit::ColourNormalFit(ColourSet const* colours, int flags)
-  : ColourFit(colours, flags)
+colorNormalFit::colorNormalFit(colorSet const* colors, int flags)
+  : colorFit(colors, flags)
 {
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* weights = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* weights = m_colors->GetWeights();
 
 #ifdef  FEATURE_NORMALFIT_PROJECT
   Sym3x3 covariance;
@@ -51,7 +51,7 @@ ColourNormalFit::ColourNormalFit(ColourSet const* colours, int flags)
   Vec3 principle;
 
   // get the covariance matrix
-  if (m_colours->IsUnweighted())
+  if (m_colors->IsUnweighted())
     ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f));
   else
     ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f), weights);
@@ -159,23 +159,23 @@ ColourNormalFit::ColourNormalFit(ColourSet const* colours, int flags)
   m_end_candidate   = q.SnapToLattice(end  );
 }
 
-void ColourNormalFit::kMeans3()
+void colorNormalFit::kMeans3()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
   const Vec3 scalei = Vec3( 1.0f * 0.5f);
   
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
   Vec3 c_start = m_start, c_end = m_end;
   Vec3 l_start = m_start, l_end = m_end;
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
   
-  int trie = 1 + (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+  int trie = 1 + (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
   do {
     Vec3 means[3];
 
@@ -220,23 +220,23 @@ void ColourNormalFit::kMeans3()
   } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
 }
 
-void ColourNormalFit::kMeans4()
+void colorNormalFit::kMeans4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
   const Vec3 scalei = Vec3( 1.0f * 0.5f);
   
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
   Vec3 c_start = m_start, c_end = m_end;
   Vec3 l_start = m_start, l_end = m_end;
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
   
-  int trie = 1 + (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+  int trie = 1 + (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
   do {
     Vec3 means[4];
 
@@ -281,16 +281,16 @@ void ColourNormalFit::kMeans4()
   } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
 }
 
-void ColourNormalFit::Permute3()
+void colorNormalFit::Permute3()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
   const Vec3 scalei = Vec3( 1.0f * 0.5f);
   
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
@@ -341,16 +341,16 @@ void ColourNormalFit::Permute3()
   } while(--trie);
 }
 
-void ColourNormalFit::Permute4()
+void colorNormalFit::Permute4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
   const Vec3 scalei = Vec3( 1.0f * 0.5f);
   
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
@@ -400,22 +400,22 @@ void ColourNormalFit::Permute4()
   } while(--trie);
 }
 
-void ColourNormalFit::Compress3(void* block)
+void colorNormalFit::Compress3(void* block)
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   // use a fitting algorithm
   m_start = m_start_candidate;
   m_end   = m_end_candidate;
-  if ((m_flags & kColourIterativeClusterFits))
+  if ((m_flags & kcolorIterativeClusterFits))
     kMeans3();
-//if ((m_flags & kColourIterativeClusterFits) >= (kColourIterativeClusterFit))
+//if ((m_flags & kcolorIterativeClusterFits) >= (kcolorIterativeClusterFit))
 //  Permute3();
   
   // create a codebook
@@ -446,29 +446,29 @@ void ColourNormalFit::Compress3(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(closest, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
 
     // save the block
-    WriteColourBlock3(m_start, m_end, indices, block);
+    WritecolorBlock3(m_start, m_end, indices, block);
   }
 }
 
-void ColourNormalFit::Compress4(void* block)
+void colorNormalFit::Compress4(void* block)
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
   
   // use a fitting algorithm
   m_start = m_start_candidate;
   m_end   = m_end_candidate;
-  if (m_flags & kColourIterativeClusterFits)
+  if (m_flags & kcolorIterativeClusterFits)
     kMeans4();
-//if ((m_flags & kColourIterativeClusterFits) >= (kColourIterativeClusterFit))
+//if ((m_flags & kcolorIterativeClusterFits) >= (kcolorIterativeClusterFit))
 //  Permute4();
   
   // create a codebook
@@ -498,10 +498,10 @@ void ColourNormalFit::Compress4(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(closest, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
 
     // save the block
-    WriteColourBlock4(m_start, m_end, indices, block);
+    WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
 } // namespace squish

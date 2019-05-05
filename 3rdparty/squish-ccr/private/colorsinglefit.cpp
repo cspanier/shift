@@ -25,9 +25,9 @@
 
    -------------------------------------------------------------------------- */
 
-#include "coloursinglefit.h"
-#include "colourset.h"
-#include "colourblock.h"
+#include "colorsinglefit.h"
+#include "colorset.h"
+#include "colorblock.h"
 
 #include "inlineables.inl"
 
@@ -42,33 +42,33 @@ struct SC_SourceBlock
   std::uint8_t error;
 };
 
-struct ColourSingleLookup
+struct colorSingleLookup
 {
   SC_SourceBlock sources[2];
 };
 
 #define  SCL_ITERATIVE
-#include "coloursinglelookup.inl"
+#include "colorsinglelookup.inl"
 
-ColourSingleFit::ColourSingleFit(ColourSet const* colours, int flags)
-  : ColourFit(colours, flags)
+colorSingleFit::colorSingleFit(colorSet const* colors, int flags)
+  : colorFit(colors, flags)
 {
-  // grab the single colour
-  Vec3 const* values = m_colours->GetPoints();
+  // grab the single color
+  Vec3 const* values = m_colors->GetPoints();
   Col3 integers = Min(FloatToInt<true>(*values * Vec3(255.0f)), Col3(255));
 
-  m_colour[0] = (std::uint8_t)integers.R();
-  m_colour[1] = (std::uint8_t)integers.G();
-  m_colour[2] = (std::uint8_t)integers.B();
+  m_color[0] = (std::uint8_t)integers.R();
+  m_color[1] = (std::uint8_t)integers.G();
+  m_color[2] = (std::uint8_t)integers.B();
 
   // initialize the best error
   m_besterror = Scr3(FLT_MAX);
 }
 
-void ColourSingleFit::Compress3(void* block)
+void colorSingleFit::Compress3(void* block)
 {
   // build the table of lookups
-  ColourSingleLookup const* const lookups[] =
+  colorSingleLookup const* const lookups[] =
   {
     sc_lookup_5_3,
     sc_lookup_6_3,
@@ -84,17 +84,17 @@ void ColourSingleFit::Compress3(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(&m_index, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(&m_index, indices);
 
     // save the block
-    WriteColourBlock3(m_start, m_end, indices, block);
+    WritecolorBlock3(m_start, m_end, indices, block);
   }
 }
 
-void ColourSingleFit::Compress4(void* block)
+void colorSingleFit::Compress4(void* block)
 {
   // build the table of lookups
-  ColourSingleLookup const* const lookups[] =
+  colorSingleLookup const* const lookups[] =
   {
     sc_lookup_5_4,
     sc_lookup_6_4,
@@ -110,14 +110,14 @@ void ColourSingleFit::Compress4(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(&m_index, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(&m_index, indices);
 
     // save the block
-    WriteColourBlock4(m_start, m_end, indices, block);
+    WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
 
-int ColourSingleFit::ComputeEndPoints(ColourSingleLookup const* const* lookups)
+int colorSingleFit::ComputeEndPoints(colorSingleLookup const* const* lookups)
 {
   // check each index combination (endpoint or intermediate)
   int besterror = INT_MAX;
@@ -129,8 +129,8 @@ int ColourSingleFit::ComputeEndPoints(ColourSingleLookup const* const* lookups)
 
     for (int channel = 0; channel < 3; ++channel) {
       // grab the lookup table and index for this channel
-      ColourSingleLookup const* lookup = lookups[channel];
-      int target = m_colour[channel];
+      colorSingleLookup const* lookup = lookups[channel];
+      int target = m_color[channel];
 
       // store a pointer to the source for this channel
       sources[channel] = lookup[target].sources + index;
@@ -174,11 +174,11 @@ int ColourSingleFit::ComputeEndPoints(ColourSingleLookup const* const* lookups)
 } // namespace squish
 
 #if  defined(SBL_FLAT)
-#include "coloursinglefit_ccr_flat.inl"
+#include "colorsinglefit_ccr_flat.inl"
 #elif  defined(SBL_PACKED) && (SBL_PACKED == 1)
-#include "coloursinglefit_ccr_packed.inl"
+#include "colorsinglefit_ccr_packed.inl"
 #elif  defined(SBL_PACKED) && (SBL_PACKED == 2)
-#include "coloursinglefit_ccr_packed_copy.inl"
+#include "colorsinglefit_ccr_packed_copy.inl"
 #elif  defined(SBL_VECTOR)
-#include "coloursinglefit_ccr_vector.inl"
+#include "colorsinglefit_ccr_vector.inl"
 #endif

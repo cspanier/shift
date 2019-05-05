@@ -30,7 +30,7 @@
 #include <cstdint>
 
 /* define the algorithm to determine the best start/end-point
- * for a single colour
+ * for a single color
  * as Ryg already observed, it's possible to always force the highest
  * precision interpolant to be at index "1" for the euclidian error-
  * distance case [the sole exception being the 4u1, but the improvement
@@ -39,10 +39,10 @@
  * if you want to use non-euclidian error-distances you can swap your
  * own LUTs in and go back to the iterative fit functions
  *
- * - ColourSingleSnap, ColourSingleFit
+ * - colorSingleSnap, colorSingleFit
  * - PaletteSingleSnap, PaletteSingleFit
  */
-#define ColourSingleMatch ColourSingleSnap
+#define colorSingleMatch colorSingleSnap
 #define PaletteSingleMatch PaletteSingleSnap
 #define HDRSingleMatch HDRSingleSnap
 
@@ -51,7 +51,7 @@
  */
 #define FEATURE_POWERESTIMATE
 
-/* totally blank out any colours in the alpha==0 case when colours
+/* totally blank out any colors in the alpha==0 case when colors
  * are weighted by alpha (which is the indicator too assure the third
  * channel actually really is to be used for alpha or at least contains
  * the importance-factor)
@@ -60,7 +60,7 @@
  * rounded alpha value that makes the pixel unperceivable in case it
  * won't be assigned 0 by the matcher (very optimistic but probably
  * better than the "damage" done to the fit-algorithms in case the
- * colour gets through)
+ * color gets through)
  *
  * Results (ARGB):
  *
@@ -80,7 +80,7 @@
  */
 #define FEATURE_IGNORE_ALPHA0
 
-/* project the colour-values onto the principle component (which is
+/* project the color-values onto the principle component (which is
  * anchored at the centroid) instead of using the just the principle
  * direction
  * problems with the principle direction: if black exist it will always
@@ -108,13 +108,13 @@
 #define FEATURE_INDEXFIT_INLINED
 #define FEATURE_INDEXFIT_THOROUGH true
 
-/* - sqrt() the weights in the colourset, affects all fits
+/* - sqrt() the weights in the colorset, affects all fits
  */
 #undef FEATURE_WEIGHTS_ROOTED  // SSIM: 0.0012824 off, 0.0013257 on -
                                // RMSE: 1.9235 off, 1.9540 on
 
 /* - use the metric building the covariance-matrix, affects all fits
- * - sqrt() the metric in the colourset, affects all fits
+ * - sqrt() the metric in the colorset, affects all fits
  *   use linear ( rÂ²*rmetric  +  gÂ²*gmetric  +  bÂ²*bmetric  +  aÂ²*ametric)
  *   instead of ((r*rmetric)Â² + (g*gmetric)Â² + (b*bmetric)Â² + (a*ametric)Â²)
  * - sqr() the metric for least-squares, affects only cluster-fit

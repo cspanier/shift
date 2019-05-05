@@ -52,10 +52,10 @@ public:
 
   static int sanitize_flags(int flags)
   {
-    if (flags > (kColourClusterFit * kMaxIterations))
-      return (kColourClusterFit * kMaxIterations);
-    if (flags < (kColourClusterFit * kMinIterations))
-      return (kColourClusterFit * kMinIterations);
+    if (flags > (kcolorClusterFit * kMaxIterations))
+      return (kcolorClusterFit * kMaxIterations);
+    if (flags < (kcolorClusterFit * kMinIterations))
+      return (kcolorClusterFit * kMinIterations);
 
     return flags;
   }

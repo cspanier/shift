@@ -27,7 +27,7 @@
 
 #include <cassert>
 #include <cstring>
-#include "colourset.h"
+#include "colorset.h"
 #include "helpers.h"
 
 namespace squish
@@ -35,7 +35,7 @@ namespace squish
 
 /* *****************************************************************************
  */
-ColourSet::ColourSet(std::uint8_t const* rgba, int mask, int flags)
+colorSet::colorSet(std::uint8_t const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
@@ -43,7 +43,7 @@ ColourSet::ColourSet(std::uint8_t const* rgba, int mask, int flags)
   // check the compression mode for dxt1
   bool const isBtc1 = ((flags & kBtcp) == kBtc1);
   bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   int clra = clearAlpha || !isBtc1 ? 0xFFFF : 0x0000;
@@ -222,12 +222,12 @@ ColourSet::ColourSet(std::uint8_t const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-ColourSet::ColourSet(std::uint16_t const* rgba, int mask, int flags)
+colorSet::colorSet(std::uint16_t const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
 }
 
-ColourSet::ColourSet(float const* rgba, int mask, int flags)
+colorSet::colorSet(float const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
@@ -235,7 +235,7 @@ ColourSet::ColourSet(float const* rgba, int mask, int flags)
   // check the compression mode for dxt1
   bool const isBtc1 = ((flags & kBtcp) == kBtc1);
   bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Scr4 clra = clearAlpha || !isBtc1 ? Scr4(1.0f) : Scr4(0.0f);
@@ -426,7 +426,7 @@ ColourSet::ColourSet(float const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-bool ColourSet::RemoveBlack(const Vec3& metric, Scr3& error)
+bool colorSet::RemoveBlack(const Vec3& metric, Scr3& error)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
   bool reduced = false;
@@ -442,11 +442,11 @@ bool ColourSet::RemoveBlack(const Vec3& metric, Scr3& error)
         continue;
 
       // maps to black
-      Vec3 colour = m_points[m_remap[i]];
-      /*Vec3 result = q.SnapToLattice(colour);*/
+      Vec3 color = m_points[m_remap[i]];
+      /*Vec3 result = q.SnapToLattice(color);*/
       if (true /*CompareAllEqualTo(result, Vec3(0.0f))*/)
       {
-        Scr3 len = LengthSquared(metric * colour);
+        Scr3 len = LengthSquared(metric * color);
         if (len < lowest)
         {
           lowest = len;
@@ -488,7 +488,7 @@ bool ColourSet::RemoveBlack(const Vec3& metric, Scr3& error)
   return reduced;
 }
 
-void ColourSet::RemapIndices(std::uint8_t const* source,
+void colorSet::RemapIndices(std::uint8_t const* source,
                              std::uint8_t* target) const
 {
   for (int i = 0; i < 16; ++i)

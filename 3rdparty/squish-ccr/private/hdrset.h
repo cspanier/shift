@@ -105,7 +105,7 @@ public:
                                                                 : 0);
   }
 
-  // map from the set to indices and back to colours
+  // map from the set to indices and back to colors
   void RemapIndices(std::uint8_t const* source, std::uint8_t* target,
                     int set) const;
   void UnmapIndices(std::uint8_t const* source, std::uint16_t* rgb, int set,

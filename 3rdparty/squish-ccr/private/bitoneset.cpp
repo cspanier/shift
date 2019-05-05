@@ -39,8 +39,8 @@ BitoneSet::BitoneSet(std::uint8_t const* rgba, int mask, int flags)
 {
   const float *rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
   
-  bool const preserveThird = ((flags & kColourMetricUnit   ) != 0);
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const preserveThird = ((flags & kcolorMetricUnit   ) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Col4 kill = preserveThird ? Col4(0x00FFFFFF) : Col4(0x0000FFFF);
@@ -205,8 +205,8 @@ BitoneSet::BitoneSet(float const* rgba, int mask, int flags)
 {
 //const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
   
-  bool const preserveThird = ((flags & kColourMetricUnit   ) != 0);
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const preserveThird = ((flags & kcolorMetricUnit   ) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Vec4 kill = preserveThird ? Vec4(true, true, true, false) : Vec4(true, true, false, false);

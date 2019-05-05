@@ -40,7 +40,7 @@ class PaletteSet;
 class PaletteIndexFit : public virtual PaletteFit
 {
 public:
-  PaletteIndexFit(PaletteSet const* colours, int flags, int swap = -1,
+  PaletteIndexFit(PaletteSet const* colors, int flags, int swap = -1,
                   int shared = 0);
 
 #ifdef FEATURE_INDEXFIT_INLINED

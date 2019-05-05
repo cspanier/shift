@@ -25,7 +25,7 @@
 
    -------------------------------------------------------------------------- */
 
-#include "colourblock.h"
+#include "colorblock.h"
 
 #include "inlineables.inl"
 
@@ -33,7 +33,7 @@ namespace squish {
 
 /* *****************************************************************************
  */
-static void WriteColourBlock(int a, int b, std::uint8_t const* indices, void* block)
+static void WritecolorBlock(int a, int b, std::uint8_t const* indices, void* block)
 {
   // get the block as bytes
   std::uint8_t* bytes = (std::uint8_t*)block;
@@ -55,7 +55,7 @@ static void WriteColourBlock(int a, int b, std::uint8_t const* indices, void* bl
   }
 }
 
-static void WriteColourBlock(int a, int b, Col4 const& indices, void* block)
+static void WritecolorBlock(int a, int b, Col4 const& indices, void* block)
 {
   // get the block as ints
   unsigned int* ints = (unsigned int*)block;
@@ -75,7 +75,7 @@ static void WriteColourBlock(int a, int b, Col4 const& indices, void* block)
   StoreUnaligned(reindexed & Col4(0x000000FF), (std::uint8_t*)&ints[1]);
 }
 
-void WriteColourBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
+void WritecolorBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
@@ -92,10 +92,10 @@ void WriteColourBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* i
   }
 
   // write the block
-  WriteColourBlock(a, b, remapped, block);
+  WritecolorBlock(a, b, remapped, block);
 }
 
-void WriteColourBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
+void WritecolorBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
@@ -116,10 +116,10 @@ void WriteColourBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* i
   }
   
   // write the block
-  WriteColourBlock(a, b, remapped, block);
+  WritecolorBlock(a, b, remapped, block);
 }
 
-void ReadColourBlock(
+void ReadcolorBlock(
   std::uint8_t (&codes  )[16],
   std::uint8_t (&indices)[16],
   void const* block,
@@ -147,14 +147,14 @@ void ReadColourBlock(
   }
 }
 
-void DecompressColoursBtc1u(std::uint8_t* rgba, void const* block, bool isBtc1)
+void DecompresscolorsBtc1u(std::uint8_t* rgba, void const* block, bool isBtc1)
 {
   std::uint8_t codes[16];
   std::uint8_t indices[16];
 
-  ReadColourBlock(codes, indices, block, isBtc1);
+  ReadcolorBlock(codes, indices, block, isBtc1);
 
-  // store out the colours
+  // store out the colors
   for (int i = 0; i < 16; ++i) {
     std::uint8_t offset = 4 * indices[i];
 
@@ -165,14 +165,14 @@ void DecompressColoursBtc1u(std::uint8_t* rgba, void const* block, bool isBtc1)
   }
 }
 
-void DecompressColoursBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1)
+void DecompresscolorsBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1)
 {
   std::uint8_t codes[16];
   std::uint8_t indices[16];
 
-  ReadColourBlock(codes, indices, block, isBtc1);
+  ReadcolorBlock(codes, indices, block, isBtc1);
 
-  // store out the colours
+  // store out the colors
   for (int i = 0; i < 16; ++i) {
     std::uint8_t offset = 4 * indices[i];
 
@@ -183,14 +183,14 @@ void DecompressColoursBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1)
   }
 }
 
-void DecompressColoursBtc1u(float* rgba, void const* block, bool isBtc1)
+void DecompresscolorsBtc1u(float* rgba, void const* block, bool isBtc1)
 {
   std::uint8_t codes[16];
   std::uint8_t indices[16];
 
-  ReadColourBlock(codes, indices, block, isBtc1);
+  ReadcolorBlock(codes, indices, block, isBtc1);
 
-  // store out the colours
+  // store out the colors
   for (int i = 0; i < 16; ++i) {
     std::uint8_t offset = 4 * indices[i];
 

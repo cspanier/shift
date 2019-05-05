@@ -62,27 +62,27 @@ static inline int FloatToInt(float a, int limit)
   return i;
 }
 
-static inline int FloatTo565(const Vec3& colour)
+static inline int FloatTo565(const Vec3& color)
 {
   // get the components in the correct range
   cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
-  Col3 rgb = q.LatticeToIntClamped(colour);
+  Col3 rgb = q.LatticeToIntClamped(color);
 
   int r = rgb.R();
   int g = rgb.G();
   int b = rgb.B();
 
   /* not necessarily true
-  assert(r == FloatToInt<true,false>(31.0f * colour.X(), 31));
-  assert(g == FloatToInt<true,false>(63.0f * colour.Y(), 63));
-  assert(b == FloatToInt<true,false>(31.0f * colour.Z(), 31));
+  assert(r == FloatToInt<true,false>(31.0f * color.X(), 31));
+  assert(g == FloatToInt<true,false>(63.0f * color.Y(), 63));
+  assert(b == FloatToInt<true,false>(31.0f * color.Z(), 31));
    */
 
   // pack into a single value
   return (r << 11) + (g << 5) + b;
 }
 
-static inline int Unpack565(std::uint8_t const* packed, std::uint8_t* colour)
+static inline int Unpack565(std::uint8_t const* packed, std::uint8_t* color)
 {
   // build the packed value
   int value = ((int)packed[0] << 0) + ((int)packed[1] << 8);
@@ -93,33 +93,33 @@ static inline int Unpack565(std::uint8_t const* packed, std::uint8_t* colour)
   std::uint8_t blue = (std::uint8_t)(value & 0x1F);
 
   // scale up to 8 bits
-  colour[0] = (red << 3) + (red >> 2);
-  colour[1] = (green << 2) + (green >> 4);
-  colour[2] = (blue << 3) + (blue >> 2);
-  colour[3] = 255;
+  color[0] = (red << 3) + (red >> 2);
+  color[1] = (green << 2) + (green >> 4);
+  color[2] = (blue << 3) + (blue >> 2);
+  color[3] = 255;
 
   // return the value
   return value;
 }
 
-static inline int FloatTo88(const Vec3& colour)
+static inline int FloatTo88(const Vec3& color)
 {
   // get the components in the correct range
-  Col3 rgb = FloatToInt<true>(colour * 255.0f);
+  Col3 rgb = FloatToInt<true>(color * 255.0f);
 
   int r = rgb.R();
   int g = rgb.G();
 
   /* not necessarily true
-  assert(r == FloatToInt(255.0f * colour.X(), 255));
-  assert(g == FloatToInt(255.0f * colour.Y(), 255));
+  assert(r == FloatToInt(255.0f * color.X(), 255));
+  assert(g == FloatToInt(255.0f * color.Y(), 255));
    */
 
   // pack into a single value
   return (r << 8) + g;
 }
 
-static inline int Unpack88(std::uint8_t const* packed, std::uint8_t* colour)
+static inline int Unpack88(std::uint8_t const* packed, std::uint8_t* color)
 {
   // build the packed value
   int value = ((int)packed[0] << 0) + ((int)packed[1] << 8);
@@ -129,10 +129,10 @@ static inline int Unpack88(std::uint8_t const* packed, std::uint8_t* colour)
   std::uint8_t green = (std::uint8_t)(value & 0xFF);
 
   // scale up to 8 bits
-  colour[0] = (red);
-  colour[1] = (green);
-  colour[2] = 0;
-  colour[3] = 255;
+  color[0] = (red);
+  color[1] = (green);
+  color[2] = 0;
+  color[3] = 255;
 
   // return the value
   return value;
@@ -203,7 +203,7 @@ static const vQuantizer q5550s1(5, 5, 5, 0, ~0);
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[1], Col4 (&field)[1][FIELDN],
+static inline void FloatTo(Vec4 (&color)[1], Col4 (&field)[1][FIELDN],
                            int bitset)
 {
   /* not both yet */
@@ -216,7 +216,7 @@ static inline void FloatTo(Vec4 (&colour)[1], Col4 (&field)[1][FIELDN],
                                       ab + eb + sb, eb + sb ? 0 : ~0);
 
   // pack into a single value
-  field[0][COLORA] = q.QuantizeToInt(colour[0], bitset, 1 << 0);
+  field[0][COLORA] = q.QuantizeToInt(color[0], bitset, 1 << 0);
   field[0][COLORA] = ShiftRight<eb + sb>(field[0][COLORA]);
 
   if (eb)
@@ -227,7 +227,7 @@ static inline void FloatTo(Vec4 (&colour)[1], Col4 (&field)[1][FIELDN],
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[1], Col4 (&field)[1][FIELDN])
+static inline void FloatTo(Vec4 (&color)[1], Col4 (&field)[1][FIELDN])
 {
   /* not both yet */
   assert(!eb || !sb);
@@ -254,7 +254,7 @@ static inline void FloatTo(Vec4 (&colour)[1], Col4 (&field)[1][FIELDN])
   Col4 _s[1];
 
   // get the components in the complete range
-  rcomplete[0] = q.QuantizeToInt(colour[0]);
+  rcomplete[0] = q.QuantizeToInt(color[0]);
 
   // get the components in the explicit range
   rexplicit[0] = ShiftRight<eb + sb>(rcomplete[0]);
@@ -330,7 +330,7 @@ static inline void FloatTo(Col4 (&fielda)[1][FIELDN], Col4 (&fieldb)[1][FIELDN])
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[2], Col4 (&field)[2][FIELDN],
+static inline void FloatTo(Vec4 (&color)[2], Col4 (&field)[2][FIELDN],
                            int bitset)
 {
   /* not both yet */
@@ -343,8 +343,8 @@ static inline void FloatTo(Vec4 (&colour)[2], Col4 (&field)[2][FIELDN],
                                       ab + eb + sb, eb + sb ? 0 : ~0);
 
   // pack into a single value
-  field[0][COLORA] = q.QuantizeToInt(colour[0], bitset, 1 << 0);
-  field[1][COLORA] = q.QuantizeToInt(colour[1], bitset, 1 << 1);
+  field[0][COLORA] = q.QuantizeToInt(color[0], bitset, 1 << 0);
+  field[1][COLORA] = q.QuantizeToInt(color[1], bitset, 1 << 1);
   field[0][COLORA] = ShiftRight<eb + sb>(field[0][COLORA]);
   field[1][COLORA] = ShiftRight<eb + sb>(field[1][COLORA]);
 
@@ -360,7 +360,7 @@ static inline void FloatTo(Vec4 (&colour)[2], Col4 (&field)[2][FIELDN],
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[2], Col4 (&field)[2][FIELDN])
+static inline void FloatTo(Vec4 (&color)[2], Col4 (&field)[2][FIELDN])
 {
   /* not both yet */
   assert(!eb || !sb);
@@ -387,8 +387,8 @@ static inline void FloatTo(Vec4 (&colour)[2], Col4 (&field)[2][FIELDN])
   Col4 _s[2];
 
   // get the components in the complete range
-  rcomplete[0] = q.QuantizeToInt(colour[0]);
-  rcomplete[1] = q.QuantizeToInt(colour[1]);
+  rcomplete[0] = q.QuantizeToInt(color[0]);
+  rcomplete[1] = q.QuantizeToInt(color[1]);
 
   // get the components in the explicit range
   rexplicit[0] = ShiftRight<eb + sb>(rcomplete[0]);
@@ -483,7 +483,7 @@ static inline void FloatTo(Col4 (&fielda)[2][FIELDN], Col4 (&fieldb)[2][FIELDN])
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[3], Col4 (&field)[3][FIELDN],
+static inline void FloatTo(Vec4 (&color)[3], Col4 (&field)[3][FIELDN],
                            int bitset)
 {
   /* not both yet */
@@ -496,9 +496,9 @@ static inline void FloatTo(Vec4 (&colour)[3], Col4 (&field)[3][FIELDN],
                                       ab + eb + sb, eb + sb ? 0 : ~0);
 
   // pack into a single value
-  field[0][COLORA] = q.QuantizeToInt(colour[0], bitset, 1 << 0);
-  field[1][COLORA] = q.QuantizeToInt(colour[1], bitset, 1 << 1);
-  field[2][COLORA] = q.QuantizeToInt(colour[2], bitset, 1 << 2);
+  field[0][COLORA] = q.QuantizeToInt(color[0], bitset, 1 << 0);
+  field[1][COLORA] = q.QuantizeToInt(color[1], bitset, 1 << 1);
+  field[2][COLORA] = q.QuantizeToInt(color[2], bitset, 1 << 2);
   field[0][COLORA] = ShiftRight<eb + sb>(field[0][COLORA]);
   field[1][COLORA] = ShiftRight<eb + sb>(field[1][COLORA]);
   field[2][COLORA] = ShiftRight<eb + sb>(field[2][COLORA]);
@@ -519,7 +519,7 @@ static inline void FloatTo(Vec4 (&colour)[3], Col4 (&field)[3][FIELDN],
 
 template <const int rb, const int gb, const int bb, const int ab, const int eb,
           const int sb>
-static inline void FloatTo(Vec4 (&colour)[3], Col4 (&field)[3][FIELDN])
+static inline void FloatTo(Vec4 (&color)[3], Col4 (&field)[3][FIELDN])
 {
   /* not both yet */
   assert(!eb || !sb);
@@ -546,9 +546,9 @@ static inline void FloatTo(Vec4 (&colour)[3], Col4 (&field)[3][FIELDN])
   Col4 _s[3];
 
   // get the components in the complete range
-  rcomplete[0] = q.QuantizeToInt(colour[0]);
-  rcomplete[1] = q.QuantizeToInt(colour[1]);
-  rcomplete[2] = q.QuantizeToInt(colour[2]);
+  rcomplete[0] = q.QuantizeToInt(color[0]);
+  rcomplete[1] = q.QuantizeToInt(color[1]);
+  rcomplete[2] = q.QuantizeToInt(color[2]);
 
   // get the components in the explicit range
   rexplicit[0] = ShiftRight<eb + sb>(rcomplete[0]);

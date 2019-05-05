@@ -41,7 +41,7 @@ class PaletteSet;
 class PaletteChannelFit : public virtual PaletteFit
 {
 public:
-  PaletteChannelFit(PaletteSet const* colours, int flags, int swap = -1, int shared = 0);
+  PaletteChannelFit(PaletteSet const* colors, int flags, int swap = -1, int shared = 0);
 
 private:
   int  m_channel[4];

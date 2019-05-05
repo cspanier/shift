@@ -273,7 +273,7 @@ void PaletteNormalFit::Compress(void* block, vQuantizer &q, int mode)
       }
     }
 
-    // map normal-error to colour-error range
+    // map normal-error to color-error range
     // sqrt(1*1 + 1*1 + 1*1)Â² vs. 2.0fÂ²
     error += berror + nerror * (3.0f / 4.0f);
 

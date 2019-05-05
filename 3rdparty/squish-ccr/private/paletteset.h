@@ -97,7 +97,7 @@ public:
       (m_numsets > 1 ? m_count[1] <= 1 : 1) /*(m_seperatealpha ? m_count[m_numsets + 1] <= 1 : 1)*/ &
       (m_numsets > 2 ? m_count[2] <= 1 : 1) /*(m_seperatealpha ? m_count[m_numsets + 2] <= 1 : 1)*/; }
 
-  // map from the set to indices and back to colours
+  // map from the set to indices and back to colors
   void RemapIndices(std::uint8_t const* source, std::uint8_t* target, int set) const;
   void UnmapIndices(std::uint8_t const* source, std::uint8_t* rgba, int set, unsigned int *codes, int cmask) const;
 

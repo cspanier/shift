@@ -126,8 +126,8 @@ HDRFit::HDRFit(HDRSet const* palette, int flags)
 {
   // initialize the metric
   const bool perceptual =
-    ((m_flags & kColourMetrics) == kColourMetricPerceptual);
-  const bool unit = ((m_flags & kColourMetrics) == kColourMetricUnit);
+    ((m_flags & kcolorMetrics) == kcolorMetricPerceptual);
+  const bool unit = ((m_flags & kcolorMetrics) == kcolorMetricUnit);
 
   // sum is 1.0f
   if (unit)

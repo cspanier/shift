@@ -38,7 +38,7 @@ class HDRSet;
 class HDRIndexFit : public virtual HDRFit
 {
 public:
-  HDRIndexFit(HDRSet const* colours, int flags);
+  HDRIndexFit(HDRSet const* colors, int flags);
 
 #ifdef FEATURE_INDEXFIT_INLINED
 private:

@@ -276,8 +276,8 @@ void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
   bool const seperateAlpha =
     ((flags & kExcludeAlphaFromPalette) == 0) & (m_seperatealpha);
   bool const weightByAlpha =
-    ((flags & kWeightColourByAlpha) != 0) & (!m_mergedalpha);
-  bool const killByAlpha = ((flags & kWeightColourByAlpha) != 0);
+    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
+  bool const killByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   std::uint8_t const mska = !seperateAlpha ? 0xFF : 0x00;
@@ -335,7 +335,7 @@ void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
     std::uint8_t temp[4];
 
 #ifdef FEATURE_IGNORE_ALPHA0
-    // kill colour
+    // kill color
     amask += (!(rgba[4 * i + 3] | klla)) << i;
 #endif
 
@@ -464,8 +464,8 @@ void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
       // non-separate alpha doesn't have rotations
       if (!m_rotid)
       {
-        // a) there are no colours in the set, just add one
-        // a) there are no colour-alphas in the set, just add one
+        // a) there are no colors in the set, just add one
+        // a) there are no color-alphas in the set, just add one
         // b) there don't exist a alpha == 0 in the set, just add one
         if ((m_count[s] == 0) | (!m_seperatealpha & m_transparent))
         {
@@ -612,7 +612,7 @@ void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
       {
         // separate alpha does have rotations
         {
-          // a) there are no colours in the set, just add one
+          // a) there are no colors in the set, just add one
           if ((m_count[a] == 0) | (!m_rotid & m_transparent))
           {
             Vec4 sum = Vec4(0.0f);
@@ -692,8 +692,8 @@ void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
   bool const seperateAlpha =
     ((flags & kExcludeAlphaFromPalette) == 0) & (m_seperatealpha);
   bool const weightByAlpha =
-    ((flags & kWeightColourByAlpha) != 0) & (!m_mergedalpha);
-  bool const killByAlpha = ((flags & kWeightColourByAlpha) != 0);
+    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
+  bool const killByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Vec4 const mska = !seperateAlpha ? Vec4(1.0f) : Vec4(1.0f, 1.0f, 1.0f, 0.0f);
@@ -741,7 +741,7 @@ void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
     LoadUnaligned(temp, &rgba[4 * i]);
 
 #ifdef FEATURE_IGNORE_ALPHA0
-    // kill colour
+    // kill color
     amask += CompareFirstLessEqualTo(Max(temp.SplatW(), klla), Vec4(0.0f)) << i;
 #endif
 
@@ -880,8 +880,8 @@ void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
       // non-separate alpha doesn't have rotations
       if (!m_rotid)
       {
-        // a) there are no colours in the set, just add one
-        // a) there are no colour-alphas in the set, just add one
+        // a) there are no colors in the set, just add one
+        // a) there are no color-alphas in the set, just add one
         // b) there don't exist a alpha == 0 in the set, just add one
         if ((m_count[s] == 0) | (!m_seperatealpha & m_transparent))
         {
@@ -1028,7 +1028,7 @@ void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
       {
         // separate alpha does have rotations
         {
-          // a) there are no colours in the set, just add one
+          // a) there are no colors in the set, just add one
           if ((m_count[a] == 0) | (!m_rotid & m_transparent))
           {
             Vec4 sum = Vec4(0.0f);
@@ -1098,7 +1098,7 @@ void PaletteSet::BuildSet(PaletteSet const& palette, int mask, int flags)
   assert(m_seperatealpha == true);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);
@@ -1211,7 +1211,7 @@ void PaletteSet::BuildSet(PaletteSet const& palette, int mask, int flags)
         }
       }
 
-      // TODO: if alpha==0 don't add this colour
+      // TODO: if alpha==0 don't add this color
       {
         ___a = rgba.SplatW();
 
@@ -1279,7 +1279,7 @@ void PaletteSet::PermuteSet(PaletteSet const& palette, int mask, int flags)
 
   // check the compression mode for btc
   bool const weightByAlpha =
-    ((flags & kWeightColourByAlpha) != 0) & (!m_mergedalpha);
+    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);

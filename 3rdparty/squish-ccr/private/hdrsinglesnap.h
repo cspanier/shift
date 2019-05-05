@@ -43,7 +43,7 @@ class HDRSet;
 class HDRSingleSnap : public virtual HDRFit
 {
 public:
-  HDRSingleSnap(HDRSet const* colours, int flags);
+  HDRSingleSnap(HDRSet const* colors, int flags);
 
 private:
   Scr4 ComputeEndPoints(int set, Vec4 const& metric,

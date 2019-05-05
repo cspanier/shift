@@ -1,6 +1,7 @@
 /* -----------------------------------------------------------------------------
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
+  Copyright (c) 2007 Ignacio Castano                   icastano@nvidia.com
   Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
   Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
@@ -25,35 +26,67 @@
 
    -------------------------------------------------------------------------- */
 
-#ifndef SQUISH_COLOURSINGLEFIT_H
-#define SQUISH_COLOURSINGLEFIT_H
+#ifndef SQUISH_colorCLUSTERFIT_H
+#define SQUISH_colorCLUSTERFIT_H
 
 #include <squish.h>
-#include <limits.h>
-#include "colourfit.h"
+#include "maths_all.h"
+#include "simd.h"
+#include "colorfit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
-class ColourSet;
-struct ColourSingleLookup;
-class ColourSingleFit : public ColourFit
+class colorClusterFit : public colorFit
 {
 public:
-  ColourSingleFit(ColourSet const* colours, int flags);
+  colorClusterFit(colorSet const* colors, int flags);
+
+public:
+  enum
+  {
+    kMinIterations = 1,
+    kMaxIterations = 15
+  };
+
+  static int sanitize_flags(int flags)
+  {
+    if (flags > (kcolorClusterFit * kMaxIterations))
+      return (kcolorClusterFit * kMaxIterations);
+    if (flags < (kcolorClusterFit * kMinIterations))
+      return (kcolorClusterFit * kMinIterations);
+
+    return flags;
+  }
 
 private:
-  virtual void Compress3b(void* block) {}
+  void SumError3(std::uint8_t (&closest)[16], Vec4& beststart, Vec4& bestend,
+                 Scr4& besterror);
+  void SumError4(std::uint8_t (&closest)[16], Vec4& beststart, Vec4& bestend,
+                 Scr4& besterror);
+
+  void ComputeEndPoints();
+  bool ConstructOrdering(Vec3 const& axis, int iteration);
+
+  void ClusterFit3Constant(void* block);
+  void ClusterFit4Constant(void* block);
+
+  void ClusterFit3(void* block);
+  void ClusterFit4(void* block);
+
+  virtual void Compress3b(void* block);
   virtual void Compress3(void* block);
   virtual void Compress4(void* block);
 
-  int ComputeEndPoints(ColourSingleLookup const* const* lookups);
+  int m_iterationCount;
+  Vec3 m_principle;
+  Vec4 m_xsum_wsum;
+  Vec4 m_points_weights[16];
+  SQUISH_ALIGNED std::uint8_t m_order[16 * kMaxIterations];
 
-  std::uint8_t   m_colour[3];
-  Vec3 m_start;
-  Vec3 m_end;
-  std::uint8_t   m_index;
+  bool m_optimizable;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_COLOURSINGLEFIT_H
+#endif  // ndef SQUISH_colorCLUSTERFIT_H

@@ -25,9 +25,9 @@
 
    -------------------------------------------------------------------------- */
 
-#include "coloursinglesnap.h"
-#include "colourset.h"
-#include "colourblock.h"
+#include "colorsinglesnap.h"
+#include "colorset.h"
+#include "colorblock.h"
 
 #include "inlineables.inl"
 
@@ -35,20 +35,20 @@ namespace squish {
 
 /* *****************************************************************************
  */
-struct ColourSingleLookup
+struct colorSingleLookup
 {
   std::uint8_t start;
   std::uint8_t end;
 };
 
 #undef  SCL_ITERATIVE
-#include "coloursinglelookup.inl"
+#include "colorsinglelookup.inl"
 
-ColourSingleSnap::ColourSingleSnap(ColourSet const* colours, int flags)
-  : ColourFit(colours, flags)
+colorSingleSnap::colorSingleSnap(colorSet const* colors, int flags)
+  : colorFit(colors, flags)
 {
-  // grab the single colour
-  Vec3 const* values = m_colours->GetPoints();
+  // grab the single color
+  Vec3 const* values = m_colors->GetPoints();
 
   // in the 3/4 codebook case it can be observed
   // that the error of the end-point is always
@@ -65,19 +65,19 @@ ColourSingleSnap::ColourSingleSnap(ColourSet const* colours, int flags)
 
   // values are directly out of the codebook and
   // natural numbers / 255, no need to round
-  PackBytes(FloatToInt<true>((*values) * Vec3(255.0f)), (unsigned int &)(m_colour));
+  PackBytes(FloatToInt<true>((*values) * Vec3(255.0f)), (unsigned int &)(m_color));
 
   /*
-  assert(m_colour[0] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->X(), 255));
-  assert(m_colour[1] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Y(), 255));
-  assert(m_colour[2] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Z(), 255));
+  assert(m_color[0] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->X(), 255));
+  assert(m_color[1] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Y(), 255));
+  assert(m_color[2] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Z(), 255));
    */
 }
 
-void ColourSingleSnap::Compress3b(void* block)
+void colorSingleSnap::Compress3b(void* block)
 {
-  // grab the single colour
-  Vec3 const* values = m_colours->GetPoints();
+  // grab the single color
+  Vec3 const* values = m_colors->GetPoints();
   
   // if it's black, make it index 3
   if (values[0] == Vec3(0.0f)) {
@@ -85,21 +85,21 @@ void ColourSingleSnap::Compress3b(void* block)
   }
 }
 
-void ColourSingleSnap::Compress3(void* block)
+void colorSingleSnap::Compress3(void* block)
 {
-  // grab the single colour
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  // grab the single color
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // just assign the end-points of index 2 (interpolant 1)
   Col3 s = Col3(
-    sc_lookup_5_3[m_colour[0]].start,
-    sc_lookup_6_3[m_colour[1]].start,
-    sc_lookup_5_3[m_colour[2]].start);
+    sc_lookup_5_3[m_color[0]].start,
+    sc_lookup_6_3[m_color[1]].start,
+    sc_lookup_5_3[m_color[2]].start);
   Col3 e = Col3(
-    sc_lookup_5_3[m_colour[0]].end,
-    sc_lookup_6_3[m_colour[1]].end,
-    sc_lookup_5_3[m_colour[2]].end);
+    sc_lookup_5_3[m_color[0]].end,
+    sc_lookup_6_3[m_color[1]].end,
+    sc_lookup_5_3[m_color[2]].end);
 
   m_start = Vec3(s) * (1.0f / 255.0f);
   m_end   = Vec3(e) * (1.0f / 255.0f);
@@ -115,28 +115,28 @@ void ColourSingleSnap::Compress3(void* block)
 
     // build the block
     std::uint8_t idx = 2, indices[16];
-    m_colours->RemapIndices(&idx, indices);
+    m_colors->RemapIndices(&idx, indices);
 
     // save the block
-    WriteColourBlock3(m_start, m_end, indices, block);
+    WritecolorBlock3(m_start, m_end, indices, block);
   }
 }
 
-void ColourSingleSnap::Compress4(void* block)
+void colorSingleSnap::Compress4(void* block)
 {
-  // grab the single colour
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  // grab the single color
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // just assign the end-points of index 2 (interpolant 1)
   Col3 s = Col3(
-    sc_lookup_5_4[m_colour[0]].start,
-    sc_lookup_6_4[m_colour[1]].start,
-    sc_lookup_5_4[m_colour[2]].start);
+    sc_lookup_5_4[m_color[0]].start,
+    sc_lookup_6_4[m_color[1]].start,
+    sc_lookup_5_4[m_color[2]].start);
   Col3 e = Col3(
-    sc_lookup_5_4[m_colour[0]].end,
-    sc_lookup_6_4[m_colour[1]].end,
-    sc_lookup_5_4[m_colour[2]].end);
+    sc_lookup_5_4[m_color[0]].end,
+    sc_lookup_6_4[m_color[1]].end,
+    sc_lookup_5_4[m_color[2]].end);
 
   m_start = Vec3(s) * (1.0f / 255.0f);
   m_end   = Vec3(e) * (1.0f / 255.0f);
@@ -152,20 +152,20 @@ void ColourSingleSnap::Compress4(void* block)
 
     // build the block
     std::uint8_t idx = 2, indices[16];
-    m_colours->RemapIndices(&idx, indices);
+    m_colors->RemapIndices(&idx, indices);
 
     // save the block
-    WriteColourBlock4(m_start, m_end, indices, block);
+    WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
 } // namespace squish
 
 #if  defined(SBL_FLAT)
-#include "coloursinglesnap_ccr_flat.inl"
+#include "colorsinglesnap_ccr_flat.inl"
 #elif  defined(SBL_PACKED) && (SBL_PACKED == 1)
-#include "coloursinglesnap_ccr_packed.inl"
+#include "colorsinglesnap_ccr_packed.inl"
 #elif  defined(SBL_PACKED) && (SBL_PACKED == 2)
-#include "coloursinglesnap_ccr_packed_copy.inl"
+#include "colorsinglesnap_ccr_packed_copy.inl"
 #elif  defined(SBL_VECTOR)
-#include "coloursinglesnap_ccr_vector.inl"
+#include "colorsinglesnap_ccr_vector.inl"
 #endif

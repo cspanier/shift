@@ -25,12 +25,12 @@
 
    -------------------------------------------------------------------------- */
 
-#include "colourrangefit.h"
-#include "colourset.h"
-#include "colourblock.h"
+#include "colorrangefit.h"
+#include "colorset.h"
+#include "colorblock.h"
 
-#include "coloursinglefit.h"
-#include "coloursinglesnap.h"
+#include "colorsinglefit.h"
+#include "colorsinglesnap.h"
 
 #include "inlineables.inl"
 
@@ -38,28 +38,28 @@ namespace squish {
 
 /* *****************************************************************************
  */
-ColourRangeFit::ColourRangeFit(ColourSet const* colours, int flags)
-  : ColourFit(colours, flags)
+colorRangeFit::colorRangeFit(colorSet const* colors, int flags)
+  : colorFit(colors, flags)
 {
   // initialize endpoints
   ComputeEndPoints();
 }
 
-void ColourRangeFit::ComputeEndPoints()
+void colorRangeFit::ComputeEndPoints()
 {
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
 
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* weights = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* weights = m_colors->GetWeights();
 
   Sym3x3 covariance;
   Vec3 centroid;
   Vec3 principle;
 
   // get the covariance matrix
-  if (m_colours->IsUnweighted())
+  if (m_colors->IsUnweighted())
     ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric);
   else
     ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric, weights);
@@ -102,18 +102,18 @@ void ColourRangeFit::ComputeEndPoints()
   m_end   = q.SnapToLattice(end  );
 }
 
-void ColourRangeFit::Compress3b(void* block)
+void colorRangeFit::Compress3b(void* block)
 {
-  ColourSet copy = *m_colours;
-  m_colours = &copy;
+  colorSet copy = *m_colors;
+  m_colors = &copy;
 
   Scr3 m_destroyed = Scr3(0.0f);
   while (copy.RemoveBlack(m_metric, m_destroyed) && !(m_besterror < m_destroyed)) {
     m_besterror -= m_destroyed;
 
     if (copy.GetCount() == 1) {
-      // always do a single colour fit
-      ColourSingleMatch fit(m_colours, m_flags);
+      // always do a single color fit
+      colorSingleMatch fit(m_colors, m_flags);
 
       fit.SetError(m_besterror);
       fit.Compress(block);
@@ -129,12 +129,12 @@ void ColourRangeFit::Compress3b(void* block)
   }
 }
 
-void ColourRangeFit::Compress3(void* block)
+void colorRangeFit::Compress3(void* block)
 {
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
@@ -164,19 +164,19 @@ void ColourRangeFit::Compress3(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(closest, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
 
     // save the block
-    WriteColourBlock3(m_start, m_end, indices, block);
+    WritecolorBlock3(m_start, m_end, indices, block);
   }
 }
 
-void ColourRangeFit::Compress4(void* block)
+void colorRangeFit::Compress4(void* block)
 {
   // cache some values
-  int const count = m_colours->GetCount();
-  Vec3 const* values = m_colours->GetPoints();
-  Scr3 const* freq = m_colours->GetWeights();
+  int const count = m_colors->GetCount();
+  Vec3 const* values = m_colors->GetPoints();
+  Scr3 const* freq = m_colors->GetWeights();
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
@@ -206,10 +206,10 @@ void ColourRangeFit::Compress4(void* block)
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colours->RemapIndices(closest, indices);
+    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
 
     // save the block
-    WriteColourBlock4(m_start, m_end, indices, block);
+    WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
 } // namespace squish

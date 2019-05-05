@@ -24,38 +24,38 @@
   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
    -------------------------------------------------------------------------- */
-#ifndef SQUISH_COLOURNORMALFIT_H
-#define SQUISH_COLOURNORMALFIT_H
+
+#ifndef SQUISH_colorSINGLESNAP_H
+#define SQUISH_colorSINGLESNAP_H
 
 #include <squish.h>
-#include "colourfit.h"
-#include "maths_all.h"
+#include <limits.h>
+#include "colorfit.h"
 
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class ColourSet;
-class ColourNormalFit : public ColourFit
+class colorSet;
+struct colorSingleLookup;
+class colorSingleSnap : public colorFit
 {
 public:
-  ColourNormalFit(ColourSet const* colours, int flags);
+  colorSingleSnap(colorSet const* colors, int flags);
+  
+  // error management
+  void SetError(Scr4 &error) { m_besterror = error; }
+  void SetError(Scr3 &error) { m_besterror = error; }
+  Scr3 GetError() { return m_besterror; }
 
 private:
-  void kMeans3();
-  void kMeans4();
-  
-  void Permute3();
-  void Permute4();
-  
-  virtual void Compress3b(void* block) {}
+  virtual void Compress3b(void* block);
   virtual void Compress3(void* block);
   virtual void Compress4(void* block);
-  
-  Vec3 m_start_candidate;
-  Vec3 m_end_candidate;
+
+  std::uint8_t   m_color[4];
   Vec3 m_start;
   Vec3 m_end;
 };
-} // squish
+} // namespace squish
 
-#endif // ndef SQUISH_NORMALFIT_H
+#endif // ndef SQUISH_colorSINGLESNAP_H

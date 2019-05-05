@@ -24,42 +24,38 @@
   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
    -------------------------------------------------------------------------- */
-
-#ifndef SQUISH_COLOURSET_H
-#define SQUISH_COLOURSET_H
+#ifndef SQUISH_colorNORMALFIT_H
+#define SQUISH_colorNORMALFIT_H
 
 #include <squish.h>
+#include "colorfit.h"
 #include "maths_all.h"
 
 namespace squish {
 
 // -----------------------------------------------------------------------------
-/*! @brief Represents a set of block colours
- */
-class ColourSet
+class colorSet;
+class colorNormalFit : public colorFit
 {
 public:
-  ColourSet(std::uint8_t  const* rgba, int mask, int flags);
-  ColourSet(std::uint16_t const* rgba, int mask, int flags);
-  ColourSet(float const* rgba, int mask, int flags);
-
-  bool IsTransparent() const { return m_transparent; }
-  bool IsUnweighted() const { return m_unweighted; }
-
-  int GetCount() const { return m_count; }
-  Vec3 const* GetPoints() const { return m_points; }
-  Scr3 const* GetWeights() const { return m_weights; }
-
-  bool RemoveBlack(const Vec3 &metric, Scr3 &error);
-  void RemapIndices(std::uint8_t const* source, std::uint8_t* target) const;
+  colorNormalFit(colorSet const* colors, int flags);
 
 private:
-  bool  m_transparent, m_unweighted;
-  int   m_count;
-  Vec3  m_points[16];
-  Scr3  m_weights[16];
-  char  m_remap[16];
+  void kMeans3();
+  void kMeans4();
+  
+  void Permute3();
+  void Permute4();
+  
+  virtual void Compress3b(void* block) {}
+  virtual void Compress3(void* block);
+  virtual void Compress4(void* block);
+  
+  Vec3 m_start_candidate;
+  Vec3 m_end_candidate;
+  Vec3 m_start;
+  Vec3 m_end;
 };
-} // namespace sqish
+} // squish
 
-#endif // ndef SQUISH_COLOURSET_H
+#endif // ndef SQUISH_NORMALFIT_H

@@ -143,7 +143,7 @@ void HDRSet::BuildSet(std::uint16_t const* rgb, int mask, int flags)
   // const float *aLUT   = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   std::uint16_t const wgta = weightByAlpha ? 0x0000 : 0xFFFF;
@@ -282,7 +282,7 @@ void HDRSet::BuildSet(float const* rgb, int mask, int flags)
   // const float *aLUT   = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Scr4 wgta = weightByAlpha ? Scr4(0.0f) : Scr4(1.0f);
@@ -422,7 +422,7 @@ void HDRSet::BuildSet(float const* rgb, int mask, int flags)
 void HDRSet::PermuteSet(HDRSet const& palette, int mask, int flags)
 {
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightColourByAlpha) != 0);
+  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);

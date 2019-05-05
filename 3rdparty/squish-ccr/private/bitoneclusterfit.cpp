@@ -42,7 +42,7 @@ BitoneClusterFit::BitoneClusterFit(BitoneSet const* bitones, int flags)
 {
   // set the iteration count
   m_iterationCount =
-    (m_flags & kColourIterativeClusterFits) / kColourClusterFit;
+    (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
 
   // initialize the best error
   m_besterror = Scr4(FLT_MAX);
