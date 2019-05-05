@@ -2,7 +2,8 @@
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
   Copyright (c) 2007 Ignacio Castano                   icastano@nvidia.com
-  Copyright (c) 2012 Niels FrÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¶hling              niels@paradice-insight.us
+  Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -37,23 +38,27 @@
 #include "palettesinglesnap.h"
 #include "palettechannelfit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 class PaletteClusterFit : public PaletteSingleMatch, public PaletteChannelFit
 {
 public:
-  PaletteClusterFit(PaletteSet const* palettes, int flags, int swap = -1, int shared = -1);
+  PaletteClusterFit(PaletteSet const* palettes, int flags, int swap = -1,
+                    int shared = -1);
 
-  virtual void Compress(void* block, vQuantizer &q, int mode);
+  virtual void Compress(void* block, vQuantizer& q, int mode);
 
 public:
-  enum {
+  enum
+  {
     kMinIterations = 1,
     kMaxIterations = 15
   };
 
-  static int SanitizeFlags(int flags) {
+  static int sanitize_flags(int flags)
+  {
     if (flags > (kColourClusterFit * kMaxIterations))
       return (kColourClusterFit * kMaxIterations);
     if (flags < (kColourClusterFit * kMinIterations))
@@ -63,34 +68,41 @@ public:
   }
 
 private:
-#define CLUSTERINDICES  3
+#define CLUSTERINDICES 3
   // separate components, 4/8 colors, 4/8 alphas
-  void CompressS23(void* block, vQuantizer &q, int mode);
+  void CompressS23(void* block, vQuantizer& q, int mode);
   // combined components, 4/16 colors+alphas
-  void CompressC2(void* block, vQuantizer &q, int mode);
-  void CompressC4(void* block, vQuantizer &q, int mode);
+  void CompressC2(void* block, vQuantizer& q, int mode);
+  void CompressC4(void* block, vQuantizer& q, int mode);
 
   bool ConstructOrdering(Vec4 const& axis, int iteration, int set);
 
-  Scr4 ClusterSearch4Alpha(std::uint8_t (&closest)[4][16], int count, int set, Vec4 const &metric, vQuantizer &q, int sb);
+  Scr4 ClusterSearch4Alpha(std::uint8_t (&closest)[4][16], int count, int set,
+                           Vec4 const& metric, vQuantizer& q, int sb);
 
-  Scr4 ClusterSearch4Constant(std::uint8_t (&closest)[4][16], int count, int set, Vec4 const &metric, vQuantizer &q, int sb);
-  Scr4 ClusterSearch8Constant(std::uint8_t (&closest)[4][16], int count, int set, Vec4 const &metric, vQuantizer &q, int sb);
+  Scr4 ClusterSearch4Constant(std::uint8_t (&closest)[4][16], int count,
+                              int set, Vec4 const& metric, vQuantizer& q,
+                              int sb);
+  Scr4 ClusterSearch8Constant(std::uint8_t (&closest)[4][16], int count,
+                              int set, Vec4 const& metric, vQuantizer& q,
+                              int sb);
 
-  Scr4 ClusterSearch4(std::uint8_t (&closest)[4][16], int count, int set, Vec4 const &metric, vQuantizer &q, int sb);
-  Scr4 ClusterSearch8(std::uint8_t (&closest)[4][16], int count, int set, Vec4 const &metric, vQuantizer &q, int sb);
+  Scr4 ClusterSearch4(std::uint8_t (&closest)[4][16], int count, int set,
+                      Vec4 const& metric, vQuantizer& q, int sb);
+  Scr4 ClusterSearch8(std::uint8_t (&closest)[4][16], int count, int set,
+                      Vec4 const& metric, vQuantizer& q, int sb);
 
-  int  m_iterationCount;
+  int m_iterationCount;
   Vec4 m_principle[4];
 
   Vec4 m_xsum_wsum[4 * 2];
-//Vec4 m_xxsum_wwsum[4];
+  // Vec4 m_xxsum_wwsum[4];
   Vec4 m_points_weights[4][16 * 2];
 
   SQUISH_ALIGNED std::uint8_t m_order[4][16 * kMaxIterations];
 
   bool m_optimizable[4];
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_PALETTECLUSTERFIT_H
+#endif  // ndef SQUISH_PALETTECLUSTERFIT_H

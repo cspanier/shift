@@ -2,7 +2,8 @@
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
   Copyright (c) 2007 Ignacio Castano                   icastano@nvidia.com
-  Copyright (c) 2012 Niels FrÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¶hling              niels@paradice-insight.us
+  Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -33,7 +34,8 @@
 #include "simd.h"
 #include "bitonefit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 class BitoneClusterFit : public BitoneFit
@@ -42,12 +44,14 @@ public:
   BitoneClusterFit(BitoneSet const* bitones, int flags);
 
 public:
-  enum {
+  enum
+  {
     kMinIterations = 1,
     kMaxIterations = 15
   };
 
-  static int SanitizeFlags(int flags) {
+  static int sanitize_flags(int flags)
+  {
     if (flags > (kColourClusterFit * kMaxIterations))
       return (kColourClusterFit * kMaxIterations);
     if (flags < (kColourClusterFit * kMinIterations))
@@ -64,7 +68,7 @@ private:
 
   virtual void Compress4(void* block);
 
-  int  m_iterationCount;
+  int m_iterationCount;
   Vec3 m_principle;
   Scr4 m_besterror;
   Vec4 m_xsum_wsum;
@@ -73,6 +77,6 @@ private:
 
   bool m_optimizable;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_BITONECLUSTERFIT_H
+#endif  // ndef SQUISH_BITONECLUSTERFIT_H

@@ -1,7 +1,8 @@
 /* -----------------------------------------------------------------------------
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
-  Copyright (c) 2012 Niels FrÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¶hling              niels@paradice-insight.us
+  Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -32,8 +33,6 @@
 #include "maths_sym3x3.h"
 #include "maths_sym4x4.h"
 #include "simd.h"
-
-/* -------------------------------------------------------------------------- */
 
 namespace squish
 {
@@ -85,24 +84,6 @@ void GetPrincipleProjection(Vec4& enter, Vec4& leave, Vec4 const& principle,
 #endif
 
 const float* ComputeGammaLUT(bool sRGB);
-
-#if defined(SQUISH_USE_AMP) || defined(SQUISH_USE_COMPUTE)
-#if !defined(SQUISH_USE_COMPUTE)
-typedef Sym3x3& Sym3x3r;
-#else
-typedef float4 Sym3x3[2];
-typedef Sym3x3 Sym3x3r;
-#endif
-
-Sym3x3 ComputeWeightedCovariance3(tile_barrier barrier, const int thread, int n,
-                                  point16 points,
-                                  weight16 weights) amp_restricted;
-float3 ComputePrincipleComponent(tile_barrier barrier, const int thread,
-                                 Sym3x3r smatrix) amp_restricted;
-#endif
-
-/* #################################################################################
- */
 
 extern const float qLUT_1all[2], qLUT_1clr[2], qLUT_1set[2];
 extern const float qLUT_2all[4], qLUT_2clr[4], qLUT_2set[4];

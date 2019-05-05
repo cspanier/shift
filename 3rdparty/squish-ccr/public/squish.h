@@ -2,6 +2,7 @@
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
   Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -33,11 +34,6 @@
 //! All squish API functions live in this namespace.
 namespace squish
 {
-
-// -----------------------------------------------------------------------------
-
-// Skip enum-type in HLSL
-#if !defined(SQUISH_USE_COMPUTE)
 enum
 {
   //! Use DXT1/BC1 compression.
@@ -152,8 +148,7 @@ enum
   functions as the inner loop does not make any sanity checks.
   Missing or wrongs flags will be set to the defaults.
 */
-int SanitizeFlags(int flags);
-#endif
+int sanitize_flags(int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -187,9 +182,9 @@ int SanitizeFlags(int flags);
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
-void Compress(std::uint8_t const* rgba, void* block, int flags);
-void Compress(std::uint16_t const* rgb, void* block, int flags);
-void Compress(float const* rgba, void* block, int flags);
+void compress(std::uint8_t const* rgba, void* block, int flags);
+void compress(std::uint16_t const* rgb, void* block, int flags);
+void compress(float const* rgba, void* block, int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -209,7 +204,7 @@ void Compress(float const* rgba, void* block, int flags);
   bit enables the first pixel and so on up to the 16th bit. Bits beyond the
   16th bit are ignored. Pixels that are not enabled are allowed to take
   arbitrary colours in the output block. An example of how this can be used
-  is in the CompressImage function to disable pixels outside the bounds of
+  is in the compress_image function to disable pixels outside the bounds of
   the image when the width or height is not divisible by 4.
 
   The flags parameter should specify either kBtc1, kBtc2 or kBtc3 compression,
@@ -231,9 +226,11 @@ void Compress(float const* rgba, void* block, int flags);
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
-void CompressMasked(std::uint8_t const* rgba, int mask, void* block, int flags);
-void CompressMasked(std::uint16_t const* rgb, int mask, void* block, int flags);
-void CompressMasked(float const* rgba, int mask, void* block, int flags);
+void compress_masked(std::uint8_t const* rgba, int mask, void* block,
+                     int flags);
+void compress_masked(std::uint16_t const* rgb, int mask, void* block,
+                     int flags);
+void compress_masked(float const* rgba, int mask, void* block, int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -252,9 +249,9 @@ void CompressMasked(float const* rgba, int mask, void* block, int flags);
   however, DXT1/BC1 will be used by default if none is specified. All other
   flags are ignored.
 */
-void Decompress(std::uint8_t* rgba, void const* block, int flags);
-void Decompress(std::uint16_t* rgb, void const* block, int flags);
-void Decompress(float* rgba, void const* block, int flags);
+void decompress(std::uint8_t* rgba, void const* block, int flags);
+void decompress(std::uint16_t* rgb, void const* block, int flags);
+void decompress(float* rgba, void const* block, int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -281,8 +278,8 @@ struct sqio
   dec decoder;
 };
 
-struct sqio GetSquishIO(int width, int height, sqio::dtp datatype, int flags);
-void SetWeights(int flags, const float* rgba);
+struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags);
+void weights(int flags, const float* rgba);
 
 // -----------------------------------------------------------------------------
 
@@ -300,7 +297,7 @@ void SetWeights(int flags, const float* rgba);
   function supports arbitrary size images by allowing the outer blocks to
   be only partially used.
 */
-int GetStorageRequirements(int width, int height, int flags);
+int storage_requirements(int width, int height, int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -338,14 +335,14 @@ int GetStorageRequirements(int width, int height, int flags);
 
   Internally this function calls squish::Compress for each block. To see how
   much memory is required in the compressed image, use
-  squish::GetStorageRequirements.
+  squish::storage_requirements.
 */
-void CompressImage(std::uint8_t const* rgba, int width, int height,
-                   void* blocks, int flags);
-void CompressImage(std::uint16_t const* rgb, int width, int height,
-                   void* blocks, int flags);
-void CompressImage(float const* rgba, int width, int height, void* blocks,
-                   int flags);
+void compress_image(std::uint8_t const* rgba, int width, int height,
+                    void* blocks, int flags);
+// void compress_image(std::uint16_t const* rgb, int width, int height,
+//                    void* blocks, int flags);
+// void compress_image(float const* rgba, int width, int height, void* blocks,
+//                    int flags);
 
 // -----------------------------------------------------------------------------
 
@@ -368,12 +365,12 @@ void CompressImage(float const* rgba, int width, int height, void* blocks,
 
   Internally this function calls squish::Decompress for each block.
 */
-void DecompressImage(std::uint8_t* rgba, int width, int height,
-                     void const* blocks, int flags);
-void DecompressImage(std::uint16_t* rgb, int width, int height,
-                     void const* blocks, int flags);
-void DecompressImage(float* rgba, int width, int height, void const* blocks,
-                     int flags);
-}  // namespace squish
+void decompress_image(std::uint8_t* rgba, int width, int height,
+                      void const* blocks, int flags);
+// void decompress_image(std::uint16_t* rgb, int width, int height,
+//                     void const* blocks, int flags);
+// void decompress_image(float* rgba, int width, int height, void const* blocks,
+//                     int flags);
+}
 
-#endif  // ndef SQUISH_H
+#endif

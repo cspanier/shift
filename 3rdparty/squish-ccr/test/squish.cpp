@@ -37,7 +37,7 @@
 
 using namespace squish;
 
-double GetColourError(std::uint8_t const* a, std::uint8_t const* b)
+double color_error(std::uint8_t const* a, std::uint8_t const* b)
 {
   double error = 0.0;
   for (int i = 0; i < 16; ++i)
@@ -45,8 +45,8 @@ double GetColourError(std::uint8_t const* a, std::uint8_t const* b)
     for (int j = 0; j < 3; ++j)
     {
       int index = 4 * i + j;
-      int diff = (int)a[index] - (int)b[index];
-      error += (double)(diff * diff);
+      int diff = static_cast<int>(a[index]) - static_cast<int>(b[index]);
+      error += diff * diff;
     }
   }
   return error / 16.0;
@@ -77,11 +77,11 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
       input[4 * i + 3] = 255;
 
     // compress and decompress
-    Compress(input, block, flags);
-    Decompress(output, block, flags);
+    compress(input, block, flags);
+    decompress(output, block, flags);
 
     // test the results
-    double rm = GetColourError(input, output);
+    double rm = color_error(input, output);
     double rms = std::sqrt(rm);
 
     // accumulate stats
@@ -122,11 +122,11 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
         input[4 * i + channel] = (std::uint8_t)value;
 
       // compress and decompress
-      Compress(input, block, flags);
-      Decompress(output, block, flags);
+      compress(input, block, flags);
+      decompress(output, block, flags);
 
       // test the results
-      double rm = GetColourError(input, output);
+      double rm = color_error(input, output);
       double rms = std::sqrt(rm);
 
       // accumulate stats
@@ -174,11 +174,11 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
           input[4 * i + channel] = (std::uint8_t)((i < 8) ? value1 : value2);
 
         // compress and decompress
-        Compress(input, block, flags);
-        Decompress(output, block, flags);
+        compress(input, block, flags);
+        decompress(output, block, flags);
 
         // test the results
-        double rm = GetColourError(input, output);
+        double rm = color_error(input, output);
         double rms = std::sqrt(rm);
 
         // accumulate stats

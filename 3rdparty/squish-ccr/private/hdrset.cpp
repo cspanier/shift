@@ -2,6 +2,7 @@
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
   Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the

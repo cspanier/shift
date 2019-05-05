@@ -1,7 +1,8 @@
 /* -----------------------------------------------------------------------------
 
   Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
-  Copyright (c) 2012 Niels FrÃÂ¶hling              niels@paradice-insight.us
+  Copyright (c) 2012 Niels Fröhling              niels@paradice-insight.us
+  Copyright (c) 2019 Christian Spanier                     github@boxie.eu
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -73,7 +74,7 @@
 namespace squish
 {
 
-int SanitizeFlags(int flags)
+int sanitize_flags(int flags)
 {
   // grab the flag bits
   int method = flags & (kBtcp);
@@ -97,9 +98,9 @@ int SanitizeFlags(int flags)
   if (fit & kColourIterativeClusterFits)
   {
     if (method <= kBtc3)
-      fit = ColourClusterFit::SanitizeFlags(fit);
+      fit = ColourClusterFit::sanitize_flags(fit);
     if (method == kBtc7)
-      fit = PaletteClusterFit::SanitizeFlags(fit);
+      fit = PaletteClusterFit::sanitize_flags(fit);
   }
 
   if ((method == kBtc6) && (mode > kVariableCodingMode14))
@@ -137,7 +138,7 @@ Vec4 g_metric[8] = {
 #endif
 };
 
-void SetWeights(int flags, const float* rgba)
+void weights(int flags, const float* rgba)
 {
   // initialize the metric
   const bool custom = ((flags & kColourMetrics) == kColourMetricCustom);
@@ -297,9 +298,9 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
       kVariableCodingMode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
 
       kVariableCodingMode2,  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },  //
-                             //non-alpha variant of mode 8
+                             // non-alpha variant of mode 8
       kVariableCodingMode4,  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },  //
-                             //non-alpha variant of mode 8
+                             // non-alpha variant of mode 8
 
       kVariableCodingMode1,  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 },
       kVariableCodingMode3,  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 },
@@ -316,7 +317,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
       kVariableCodingMode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
 
       kVariableCodingMode8,  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 },  // alpha
-                             //variant of mode 2/4
+                             // variant of mode 2/4
 
       0, 0, 0, 0}};
 
@@ -1337,7 +1338,7 @@ void CompressMaskedNormalBtc7u(dtyp const* xyzd, int mask, void* block,
   CompressPaletteBtc7uV2<dtyp, PaletteNormalFit>(xyzd, mask, mixedBlock, flags);
 }
 
-void CompressMasked(std::uint8_t const* rgba, int mask, void* block, int flags)
+void compress_masked(std::uint8_t const* rgba, int mask, void* block, int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1375,7 +1376,8 @@ void CompressMasked(std::uint8_t const* rgba, int mask, void* block, int flags)
   }  // while this is possible (up-cast), should we support it?
 }
 
-void CompressMasked(std::uint16_t const* rgba, int mask, void* block, int flags)
+void compress_masked(std::uint16_t const* rgba, int mask, void* block,
+                     int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1412,7 +1414,7 @@ void CompressMasked(std::uint16_t const* rgba, int mask, void* block, int flags)
     CompressMaskedColourBtc6u(rgba, mask, block, flags);
 }
 
-void CompressMasked(float const* rgba, int mask, void* block, int flags)
+void compress_masked(float const* rgba, int mask, void* block, int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1449,22 +1451,22 @@ void CompressMasked(float const* rgba, int mask, void* block, int flags)
     CompressMaskedColourBtc6u(rgba, mask, block, flags);
 }
 
-void Compress(std::uint8_t const* rgba, void* block, int flags)
+void compress(std::uint8_t const* rgba, void* block, int flags)
 {
   // compress with full mask
-  CompressMasked(rgba, -1, block, flags);
+  compress_masked(rgba, -1, block, flags);
 }
 
-void Compress(std::uint16_t const* rgb, void* block, int flags)
+void compress(std::uint16_t const* rgb, void* block, int flags)
 {
   // compress with full mask
-  CompressMasked(rgb, -1, block, flags);
+  compress_masked(rgb, -1, block, flags);
 }
 
-void Compress(float const* rgba, void* block, int flags)
+void compress(float const* rgba, void* block, int flags)
 {
   // compress with full mask
-  CompressMasked(rgba, -1, block, flags);
+  compress_masked(rgba, -1, block, flags);
 }
 
 /* *****************************************************************************
@@ -1623,7 +1625,7 @@ void DecompressNormalBtc7u(dtyp* rgba, void const* block, int flags)
   DecompressNormalsBtc7u(rgba, mixedBlock);
 }
 
-void Decompress(std::uint8_t* rgba, void const* block, int flags)
+void decompress(std::uint8_t* rgba, void const* block, int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1661,7 +1663,7 @@ void Decompress(std::uint8_t* rgba, void const* block, int flags)
   }  // while this is possible (down-cast), should we support it?
 }
 
-void Decompress(std::uint16_t* rgba, void const* block, int flags)
+void decompress(std::uint16_t* rgba, void const* block, int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1698,7 +1700,7 @@ void Decompress(std::uint16_t* rgba, void const* block, int flags)
     DecompressColourBtc6u(rgba, block, flags);
 }
 
-void Decompress(float* rgba, void const* block, int flags)
+void decompress(float* rgba, void const* block, int flags)
 {
   // DXT-type compression
   /**/ if ((flags & (kBtcp | kColourMetrics)) == (kCtx1 | kColourMetricUnit))
@@ -1737,7 +1739,7 @@ void Decompress(float* rgba, void const* block, int flags)
 
 /* *****************************************************************************
  */
-int GetStorageRequirements(int width, int height, int flags)
+int storage_requirements(int width, int height, int flags)
 {
   // compute the storage requirements
   int blockcount = ((width + 3) / 4) * ((height + 3) / 4);
@@ -1757,12 +1759,12 @@ int GetStorageRequirements(int width, int height, int flags)
 
 /* *****************************************************************************
  */
-struct sqio GetSquishIO(int width, int height, sqio::dtp datatype, int flags)
+struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
 {
   struct sqio s;
 
   s.datatype = datatype;
-  s.flags = SanitizeFlags(flags);
+  s.flags = sanitize_flags(flags);
 
   // compute the storage requirements
   s.blockcount = ((width + 3) / 4) * ((height + 3) / 4);
@@ -2003,13 +2005,11 @@ struct sqio GetSquishIO(int width, int height, sqio::dtp datatype, int flags)
   return s;
 }
 
-/* *****************************************************************************
- */
-void CompressImage(std::uint8_t const* rgba, int width, int height,
-                   void* blocks, int flags)
+void compress_image(std::uint8_t const* rgba, int width, int height,
+                    void* blocks, int flags)
 {
   // fix any bad flags
-  flags = SanitizeFlags(flags);
+  flags = sanitize_flags(flags);
 
   // initialize the block output
   unsigned char* targetBlock = reinterpret_cast<unsigned char*>(blocks);
@@ -2062,7 +2062,7 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
       }
 
       // compress it into the output
-      CompressMasked(sourceRgba, mask, targetBlock, flags);
+      compress_masked(sourceRgba, mask, targetBlock, flags);
 
       // advance
       targetBlock += bytesPerBlock;
@@ -2070,11 +2070,11 @@ void CompressImage(std::uint8_t const* rgba, int width, int height,
   }
 }
 
-void DecompressImage(std::uint8_t* rgba, int width, int height,
-                     void const* blocks, int flags)
+void decompress_image(std::uint8_t* rgba, int width, int height,
+                      void const* blocks, int flags)
 {
   // fix any bad flags
-  flags = SanitizeFlags(flags);
+  flags = sanitize_flags(flags);
 
   // initialize the block input
   unsigned char const* sourceBlock =
@@ -2098,7 +2098,7 @@ void DecompressImage(std::uint8_t* rgba, int width, int height,
       // decompress the block
       std::uint8_t targetRgba[4 * 16];
 
-      Decompress(targetRgba, sourceBlock, flags);
+      decompress(targetRgba, sourceBlock, flags);
 
       // write the decompressed pixels to the correct image locations
       std::uint8_t const* sourcePixel = targetRgba;
@@ -2131,4 +2131,4 @@ void DecompressImage(std::uint8_t* rgba, int width, int height,
     }
   }
 }
-}  // namespace squish
+}

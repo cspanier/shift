@@ -5,7 +5,7 @@
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
-  "Software"), to	deal in the Software without restriction, including
+  "Software"), to  deal in the Software without restriction, including
   without limitation the rights to use, copy, modify, merge, publish,
   distribute, sublicense, and/or sell copies of the Software, and to
   permit persons to whom the Software is furnished to do so, subject to
@@ -26,6 +26,8 @@
 
 #ifndef SQUISH_CONFIG_H
 #define SQUISH_CONFIG_H
+
+#include <cstdint>
 
 /* define the algorithm to determine the best start/end-point
  * for a single colour
@@ -62,19 +64,19 @@
  *
  * Results (ARGB):
  *
- *				  omit					     keep
- *   #cluster		R       G       B	J		R       G       B	J
+ *          omit               keep
+ *   #cluster    R       G       B  J    R       G       B  J
  *   RMSE no
- *m.		2.0099	1.7891	1.9644	1.9235		2.0174	1.7958	1.9753	1.9319 RMSE
- *metric	2.0846	1.6368	2.1797	1.9812		2.0949	1.6444	2.1911	1.9911 SSIM
- *no m.			0.0014593				    0.0014612 SSIM metric		0.0012824 0.0012850
+ *m.    2.0099  1.7891  1.9644  1.9235    2.0174  1.7958  1.9753  1.9319 RMSE
+ *metric  2.0846  1.6368  2.1797  1.9812    2.0949  1.6444  2.1911  1.9911 SSIM
+ *no m.      0.0014593            0.0014612 SSIM metric    0.0012824 0.0012850
  *
- *				  omit					     keep
- *   #range		R       G       B	J		R       G       B	J
+ *          omit               keep
+ *   #range    R       G       B  J    R       G       B  J
  *   RMSE no
- *m.		3.4200	2.8293	3.1534	3.1435		3.2591	2.7265	3.0184	3.0092 RMSE
- *metric	4.0410	2.3455	3.6444	3.4211		4.0410	2.3455	3.6444	3.4211 SSIM
- *no m.			0.0021402				    0.0023996 SSIM metric		0.0020360 0.0023973
+ *m.    3.4200  2.8293  3.1534  3.1435    3.2591  2.7265  3.0184  3.0092 RMSE
+ *metric  4.0410  2.3455  3.6444  3.4211    4.0410  2.3455  3.6444  3.4211 SSIM
+ *no m.      0.0021402            0.0023996 SSIM metric    0.0020360 0.0023973
  */
 #define FEATURE_IGNORE_ALPHA0
 
@@ -99,9 +101,9 @@
  * only if all checks are inlined
  *
  * first hit improvements:    thorough search:
- *   ib=2: x2.64		ib=2: x8.27	mse: 1.135e-4 vs. 4.221e-5
- *   ib=3: x3.39		ib=3: x7.22	mse: 1.360e-3 vs. 4.924e-4
- *   ib=4: x3.45		ib=4: x47.5	mse: 2.768e-5 vs. 7.118e-6
+ *   ib=2: x2.64    ib=2: x8.27  mse: 1.135e-4 vs. 4.221e-5
+ *   ib=3: x3.39    ib=3: x7.22  mse: 1.360e-3 vs. 4.924e-4
+ *   ib=4: x3.45    ib=4: x47.5  mse: 2.768e-5 vs. 7.118e-6
  */
 #define FEATURE_INDEXFIT_INLINED
 #define FEATURE_INDEXFIT_THOROUGH true
@@ -207,7 +209,7 @@ extern struct statistics
 #define SQUISH_USE_XSSE 0
 #endif
 
-// Internally et SQUISH_USE_SIMD when either Altivec or SSE is available.
+// Internally set SQUISH_USE_SIMD when either Altivec or SSE is available.
 #if SQUISH_USE_SSE
 #define SQUISH_USE_SIMD 1
 #define SQUISH_ALIGNED alignas(16)
@@ -216,38 +218,10 @@ extern struct statistics
 #define SQUISH_ALIGNED alignas(4)
 #endif
 
-#if defined(__GNUC__)
-typedef long long __int64;
-typedef unsigned long long unsigned__int64;
-#elif defined(_MSC_VER)
-typedef unsigned __int64 unsigned__int64;
-#else
-typedef long long __int64;
-typedef unsigned long long unsigned__int64;
-#endif
-
-#define amp_restricted
-
-#define static_hlsl
-#define extern_hlsl extern
-#define inherit_hlsl public
-#define public_hlsl public:
-#define protected_hlsl protected:
-#define private_hlsl private:
-
-#if !defined(SQUISH_USE_CPP)
-#pragma message("You may need to select a configuration.")
-#pragma message("These enable mutual exclusive implementations:")
-#pragma message( \
-  " SQUISH_USE_CPP      - if you are happy with the regular C++ code and want to omit this message")
-#endif
-
-/* *****************************************************************************
- */
 #ifndef _MSC_VER
 #define assume
 #else
 #define assume __assume
 #endif
 
-#endif  // ndef SQUISH_CONFIG_H
+#endif
