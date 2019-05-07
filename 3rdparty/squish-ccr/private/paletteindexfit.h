@@ -36,11 +36,11 @@ namespace squish
 {
 
 // -----------------------------------------------------------------------------
-class PaletteSet;
-class PaletteIndexFit : public virtual PaletteFit
+class palette_set;
+class palette_index_fit : public virtual palette_fit
 {
 public:
-  PaletteIndexFit(PaletteSet const* colors, int flags, int swap = -1,
+  palette_index_fit(palette_set const* colors, int flags, int swap = -1,
                   int shared = 0);
 
 #ifdef FEATURE_INDEXFIT_INLINED

@@ -34,8 +34,8 @@
 namespace squish
 {
 class fQuantizer;
-class HDRSet;
-class HDRFit
+class hdr_set;
+class hdr_fit
 {
 public:
   static int GetNumSets(int mode);
@@ -52,16 +52,16 @@ public:
   static int GetDeltaBits(int mode, int channel);
 
 public:
-  HDRFit(HDRSet const* palette, int flags);
+  hdr_fit(hdr_set const* palette, int flags);
 
   // change parameters while iterating
-  void ChangeFit(HDRSet const* palette, int flags)
+  void ChangeFit(hdr_set const* palette, int flags)
   {
     m_palette = palette;
     m_flags = flags;
     m_best = false;
   }
-  void ChangePalette(HDRSet const* palette)
+  void ChangePalette(hdr_set const* palette)
   {
     m_palette = palette;
   }
@@ -71,7 +71,7 @@ public:
   }
 
   // query some values
-  HDRSet const* GetPalette() const
+  hdr_set const* GetPalette() const
   {
     return m_palette;
   }
@@ -110,7 +110,7 @@ public:
   }
 
 protected:
-  HDRSet const* m_palette;
+  hdr_set const* m_palette;
   int m_flags;
   int m_mode;
 

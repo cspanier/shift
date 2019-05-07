@@ -34,11 +34,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class colorSet;
-class colorNormalFit : public colorFit
+class color_set;
+class color_normal_fit : public color_fit
 {
 public:
-  colorNormalFit(colorSet const* colors, int flags);
+  color_normal_fit(color_set const* colors, int flags);
 
 private:
   void kMeans3();

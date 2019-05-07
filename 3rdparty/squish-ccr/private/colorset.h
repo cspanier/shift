@@ -36,12 +36,12 @@ namespace squish {
 // -----------------------------------------------------------------------------
 /*! @brief Represents a set of block colors
  */
-class colorSet
+class color_set
 {
 public:
-  colorSet(std::uint8_t  const* rgba, int mask, int flags);
-  colorSet(std::uint16_t const* rgba, int mask, int flags);
-  colorSet(float const* rgba, int mask, int flags);
+  color_set(std::uint8_t  const* rgba, int mask, int flags);
+  color_set(std::uint16_t const* rgba, int mask, int flags);
+  color_set(float const* rgba, int mask, int flags);
 
   bool IsTransparent() const { return m_transparent; }
   bool IsUnweighted() const { return m_unweighted; }

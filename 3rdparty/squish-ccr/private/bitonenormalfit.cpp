@@ -32,8 +32,8 @@
 #include "inlineables.inl"
 
 namespace squish {
-BitoneNormalFit::BitoneNormalFit(BitoneSet const* bitones, int flags)
-  : BitoneFit(bitones, flags)
+bitone_normal_fit::bitone_normal_fit(bitone_set const* bitones, int flags)
+  : bitone_fit(bitones, flags)
 {
   // initialize the best error
   m_besterror = Scr3(FLT_MAX);
@@ -228,7 +228,7 @@ BitoneNormalFit::BitoneNormalFit(BitoneSet const* bitones, int flags)
   m_end_candidate   = end;
 }
 
-void BitoneNormalFit::kMeans4()
+void bitone_normal_fit::kMeans4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -296,7 +296,7 @@ void BitoneNormalFit::kMeans4()
   } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
 }
 
-void BitoneNormalFit::Permute4()
+void bitone_normal_fit::Permute4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -362,7 +362,7 @@ void BitoneNormalFit::Permute4()
   } while(--trie);
 }
 
-void BitoneNormalFit::Compress4(void* block)
+void bitone_normal_fit::Compress4(void* block)
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);

@@ -38,14 +38,14 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class PaletteSet;
-class PaletteRangeFit : public PaletteSingleMatch, public PaletteIndexFit
+class palette_set;
+class palette_range_fit : public palette_single_match, public palette_index_fit
 {
 public:
   static bool IsClusterable(int flags) { return ((flags & kcolorRangeFit) == 0); }
 
 public:
-  PaletteRangeFit(PaletteSet const* palette, int flags, int swap = -1, int shared = -1);
+  palette_range_fit(palette_set const* palette, int flags, int swap = -1, int shared = -1);
   
   virtual void Compress(void* block, vQuantizer &q, int mode);
 

@@ -37,8 +37,8 @@ namespace squish
 
 /* *****************************************************************************
  */
-BitoneClusterFit::BitoneClusterFit(BitoneSet const* bitones, int flags)
-: BitoneFit(bitones, flags)
+bitone_cluster_fit::bitone_cluster_fit(bitone_set const* bitones, int flags)
+: bitone_fit(bitones, flags)
 {
   // set the iteration count
   m_iterationCount =
@@ -69,7 +69,7 @@ BitoneClusterFit::BitoneClusterFit(BitoneSet const* bitones, int flags)
   m_optimizable = unweighted & (count == 16);
 }
 
-bool BitoneClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
+bool bitone_cluster_fit::ConstructOrdering(Vec3 const& axis, int iteration)
 {
   // cache some values
   int const count = m_bitones->GetCount();
@@ -125,7 +125,7 @@ bool BitoneClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
   return true;
 }
 
-void BitoneClusterFit::ClusterFit4(void* block)
+void bitone_cluster_fit::ClusterFit4(void* block)
 {
   // declare variables
   int const count = m_bitones->GetCount();
@@ -282,7 +282,7 @@ void BitoneClusterFit::ClusterFit4(void* block)
 
 #include "bitoneclusterfit.inl"
 
-void BitoneClusterFit::ClusterFit4Constant(void* block)
+void bitone_cluster_fit::ClusterFit4Constant(void* block)
 {
   // declare variables
   int const count = m_bitones->GetCount();
@@ -513,7 +513,7 @@ void BitoneClusterFit::ClusterFit4Constant(void* block)
   }
 }
 
-void BitoneClusterFit::Compress4(void* block)
+void bitone_cluster_fit::Compress4(void* block)
 {
 #if defined(TRACK_STATISTICS)
   /* there is a clear skew towards unweighted clusterfit (all weights == 1)

@@ -42,8 +42,8 @@ namespace squish
 
 /* *****************************************************************************
  */
-colorClusterFit::colorClusterFit(colorSet const* colors, int flags)
-: colorFit(colors, flags)
+color_cluster_fit::color_cluster_fit(color_set const* colors, int flags)
+: color_fit(colors, flags)
 {
   // set the iteration count
   m_iterationCount = (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
@@ -52,7 +52,7 @@ colorClusterFit::colorClusterFit(colorSet const* colors, int flags)
   ComputeEndPoints();
 }
 
-void colorClusterFit::ComputeEndPoints()
+void color_cluster_fit::ComputeEndPoints()
 {
   // cache some values
   bool const unweighted = m_colors->IsUnweighted();
@@ -76,8 +76,8 @@ void colorClusterFit::ComputeEndPoints()
   m_optimizable = unweighted & ((count == 16) | ((m_flags & kBtcp) == kBtc1));
 }
 
-void colorClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
-                                Vec4& bestend, Scr4& besterror)
+void color_cluster_fit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
+                                  Vec4& bestend, Scr4& besterror)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -101,8 +101,8 @@ void colorClusterFit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
       LengthSquared(m_metric * values[i] - codes[closest[i]]) * freq[i];
 }
 
-void colorClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
-                                Vec4& bestend, Scr4& besterror)
+void color_cluster_fit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
+                                  Vec4& bestend, Scr4& besterror)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -126,7 +126,7 @@ void colorClusterFit::SumError4(std::uint8_t (&closest)[16], Vec4& beststart,
       LengthSquared(m_metric * values[i] - codes[closest[i]]) * freq[i];
 }
 
-bool colorClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
+bool color_cluster_fit::ConstructOrdering(Vec3 const& axis, int iteration)
 {
   // cache some values
   int const count = m_colors->GetCount();
@@ -189,7 +189,7 @@ bool colorClusterFit::ConstructOrdering(Vec3 const& axis, int iteration)
 #define CMetric(m) m
 #endif
 
-void colorClusterFit::ClusterFit3(void* block)
+void color_cluster_fit::ClusterFit3(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -360,7 +360,7 @@ void colorClusterFit::ClusterFit3(void* block)
 #endif
 }
 
-void colorClusterFit::ClusterFit4(void* block)
+void color_cluster_fit::ClusterFit4(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -558,7 +558,7 @@ void colorClusterFit::ClusterFit4(void* block)
 
 #include "colorclusterfit.inl"
 
-void colorClusterFit::ClusterFit3Constant(void* block)
+void color_cluster_fit::ClusterFit3Constant(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -799,7 +799,7 @@ void colorClusterFit::ClusterFit3Constant(void* block)
 #endif
 }
 
-void colorClusterFit::ClusterFit4Constant(void* block)
+void color_cluster_fit::ClusterFit4Constant(void* block)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
 
@@ -1070,9 +1070,9 @@ void colorClusterFit::ClusterFit4Constant(void* block)
 #endif
 }
 
-void colorClusterFit::Compress3b(void* block)
+void color_cluster_fit::Compress3b(void* block)
 {
-  colorSet copy = *m_colors;
+  color_set copy = *m_colors;
   m_colors = &copy;
 
   Scr3 m_destroyed = Scr3(0.0f);
@@ -1084,7 +1084,7 @@ void colorClusterFit::Compress3b(void* block)
     if (copy.GetCount() == 1)
     {
       // always do a single color fit
-      colorSingleMatch fit(m_colors, m_flags);
+      color_single_match fit(m_colors, m_flags);
 
       fit.SetError(m_besterror);
       fit.Compress(block);
@@ -1101,7 +1101,7 @@ void colorClusterFit::Compress3b(void* block)
   }
 }
 
-void colorClusterFit::Compress3(void* block)
+void color_cluster_fit::Compress3(void* block)
 {
 #if defined(TRACK_STATISTICS)
   /* there is a clear skew towards unweighted clusterfit (all weights == 1)
@@ -1121,7 +1121,7 @@ void colorClusterFit::Compress3(void* block)
     ClusterFit3(block);
 }
 
-void colorClusterFit::Compress4(void* block)
+void color_cluster_fit::Compress4(void* block)
 {
 #if defined(TRACK_STATISTICS)
   /* there is a clear skew towards unweighted clusterfit (all weights == 1)

@@ -74,42 +74,42 @@
 namespace squish
 {
 
-int sanitize_flags(int flags)
+flags_t sanitize_flags(flags_t flags)
 {
   // grab the flag bits
-  int method = flags & (kBtcp);
-  int fit = flags & (kcolorRangeFit | kAlphaIterativeFit |
-                     kcolorIterativeClusterFits);
-  int metric = flags & (kcolorMetrics);
-  int extra = flags & (kWeightcolorByAlpha);
-  int mode = flags & (kVariableCodingModes);
-  int map =
-    flags & (kSrgbExternal | kSrgbInternal | kSignedExternal | kSignedInternal);
+  auto method = flags & compression::mask;
+  auto fit =
+    flags & (compressor::color_range_fit | compressor::alpha_iterative_fit |
+             compressor::color_iterative_cluster_fit);
+  auto metric = flags & color_metric::mask;
+  auto extra = flags & option::weight_color_by_alpha;
+  auto mode = flags & variable_coding::mode_mask;
+  auto map = flags & (option::srgb_external | option::srgb_internal |
+                      option::signed_external | option::signed_internal);
 
   // set defaults
-  if (!method || ((method > kCtx1)))
-    method = kBtc1;
+  if (!method || (method > compression::ctx1))
+    method = compression::bc1;
   if (!metric ||
-      ((metric > kcolorMetricUnit) && (metric != kcolorMetricCustom)))
+      ((metric > color_metric::unit) && (metric != color_metric::custom)))
     metric = kcolorMetricPerceptual;
 
   if (!fit)
-    fit = (kcolorClusterFit * 1);
-  if (fit & kcolorIterativeClusterFits)
+    fit = compressor::color_cluster_fit;
+  if (fit & compressor::color_iterative_cluster_fit)
   {
-    if (method <= kBtc3)
-      fit = colorClusterFit::sanitize_flags(fit);
-    if (method == kBtc7)
-      fit = PaletteClusterFit::sanitize_flags(fit);
+    if (method <= compression::bc3)
+      fit = color_cluster_fit::sanitize_flags(fit);
+    else if (method == compression::bc7)
+      fit = palette_cluster_fit::sanitize_flags(fit);
   }
 
-  if ((method == kBtc6) && (mode > kVariableCodingMode14))
+  if ((method == compression::bc6) && (mode > variable_coding::mode14))
     mode = 0;
-  if ((method == kBtc7) && (mode > kVariableCodingMode8))
+  if ((method == compression::bc7) && (mode > variable_coding::mode8))
     mode = 0;
 
-  // done
-  return method + fit + metric + extra + mode + map;
+  return method | fit | metric | extra | mode | map;
 }
 
 /* *****************************************************************************
@@ -160,18 +160,18 @@ template <typename dtyp>
 void CompressBitoneCtx1u(dtyp const* rgba, int mask, void* block, int flags)
 {
   // create the minimal point set
-  BitoneSet colors(rgba, mask, flags);
+  bitone_set colors(rgba, mask, flags);
 
   if (((flags & kcolorRangeFit) != 0) || (colors.GetCount() == 0))
   {
     // do a range fit
-    BitoneRangeFit fit(&colors, flags);
+    bitone_range_fit fit(&colors, flags);
     fit.Compress(block);
   }
   else
   {
     // default to a cluster fit (could be iterative or not)
-    BitoneClusterFit fit(&colors, flags);
+    bitone_cluster_fit fit(&colors, flags);
     fit.Compress(block);
   }
 }
@@ -180,12 +180,12 @@ template <typename dtyp>
 void CompressNormalCtx1u(dtyp const* xyzd, int mask, void* block, int flags)
 {
   // create the minimal point set
-  BitoneSet bitones(xyzd, mask, flags);
+  bitone_set bitones(xyzd, mask, flags);
 
   // check the compression type and compress normals
   {
     // do a normal fit
-    BitoneNormalFit fit(&bitones, flags);
+    bitone_normal_fit fit(&bitones, flags);
     fit.Compress(block);
   }
 }
@@ -194,25 +194,25 @@ template <typename dtyp>
 void CompresscolorBtc1u(dtyp const* rgba, int mask, void* block, int flags)
 {
   // create the minimal point set
-  colorSet colors(rgba, mask, flags);
+  color_set colors(rgba, mask, flags);
 
   // check the compression type and compress color
   if (colors.GetCount() == 1)
   {
     // always do a single color fit
-    colorSingleMatch fit(&colors, flags);
+    color_single_match fit(&colors, flags);
     fit.Compress(block);
   }
   else if (((flags & kcolorRangeFit) != 0) || (colors.GetCount() == 0))
   {
     // do a range fit
-    colorRangeFit fit(&colors, flags);
+    color_range_fit fit(&colors, flags);
     fit.Compress(block);
   }
   else
   {
     // default to a cluster fit (could be iterative or not)
-    colorClusterFit fit(&colors, flags);
+    color_cluster_fit fit(&colors, flags);
     fit.Compress(block);
   }
 }
@@ -221,19 +221,19 @@ template <typename dtyp>
 void CompressNormalBtc1u(dtyp const* xyzd, int mask, void* block, int flags)
 {
   // create the minimal point set
-  colorSet normals(xyzd, mask, flags);
+  color_set normals(xyzd, mask, flags);
 
   // check the compression type and compress normals
   if (normals.GetCount() == 1)
   {
     // always do a single color fit
-    colorSingleMatch fit(&normals, flags);
+    color_single_match fit(&normals, flags);
     fit.Compress(block);
   }
   else
   {
     // do a range fit
-    colorNormalFit fit(&normals, flags);
+    color_normal_fit fit(&normals, flags);
     fit.Compress(block);
   }
 }
@@ -336,7 +336,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
   int lmtp = -1;
 
   // use the same data-structure all the time
-  PaletteSet bestpal;
+  palette_set bestpal;
   int bestmde = -1;
   int bestswp = -1;
   int bestbit = -1;
@@ -351,12 +351,12 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 
     // a mode has a specific number of sets, and variable rotations and
     // partitions
-    int nums = PaletteFit::GetNumSets(mnum);
-    int numr = PaletteFit::GetRotationBits(mnum);
-    int nump = PaletteFit::GetPartitionBits(mnum);
-    int numx = PaletteFit::GetSelectionBits(mnum);
-    int numb = PaletteFit::GetSharedBits(mnum);
-    int numi = PaletteFit::GetIndexBits(mnum);
+    int nums = palette_fit::GetNumSets(mnum);
+    int numr = palette_fit::GetRotationBits(mnum);
+    int nump = palette_fit::GetPartitionBits(mnum);
+    int numx = palette_fit::GetSelectionBits(mnum);
+    int numb = palette_fit::GetSharedBits(mnum);
+    int numi = palette_fit::GetIndexBits(mnum);
 
     // stop if set-limit reached
     if (nums > lmts)
@@ -388,12 +388,12 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 //  sb = eb = DEBUG_SHAREDBIT;
 #endif
 
-    int cb = PaletteFit::GetPrecisionBits(mnum);
+    int cb = palette_fit::GetPrecisionBits(mnum);
     int ab = cb >> 16;
     cb = cb & 0xFF;
 
     // create the initial point set and quantizer
-    PaletteSet initial(rgba, mask, flags + mode);
+    palette_set initial(rgba, mask, flags + mode);
     vQuantizer qnt(cb, cb, cb, ab);
 
     // signal if we do we have anything better this iteration of the search
@@ -439,7 +439,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
     for (int pr = spr; pr <= epr; pr++)
     {
       // create the minimal point set
-      PaletteSet palette(initial, mask, flags + mode, pr);
+      palette_set palette(initial, mask, flags + mode, pr);
 
 #if 0
       // if we see we have less colors than sets, 
@@ -513,7 +513,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
       int degree = (flags & kcolorIterativeClusterFits);
 
       // default to a cluster fit (could be iterative or not)
-      PaletteClusterFit fit(&bestpal, flags + mode);
+      palette_cluster_fit fit(&bestpal, flags + mode);
 
       // we want the whole shebang, this takes looong!
       if (degree < (kcolorClusterFit * 15))
@@ -534,7 +534,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
           fit.SetError(error);
 
           // we could code it lossless, no point in trying any further at all
-          fit.PaletteClusterFit::Compress(block, qnt, mnum);
+          fit.palette_cluster_fit::Compress(block, qnt, mnum);
           if (fit.IsBest())
           {
             if (fit.Lossless())
@@ -567,7 +567,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 #endif
 
 #if defined(VERIFY_QUANTIZER)
-  int cb = PaletteFit::GetPrecisionBits((bestmde >> 24) - 1);
+  int cb = palette_fit::GetPrecisionBits((bestmde >> 24) - 1);
   int ab = cb >> 16;
   cb = cb & 0xFF;
 
@@ -577,7 +577,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
   if (!besttyp)
   {
     // do a range fit (which uses single palette fit if appropriate)
-    PaletteRangeFit fit(&bestpal, flags + bestmde, bestswp, bestbit);
+    palette_range_fit fit(&bestpal, flags + bestmde, bestswp, bestbit);
 
     fit.Compress(block, qnt, (bestmde >> 24) - 1);
     fit.Decompress((std::uint8_t*)rgba, qnt, (bestmde >> 24) - 1);
@@ -585,7 +585,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
   else
   {
     // default to a cluster fit (could be iterative or not)
-    PaletteClusterFit fit(&bestpal, flags + bestmde, bestswp, bestbit);
+    palette_cluster_fit fit(&bestpal, flags + bestmde, bestswp, bestbit);
 
     fit.Compress(block, qnt, (bestmde >> 24) - 1);
     fit.Decompress((std::uint8_t*)rgba, qnt, (bestmde >> 24) - 1);
@@ -681,7 +681,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
   static int caselimit[2] = {2, 1};
 
   // use the same data-structure all the time
-  PaletteSet bestpal[2];
+  palette_set bestpal[2];
   Vec4 bestblock[2];
   int bestqnt[2] = {-1, -1};
   int bestmde[2] = {-1, -1};
@@ -707,7 +707,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
     int go = mc * 2;
 
     // create the initial point set
-    PaletteSet initial(rgba, mask, flags + caseorder[go].mode);
+    palette_set initial(rgba, mask, flags + caseorder[go].mode);
 
     // if we see we have transparent values, back up from trying to test
     // non-alpha only modes this will affect only successive trials, if an
@@ -729,8 +729,8 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
 
       // a mode has a specific number of sets, and variable rotations and
       // partitions
-      int numr = PaletteFit::GetRotationBits(caseorder[sm].mnum);
-      int nump = PaletteFit::GetPartitionBits(caseorder[sm].mnum);
+      int numr = palette_fit::GetRotationBits(caseorder[sm].mnum);
+      int nump = palette_fit::GetPartitionBits(caseorder[sm].mnum);
 
       // search through partitions
       int sp = 0, ep = (1 << nump) - 1;
@@ -751,7 +751,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
       for (int pr = spr; pr <= epr; pr++)
       {
         // create the minimal point set
-        PaletteSet palette(initial, mask, flags + caseorder[sm].mode, pr);
+        palette_set palette(initial, mask, flags + caseorder[sm].mode, pr);
 
         // do a range fit (which uses single palette fit if appropriate)
         PaletteTypeFit fit(&palette, flags + caseorder[sm].mode);
@@ -768,8 +768,8 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
 
           // a mode has a specific number of sets, and variable rotations and
           // partitions
-          int numx = PaletteFit::GetSelectionBits(mnum);
-          int numb = PaletteFit::GetSharedBits(mnum);
+          int numx = palette_fit::GetSelectionBits(mnum);
+          int numb = palette_fit::GetSharedBits(mnum);
 
           // search through index-swaps
           int sx = 0, ex = (1 << numx) - 1;
@@ -873,7 +873,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
             // partitions
             int mode = bestmde[m];
             int mnum = (mode >> 24) - 1;
-            int numi = PaletteFit::GetIndexBits(mnum);
+            int numi = palette_fit::GetIndexBits(mnum);
 
             // check if we can do a cascade with the cluster-fit (merged alpha 4
             // bit is the only exception)
@@ -887,12 +887,12 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
               int degree = (flags & kcolorIterativeClusterFits);
 
               // default to a cluster fit (could be iterative or not)
-              PaletteClusterFit fit(&bestpal[m], flags + mode);
+              palette_cluster_fit fit(&bestpal[m], flags + mode);
 
               // a mode has a specific number of sets, and variable rotations
               // and partitions
-              int numx = PaletteFit::GetSelectionBits(mnum);
-              int numb = PaletteFit::GetSharedBits(mnum);
+              int numx = palette_fit::GetSelectionBits(mnum);
+              int numb = palette_fit::GetSharedBits(mnum);
 
               // search through index-swaps
               int sx = 0, ex = (1 << numx) - 1;
@@ -949,7 +949,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
 
                   // we could code it lossless, no point in trying any further
                   // at all
-                  fit.PaletteClusterFit::Compress(
+                  fit.palette_cluster_fit::Compress(
                     block, *caseqnt[bestqnt[m]].qnt, mnum);
                   if (fit.IsBest())
                   {
@@ -1032,7 +1032,7 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
   int lmtp = -1;
 
   // use the same data-structure all the time
-  HDRSet bestpal;
+  hdr_set bestpal;
   int bestmde = -1;
   int besttyp = -1;
 
@@ -1044,9 +1044,9 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
     int mnum = (mode >> 24) - 1;
 
     // a mode has a specific number of sets, and variable partitions
-    int nums = HDRFit::GetNumSets(mnum);
-    int nump = HDRFit::GetPartitionBits(mnum);
-    int numi = HDRFit::GetIndexBits(mnum);
+    int nums = hdr_fit::GetNumSets(mnum);
+    int nump = hdr_fit::GetPartitionBits(mnum);
+    int numi = hdr_fit::GetIndexBits(mnum);
     numi = numi;
 
     // stop if set-limit reached
@@ -1057,11 +1057,11 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
     int sp = (lmtp == -1 ? 0 : lmtp),
         ep = (lmtp == -1 ? (1 << nump) - 1 : lmtp);
 
-    int tb = HDRFit::GetTruncationBits(mnum);
-    int db = HDRFit::GetDeltaBits(mnum);
+    int tb = hdr_fit::GetTruncationBits(mnum);
+    int db = hdr_fit::GetDeltaBits(mnum);
 
     // create the initial point set and quantizer
-    HDRSet initial(rgb, mask, flags + mode);
+    hdr_set initial(rgb, mask, flags + mode);
     fQuantizer qnt(tb, db);
 
     // signal if we do we have anything better this iteration of the search
@@ -1071,7 +1071,7 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
     for (int p = sp; p <= ep; p++)
     {
       // create the minimal point set
-      HDRSet palette(initial, mask, flags + mode, p);
+      hdr_set palette(initial, mask, flags + mode, p);
 
 #if 0
       // if we see we have less colors than sets, 
@@ -1082,7 +1082,7 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 #endif
 
       // do a range fit (which uses single palette fit if appropriate)
-      HDRRangeFit fit(&palette, flags + mode);
+      hdr_range_fit fit(&palette, flags + mode);
 
       // update with old best error (reset IsBest)
       fit.SetError(error);
@@ -1121,7 +1121,7 @@ void CompressMaskedBitoneCtx1u(dtyp const* rgba, int mask, void* block,
 
 template <typename dtyp>
 void CompressMaskedcolorBtc1u(dtyp const* rgba, int mask, void* block,
-                               int flags)
+                              int flags)
 {
   // get the block locations
   void* colorBlock = block;
@@ -1132,7 +1132,7 @@ void CompressMaskedcolorBtc1u(dtyp const* rgba, int mask, void* block,
 
 template <typename dtyp>
 void CompressMaskedcolorBtc2u(dtyp const* rgba, int mask, void* block,
-                               int flags)
+                              int flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1146,7 +1146,7 @@ void CompressMaskedcolorBtc2u(dtyp const* rgba, int mask, void* block,
 
 template <typename dtyp>
 void CompressMaskedcolorBtc3u(dtyp const* rgba, int mask, void* block,
-                               int flags)
+                              int flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1283,8 +1283,7 @@ void CompressMaskedNormalBtc5s(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc6u(dtyp const* rgb, int mask, void* block,
-                               int flags)
+void CompressMaskedcolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 {
   // get the block locations
   void* mixedBlock = block;
@@ -1295,7 +1294,7 @@ void CompressMaskedcolorBtc6u(dtyp const* rgb, int mask, void* block,
 
 template <typename dtyp>
 void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
-                               int flags)
+                              int flags)
 {
   // get the block locations
   void* mixedBlock = block;
@@ -1303,10 +1302,10 @@ void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
 #ifdef DEBUG_DETAILS
   // compress color and alpha merged if necessary
   fprintf(stderr, "CompressPaletteBtc7uV1\n");
-  Scr4 errora = CompressPaletteBtc7uV1<dtyp, PaletteRangeFit>(
+  Scr4 errora = CompressPaletteBtc7uV1<dtyp, palette_range_fit>(
     rgba, mask, mixedBlock, flags);
   fprintf(stderr, "CompressPaletteBtc7uV2\n");
-  Scr4 errorb = CompressPaletteBtc7uV2<dtyp, PaletteRangeFit>(
+  Scr4 errorb = CompressPaletteBtc7uV2<dtyp, palette_range_fit>(
     rgba, mask, mixedBlock, flags);
 
   if (errorb > errora)
@@ -1315,8 +1314,8 @@ void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
     damn = false;
 
     fprintf(stderr, "CompressPaletteBtc7uV2\n");
-    errorb = CompressPaletteBtc7uV2<dtyp, PaletteRangeFit>(rgba, mask,
-                                                           mixedBlock, flags);
+    errorb = CompressPaletteBtc7uV2<dtyp, palette_range_fit>(rgba, mask,
+                                                             mixedBlock, flags);
   }
   else if (errorb < errora)
   {
@@ -1324,7 +1323,8 @@ void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
     cool = false;
   }
 #else
-  CompressPaletteBtc7uV2<dtyp, PaletteRangeFit>(rgba, mask, mixedBlock, flags);
+  CompressPaletteBtc7uV2<dtyp, palette_range_fit>(rgba, mask, mixedBlock,
+                                                  flags);
 #endif
 }
 
@@ -1335,7 +1335,8 @@ void CompressMaskedNormalBtc7u(dtyp const* xyzd, int mask, void* block,
   // get the block locations
   void* mixedBlock = block;
 
-  CompressPaletteBtc7uV2<dtyp, PaletteNormalFit>(xyzd, mask, mixedBlock, flags);
+  CompressPaletteBtc7uV2<dtyp, palette_normal_fit>(xyzd, mask, mixedBlock,
+                                                   flags);
 }
 
 void compress_masked(std::uint8_t const* rgba, int mask, void* block, int flags)
@@ -1800,30 +1801,24 @@ struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<std::int8_t>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc2 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc3 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint8_t>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<std::uint8_t>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint8_t>;
 
@@ -1873,30 +1868,24 @@ struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<std::int16_t>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc2 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc3 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint16_t>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<std::uint16_t>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint16_t>;
 
@@ -1946,30 +1935,24 @@ struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<float>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<float>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<float>,
       s.decoder = (sqio::dec)DecompresscolorBtc1u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc2 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<float>,
       s.decoder = (sqio::dec)DecompresscolorBtc2u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc3 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<float>,
       s.decoder = (sqio::dec)DecompresscolorBtc3u<float>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<float>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<float>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) ==
-             (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<float>,
       s.decoder = (sqio::dec)DecompresscolorBtc7u<float>;
 

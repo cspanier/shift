@@ -42,10 +42,10 @@ namespace squish
 {
 
 // -----------------------------------------------------------------------------
-class PaletteClusterFit : public PaletteSingleMatch, public PaletteChannelFit
+class palette_cluster_fit : public palette_single_match, public palette_channel_fit
 {
 public:
-  PaletteClusterFit(PaletteSet const* palettes, int flags, int swap = -1,
+  palette_cluster_fit(palette_set const* palettes, int flags, int swap = -1,
                     int shared = -1);
 
   virtual void Compress(void* block, vQuantizer& q, int mode);
@@ -57,12 +57,12 @@ public:
     kMaxIterations = 15
   };
 
-  static int sanitize_flags(int flags)
+  static flags_t sanitize_flags(flags_t flags)
   {
-    if (flags > (kcolorClusterFit * kMaxIterations))
-      return (kcolorClusterFit * kMaxIterations);
-    if (flags < (kcolorClusterFit * kMinIterations))
-      return (kcolorClusterFit * kMinIterations);
+    if (flags > compressor::color_iterative_cluster_mask)
+      return compressor::color_iterative_cluster_mask;
+    if (flags > compressor::color_iterative_cluster_fit1)
+      return compressor::color_iterative_cluster_fit1;
 
     return flags;
   }

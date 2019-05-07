@@ -34,20 +34,21 @@
 
 #include "inlineables.inl"
 
-namespace squish {
+namespace squish
+{
 
 /* *****************************************************************************
  */
-colorRangeFit::colorRangeFit(colorSet const* colors, int flags)
-  : colorFit(colors, flags)
+color_range_fit::color_range_fit(color_set const* colors, int flags)
+: color_fit(colors, flags)
 {
   // initialize endpoints
   ComputeEndPoints();
 }
 
-void colorRangeFit::ComputeEndPoints()
+void color_range_fit::ComputeEndPoints()
 {
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
 
   // cache some values
   int const count = m_colors->GetCount();
@@ -62,7 +63,8 @@ void colorRangeFit::ComputeEndPoints()
   if (m_colors->IsUnweighted())
     ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric);
   else
-    ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric, weights);
+    ComputeWeightedCovariance3(covariance, centroid, count, values, m_metric,
+                               weights);
 
   // compute the principle component
   GetPrincipleComponent(covariance, principle);
@@ -71,8 +73,9 @@ void colorRangeFit::ComputeEndPoints()
   Vec3 start(0.0f);
   Vec3 end(0.0f);
 
-  if (count > 0) {
-#ifdef  FEATURE_RANGEFIT_PROJECT
+  if (count > 0)
+  {
+#ifdef FEATURE_RANGEFIT_PROJECT
     // compute the projection
     GetPrincipleProjection(start, end, principle, centroid, count, values);
 #else
@@ -82,16 +85,19 @@ void colorRangeFit::ComputeEndPoints()
     start = end = values[0];
     min = max = Dot(values[0], principle);
 
-    for (int i = 1; i < count; ++i) {
+    for (int i = 1; i < count; ++i)
+    {
       Scr3 val = Dot(values[i], principle);
 
-      if (val < min) {
-  start = values[i];
-  min = val;
+      if (val < min)
+      {
+        start = values[i];
+        min = val;
       }
-      else if (val > max) {
-  end = values[i];
-  max = val;
+      else if (val > max)
+      {
+        end = values[i];
+        max = val;
       }
     }
 #endif
@@ -99,28 +105,32 @@ void colorRangeFit::ComputeEndPoints()
 
   // snap floating-point-values to the integer-lattice and save
   m_start = q.SnapToLattice(start);
-  m_end   = q.SnapToLattice(end  );
+  m_end = q.SnapToLattice(end);
 }
 
-void colorRangeFit::Compress3b(void* block)
+void color_range_fit::Compress3b(void* block)
 {
-  colorSet copy = *m_colors;
+  color_set copy = *m_colors;
   m_colors = &copy;
 
   Scr3 m_destroyed = Scr3(0.0f);
-  while (copy.RemoveBlack(m_metric, m_destroyed) && !(m_besterror < m_destroyed)) {
+  while (copy.RemoveBlack(m_metric, m_destroyed) &&
+         !(m_besterror < m_destroyed))
+  {
     m_besterror -= m_destroyed;
 
-    if (copy.GetCount() == 1) {
+    if (copy.GetCount() == 1)
+    {
       // always do a single color fit
-      colorSingleMatch fit(m_colors, m_flags);
+      color_single_match fit(m_colors, m_flags);
 
       fit.SetError(m_besterror);
       fit.Compress(block);
 
       m_besterror = fit.GetError();
     }
-    else {
+    else
+    {
       ComputeEndPoints();
       Compress3(block);
     }
@@ -129,7 +139,7 @@ void colorRangeFit::Compress3b(void* block)
   }
 }
 
-void colorRangeFit::Compress3(void* block)
+void color_range_fit::Compress3(void* block)
 {
   // cache some values
   int const count = m_colors->GetCount();
@@ -138,18 +148,21 @@ void colorRangeFit::Compress3(void* block)
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
-  Vec3 codes[3]; Codebook3(codes, m_metric * m_start, m_metric * m_end);
+  Vec3 codes[3];
+  Codebook3(codes, m_metric * m_start, m_metric * m_end);
 
   // match each point to the closest code
   std::uint8_t closest[16];
 
   Scr3 error = Scr3(DISTANCE_BASE);
-  for (int i = 0; i < count; ++i) {
+  for (int i = 0; i < count; ++i)
+  {
     int idx = 0;
 
     // find the closest code
     Vec3 value = m_metric * values[i];
-    Scr3 dist; MinDistance3<true>(dist, idx, value, codes);
+    Scr3 dist;
+    MinDistance3<true>(dist, idx, value, codes);
 
     // save the index
     closest[i] = (std::uint8_t)idx;
@@ -159,19 +172,21 @@ void colorRangeFit::Compress3(void* block)
   }
 
   // save this scheme if it wins
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
+    std::uint8_t indices[16];
+    m_colors->RemapIndices(closest, indices);
 
     // save the block
     WritecolorBlock3(m_start, m_end, indices, block);
   }
 }
 
-void colorRangeFit::Compress4(void* block)
+void color_range_fit::Compress4(void* block)
 {
   // cache some values
   int const count = m_colors->GetCount();
@@ -180,18 +195,21 @@ void colorRangeFit::Compress4(void* block)
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
-  Vec3 codes[4]; Codebook4(codes, m_metric * m_start, m_metric * m_end);
+  Vec3 codes[4];
+  Codebook4(codes, m_metric * m_start, m_metric * m_end);
 
   // match each point to the closest code
   std::uint8_t closest[16];
 
   Scr3 error = Scr3(DISTANCE_BASE);
-  for (int i = 0; i < count; ++i) {
+  for (int i = 0; i < count; ++i)
+  {
     int idx = 0;
 
     // find the closest code
     Vec3 value = m_metric * values[i];
-    Scr3 dist; MinDistance4<true>(dist, idx, value, codes);
+    Scr3 dist;
+    MinDistance4<true>(dist, idx, value, codes);
 
     // accumulate the error
     AddDistance(dist, error, freq[i]);
@@ -201,15 +219,17 @@ void colorRangeFit::Compress4(void* block)
   }
 
   // save this scheme if it wins
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
+    std::uint8_t indices[16];
+    m_colors->RemapIndices(closest, indices);
 
     // save the block
     WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
-} // namespace squish
+}  // namespace squish

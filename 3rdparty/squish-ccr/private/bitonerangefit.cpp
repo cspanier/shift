@@ -35,8 +35,8 @@ namespace squish {
 
 /* *****************************************************************************
  */
-BitoneRangeFit::BitoneRangeFit(BitoneSet const* bitones, int flags)
-  : BitoneFit(bitones, flags)
+bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
+  : bitone_fit(bitones, flags)
 {
   // initialize the best error
   m_besterror = Scr3(FLT_MAX);
@@ -94,7 +94,7 @@ BitoneRangeFit::BitoneRangeFit(BitoneSet const* bitones, int flags)
   m_end   = Truncate(end   * 255.0f + Vec3(0.5f)) * (1.0f / 255.0f);
 }
 
-void BitoneRangeFit::Compress4(void* block)
+void bitone_range_fit::Compress4(void* block)
 {
   // cache some values
   int const count = m_bitones->GetCount();

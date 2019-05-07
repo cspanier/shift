@@ -40,11 +40,11 @@ struct PaletteSingleLookup2;
 struct PaletteSingleLookup4;
 struct PaletteSingleLookup8;
 
-class PaletteSet;
-class PaletteSingleSnap : public virtual PaletteFit
+class palette_set;
+class palette_single_snap : public virtual palette_fit
 {
 public:
-  PaletteSingleSnap(PaletteSet const* colors, int flags, int swap = -1, int shared = 0);
+  palette_single_snap(palette_set const* colors, int flags, int swap = -1, int shared = 0);
 
 private:
   Scr4 ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t cmask);

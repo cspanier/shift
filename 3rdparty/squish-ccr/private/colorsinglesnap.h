@@ -35,12 +35,12 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class colorSet;
+class color_set;
 struct colorSingleLookup;
-class colorSingleSnap : public colorFit
+class color_single_snap : public color_fit
 {
 public:
-  colorSingleSnap(colorSet const* colors, int flags);
+  color_single_snap(color_set const* colors, int flags);
   
   // error management
   void SetError(Scr4 &error) { m_besterror = error; }

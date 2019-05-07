@@ -32,12 +32,12 @@ namespace squish {
 
 /* *****************************************************************************
  */
-BitoneFit::BitoneFit( BitoneSet const* bitones, int flags )
+bitone_fit::bitone_fit( bitone_set const* bitones, int flags )
   : m_bitones(bitones), m_flags(flags)
 {
 }
 
-void BitoneFit::Compress( void* block )
+void bitone_fit::Compress( void* block )
 {
   Compress4(block);
 }

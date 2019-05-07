@@ -37,11 +37,11 @@
 
 namespace squish
 {
-class HDRSet;
-class HDRRangeFit : public HDRSingleMatch, public HDRIndexFit
+class hdr_set;
+class hdr_range_fit : public hdr_single_match, public hdr_index_fit
 {
 public:
-  HDRRangeFit(HDRSet const* palette, int flags);
+  hdr_range_fit(hdr_set const* palette, int flags);
 
   virtual void Compress(void* block, fQuantizer& q, int mode);
 

@@ -112,56 +112,56 @@ static const struct {
   { 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 }
 };
 
-int PaletteFit::GetNumSets(int mode) {
+int palette_fit::GetNumSets(int mode) {
   return
     PBcfg[mode].NS;
 }
 
-int PaletteFit::GetPartitionBits(int mode) {
+int palette_fit::GetPartitionBits(int mode) {
   return
     PBcfg[mode].PB;
 }
 
-int PaletteFit::GetIndexBits(int mode) {
+int palette_fit::GetIndexBits(int mode) {
   return
     PBcfg[mode].IB + (PBcfg[mode].IB2 << 16);
 }
 
-int PaletteFit::GetRotationBits(int mode) {
+int palette_fit::GetRotationBits(int mode) {
   return
     PBcfg[mode].RB;
 }
 
-int PaletteFit::GetSelectionBits(int mode) {
+int palette_fit::GetSelectionBits(int mode) {
   return
     PBcfg[mode].ISB;
 }
 
-int PaletteFit::GetSharedBits(int mode) {
+int palette_fit::GetSharedBits(int mode) {
   if (PBcfg[mode].EPB) return (1 << (PBcfg[mode].NS * PBcfg[mode].EPB * 2)) - 1;
   if (PBcfg[mode].SPB) return (1 << (PBcfg[mode].NS * PBcfg[mode].SPB * 1)) - 1;
   return 0;
 }
 
-const int *PaletteFit::GetSharedMap(int mode) {
+const int *palette_fit::GetSharedMap(int mode) {
   if (PBcfg[mode].EPB) return maps[1];
   if (PBcfg[mode].SPB) return maps[0];
   return NULL;
 }
 
-int PaletteFit::GetSharedSkip(int mode) {
+int palette_fit::GetSharedSkip(int mode) {
   if (PBcfg[mode].EPB) return skip[1][PBcfg[mode].NS];
   if (PBcfg[mode].SPB) return skip[0][PBcfg[mode].NS];
   return NULL;
 }
 
-int PaletteFit::GetPrecisionBits(int mode) {
+int palette_fit::GetPrecisionBits(int mode) {
   return
     ((PBcfg[mode].CB + (PBcfg[mode].CB ? PBcfg[mode].EPB + PBcfg[mode].SPB : 0)) <<  0) |
     ((PBcfg[mode].AB + (PBcfg[mode].AB ? PBcfg[mode].EPB + PBcfg[mode].SPB : 0)) << 16);
 }
 
-PaletteFit::PaletteFit(PaletteSet const* palette, int flags, int swap, int shared)
+palette_fit::palette_fit(palette_set const* palette, int flags, int swap, int shared)
   : m_palette(palette), m_swapindex(-1), m_flags(flags), m_sharedbits(-1)
 {
   int const ix = m_palette->GetRotation();
@@ -220,7 +220,7 @@ PaletteFit::PaletteFit(PaletteSet const* palette, int flags, int swap, int share
   m_sharedbits = SR(shared);
 }
 
-void PaletteFit::Compress(void* block, vQuantizer &q)
+void palette_fit::Compress(void* block, vQuantizer &q)
 {
   if (m_mode < 0) {
     /*
@@ -283,7 +283,7 @@ void PaletteFit::Compress(void* block, vQuantizer &q)
 }
 
 #if 1 //ndef NDEBUG
-void PaletteFit::SumError(std::uint8_t (&closest)[4][16], vQuantizer &q, int mode, Scr4 &error) {
+void palette_fit::SumError(std::uint8_t (&closest)[4][16], vQuantizer &q, int mode, Scr4 &error) {
   int ib = GetIndexBits(mode);
   int jb = ib >> 16; ib = ib & 0xFF;
   int cb = GetPrecisionBits(mode);
@@ -330,7 +330,7 @@ void PaletteFit::SumError(std::uint8_t (&closest)[4][16], vQuantizer &q, int mod
   }
 }
 
-void PaletteFit::Decompress(std::uint8_t *rgba, vQuantizer &q, int mode)
+void palette_fit::Decompress(std::uint8_t *rgba, vQuantizer &q, int mode)
 {
   int ib = GetIndexBits(mode);
   int jb = ib >> 16; ib = ib & 0xFF;

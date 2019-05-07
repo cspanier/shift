@@ -56,11 +56,11 @@ struct PaletteSingleLookup8
 #undef  SPL_ITERATIVE
 #include "palettesinglelookup.inl"
 
-PaletteSingleSnap::PaletteSingleSnap(PaletteSet const* palette, int flags, int swap, int shared)
+palette_single_snap::palette_single_snap(palette_set const* palette, int flags, int swap, int shared)
 {
 }
 
-Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, int cb, int ab, int sb, int ib, std::uint8_t cmask)
+Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, int cb, int ab, int sb, int ib, std::uint8_t cmask)
 {
 #if  !defined(FEATURE_SHAREDBITS_TRIALS)
   // silence the compiler
@@ -166,7 +166,7 @@ Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, int cb, in
   }
 }
 
-Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t cmask)
+Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t cmask)
 {
   // grab the single entry
   Vec4 const* values = m_palette->GetPoints(set);
@@ -208,7 +208,7 @@ Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSin
   return error;
 }
 
-Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup4 const* const* lookups, std::uint8_t cmask)
+Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup4 const* const* lookups, std::uint8_t cmask)
 {
   // grab the single entry
   Vec4 const* values = m_palette->GetPoints(set);
@@ -250,7 +250,7 @@ Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSin
   return error;
 }
 
-Scr4 PaletteSingleSnap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup8 const* const* lookups, std::uint8_t cmask)
+Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup8 const* const* lookups, std::uint8_t cmask)
 {
   // grab the single entry
   Vec4 const* values = m_palette->GetPoints(set);

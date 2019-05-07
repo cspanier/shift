@@ -44,8 +44,8 @@ struct colorSingleLookup
 #undef  SCL_ITERATIVE
 #include "colorsinglelookup.inl"
 
-colorSingleSnap::colorSingleSnap(colorSet const* colors, int flags)
-  : colorFit(colors, flags)
+color_single_snap::color_single_snap(color_set const* colors, int flags)
+  : color_fit(colors, flags)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
@@ -74,7 +74,7 @@ colorSingleSnap::colorSingleSnap(colorSet const* colors, int flags)
    */
 }
 
-void colorSingleSnap::Compress3b(void* block)
+void color_single_snap::Compress3b(void* block)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
@@ -85,7 +85,7 @@ void colorSingleSnap::Compress3b(void* block)
   }
 }
 
-void colorSingleSnap::Compress3(void* block)
+void color_single_snap::Compress3(void* block)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
@@ -122,7 +122,7 @@ void colorSingleSnap::Compress3(void* block)
   }
 }
 
-void colorSingleSnap::Compress4(void* block)
+void color_single_snap::Compress4(void* block)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();

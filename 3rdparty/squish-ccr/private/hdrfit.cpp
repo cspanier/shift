@@ -69,59 +69,59 @@ static const struct
                {1, 0, 0, {4, 4, 4}, {8, 8, 8}, 4, 4},
                {1, 0, 0, {12, 12, 12}, {4, 4, 4}, 0, 4}};
 
-int HDRFit::GetNumSets(int mode)
+int hdr_fit::GetNumSets(int mode)
 {
   return HBcfg[mode].NS;
 }
 
-int HDRFit::GetPartitionBits(int mode)
+int hdr_fit::GetPartitionBits(int mode)
 {
   return HBcfg[mode].PB;
 }
 
-int HDRFit::GetIndexBits(int mode)
+int hdr_fit::GetIndexBits(int mode)
 {
   return HBcfg[mode].IB;
 }
 
-int HDRFit::GetExplicitBits(int mode)
+int hdr_fit::GetExplicitBits(int mode)
 {
   return HBcfg[mode].EB;
 }
 
-int HDRFit::GetSharedBits(int mode)
+int hdr_fit::GetSharedBits(int mode)
 {
   return (HBcfg[mode].SB[2] << 16) + (HBcfg[mode].SB[1] << 8) +
          (HBcfg[mode].SB[0] << 0);
 }
 
-int HDRFit::GetDeltaBits(int mode)
+int hdr_fit::GetDeltaBits(int mode)
 {
   return (HBcfg[mode].DB[2] << 16) + (HBcfg[mode].DB[1] << 8) +
          (HBcfg[mode].DB[0] << 0);
 }
 
-int HDRFit::GetSharedBits(int mode, int channel)
+int hdr_fit::GetSharedBits(int mode, int channel)
 {
   return HBcfg[mode].SB[channel];
 }
 
-int HDRFit::GetDeltaBits(int mode, int channel)
+int hdr_fit::GetDeltaBits(int mode, int channel)
 {
   return HBcfg[mode].DB[channel];
 }
 
-int HDRFit::GetTruncationBits(int mode)
+int hdr_fit::GetTruncationBits(int mode)
 {
   return HBcfg[mode].TB;
 }
 
-int HDRFit::GetPrecisionBits(int mode)
+int hdr_fit::GetPrecisionBits(int mode)
 {
   return 16 - HBcfg[mode].TB;
 }
 
-HDRFit::HDRFit(HDRSet const* palette, int flags)
+hdr_fit::hdr_fit(hdr_set const* palette, int flags)
 : m_palette(palette), m_flags(flags)
 {
   // initialize the metric
@@ -144,7 +144,7 @@ HDRFit::HDRFit(HDRSet const* palette, int flags)
   m_mode = ((m_flags & kVariableCodingModes) >> 24) - 1;
 }
 
-void HDRFit::Compress(void* block, fQuantizer& q)
+void hdr_fit::Compress(void* block, fQuantizer& q)
 {
   if (m_mode < 0)
   {
@@ -188,7 +188,7 @@ void HDRFit::Compress(void* block, fQuantizer& q)
 }
 
 #if 0  // ndef NDEBUG
-void HDRFit::SumError(std::uint8_t (&closest)[4][16], fQuantizer &q, int mode, Scr4 &error) {
+void hdr_fit::SumError(std::uint8_t (&closest)[4][16], fQuantizer &q, int mode, Scr4 &error) {
   int ib = GetIndexBits(mode);
   int tb = GetTruncationBits(mode);
   int db = GetDeltaBits(mode);
@@ -226,7 +226,7 @@ void HDRFit::SumError(std::uint8_t (&closest)[4][16], fQuantizer &q, int mode, S
   }
 }
 
-void HDRFit::Decompress(std::uint16_t *rgb, fQuantizer &q, int mode)
+void hdr_fit::Decompress(std::uint16_t *rgb, fQuantizer &q, int mode)
 {
   int ib = GetIndexBits(mode);
   int tb = GetTruncationBits(mode);

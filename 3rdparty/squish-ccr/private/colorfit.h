@@ -34,11 +34,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class colorSet;
-class colorFit
+class color_set;
+class color_fit
 {
 public:
-  colorFit( colorSet const* colors, int flags );
+  color_fit( color_set const* colors, int flags );
 
   void Compress( void* block );
 
@@ -47,7 +47,7 @@ protected:
   virtual void Compress3(void* block) = 0;
   virtual void Compress4(void* block) = 0;
 
-  colorSet const* m_colors;
+  color_set const* m_colors;
   int m_flags;
 
   Vec3 m_metric;

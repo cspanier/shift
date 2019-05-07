@@ -50,8 +50,8 @@ struct colorSingleLookup
 #define  SCL_ITERATIVE
 #include "colorsinglelookup.inl"
 
-colorSingleFit::colorSingleFit(colorSet const* colors, int flags)
-  : colorFit(colors, flags)
+color_single_fit::color_single_fit(color_set const* colors, int flags)
+  : color_fit(colors, flags)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
@@ -65,7 +65,7 @@ colorSingleFit::colorSingleFit(colorSet const* colors, int flags)
   m_besterror = Scr3(FLT_MAX);
 }
 
-void colorSingleFit::Compress3(void* block)
+void color_single_fit::Compress3(void* block)
 {
   // build the table of lookups
   colorSingleLookup const* const lookups[] =
@@ -91,7 +91,7 @@ void colorSingleFit::Compress3(void* block)
   }
 }
 
-void colorSingleFit::Compress4(void* block)
+void color_single_fit::Compress4(void* block)
 {
   // build the table of lookups
   colorSingleLookup const* const lookups[] =
@@ -117,7 +117,7 @@ void colorSingleFit::Compress4(void* block)
   }
 }
 
-int colorSingleFit::ComputeEndPoints(colorSingleLookup const* const* lookups)
+int color_single_fit::ComputeEndPoints(colorSingleLookup const* const* lookups)
 {
   // check each index combination (endpoint or intermediate)
   int besterror = INT_MAX;

@@ -35,11 +35,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class colorSet;
-class colorRangeFit : public colorFit
+class color_set;
+class color_range_fit : public color_fit
 {
 public:
-  colorRangeFit(colorSet const* colors, int flags);
+  color_range_fit(color_set const* colors, int flags);
 
 private:
   void ComputeEndPoints();

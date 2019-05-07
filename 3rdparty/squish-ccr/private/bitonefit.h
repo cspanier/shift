@@ -34,18 +34,18 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class BitoneSet;
-class BitoneFit
+class bitone_set;
+class bitone_fit
 {
 public:
-  BitoneFit( BitoneSet const* bitones, int flags );
+  bitone_fit( bitone_set const* bitones, int flags );
 
   void Compress( void* block );
 
 protected:
   virtual void Compress4( void* block ) = 0;
 
-  BitoneSet const* m_bitones;
+  bitone_set const* m_bitones;
   int m_flags;
 };
 } // namespace squish

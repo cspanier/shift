@@ -38,10 +38,10 @@ namespace squish
 {
 
 // -----------------------------------------------------------------------------
-class colorClusterFit : public colorFit
+class color_cluster_fit : public color_fit
 {
 public:
-  colorClusterFit(colorSet const* colors, int flags);
+  color_cluster_fit(color_set const* colors, int flags);
 
 public:
   enum
@@ -50,12 +50,12 @@ public:
     kMaxIterations = 15
   };
 
-  static int sanitize_flags(int flags)
+  static flags_t sanitize_flags(flags_t flags)
   {
-    if (flags > (kcolorClusterFit * kMaxIterations))
-      return (kcolorClusterFit * kMaxIterations);
-    if (flags < (kcolorClusterFit * kMinIterations))
-      return (kcolorClusterFit * kMinIterations);
+    if (flags > compressor::color_iterative_cluster_mask)
+      return compressor::color_iterative_cluster_mask;
+    if (flags > compressor::color_iterative_cluster_fit1)
+      return compressor::color_iterative_cluster_fit1;
 
     return flags;
   }

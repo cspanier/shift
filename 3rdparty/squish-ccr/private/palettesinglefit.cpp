@@ -60,11 +60,11 @@ struct PaletteSingleLookup8
 #define  SCL_ITERATIVE
 #include "palettesinglelookup.inl"
 
-PaletteSingleFit::PaletteSingleFit(PaletteSet const* palette, int flags, int swap, int shared)
+palette_single_fit::palette_single_fit(palette_set const* palette, int flags, int swap, int shared)
 {
 }
 
-Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, int cb, int ab, int sb, int ib, std::uint8_t cmask)
+Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, int cb, int ab, int sb, int ib, std::uint8_t cmask)
 {
 #if  !defined(FEATURE_SHAREDBITS_TRIALS)
   // silence the compiler
@@ -170,7 +170,7 @@ Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, int cb, int
   }
 }
 
-Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t mask)
+Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t mask)
 {
   // check each index combination (endpoint or intermediate)
   Scr4 besterror = Scr4(FLT_MAX);
@@ -243,7 +243,7 @@ Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSing
   return besterror;
 }
 
-Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup4 const* const* lookups, std::uint8_t mask)
+Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup4 const* const* lookups, std::uint8_t mask)
 {
   // check each index combination (endpoint or intermediate)
   Scr4 besterror = Scr4(FLT_MAX);
@@ -315,7 +315,7 @@ Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSing
   return besterror;
 }
 
-Scr4 PaletteSingleFit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup8 const* const* lookups, std::uint8_t mask)
+Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup8 const* const* lookups, std::uint8_t mask)
 {
   // check each index combination (endpoint or intermediate)
   Scr4 besterror = Scr4(FLT_MAX);

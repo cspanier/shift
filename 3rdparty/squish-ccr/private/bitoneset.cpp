@@ -33,7 +33,7 @@ namespace squish {
 
 /* *****************************************************************************
  */
-BitoneSet::BitoneSet(std::uint8_t const* rgba, int mask, int flags)
+bitone_set::bitone_set(std::uint8_t const* rgba, int mask, int flags)
   : m_count(0)
   , m_unweighted(true)
 {
@@ -193,13 +193,13 @@ BitoneSet::BitoneSet(std::uint8_t const* rgba, int mask, int flags)
 #endif
 }
 
-BitoneSet::BitoneSet(std::uint16_t const* rgba, int mask, int flags)
+bitone_set::bitone_set(std::uint16_t const* rgba, int mask, int flags)
   : m_count(0)
   , m_unweighted(true)
 {
 }
 
-BitoneSet::BitoneSet(float const* rgba, int mask, int flags)
+bitone_set::bitone_set(float const* rgba, int mask, int flags)
   : m_count(0)
   , m_unweighted(true)
 {
@@ -368,7 +368,7 @@ BitoneSet::BitoneSet(float const* rgba, int mask, int flags)
 #endif
 }
 
-void BitoneSet::RemapIndices(std::uint8_t const* source, std::uint8_t* target) const
+void bitone_set::RemapIndices(std::uint8_t const* source, std::uint8_t* target) const
 {
   for (int i = 0; i < 16; ++i) {
     std::uint8_t t = 3; t = ((m_remap[i] == -1) ? t : source[m_remap[i]]); target[i] = t;

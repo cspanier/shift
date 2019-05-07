@@ -32,13 +32,13 @@
 
 namespace squish
 {
-HDRIndexFit::HDRIndexFit(HDRSet const* palette, int flags)
-: HDRFit(palette, flags)
+hdr_index_fit::hdr_index_fit(hdr_set const* palette, int flags)
+: hdr_fit(palette, flags)
 {
 }
 
 #ifdef FEATURE_INDEXFIT_INLINED
-void HDRIndexFit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
+void hdr_index_fit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
                                  std::uint8_t (&closest)[16],
                                  Vec3 const* values, Scr3 const* freq, int ib,
                                  int idxs)
@@ -79,7 +79,7 @@ void HDRIndexFit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
   }
 }
 
-Scr3 HDRIndexFit::ErrorInterpolants(Vec3 const& metric, fQuantizer& q,
+Scr3 hdr_index_fit::ErrorInterpolants(Vec3 const& metric, fQuantizer& q,
                                     Vec3 const* values, Scr3 const* freq,
                                     int ib, int idxs, Vec3& value0,
                                     Vec3& value1, int closest0, int closest1)
@@ -117,7 +117,7 @@ Scr3 HDRIndexFit::ErrorInterpolants(Vec3 const& metric, fQuantizer& q,
   return (serror + eerror);
 }
 
-Scr3 HDRIndexFit::ErrorInterpolantsS(Vec3 const& metric, fQuantizer& q,
+Scr3 hdr_index_fit::ErrorInterpolantsS(Vec3 const& metric, fQuantizer& q,
                                      Vec3 const* values, Scr3 const* freq,
                                      int ib, int idxs, Vec3& value0,
                                      int closest0)
@@ -141,7 +141,7 @@ Scr3 HDRIndexFit::ErrorInterpolantsS(Vec3 const& metric, fQuantizer& q,
   return (serror + eerror);
 }
 
-Scr3 HDRIndexFit::ErrorInterpolantsE(Vec3 const& metric, fQuantizer& q,
+Scr3 hdr_index_fit::ErrorInterpolantsE(Vec3 const& metric, fQuantizer& q,
                                      Vec3 const* values, Scr3 const* freq,
                                      int ib, int idxs, Vec3& value1,
                                      int closest1)
@@ -165,7 +165,7 @@ Scr3 HDRIndexFit::ErrorInterpolantsE(Vec3 const& metric, fQuantizer& q,
   return (serror + eerror);
 }
 
-void HDRIndexFit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& q,
+void hdr_index_fit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& q,
                                      std::uint8_t (&closest)[16],
                                      Vec3 const* values, Scr3 const* freq,
                                      int ib, int idxs, Vec3& value0,
@@ -190,7 +190,7 @@ void HDRIndexFit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& q,
   }
 }
 
-void HDRIndexFit::BetterInterpolantsS(int set, Vec3 const& metric,
+void hdr_index_fit::BetterInterpolantsS(int set, Vec3 const& metric,
                                       fQuantizer& q,
                                       std::uint8_t (&closest)[16],
                                       Vec3 const* values, Scr3 const* freq,
@@ -216,7 +216,7 @@ void HDRIndexFit::BetterInterpolantsS(int set, Vec3 const& metric,
   }
 }
 
-void HDRIndexFit::BetterInterpolantsE(int set, Vec3 const& metric,
+void hdr_index_fit::BetterInterpolantsE(int set, Vec3 const& metric,
                                       fQuantizer& q,
                                       std::uint8_t (&closest)[16],
                                       Vec3 const* values, Scr3 const* freq,
@@ -278,7 +278,7 @@ void HDRIndexFit::BetterInterpolantsE(int set, Vec3 const& metric,
   break;
 #endif
 
-Scr3 HDRIndexFit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
+Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
                                    int ib, std::uint8_t (&closest)[16])
 {
   // cache some values

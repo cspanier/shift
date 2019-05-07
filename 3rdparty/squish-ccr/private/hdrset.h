@@ -36,7 +36,7 @@ namespace squish
 {
 /*! @brief Represents a set of block palettes
  */
-class HDRSet
+class hdr_set
 {
 public:
   static void GetMasks(int flags, int partition, int (&masks)[2]);
@@ -50,26 +50,26 @@ public:
 public:
   // constructor for regular operation (with and without initial
   // partition/rotation)
-  HDRSet(std::uint16_t const* rgb, int mask, int flags);
-  HDRSet(std::uint16_t const* rgb, int mask, int flags, int partition);
+  hdr_set(std::uint16_t const* rgb, int mask, int flags);
+  hdr_set(std::uint16_t const* rgb, int mask, int flags, int partition);
 
-  HDRSet(float const* rgb, int mask, int flags);
-  HDRSet(float const* rgb, int mask, int flags, int partition);
+  hdr_set(float const* rgb, int mask, int flags);
+  hdr_set(float const* rgb, int mask, int flags, int partition);
 
   // constructors for managing backups and permutations of palette-sets
-  HDRSet()
+  hdr_set()
   {
   }
-  HDRSet(HDRSet const& palette)
+  hdr_set(hdr_set const& palette)
   {
     memcpy(this, &palette, sizeof(*this));
   }
-  HDRSet(HDRSet const& palette, int mask, int flags, int partition);
+  hdr_set(hdr_set const& palette, int mask, int flags, int partition);
 
 private:
   void BuildSet(std::uint16_t const* rgb, int mask, int flags);
   void BuildSet(float const* rgb, int mask, int flags);
-  void PermuteSet(HDRSet const& palette, int mask, int flags);
+  void PermuteSet(hdr_set const& palette, int mask, int flags);
 
 public:
   // active attributes based the parameters passed on initializaton

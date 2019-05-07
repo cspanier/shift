@@ -35,8 +35,8 @@ namespace squish {
 
 /* *****************************************************************************
  */
-colorNormalFit::colorNormalFit(colorSet const* colors, int flags)
-  : colorFit(colors, flags)
+color_normal_fit::color_normal_fit(color_set const* colors, int flags)
+  : color_fit(colors, flags)
 {
   cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
 
@@ -159,7 +159,7 @@ colorNormalFit::colorNormalFit(colorSet const* colors, int flags)
   m_end_candidate   = q.SnapToLattice(end  );
 }
 
-void colorNormalFit::kMeans3()
+void color_normal_fit::kMeans3()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -220,7 +220,7 @@ void colorNormalFit::kMeans3()
   } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
 }
 
-void colorNormalFit::kMeans4()
+void color_normal_fit::kMeans4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -281,7 +281,7 @@ void colorNormalFit::kMeans4()
   } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
 }
 
-void colorNormalFit::Permute3()
+void color_normal_fit::Permute3()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -341,7 +341,7 @@ void colorNormalFit::Permute3()
   } while(--trie);
 }
 
-void colorNormalFit::Permute4()
+void color_normal_fit::Permute4()
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -400,7 +400,7 @@ void colorNormalFit::Permute4()
   } while(--trie);
 }
 
-void colorNormalFit::Compress3(void* block)
+void color_normal_fit::Compress3(void* block)
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
@@ -453,7 +453,7 @@ void colorNormalFit::Compress3(void* block)
   }
 }
 
-void colorNormalFit::Compress4(void* block)
+void color_normal_fit::Compress4(void* block)
 {
   const Vec3 scale  = Vec3( 1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);

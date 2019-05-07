@@ -35,7 +35,7 @@ namespace squish
 
 /* *****************************************************************************
  */
-colorSet::colorSet(std::uint8_t const* rgba, int mask, int flags)
+color_set::color_set(std::uint8_t const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
@@ -222,12 +222,12 @@ colorSet::colorSet(std::uint8_t const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-colorSet::colorSet(std::uint16_t const* rgba, int mask, int flags)
+color_set::color_set(std::uint16_t const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
 }
 
-colorSet::colorSet(float const* rgba, int mask, int flags)
+color_set::color_set(float const* rgba, int mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
@@ -426,7 +426,7 @@ colorSet::colorSet(float const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-bool colorSet::RemoveBlack(const Vec3& metric, Scr3& error)
+bool color_set::RemoveBlack(const Vec3& metric, Scr3& error)
 {
   cQuantizer4<5, 6, 5, 0> q = cQuantizer4<5, 6, 5, 0>();
   bool reduced = false;
@@ -488,7 +488,7 @@ bool colorSet::RemoveBlack(const Vec3& metric, Scr3& error)
   return reduced;
 }
 
-void colorSet::RemapIndices(std::uint8_t const* source,
+void color_set::RemapIndices(std::uint8_t const* source,
                              std::uint8_t* target) const
 {
   for (int i = 0; i < 16; ++i)

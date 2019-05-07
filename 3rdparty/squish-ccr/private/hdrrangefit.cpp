@@ -33,10 +33,10 @@
 
 namespace squish
 {
-HDRRangeFit::HDRRangeFit(HDRSet const* palette, int flags)
-: HDRSingleMatch(palette, flags),
-  HDRIndexFit(palette, flags),
-  HDRFit(palette, flags)
+hdr_range_fit::hdr_range_fit(hdr_set const* palette, int flags)
+: hdr_single_match(palette, flags),
+  hdr_index_fit(palette, flags),
+  hdr_fit(palette, flags)
 {
   // the alpha-set (in theory we can do separate alpha + separate partitioning,
   // but's not codeable)
@@ -209,7 +209,7 @@ HDRRangeFit::HDRRangeFit(HDRSet const* palette, int flags)
 #endif
 }
 
-void HDRRangeFit::Compress(void* block, fQuantizer& q, int mode)
+void hdr_range_fit::Compress(void* block, fQuantizer& q, int mode)
 {
   int swaps = 0;
 SwapSet1EndPointsAndRedoCalculation:

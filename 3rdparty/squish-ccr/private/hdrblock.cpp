@@ -194,7 +194,7 @@ static void RemapHDRBlock(int partition, Col4 (&start)[2],
 #if 0
   int masks[4], xors[4] = {0,0,0,0};
 
-  PaletteSet::GetMasks(flags, masks);
+  palette_set::GetMasks(flags, masks);
 
   /* same for all set 1s */
   if (indices[0][                        0 ] & ihibit) {
@@ -241,7 +241,7 @@ static void RemapHDRBlock(int partition, Col4 (&start)[1],
   int masks[4], xors[4] = {0,0,0,0};
   std::uint8_t const ihibit = 1 << ibits;
 
-//PaletteSet::GetMasks(flags, masks);
+//palette_set::GetMasks(flags, masks);
 
   /* same for all set 1s */
   if (indices[0][                         0 ] & ihibit) {

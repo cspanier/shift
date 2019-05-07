@@ -34,8 +34,8 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class PaletteSet;
-class PaletteFit
+class palette_set;
+class palette_fit
 {
 public:
   static int GetNumSets(int mode);
@@ -60,18 +60,18 @@ public:
 #define SK(s)  (!(~s))
 
 public:
-  PaletteFit(PaletteSet const* palette, int flags, int swap = -1, int shared = -1);
+  palette_fit(palette_set const* palette, int flags, int swap = -1, int shared = -1);
 
   // change parameters while iterating
-  void ChangeFit(PaletteSet const* palette, int flags, int swap, int shared) { m_palette = palette; m_flags = flags; m_swapindex = swap; m_sharedbits = SR(shared); m_best = false; }
-  void ChangePalette(PaletteSet const* palette) { m_palette = palette; }
+  void ChangeFit(palette_set const* palette, int flags, int swap, int shared) { m_palette = palette; m_flags = flags; m_swapindex = swap; m_sharedbits = SR(shared); m_best = false; }
+  void ChangePalette(palette_set const* palette) { m_palette = palette; }
   void ChangeFlags(int flags) { m_flags = flags; }
   void ChangeSwap(int swap) { m_swapindex = swap; }
   void ChangeMode(int mode) { m_sharedmap = GetSharedMap(m_mode = mode); }
   void ChangeShared(int shared) { m_sharedbits = SR(shared); }
 
   // query some values
-  PaletteSet const* GetPalette() const { return m_palette; }
+  palette_set const* GetPalette() const { return m_palette; }
   int GetFlags() const { return m_flags; }
   int GetSwap() const { return m_swapindex; }
   int GetSharedField() const { return m_sharedbits; }
@@ -92,7 +92,7 @@ public:
   bool IsBest() { return m_best; }
 
 protected:
-  PaletteSet const* m_palette;
+  palette_set const* m_palette;
   const int *m_sharedmap;
   int m_flags;
   int m_mode;

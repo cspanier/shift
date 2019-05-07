@@ -39,11 +39,11 @@ struct HDRSingleLookup2;
 struct HDRSingleLookup4;
 struct HDRSingleLookup8;
 
-class HDRSet;
-class HDRSingleSnap : public virtual HDRFit
+class hdr_set;
+class hdr_single_snap : public virtual hdr_fit
 {
 public:
-  HDRSingleSnap(HDRSet const* colors, int flags);
+  hdr_single_snap(hdr_set const* colors, int flags);
 
 private:
   Scr4 ComputeEndPoints(int set, Vec4 const& metric,

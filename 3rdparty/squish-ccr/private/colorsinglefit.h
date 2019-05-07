@@ -35,12 +35,12 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class colorSet;
+class color_set;
 struct colorSingleLookup;
-class colorSingleFit : public colorFit
+class color_single_fit : public color_fit
 {
 public:
-  colorSingleFit(colorSet const* colors, int flags);
+  color_single_fit(color_set const* colors, int flags);
 
 private:
   virtual void Compress3b(void* block) {}

@@ -34,12 +34,12 @@ namespace squish {
 
 /* *****************************************************************************
  */
-PaletteIndexFit::PaletteIndexFit(PaletteSet const* palette, int flags, int swap, int shared)
+palette_index_fit::palette_index_fit(palette_set const* palette, int flags, int swap, int shared)
 {
 }
 
 #ifdef  FEATURE_INDEXFIT_INLINED
-void PaletteIndexFit::ErrorEndPoints(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
+void palette_index_fit::ErrorEndPoints(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
              Vec4 const* values, Scr4 const* freq,
              int ib, int idxs) {
   // snap floating-point-values to the integer-lattice
@@ -67,7 +67,7 @@ void PaletteIndexFit::ErrorEndPoints(int set, Vec4 const &metric, vQuantizer &q,
   }
 }
 
-Scr4 PaletteIndexFit::ErrorInterpolants(Vec4 const &metric, vQuantizer &q, int sb,
+Scr4 palette_index_fit::ErrorInterpolants(Vec4 const &metric, vQuantizer &q, int sb,
           Vec4 const* values, Scr4 const* freq,
           int ib, int idxs, Vec4 &value0, Vec4 &value1, int closest0, int closest1) {
   // snap floating-point-values to the integer-lattice
@@ -86,7 +86,7 @@ Scr4 PaletteIndexFit::ErrorInterpolants(Vec4 const &metric, vQuantizer &q, int s
   return (serror + eerror);
 }
 
-Scr4 PaletteIndexFit::ErrorInterpolantsS(Vec4 const &metric, vQuantizer &q, int sb,
+Scr4 palette_index_fit::ErrorInterpolantsS(Vec4 const &metric, vQuantizer &q, int sb,
            Vec4 const* values, Scr4 const* freq,
            int ib, int idxs, Vec4 &value0, int closest0) {
   // snap floating-point-values to the integer-lattice
@@ -104,7 +104,7 @@ Scr4 PaletteIndexFit::ErrorInterpolantsS(Vec4 const &metric, vQuantizer &q, int 
   return (serror + eerror);
 }
 
-Scr4 PaletteIndexFit::ErrorInterpolantsE(Vec4 const &metric, vQuantizer &q, int sb,
+Scr4 palette_index_fit::ErrorInterpolantsE(Vec4 const &metric, vQuantizer &q, int sb,
            Vec4 const* values, Scr4 const* freq,
            int ib, int idxs, Vec4 &value1, int closest1) {
   // snap floating-point-values to the integer-lattice
@@ -122,7 +122,7 @@ Scr4 PaletteIndexFit::ErrorInterpolantsE(Vec4 const &metric, vQuantizer &q, int 
   return (serror + eerror);
 }
 
-void PaletteIndexFit::BetterInterpolants(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
+void palette_index_fit::BetterInterpolants(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
            Vec4 const* values, Scr4 const* freq,
                  int ib, int idxs, Vec4 &value0, Vec4 &value1, int closest0, int closest1) {
   Scr4 nerror = ErrorInterpolants(metric, q, sb, values, freq, ib, idxs, value0, value1, closest0, closest1);
@@ -142,7 +142,7 @@ void PaletteIndexFit::BetterInterpolants(int set, Vec4 const &metric, vQuantizer
   }
 }
       
-void PaletteIndexFit::BetterInterpolantsS(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
+void palette_index_fit::BetterInterpolantsS(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
            Vec4 const* values, Scr4 const* freq,
                  int ib, int idxs, Vec4 &value0, int closest0) {
   Scr4 nerror = ErrorInterpolantsS(metric, q, sb, values, freq, ib, idxs, value0, closest0);
@@ -162,7 +162,7 @@ void PaletteIndexFit::BetterInterpolantsS(int set, Vec4 const &metric, vQuantize
   }
 }
 
-void PaletteIndexFit::BetterInterpolantsE(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
+void palette_index_fit::BetterInterpolantsE(int set, Vec4 const &metric, vQuantizer &q, int sb, std::uint8_t (&closest)[16],
            Vec4 const* values, Scr4 const* freq,
                  int ib, int idxs, Vec4 &value1, int closest1) {
   Scr4 nerror = ErrorInterpolantsE(metric, q, sb, values, freq, ib, idxs, value1, closest1);
@@ -214,7 +214,7 @@ void PaletteIndexFit::BetterInterpolantsE(int set, Vec4 const &metric, vQuantize
   break;
 #endif
 
-Scr4 PaletteIndexFit::StretchEndPoints(int set, Vec4 const &metric, vQuantizer &q, int sb, int ib, std::uint8_t (&closest)[16])
+Scr4 palette_index_fit::StretchEndPoints(int set, Vec4 const &metric, vQuantizer &q, int sb, int ib, std::uint8_t (&closest)[16])
 {
   // cache some values
   Vec4 const* values = m_palette->GetPoints(set);

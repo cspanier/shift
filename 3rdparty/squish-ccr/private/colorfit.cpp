@@ -34,7 +34,7 @@ namespace squish {
  */
 extern Vec4 g_metric[8];
 
-colorFit::colorFit( colorSet const* colors, int flags )
+color_fit::color_fit( color_set const* colors, int flags )
   : m_colors(colors), m_flags(flags)
 {
   // initialize the metric
@@ -44,7 +44,7 @@ colorFit::colorFit( colorSet const* colors, int flags )
   m_besterror = Scr4(FLT_MAX);
 }
 
-void colorFit::Compress( void* block )
+void color_fit::Compress( void* block )
 {
   const bool isBtc1f = ((m_flags & kBtcp) == kBtc1);
   const bool isBtc1b = ((m_flags & kExcludeAlphaFromPalette) != 0);

@@ -35,10 +35,10 @@ namespace squish {
 
 /* *****************************************************************************
  */
-PaletteRangeFit::PaletteRangeFit(PaletteSet const* palette, int flags, int swap, int shared)
-  : PaletteSingleMatch(palette, flags, swap, shared)
-  ,    PaletteIndexFit(palette, flags, swap, shared)
-  ,         PaletteFit(palette, flags, swap, shared)
+palette_range_fit::palette_range_fit(palette_set const* palette, int flags, int swap, int shared)
+  : palette_single_match(palette, flags, swap, shared)
+  ,    palette_index_fit(palette, flags, swap, shared)
+  ,         palette_fit(palette, flags, swap, shared)
 {
   // the alpha-set (in theory we can do separate alpha + separate partitioning, but's not codeable)
   int const isets = m_palette->GetSets();
@@ -165,7 +165,7 @@ PaletteRangeFit::PaletteRangeFit(PaletteSet const* palette, int flags, int swap,
 #endif
 }
 
-void PaletteRangeFit::Compress(void* block, vQuantizer &q, int mode)
+void palette_range_fit::Compress(void* block, vQuantizer &q, int mode)
 {
   int ib = GetIndexBits(mode);
   int jb = ib >> 16; ib = ib & 0xFF;

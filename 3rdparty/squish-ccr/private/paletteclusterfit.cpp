@@ -37,11 +37,11 @@ namespace squish
 
 /* *****************************************************************************
  */
-PaletteClusterFit::PaletteClusterFit(PaletteSet const* palette, int flags,
+palette_cluster_fit::palette_cluster_fit(palette_set const* palette, int flags,
                                      int swap, int shared)
-: PaletteSingleMatch(palette, flags, swap, shared),
-  PaletteChannelFit(palette, flags, swap, shared),
-  PaletteFit(palette, flags, swap, shared)
+: palette_single_match(palette, flags, swap, shared),
+  palette_channel_fit(palette, flags, swap, shared),
+  palette_fit(palette, flags, swap, shared)
 {
   // the alpha-set (in theory we can do separate alpha + separate partitioning,
   // but's not codeable)
@@ -113,7 +113,7 @@ PaletteClusterFit::PaletteClusterFit(PaletteSet const* palette, int flags,
   memset(m_order, 0, sizeof(m_order));
 }
 
-bool PaletteClusterFit::ConstructOrdering(Vec4 const& axis, int iteration,
+bool palette_cluster_fit::ConstructOrdering(Vec4 const& axis, int iteration,
                                           int set)
 {
   // cache some values
@@ -200,7 +200,7 @@ bool PaletteClusterFit::ConstructOrdering(Vec4 const& axis, int iteration,
   return true;
 }
 
-Scr4 PaletteClusterFit::ClusterSearch4(std::uint8_t (&closest)[4][16],
+Scr4 palette_cluster_fit::ClusterSearch4(std::uint8_t (&closest)[4][16],
                                        int count, int set, Vec4 const& metric,
                                        vQuantizer& q, int sb)
 {
@@ -412,7 +412,7 @@ Scr4 PaletteClusterFit::ClusterSearch4(std::uint8_t (&closest)[4][16],
   return besterror;
 }
 
-Scr4 PaletteClusterFit::ClusterSearch4Alpha(std::uint8_t (&closest)[4][16],
+Scr4 palette_cluster_fit::ClusterSearch4Alpha(std::uint8_t (&closest)[4][16],
                                             int count, int set,
                                             Vec4 const& metric, vQuantizer& q,
                                             int sb)
@@ -587,7 +587,7 @@ Scr4 PaletteClusterFit::ClusterSearch4Alpha(std::uint8_t (&closest)[4][16],
 
 #include "paletteclusterfit.inl"
 
-Scr4 PaletteClusterFit::ClusterSearch4Constant(std::uint8_t (&closest)[4][16],
+Scr4 palette_cluster_fit::ClusterSearch4Constant(std::uint8_t (&closest)[4][16],
                                                int count, int set,
                                                Vec4 const& metric,
                                                vQuantizer& q, int sb)
@@ -816,7 +816,7 @@ Scr4 PaletteClusterFit::ClusterSearch4Constant(std::uint8_t (&closest)[4][16],
   return besterror;
 }
 
-Scr4 PaletteClusterFit::ClusterSearch8(std::uint8_t (&closest)[4][16],
+Scr4 palette_cluster_fit::ClusterSearch8(std::uint8_t (&closest)[4][16],
                                        int count, int set, Vec4 const& metric,
                                        vQuantizer& q, int sb)
 {
@@ -1349,7 +1349,7 @@ Scr4 PaletteClusterFit::ClusterSearch8(std::uint8_t (&closest)[4][16],
   return besterror;
 }
 
-Scr4 PaletteClusterFit::ClusterSearch8Constant(std::uint8_t (&closest)[4][16],
+Scr4 palette_cluster_fit::ClusterSearch8Constant(std::uint8_t (&closest)[4][16],
                                                int count, int set,
                                                Vec4 const& metric,
                                                vQuantizer& q, int sb)
@@ -1655,7 +1655,7 @@ Scr4 PaletteClusterFit::ClusterSearch8Constant(std::uint8_t (&closest)[4][16],
 #define CMetric(m) m
 #endif
 
-void PaletteClusterFit::CompressS23(void* block, vQuantizer& q, int mode)
+void palette_cluster_fit::CompressS23(void* block, vQuantizer& q, int mode)
 {
   int ib = GetIndexBits(mode);
   int jb = ib >> 16;
@@ -1920,13 +1920,13 @@ void PaletteClusterFit::CompressS23(void* block, vQuantizer& q, int mode)
   m_best = true;
 }
 
-void PaletteClusterFit::CompressC2(void* block, vQuantizer& q, int mode)
+void palette_cluster_fit::CompressC2(void* block, vQuantizer& q, int mode)
 {
   /* 2bit it can be done by CompressS23 as well */
   CompressS23(block, q, mode);
 }
 
-void PaletteClusterFit::Compress(void* block, vQuantizer& q, int mode)
+void palette_cluster_fit::Compress(void* block, vQuantizer& q, int mode)
 {
   switch (mode)
   {

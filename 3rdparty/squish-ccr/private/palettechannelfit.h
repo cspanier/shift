@@ -37,11 +37,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class PaletteSet;
-class PaletteChannelFit : public virtual PaletteFit
+class palette_set;
+class palette_channel_fit : public virtual palette_fit
 {
 public:
-  PaletteChannelFit(PaletteSet const* colors, int flags, int swap = -1, int shared = 0);
+  palette_channel_fit(palette_set const* colors, int flags, int swap = -1, int shared = 0);
 
 private:
   int  m_channel[4];

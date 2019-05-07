@@ -34,11 +34,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class BitoneSet;
-class BitoneNormalFit : public BitoneFit
+class bitone_set;
+class bitone_normal_fit : public bitone_fit
 {
 public:
-  BitoneNormalFit(BitoneSet const* bitones, int flags);
+  bitone_normal_fit(bitone_set const* bitones, int flags);
 
 private:
   void kMeans4();

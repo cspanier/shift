@@ -39,12 +39,13 @@
  * if you want to use non-euclidian error-distances you can swap your
  * own LUTs in and go back to the iterative fit functions
  *
- * - colorSingleSnap, colorSingleFit
- * - PaletteSingleSnap, PaletteSingleFit
+ * - color_single_snap, color_single_fit
+ * - palette_single_snap, palette_single_fit
+ * - hdr_single_snap, hdr_single_fit
  */
-#define colorSingleMatch colorSingleSnap
-#define PaletteSingleMatch PaletteSingleSnap
-#define HDRSingleMatch HDRSingleSnap
+#define color_single_match color_single_snap
+#define palette_single_match palette_single_snap
+#define hdr_single_match hdr_single_snap
 
 /* use the power-method to estimate the principle component axis
  * should be more precise if not faster

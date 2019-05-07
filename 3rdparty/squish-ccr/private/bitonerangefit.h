@@ -35,11 +35,11 @@
 namespace squish {
 
 // -----------------------------------------------------------------------------
-class BitoneSet;
-class BitoneRangeFit : public BitoneFit
+class bitone_set;
+class bitone_range_fit : public bitone_fit
 {
 public:
-  BitoneRangeFit(BitoneSet const* bitones, int flags);
+  bitone_range_fit(bitone_set const* bitones, int flags);
 
 private:
   virtual void Compress4(void* block);

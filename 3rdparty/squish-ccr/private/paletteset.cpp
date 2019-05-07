@@ -66,7 +66,7 @@ extern const unsigned int partitionmasks_3[64] = {
 
 /* *****************************************************************************
  */
-void PaletteSet::GetMasks(int flags, int partition, int (&masks)[4])
+void palette_set::GetMasks(int flags, int partition, int (&masks)[4])
 {
   unsigned int partmask = 0;
   if (((flags & kVariableCodingModes) == kVariableCodingMode2) ||
@@ -96,7 +96,7 @@ void PaletteSet::GetMasks(int flags, int partition, int (&masks)[4])
     masks[2] = (0xFFFFFFFF & 0xFFFF) & (partmask >> 16);
 }
 
-int PaletteSet::SetMode(int flags)
+int palette_set::SetMode(int flags)
 {
   /* build a single set only, we permute that later for specific partitions,
    * separate alpha is an exception as that is fixed for each mode
@@ -128,7 +128,7 @@ int PaletteSet::SetMode(int flags)
   return flags;
 }
 
-int PaletteSet::SetMode(int flags, int part_or_rot)
+int palette_set::SetMode(int flags, int part_or_rot)
 {
   /* determine the number of sets and select the partition
   if ((0))
@@ -165,7 +165,7 @@ int PaletteSet::SetMode(int flags, int part_or_rot)
   return flags;
 }
 
-PaletteSet::PaletteSet(std::uint8_t const* rgba, int mask, int flags)
+palette_set::palette_set(std::uint8_t const* rgba, int mask, int flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -178,7 +178,7 @@ PaletteSet::PaletteSet(std::uint8_t const* rgba, int mask, int flags)
   BuildSet(rgba, mask, SetMode(flags));
 }
 
-PaletteSet::PaletteSet(std::uint16_t const* rgba, int mask, int flags)
+palette_set::palette_set(std::uint16_t const* rgba, int mask, int flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -191,7 +191,7 @@ PaletteSet::PaletteSet(std::uint16_t const* rgba, int mask, int flags)
   BuildSet(rgba, mask, SetMode(flags));
 }
 
-PaletteSet::PaletteSet(float const* rgba, int mask, int flags)
+palette_set::palette_set(float const* rgba, int mask, int flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -204,7 +204,7 @@ PaletteSet::PaletteSet(float const* rgba, int mask, int flags)
   BuildSet(rgba, mask, SetMode(flags));
 }
 
-PaletteSet::PaletteSet(std::uint8_t const* rgba, int mask, int flags,
+palette_set::palette_set(std::uint8_t const* rgba, int mask, int flags,
                        int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
@@ -218,7 +218,7 @@ PaletteSet::PaletteSet(std::uint8_t const* rgba, int mask, int flags,
   BuildSet(rgba, mask, SetMode(flags, part_or_rot));
 }
 
-PaletteSet::PaletteSet(std::uint16_t const* rgba, int mask, int flags,
+palette_set::palette_set(std::uint16_t const* rgba, int mask, int flags,
                        int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
@@ -232,7 +232,7 @@ PaletteSet::PaletteSet(std::uint16_t const* rgba, int mask, int flags,
   BuildSet(rgba, mask, SetMode(flags, part_or_rot));
 }
 
-PaletteSet::PaletteSet(float const* rgba, int mask, int flags, int part_or_rot)
+palette_set::palette_set(float const* rgba, int mask, int flags, int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -245,7 +245,7 @@ PaletteSet::PaletteSet(float const* rgba, int mask, int flags, int part_or_rot)
   BuildSet(rgba, mask, SetMode(flags, part_or_rot));
 }
 
-PaletteSet::PaletteSet(PaletteSet const& palette, int mask, int flags,
+palette_set::palette_set(palette_set const& palette, int mask, int flags,
                        int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
@@ -266,7 +266,7 @@ PaletteSet::PaletteSet(PaletteSet const& palette, int mask, int flags,
     memcpy(this, &palette, sizeof(*this));  // identical
 }
 
-void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
+void palette_set::BuildSet(std::uint8_t const* rgba, int mask, int flags)
 {
   const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
   const float* aLUT = ComputeGammaLUT(false);
@@ -676,13 +676,13 @@ void PaletteSet::BuildSet(std::uint8_t const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-void PaletteSet::BuildSet(std::uint16_t const* rgba, int mask, int flags)
+void palette_set::BuildSet(std::uint16_t const* rgba, int mask, int flags)
 {
   /* TODO */
   /*abort()*/;
 }
 
-void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
+void palette_set::BuildSet(float const* rgba, int mask, int flags)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
   // const float *aLUT   = ComputeGammaLUT(false);
@@ -1092,7 +1092,7 @@ void PaletteSet::BuildSet(float const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-void PaletteSet::BuildSet(PaletteSet const& palette, int mask, int flags)
+void palette_set::BuildSet(palette_set const& palette, int mask, int flags)
 {
   // can't be permuted
   assert(m_seperatealpha == true);
@@ -1272,7 +1272,7 @@ void PaletteSet::BuildSet(PaletteSet const& palette, int mask, int flags)
   m_transparent = palette.m_transparent;
 }
 
-void PaletteSet::PermuteSet(PaletteSet const& palette, int mask, int flags)
+void palette_set::PermuteSet(palette_set const& palette, int mask, int flags)
 {
   // can't be permuted
   assert(m_seperatealpha == false);
@@ -1403,7 +1403,7 @@ void PaletteSet::PermuteSet(PaletteSet const& palette, int mask, int flags)
 #endif
 }
 
-void PaletteSet::RemapIndices(std::uint8_t const* source, std::uint8_t* target,
+void palette_set::RemapIndices(std::uint8_t const* source, std::uint8_t* target,
                               int set) const
 {
   const int s = set;
@@ -1424,7 +1424,7 @@ void PaletteSet::RemapIndices(std::uint8_t const* source, std::uint8_t* target,
   }
 }
 
-void PaletteSet::UnmapIndices(std::uint8_t const* source,
+void palette_set::UnmapIndices(std::uint8_t const* source,
                               std::uint8_t* destination, int set,
                               unsigned int* codes, int cmask) const
 {

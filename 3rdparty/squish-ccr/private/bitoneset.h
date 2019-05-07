@@ -36,12 +36,12 @@ namespace squish {
 // -----------------------------------------------------------------------------
 /*! @brief Represents a set of block values
  */
-class BitoneSet
+class bitone_set
 {
 public:
-  BitoneSet(std::uint8_t  const* rgba, int mask, int flags);
-  BitoneSet(std::uint16_t const* rgba, int mask, int flags);
-  BitoneSet(float const* rgba, int mask, int flags);
+  bitone_set(std::uint8_t  const* rgba, int mask, int flags);
+  bitone_set(std::uint16_t const* rgba, int mask, int flags);
+  bitone_set(float const* rgba, int mask, int flags);
 
   bool IsUnweighted() const { return m_unweighted; }
 

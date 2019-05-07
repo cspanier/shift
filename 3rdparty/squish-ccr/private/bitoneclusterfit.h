@@ -38,10 +38,10 @@ namespace squish
 {
 
 // -----------------------------------------------------------------------------
-class BitoneClusterFit : public BitoneFit
+class bitone_cluster_fit : public bitone_fit
 {
 public:
-  BitoneClusterFit(BitoneSet const* bitones, int flags);
+  bitone_cluster_fit(bitone_set const* bitones, int flags);
 
 public:
   enum

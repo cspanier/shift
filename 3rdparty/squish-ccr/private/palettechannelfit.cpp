@@ -36,7 +36,7 @@ namespace squish {
 
 /* *****************************************************************************
  */
-PaletteChannelFit::PaletteChannelFit(PaletteSet const* palette, int flags, int swap, int shared)
+palette_channel_fit::palette_channel_fit(palette_set const* palette, int flags, int swap, int shared)
 {
   int const isets = m_palette->GetSets();
   int const asets = m_palette->IsSeperateAlpha() ? isets : 0;
@@ -82,7 +82,7 @@ PaletteChannelFit::PaletteChannelFit(PaletteSet const* palette, int flags, int s
   }
 }
 
-Scr4 PaletteChannelFit::ComputeCodebook(int set, Vec4 const &metric, vQuantizer &q, int sb, int ib, std::uint8_t (&closest)[16])
+Scr4 palette_channel_fit::ComputeCodebook(int set, Vec4 const &metric, vQuantizer &q, int sb, int ib, std::uint8_t (&closest)[16])
 {
   // cache some values
   int const count = m_palette->GetCount(set);
