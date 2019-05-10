@@ -15,13 +15,13 @@ public:
   mutex() noexcept = default;
 
   mutex(const mutex&) = delete;
-  mutex(mutex&&) = default;
+  mutex(mutex&&) = delete;
 
   ///
   ~mutex();
 
   mutex& operator=(const mutex&) = delete;
-  mutex& operator=(mutex&&) = default;
+  mutex& operator=(mutex&&) = delete;
 
   ///
   void lock();

@@ -15,13 +15,13 @@ public:
   shared_mutex() noexcept = default;
 
   shared_mutex(const shared_mutex&) = delete;
-  shared_mutex(shared_mutex&&) = default;
+  shared_mutex(shared_mutex&&) = delete;
 
   ///
   ~shared_mutex();
 
   shared_mutex& operator=(const shared_mutex&) = delete;
-  shared_mutex& operator=(shared_mutex&&) = default;
+  shared_mutex& operator=(shared_mutex&&) = delete;
 
   ///
   void lock();
