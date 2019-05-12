@@ -12,11 +12,11 @@ using namespace shift::math::literals;
 
 BOOST_AUTO_TEST_CASE(half_tables)
 {
-  constexpr auto mantissa_table = detail::mantissa_table_gen();
-  constexpr auto exponent_table = detail::exponent_table_gen();
-  constexpr auto offset_table = detail::offset_table_gen();
-  constexpr auto base_table = detail::base_table_gen();
-  constexpr auto shift_table = detail::shift_table_gen();
+  constexpr auto mantissa_table = detail::half_mantissa_table_gen();
+  constexpr auto exponent_table = detail::half_exponent_table_gen();
+  constexpr auto offset_table = detail::half_offset_table_gen();
+  constexpr auto base_table = detail::half_base_table_gen();
+  constexpr auto shift_table = detail::half_shift_table_gen();
 
   static const std::array<std::uint32_t, 2048> mantissa_table_ref = {
     0x00000000, 0x33800000, 0x34000000, 0x34400000, 0x34800000, 0x34A00000,
@@ -467,36 +467,16 @@ BOOST_AUTO_TEST_CASE(half_tables)
     24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
     24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 13};
 
-  // for (auto i = 256; i < 512; ++i)
-  //{
-  //  std::cout << std::dec << "i=" << i << " e=" << (i % 256 - 127)
-  //            << " o=" << (int)shift_table[i]
-  //            << " r=" << (int)shift_table_ref[i]
-  //            << ((shift_table[i] != shift_table_ref[i]) ? " !!!!!!!!!!!!" :
-  //            "")
-  //            << std::endl;
-  //}
-  // std::cout << std::endl;
-  // for (auto i = 256; i < 512; ++i)
-  //{
-  //  std::cout << std::dec << "i=" << i << " e=" << (i % 256 - 127) << std::hex
-  //            << " o=" << base_table[i] << " r=" << base_table_ref[i]
-  //            << ((base_table[i] != base_table_ref[i]) ? " !!!!!!!!!!!!" : "")
-  //            << std::endl;
-  //}
-
   for (auto i = 0u; i < mantissa_table.size(); ++i)
     BOOST_CHECK_EQUAL(mantissa_table[i], mantissa_table_ref[i]);
   for (auto i = 0u; i < exponent_table.size(); ++i)
     BOOST_CHECK_EQUAL(exponent_table[i], exponent_table_ref[i]);
   for (auto i = 0u; i < offset_table.size(); ++i)
     BOOST_CHECK_EQUAL(offset_table[i], offset_table_ref[i]);
-  /// ToDo: These two tables differ between the paper and the reference
-  /// implementation. Find which ones are correct!
-  // for (auto i = 0; i < base_table.size(); ++i)
-  //  BOOST_CHECK_EQUAL(base_table[i], base_table_ref[i]);
-  // for (auto i = 0; i < shift_table.size(); ++i)
-  //  BOOST_CHECK_EQUAL(shift_table[i], shift_table_ref[i]);
+  for (auto i = 0u; i < base_table.size(); ++i)
+    BOOST_CHECK_EQUAL(base_table[i], base_table_ref[i]);
+  for (auto i = 0u; i < shift_table.size(); ++i)
+    BOOST_CHECK_EQUAL(shift_table[i], shift_table_ref[i]);
 }
 
 BOOST_AUTO_TEST_CASE(half_conversion)

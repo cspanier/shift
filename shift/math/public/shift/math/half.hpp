@@ -114,12 +114,6 @@ namespace literals
 /// @brief Implementation details.
 namespace detail
 {
-  /// Conditional type.
-  template <bool B, typename T, typename F>
-  struct conditional : std::conditional<B, T, F>
-  {
-  };
-
   /// Helper for tag dispatching.
   template <bool B>
   struct bool_type : std::integral_constant<bool, B>
@@ -127,31 +121,6 @@ namespace detail
   };
   using std::false_type;
   using std::true_type;
-
-  /// Type traits for floating point types.
-  template <typename T>
-  struct is_float : std::is_floating_point<T>
-  {
-  };
-
-  /// Type traits for floating point bits.
-  template <typename T>
-  struct bits
-  {
-    using type = unsigned char;
-  };
-  template <typename T>
-  struct bits<const T> : bits<T>
-  {
-  };
-  template <typename T>
-  struct bits<volatile T> : bits<T>
-  {
-  };
-  template <typename T>
-  struct bits<const volatile T> : bits<T>
-  {
-  };
 
   /// Tag type for binary construction.
   struct binary_t
@@ -300,7 +269,7 @@ namespace detail
 
   /// @name Conversion
   /// @{
-  constexpr auto mantissa_table_gen()
+  constexpr auto half_mantissa_table_gen()
   {
     std::array<std::uint32_t, 2048> mantissa_table{};
 
@@ -328,7 +297,7 @@ namespace detail
     return mantissa_table;
   }
 
-  constexpr auto exponent_table_gen()
+  constexpr auto half_exponent_table_gen()
   {
     std::array<std::uint32_t, 64> exponent_table{};
 
@@ -344,7 +313,7 @@ namespace detail
     return exponent_table;
   }
 
-  constexpr auto offset_table_gen()
+  constexpr auto half_offset_table_gen()
   {
     std::array<std::uint16_t, 64> offset_table{};
 
@@ -354,11 +323,11 @@ namespace detail
     return offset_table;
   }
 
-  constexpr auto base_table_gen()
+  constexpr auto half_base_table_gen()
   {
     std::array<std::uint16_t, 512> base_table{};
 
-    for (std::uint32_t i = 0; i < base_table.size(); ++i)
+    for (std::uint32_t i = 0; i < base_table.size() / 2; ++i)
     {
       int e = static_cast<int>(i) - 127;
       if (e < -24)
@@ -397,11 +366,11 @@ namespace detail
     return base_table;
   }
 
-  constexpr auto shift_table_gen()
+  constexpr auto half_shift_table_gen()
   {
     std::array<std::uint8_t, 512> shift_table{};
 
-    for (std::uint32_t i = 0; i < shift_table.size(); ++i)
+    for (std::uint32_t i = 0; i < shift_table.size() / 2; ++i)
     {
       int e = static_cast<int>(i) - 127;
       if (e < -24)
@@ -454,8 +423,8 @@ namespace detail
     static_assert(sizeof(value) == sizeof(bits));
     std::memcpy(&bits, &value, sizeof(value));
 
-    static constexpr auto base_table = base_table_gen();
-    static constexpr auto shift_table = shift_table_gen();
+    static constexpr auto base_table = half_base_table_gen();
+    static constexpr auto shift_table = half_shift_table_gen();
 
     std::uint16_t hbits =
       base_table[bits >> 23] +
@@ -593,7 +562,7 @@ namespace detail
   template <std::float_round_style R, bool S, typename T>
   std::uint16_t int2half_impl(T value)
   {
-    static_assert(std::is_integral<T>::value,
+    static_assert(std::is_integral_v<T>,
                   "int to half conversion only supports builtin integer types");
     if (S)
       value = -value;
@@ -654,9 +623,9 @@ namespace detail
   /// @return single-precision value
   inline float half2float_impl(std::uint16_t value, float, true_type)
   {
-    static constexpr auto mantissa_table = mantissa_table_gen();
-    static constexpr auto exponent_table = exponent_table_gen();
-    static constexpr auto offset_table = offset_table_gen();
+    static constexpr auto mantissa_table = half_mantissa_table_gen();
+    static constexpr auto exponent_table = half_exponent_table_gen();
+    static constexpr auto offset_table = half_offset_table_gen();
     std::uint32_t bits =
       mantissa_table[offset_table[value >> 10] + (value & 0x3FF)] +
       exponent_table[value >> 10];
@@ -710,7 +679,7 @@ namespace detail
   template <std::float_round_style R, bool E, typename T>
   T half2int_impl(std::uint16_t value)
   {
-    static_assert(std::is_integral<T>::value,
+    static_assert(std::is_integral_v<T>,
                   "half to int conversion only supports builtin integer types");
     unsigned int e = value & 0x7FFF;
     if (e >= 0x7C00)
@@ -2019,12 +1988,12 @@ namespace detail
   template <typename U, std::float_round_style R>
   struct half_caster<half, U, R>
   {
-    static_assert(std::is_arithmetic<U>::value,
+    static_assert(std::is_arithmetic_v<U>,
                   "half_cast from non-arithmetic type unsupported");
 
     static half cast(U arg)
     {
-      return cast_impl(arg, is_float<U>());
+      return cast_impl(arg, std::is_floating_point<U>());
     }
 
   private:
@@ -2042,12 +2011,12 @@ namespace detail
   template <typename T, std::float_round_style R>
   struct half_caster<T, half, R>
   {
-    static_assert(std::is_arithmetic<T>::value,
+    static_assert(std::is_arithmetic_v<T>,
                   "half_cast to non-arithmetic type unsupported");
 
     static T cast(half arg)
     {
-      return cast_impl(arg, is_float<T>());
+      return cast_impl(arg, std::is_floating_point<T>());
     }
 
   private:
@@ -2065,12 +2034,12 @@ namespace detail
   template <typename T, std::float_round_style R>
   struct half_caster<T, expr, R>
   {
-    static_assert(std::is_arithmetic<T>::value,
+    static_assert(std::is_arithmetic_v<T>,
                   "half_cast to non-arithmetic type unsupported");
 
     static T cast(expr arg)
     {
-      return cast_impl(arg, is_float<T>());
+      return cast_impl(arg, std::is_floating_point<T>());
     }
 
   private:
