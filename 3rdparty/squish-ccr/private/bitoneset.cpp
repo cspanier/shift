@@ -29,17 +29,17 @@
 #include "bitoneset.h"
 #include "helpers.h"
 
-namespace squish {
+namespace squish
+{
 
 /* *****************************************************************************
  */
-bitone_set::bitone_set(std::uint8_t const* rgba, int mask, int flags)
-  : m_count(0)
-  , m_unweighted(true)
+bitone_set::bitone_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
+: m_count(0), m_unweighted(true)
 {
-  const float *rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
-  
-  bool const preserveThird = ((flags & kcolorMetricUnit   ) != 0);
+  const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
+
+  bool const preserveThird = ((flags & kcolorMetricUnit) != 0);
   bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
@@ -54,100 +54,110 @@ bitone_set::bitone_set(std::uint8_t const* rgba, int mask, int flags)
   Col4 m2 = Col4(&rgba[2 * 16]);
   Col4 m3 = Col4(&rgba[3 * 16]);
   Col4 al = CollapseA(m0, m1, m2, m3);
-  
+
   // clear alpha and maybe b
   m0 &= kill;
   m1 &= kill;
   m2 &= kill;
   m3 &= kill;
-  
+
   StoreAligned(m0, &rgbx[0 * 16]);
   StoreAligned(m1, &rgbx[1 * 16]);
   StoreAligned(m2, &rgbx[2 * 16]);
   StoreAligned(m3, &rgbx[3 * 16]);
-  
+
   // combined mask
-  amask  = mask;
+  amask = mask;
 #ifdef FEATURE_IGNORE_ALPHA0
   // threshold color
   amask &= (~CompareAllEqualTo_M8(al, Col4(0)).GetM8()) | (wgta);
 #endif
 
   // create the minimal set, O(16*count/2)
-  for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1) {
+  for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1)
+  {
     // check this pixel is enabled
-    if ((imask & 1) == 0) {
+    if ((imask & 1) == 0)
+    {
       m_remap[i] = -1;
       continue;
     }
-    
+
     // calculate point's weights
     Weight<std::uint8_t> wa(rgba, i, (std::uint8_t)wgta);
 
     // loop over previous matches for a match
-    std::uint8_t *rgbvalue = &rgbx[4 * i + 0];
-    for (index = 0; index < m_count; ++index) {
-      std::uint8_t *crgbvalue = &rgbx[4 * index + 0];
+    std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
+    for (index = 0; index < m_count; ++index)
+    {
+      std::uint8_t* crgbvalue = &rgbx[4 * index + 0];
 
       // check for a match
-      if (*((int *)rgbvalue) == *((int *)crgbvalue)) {
-  // get the index of the match
-  assume (index >= 0 && index < 16);
+      if (*((int*)rgbvalue) == *((int*)crgbvalue))
+      {
+        // get the index of the match
+        assume(index >= 0 && index < 16);
 
-  // map to this point and increase the weight
-  m_remap[i] = (char)index;
-  m_weights[index] += wa.GetWeights();
-  m_unweighted = false;
-  break;
+        // map to this point and increase the weight
+        m_remap[i] = (char)index;
+        m_weights[index] += wa.GetWeights();
+        m_unweighted = false;
+        break;
       }
     }
 
     // re-use the memory of already processed pixels
-    assert(index <= i); {
-      std::uint8_t *crgbvalue = &rgbx[4 * index + 0];
+    assert(index <= i);
+    {
+      std::uint8_t* crgbvalue = &rgbx[4 * index + 0];
 
       // allocate a new point
-      if (index == m_count) {
-  // get the index of the match and advance
-  m_count = index + 1;
+      if (index == m_count)
+      {
+        // get the index of the match and advance
+        m_count = index + 1;
 
-  // normalize coordinates to [0,1]
-  const float *r = &rgbLUT[rgbvalue[0]];
-  const float *g = &rgbLUT[rgbvalue[1]];
-  const float *b = &rgbLUT[rgbvalue[2]];
+        // normalize coordinates to [0,1]
+        const float* r = &rgbLUT[rgbvalue[0]];
+        const float* g = &rgbLUT[rgbvalue[1]];
+        const float* b = &rgbLUT[rgbvalue[2]];
 
-  // add the point
-  m_remap[i] = (char)index;
-  m_points[index] = Vec3(r, g, b);
-  m_weights[index] = wa.GetWeights();
-  m_unweighted = m_unweighted & wa.IsOne();
+        // add the point
+        m_remap[i] = (char)index;
+        m_points[index] = Vec3(r, g, b);
+        m_weights[index] = wa.GetWeights();
+        m_unweighted = m_unweighted & wa.IsOne();
 
-  // remember match for successive checks
-  *((int *)crgbvalue) = *((int *)rgbvalue);
+        // remember match for successive checks
+        *((int*)crgbvalue) = *((int*)rgbvalue);
       }
     }
   }
 
 #ifdef FEATURE_IGNORE_ALPHA0
-  if (amask != 0xFFFF) {
-    if (!m_count) {
+  if (amask != 0xFFFF)
+  {
+    if (!m_count)
+    {
       Vec3 sum = Vec3(0.0f);
 
-      for (int i = 0, imask = amask; i < 16; ++i, imask >>= 1) {
-  /* assign blanked out pixels when weighting
-   */
-  if ((imask & 1) == 0) {
-    m_remap[i] = 0;
+      for (int i = 0, imask = amask; i < 16; ++i, imask >>= 1)
+      {
+        /* assign blanked out pixels when weighting
+         */
+        if ((imask & 1) == 0)
+        {
+          m_remap[i] = 0;
 
-    std::uint8_t *rgbvalue = &rgbx[4 * i + 0];
+          std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
 
-    // normalize coordinates to [0,1]
-    const float *r = &rgbLUT[rgbvalue[0]];
-    const float *g = &rgbLUT[rgbvalue[1]];
-    const float *b = &rgbLUT[rgbvalue[2]];
+          // normalize coordinates to [0,1]
+          const float* r = &rgbLUT[rgbvalue[0]];
+          const float* g = &rgbLUT[rgbvalue[1]];
+          const float* b = &rgbLUT[rgbvalue[2]];
 
-    sum += Vec3(r, g, b);
-  }
+          sum += Vec3(r, g, b);
+        }
       }
 
       // add the point
@@ -156,31 +166,36 @@ bitone_set::bitone_set(std::uint8_t const* rgba, int mask, int flags)
       m_weights[0] = Scr3(1.0f);
       m_unweighted = true;
     }
-    else {
-      for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1) {
-  /* assign blanked out pixels when weighting
-   */
-  if ((imask & 1) == 0) {
-    std::uint8_t *rgbvalue = &rgbx[4 * i + 0];
+    else
+    {
+      for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1)
+      {
+        /* assign blanked out pixels when weighting
+         */
+        if ((imask & 1) == 0)
+        {
+          std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
 
-    // normalize coordinates to [0,1]
-    const float *r = &rgbLUT[rgbvalue[0]];
-    const float *g = &rgbLUT[rgbvalue[1]];
-    const float *b = &rgbLUT[rgbvalue[2]];
+          // normalize coordinates to [0,1]
+          const float* r = &rgbLUT[rgbvalue[0]];
+          const float* g = &rgbLUT[rgbvalue[1]];
+          const float* b = &rgbLUT[rgbvalue[2]];
 
-    // loop over previous matches for a match
-    Scr3 d = Scr3(FLT_MAX);
-    for (index = 0; index < m_count; ++index) {
-      Vec3 diff = m_points[index] - Vec3(r, g, b);
-      Scr3 dist = Dot(diff, diff);
+          // loop over previous matches for a match
+          Scr3 d = Scr3(FLT_MAX);
+          for (index = 0; index < m_count; ++index)
+          {
+            Vec3 diff = m_points[index] - Vec3(r, g, b);
+            Scr3 dist = Dot(diff, diff);
 
-      if (d > dist) {
-        d = dist;
+            if (d > dist)
+            {
+              d = dist;
 
-        m_remap[i] = (char)index;
-      }
-    }
-  }
+              m_remap[i] = (char)index;
+            }
+          }
+        }
       }
     }
   }
@@ -193,33 +208,37 @@ bitone_set::bitone_set(std::uint8_t const* rgba, int mask, int flags)
 #endif
 }
 
-bitone_set::bitone_set(std::uint16_t const* rgba, int mask, int flags)
-  : m_count(0)
-  , m_unweighted(true)
+bitone_set::bitone_set(std::uint16_t const* rgba, std::uint32_t mask, int flags)
+: m_count(0), m_unweighted(true)
 {
 }
 
-bitone_set::bitone_set(float const* rgba, int mask, int flags)
-  : m_count(0)
-  , m_unweighted(true)
+bitone_set::bitone_set(float const* rgba, std::uint32_t mask, int flags)
+: m_count(0), m_unweighted(true)
 {
-//const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
-  
-  bool const preserveThird = ((flags & kcolorMetricUnit   ) != 0);
+  // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
+
+  bool const preserveThird = ((flags & kcolorMetricUnit) != 0);
   bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
 
   // build mapped data
-  Vec4 kill = preserveThird ? Vec4(true, true, true, false) : Vec4(true, true, false, false);
+  Vec4 kill = preserveThird ? Vec4(true, true, true, false)
+                            : Vec4(true, true, false, false);
   Scr4 wgta = weightByAlpha ? Scr4(0.0f) : Scr4(1.0f);
 
   Vec3 rgbx[16];
   int amask = 0;
-  
-  for (int i = 0; i < 16; i += 4) {
-    Vec4 m0; LoadUnaligned(m0, &rgba[4 * i + 4 * 0]);
-    Vec4 m1; LoadUnaligned(m1, &rgba[4 * i + 4 * 1]);
-    Vec4 m2; LoadUnaligned(m2, &rgba[4 * i + 4 * 2]);
-    Vec4 m3; LoadUnaligned(m3, &rgba[4 * i + 4 * 3]);
+
+  for (int i = 0; i < 16; i += 4)
+  {
+    Vec4 m0;
+    LoadUnaligned(m0, &rgba[4 * i + 4 * 0]);
+    Vec4 m1;
+    LoadUnaligned(m1, &rgba[4 * i + 4 * 1]);
+    Vec4 m2;
+    LoadUnaligned(m2, &rgba[4 * i + 4 * 2]);
+    Vec4 m3;
+    LoadUnaligned(m3, &rgba[4 * i + 4 * 3]);
     Vec4 al = CollapseW(m0, m1, m2, m3);
     Vec4 ibit;
 
@@ -238,47 +257,53 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
 
     amask += ibit.GetM4() << i;
   }
-  
+
   // combined mask
   amask &= mask;
 
   // create the minimal set, O(16*count/2)
-  for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1) {
+  for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1)
+  {
     // check this pixel is enabled
-    if ((imask & 1) == 0) {
+    if ((imask & 1) == 0)
+    {
       m_remap[i] = -1;
       continue;
     }
-    
+
     // calculate point's weights
     Weight<float> wa(rgba, i, wgta);
 
     // loop over previous matches for a match
-    Vec3 *rgbvalue = &rgbx[i];
-    for (index = 0; index < m_count; ++index) {
-      Vec3 *crgbvalue = &rgbx[index];
+    Vec3* rgbvalue = &rgbx[i];
+    for (index = 0; index < m_count; ++index)
+    {
+      Vec3* crgbvalue = &rgbx[index];
 
       // check for a match
-      if (CompareAllEqualTo((*rgbvalue), (*crgbvalue))) {
-  // get the index of the match
-  assume (index >= 0 && index < 16);
+      if (CompareAllEqualTo((*rgbvalue), (*crgbvalue)))
+      {
+        // get the index of the match
+        assume(index >= 0 && index < 16);
 
-  // map to this point and increase the weight
-  m_remap[i] = (char)index;
-  m_weights[index] += wa.GetWeights();
-  m_unweighted = false;
-  break;
+        // map to this point and increase the weight
+        m_remap[i] = (char)index;
+        m_weights[index] += wa.GetWeights();
+        m_unweighted = false;
+        break;
       }
     }
 
     // re-use the memory of already processed pixels
-    assert(index <= i); {
-      Vec3 *crgbvalue = &rgbx[index];
+    assert(index <= i);
+    {
+      Vec3* crgbvalue = &rgbx[index];
 
       // allocate a new point
-      if (index == m_count) {
-  // get the index of the match and advance
-  m_count = index + 1;
+      if (index == m_count)
+      {
+        // get the index of the match and advance
+        m_count = index + 1;
 
 #if 0
   // normalize coordinates to [0,1]
@@ -287,30 +312,34 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
   const float *b = &rgbLUT[rgbvalue[2]];
 #endif
 
-  // add the point
-  m_remap[i] = (char)index;
-  m_points[index] = *(rgbvalue);
-  m_weights[index] = wa.GetWeights();
-  m_unweighted = m_unweighted & wa.IsOne();
+        // add the point
+        m_remap[i] = (char)index;
+        m_points[index] = *(rgbvalue);
+        m_weights[index] = wa.GetWeights();
+        m_unweighted = m_unweighted & wa.IsOne();
 
-  // remember match for successive checks
-  *(crgbvalue) = *(rgbvalue);
+        // remember match for successive checks
+        *(crgbvalue) = *(rgbvalue);
       }
     }
   }
 
 #ifdef FEATURE_IGNORE_ALPHA0
-  if (amask != 0xFFFF) {
-    if (!m_count) {
+  if (amask != 0xFFFF)
+  {
+    if (!m_count)
+    {
       Vec3 sum = Vec3(0.0f);
 
-      for (int i = 0, imask = amask; i < 16; ++i, imask >>= 1) {
-  /* assign blanked out pixels when weighting
-   */
-  if ((imask & 1) == 0) {
-    m_remap[i] = 0;
+      for (int i = 0, imask = amask; i < 16; ++i, imask >>= 1)
+      {
+        /* assign blanked out pixels when weighting
+         */
+        if ((imask & 1) == 0)
+        {
+          m_remap[i] = 0;
 
-    Vec3 *rgbvalue = &rgbx[i];
+          Vec3* rgbvalue = &rgbx[i];
 
 #if 0
     // normalize coordinates to [0,1]
@@ -319,8 +348,8 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
     const float *b = &rgbLUT[rgbvalue[2]];
 #endif
 
-    sum += *(rgbvalue);
-  }
+          sum += *(rgbvalue);
+        }
       }
 
       // add the point
@@ -329,12 +358,15 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
       m_weights[0] = Scr3(1.0f);
       m_unweighted = true;
     }
-    else {
-      for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1) {
-  /* assign blanked out pixels when weighting
-   */
-  if ((imask & 1) == 0) {
-    Vec3 *rgbvalue = &rgbx[i];
+    else
+    {
+      for (int i = 0, imask = amask, index; i < 16; ++i, imask >>= 1)
+      {
+        /* assign blanked out pixels when weighting
+         */
+        if ((imask & 1) == 0)
+        {
+          Vec3* rgbvalue = &rgbx[i];
 
 #if 0
     // normalize coordinates to [0,1]
@@ -343,19 +375,21 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
     const float *b = &rgbLUT[rgbvalue[2]];
 #endif
 
-    // loop over previous matches for a match
-    Scr3 d = Scr3(FLT_MAX);
-    for (index = 0; index < m_count; ++index) {
-      Vec3 diff = m_points[index] - *(rgbvalue);
-      Scr3 dist = Dot(diff, diff);
+          // loop over previous matches for a match
+          Scr3 d = Scr3(FLT_MAX);
+          for (index = 0; index < m_count; ++index)
+          {
+            Vec3 diff = m_points[index] - *(rgbvalue);
+            Scr3 dist = Dot(diff, diff);
 
-      if (d > dist) {
-        d = dist;
+            if (d > dist)
+            {
+              d = dist;
 
-        m_remap[i] = (char)index;
-      }
-    }
-  }
+              m_remap[i] = (char)index;
+            }
+          }
+        }
       }
     }
   }
@@ -368,10 +402,14 @@ bitone_set::bitone_set(float const* rgba, int mask, int flags)
 #endif
 }
 
-void bitone_set::RemapIndices(std::uint8_t const* source, std::uint8_t* target) const
+void bitone_set::RemapIndices(std::uint8_t const* source,
+                              std::uint8_t* target) const
 {
-  for (int i = 0; i < 16; ++i) {
-    std::uint8_t t = 3; t = ((m_remap[i] == -1) ? t : source[m_remap[i]]); target[i] = t;
+  for (int i = 0; i < 16; ++i)
+  {
+    std::uint8_t t = 3;
+    t = ((m_remap[i] == -1) ? t : source[m_remap[i]]);
+    target[i] = t;
   }
 }
-} // namespace squish
+}  // namespace squish

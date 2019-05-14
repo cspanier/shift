@@ -54,9 +54,9 @@ namespace squish {
   void ReadPaletteBlock4_m7(std::uint8_t* rgba, void const* block);
   void ReadPaletteBlock4_m8(std::uint8_t* rgba, void const* block);
 
-  void DecompresscolorsBtc7u(std::uint8_t * rgba, void const* block);
-  void DecompresscolorsBtc7u(std::uint16_t* rgba, void const* block);
-  void DecompresscolorsBtc7u(float* rgba, void const* block);
+  void DecompressColorsBtc7u(std::uint8_t * rgba, void const* block);
+  void DecompressColorsBtc7u(std::uint16_t* rgba, void const* block);
+  void DecompressColorsBtc7u(float* rgba, void const* block);
 } // namespace squish
 
 #endif // ndef SQUISH_PALETTEBLOCK_H

@@ -35,122 +35,111 @@
 /// All squish API functions live in this namespace.
 namespace squish
 {
-enum class compression : std::uint32_t
+enum class squish_flag : std::uint32_t
 {
   /// Use DXT1/BC1 compression.
-  bc1 = (1u << 0),
+  compression_bc1 = (1u << 0),
   /// Use DXT3/BC2 compression.
-  bc2 = (2u << 0),
+  compression_bc2 = (2u << 0),
   /// Use DXT5/BC3 compression.
-  bc3 = (3u << 0),
+  compression_bc3 = (3u << 0),
   /// Use ATI1/BC4 compression.
-  bc4 = (4u << 0),
+  compression_bc4 = (4u << 0),
   /// Use ATI2/BC5 compression.
-  bc5 = (5u << 0),
+  compression_bc5 = (5u << 0),
   /// Use BC6H compression.
-  bc6 = (6u << 0),
+  compression_bc6 = (6u << 0),
   /// Use BC7 compression.
-  bc7 = (7u << 0),
+  compression_bc7 = (7u << 0),
   /// Use CTX1 compression.
-  ctx1 = (8u << 0),
+  compression_ctx1 = (8u << 0),
   /// Use some compression (mask)
-  mask = (15u << 0)
-};
+  compression_mask = (15u << 0),
 
-enum class color_metric : std::uint32_t
-{
   /// Use a perceptual metric for color error (the default).
-  perceptual = (1u << 4),
+  color_metric_perceptual = (1u << 4),
   /// Use a uniform metric for color error.
-  uniform = (2u << 4),
+  color_metric_uniform = (2u << 4),
   /// Use a unit metric for color error.
-  unit = (3u << 4),
+  color_metric_unit = (3u << 4),
   /// Use a multi-channel grayscale metric for color error.
-  gray = (4u << 4),
+  color_metric_gray = (4u << 4),
   /// Use a custom metric for color error.
-  custom = (7u << 4),
+  color_metric_custom = (7u << 4),
   /// Use some metric (mask)
-  mask = (7u << 4)
-};
+  color_metric_mask = (7u << 4),
 
-enum class option : std::uint32_t
-{
   /// Weight the color by alpha during cluster fit (disabled by default).
-  weight_color_by_alpha = (1u << 10),
+  option_weight_color_by_alpha = (1u << 10),
   /// Don't code alpha, set alpha to 255 after weighting (disabled by default).
-  exclude_alpha_from_palette = (1u << 11),
+  option_exclude_alpha_from_palette = (1u << 11),
 
   /// Transform values/points from signed (disabled by default, BC4-6)
-  signed_external = (1u << 12),
+  option_signed_external = (1u << 12),
   /// Store/restore values/points as signed internally (disabled by default,
   /// BC4-6)
-  signed_internal = (2u << 12),
+  option_signed_internal = (2u << 12),
   /// Use some datatype transform (mask)
-  signedness = (3u << 12),
+  option_signedness = (3u << 12),
 
   /// Transform values/points from sRGB (disabled by default, BC1-3/7).
-  srgb_external = (1u << 12),
+  option_srgb_external = (1u << 12),
   /// Store/restore points/values as sRGB internally (disabled by default,
   /// BC1-3/7).
-  srgb_internal = (2u << 12),
+  option_srgb_internal = (2u << 12),
   /// Use some gamma transform (mask)
-  srgbness = (3u << 12)
-};
+  option_srgbness = (3u << 12),
 
-enum class compressor : std::uint32_t
-{
   /// Use a fast but low quality color compressor.
-  color_range_fit = (1u << 14),
-  alpha_range_fit = (1u << 14),
-  normal_range_fit = (1u << 14),
+  compressor_color_range_fit = (1u << 14),
+  compressor_alpha_range_fit = (1u << 14),
+  compressor_normal_range_fit = (1u << 14),
   /// Use a slow but high quality alpha/gray/normal compressor.
-  alpha_iterative_fit = (1u << 15),
-  normal_iterative_fit = (1u << 15),
+  compressor_alpha_iterative_fit = (1u << 15),
+  compressor_normal_iterative_fit = (1u << 15),
 
   /// Use a slow but high quality color compressor (the default).
-  color_cluster_fit = (1u << 16),
+  compressor_color_cluster_fit = (1u << 16),
   /// Use a very slow but very high quality color compressor.
-  color_iterative_cluster_fit = (8u << 16),
+  compressor_color_iterative_cluster_fit = (8u << 16),
   /// Specify the number of iterations explicitly. You can go until 15.
-  color_iterative_cluster_fit1 = (1u << 16),
-  color_iterative_cluster_fit2 = (2u << 16),
-  color_iterative_cluster_fit4 = (4u << 16),
-  color_iterative_cluster_fit8 = (8u << 16),
-  color_iterative_cluster_mask = (15u << 16)
-};
+  compressor_color_iterative_cluster_fit1 = (1u << 16),
+  compressor_color_iterative_cluster_fit2 = (2u << 16),
+  compressor_color_iterative_cluster_fit4 = (4u << 16),
+  compressor_color_iterative_cluster_fit8 = (8u << 16),
+  compressor_color_iterative_cluster_mask = (15u << 16),
 
-enum class variable_coding : std::uint32_t
-{
   /// Use to code a specific BC6/7 mode, coded as "1 + mode-number" (not
   /// specified by default).
-  mode1 = (1u << 24),
-  mode2 = (2u << 24),
-  mode3 = (3u << 24),
-  mode4 = (4u << 24),
-  mode5 = (5u << 24),
-  mode6 = (6u << 24),
-  mode7 = (7u << 24),
-  mode8 = (8u << 24),
-  mode9 = (9u << 24),
-  mode10 = (10u << 24),
-  mode11 = (11u << 24),
-  mode12 = (12u << 24),
-  mode13 = (13u << 24),
-  mode14 = (14u << 24),
-  mode_mask = (15u << 24),
+  variable_coding_none = 0,
+  variable_coding_mode1 = (1u << 24),
+  variable_coding_mode2 = (2u << 24),
+  variable_coding_mode3 = (3u << 24),
+  variable_coding_mode4 = (4u << 24),
+  variable_coding_mode5 = (5u << 24),
+  variable_coding_mode6 = (6u << 24),
+  variable_coding_mode7 = (7u << 24),
+  variable_coding_mode8 = (8u << 24),
+  variable_coding_mode9 = (9u << 24),
+  variable_coding_mode10 = (10u << 24),
+  variable_coding_mode11 = (11u << 24),
+  variable_coding_mode12 = (12u << 24),
+  variable_coding_mode13 = (13u << 24),
+  variable_coding_mode14 = (14u << 24),
+  variable_coding_mode_mask = (15u << 24),
 
   /// Use to code a specific multi-channel grayscale precision (not specified by
   /// default).
-  bits10 = (1u << 28),  // 4-1+4-1+4     = 10, BC1-3,BC7,CTX1
-  bits13 = (2u << 28),  // 5-1+5-1+5     = 13, BC1-3,BC7,CTX1
-  bits14 = (3u << 28),  // 5-1+6-1+5     = 14, BC1-3,BC7,CTX1
-  bits15 = (4u << 28),  // 8-1+8         = 15, BC7,CTX1
-  bits16 = (5u << 28),  // 6-1+6-1+6     = 16, BC7
-  bits17 = (6u << 28),  // 5-1+5-1+5-1+5 = 17, BC7
-  bits19 = (7u << 28),  // 7-1+7-1+7     = 19, BC7
-  bits22 = (8u << 28),  // 8-1+8-1+8     = 22, BC7
-  bits25 = (9u << 28),  // 7-1+7-1+7-1+7 = 25, BC7
-  bit_mask = (15u << 28)
+  variable_coding_bits10 = (1u << 28),  // 4-1+4-1+4     = 10, BC1-3,BC7,CTX1
+  variable_coding_bits13 = (2u << 28),  // 5-1+5-1+5     = 13, BC1-3,BC7,CTX1
+  variable_coding_bits14 = (3u << 28),  // 5-1+6-1+5     = 14, BC1-3,BC7,CTX1
+  variable_coding_bits15 = (4u << 28),  // 8-1+8         = 15, BC7,CTX1
+  variable_coding_bits16 = (5u << 28),  // 6-1+6-1+6     = 16, BC7
+  variable_coding_bits17 = (6u << 28),  // 5-1+5-1+5-1+5 = 17, BC7
+  variable_coding_bits19 = (7u << 28),  // 7-1+7-1+7     = 19, BC7
+  variable_coding_bits22 = (8u << 28),  // 8-1+8-1+8     = 22, BC7
+  variable_coding_bits25 = (9u << 28),  // 7-1+7-1+7-1+7 = 25, BC7
+  variable_coding_bit_mask = (15u << 28)
 };
 
 template <typename UnderlyingT, typename... FlagTs>
@@ -217,6 +206,24 @@ public:
     return _flags >= other._flags;
   }
 
+  constexpr bit_flags& operator&=(bit_flags flag) noexcept
+  {
+    _flags &= flag._flags;
+    return *this;
+  }
+
+  constexpr bit_flags& operator|=(bit_flags flag) noexcept
+  {
+    _flags |= flag._flags;
+    return *this;
+  }
+
+  constexpr bit_flags& operator^=(bit_flags flag) noexcept
+  {
+    _flags ^= flag._flags;
+    return *this;
+  }
+
   template <typename FlagT,
             typename = std::enable_if_t<(std::is_same_v<FlagT, FlagTs> || ...)>>
   constexpr bool operator==(FlagT flag) const noexcept
@@ -259,9 +266,38 @@ public:
     return _flags >= static_cast<underlying_type>(flag);
   }
 
+  template <typename FlagT,
+            typename = std::enable_if_t<(std::is_same_v<FlagT, FlagTs> || ...)>>
+  constexpr bit_flags& operator&=(FlagT flag) noexcept
+  {
+    _flags &= static_cast<underlying_type>(flag);
+    return *this;
+  }
+
+  template <typename FlagT,
+            typename = std::enable_if_t<(std::is_same_v<FlagT, FlagTs> || ...)>>
+  constexpr bit_flags& operator|=(FlagT flag) noexcept
+  {
+    _flags |= static_cast<underlying_type>(flag);
+    return *this;
+  }
+
+  template <typename FlagT,
+            typename = std::enable_if_t<(std::is_same_v<FlagT, FlagTs> || ...)>>
+  constexpr bit_flags& operator^=(FlagT flag) noexcept
+  {
+    _flags ^= static_cast<underlying_type>(flag);
+    return *this;
+  }
+
   constexpr operator bool() const noexcept
   {
     return _flags != 0;
+  }
+
+  constexpr bit_flags operator~() noexcept
+  {
+    return {~_flags};
   }
 
   template <typename FlagT,
@@ -325,43 +361,29 @@ private:
   UnderlyingT _flags;
 };
 
-using flags_t = bit_flags<std::uint32_t, compression, color_metric, option,
-                          compressor, variable_coding>;
+using flags_t = bit_flags<std::uint32_t, squish_flag>;
 
-template <
-  typename Flag,
-  typename = std::enable_if_t<
-    std::is_same_v<Flag, compression> || std::is_same_v<Flag, color_metric> ||
-    std::is_same_v<Flag, option> || std::is_same_v<Flag, compressor> ||
-    std::is_same_v<Flag, variable_coding>>>
-inline constexpr flags_t operator|(Flag lhs, Flag rhs) noexcept
+inline constexpr flags_t operator|(squish_flag lhs, squish_flag rhs) noexcept
 {
   return static_cast<flags_t::underlying_type>(lhs) |
          static_cast<flags_t::underlying_type>(rhs);
 }
 
-template <
-  typename Flag,
-  typename = std::enable_if_t<
-    std::is_same_v<Flag, compression> || std::is_same_v<Flag, color_metric> ||
-    std::is_same_v<Flag, option> || std::is_same_v<Flag, compressor> ||
-    std::is_same_v<Flag, variable_coding>>>
-inline constexpr flags_t operator&(Flag lhs, Flag rhs) noexcept
+inline constexpr flags_t operator&(squish_flag lhs, squish_flag rhs) noexcept
 {
   return static_cast<flags_t::underlying_type>(lhs) &
          static_cast<flags_t::underlying_type>(rhs);
 }
 
-template <
-  typename Flag,
-  typename = std::enable_if_t<
-    std::is_same_v<Flag, compression> || std::is_same_v<Flag, color_metric> ||
-    std::is_same_v<Flag, option> || std::is_same_v<Flag, compressor> ||
-    std::is_same_v<Flag, variable_coding>>>
-inline constexpr flags_t operator^(Flag lhs, Flag rhs) noexcept
+inline constexpr flags_t operator^(squish_flag lhs, squish_flag rhs) noexcept
 {
   return static_cast<flags_t::underlying_type>(lhs) ^
          static_cast<flags_t::underlying_type>(rhs);
+}
+
+inline constexpr flags_t operator~(squish_flag flag) noexcept
+{
+  return ~static_cast<flags_t::underlying_type>(flag);
 }
 
 enum
@@ -512,9 +534,9 @@ flags_t sanitize_flags(flags_t flags);
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
-void compress(std::uint8_t const* rgba, void* block, int flags);
-void compress(std::uint16_t const* rgb, void* block, int flags);
-void compress(float const* rgba, void* block, int flags);
+void compress(std::uint8_t const* rgba, void* block, flags_t flags);
+void compress(std::uint16_t const* rgb, void* block, flags_t flags);
+void compress(float const* rgba, void* block, flags_t flags);
 
 // -----------------------------------------------------------------------------
 
@@ -556,11 +578,12 @@ void compress(float const* rgba, void* block, int flags);
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
-void compress_masked(std::uint8_t const* rgba, int mask, void* block,
-                     int flags);
-void compress_masked(std::uint16_t const* rgb, int mask, void* block,
-                     int flags);
-void compress_masked(float const* rgba, int mask, void* block, int flags);
+void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags);
+void compress_masked(std::uint16_t const* rgb, std::uint32_t mask, void* block,
+                     flags_t flags);
+void compress_masked(float const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags);
 
 // -----------------------------------------------------------------------------
 
@@ -579,9 +602,9 @@ void compress_masked(float const* rgba, int mask, void* block, int flags);
   however, DXT1/BC1 will be used by default if none is specified. All other
   flags are ignored.
 */
-void decompress(std::uint8_t* rgba, void const* block, int flags);
-void decompress(std::uint16_t* rgb, void const* block, int flags);
-void decompress(float* rgba, void const* block, int flags);
+void decompress(std::uint8_t* rgba, void const* block, flags_t flags);
+void decompress(std::uint16_t* rgb, void const* block, flags_t flags);
+void decompress(float* rgba, void const* block, flags_t flags);
 
 // -----------------------------------------------------------------------------
 
@@ -599,17 +622,18 @@ struct sqio
   int compressedsize;
   int decompressedsize;
 
-  typedef void (*enc)(void const* rgba, int mask, void* block, int flags);
-  typedef void (*dec)(void* rgba, void const* block, int flags);
+  typedef void (*enc)(void const* rgba, std::uint32_t mask, void* block,
+                      flags_t flags);
+  typedef void (*dec)(void* rgba, void const* block, flags_t flags);
 
   dtp datatype;
-  int flags;
+  flags_t flags;
   enc encoder;
   dec decoder;
 };
 
-struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags);
-void weights(int flags, const float* rgba);
+struct sqio squish_io(int width, int height, sqio::dtp datatype, flags_t flags);
+void weights(flags_t flags, const float* rgba);
 
 // -----------------------------------------------------------------------------
 
@@ -627,7 +651,8 @@ void weights(int flags, const float* rgba);
   function supports arbitrary size images by allowing the outer blocks to
   be only partially used.
 */
-int storage_requirements(int width, int height, int flags);
+std::uint32_t storage_requirements(std::uint32_t width, std::uint32_t height,
+                                   flags_t flags);
 
 // -----------------------------------------------------------------------------
 
@@ -668,11 +693,11 @@ int storage_requirements(int width, int height, int flags);
   squish::storage_requirements.
 */
 void compress_image(std::uint8_t const* rgba, int width, int height,
-                    void* blocks, int flags);
+                    void* blocks, flags_t flags);
 // void compress_image(std::uint16_t const* rgb, int width, int height,
-//                    void* blocks, int flags);
+//                    void* blocks, flags_t flags);
 // void compress_image(float const* rgba, int width, int height, void* blocks,
-//                    int flags);
+//                    flags_t flags);
 
 // -----------------------------------------------------------------------------
 
@@ -696,11 +721,11 @@ void compress_image(std::uint8_t const* rgba, int width, int height,
   Internally this function calls squish::Decompress for each block.
 */
 void decompress_image(std::uint8_t* rgba, int width, int height,
-                      void const* blocks, int flags);
+                      void const* blocks, flags_t flags);
 // void decompress_image(std::uint16_t* rgb, int width, int height,
-//                     void const* blocks, int flags);
+//                     void const* blocks, flags_t flags);
 // void decompress_image(float* rgba, int width, int height, void const* blocks,
-//                     int flags);
+//                     flags_t flags);
 }
 
 #endif

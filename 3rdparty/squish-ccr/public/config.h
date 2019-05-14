@@ -220,9 +220,9 @@ extern struct statistics
 #endif
 
 #ifndef _MSC_VER
-#define assume
+#define assume(x)
 #else
-#define assume __assume
+#define assume(x) __assume(x)
 #endif
 
 #endif

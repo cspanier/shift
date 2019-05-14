@@ -2407,7 +2407,7 @@ void ReadHDRBlock(int partition, std::int64_t* codes, Col4& blkl, Col4& blkh,
 
   // store out the palettes
   std::uint8_t const* ios =
-    (sets >= 2 ? whichsetinpartition[partition][sets - 2] : NULL);
+    (sets >= 2 ? whichsetinpartition[partition][sets - 2] : nullptr);
 
   // max 16*4 -> 64bits
   // no scattered writes on SSE

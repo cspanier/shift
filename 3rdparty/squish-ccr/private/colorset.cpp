@@ -35,7 +35,7 @@ namespace squish
 
 /* *****************************************************************************
  */
-color_set::color_set(std::uint8_t const* rgba, int mask, int flags)
+color_set::color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
@@ -222,12 +222,12 @@ color_set::color_set(std::uint8_t const* rgba, int mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-color_set::color_set(std::uint16_t const* rgba, int mask, int flags)
+color_set::color_set(std::uint16_t const* rgba, std::uint32_t mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
 }
 
-color_set::color_set(float const* rgba, int mask, int flags)
+color_set::color_set(float const* rgba, std::uint32_t mask, int flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);

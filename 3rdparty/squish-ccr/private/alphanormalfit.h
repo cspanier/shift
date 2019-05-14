@@ -31,24 +31,37 @@
 #include <squish.h>
 #include <limits.h>
 
-namespace squish {
-  void CompressNormalsBtc5u(std::uint8_t  const* xyzd, int mask, void* blockx, void* blocky, int flags);
-  void CompressNormalsBtc5s(std::int8_t  const* xyzd, int mask, void* blockx, void* blocky, int flags);
+namespace squish
+{
+void CompressNormalsBtc5u(std::uint8_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags);
+void CompressNormalsBtc5s(std::int8_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags);
 
-  void CompressNormalsBtc5u(std::uint16_t const* xyzd, int mask, void* blockx, void* blocky, int flags);
-  void CompressNormalsBtc5s(std::int16_t const* xyzd, int mask, void* blockx, void* blocky, int flags);
+void CompressNormalsBtc5u(std::uint16_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags);
+void CompressNormalsBtc5s(std::int16_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags);
 
-  void CompressNormalsBtc5u(float const* xyzd, int mask, void* blockx, void* blocky, int flags);
-  void CompressNormalsBtc5s(float const* xyzd, int mask, void* blockx, void* blocky, int flags);
+void CompressNormalsBtc5u(float const* xyzd, std::uint32_t mask, void* blockx,
+                          void* blocky, int flags);
+void CompressNormalsBtc5s(float const* xyzd, std::uint32_t mask, void* blockx,
+                          void* blocky, int flags);
 
-  void DecompressNormalsBtc5u(std::uint8_t * xyzd, void const* blockx, void const* blocky);
-  void DecompressNormalsBtc5s(std::int8_t * xyzd, void const* blockx, void const* blocky);
+void DecompressNormalsBtc5u(std::uint8_t* xyzd, void const* blockx,
+                            void const* blocky);
+void DecompressNormalsBtc5s(std::int8_t* xyzd, void const* blockx,
+                            void const* blocky);
 
-  void DecompressNormalsBtc5u(std::uint16_t* xyzd, void const* blockx, void const* blocky);
-  void DecompressNormalsBtc5s(std::int16_t* xyzd, void const* blockx, void const* blocky);
+void DecompressNormalsBtc5u(std::uint16_t* xyzd, void const* blockx,
+                            void const* blocky);
+void DecompressNormalsBtc5s(std::int16_t* xyzd, void const* blockx,
+                            void const* blocky);
 
-  void DecompressNormalsBtc5u(float* xyzd, void const* blockx, void const* blocky);
-  void DecompressNormalsBtc5s(float* xyzd, void const* blockx, void const* blocky);
-} // namespace squish
+void DecompressNormalsBtc5u(float* xyzd, void const* blockx,
+                            void const* blocky);
+void DecompressNormalsBtc5s(float* xyzd, void const* blockx,
+                            void const* blocky);
+}  // namespace squish
 
-#endif // ndef SQUISH_ALPHA_H
+#endif  // ndef SQUISH_ALPHA_H

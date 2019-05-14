@@ -27,6 +27,12 @@ enum class tiff_icc_profile_category
 ///
 struct tiff_image
 {
+  tiff_image() = default;
+  tiff_image(const tiff_image& other);
+  tiff_image(tiff_image&&) = default;
+  tiff_image& operator=(const tiff_image& other);
+  tiff_image& operator=(tiff_image&&) = default;
+
   std::uint16_t samples_per_pixel = 0;
   std::uint16_t extra_samples = 0;
   std::uint16_t bits_per_sample = 0;

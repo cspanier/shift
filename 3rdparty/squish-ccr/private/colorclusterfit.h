@@ -52,10 +52,10 @@ public:
 
   static flags_t sanitize_flags(flags_t flags)
   {
-    if (flags > compressor::color_iterative_cluster_mask)
-      return compressor::color_iterative_cluster_mask;
-    if (flags > compressor::color_iterative_cluster_fit1)
-      return compressor::color_iterative_cluster_fit1;
+    if (flags > squish_flag::compressor_color_iterative_cluster_mask)
+      return squish_flag::compressor_color_iterative_cluster_mask;
+    if (flags > squish_flag::compressor_color_iterative_cluster_fit1)
+      return squish_flag::compressor_color_iterative_cluster_fit1;
 
     return flags;
   }

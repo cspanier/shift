@@ -37,9 +37,9 @@ namespace squish {
   void WritecolorBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
   void WritecolorBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block);
   
-  void DecompresscolorsBtc1u(std::uint8_t * rgba, void const* block, bool isBtc1);
-  void DecompresscolorsBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1);
-  void DecompresscolorsBtc1u(float* rgba, void const* block, bool isBtc1);
+  void DecompressColorsBtc1u(std::uint8_t * rgba, void const* block, bool isBtc1);
+  void DecompressColorsBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1);
+  void DecompressColorsBtc1u(float* rgba, void const* block, bool isBtc1);
 } // namespace squish
 
 #endif // ndef SQUISH_colorBLOCK_H

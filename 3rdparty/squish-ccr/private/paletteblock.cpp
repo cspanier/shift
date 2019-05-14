@@ -1959,7 +1959,7 @@ void ReadPaletteBlock(int partition, unsigned int* codes, Col4& blkl,
 
   // store out the palettes
   std::uint8_t const* ios =
-    (sets >= 2 ? whichsetinpartition[partition][sets - 2] : NULL);
+    (sets >= 2 ? whichsetinpartition[partition][sets - 2] : nullptr);
 
   // max 16*4 -> 64bits
   // no scattered writes on SSE
@@ -2976,7 +2976,7 @@ void ReadPaletteBlock4_m8(std::uint8_t* rgba, void const* block)
 #undef U
 #undef S
 
-void DecompresscolorsBtc7u(std::uint8_t* rgba, void const* block)
+void DecompressColorsBtc7u(std::uint8_t* rgba, void const* block)
 {
   // get the block bytes
   std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
@@ -3019,19 +3019,19 @@ void DecompresscolorsBtc7u(std::uint8_t* rgba, void const* block)
   }
 }
 
-void DecompresscolorsBtc7u(std::uint16_t* rgba, void const* block)
+void DecompressColorsBtc7u(std::uint16_t* rgba, void const* block)
 {
   std::uint8_t bytes[4 * 16];
-  DecompresscolorsBtc7u(bytes, block);
+  DecompressColorsBtc7u(bytes, block);
 
   for (int v = 0; v < (4 * 16); v++)
     rgba[v] = bytes[v] * (65535 / 255);
 }
 
-void DecompresscolorsBtc7u(float* rgba, void const* block)
+void DecompressColorsBtc7u(float* rgba, void const* block)
 {
   std::uint8_t bytes[4 * 16];
-  DecompresscolorsBtc7u(bytes, block);
+  DecompressColorsBtc7u(bytes, block);
 
   for (int v = 0; v < (4 * 16); v++)
     rgba[v] = bytes[v] * (1.0f / 255.0f);

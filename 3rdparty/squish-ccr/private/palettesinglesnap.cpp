@@ -108,7 +108,7 @@ Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, int cb, 
       switch (ab) {
   case  6: al = sp_lookup_5u1_4_ck_; break;  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 }, / { 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
   case  8: al = sp_lookup_8_4; break;    //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
-  default: al = NULL; break;      //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 }, / { 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },
+  default: al = nullptr; break;      //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 }, / { 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },
       }
 
       PaletteSingleLookup2 const* const lookups[] =
@@ -130,7 +130,7 @@ Scr4 palette_single_snap::ComputeEndPoints(int set, Vec4 const &metric, int cb, 
       assume(ab == 0 || ab == 6);
       switch (ab) {
   case  6: al = sp_lookup_6_8; break;    //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
-  default: al = NULL; break;      //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 }, / { 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },
+  default: al = nullptr; break;      //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 }, / { 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },
       }
 
       PaletteSingleLookup4 const* const lookups[] =

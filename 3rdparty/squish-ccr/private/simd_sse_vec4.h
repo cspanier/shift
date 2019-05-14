@@ -160,21 +160,31 @@ public:
   {
   }
 
-  Vec4(Vec4 const& arg) : m_v(arg.m_v)
+  Vec4(const Vec4& arg) : m_v(arg.m_v)
   {
   }
 
-  Vec4(Vec3 const& arg) : m_v(arg.m_v)
+  Vec4(Vec4&& arg) : m_v(arg.m_v)
   {
   }
 
-  Vec4& operator=(Vec4 const& arg)
+  Vec4(const Vec3& arg) : m_v(arg.m_v)
+  {
+  }
+
+  Vec4& operator=(const Vec4& arg)
   {
     m_v = arg.m_v;
     return *this;
   }
 
-  Vec4& operator=(Vec3 const& arg)
+  Vec4& operator=(Vec4&& arg)
+  {
+    m_v = arg.m_v;
+    return *this;
+  }
+
+  Vec4& operator=(const Vec3& arg)
   {
     m_v = arg.m_v;
     return *this;
@@ -546,7 +556,16 @@ public:
     with.m_v = _mm_shuffle_ps(with.m_v, v, SQUISH_SSE_SHUF(0, 1, 0, 2));
   }
 
-  __m128 m_v;
+  union {
+    __m128 m_v;
+    struct
+    {
+      std::uint32_t m_x;
+      std::uint32_t m_y;
+      std::uint32_t m_z;
+      std::uint32_t m_w;
+    };
+  };
 };
 
 template <class dtyp>
@@ -642,8 +661,11 @@ Vec4 Complement(const Vec4& left)
 #endif
   if (!disarm)
   {
-    // correct xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // renormalization
+    // correct
+    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // +
+    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // > 1.0f by renormalization
     if (_mm_comigt_ss(res, rez))
     {
       res = ReciprocalSqrt(Vec4(res)).m_v;
@@ -668,7 +690,10 @@ Vec4 Complement(const Vec4& left)
     res = _mm_and_ps(res, _mm_castsi128_ps(_mm_setr_epi32(~0, ~0, ~0, 0)));
   }
 
-  // sqrt(1.0f - (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
+  // sqrt(1.0f -
+  // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+  // +
+  // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
   return Vec4(res);
 }
 
@@ -680,23 +705,35 @@ Vec4 Complement(Vec4& left, Vec4& right)
     Vec4 len = left * left + right * right;
     Vec4 adj = ReciprocalSqrt(Max(Vec4(1.0f), len));
 
-    // correct xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // renormalization
+    // correct
+    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // +
+    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // > 1.0f by renormalization
     left *= adj;
     right *= adj;
 
-    // sqrt(1.0f - (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
+    // sqrt(1.0f -
+    // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // +
+    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec4(1.0f) - Min(Vec4(1.0f), len));
   }
   else
   {
     Vec4 len = (left * left) + (right * right);
 
-    // disarm xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // letting NaN happen
+    // disarm
+    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // +
+    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // > 1.0f by letting NaN happen
     // ...
 
-    // sqrt(1.0f - (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
+    // sqrt(1.0f -
+    // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
+    // +
+    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec4(1.0f) - len);
   }
 }

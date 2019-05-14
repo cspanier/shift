@@ -97,35 +97,37 @@ int hdr_set::SetMode(int flags, int partition)
   return flags;
 }
 
-hdr_set::hdr_set(std::uint16_t const* rgb, int mask, int flags)
+hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set (if successive partition permutation)
   BuildSet(rgb, mask, SetMode(flags));
 }
 
-hdr_set::hdr_set(std::uint16_t const* rgb, int mask, int flags, int partition)
+hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags,
+                 int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set
   BuildSet(rgb, mask, SetMode(flags, partition));
 }
 
-hdr_set::hdr_set(float const* rgb, int mask, int flags)
+hdr_set::hdr_set(float const* rgb, std::uint32_t mask, int flags)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set (if successive partition permutation)
   BuildSet(rgb, mask, SetMode(flags));
 }
 
-hdr_set::hdr_set(float const* rgb, int mask, int flags, int partition)
+hdr_set::hdr_set(float const* rgb, std::uint32_t mask, int flags, int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set
   BuildSet(rgb, mask, SetMode(flags, partition));
 }
 
-hdr_set::hdr_set(hdr_set const& palette, int mask, int flags, int partition)
+hdr_set::hdr_set(hdr_set const& palette, std::uint32_t mask, int flags,
+                 int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   flags = SetMode(flags, partition);
@@ -137,7 +139,7 @@ hdr_set::hdr_set(hdr_set const& palette, int mask, int flags, int partition)
     memcpy(this, &palette, sizeof(*this));  // identical
 }
 
-void hdr_set::BuildSet(std::uint16_t const* rgb, int mask, int flags)
+void hdr_set::BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
   // const float *aLUT   = ComputeGammaLUT(false);
@@ -276,7 +278,7 @@ void hdr_set::BuildSet(std::uint16_t const* rgb, int mask, int flags)
   }
 }
 
-void hdr_set::BuildSet(float const* rgb, int mask, int flags)
+void hdr_set::BuildSet(float const* rgb, std::uint32_t mask, int flags)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
   // const float *aLUT   = ComputeGammaLUT(false);
@@ -419,7 +421,7 @@ void hdr_set::BuildSet(float const* rgb, int mask, int flags)
   }
 }
 
-void hdr_set::PermuteSet(hdr_set const& palette, int mask, int flags)
+void hdr_set::PermuteSet(hdr_set const& palette, std::uint32_t mask, int flags)
 {
   // check the compression mode for btc
   bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
@@ -514,7 +516,7 @@ void hdr_set::PermuteSet(hdr_set const& palette, int mask, int flags)
 }
 
 void hdr_set::RemapIndices(std::uint8_t const* source, std::uint8_t* target,
-                          int set) const
+                           int set) const
 {
   const int s = set;
   {
@@ -536,8 +538,8 @@ void hdr_set::RemapIndices(std::uint8_t const* source, std::uint8_t* target,
 }
 
 void hdr_set::UnmapIndices(std::uint8_t const* source,
-                          std::uint16_t* destination, int set, std::int64_t* codes,
-                          std::int64_t cmask) const
+                           std::uint16_t* destination, int set,
+                           std::int64_t* codes, std::int64_t cmask) const
 {
   const int s = set;
   {

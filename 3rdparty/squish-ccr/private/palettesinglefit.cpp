@@ -112,7 +112,7 @@ Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, int cb, i
       switch (ab) {
   case  6: al = sp_lookup_5u1_4_ck_; break;  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 }, / { 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
   case  8: al = sp_lookup_8_4; break;    //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
-  default: al = NULL; break;      //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 }, / { 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },
+  default: al = nullptr; break;      //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 }, / { 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },
       }
 
       PaletteSingleLookup2 const* const lookups[] =
@@ -192,7 +192,7 @@ Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSi
 
   for (int index = 0; index < 2; ++index) {
     // check the error for this codebook index
-    SP_SourceBlock const* sources[4] = {NULL};
+    SP_SourceBlock const* sources[4] = {nullptr};
     Vec4 cerror(0.0f);
     
     for (int channel = 0, cmask = mask; channel < 4; ++channel, cmask >>= 1) {
@@ -265,7 +265,7 @@ Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSi
 
   for (int index = 0; index < 4; ++index) {
     // check the error for this codebook index
-    SP_SourceBlock const* sources[4] = {NULL};
+    SP_SourceBlock const* sources[4] = {nullptr};
     Vec4 cerror(0.0f);
     
     for (int channel = 0, cmask = mask; channel < 4; ++channel, cmask >>= 1) {
@@ -337,7 +337,7 @@ Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const &metric, PaletteSi
 
   for (int index = 0; index < 8; ++index) {
     // check the error for this codebook index
-    SP_SourceBlock const* sources[4] = {NULL};
+    SP_SourceBlock const* sources[4] = {nullptr};
     Vec4 cerror(0.0f);
 
     for (int channel = 0, cmask = mask; channel < 4; ++channel, cmask >>= 1) {

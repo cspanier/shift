@@ -9,7 +9,7 @@
 #include <shift/core/string_util.hpp>
 #include <filesystem>
 #include <gsl/gsl>
-#include <compressonator/Compressonator.h>
+//#include <compressonator/Compressonator.h>
 #include <tiffio.h>
 
 namespace shift::rc

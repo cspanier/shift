@@ -44,8 +44,8 @@ namespace squish
 /* *****************************************************************************
  */
 template <typename dtyp>
-static void CompressAlphaBtc2u(dtyp const* rgba, int mask, void* block,
-                               float scale)
+static void CompressAlphaBtc2u(dtyp const* rgba, std::uint32_t mask,
+                               void* block, float scale)
 {
   std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
 
@@ -70,15 +70,17 @@ static void CompressAlphaBtc2u(dtyp const* rgba, int mask, void* block,
   }
 }
 
-void CompressAlphaBtc2u(std::uint8_t const* rgba, int mask, void* block)
+void CompressAlphaBtc2u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block)
 {
   CompressAlphaBtc2u(rgba, mask, block, 15.0f / 255.0f);
 }
-void CompressAlphaBtc2u(std::uint16_t const* rgba, int mask, void* block)
+void CompressAlphaBtc2u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block)
 {
   CompressAlphaBtc2u(rgba, mask, block, 15.0f / 65535.0f);
 }
-void CompressAlphaBtc2u(float const* rgba, int mask, void* block)
+void CompressAlphaBtc2u(float const* rgba, std::uint32_t mask, void* block)
 {
   CompressAlphaBtc2u(rgba, mask, block, 15.0f / 1.0f);
 }
@@ -131,7 +133,7 @@ static void FixRange(int& minS, int& maxS)
 /* -----------------------------------------------------------------------------
  */
 template <const int mul, const int div, typename otyp, typename dtyp>
-static Scr4 FitCodesS(dtyp const* rgba, int mask, Col8 const& codes,
+static Scr4 FitCodesS(dtyp const* rgba, std::uint32_t mask, Col8 const& codes,
                       std::uint8_t* indices)
 {
   // fit each alpha value to the codebook
@@ -176,7 +178,7 @@ static Scr4 FitCodesS(dtyp const* rgba, int mask, Col8 const& codes,
 }
 
 template <const int mul, const int div, typename otyp, typename dtyp>
-static Scr4 FitCodesL(dtyp const* rgba, int mask, Col8 const& codes,
+static Scr4 FitCodesL(dtyp const* rgba, std::uint32_t mask, Col8 const& codes,
                       std::uint8_t* indices)
 {
   const Vec4 codesl = LoVec4(codes, otyp(0));
@@ -232,34 +234,34 @@ static Scr4 FitCodesL(dtyp const* rgba, int mask, Col8 const& codes,
 }
 
 template <const int prc, typename otyp>
-static inline Scr4 FitCodes(std::uint8_t const* rgba, int mask,
+static inline Scr4 FitCodes(std::uint8_t const* rgba, std::uint32_t mask,
                             Col8 const& codes, std::uint8_t* indices)
 {
   return FitCodesS<1 << prc, 1, otyp>(rgba, mask, codes, indices);
 }
 template <const int prc, typename otyp>
-static inline Scr4 FitCodes(std::int8_t const* rgba, int mask,
+static inline Scr4 FitCodes(std::int8_t const* rgba, std::uint32_t mask,
                             Col8 const& codes, std::uint8_t* indices)
 {
   return FitCodesS<1 << prc, 1, otyp>(rgba, mask, codes, indices);
 }
 
 template <const int prc, typename otyp>
-static inline Scr4 FitCodes(std::uint16_t const* rgba, int mask,
+static inline Scr4 FitCodes(std::uint16_t const* rgba, std::uint32_t mask,
                             Col8 const& codes, std::uint8_t* indices)
 {
   return FitCodesL<1 << prc, 257, otyp>(rgba, mask, codes, indices);
 }
 template <const int prc, typename otyp>
-static inline Scr4 FitCodes(std::int16_t const* rgba, int mask,
+static inline Scr4 FitCodes(std::int16_t const* rgba, std::uint32_t mask,
                             Col8 const& codes, std::uint8_t* indices)
 {
   return FitCodesL<1 << prc, 258, otyp>(rgba, mask, codes, indices);
 }
 
 template <const int prc, typename otyp, const int mul>
-static inline Scr4 FitCodes(float const* rgba, int mask, Col8 const& codes,
-                            std::uint8_t* indices)
+static inline Scr4 FitCodes(float const* rgba, std::uint32_t mask,
+                            Col8 const& codes, std::uint8_t* indices)
 {
   return FitCodesL<mul << prc, 1, otyp>(rgba, mask, codes, indices);
 }
@@ -267,7 +269,7 @@ static inline Scr4 FitCodes(float const* rgba, int mask, Col8 const& codes,
 /* -----------------------------------------------------------------------------
  */
 template <const int mul, const int div, typename otyp, typename dtyp>
-static void GetErrorS(dtyp const* rgba, int mask, Col8 const& codes5,
+static void GetErrorS(dtyp const* rgba, std::uint32_t mask, Col8 const& codes5,
                       Col8 const& codes7, Scr4& error5, Scr4& error7,
                       float (&aaaa)[16])
 {
@@ -301,7 +303,7 @@ static void GetErrorS(dtyp const* rgba, int mask, Col8 const& codes5,
 }
 
 template <const int mul, const int div, typename otyp, typename dtyp>
-static void GetErrorL(dtyp const* rgba, int mask, Col8 const& codes5,
+static void GetErrorL(dtyp const* rgba, std::uint32_t mask, Col8 const& codes5,
                       Col8 const& codes7, Scr4& error5, Scr4& error7,
                       float (&aaaa)[16])
 {
@@ -345,7 +347,7 @@ static void GetErrorL(dtyp const* rgba, int mask, Col8 const& codes5,
 }
 
 template <const int prc, typename otyp>
-static inline void GetError(std::uint8_t const* rgba, int mask,
+static inline void GetError(std::uint8_t const* rgba, std::uint32_t mask,
                             Col8 const& codes5, Col8 const& codes7,
                             Scr4& error5, Scr4& error7, float (&aaaa)[16])
 {
@@ -353,7 +355,7 @@ static inline void GetError(std::uint8_t const* rgba, int mask,
                                aaaa);
 }
 template <const int prc, typename otyp>
-static inline void GetError(std::int8_t const* rgba, int mask,
+static inline void GetError(std::int8_t const* rgba, std::uint32_t mask,
                             Col8 const& codes5, Col8 const& codes7,
                             Scr4& error5, Scr4& error7, float (&aaaa)[16])
 {
@@ -362,7 +364,7 @@ static inline void GetError(std::int8_t const* rgba, int mask,
 }
 
 template <const int prc, typename otyp>
-static inline void GetError(std::uint16_t const* rgba, int mask,
+static inline void GetError(std::uint16_t const* rgba, std::uint32_t mask,
                             Col8 const& codes5, Col8 const& codes7,
                             Scr4& error5, Scr4& error7, float (&aaaa)[16])
 {
@@ -370,7 +372,7 @@ static inline void GetError(std::uint16_t const* rgba, int mask,
                                  aaaa);
 }
 template <const int prc, typename otyp>
-static inline void GetError(std::int16_t const* rgba, int mask,
+static inline void GetError(std::int16_t const* rgba, std::uint32_t mask,
                             Col8 const& codes5, Col8 const& codes7,
                             Scr4& error5, Scr4& error7, float (&aaaa)[16])
 {
@@ -379,9 +381,9 @@ static inline void GetError(std::int16_t const* rgba, int mask,
 }
 
 template <const int prc, typename otyp, const int mul>
-static inline void GetError(float const* rgba, int mask, Col8 const& codes5,
-                            Col8 const& codes7, Scr4& error5, Scr4& error7,
-                            float (&aaaa)[16])
+static inline void GetError(float const* rgba, std::uint32_t mask,
+                            Col8 const& codes5, Col8 const& codes7,
+                            Scr4& error5, Scr4& error7, float (&aaaa)[16])
 {
   GetErrorL<mul << prc, 1, otyp>(rgba, mask, codes5, codes7, error5, error7,
                                  aaaa);
@@ -799,8 +801,8 @@ static inline void WriteAlphaBlock7(int alpha0, int alpha1,
  */
 template <const int min, const int max, const int prc, const int compress,
           typename otyp, typename dtyp>
-static void CompressAlphaBtc3i(dtyp const* rgba, int mask, void* block,
-                               int flags)
+static void CompressAlphaBtc3i(dtyp const* rgba, std::uint32_t mask,
+                               void* block, int flags)
 {
   Col8 codes5, codes7;
 
@@ -940,8 +942,8 @@ static void CompressAlphaBtc3i(dtyp const* rgba, int mask, void* block,
 
 template <const int min, const int max, const int prc, const int compress,
           typename otyp, typename dtyp>
-static void CompressAlphaBtc3f(dtyp const* rgba, int mask, void* block,
-                               int flags)
+static void CompressAlphaBtc3f(dtyp const* rgba, std::uint32_t mask,
+                               void* block, int flags)
 {
   Col8 codes5, codes7;
 
@@ -1074,64 +1076,68 @@ static void CompressAlphaBtc3f(dtyp const* rgba, int mask, void* block,
     WriteAlphaBlock7(max7, min7, indices7, block);
 }
 
-void CompressAlphaBtc3u(std::uint8_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressAlphaBtc3u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
-void CompressAlphaBtc3s(std::int8_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressAlphaBtc3s(std::int8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
-void CompressAlphaBtc3u(std::uint16_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressAlphaBtc3u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 8, unsigned>(rgba, mask, block, flags);
 }
-void CompressAlphaBtc3s(std::int16_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressAlphaBtc3s(std::int16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 8, signed>(rgba, mask, block, flags);
 }
 
-void CompressAlphaBtc3u(float const* rgba, int mask, void* block, int flags)
+void CompressAlphaBtc3u(float const* rgba, std::uint32_t mask, void* block,
+                        int flags)
 {
   CompressAlphaBtc3f<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
-void CompressAlphaBtc3s(float const* rgba, int mask, void* block, int flags)
+void CompressAlphaBtc3s(float const* rgba, std::uint32_t mask, void* block,
+                        int flags)
 {
   CompressAlphaBtc3f<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
-void CompressDepthBtc4u(std::uint8_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressDepthBtc4u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
-void CompressDepthBtc4s(std::int8_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressDepthBtc4s(std::int8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
-void CompressDepthBtc4u(std::uint16_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressDepthBtc4u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<0, 255, CBHB, 8, unsigned>(rgba, mask, block, flags);
 }
-void CompressDepthBtc4s(std::int16_t const* rgba, int mask, void* block,
-                        int flags)
+void CompressDepthBtc4s(std::int16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags)
 {
   CompressAlphaBtc3i<-127, 127, CBHB, 8, signed>(rgba, mask, block, flags);
 }
 
-void CompressDepthBtc4u(float const* rgba, int mask, void* block, int flags)
+void CompressDepthBtc4u(float const* rgba, std::uint32_t mask, void* block,
+                        int flags)
 {
   CompressAlphaBtc3f<0, 255, CBHB, 0, unsigned>(rgba, mask, block, flags);
 }
-void CompressDepthBtc4s(float const* rgba, int mask, void* block, int flags)
+void CompressDepthBtc4s(float const* rgba, std::uint32_t mask, void* block,
+                        int flags)
 {
   CompressAlphaBtc3f<-127, 127, CBHB, 0, signed>(rgba, mask, block, flags);
 }

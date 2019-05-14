@@ -77,36 +77,42 @@ namespace squish
 flags_t sanitize_flags(flags_t flags)
 {
   // grab the flag bits
-  auto method = flags & compression::mask;
-  auto fit =
-    flags & (compressor::color_range_fit | compressor::alpha_iterative_fit |
-             compressor::color_iterative_cluster_fit);
-  auto metric = flags & color_metric::mask;
-  auto extra = flags & option::weight_color_by_alpha;
-  auto mode = flags & variable_coding::mode_mask;
-  auto map = flags & (option::srgb_external | option::srgb_internal |
-                      option::signed_external | option::signed_internal);
+  auto method = flags & squish_flag::compression_mask;
+  auto fit = flags & (squish_flag::compressor_color_range_fit |
+                      squish_flag::compressor_alpha_iterative_fit |
+                      squish_flag::compressor_color_iterative_cluster_fit);
+  auto metric = flags & squish_flag::color_metric_mask;
+  auto extra = flags & squish_flag::option_weight_color_by_alpha;
+  auto mode = flags & squish_flag::variable_coding_mode_mask;
+  auto map =
+    flags &
+    (squish_flag::option_srgb_external | squish_flag::option_srgb_internal |
+     squish_flag::option_signed_external | squish_flag::option_signed_internal);
 
   // set defaults
-  if (!method || (method > compression::ctx1))
-    method = compression::bc1;
-  if (!metric ||
-      ((metric > color_metric::unit) && (metric != color_metric::custom)))
-    metric = kcolorMetricPerceptual;
+  if (!method || (method > squish_flag::compression_ctx1))
+    method = squish_flag::compression_bc1;
+  if (!metric || ((metric > squish_flag::color_metric_unit) &&
+                  (metric != squish_flag::color_metric_custom)))
+  {
+    metric = squish_flag::color_metric_perceptual;
+  }
 
   if (!fit)
-    fit = compressor::color_cluster_fit;
-  if (fit & compressor::color_iterative_cluster_fit)
+    fit = squish_flag::compressor_color_cluster_fit;
+  if (fit & squish_flag::compressor_color_iterative_cluster_fit)
   {
-    if (method <= compression::bc3)
+    if (method <= squish_flag::compression_bc3)
       fit = color_cluster_fit::sanitize_flags(fit);
-    else if (method == compression::bc7)
+    else if (method == squish_flag::compression_bc7)
       fit = palette_cluster_fit::sanitize_flags(fit);
   }
 
-  if ((method == compression::bc6) && (mode > variable_coding::mode14))
+  if ((method == squish_flag::compression_bc6) &&
+      (mode > squish_flag::variable_coding_mode14))
     mode = 0;
-  if ((method == compression::bc7) && (mode > variable_coding::mode8))
+  if ((method == squish_flag::compression_bc7) &&
+      (mode > squish_flag::variable_coding_mode8))
     mode = 0;
 
   return method | fit | metric | extra | mode | map;
@@ -114,34 +120,39 @@ flags_t sanitize_flags(flags_t flags)
 
 /* *****************************************************************************
  */
+extern Vec4 g_metric[8];
+
 Vec4 g_metric[8] = {
 #ifdef FEATURE_METRIC_ROOTED
   // sum squared is 2.0f
   Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),
-  Vec4(0.4611f, 0.8456f, 0.2687f, 1.0f),  // kcolorMetricPerceptual
-  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),  // kcolorMetricUniform
-  Vec4(0.7071f, 0.7071f, 0.0000f, 1.0f),  // kcolorMetricUnit
-  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),  // kcolorMetricGray
+  Vec4(0.4611f, 0.8456f, 0.2687f,
+       1.0f),  // squish_flag::color_metric_perceptual
+  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),  // squish_flag::color_metric_uniform
+  Vec4(0.7071f, 0.7071f, 0.0000f, 1.0f),  // squish_flag::color_metric_unit
+  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),  // squish_flag::color_metric_gray
   Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),
   Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f),
-  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f)  // kcolorMetricCustom
+  Vec4(0.5773f, 0.5773f, 0.5773f, 1.0f)  // squish_flag::color_metric_custom
 #else
   // sum is 2.0f
   Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),
-  Vec4(0.2126f, 0.7152f, 0.0722f, 1.0f),  // kcolorMetricPerceptual
-  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),  // kcolorMetricUniform
-  Vec4(0.5000f, 0.5000f, 0.0000f, 1.0f),  // kcolorMetricUnit
-  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),  // kcolorMetricGray
+  Vec4(0.2126f, 0.7152f, 0.0722f,
+       1.0f),  // squish_flag::color_metric_perceptual
+  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),  // squish_flag::color_metric_uniform
+  Vec4(0.5000f, 0.5000f, 0.0000f, 1.0f),  // squish_flag::color_metric_unit
+  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),  // squish_flag::color_metric_gray
   Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),
   Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f),
-  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f)  // kcolorMetricCustom
+  Vec4(0.3333f, 0.3333f, 0.3333f, 1.0f)  // squish_flag::color_metric_custom
 #endif
 };
 
-void weights(int flags, const float* rgba)
+void weights(flags_t flags, const float* rgba)
 {
   // initialize the metric
-  const bool custom = ((flags & kcolorMetrics) == kcolorMetricCustom);
+  const bool custom = ((flags & squish_flag::color_metric_mask) ==
+                       squish_flag::color_metric_custom);
 
   if (custom)
   {
@@ -157,12 +168,14 @@ void weights(int flags, const float* rgba)
 /* *****************************************************************************
  */
 template <typename dtyp>
-void CompressBitoneCtx1u(dtyp const* rgba, int mask, void* block, int flags)
+void CompressBitoneCtx1u(dtyp const* rgba, std::uint32_t mask, void* block,
+                         flags_t flags)
 {
   // create the minimal point set
   bitone_set colors(rgba, mask, flags);
 
-  if (((flags & kcolorRangeFit) != 0) || (colors.GetCount() == 0))
+  if ((flags & squish_flag::compressor_color_range_fit) ||
+      (colors.GetCount() == 0))
   {
     // do a range fit
     bitone_range_fit fit(&colors, flags);
@@ -177,7 +190,8 @@ void CompressBitoneCtx1u(dtyp const* rgba, int mask, void* block, int flags)
 }
 
 template <typename dtyp>
-void CompressNormalCtx1u(dtyp const* xyzd, int mask, void* block, int flags)
+void CompressNormalCtx1u(dtyp const* xyzd, std::uint32_t mask, void* block,
+                         flags_t flags)
 {
   // create the minimal point set
   bitone_set bitones(xyzd, mask, flags);
@@ -191,7 +205,8 @@ void CompressNormalCtx1u(dtyp const* xyzd, int mask, void* block, int flags)
 }
 
 template <typename dtyp>
-void CompresscolorBtc1u(dtyp const* rgba, int mask, void* block, int flags)
+void CompressColorBtc1u(dtyp const* rgba, std::uint32_t mask, void* block,
+                        flags_t flags)
 {
   // create the minimal point set
   color_set colors(rgba, mask, flags);
@@ -203,7 +218,8 @@ void CompresscolorBtc1u(dtyp const* rgba, int mask, void* block, int flags)
     color_single_match fit(&colors, flags);
     fit.Compress(block);
   }
-  else if (((flags & kcolorRangeFit) != 0) || (colors.GetCount() == 0))
+  else if ((flags & squish_flag::compressor_color_range_fit) ||
+           (colors.GetCount() == 0))
   {
     // do a range fit
     color_range_fit fit(&colors, flags);
@@ -218,7 +234,8 @@ void CompresscolorBtc1u(dtyp const* rgba, int mask, void* block, int flags)
 }
 
 template <typename dtyp>
-void CompressNormalBtc1u(dtyp const* xyzd, int mask, void* block, int flags)
+void CompressNormalBtc1u(dtyp const* xyzd, std::uint32_t mask, void* block,
+                         flags_t flags)
 {
   // create the minimal point set
   color_set normals(xyzd, mask, flags);
@@ -243,13 +260,15 @@ struct statistics gstat = {0};
 #endif
 
 template <typename dtyp, class PaletteTypeFit>
-Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
+Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, std::uint32_t mask, void* block,
+                            flags_t flags)
 {
 #if !defined(NDEBUG) && defined(DEBUG_SETTING)
-#define DEBUG_MODE kVariableCodingMode1
-#define DEBUG_FIT kcolorRangeFit  // kcolorClusterFit * 15
+#define DEBUG_MODE squish_flag::variable_coding_mode1
+#define DEBUG_FIT \
+  squish_flag::compressor_color_range_fit  // kcolorClusterFit * 15
 
-  flags = (flags & (~kVariableCodingModes)) | (DEBUG_MODE);
+  flags = (flags & (~squish_flag::variable_coding_mode_mask)) | (DEBUG_MODE);
   flags = (flags & (~kcolorIterativeClusterFit)) | (DEBUG_FIT);
 #endif
 
@@ -273,59 +292,79 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
    * rangefit searches for the best configuration (partition/swap/rotation)
    * optionally clusterfit makes the best of that partition
    */
-  static const int modeorder[3][8] = {
+  static const squish_flag modeorder[3][8] = {
     {
 #define MODEORDER_EXPL 0
 #define MODEORDER_EXPL_MIN 0
 #define MODEORDER_EXPL_MAX 7
       // order: mode (lo to hi)
-      kVariableCodingMode1,  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 },
-      kVariableCodingMode2,  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },
-      kVariableCodingMode3,  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 },
-      kVariableCodingMode4,  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },
-      kVariableCodingMode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
-      kVariableCodingMode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
-      kVariableCodingMode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0 },
-      kVariableCodingMode8,  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 },
+      squish_flag::variable_coding_mode1,  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0
+                                           //},
+      squish_flag::variable_coding_mode2,  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0
+                                           //},
+      squish_flag::variable_coding_mode3,  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0
+                                           //},
+      squish_flag::variable_coding_mode4,  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0
+                                           //},
+      squish_flag::variable_coding_mode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3
+                                           //},
+      squish_flag::variable_coding_mode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2
+                                           //},
+      squish_flag::variable_coding_mode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0
+                                           //},
+      squish_flag::variable_coding_mode8,  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0
+                                           //},
     },
     {
 #define MODEORDER_OPAQ 1
 #define MODEORDER_OPAQ_MIN 0
 #define MODEORDER_OPAQ_MAX 6
       // order: sets (lo to hi), ibs (hi to lo), prc (hi to lo)
-      kVariableCodingMode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0 },
-      kVariableCodingMode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
-      kVariableCodingMode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
+      squish_flag::variable_coding_mode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0
+                                           //},
+      squish_flag::variable_coding_mode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3
+                                           //},
+      squish_flag::variable_coding_mode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2
+                                           //},
 
-      kVariableCodingMode2,  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },  //
-                             // non-alpha variant of mode 8
-      kVariableCodingMode4,  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },  //
-                             // non-alpha variant of mode 8
+      squish_flag::variable_coding_mode2,  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0
+                                           //},  //
+                                           // non-alpha variant of mode 8
+      squish_flag::variable_coding_mode4,  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0
+                                           //},  //
+                                           // non-alpha variant of mode 8
 
-      kVariableCodingMode1,  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 },
-      kVariableCodingMode3,  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 },
+      squish_flag::variable_coding_mode1,  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0
+                                           //},
+      squish_flag::variable_coding_mode3,  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0
+                                           //},
 
-      0,
+      squish_flag::variable_coding_none,
     },
     {
 #define MODEORDER_TRNS 2
 #define MODEORDER_TRNS_MIN 0
 #define MODEORDER_TRNS_MAX 3
       // order: sets (lo to hi), ibs (hi to lo), prc (hi to lo)
-      kVariableCodingMode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0 },
-      kVariableCodingMode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
-      kVariableCodingMode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
+      squish_flag::variable_coding_mode7,  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0
+                                           //},
+      squish_flag::variable_coding_mode5,  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3
+                                           //},
+      squish_flag::variable_coding_mode6,  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2
+                                           //},
 
-      kVariableCodingMode8,  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 },  // alpha
-                             // variant of mode 2/4
+      squish_flag::variable_coding_mode8,  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0
+                                           //},  // alpha
+                                           // variant of mode 2/4
 
-      0, 0, 0, 0}};
+      squish_flag::variable_coding_none, squish_flag::variable_coding_none,
+      squish_flag::variable_coding_none, squish_flag::variable_coding_none}};
 
-  int numm = flags & (kVariableCodingModes),
+  int numm = flags & squish_flag::variable_coding_mode_mask,
       sm = (numm == 0 ? MODEORDER_OPAQ_MIN : (numm >> 24) - 1),
       em = (numm == 0 ? MODEORDER_OPAQ_MAX : sm),
       om = (numm == 0 ? MODEORDER_OPAQ : MODEORDER_EXPL);
-  flags &= (~kVariableCodingModes);
+  flags &= (~squish_flag::variable_coding_mode_mask);
 
 #undef MODEORDER_EXPL
 #undef MODEORDER_EXPL_MIN
@@ -337,7 +376,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 
   // use the same data-structure all the time
   palette_set bestpal;
-  int bestmde = -1;
+  squish_flag bestmde = {};
   int bestswp = -1;
   int bestbit = -1;
   int besttyp = -1;
@@ -346,17 +385,17 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 
   for (int m = sm; m <= em; m++)
   {
-    int mode = modeorder[om][m];
-    int mnum = (mode >> 24) - 1;
+    auto mode = modeorder[om][m];
+    auto mnum = (static_cast<std::uint32_t>(mode) >> 24) - 1;
 
     // a mode has a specific number of sets, and variable rotations and
     // partitions
-    int nums = palette_fit::GetNumSets(mnum);
-    int numr = palette_fit::GetRotationBits(mnum);
-    int nump = palette_fit::GetPartitionBits(mnum);
-    int numx = palette_fit::GetSelectionBits(mnum);
-    int numb = palette_fit::GetSharedBits(mnum);
-    int numi = palette_fit::GetIndexBits(mnum);
+    auto nums = palette_fit::GetNumSets(mnum);
+    auto numr = palette_fit::GetRotationBits(mnum);
+    auto nump = palette_fit::GetPartitionBits(mnum);
+    auto numx = palette_fit::GetSelectionBits(mnum);
+    auto numb = palette_fit::GetSharedBits(mnum);
+    auto numi = palette_fit::GetIndexBits(mnum);
 
     // stop if set-limit reached
     if (nums > lmts)
@@ -393,7 +432,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
     cb = cb & 0xFF;
 
     // create the initial point set and quantizer
-    palette_set initial(rgba, mask, flags + mode);
+    palette_set initial(rgba, mask, flags | mode);
     vQuantizer qnt(cb, cb, cb, ab);
 
     // signal if we do we have anything better this iteration of the search
@@ -426,9 +465,11 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
     else if (((FEATURE_SHAREDBITS_TRIALS ==
                SHAREDBITS_TRIAL_ALPHAONLYOPAQUE)) ||
              ((FEATURE_SHAREDBITS_TRIALS == SHAREDBITS_TRIAL_ALPHAONLY) &&
-              (mode != kVariableCodingMode7) && !initial.IsTransparent()) ||
+              (mode != squish_flag::variable_coding_mode7) &&
+              !initial.IsTransparent()) ||
              ((FEATURE_SHAREDBITS_TRIALS == SHAREDBITS_TRIAL_LOWPRC) &&
-              (mode < kVariableCodingMode5) && (mode != kVariableCodingMode1)))
+              (mode < squish_flag::variable_coding_mode5) &&
+              (mode != squish_flag::variable_coding_mode1)))
       sb = eb = SBSKIP;
 #endif
 
@@ -439,7 +480,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
     for (int pr = spr; pr <= epr; pr++)
     {
       // create the minimal point set
-      palette_set palette(initial, mask, flags + mode, pr);
+      palette_set palette(initial, mask, flags | mode, pr);
 
 #if 0
       // if we see we have less colors than sets, 
@@ -468,7 +509,7 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 #endif
 
       // do a range fit (which uses single palette fit if appropriate)
-      PaletteTypeFit fit(&palette, flags + mode);
+      PaletteTypeFit fit(&palette, flags | mode);
 
       // TODO: swap & shared are mutual exclusive
 
@@ -495,8 +536,12 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
             if (cluster)
 #endif
             {
-              bestmde = mode, bestpal = palette, bestswp = x, bestbit = b,
-              besttyp = 0, better = true;
+              bestmde = mode;
+              bestpal = palette;
+              bestswp = x;
+              bestbit = b;
+              besttyp = 0;
+              better = true;
             }
           }
 
@@ -510,10 +555,11 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
     // even better
     if (better && cluster)
     {
-      int degree = (flags & kcolorIterativeClusterFits);
+      int degree =
+        (flags & squish_flag::compressor_color_iterative_cluster_mask);
 
       // default to a cluster fit (could be iterative or not)
-      palette_cluster_fit fit(&bestpal, flags + mode);
+      palette_cluster_fit fit(&bestpal, flags | mode);
 
       // we want the whole shebang, this takes looong!
       if (degree < (kcolorClusterFit * 15))
@@ -593,14 +639,15 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, int mask, void* block, int flags)
 #endif
 
 #if defined(VERIFY_ENCODER)
-  DecompresscolorsBtc7u((std::uint8_t*)rgba, block);
+  DecompressColorsBtc7u((std::uint8_t*)rgba, block);
 #endif
 
   return error;
 }
 
 template <typename dtyp, class PaletteTypeFit>
-Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
+Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, std::uint32_t mask, void* block,
+                            flags_t flags)
 {
   vQuantizer q7778(7, 7, 7, 8);
   vQuantizer q5556(5, 5, 5, 6);
@@ -649,22 +696,30 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
    */
   static const struct
   {
-    int mode, mnum, casen, groupn;
+    squish_flag mode;
+    int mnum;
+    int casen;
+    int groupn;
   } caseorder[8] = {
-    {kVariableCodingMode6, 5, 0, 0},  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
-    {kVariableCodingMode5, 4, 0, 0},  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
+    {squish_flag::variable_coding_mode6, 5, 0,
+     0},  //{ 1, 0, 2, 0,  7, 8, 0,  0,  2, 2 },
+    {squish_flag::variable_coding_mode5, 4, 0,
+     0},  //{ 1, 0, 2, 1,  5, 6, 0,  0,  2, 3 },
 
-    {kVariableCodingMode7, 6, 1, 1},  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0 },
-    {kVariableCodingMode8, 7, 1,
+    {squish_flag::variable_coding_mode7, 6, 1,
+     1},  //{ 1, 0, 0, 0,  7, 7, 1,  0,  4, 0 },
+    {squish_flag::variable_coding_mode8, 7, 1,
      0},  //{ 2, 6, 0, 0,  5, 5, 1,  0,  2, 0 },  // alpha variant of mode 2/4
 
-    {kVariableCodingMode4, 3, 2,
+    {squish_flag::variable_coding_mode4, 3, 2,
      0},  //{ 2, 6, 0, 0,  7, 0, 1,  0,  2, 0 },  // non-alpha variant of mode 8
-    {kVariableCodingMode2, 1, 2,
+    {squish_flag::variable_coding_mode2, 1, 2,
      0},  //{ 2, 6, 0, 0,  6, 0, 0,  1,  3, 0 },  // non-alpha variant of mode 8
 
-    {kVariableCodingMode3, 2, 2, 1},  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 },
-    {kVariableCodingMode1, 0, 2, 1},  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 },
+    {squish_flag::variable_coding_mode3, 2, 2,
+     1},  //{ 3, 6, 0, 0,  5, 0, 0,  0,  2, 0 },
+    {squish_flag::variable_coding_mode1, 0, 2,
+     1},  //{ 3, 4, 0, 0,  4, 0, 1,  0,  3, 0 },
   };
 
 #define MODECASE_MIN 0
@@ -684,7 +739,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
   palette_set bestpal[2];
   Vec4 bestblock[2];
   int bestqnt[2] = {-1, -1};
-  int bestmde[2] = {-1, -1};
+  squish_flag bestmde[2] = {};
   int bestswp[2] = {-1, -1};
   int bestbit[2] = {-1, -1};
   int besttyp[2] = {-1, -1};
@@ -695,10 +750,10 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
   error[1] = Scr4(FLT_MAX);
 
   // number of cases to walk through
-  int numm = flags & (kVariableCodingModes),
+  int numm = flags & squish_flag::variable_coding_mode_mask,
       sc = (numm == 0 ? MODECASE_MIN : caseorder[(numm >> 24) - 1].casen),
       ec = (numm == 0 ? MODECASE_MAX : sc);
-  flags &= (~kVariableCodingModes);
+  flags &= ~squish_flag::variable_coding_mode_mask;
 
   // cases: separate (2x), merged alpha (2x), and no alpha (4x)
   for (int mc = sc; mc <= ec; mc++)
@@ -707,7 +762,7 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
     int go = mc * 2;
 
     // create the initial point set
-    palette_set initial(rgba, mask, flags + caseorder[go].mode);
+    palette_set initial(rgba, mask, flags | caseorder[go].mode);
 
     // if we see we have transparent values, back up from trying to test
     // non-alpha only modes this will affect only successive trials, if an
@@ -751,10 +806,10 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
       for (int pr = spr; pr <= epr; pr++)
       {
         // create the minimal point set
-        palette_set palette(initial, mask, flags + caseorder[sm].mode, pr);
+        palette_set palette(initial, mask, flags | caseorder[sm].mode, pr);
 
         // do a range fit (which uses single palette fit if appropriate)
-        PaletteTypeFit fit(&palette, flags + caseorder[sm].mode);
+        PaletteTypeFit fit(&palette, flags | caseorder[sm].mode);
 
         // exclude mode 1 from the upper partitions
         if ((em == 7) && (pr >= (1 << 4)))
@@ -762,9 +817,10 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
 
         for (int m = sm; m <= em; m++)
         {
-          int mode = caseorder[m].mode;
-          int mnum = caseorder[m].mnum;
-          int mofs = (flags & kcolorRangeFit ? 0 : m - sm);
+          auto mode = caseorder[m].mode;
+          auto mnum = caseorder[m].mnum;
+          auto mofs =
+            (flags & squish_flag::compressor_color_range_fit ? 0 : m - sm);
 
           // a mode has a specific number of sets, and variable rotations and
           // partitions
@@ -794,11 +850,11 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
           else if (((FEATURE_SHAREDBITS_TRIALS ==
                      SHAREDBITS_TRIAL_ALPHAONLYOPAQUE)) ||
                    ((FEATURE_SHAREDBITS_TRIALS == SHAREDBITS_TRIAL_ALPHAONLY) &&
-                    (mode != kVariableCodingMode7) &&
+                    (mode != squish_flag::variable_coding_mode7) &&
                     !initial.IsTransparent()) ||
                    ((FEATURE_SHAREDBITS_TRIALS == SHAREDBITS_TRIAL_LOWPRC) &&
-                    (mode < kVariableCodingMode5) &&
-                    (mode != kVariableCodingMode1)))
+                    (mode < squish_flag::variable_coding_mode5) &&
+                    (mode != squish_flag::variable_coding_mode1)))
             sb = eb = SBSKIP;
 #endif
 
@@ -871,9 +927,9 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
           {
             // a mode has a specific number of sets, and variable rotations and
             // partitions
-            int mode = bestmde[m];
-            int mnum = (mode >> 24) - 1;
-            int numi = palette_fit::GetIndexBits(mnum);
+            auto mode = bestmde[m];
+            auto mnum = (static_cast<std::uint32_t>(mode) >> 24) - 1;
+            auto numi = palette_fit::GetIndexBits(mnum);
 
             // check if we can do a cascade with the cluster-fit (merged alpha 4
             // bit is the only exception)
@@ -884,10 +940,11 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
             // partition even better
             if (cluster)
             {
-              int degree = (flags & kcolorIterativeClusterFits);
+              auto degree =
+                (flags & squish_flag::compressor_color_iterative_cluster_mask);
 
               // default to a cluster fit (could be iterative or not)
-              palette_cluster_fit fit(&bestpal[m], flags + mode);
+              palette_cluster_fit fit(&bestpal[m], flags | mode);
 
               // a mode has a specific number of sets, and variable rotations
               // and partitions
@@ -918,20 +975,31 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
                          SHAREDBITS_TRIAL_ALPHAONLYOPAQUE)) ||
                        ((FEATURE_SHAREDBITS_TRIALS ==
                          SHAREDBITS_TRIAL_ALPHAONLY) &&
-                        (mode != kVariableCodingMode7) &&
+                        (mode != squish_flag::variable_coding_mode7) &&
                         !bestpal[m].IsTransparent()) ||
                        ((FEATURE_SHAREDBITS_TRIALS ==
                          SHAREDBITS_TRIAL_LOWPRC) &&
-                        (mode < kVariableCodingMode5) &&
-                        (mode != kVariableCodingMode1)))
+                        (mode < squish_flag::variable_coding_mode5) &&
+                        (mode != squish_flag::variable_coding_mode1)))
                 sb = eb = SBSKIP;
 #endif
 
               // we want the whole shebang, this takes looong!
-              if (degree < (kcolorClusterFit * 15))
+              if (degree <
+                  (squish_flag::compressor_color_iterative_cluster_fit1 |
+                   squish_flag::compressor_color_iterative_cluster_fit2 |
+                   squish_flag::compressor_color_iterative_cluster_fit4 |
+                   squish_flag::compressor_color_iterative_cluster_fit8))
+              {
                 sb = eb = bestbit[m];
-              if (degree < (kcolorClusterFit * 14))
+              }
+              if (degree <
+                  (squish_flag::compressor_color_iterative_cluster_fit2 |
+                   squish_flag::compressor_color_iterative_cluster_fit4 |
+                   squish_flag::compressor_color_iterative_cluster_fit8))
+              {
                 sx = ex = bestswp[m];
+              }
 
               // TODO: swap & shared are mutual exclusive
               fit.ChangeMode(mnum);
@@ -987,41 +1055,56 @@ Scr4 CompressPaletteBtc7uV2(dtyp const* rgba, int mask, void* block, int flags)
 #endif
 
 #if defined(VERIFY_ENCODER)
-  DecompresscolorsBtc7u((std::uint8_t*)rgba, block);
+  DecompressColorsBtc7u((std::uint8_t*)rgba, block);
 #endif
 
   return error[0];
 }
 
 template <typename dtyp>
-void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
+void CompressColorBtc6u(dtyp const* rgb, std::uint32_t mask, void* block,
+                        flags_t flags)
 {
-  static const int modeorder[1][14] = {{
+  static const squish_flag modeorder[1][14] = {{
 #define MODEORDER_EXPL 0
 #define MODEORDER_EXPL_MIN 0
 #define MODEORDER_EXPL_MAX 13
     // order: mode (lo to hi)
-    kVariableCodingMode1,   //{ 2, 5,   0, { 5, 5, 5}, {5,5,5},  6, 3 },
-    kVariableCodingMode2,   //{ 2, 5,   0, { 1, 1, 1}, {6,6,6},  9, 3 },
-    kVariableCodingMode3,   //{ 2, 5,   0, { 6, 7, 7}, {5,4,4},  5, 3 },
-    kVariableCodingMode4,   //{ 2, 5,   0, { 7, 6, 7}, {4,5,4},  5, 3 },
-    kVariableCodingMode5,   //{ 2, 5,   0, { 7, 7, 6}, {4,4,5},  5, 3 },
-    kVariableCodingMode6,   //{ 2, 5,   0, { 4, 4, 4}, {5,5,5},  7, 3 },
-    kVariableCodingMode7,   //{ 2, 5,   0, { 2, 3, 3}, {6,5,5},  8, 3 },
-    kVariableCodingMode8,   //{ 2, 5,   0, { 3, 2, 3}, {5,6,5},  8, 3 },
-    kVariableCodingMode9,   //{ 2, 5,   0, { 3, 3, 2}, {5,5,5},  8, 3 },
-    kVariableCodingMode10,  //{ 2, 5,   6, { 0, 0, 0}, {0,0,0}, 10, 3 },
-    kVariableCodingMode11,  //{ 1, 0,  10, { 0, 0, 0}, {0,0,0},  6, 4 },
-    kVariableCodingMode12,  //{ 1, 0,   0, { 2, 2, 2}, {9,9,9},  5, 4 },
-    kVariableCodingMode13,  //{ 1, 0,   0, { 4, 4, 4}, {8,8,8},  4, 4 },
-    kVariableCodingMode14,  //{ 1, 0,   0, {12,12,12}, {4,4,4},  0, 4 }
+    squish_flag::variable_coding_mode1,  //{ 2, 5,   0, { 5, 5, 5}, {5,5,5},  6,
+                                         // 3 },
+    squish_flag::variable_coding_mode2,  //{ 2, 5,   0, { 1, 1, 1}, {6,6,6},  9,
+                                         // 3 },
+    squish_flag::variable_coding_mode3,  //{ 2, 5,   0, { 6, 7, 7}, {5,4,4},  5,
+                                         // 3 },
+    squish_flag::variable_coding_mode4,  //{ 2, 5,   0, { 7, 6, 7}, {4,5,4},  5,
+                                         // 3 },
+    squish_flag::variable_coding_mode5,  //{ 2, 5,   0, { 7, 7, 6}, {4,4,5},  5,
+                                         // 3 },
+    squish_flag::variable_coding_mode6,  //{ 2, 5,   0, { 4, 4, 4}, {5,5,5},  7,
+                                         // 3 },
+    squish_flag::variable_coding_mode7,  //{ 2, 5,   0, { 2, 3, 3}, {6,5,5},  8,
+                                         // 3 },
+    squish_flag::variable_coding_mode8,  //{ 2, 5,   0, { 3, 2, 3}, {5,6,5},  8,
+                                         // 3 },
+    squish_flag::variable_coding_mode9,  //{ 2, 5,   0, { 3, 3, 2}, {5,5,5},  8,
+                                         // 3 },
+    squish_flag::variable_coding_mode10,  //{ 2, 5,   6, { 0, 0, 0}, {0,0,0},
+                                          // 10, 3 },
+    squish_flag::variable_coding_mode11,  //{ 1, 0,  10, { 0, 0, 0}, {0,0,0}, 6,
+                                          // 4 },
+    squish_flag::variable_coding_mode12,  //{ 1, 0,   0, { 2, 2, 2}, {9,9,9}, 5,
+                                          // 4 },
+    squish_flag::variable_coding_mode13,  //{ 1, 0,   0, { 4, 4, 4}, {8,8,8}, 4,
+                                          // 4 },
+    squish_flag::variable_coding_mode14,  //{ 1, 0,   0, {12,12,12}, {4,4,4}, 0,
+                                          // 4 }
   }};
 
-  int numm = flags & (kVariableCodingModes),
+  int numm = flags & (squish_flag::variable_coding_mode_mask),
       sm = (numm == 0 ? MODEORDER_EXPL_MIN : (numm >> 24) - 1),
       em = (numm == 0 ? MODEORDER_EXPL_MAX : sm),
       om = (numm == 0 ? MODEORDER_EXPL : MODEORDER_EXPL);
-  flags &= (~kVariableCodingModes);
+  flags &= (~squish_flag::variable_coding_mode_mask);
 
 #undef MODEORDER_EXPL
 #undef MODEORDER_EXPL_MIN
@@ -1033,35 +1116,34 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 
   // use the same data-structure all the time
   hdr_set bestpal;
-  int bestmde = -1;
+  squish_flag bestmde = {};
   int besttyp = -1;
 
   Scr3 error(FLT_MAX);
 
   for (int m = sm; m <= em; m++)
   {
-    int mode = modeorder[om][m];
-    int mnum = (mode >> 24) - 1;
+    auto mode = modeorder[om][m];
+    auto mnum = (static_cast<std::uint32_t>(mode) >> 24) - 1;
 
     // a mode has a specific number of sets, and variable partitions
-    int nums = hdr_fit::GetNumSets(mnum);
-    int nump = hdr_fit::GetPartitionBits(mnum);
-    int numi = hdr_fit::GetIndexBits(mnum);
-    numi = numi;
+    auto nums = hdr_fit::GetNumSets(mnum);
+    auto nump = hdr_fit::GetPartitionBits(mnum);
+    auto numi = hdr_fit::GetIndexBits(mnum);
 
     // stop if set-limit reached
     if (nums > lmts)
       break;
 
     // lock on the perfect partition
-    int sp = (lmtp == -1 ? 0 : lmtp),
-        ep = (lmtp == -1 ? (1 << nump) - 1 : lmtp);
+    auto sp = (lmtp == -1 ? 0 : lmtp);
+    auto ep = (lmtp == -1 ? (1 << nump) - 1 : lmtp);
 
-    int tb = hdr_fit::GetTruncationBits(mnum);
-    int db = hdr_fit::GetDeltaBits(mnum);
+    auto tb = hdr_fit::GetTruncationBits(mnum);
+    auto db = hdr_fit::GetDeltaBits(mnum);
 
     // create the initial point set and quantizer
-    hdr_set initial(rgb, mask, flags + mode);
+    hdr_set initial(rgb, mask, flags | mode);
     fQuantizer qnt(tb, db);
 
     // signal if we do we have anything better this iteration of the search
@@ -1071,7 +1153,7 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
     for (int p = sp; p <= ep; p++)
     {
       // create the minimal point set
-      hdr_set palette(initial, mask, flags + mode, p);
+      hdr_set palette(initial, mask, flags | mode, p);
 
 #if 0
       // if we see we have less colors than sets, 
@@ -1082,7 +1164,7 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 #endif
 
       // do a range fit (which uses single palette fit if appropriate)
-      hdr_range_fit fit(&palette, flags + mode);
+      hdr_range_fit fit(&palette, flags | mode);
 
       // update with old best error (reset IsBest)
       fit.SetError(error);
@@ -1096,7 +1178,12 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 
         error = fit.GetError();
         if (1)
-          bestmde = mode, bestpal = palette, besttyp = 0, better = true;
+        {
+          bestmde = mode;
+          bestpal = palette;
+          besttyp = 0;
+          better = true;
+        }
       }
     }
   }
@@ -1109,8 +1196,8 @@ void CompresscolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
 /* *****************************************************************************
  */
 template <typename dtyp>
-void CompressMaskedBitoneCtx1u(dtyp const* rgba, int mask, void* block,
-                               int flags)
+void CompressMaskedBitoneCtx1u(dtyp const* rgba, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* colorBlock = block;
@@ -1120,47 +1207,47 @@ void CompressMaskedBitoneCtx1u(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc1u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedColorBtc1u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* colorBlock = block;
 
   // compress color separately if necessary
-  CompresscolorBtc1u(rgba, mask, colorBlock, flags);
+  CompressColorBtc1u(rgba, mask, colorBlock, flags);
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc2u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedColorBtc2u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
   void* alphaBlock = block;
 
   // compress color separately if necessary
-  CompresscolorBtc1u(rgba, mask, colorBlock, flags);
+  CompressColorBtc1u(rgba, mask, colorBlock, flags);
   // compress alpha separately if necessary
   CompressAlphaBtc2u(rgba, mask, alphaBlock);
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc3u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedColorBtc3u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
   void* alphaBlock = block;
 
   // compress color separately if necessary
-  CompresscolorBtc1u(rgba, mask, colorBlock, flags);
+  CompressColorBtc1u(rgba, mask, colorBlock, flags);
   // compress alpha separately if necessary
   CompressAlphaBtc3u(rgba, mask, alphaBlock, flags);
 }
 
 template <typename dtyp>
-void CompressMaskedNormalCtx1u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalCtx1u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* normalBlock = block;
@@ -1170,8 +1257,8 @@ void CompressMaskedNormalCtx1u(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc1u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc1u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* normalBlock = block;
@@ -1181,8 +1268,8 @@ void CompressMaskedNormalBtc1u(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc2u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc2u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1195,8 +1282,8 @@ void CompressMaskedNormalBtc2u(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc3u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc3u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* colorBlock = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1209,8 +1296,8 @@ void CompressMaskedNormalBtc3u(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedAlphaBtc4u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedAlphaBtc4u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* plane1Block = block;
@@ -1220,8 +1307,8 @@ void CompressMaskedAlphaBtc4u(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedAlphaBtc4s(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedAlphaBtc4s(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* plane1Block = block;
@@ -1231,8 +1318,8 @@ void CompressMaskedAlphaBtc4s(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedAlphaBtc5u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedAlphaBtc5u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* plane1Block = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1245,8 +1332,8 @@ void CompressMaskedAlphaBtc5u(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedAlphaBtc5s(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedAlphaBtc5s(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* plane1Block = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1259,8 +1346,8 @@ void CompressMaskedAlphaBtc5s(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc5u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc5u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* plane1Block = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1271,8 +1358,8 @@ void CompressMaskedNormalBtc5u(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc5s(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc5s(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* plane1Block = reinterpret_cast<std::uint8_t*>(block) + 8;
@@ -1283,18 +1370,19 @@ void CompressMaskedNormalBtc5s(dtyp const* xyzd, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc6u(dtyp const* rgb, int mask, void* block, int flags)
+void CompressMaskedColorBtc6u(dtyp const* rgb, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* mixedBlock = block;
 
   // compress color and alpha merged if necessary
-  CompresscolorBtc6u(rgb, mask, mixedBlock, flags);
+  CompressColorBtc6u(rgb, mask, mixedBlock, flags);
 }
 
 template <typename dtyp>
-void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
-                              int flags)
+void CompressMaskedColorBtc7u(dtyp const* rgba, std::uint32_t mask, void* block,
+                              flags_t flags)
 {
   // get the block locations
   void* mixedBlock = block;
@@ -1329,8 +1417,8 @@ void CompressMaskedcolorBtc7u(dtyp const* rgba, int mask, void* block,
 }
 
 template <typename dtyp>
-void CompressMaskedNormalBtc7u(dtyp const* xyzd, int mask, void* block,
-                               int flags)
+void CompressMaskedNormalBtc7u(dtyp const* xyzd, std::uint32_t mask,
+                               void* block, flags_t flags)
 {
   // get the block locations
   void* mixedBlock = block;
@@ -1339,132 +1427,191 @@ void CompressMaskedNormalBtc7u(dtyp const* xyzd, int mask, void* block,
                                                    flags);
 }
 
-void compress_masked(std::uint8_t const* rgba, int mask, void* block, int flags)
+void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     CompressMaskedNormalCtx1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc2u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc3u(rgba, mask, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc7u(rgba, mask, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    CompressMaskedcolorBtc1u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    CompressMaskedcolorBtc2u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    CompressMaskedcolorBtc3u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    CompressMaskedColorBtc1u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    CompressMaskedColorBtc2u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    CompressMaskedColorBtc3u(rgba, mask, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     CompressMaskedAlphaBtc4u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     CompressMaskedAlphaBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    CompressMaskedcolorBtc7u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    CompressMaskedColorBtc7u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
   {
   }  // while this is possible (up-cast), should we support it?
 }
 
-void compress_masked(std::uint16_t const* rgba, int mask, void* block,
-                     int flags)
+void compress_masked(std::uint16_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     CompressMaskedNormalCtx1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc2u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc3u(rgba, mask, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc7u(rgba, mask, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    CompressMaskedcolorBtc1u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    CompressMaskedcolorBtc2u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    CompressMaskedcolorBtc3u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    CompressMaskedColorBtc1u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    CompressMaskedColorBtc2u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    CompressMaskedColorBtc3u(rgba, mask, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     CompressMaskedAlphaBtc4u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     CompressMaskedAlphaBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    CompressMaskedcolorBtc7u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
-    CompressMaskedcolorBtc6u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    CompressMaskedColorBtc7u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
+    CompressMaskedColorBtc6u(rgba, mask, block, flags);
 }
 
-void compress_masked(float const* rgba, int mask, void* block, int flags)
+void compress_masked(float const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     CompressMaskedNormalCtx1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc1u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc2u(rgba, mask, block, flags);
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc1u(rgba, mask, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
     CompressMaskedNormalBtc7u(rgba, mask, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    CompressMaskedcolorBtc1u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    CompressMaskedcolorBtc2u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    CompressMaskedcolorBtc3u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    CompressMaskedColorBtc1u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    CompressMaskedColorBtc2u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    CompressMaskedColorBtc3u(rgba, mask, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     CompressMaskedAlphaBtc4u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     CompressMaskedAlphaBtc5u(rgba, mask, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    CompressMaskedcolorBtc7u(rgba, mask, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
-    CompressMaskedcolorBtc6u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    CompressMaskedColorBtc7u(rgba, mask, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
+    CompressMaskedColorBtc6u(rgba, mask, block, flags);
 }
 
-void compress(std::uint8_t const* rgba, void* block, int flags)
+void compress(std::uint8_t const* rgba, void* block, flags_t flags)
 {
   // compress with full mask
   compress_masked(rgba, -1, block, flags);
 }
 
-void compress(std::uint16_t const* rgb, void* block, int flags)
+void compress(std::uint16_t const* rgb, void* block, flags_t flags)
 {
   // compress with full mask
   compress_masked(rgb, -1, block, flags);
 }
 
-void compress(float const* rgba, void* block, int flags)
+void compress(float const* rgba, void* block, flags_t flags)
 {
   // compress with full mask
   compress_masked(rgba, -1, block, flags);
@@ -1473,7 +1620,7 @@ void compress(float const* rgba, void* block, int flags)
 /* *****************************************************************************
  */
 template <typename dtyp>
-void DecompressNormalCtx1u(dtyp* xyzd, void const* block, int flags)
+void DecompressNormalCtx1u(dtyp* xyzd, void const* block, flags_t flags)
 {
   // get the block locations
   void const* normalBlock = block;
@@ -1483,7 +1630,7 @@ void DecompressNormalCtx1u(dtyp* xyzd, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressBitoneCtx1u(dtyp* rgba, void const* block, int flags)
+void DecompressBitoneCtx1u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* colorBlock = block;
@@ -1493,43 +1640,43 @@ void DecompressBitoneCtx1u(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompresscolorBtc1u(dtyp* rgba, void const* block, int flags)
+void DecompressColorBtc1u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* colorBlock = block;
 
   // decompress color
-  DecompresscolorsBtc1u(rgba, colorBlock, true);
+  DecompressColorsBtc1u(rgba, colorBlock, true);
 }
 
 template <typename dtyp>
-void DecompresscolorBtc2u(dtyp* rgba, void const* block, int flags)
+void DecompressColorBtc2u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* colorBlock = reinterpret_cast<std::uint8_t const*>(block) + 8;
   void const* alphaBlock = block;
 
   // decompress color
-  DecompresscolorsBtc1u(rgba, colorBlock, false);
+  DecompressColorsBtc1u(rgba, colorBlock, false);
   // decompress alpha separately if necessary
   DecompressAlphaBtc2u(rgba, alphaBlock);
 }
 
 template <typename dtyp>
-void DecompresscolorBtc3u(dtyp* rgba, void const* block, int flags)
+void DecompressColorBtc3u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* colorBlock = reinterpret_cast<std::uint8_t const*>(block) + 8;
   void const* alphaBlock = block;
 
   // decompress color
-  DecompresscolorsBtc1u(rgba, colorBlock, false);
+  DecompressColorsBtc1u(rgba, colorBlock, false);
   // decompress alpha separately if necessary
   DecompressAlphaBtc3u(rgba, alphaBlock, flags);
 }
 
 template <typename dtyp>
-void DecompressAlphaBtc4u(dtyp* rgba, void const* block, int flags)
+void DecompressAlphaBtc4u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = block;
@@ -1539,7 +1686,7 @@ void DecompressAlphaBtc4u(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressAlphaBtc4s(dtyp* rgba, void const* block, int flags)
+void DecompressAlphaBtc4s(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = block;
@@ -1549,7 +1696,7 @@ void DecompressAlphaBtc4s(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressAlphaBtc5u(dtyp* rgba, void const* block, int flags)
+void DecompressAlphaBtc5u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1562,7 +1709,7 @@ void DecompressAlphaBtc5u(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressAlphaBtc5s(dtyp* rgba, void const* block, int flags)
+void DecompressAlphaBtc5s(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1575,7 +1722,7 @@ void DecompressAlphaBtc5s(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressNormalBtc5u(dtyp* rgba, void const* block, int flags)
+void DecompressNormalBtc5u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1586,7 +1733,7 @@ void DecompressNormalBtc5u(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompressNormalBtc5s(dtyp* rgba, void const* block, int flags)
+void DecompressNormalBtc5s(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1597,7 +1744,7 @@ void DecompressNormalBtc5s(dtyp* rgba, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompresscolorBtc6u(dtyp* rgb, void const* block, int flags)
+void DecompressColorBtc6u(dtyp* rgb, void const* block, flags_t flags)
 {
   // get the block locations
   void const* mixedBlock = block;
@@ -1607,17 +1754,17 @@ void DecompresscolorBtc6u(dtyp* rgb, void const* block, int flags)
 }
 
 template <typename dtyp>
-void DecompresscolorBtc7u(dtyp* rgba, void const* block, int flags)
+void DecompressColorBtc7u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* mixedBlock = block;
 
   // decompress color and alpha merged if necessary
-  DecompresscolorsBtc7u(rgba, mixedBlock);
+  DecompressColorsBtc7u(rgba, mixedBlock);
 }
 
 template <typename dtyp>
-void DecompressNormalBtc7u(dtyp* rgba, void const* block, int flags)
+void DecompressNormalBtc7u(dtyp* rgba, void const* block, flags_t flags)
 {
   // get the block locations
   void const* mixedBlock = block;
@@ -1626,133 +1773,201 @@ void DecompressNormalBtc7u(dtyp* rgba, void const* block, int flags)
   DecompressNormalsBtc7u(rgba, mixedBlock);
 }
 
-void decompress(std::uint8_t* rgba, void const* block, int flags)
+void decompress(std::uint8_t* rgba, void const* block, flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     DecompressNormalCtx1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc1 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc2 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc2u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc3 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc3u(rgba, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     DecompressNormalBtc5u(rgba, block, flags);
   // BTC-type compression
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc7 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc7u(rgba, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    DecompresscolorBtc1u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    DecompresscolorBtc2u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    DecompresscolorBtc3u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    DecompressColorBtc1u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    DecompressColorBtc2u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    DecompressColorBtc3u(rgba, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     DecompressAlphaBtc4u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     DecompressAlphaBtc5u(rgba, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    DecompresscolorBtc7u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    DecompressColorBtc7u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
   {
   }  // while this is possible (down-cast), should we support it?
 }
 
-void decompress(std::uint16_t* rgba, void const* block, int flags)
+void decompress(std::uint16_t* rgba, void const* block, flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     DecompressNormalCtx1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc1 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc2 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc2u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc3 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc3u(rgba, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     DecompressNormalBtc5u(rgba, block, flags);
   // BTC-type compression
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc7 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc7u(rgba, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    DecompresscolorBtc1u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    DecompresscolorBtc2u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    DecompresscolorBtc3u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    DecompressColorBtc1u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    DecompressColorBtc2u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    DecompressColorBtc3u(rgba, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     DecompressAlphaBtc4u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     DecompressAlphaBtc5u(rgba, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    DecompresscolorBtc7u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
-    DecompresscolorBtc6u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    DecompressColorBtc7u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
+    DecompressColorBtc6u(rgba, block, flags);
 }
 
-void decompress(float* rgba, void const* block, int flags)
+void decompress(float* rgba, void const* block, flags_t flags)
 {
   // DXT-type compression
-  /**/ if ((flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+  /**/ if ((flags &
+          (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+         (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
     DecompressNormalCtx1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc1 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc1u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc2 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc2u(rgba, block, flags);
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc3 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc3u(rgba, block, flags);
   // 3Dc-type compression
-  else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+  else if ((flags &
+            (squish_flag::compression_mask | squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
     DecompressNormalBtc5u(rgba, block, flags);
   // BTC-type compression
-  // else if ((flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+  // else if ((flags & (  squish_flag::compression_mask |
+  // squish_flag::color_metric_mask)) == (squish_flag::compression_bc7 |
+  // squish_flag::color_metric_unit))
   //  DecompressNormalBtc7u(rgba, block, flags);
 
   // DXT-type compression
-  else if ((flags & kBtcp) == (kBtc1))
-    DecompresscolorBtc1u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc2))
-    DecompresscolorBtc2u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc3))
-    DecompresscolorBtc3u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc1))
+    DecompressColorBtc1u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc2))
+    DecompressColorBtc2u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc3))
+    DecompressColorBtc3u(rgba, block, flags);
   // ATI-type compression
-  else if ((flags & kBtcp) == (kBtc4))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc4))
     DecompressAlphaBtc4u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc5))
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc5))
     DecompressAlphaBtc5u(rgba, block, flags);
   // BTC-type compression
-  else if ((flags & kBtcp) == (kBtc7))
-    DecompresscolorBtc7u(rgba, block, flags);
-  else if ((flags & kBtcp) == (kBtc6))
-    DecompresscolorBtc6u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc7))
+    DecompressColorBtc7u(rgba, block, flags);
+  else if ((flags & squish_flag::compression_mask) ==
+           (squish_flag::compression_bc6))
+    DecompressColorBtc6u(rgba, block, flags);
 }
 
 /* *****************************************************************************
  */
-int storage_requirements(int width, int height, int flags)
+std::uint32_t storage_requirements(std::uint32_t width, std::uint32_t height,
+                                   flags_t flags)
 {
   // compute the storage requirements
-  int blockcount = ((width + 3) / 4) * ((height + 3) / 4);
-  int blocksize = 16;
+  std::uint32_t blockcount = ((width + 3) / 4) * ((height + 3) / 4);
+  std::uint32_t blocksize = 16;
 
-  /**/ if ((flags & kBtcp) <= kBtc3)
-    blocksize = ((flags & kBtcp) == kBtc1) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc5)
-    blocksize = ((flags & kBtcp) == kBtc4) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc7)
+  /**/ if ((flags & squish_flag::compression_mask) <=
+         squish_flag::compression_bc3)
+    blocksize =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc5)
+    blocksize =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc4)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc7)
     blocksize = 16;
-  else if ((flags & kBtcp) == kCtx1)
+  else if ((flags & squish_flag::compression_mask) ==
+           squish_flag::compression_ctx1)
     blocksize = 8;
 
   return blockcount * blocksize;
@@ -1760,7 +1975,7 @@ int storage_requirements(int width, int height, int flags)
 
 /* *****************************************************************************
  */
-struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
+struct sqio squish_io(int width, int height, sqio::dtp datatype, flags_t flags)
 {
   struct sqio s;
 
@@ -1771,13 +1986,23 @@ struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
   s.blockcount = ((width + 3) / 4) * ((height + 3) / 4);
   s.blocksize = 16;
 
-  /**/ if ((flags & kBtcp) <= kBtc3)
-    s.blocksize = ((flags & kBtcp) == kBtc1) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc5)
-    s.blocksize = ((flags & kBtcp) == kBtc4) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc7)
+  /**/ if ((flags & squish_flag::compression_mask) <=
+         squish_flag::compression_bc3)
+    s.blocksize =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc5)
+    s.blocksize =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc4)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc7)
     s.blocksize = 16;
-  else if ((flags & kBtcp) == kCtx1)
+  else if ((flags & squish_flag::compression_mask) ==
+           squish_flag::compression_ctx1)
     s.blocksize = 8;
 
   s.compressedsize = s.blockcount * s.blocksize;
@@ -1786,210 +2011,312 @@ struct sqio squish_io(int width, int height, sqio::dtp datatype, int flags)
   if (datatype == sqio::DT_U8)
   {
     // 3Dc-type compression
-    /**/ if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-           (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUnit))
+    /**/ if ((s.flags &
+            (squish_flag::compression_mask | squish_flag::option_signedness |
+             squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::option_signed_external |
+            squish_flag::option_signed_internal |
+            squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5s<std::int8_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5s<std::int8_t>;
     // ATI-type compression
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc4 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc4 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4s<std::int8_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4s<std::int8_t>;
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5s<std::int8_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<std::int8_t>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc1u<std::uint8_t>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint8_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc2u<std::uint8_t>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint8_t>;
+      s.decoder = (sqio::dec)DecompressColorBtc3u<std::uint8_t>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<std::uint8_t>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint8_t>;
+      s.decoder = (sqio::dec)DecompressColorBtc7u<std::uint8_t>;
 
     // DXT-type compression
-    else if ((s.flags & kBtcp) == (kCtx1))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_ctx1))
       s.encoder = (sqio::enc)CompressMaskedBitoneCtx1u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressBitoneCtx1u<std::uint8_t>;
-    else if ((s.flags & kBtcp) == (kBtc1))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc1u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint8_t>;
-    else if ((s.flags & kBtcp) == (kBtc2))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc2u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint8_t>;
-    else if ((s.flags & kBtcp) == (kBtc3))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc3u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint8_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc1))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc1u<std::uint8_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc1u<std::uint8_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc2))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc2u<std::uint8_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc2u<std::uint8_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc3))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc3u<std::uint8_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc3u<std::uint8_t>;
     // ATI-type compression
-    else if ((s.flags & kBtcp) == (kBtc4))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc4))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4u<std::uint8_t>;
-    else if ((s.flags & kBtcp) == (kBtc5))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc5))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5u<std::uint8_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5u<std::uint8_t>;
     // BTC-type compression
-    else if ((s.flags & kBtcp) == (kBtc7))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc7u<std::uint8_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint8_t>;
-    else if ((s.flags & kBtcp) == (kBtc6))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc7))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc7u<std::uint8_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc7u<std::uint8_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc6))
     {
     }  // while this is possible (down-cast), should we support it?
   }
   else if (datatype == sqio::DT_U16)
   {
     // 3Dc-type compression
-    /**/ if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-           (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUnit))
+    /**/ if ((s.flags &
+            (squish_flag::compression_mask | squish_flag::option_signedness |
+             squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::option_signed_external |
+            squish_flag::option_signed_internal |
+            squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5s<std::int16_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5s<std::int16_t>;
     // ATI-type compression
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc4 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc4 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4s<std::int16_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4s<std::int16_t>;
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5s<std::int16_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<std::int16_t>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc1u<std::uint16_t>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint16_t>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc2u<std::uint16_t>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint16_t>;
+      s.decoder = (sqio::dec)DecompressColorBtc3u<std::uint16_t>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<std::uint16_t>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint16_t>;
+      s.decoder = (sqio::dec)DecompressColorBtc7u<std::uint16_t>;
 
     // DXT-type compression
-    else if ((s.flags & kBtcp) == (kCtx1))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_ctx1))
       s.encoder = (sqio::enc)CompressMaskedBitoneCtx1u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressBitoneCtx1u<std::uint16_t>;
-    else if ((s.flags & kBtcp) == (kBtc1))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc1u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<std::uint16_t>;
-    else if ((s.flags & kBtcp) == (kBtc2))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc2u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<std::uint16_t>;
-    else if ((s.flags & kBtcp) == (kBtc3))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc3u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<std::uint16_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc1))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc1u<std::uint16_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc1u<std::uint16_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc2))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc2u<std::uint16_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc2u<std::uint16_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc3))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc3u<std::uint16_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc3u<std::uint16_t>;
     // ATI-type compression
-    else if ((s.flags & kBtcp) == (kBtc4))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc4))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4u<std::uint16_t>;
-    else if ((s.flags & kBtcp) == (kBtc5))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc5))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5u<std::uint16_t>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5u<std::uint16_t>;
     // BTC-type compression
-    else if ((s.flags & kBtcp) == (kBtc7))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc7u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<std::uint16_t>;
-    else if ((s.flags & kBtcp) == (kBtc6))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc6u<std::uint16_t>,
-      s.decoder = (sqio::dec)DecompresscolorBtc6u<std::uint16_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc7))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc7u<std::uint16_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc7u<std::uint16_t>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc6))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc6u<std::uint16_t>,
+      s.decoder = (sqio::dec)DecompressColorBtc6u<std::uint16_t>;
   }
   else if (datatype == sqio::DT_F23)
   {
     // 3Dc-type compression
-    /**/ if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-           (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUnit))
+    /**/ if ((s.flags &
+            (squish_flag::compression_mask | squish_flag::option_signedness |
+             squish_flag::color_metric_mask)) ==
+           (squish_flag::compression_bc5 | squish_flag::option_signed_external |
+            squish_flag::option_signed_internal |
+            squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5s<float>,
       s.decoder = (sqio::dec)DecompressNormalBtc5s<float>;
     // ATI-type compression
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc4 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc4 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4s<float>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4s<float>;
-    else if ((s.flags & (kBtcp | kSignedness | kcolorMetrics)) ==
-             (kBtc5 | kSignedExternal | kSignedInternal | kcolorMetricUniform))
+    else if ((s.flags &
+              (squish_flag::compression_mask | squish_flag::option_signedness |
+               squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 |
+              squish_flag::option_signed_external |
+              squish_flag::option_signed_internal |
+              squish_flag::color_metric_uniform))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5s<float>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5s<float>;
 
     // DXT-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kCtx1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_ctx1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalCtx1u<float>,
       s.decoder = (sqio::dec)DecompressNormalCtx1u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc1 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc1 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc1u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc2 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc1u<float>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc2 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc2u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<float>;
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc3 | kcolorMetricUnit))
+      s.decoder = (sqio::dec)DecompressColorBtc2u<float>;
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc3 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc3u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<float>;
+      s.decoder = (sqio::dec)DecompressColorBtc3u<float>;
     // 3Dc-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc5 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc5 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc5u<float>,
       s.decoder = (sqio::dec)DecompressNormalBtc5u<float>;
     // BTC-type compression
-    else if ((s.flags & (kBtcp | kcolorMetrics)) == (kBtc7 | kcolorMetricUnit))
+    else if ((s.flags & (squish_flag::compression_mask |
+                         squish_flag::color_metric_mask)) ==
+             (squish_flag::compression_bc7 | squish_flag::color_metric_unit))
       s.encoder = (sqio::enc)CompressMaskedNormalBtc7u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<float>;
+      s.decoder = (sqio::dec)DecompressColorBtc7u<float>;
 
     // DXT-type compression
-    else if ((s.flags & kBtcp) == (kCtx1))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_ctx1))
       s.encoder = (sqio::enc)CompressMaskedBitoneCtx1u<float>,
       s.decoder = (sqio::dec)DecompressBitoneCtx1u<float>;
-    else if ((s.flags & kBtcp) == (kBtc1))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc1u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc1u<float>;
-    else if ((s.flags & kBtcp) == (kBtc2))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc2u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc2u<float>;
-    else if ((s.flags & kBtcp) == (kBtc3))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc3u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc3u<float>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc1))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc1u<float>,
+      s.decoder = (sqio::dec)DecompressColorBtc1u<float>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc2))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc2u<float>,
+      s.decoder = (sqio::dec)DecompressColorBtc2u<float>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc3))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc3u<float>,
+      s.decoder = (sqio::dec)DecompressColorBtc3u<float>;
     // ATI-type compression
-    else if ((s.flags & kBtcp) == (kBtc4))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc4))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc4u<float>,
       s.decoder = (sqio::dec)DecompressAlphaBtc4u<float>;
-    else if ((s.flags & kBtcp) == (kBtc5))
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc5))
       s.encoder = (sqio::enc)CompressMaskedAlphaBtc5u<float>,
       s.decoder = (sqio::dec)DecompressAlphaBtc5u<float>;
     // BTC-type compression
-    else if ((s.flags & kBtcp) == (kBtc7))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc7u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc7u<float>;
-    else if ((s.flags & kBtcp) == (kBtc6))
-      s.encoder = (sqio::enc)CompressMaskedcolorBtc6u<float>,
-      s.decoder = (sqio::dec)DecompresscolorBtc6u<float>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc7))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc7u<float>,
+      s.decoder = (sqio::dec)DecompressColorBtc7u<float>;
+    else if ((s.flags & squish_flag::compression_mask) ==
+             (squish_flag::compression_bc6))
+      s.encoder = (sqio::enc)CompressMaskedColorBtc6u<float>,
+      s.decoder = (sqio::dec)DecompressColorBtc6u<float>;
   }
 
   return s;
 }
 
 void compress_image(std::uint8_t const* rgba, int width, int height,
-                    void* blocks, int flags)
+                    void* blocks, flags_t flags)
 {
   // fix any bad flags
   flags = sanitize_flags(flags);
@@ -1998,13 +2325,23 @@ void compress_image(std::uint8_t const* rgba, int width, int height,
   unsigned char* targetBlock = reinterpret_cast<unsigned char*>(blocks);
   int bytesPerBlock = 16;
 
-  /**/ if ((flags & kBtcp) <= kBtc3)
-    bytesPerBlock = ((flags & kBtcp) == kBtc1) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc5)
-    bytesPerBlock = ((flags & kBtcp) == kBtc4) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc7)
+  /**/ if ((flags & squish_flag::compression_mask) <=
+         squish_flag::compression_bc3)
+    bytesPerBlock =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc5)
+    bytesPerBlock =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc4)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc7)
     bytesPerBlock = 16;
-  else if ((flags & kBtcp) == kCtx1)
+  else if ((flags & squish_flag::compression_mask) ==
+           squish_flag::compression_ctx1)
     bytesPerBlock = 8;
 
   // loop over blocks
@@ -2016,7 +2353,7 @@ void compress_image(std::uint8_t const* rgba, int width, int height,
       std::uint8_t sourceRgba[16 * 4];
       std::uint8_t* targetPixel = sourceRgba;
 
-      int mask = 0;
+      std::uint32_t mask = 0;
       for (int py = 0; py < 4; ++py)
       {
         for (int px = 0; px < 4; ++px)
@@ -2054,7 +2391,7 @@ void compress_image(std::uint8_t const* rgba, int width, int height,
 }
 
 void decompress_image(std::uint8_t* rgba, int width, int height,
-                      void const* blocks, int flags)
+                      void const* blocks, flags_t flags)
 {
   // fix any bad flags
   flags = sanitize_flags(flags);
@@ -2064,13 +2401,23 @@ void decompress_image(std::uint8_t* rgba, int width, int height,
     reinterpret_cast<unsigned char const*>(blocks);
   int bytesPerBlock = 16;
 
-  /**/ if ((flags & kBtcp) <= kBtc3)
-    bytesPerBlock = ((flags & kBtcp) == kBtc1) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc5)
-    bytesPerBlock = ((flags & kBtcp) == kBtc4) ? 8 : 16;
-  else if ((flags & kBtcp) <= kBtc7)
+  /**/ if ((flags & squish_flag::compression_mask) <=
+         squish_flag::compression_bc3)
+    bytesPerBlock =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc5)
+    bytesPerBlock =
+      ((flags & squish_flag::compression_mask) == squish_flag::compression_bc4)
+        ? 8
+        : 16;
+  else if ((flags & squish_flag::compression_mask) <=
+           squish_flag::compression_bc7)
     bytesPerBlock = 16;
-  else if ((flags & kBtcp) == kCtx1)
+  else if ((flags & squish_flag::compression_mask) ==
+           squish_flag::compression_ctx1)
     bytesPerBlock = 8;
 
   // loop over blocks

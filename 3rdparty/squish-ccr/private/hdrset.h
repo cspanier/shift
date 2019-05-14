@@ -50,11 +50,12 @@ public:
 public:
   // constructor for regular operation (with and without initial
   // partition/rotation)
-  hdr_set(std::uint16_t const* rgb, int mask, int flags);
-  hdr_set(std::uint16_t const* rgb, int mask, int flags, int partition);
+  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags);
+  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags,
+          int partition);
 
-  hdr_set(float const* rgb, int mask, int flags);
-  hdr_set(float const* rgb, int mask, int flags, int partition);
+  hdr_set(float const* rgb, std::uint32_t mask, int flags);
+  hdr_set(float const* rgb, std::uint32_t mask, int flags, int partition);
 
   // constructors for managing backups and permutations of palette-sets
   hdr_set()
@@ -64,12 +65,12 @@ public:
   {
     memcpy(this, &palette, sizeof(*this));
   }
-  hdr_set(hdr_set const& palette, int mask, int flags, int partition);
+  hdr_set(hdr_set const& palette, std::uint32_t mask, int flags, int partition);
 
 private:
-  void BuildSet(std::uint16_t const* rgb, int mask, int flags);
-  void BuildSet(float const* rgb, int mask, int flags);
-  void PermuteSet(hdr_set const& palette, int mask, int flags);
+  void BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags);
+  void BuildSet(float const* rgb, std::uint32_t mask, int flags);
+  void PermuteSet(hdr_set const& palette, std::uint32_t mask, int flags);
 
 public:
   // active attributes based the parameters passed on initializaton

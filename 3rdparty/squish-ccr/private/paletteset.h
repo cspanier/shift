@@ -52,14 +52,17 @@ public:
 public:
   // constructor for regular operation (with and without initial
   // partition/rotation)
-  palette_set(std::uint8_t const* rgba, int mask, int flags);
-  palette_set(std::uint8_t const* rgba, int mask, int flags, int part_or_rot);
+  palette_set(std::uint8_t const* rgba, std::uint32_t mask, int flags);
+  palette_set(std::uint8_t const* rgba, std::uint32_t mask, int flags,
+              int part_or_rot);
 
-  palette_set(std::uint16_t const* rgba, int mask, int flags);
-  palette_set(std::uint16_t const* rgba, int mask, int flags, int part_or_rot);
+  palette_set(std::uint16_t const* rgba, std::uint32_t mask, int flags);
+  palette_set(std::uint16_t const* rgba, std::uint32_t mask, int flags,
+              int part_or_rot);
 
-  palette_set(float const* rgba, int mask, int flags);
-  palette_set(float const* rgba, int mask, int flags, int part_or_rot);
+  palette_set(float const* rgba, std::uint32_t mask, int flags);
+  palette_set(float const* rgba, std::uint32_t mask, int flags,
+              int part_or_rot);
 
   // constructors for managing backups and permutations of palette-sets
   palette_set() = default;
@@ -67,14 +70,15 @@ public:
   {
     memcpy(this, &palette, sizeof(*this));
   }
-  palette_set(palette_set const& palette, int mask, int flags, int part_or_rot);
+  palette_set(palette_set const& palette, std::uint32_t mask, int flags,
+              int part_or_rot);
 
 private:
-  void BuildSet(std::uint8_t const* rgba, int mask, int flags);
-  void BuildSet(std::uint16_t const* rgba, int mask, int flags);
-  void BuildSet(float const* rgba, int mask, int flags);
-  void BuildSet(palette_set const& palette, int mask, int flags);
-  void PermuteSet(palette_set const& palette, int mask, int flags);
+  void BuildSet(std::uint8_t const* rgba, std::uint32_t mask, int flags);
+  void BuildSet(std::uint16_t const* rgba, std::uint32_t mask, int flags);
+  void BuildSet(float const* rgba, std::uint32_t mask, int flags);
+  void BuildSet(palette_set const& palette, std::uint32_t mask, int flags);
+  void PermuteSet(palette_set const& palette, std::uint32_t mask, int flags);
 
 public:
   // active attributes based on the parameters passed on initialization

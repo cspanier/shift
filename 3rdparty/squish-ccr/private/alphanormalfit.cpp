@@ -81,7 +81,7 @@ namespace squish
 }*/
 
 template <const int min, const int max, const int prc, typename otyp>
-static Scr4 FitCodes(Vec4 const* xyz, int mask, Col8 const& codesx,
+static Scr4 FitCodes(Vec4 const* xyz, std::uint32_t mask, Col8 const& codesx,
                      std::uint8_t* indicesx, Col8 const& codesy,
                      std::uint8_t* indicesy)
 {
@@ -180,7 +180,7 @@ static Scr4 FitCodes(Vec4 const* xyz, int mask, Col8 const& codesx,
 }
 
 template <const int min, const int max, const int prc, typename otyp>
-static Vec4 GetError(Vec4 const* xyz, int mask, Col8 const& codes5x,
+static Vec4 GetError(Vec4 const* xyz, std::uint32_t mask, Col8 const& codes5x,
                      Col8 const& codes7x, Col8 const& codes5y,
                      Col8 const& codes7y)
 {
@@ -1165,8 +1165,8 @@ static inline void WriteNormalBlock7(int coord0, int coord1,
 
 template <const int min, const int max, const int prc, typename otyp,
           typename dtyp>
-static void CompressNormalBtc5v(Vec4 const* xyz, int mask, void* blockx,
-                                void* blocky, int flags)
+static void CompressNormalBtc5v(Vec4 const* xyz, std::uint32_t mask,
+                                void* blockx, void* blocky, int flags)
 {
   Col8 codes55x, codes57x, codes75x, codes77x;
   Col8 codes55y, codes57y, codes75y, codes77y;
@@ -1446,8 +1446,8 @@ static void CompressNormalBtc5v(Vec4 const* xyz, int mask, void* blockx,
 
 template <const int min, const int max, const int prc, const int lwr,
           const int upr, typename otyp, typename dtyp>
-static void CompressNormalsBtc5i(dtyp const* xyzd, int mask, void* blockx,
-                                 void* blocky, int flags)
+static void CompressNormalsBtc5i(dtyp const* xyzd, std::uint32_t mask,
+                                 void* blockx, void* blocky, int flags)
 {
   Vec4 xyz[16];
 
@@ -1467,8 +1467,8 @@ static void CompressNormalsBtc5i(dtyp const* xyzd, int mask, void* blockx,
 
 template <const int min, const int max, const int prc, typename otyp,
           typename dtyp>
-static void CompressNormalsBtc5f(dtyp const* xyzd, int mask, void* blockx,
-                                 void* blocky, int flags)
+static void CompressNormalsBtc5f(dtyp const* xyzd, std::uint32_t mask,
+                                 void* blockx, void* blocky, int flags)
 {
   Vec4 xyz[16];
 
@@ -1486,39 +1486,39 @@ static void CompressNormalsBtc5f(dtyp const* xyzd, int mask, void* blockx,
                                                  flags);
 }
 
-void CompressNormalsBtc5u(std::uint8_t const* xyzd, int mask, void* blockx,
-                          void* blocky, int flags)
+void CompressNormalsBtc5u(std::uint8_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags)
 {
   CompressNormalsBtc5i<0, 255, CBLB, 0, 255, unsigned>(xyzd, mask, blockx,
                                                        blocky, flags);
 }
-void CompressNormalsBtc5s(std::int8_t const* xyzd, int mask, void* blockx,
-                          void* blocky, int flags)
+void CompressNormalsBtc5s(std::int8_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags)
 {
   CompressNormalsBtc5i<-127, 127, CBLB, -127, 127, signed>(xyzd, mask, blockx,
                                                            blocky, flags);
 }
 
-void CompressNormalsBtc5u(std::uint16_t const* xyzd, int mask, void* blockx,
-                          void* blocky, int flags)
+void CompressNormalsBtc5u(std::uint16_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags)
 {
   CompressNormalsBtc5i<0, 255, CBHB, 0, 65535, unsigned>(xyzd, mask, blockx,
                                                          blocky, flags);
 }
-void CompressNormalsBtc5s(std::int16_t const* xyzd, int mask, void* blockx,
-                          void* blocky, int flags)
+void CompressNormalsBtc5s(std::int16_t const* xyzd, std::uint32_t mask,
+                          void* blockx, void* blocky, int flags)
 {
   CompressNormalsBtc5i<-127, 127, CBHB, -32767, 32767, signed>(
     xyzd, mask, blockx, blocky, flags);
 }
 
-void CompressNormalsBtc5u(float const* xyzd, int mask, void* blockx,
+void CompressNormalsBtc5u(float const* xyzd, std::uint32_t mask, void* blockx,
                           void* blocky, int flags)
 {
   CompressNormalsBtc5f<0, 255, CBHB, unsigned>(xyzd, mask, blockx, blocky,
                                                flags);
 }
-void CompressNormalsBtc5s(float const* xyzd, int mask, void* blockx,
+void CompressNormalsBtc5s(float const* xyzd, std::uint32_t mask, void* blockx,
                           void* blocky, int flags)
 {
   CompressNormalsBtc5f<-127, 127, CBHB, signed>(xyzd, mask, blockx, blocky,

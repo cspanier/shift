@@ -31,7 +31,8 @@
 #include <squish.h>
 #include "maths_all.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 /*! @brief Represents a set of block colors
@@ -39,27 +40,42 @@ namespace squish {
 class color_set
 {
 public:
-  color_set(std::uint8_t  const* rgba, int mask, int flags);
-  color_set(std::uint16_t const* rgba, int mask, int flags);
-  color_set(float const* rgba, int mask, int flags);
+  color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags);
+  color_set(std::uint16_t const* rgba, std::uint32_t mask, int flags);
+  color_set(float const* rgba, std::uint32_t mask, int flags);
 
-  bool IsTransparent() const { return m_transparent; }
-  bool IsUnweighted() const { return m_unweighted; }
+  bool IsTransparent() const
+  {
+    return m_transparent;
+  }
+  bool IsUnweighted() const
+  {
+    return m_unweighted;
+  }
 
-  int GetCount() const { return m_count; }
-  Vec3 const* GetPoints() const { return m_points; }
-  Scr3 const* GetWeights() const { return m_weights; }
+  int GetCount() const
+  {
+    return m_count;
+  }
+  Vec3 const* GetPoints() const
+  {
+    return m_points;
+  }
+  Scr3 const* GetWeights() const
+  {
+    return m_weights;
+  }
 
-  bool RemoveBlack(const Vec3 &metric, Scr3 &error);
+  bool RemoveBlack(const Vec3& metric, Scr3& error);
   void RemapIndices(std::uint8_t const* source, std::uint8_t* target) const;
 
 private:
-  bool  m_transparent, m_unweighted;
-  int   m_count;
-  Vec3  m_points[16];
-  Scr3  m_weights[16];
-  char  m_remap[16];
+  bool m_transparent, m_unweighted;
+  int m_count;
+  Vec3 m_points[16];
+  Scr3 m_weights[16];
+  char m_remap[16];
 };
-} // namespace sqish
+}  // namespace sqish
 
-#endif // ndef SQUISH_colorSET_H
+#endif  // ndef SQUISH_colorSET_H

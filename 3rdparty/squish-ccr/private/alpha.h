@@ -31,42 +31,57 @@
 #include <squish.h>
 #include <limits.h>
 
-namespace squish {
-  void CompressAlphaBtc2u(std::uint8_t  const* rgba, int mask, void* block);
-  void CompressAlphaBtc3u(std::uint8_t  const* rgba, int mask, void* block, int flags);
-  void CompressAlphaBtc3s(std::int8_t  const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4u(std::uint8_t  const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4s(std::int8_t  const* rgba, int mask, void* block, int flags);
-  
-  void CompressAlphaBtc2u(std::uint16_t const* rgba, int mask, void* block);
-  void CompressAlphaBtc3u(std::uint16_t const* rgba, int mask, void* block, int flags);
-  void CompressAlphaBtc3s(std::int16_t const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4u(std::uint16_t const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4s(std::int16_t const* rgba, int mask, void* block, int flags);
+namespace squish
+{
+void CompressAlphaBtc2u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block);
+void CompressAlphaBtc3u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressAlphaBtc3s(std::int8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressDepthBtc4u(std::uint8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressDepthBtc4s(std::int8_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
 
-  void CompressAlphaBtc2u(float const* rgba, int mask, void* block);
-  void CompressAlphaBtc3u(float const* rgba, int mask, void* block, int flags);
-  void CompressAlphaBtc3s(float const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4u(float const* rgba, int mask, void* block, int flags);
-  void CompressDepthBtc4s(float const* rgba, int mask, void* block, int flags);
+void CompressAlphaBtc2u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block);
+void CompressAlphaBtc3u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressAlphaBtc3s(std::int16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressDepthBtc4u(std::uint16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
+void CompressDepthBtc4s(std::int16_t const* rgba, std::uint32_t mask,
+                        void* block, int flags);
 
-  void DecompressAlphaBtc2u(std::uint8_t * rgba, void const* block);
-  void DecompressAlphaBtc3u(std::uint8_t * rgba, void const* block, int flags);
-  void DecompressAlphaBtc3s(std::int8_t * rgba, void const* block, int flags);
-  void DecompressDepthBtc4u(std::uint8_t * rgba, void const* block, int flags);
-  void DecompressDepthBtc4s(std::int8_t * rgba, void const* block, int flags);
-  
-  void DecompressAlphaBtc2u(std::uint16_t* rgba, void const* block);
-  void DecompressAlphaBtc3u(std::uint16_t* rgba, void const* block, int flags);
-  void DecompressAlphaBtc3s(std::int16_t* rgba, void const* block, int flags);
-  void DecompressDepthBtc4u(std::uint16_t* rgba, void const* block, int flags);
-  void DecompressDepthBtc4s(std::int16_t* rgba, void const* block, int flags);
+void CompressAlphaBtc2u(float const* rgba, std::uint32_t mask, void* block);
+void CompressAlphaBtc3u(float const* rgba, std::uint32_t mask, void* block,
+                        int flags);
+void CompressAlphaBtc3s(float const* rgba, std::uint32_t mask, void* block,
+                        int flags);
+void CompressDepthBtc4u(float const* rgba, std::uint32_t mask, void* block,
+                        int flags);
+void CompressDepthBtc4s(float const* rgba, std::uint32_t mask, void* block,
+                        int flags);
 
-  void DecompressAlphaBtc2u(float* rgba, void const* block);
-  void DecompressAlphaBtc3u(float* rgba, void const* block, int flags);
-  void DecompressAlphaBtc3s(float* rgba, void const* block, int flags);
-  void DecompressDepthBtc4u(float* rgba, void const* block, int flags);
-  void DecompressDepthBtc4s(float* rgba, void const* block, int flags);
-} // namespace squish
+void DecompressAlphaBtc2u(std::uint8_t* rgba, void const* block);
+void DecompressAlphaBtc3u(std::uint8_t* rgba, void const* block, int flags);
+void DecompressAlphaBtc3s(std::int8_t* rgba, void const* block, int flags);
+void DecompressDepthBtc4u(std::uint8_t* rgba, void const* block, int flags);
+void DecompressDepthBtc4s(std::int8_t* rgba, void const* block, int flags);
 
-#endif // ndef SQUISH_ALPHA_H
+void DecompressAlphaBtc2u(std::uint16_t* rgba, void const* block);
+void DecompressAlphaBtc3u(std::uint16_t* rgba, void const* block, int flags);
+void DecompressAlphaBtc3s(std::int16_t* rgba, void const* block, int flags);
+void DecompressDepthBtc4u(std::uint16_t* rgba, void const* block, int flags);
+void DecompressDepthBtc4s(std::int16_t* rgba, void const* block, int flags);
+
+void DecompressAlphaBtc2u(float* rgba, void const* block);
+void DecompressAlphaBtc3u(float* rgba, void const* block, int flags);
+void DecompressAlphaBtc3s(float* rgba, void const* block, int flags);
+void DecompressDepthBtc4u(float* rgba, void const* block, int flags);
+void DecompressDepthBtc4s(float* rgba, void const* block, int flags);
+}  // namespace squish
+
+#endif  // ndef SQUISH_ALPHA_H

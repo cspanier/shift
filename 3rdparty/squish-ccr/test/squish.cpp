@@ -24,10 +24,10 @@
    -------------------------------------------------------------------------- */
 
 /// @file
-/// @brief  This program tests the error for 1 and 2-colour DXT compression.
+/// @brief  This program tests the error for 1 and 2-color DXT compression.
 ///
 /// This tests the effectiveness of the DXT compression algorithm for all
-/// possible 1 and 2-colour blocks of pixels.
+/// possible 1 and 2-color blocks of pixels.
 
 #include <squish.h>
 #include <iostream>
@@ -54,7 +54,7 @@ double color_error(std::uint8_t const* a, std::uint8_t const* b)
 
 BOOST_AUTO_TEST_CASE(squish_one_color_random)
 {
-  int flags = kBtc1 | kColourRangeFit;
+  int flags = kBtc1 | kcolorRangeFit;
 
   std::uint8_t input[4 * 16];
   std::uint8_t output[4 * 16];
@@ -63,10 +63,10 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
 
-  // test all single-channel colours
+  // test all single-channel colors
   for (int test = 0; test < 1000; ++test)
   {
-    // set a constant random colour
+    // set a constant random color
     for (int channel = 0; channel < 3; ++channel)
     {
       auto value = (std::uint8_t)(rand() & 0xff);
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
   avg = std::sqrt(avg / counter);
 
   // show stats
-  std::cout << "random one colour error (min, max, avg): " << min << ", " << max
+  std::cout << "random one color error (min, max, avg): " << min << ", " << max
             << ", " << avg << std::endl;
 }
 
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
 
-  // test all single-channel colours
+  // test all single-channel colors
   for (int i = 0; i < 16 * 4; ++i)
     input[i] = ((i % 4) == 3) ? 255 : 0;
   for (int channel = 0; channel < 3; ++channel)
@@ -145,8 +145,8 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
   avg = std::sqrt(avg / counter);
 
   // show stats
-  std::cout << "one colour error (min, max, avg): " << min << ", " << max
-            << ", " << avg << std::endl;
+  std::cout << "one color error (min, max, avg): " << min << ", " << max << ", "
+            << avg << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(squish_two_colors)
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
   double avg = 0.0, min = DBL_MAX, max = -DBL_MAX;
   int counter = 0;
 
-  // test all single-channel colours
+  // test all single-channel colors
   for (int i = 0; i < 16 * 4; ++i)
     input[i] = ((i % 4) == 3) ? 255 : 0;
   for (int channel = 0; channel < 3; ++channel)
@@ -198,6 +198,6 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
   avg = std::sqrt(avg / counter);
 
   // show stats
-  std::cout << "two colour error (min, max, avg): " << min << ", " << max
-            << ", " << avg << std::endl;
+  std::cout << "two color error (min, max, avg): " << min << ", " << max << ", "
+            << avg << std::endl;
 }
