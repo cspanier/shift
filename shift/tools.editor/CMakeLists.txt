@@ -27,7 +27,7 @@ if(NOT NO_VULKAN AND NOT NO_QT5)
   # Add path to QML files to make QTCreator find our modules.
   set(QML_IMPORT_PATH
       ${CMAKE_INSTALL_PREFIX}/qml
-    CACHE string "Qt Creator extra qml import paths" FORCE)
+    CACHE STRING "Qt Creator extra qml import paths" FORCE)
 
   # These additional variables don't seem to have any effect.
   # set(QML2_IMPORT_PATH ${QML_IMPORT_PATH}
