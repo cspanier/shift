@@ -1,0 +1,28 @@
+{
+  "import": {
+    "pass": 1,
+    "action": "image-import",
+    "input": {
+      "image": "<input-path/><rule-path/>(image32_rgb.*)\\.png$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "rgba8_srgb",
+      "normalized": false
+    }
+  },
+  "global-cache": {
+    "pass": 2,
+    "action": "group-resources",
+    "input": {
+      "images": "<build-path/>(.*)\\.image_header$"
+    },
+    "group-by": [ 1 ],
+    "output": {
+      "group": "<output-path/>global.cache"
+    },
+    "options": {}
+  }}
