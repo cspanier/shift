@@ -174,7 +174,7 @@ void CompressBitoneCtx1u(dtyp const* rgba, std::uint32_t mask, void* block,
   // create the minimal point set
   bitone_set colors(rgba, mask, flags);
 
-  if ((flags & squish_flag::compressor_color_range_fit) ||
+  if (flags & squish_flag::compressor_color_range_fit ||
       (colors.GetCount() == 0))
   {
     // do a range fit

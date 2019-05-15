@@ -290,10 +290,15 @@ public:
     return *this;
   }
 
-  constexpr operator bool() const noexcept
+  constexpr operator underlying_type() const noexcept
   {
-    return _flags != 0;
+    return _flags;
   }
+
+  //  constexpr operator bool() const noexcept
+  //  {
+  //    return _flags != 0;
+  //  }
 
   constexpr bit_flags operator~() noexcept
   {
