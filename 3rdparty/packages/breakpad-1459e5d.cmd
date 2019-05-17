@@ -34,11 +34,6 @@ if NOT EXIST ".\!SOURCE_PACKAGE!.zip" (
   echo Error: Source package !SOURCE_PACKAGE!.zip is missing.
   goto end
 )
-where /q gyp.bat
-if %ERRORLEVEL% NEQ 0 (
-  echo Error: You need to have GYP in your system PATH.
-  goto end
-)
 python --version 2>nul
 if %ERRORLEVEL% NEQ 0 (
   echo Error: You need to have Python in your system PATH in order to execute GYP.
@@ -50,7 +45,7 @@ if %ERRORLEVEL% NEQ 0 goto end
 pushd %CD%
 cd !SOURCE_PACKAGE!\src\client\windows
 
-call gyp --no-circular-check
+call ..\..\..\..\gyp\gyp --no-circular-check
 
 REM Patch project files to use the dynamic C++ runtime libraries.
 "%MINGW64%\sed" -i.bak "s:<RuntimeLibrary>MultiThreaded</RuntimeLibrary>:<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>:g" common.vcxproj
@@ -121,3 +116,4 @@ REM Copy header files.
 :end
 popd
 if EXIST ".\!SOURCE_PACKAGE!" "%MINGW64%\rm" -rf .\!SOURCE_PACKAGE!
+if EXIST ".\gyp" "%MINGW64%\rm" -rf .\gyp
