@@ -41,6 +41,7 @@ Additionally, the following libraries are required:
 * [zlib](https://zlib.net/) 1.2.11
 * [xz](https://tukaani.org/xz/) 5.2.4
 * [libtiff](http://www.simplesystems.org/libtiff/) 4.0.9
+    * [lcms](http://www.littlecms.com/) 2.9
 * [libpng](http://www.libpng.org/pub/png/libpng.html) 1.6.35
 * [libjpeg](https://www.ijg.org/) 9c
 * [GSL](https://github.com/Microsoft/GSL)
