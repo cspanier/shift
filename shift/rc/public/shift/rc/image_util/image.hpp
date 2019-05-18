@@ -3,7 +3,7 @@
 
 #include <system_error>
 #include <shift/resource_db/image.hpp>
-#include <shift/rc/image_util/error.hpp>
+#include "shift/rc/error_code.hpp"
 
 namespace shift::rc::image_util
 {

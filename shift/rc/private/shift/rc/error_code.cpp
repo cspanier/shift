@@ -1,7 +1,7 @@
-#include "shift/rc/image_util/error.hpp"
+#include "shift/rc/error_code.hpp"
 #include <boost/assert.hpp>
 
-namespace shift::rc::image_util
+namespace shift::rc
 {
 ///
 class error_code_category : std::error_category
@@ -11,27 +11,13 @@ public:
 
   std::string message(int code) const override;
 
+  bool equivalent(int code, const std::error_condition& condition) const
+    noexcept override;
+
 private:
   error_code_category() = default;
 
   friend std::error_code make_error_code(error_code code);
-};
-
-///
-class error_condition_category : std::error_category
-{
-public:
-  const char* name() const noexcept override;
-
-  std::string message(int condition) const override;
-
-  bool equivalent(const std::error_code& code, int condition) const
-    noexcept override;
-
-private:
-  error_condition_category() = default;
-
-  friend std::error_condition make_error_condition(error_condition condition);
 };
 
 const char* error_code_category::name() const noexcept
@@ -80,50 +66,29 @@ std::string error_code_category::message(int code) const
   return "(unrecognized error)";
 }
 
-const char* error_condition_category::name() const noexcept
+bool error_code_category::equivalent(
+  int code, const std::error_condition& condition) const noexcept
 {
-  return "shift::image::error_condition";
-}
+  using shift::core::error_condition;
 
-std::string error_condition_category::message(int condition) const
-{
-  switch (static_cast<error_condition>(condition))
+  static const auto& error_condition_category =
+    std::error_condition{error_condition{}}.category();
+
+  if (condition.category() != error_condition_category)
+    return false;
+
+  switch (static_cast<error_condition>(condition.value()))
   {
   case error_condition::invalid_argument:
-    return "Invalid function arguments.";
-
-  case error_condition::internal_error:
-    return "Internal error occurred.";
+    return code >= static_cast<int>(error_condition::invalid_argument) &&
+           code < static_cast<int>(error_condition::operation_not_supported);
 
   case error_condition::operation_not_supported:
-    return "Operation not supported.";
-  }
-
-  BOOST_ASSERT(false);
-  return "(unrecognized condition)";
-}
-
-bool error_condition_category::equivalent(const std::error_code& code,
-                                          int condition) const noexcept
-{
-  static const auto& code_category = std::error_code{error_code{}}.category();
-
-  switch (static_cast<error_condition>(condition))
-  {
-  case error_condition::invalid_argument:
-    if (code.category() == code_category)
-      return code.value() >= 0x100 && code.value() < 0x200;
-    return false;
+    return code >= static_cast<int>(error_condition::operation_not_supported) &&
+           code < static_cast<int>(error_condition::internal_error);
 
   case error_condition::internal_error:
-    if (code.category() == code_category)
-      return code.value() >= 0x200 && code.value() < 0x300;
-    return false;
-
-  case error_condition::operation_not_supported:
-    if (code.category() == code_category)
-      return code.value() >= 0x300 && code.value() < 0x400;
-    return false;
+    return code >= static_cast<int>(error_condition::internal_error);
   }
 
   BOOST_ASSERT(false);
@@ -134,11 +99,5 @@ std::error_code make_error_code(error_code code)
 {
   static const error_code_category category{};
   return {static_cast<int>(code), category};
-}
-
-std::error_condition make_error_condition(error_condition condition)
-{
-  static const error_condition_category category{};
-  return {static_cast<int>(condition), category};
 }
 }
