@@ -1,7 +1,7 @@
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/test/unit_test.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
-#include <shift/rc/image/tiff_io.hpp>
+#include <shift/rc/image_util/tiff_io.hpp>
 #include <shift/log/log_server.hpp>
 #include <shift/core/at_exit_scope.hpp>
 #include <squish.h>
@@ -10,7 +10,6 @@
 #include <iostream>
 
 using namespace shift;
-using namespace shift::rc;
 namespace fs = std::filesystem;
 
 struct test_case_t
@@ -126,15 +125,15 @@ BOOST_AUTO_TEST_CASE(rc_squish)
     auto destination_filename = working_path() / "private" / "test" / "rc" /
                                 "squish" / test_case.destination_filename;
 
-    std::vector<tiff_image> source_images;
+    std::vector<rc::image_util::tiff_image> source_images;
 
-    tiff_io io;
+    rc::image_util::tiff_io io;
     bool load_source = io.load(source_filename, source_images, false);
     BOOST_CHECK(load_source);
     if (!load_source)
       continue;
 
-    std::vector<tiff_image> destination_images;
+    std::vector<rc::image_util::tiff_image> destination_images;
 
     for (auto& source_image : source_images)
     {

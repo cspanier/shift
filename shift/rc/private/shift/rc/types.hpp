@@ -57,8 +57,8 @@ struct action_description
   action_description(const action_description&) = default;
   action_description(action_description&&) = default;
   ~action_description() = default;
-  action_description& operator=(const action_description&) = default;
-  action_description& operator=(action_description&&) = default;
+  action_description& operator=(const action_description&) = delete;
+  action_description& operator=(action_description&&) = delete;
 
   const std::string name;
   const action_version version;

@@ -1,5 +1,5 @@
-#include "shift/rc/image/tiff_io.hpp"
-#include "shift/rc/image/built_in_icc_profiles.hpp"
+#include "shift/rc/image_util/tiff_io.hpp"
+#include "shift/rc/image_util/built_in_icc_profiles.hpp"
 #include <shift/log/log.hpp>
 #include <fstream>
 #include <array>
@@ -8,7 +8,7 @@
 #include <lcms2_plugin.h>
 #undef register
 
-namespace shift::rc
+namespace shift::rc::image_util
 {
 static void tiff_warning(thandle_t, const char* function, const char* message,
                          va_list)

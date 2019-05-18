@@ -62,8 +62,8 @@ struct action_scene_import_pbrt::parser_context
   parser_context(const parser_context&) = default;
   parser_context(parser_context&&) = default;
   ~parser_context() = default;
-  parser_context& operator=(const parser_context&) = default;
-  parser_context& operator=(parser_context&&) = default;
+  parser_context& operator=(const parser_context&) = delete;
+  parser_context& operator=(parser_context&&) = delete;
 
   resource_compiler_impl& compiler;
   job_description& job;

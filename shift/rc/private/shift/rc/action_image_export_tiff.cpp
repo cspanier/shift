@@ -1,6 +1,6 @@
 #include "shift/rc/action_image_export_tiff.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
-#include "shift/rc/image/tiff_io.hpp"
+#include <shift/rc/image_util/tiff_io.hpp>
 #include <shift/resource_db/image.hpp>
 #include <shift/log/log.hpp>
 #include <shift/math/utility.hpp>
@@ -9,7 +9,7 @@
 #include <shift/core/string_util.hpp>
 #include <filesystem>
 #include <gsl/gsl>
-//#include <compressonator/Compressonator.h>
+//#include <image/image.h>
 #include <tiffio.h>
 
 namespace shift::rc
@@ -26,7 +26,7 @@ bool action_image_export_tiff::process(resource_compiler_impl& compiler,
 {
   using namespace std::string_literals;
 
-  static tiff_io io;
+  static image_util::tiff_io io;
 
   if (job.inputs.size() != 1)
   {
@@ -52,7 +52,7 @@ bool action_image_export_tiff::process(resource_compiler_impl& compiler,
   auto image = std::make_shared<resource_db::image>();
   bool result = false;
 
-  std::vector<tiff_image> images;
+  std::vector<image_util::tiff_image> images;
   if (!io.load(input.file->path, images, false))
   {
     log::error() << "Failed loading image.";

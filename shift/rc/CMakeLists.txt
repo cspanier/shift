@@ -30,9 +30,9 @@ if (NOT NO_VULKAN)
       SpirVCross::core
       3rdparty.amd-tootle
       3rdparty.squish-ccr
-      TIFF::TIFF
       JPEG::JPEG
       PNG::PNG
+      TIFF::TIFF
       LCMS::LCMS2
       BZip2::BZip2
       ZLIB::ZLIB

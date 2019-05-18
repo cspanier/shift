@@ -1,10 +1,10 @@
-#ifndef SHIFT_RC_IMAGE_BUILT_IN_ICC_PROFILES_HPP
-#define SHIFT_RC_IMAGE_BUILT_IN_ICC_PROFILES_HPP
+#ifndef SHIFT_RC_IMAGE_UTIL_BUILT_IN_ICC_PROFILES_HPP
+#define SHIFT_RC_IMAGE_UTIL_BUILT_IN_ICC_PROFILES_HPP
 
 #include <cstdint>
 #include <array>
 
-namespace shift::rc
+namespace shift::rc::image_util
 {
 const std::array<std::uint8_t, 688>& linear_icc();
 

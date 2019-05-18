@@ -1,6 +1,6 @@
-#include "shift/rc/image/built_in_icc_profiles.hpp"
+#include "shift/rc/image_util/built_in_icc_profiles.hpp"
 
-namespace shift::rc
+namespace shift::rc::image_util
 {
 const std::array<std::uint8_t, 688>& linear_icc()
 {

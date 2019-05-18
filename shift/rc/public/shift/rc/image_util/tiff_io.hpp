@@ -1,5 +1,5 @@
-#ifndef SHIFT_RC_IMAGE_TIFF_IO_HPP
-#define SHIFT_RC_IMAGE_TIFF_IO_HPP
+#ifndef SHIFT_RC_IMAGE_UTIL_TIFF_IO_HPP
+#define SHIFT_RC_IMAGE_UTIL_TIFF_IO_HPP
 
 #include <tiff.h>
 #include <cstdint>
@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <shift/core/singleton.hpp>
 
-namespace shift::rc
+namespace shift::rc::image_util
 {
 using cms_profile = void;
 
