@@ -21,17 +21,21 @@ struct image_descriptor
   std::uint32_t row_stride;
   /// The image format.
   resource_db::image_format format;
-  /// The number of bytes available in the image buffer.
-  std::size_t buffer_size;
 };
 
 struct source_image_descriptor : image_descriptor
 {
+  /// The number of bytes available in the image buffer.
+  std::size_t buffer_size;
+  /// A pointer to a buffer from where to load an image.
   const std::byte* buffer;
 };
 
 struct destination_image_descriptor : image_descriptor
 {
+  /// The number of bytes available in the image buffer.
+  std::size_t buffer_size;
+  /// A pointer to a buffer where to store an image.
   std::byte* buffer;
 };
 
@@ -45,6 +49,15 @@ struct convert_region
   std::uint32_t height;
 };
 
+/// This function calculates the minimum required amount of memory in number of
+/// bytes that an image of given dimensions and format.
+std::size_t required_image_buffer_size(const image_descriptor& image);
+
+/// Converts the content of am image to a different format.
+/// @param destination_image
+///   The descriptor of the image to write to. The destination buffer has to be
+///   already allocated. Use required_image_buffer_size to create a buffer of
+///   appropriate size.
 std::error_code convert_image(
   const destination_image_descriptor& destination_image,
   const source_image_descriptor& source_image, const convert_region& region);

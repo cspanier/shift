@@ -88,24 +88,44 @@ std::size_t required_image_buffer_size(const image_descriptor& image)
   BOOST_ASSERT(
     (core::find_t<reverse_format_map, Pixel>::value == image.format));
 
-  using pixel_t = Pixel;
-  if constexpr (pixel_t::is_block_format)
+  if constexpr (Pixel::is_block_format)
   {
-    return ((image.width + (pixel_t::block_width - 1)) / pixel_t::block_width) *
-           ((image.height + (pixel_t::block_height - 1)) /
-            pixel_t::block_height) *
-           pixel_t::size_in_bytes;
+    // Number of blocks times block size.
+    constexpr auto block_width = Pixel::block_width;
+    constexpr auto block_height = Pixel::block_height;
+    return ((image.width + block_width - 1) / block_width) *
+           ((image.height + block_height - 1) / block_height) *
+           Pixel::size_in_bytes;
   }
   else
   {
     if (image.row_stride > 0)
     {
-      BOOST_ASSERT(image.width * pixel_t::size_in_bytes <= image.row_stride);
+      BOOST_ASSERT(image.width * Pixel::size_in_bytes <= image.row_stride);
       return image.row_stride * image.height;
     }
     else
-      return image.width * image.height * pixel_t::size_in_bytes;
+      return image.width * image.height * Pixel::size_in_bytes;
   }
+}
+
+struct required_image_buffer_size_dispatcher
+{
+  template <resource_db::image_format Format, typename Pixel>
+  void operator()(const format_pair<Format, Pixel>*,
+                  const image_descriptor& image, std::size_t& result) const
+  {
+    if (Format == image.format)
+      result = required_image_buffer_size<Pixel>(image);
+  }
+};
+
+std::size_t required_image_buffer_size(const image_descriptor& image)
+{
+  std::size_t result = 0;
+  core::for_each<format_map>(required_image_buffer_size_dispatcher{}, image,
+                             result);
+  return result;
 }
 
 template <typename DestinationPixel, typename SourcePixel>
