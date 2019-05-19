@@ -13,13 +13,19 @@ namespace shift::core
 ///   ease decision of how to handle specific errors.
 enum class error_condition
 {
-  /// Invalid argument class of errors.
+  /// Invalid argument class of errors. These errors typically signal wrong API
+  /// usage. It might be safe to continue execution. This class of error should
+  /// be reported to the developer.
   invalid_argument = 0x01000000,
 
-  /// Operation not supported class of errors.
+  /// Operation not supported class of errors. An error from this category could
+  /// signal missing hardware support on this computer or hitting an
+  /// unimplemented code path. An application should recover from this class of
+  /// errors.
   operation_not_supported = 0x02000000,
 
-  /// Internal error class of errors.
+  /// Internal error class of errors. When getting an error from this category
+  /// the program might be in undefined state and should be closed immediately.
   internal_error = 0x03000000
 };
 
