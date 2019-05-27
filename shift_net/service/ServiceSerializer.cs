@@ -2,28 +2,28 @@ using Shift.Network;
 
 namespace Shift.Service
 {
-    public class SerializerBase
+  public class SerializerBase
+  {
+    internal SerializerBase(Socket socket, uint protocolVersion)
     {
-        internal SerializerBase(Socket socket, uint protocolVersion)
-        {
-            Socket = socket;
-            ProtocolVersion = protocolVersion;
-        }
-
-        public Socket Socket { get; private set; }
-        public uint ProtocolVersion { get; private set; }
+      Socket = socket;
+      ProtocolVersion = protocolVersion;
     }
 
-    public class Serializer<TServiceInterface> : SerializerBase
-    {
-        internal Serializer(Socket socket, uint protocolVersion)
-            : base(socket, protocolVersion)
-        {
-        }
-    }
+    public Socket Socket { get; private set; }
+    public uint ProtocolVersion { get; private set; }
+  }
 
-    public interface IDeserializer
+  public class Serializer<TServiceInterface> : SerializerBase
+  {
+    internal Serializer(Socket socket, uint protocolVersion)
+      : base(socket, protocolVersion)
     {
-        void Receive(MessageStream stream, object implementation);
     }
+  }
+
+  public interface IDeserializer
+  {
+    void Receive(MessageStream stream, object implementation);
+  }
 }

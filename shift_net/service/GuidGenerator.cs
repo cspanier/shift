@@ -6,41 +6,41 @@ using System.Security.Cryptography;
 
 namespace Shift.Service
 {
-    /// <summary>
-    ///     A simple thread-safe 64bit random number generator used for
-    ///     service and host Guids.
-    /// </summary>
-    /// <returns></returns>
-    internal class GuidGenerator
-    {
+  /// <summary>
+  ///   A simple thread-safe 64bit random number generator used for
+  ///   service and host Guids.
+  /// </summary>
+  /// <returns></returns>
+  internal class GuidGenerator
+  {
 #if !WINDOWS_UWP
-        public static ulong generate()
-        {
-            lock (s_random)
-            {
-                var data = new byte[sizeof(long)];
-                s_random.Value.GetBytes(data);
-                return BitConverter.ToUInt64(data, 0);
-            }
-        }
+    public static ulong generate()
+    {
+      lock (s_random)
+      {
+        var data = new byte[sizeof(long)];
+        s_random.Value.GetBytes(data);
+        return BitConverter.ToUInt64(data, 0);
+      }
+    }
 
-        private static readonly Lazy<RNGCryptoServiceProvider> s_random =
-            new Lazy<RNGCryptoServiceProvider>(() => new RNGCryptoServiceProvider());
+    private static readonly Lazy<RNGCryptoServiceProvider> s_random =
+      new Lazy<RNGCryptoServiceProvider>(() => new RNGCryptoServiceProvider());
 #else
-        public static ulong generate()
-        {
-            byte[] guidArray = Guid.NewGuid().ToByteArray();
-            var data = new byte[sizeof(long)];
+    public static ulong generate()
+    {
+      byte[] guidArray = Guid.NewGuid().ToByteArray();
+      var data = new byte[sizeof(long)];
 
-            for (int i = 0; i < sizeof(long); i++)
-            {
-                data[i] = guidArray[i];
-            }
+      for (int i = 0; i < sizeof(long); i++)
+      {
+        data[i] = guidArray[i];
+      }
 
-            //_random.Value.GetBytes(data);
-            return BitConverter.ToUInt64(data, 0);
-        }
+      //_random.Value.GetBytes(data);
+      return BitConverter.ToUInt64(data, 0);
+    }
 #endif
 
-    }
+  }
 }

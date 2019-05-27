@@ -3,23 +3,23 @@ using System.ComponentModel;
 
 namespace Shift.Protogen
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field,
-        Inherited = true, AllowMultiple = false)]
+  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field,
+    Inherited = true, AllowMultiple = false)]
 #if !WINDOWS_UWP
-    [ImmutableObject(true)]
+  [ImmutableObject(true)]
 #endif
-    public sealed class ProtoTypeAttribute : Attribute
+  public sealed class ProtoTypeAttribute : Attribute
+  {
+    public ProtoTypeAttribute(Type type)
     {
-        public ProtoTypeAttribute(Type type)
-        {
-            _protoType = type;
-        }
-
-        public Type ProtoType
-        {
-            get { return _protoType; }
-        }
-
-        private readonly Type _protoType;
+      _protoType = type;
     }
+
+    public Type ProtoType
+    {
+      get { return _protoType; }
+    }
+
+    private readonly Type _protoType;
+  }
 }
