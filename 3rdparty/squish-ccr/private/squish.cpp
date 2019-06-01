@@ -1427,6 +1427,13 @@ void CompressMaskedNormalBtc7u(dtyp const* xyzd, std::uint32_t mask,
                                                    flags);
 }
 
+void compress_masked(std::int8_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags)
+{
+  compress_masked(reinterpret_cast<const std::uint8_t*>(rgba), mask, block,
+                  flags);
+}
+
 void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
                      flags_t flags)
 {
@@ -1483,6 +1490,13 @@ void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
            (squish_flag::compression_bc6))
   {
   }  // while this is possible (up-cast), should we support it?
+}
+
+void compress_masked(std::int16_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags)
+{
+  compress_masked(reinterpret_cast<const std::uint16_t*>(rgba), mask, block,
+                  flags);
 }
 
 void compress_masked(std::uint16_t const* rgba, std::uint32_t mask, void* block,

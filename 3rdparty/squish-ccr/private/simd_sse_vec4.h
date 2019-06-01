@@ -32,6 +32,7 @@
 #include "simd_sse_col3.h"
 #include "simd_sse_col4.h"
 #include "simd_sse_col8.h"
+#include "simd_sse_vec3.h"
 
 namespace squish
 {
@@ -290,13 +291,13 @@ public:
   Vec4(const Vec4& x, const Vec4& y, const Vec4& z, bool w)
   : m_v(_mm_unpacklo_ps(_mm_unpacklo_ps(x.m_v, z.m_v), y.m_v))
   {
-    w = w;
+    m_w = w;
   }
   Vec4(const Vec4& x, const Vec4& y, bool z, bool w)
   : m_v(_mm_unpacklo_ps(x.m_v, y.m_v))
   {
-    z = z;
-    w = w;
+    m_z = z;
+    m_w = w;
   }
 
   Vec4(const Vec3& v, float w) : m_v(v.m_v)
@@ -339,19 +340,19 @@ public:
 
   float X() const
   {
-    return ((float*)&m_v)[0];
+    return ((const float*)&m_v)[0];
   }
   float Y() const
   {
-    return ((float*)&m_v)[1];
+    return ((const float*)&m_v)[1];
   }
   float Z() const
   {
-    return ((float*)&m_v)[2];
+    return ((const float*)&m_v)[2];
   }
   float W() const
   {
-    return ((float*)&m_v)[3];
+    return ((const float*)&m_v)[3];
   }
 
   float& GetX()
@@ -661,11 +662,6 @@ Vec4 Complement(const Vec4& left)
 #endif
   if (!disarm)
   {
-    // correct
-    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // +
-    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // > 1.0f by renormalization
     if (_mm_comigt_ss(res, rez))
     {
       res = ReciprocalSqrt(Vec4(res)).m_v;
@@ -690,10 +686,6 @@ Vec4 Complement(const Vec4& left)
     res = _mm_and_ps(res, _mm_castsi128_ps(_mm_setr_epi32(~0, ~0, ~0, 0)));
   }
 
-  // sqrt(1.0f -
-  // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-  // +
-  // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
   return Vec4(res);
 }
 
@@ -705,35 +697,14 @@ Vec4 Complement(Vec4& left, Vec4& right)
     Vec4 len = left * left + right * right;
     Vec4 adj = ReciprocalSqrt(Max(Vec4(1.0f), len));
 
-    // correct
-    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // +
-    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // > 1.0f by renormalization
     left *= adj;
     right *= adj;
 
-    // sqrt(1.0f -
-    // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // +
-    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec4(1.0f) - Min(Vec4(1.0f), len));
   }
   else
   {
     Vec4 len = (left * left) + (right * right);
-
-    // disarm
-    // xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // +
-    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // > 1.0f by letting NaN happen
-    // ...
-
-    // sqrt(1.0f -
-    // (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½
-    // +
-    // yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec4(1.0f) - len);
   }
 }

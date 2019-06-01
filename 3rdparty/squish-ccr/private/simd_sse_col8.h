@@ -145,7 +145,7 @@ public:
 
   const std::uint16_t& operator[](int pos) const
   {
-    return ((std::uint16_t*)&m_v)[pos];
+    return ((const std::uint16_t*)&m_v)[pos];
     //  return m_v.m128i_std::uint16_t[pos];
   }
 

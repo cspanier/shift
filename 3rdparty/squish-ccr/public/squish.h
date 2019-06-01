@@ -583,9 +583,13 @@ void compress(float const* rgba, void* block, flags_t flags);
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
+void compress_masked(std::int8_t const* rgba, std::uint32_t mask, void* block,
+                     flags_t flags);
 void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
                      flags_t flags);
 void compress_masked(std::uint16_t const* rgb, std::uint32_t mask, void* block,
+                     flags_t flags);
+void compress_masked(std::int16_t const* rgb, std::uint32_t mask, void* block,
                      flags_t flags);
 void compress_masked(float const* rgba, std::uint32_t mask, void* block,
                      flags_t flags);

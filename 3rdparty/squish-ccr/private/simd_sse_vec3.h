@@ -198,15 +198,15 @@ public:
 
   float X() const
   {
-    return ((float*)&m_v)[0];
+    return ((const float*)&m_v)[0];
   }
   float Y() const
   {
-    return ((float*)&m_v)[1];
+    return ((const float*)&m_v)[1];
   }
   float Z() const
   {
-    return ((float*)&m_v)[2];
+    return ((const float*)&m_v)[2];
   }
 
   float& GetX()
@@ -400,8 +400,6 @@ Vec3 Complement(const Vec3& left)
 #endif
   if (!disarm)
   {
-    // correct xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // renormalization
     if (_mm_comigt_ss(res, rez))
     {
       res = ReciprocalSqrt(Vec3(res)).m_v;
@@ -428,23 +426,14 @@ Vec3 Complement(Vec3& left, Vec3& right)
     Vec3 len = (left * left) + (right * right);
     Vec3 adj = ReciprocalSqrt(Max(Vec3(1.0f), len));
 
-    // correct xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // renormalization
     left *= adj;
     right *= adj;
 
-    // sqrt(1.0f - (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec3(1.0f) - Min(Vec3(1.0f), len));
   }
   else
   {
     Vec3 len = (left * left) + (right * right);
-
-    // disarm xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ > 1.0f by
-    // letting NaN happen
-    // ...
-
-    // sqrt(1.0f - (xÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ + yÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½))
     return Sqrt(Vec3(1.0f) - len);
   }
 }
