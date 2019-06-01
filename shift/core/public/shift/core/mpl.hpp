@@ -32,6 +32,15 @@ struct get_type;
 template <std::size_t N, typename Container>
 using get_type_t = typename get_type<N, Container>::type;
 
+/// Gets the Nth type of the type container Container, or Alternative if there
+/// are not enough elements in Container.
+template <std::size_t N, typename Container, typename Alternative = void>
+struct get_type_opt;
+
+/// A shortcut type for get_type_opt.
+template <std::size_t N, typename Container, typename Alternative = void>
+using get_type_opt_t = typename get_type_opt<N, Container, Alternative>::type;
+
 /// Converts a container holding a single type T to that type.
 template <typename Container>
 struct single_type;
@@ -411,6 +420,31 @@ struct get_type<N, Container<>>
   // specialization of get_type is used.
   static_assert(N && false, "Cannot get the Nth type of an empty container");
   using type = void;
+};
+
+/// End of recursion.
+template <typename T, template <typename...> class Container, typename... Ts,
+          typename Alternative>
+struct get_type_opt<0, Container<T, Ts...>, Alternative>
+{
+  using type = T;
+};
+
+/// Recursively run through Ts until N is zero.
+template <std::size_t N, template <typename...> class Container, typename T,
+          typename... Ts, typename Alternative>
+struct get_type_opt<N, Container<T, Ts...>, Alternative>
+{
+  using type =
+    typename get_type_opt<N - 1, Container<Ts...>, Alternative>::type;
+};
+
+/// Special case for empty containers.
+template <std::size_t N, template <typename...> class Container,
+          typename Alternative>
+struct get_type_opt<N, Container<>, Alternative>
+{
+  using type = Alternative;
 };
 
 template <template <typename...> class Container>
