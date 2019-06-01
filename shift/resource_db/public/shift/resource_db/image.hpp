@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <array>
 #include <vector>
-#include <boost/gil/typedefs.hpp>
 #include "shift/resource_db/types.hpp"
 #include "shift/resource_db/resource_ptr.hpp"
 #include "shift/resource_db/buffer.hpp"
@@ -118,164 +117,287 @@ enum class image_format : std::uint8_t
   bc7_srgb_block
 };
 
-template <typename GilPixel, bool SRGB>
-struct format_from_gil_pixel;
-
-template <>
-struct format_from_gil_pixel<boost::gil::gray8_pixel_t, false>
+inline constexpr bool is_block_compressed(image_format format)
 {
-  static constexpr image_format value = image_format::r8_unorm;
-};
+  switch (format)
+  {
+  case image_format::bc1_rgb_unorm_block:
+  case image_format::bc1_rgb_srgb_block:
+  case image_format::bc1_rgba_unorm_block:
+  case image_format::bc1_rgba_srgb_block:
+  case image_format::bc2_unorm_block:
+  case image_format::bc2_srgb_block:
+  case image_format::bc3_unorm_block:
+  case image_format::bc3_srgb_block:
+  case image_format::bc4_unorm_block:
+  case image_format::bc4_snorm_block:
+  case image_format::bc5_unorm_block:
+  case image_format::bc5_snorm_block:
+  case image_format::bc6h_ufloat_block:
+  case image_format::bc6h_sfloat_block:
+  case image_format::bc7_unorm_block:
+  case image_format::bc7_srgb_block:
+    return true;
 
-template <>
-struct format_from_gil_pixel<boost::gil::gray8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r8_snorm;
-};
+  case image_format::undefined:
+  case image_format::r8_unorm:
+  case image_format::r8_snorm:
+  // case image_format::r8_uint:
+  // case image_format::r8_sint:
+  case image_format::r8_srgb:
+  case image_format::r16_unorm:
+  case image_format::r16_snorm:
+  // case image_format::r16_uint:
+  // case image_format::r16_sint:
+  case image_format::r16_sfloat:
+  // case image_format::r32_uint:
+  // case image_format::r32_sint:
+  case image_format::r32_sfloat:
+  case image_format::r8g8_unorm:
+  case image_format::r8g8_snorm:
+  // case image_format::r8g8_uint:
+  // case image_format::r8g8_sint:
+  case image_format::r8g8_srgb:
+  case image_format::r16g16_unorm:
+  case image_format::r16g16_snorm:
+  // case image_format::r16g16_uint:
+  // case image_format::r16g16_sint:
+  case image_format::r16g16_sfloat:
+  // case image_format::r32g32_uint:
+  // case image_format::r32g32_sint:
+  case image_format::r32g32_sfloat:
+  case image_format::r8g8b8_unorm:
+  case image_format::r8g8b8_snorm:
+  // case image_format::r8g8b8_uint:
+  // case image_format::r8g8b8_sint:
+  case image_format::r8g8b8_srgb:
+  case image_format::r16g16b16_unorm:
+  case image_format::r16g16b16_snorm:
+  // case image_format::r16g16b16_uint:
+  // case image_format::r16g16b16_sint:
+  case image_format::r16g16b16_sfloat:
+  // case image_format::r32g32b32_uint:
+  // case image_format::r32g32b32_sint:
+  case image_format::r32g32b32_sfloat:
+  case image_format::b8g8r8_unorm:
+  case image_format::b8g8r8_snorm:
+  // case image_format::b8g8r8_uint:
+  // case image_format::b8g8r8_sint:
+  case image_format::b8g8r8_srgb:
+  case image_format::r8g8b8a8_unorm:
+  case image_format::r8g8b8a8_snorm:
+  // case image_format::r8g8b8a8_uint:
+  // case image_format::r8g8b8a8_sint:
+  case image_format::r8g8b8a8_srgb:
+  case image_format::r16g16b16a16_unorm:
+  case image_format::r16g16b16a16_snorm:
+  // case image_format::r16g16b16a16_uint:
+  // case image_format::r16g16b16a16_sint:
+  case image_format::r16g16b16a16_sfloat:
+  // case image_format::r32g32b32a32_uint:
+  // case image_format::r32g32b32a32_sint:
+  case image_format::r32g32b32a32_sfloat:
+  case image_format::b8g8r8a8_unorm:
+  case image_format::b8g8r8a8_snorm:
+  // case image_format::b8g8r8a8_uint:
+  // case image_format::b8g8r8a8_sint:
+  case image_format::b8g8r8a8_srgb:
+  case image_format::a8b8g8r8_unorm:
+  case image_format::a8b8g8r8_snorm:
+    // case image_format::a8b8g8r8_uint:
+    // case image_format::a8b8g8r8_sint:
+    // case image_format::a8b8g8r8_srgb:
+    return false;
+  }
+}
 
-template <>
-struct format_from_gil_pixel<boost::gil::gray8_pixel_t, true>
+inline constexpr bool is_linear(image_format format)
 {
-  static constexpr image_format value = image_format::r8_srgb;
-};
+  switch (format)
+  {
+  case image_format::r8_unorm:
+  case image_format::r8_snorm:
+  // case image_format::r8_uint:
+  // case image_format::r8_sint:
+  case image_format::r16_unorm:
+  case image_format::r16_snorm:
+  // case image_format::r16_uint:
+  // case image_format::r16_sint:
+  case image_format::r16_sfloat:
+  // case image_format::r32_uint:
+  // case image_format::r32_sint:
+  case image_format::r32_sfloat:
+  case image_format::r8g8_unorm:
+  case image_format::r8g8_snorm:
+  // case image_format::r8g8_uint:
+  // case image_format::r8g8_sint:
+  case image_format::r16g16_unorm:
+  case image_format::r16g16_snorm:
+  // case image_format::r16g16_uint:
+  // case image_format::r16g16_sint:
+  case image_format::r16g16_sfloat:
+  // case image_format::r32g32_uint:
+  // case image_format::r32g32_sint:
+  case image_format::r32g32_sfloat:
+  case image_format::r8g8b8_unorm:
+  case image_format::r8g8b8_snorm:
+  // case image_format::r8g8b8_uint:
+  // case image_format::r8g8b8_sint:
+  case image_format::r16g16b16_unorm:
+  case image_format::r16g16b16_snorm:
+  // case image_format::r16g16b16_uint:
+  // case image_format::r16g16b16_sint:
+  case image_format::r16g16b16_sfloat:
+  // case image_format::r32g32b32_uint:
+  // case image_format::r32g32b32_sint:
+  case image_format::r32g32b32_sfloat:
+  case image_format::b8g8r8_unorm:
+  case image_format::b8g8r8_snorm:
+  // case image_format::b8g8r8_uint:
+  // case image_format::b8g8r8_sint:
+  case image_format::r8g8b8a8_unorm:
+  case image_format::r8g8b8a8_snorm:
+  // case image_format::r8g8b8a8_uint:
+  // case image_format::r8g8b8a8_sint:
+  case image_format::r16g16b16a16_unorm:
+  case image_format::r16g16b16a16_snorm:
+  // case image_format::r16g16b16a16_uint:
+  // case image_format::r16g16b16a16_sint:
+  case image_format::r16g16b16a16_sfloat:
+  // case image_format::r32g32b32a32_uint:
+  // case image_format::r32g32b32a32_sint:
+  case image_format::r32g32b32a32_sfloat:
+  case image_format::b8g8r8a8_unorm:
+  case image_format::b8g8r8a8_snorm:
+  // case image_format::b8g8r8a8_uint:
+  // case image_format::b8g8r8a8_sint:
+  case image_format::a8b8g8r8_unorm:
+  case image_format::a8b8g8r8_snorm:
+  // case image_format::a8b8g8r8_uint:
+  // case image_format::a8b8g8r8_sint:
+  case image_format::bc1_rgb_unorm_block:
+  case image_format::bc1_rgba_unorm_block:
+  case image_format::bc2_unorm_block:
+  case image_format::bc3_unorm_block:
+  case image_format::bc4_unorm_block:
+  case image_format::bc4_snorm_block:
+  case image_format::bc5_unorm_block:
+  case image_format::bc5_snorm_block:
+  case image_format::bc6h_ufloat_block:
+  case image_format::bc6h_sfloat_block:
+  case image_format::bc7_unorm_block:
+    return true;
 
-template <>
-struct format_from_gil_pixel<boost::gil::gray16_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r16_unorm;
-};
+  case image_format::undefined:
+  case image_format::r8_srgb:
+  case image_format::r8g8_srgb:
+  case image_format::r8g8b8_srgb:
+  case image_format::b8g8r8_srgb:
+  case image_format::r8g8b8a8_srgb:
+  case image_format::b8g8r8a8_srgb:
+  // case image_format::a8b8g8r8_srgb:
+  case image_format::bc1_rgb_srgb_block:
+  case image_format::bc1_rgba_srgb_block:
+  case image_format::bc2_srgb_block:
+  case image_format::bc3_srgb_block:
+  case image_format::bc7_srgb_block:
+    return false;
+  }
+}
 
-template <>
-struct format_from_gil_pixel<boost::gil::gray16s_pixel_t, false>
+inline constexpr bool is_srgb(image_format format)
 {
-  static constexpr image_format value = image_format::r16_snorm;
-};
+  switch (format)
+  {
+  case image_format::r8_srgb:
+  case image_format::r8g8_srgb:
+  case image_format::r8g8b8_srgb:
+  case image_format::b8g8r8_srgb:
+  case image_format::r8g8b8a8_srgb:
+  case image_format::b8g8r8a8_srgb:
+  // case image_format::a8b8g8r8_srgb:
+  case image_format::bc1_rgb_srgb_block:
+  case image_format::bc1_rgba_srgb_block:
+  case image_format::bc2_srgb_block:
+  case image_format::bc3_srgb_block:
+  case image_format::bc7_srgb_block:
+    return true;
 
-template <>
-struct format_from_gil_pixel<boost::gil::gray32f_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r32_sfloat;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb8_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r8g8b8_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r8g8b8_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb8_pixel_t, true>
-{
-  static constexpr image_format value = image_format::r8g8b8_srgb;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb16_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r16g16b16_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb16s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r16g16b16_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgb32f_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r32g32b32_sfloat;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgr8_pixel_t, false>
-{
-  static constexpr image_format value = image_format::b8g8r8_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgr8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::b8g8r8_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgr8_pixel_t, true>
-{
-  static constexpr image_format value = image_format::b8g8r8_srgb;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba8_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r8g8b8a8_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r8g8b8a8_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba8_pixel_t, true>
-{
-  static constexpr image_format value = image_format::r8g8b8a8_srgb;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba16_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r16g16b16a16_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba16s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r16g16b16a16_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::rgba32f_pixel_t, false>
-{
-  static constexpr image_format value = image_format::r32g32b32a32_sfloat;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgra8_pixel_t, false>
-{
-  static constexpr image_format value = image_format::b8g8r8a8_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgra8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::b8g8r8a8_snorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::bgra8_pixel_t, true>
-{
-  static constexpr image_format value = image_format::b8g8r8a8_srgb;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::abgr8_pixel_t, false>
-{
-  static constexpr image_format value = image_format::a8b8g8r8_unorm;
-};
-
-template <>
-struct format_from_gil_pixel<boost::gil::abgr8s_pixel_t, false>
-{
-  static constexpr image_format value = image_format::a8b8g8r8_snorm;
-};
+  case image_format::undefined:
+  case image_format::r8_unorm:
+  case image_format::r8_snorm:
+  // case image_format::r8_uint:
+  // case image_format::r8_sint:
+  case image_format::r16_unorm:
+  case image_format::r16_snorm:
+  // case image_format::r16_uint:
+  // case image_format::r16_sint:
+  case image_format::r16_sfloat:
+  // case image_format::r32_uint:
+  // case image_format::r32_sint:
+  case image_format::r32_sfloat:
+  case image_format::r8g8_unorm:
+  case image_format::r8g8_snorm:
+  // case image_format::r8g8_uint:
+  // case image_format::r8g8_sint:
+  case image_format::r16g16_unorm:
+  case image_format::r16g16_snorm:
+  // case image_format::r16g16_uint:
+  // case image_format::r16g16_sint:
+  case image_format::r16g16_sfloat:
+  // case image_format::r32g32_uint:
+  // case image_format::r32g32_sint:
+  case image_format::r32g32_sfloat:
+  case image_format::r8g8b8_unorm:
+  case image_format::r8g8b8_snorm:
+  // case image_format::r8g8b8_uint:
+  // case image_format::r8g8b8_sint:
+  case image_format::r16g16b16_unorm:
+  case image_format::r16g16b16_snorm:
+  // case image_format::r16g16b16_uint:
+  // case image_format::r16g16b16_sint:
+  case image_format::r16g16b16_sfloat:
+  // case image_format::r32g32b32_uint:
+  // case image_format::r32g32b32_sint:
+  case image_format::r32g32b32_sfloat:
+  case image_format::b8g8r8_unorm:
+  case image_format::b8g8r8_snorm:
+  // case image_format::b8g8r8_uint:
+  // case image_format::b8g8r8_sint:
+  case image_format::r8g8b8a8_unorm:
+  case image_format::r8g8b8a8_snorm:
+  // case image_format::r8g8b8a8_uint:
+  // case image_format::r8g8b8a8_sint:
+  case image_format::r16g16b16a16_unorm:
+  case image_format::r16g16b16a16_snorm:
+  // case image_format::r16g16b16a16_uint:
+  // case image_format::r16g16b16a16_sint:
+  case image_format::r16g16b16a16_sfloat:
+  // case image_format::r32g32b32a32_uint:
+  // case image_format::r32g32b32a32_sint:
+  case image_format::r32g32b32a32_sfloat:
+  case image_format::b8g8r8a8_unorm:
+  case image_format::b8g8r8a8_snorm:
+  // case image_format::b8g8r8a8_uint:
+  // case image_format::b8g8r8a8_sint:
+  case image_format::a8b8g8r8_unorm:
+  case image_format::a8b8g8r8_snorm:
+  // case image_format::a8b8g8r8_uint:
+  // case image_format::a8b8g8r8_sint:
+  case image_format::bc1_rgb_unorm_block:
+  case image_format::bc1_rgba_unorm_block:
+  case image_format::bc2_unorm_block:
+  case image_format::bc3_unorm_block:
+  case image_format::bc4_unorm_block:
+  case image_format::bc4_snorm_block:
+  case image_format::bc5_unorm_block:
+  case image_format::bc5_snorm_block:
+  case image_format::bc6h_ufloat_block:
+  case image_format::bc6h_sfloat_block:
+  case image_format::bc7_unorm_block:
+    return false;
+  }
+}
 
 ///
 struct mipmap_info
