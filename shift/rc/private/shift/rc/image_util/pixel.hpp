@@ -108,8 +108,9 @@ namespace detail
   };
 
   /// End recursion when we found the channel to search for.
-  template <typename Channel, typename... NextChannels>
-  struct channel_traits<core::vector<Channel, NextChannels...>, Channel>
+  template <template <std::size_t> typename Channel, std::size_t N,
+            std::size_t M, typename... NextChannels>
+  struct channel_traits<core::vector<Channel<N>, NextChannels...>, Channel<M>>
   {
     static constexpr std::size_t index = 0;
     static constexpr std::size_t offset = 0;
@@ -153,7 +154,7 @@ namespace detail
 }
 
 /// The color space of the pixel values.
-enum class color_space_t
+enum class pixel_data_type
 {
   unorm,
   snorm,
@@ -170,16 +171,16 @@ enum class color_space_t
 ///   Storage type of channel values. Supported types are
 ///   std::(u)int(8|16|32)_t, half, and float for unpacked formats and
 ///   std::array<std::uint64_t, N> for packed formats.
-/// @tparam ColorSpace
+/// @tparam DataType
 /// @tparam ChannelVector
 ///   A core::vector<...> containing a list of pixel_channel_t<> types.
-template <typename ComponentType, color_space_t ColorSpace,
+template <typename ComponentType, pixel_data_type DataType,
           typename ChannelVector>
 struct pixel_definition_t;
 
-template <typename ComponentType, color_space_t ColorSpace,
+template <typename ComponentType, pixel_data_type DataType,
           typename... Channels>
-struct pixel_definition_t<ComponentType, ColorSpace, core::vector<Channels...>>
+struct pixel_definition_t<ComponentType, DataType, core::vector<Channels...>>
 {
   static_assert(std::is_same_v<ComponentType, std::int8_t> ||
                 std::is_same_v<ComponentType, std::uint8_t> ||
@@ -193,7 +194,7 @@ struct pixel_definition_t<ComponentType, ColorSpace, core::vector<Channels...>>
                 std::is_same_v<ComponentType, std::array<std::uint64_t, 2>>);
 
   using component_t = ComponentType;
-  static constexpr color_space_t color_space = ColorSpace;
+  static constexpr pixel_data_type data_type = DataType;
   using channels_t = core::vector<Channels...>;
   static constexpr std::size_t channel_count = sizeof...(Channels);
 
@@ -318,391 +319,394 @@ namespace detail
   };
 }
 
-using pixel_r8_unorm = pixel_definition_t<std::uint8_t, color_space_t::unorm,
+using pixel_r8_unorm = pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                                           core::vector<red_t<8>>>;
 
-using pixel_r8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm, core::vector<red_t<8>>>;
+using pixel_r8_snorm = pixel_definition_t<std::int8_t, pixel_data_type::snorm,
+                                          core::vector<red_t<8>>>;
 
-using pixel_r8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb, core::vector<red_t<8>>>;
+using pixel_r8_srgb = pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
+                                         core::vector<red_t<8>>>;
 
-using pixel_r8g8_unorm = pixel_definition_t<std::uint8_t, color_space_t::unorm,
+using pixel_r8g8_unorm =
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
+                     core::vector<red_t<8>, green_t<8>>>;
+
+using pixel_r8g8_snorm = pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                                             core::vector<red_t<8>, green_t<8>>>;
 
-using pixel_r8g8_snorm = pixel_definition_t<std::int8_t, color_space_t::snorm,
-                                            core::vector<red_t<8>, green_t<8>>>;
-
-using pixel_r8g8_srgb = pixel_definition_t<std::uint8_t, color_space_t::srgb,
+using pixel_r8g8_srgb = pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                                            core::vector<red_t<8>, green_t<8>>>;
 
 using pixel_r8g8b8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_r8g8b8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_r8g8b8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_b8g8r8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>>>;
 
 using pixel_b8g8r8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>>>;
 
 using pixel_b8g8r8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>>>;
 
 using pixel_r8g8b8a8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>>;
 
 using pixel_r8g8b8a8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>>;
 
 using pixel_r8g8b8a8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>>;
 
 using pixel_b8g8r8a8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>, alpha_t<8>>>;
 
 using pixel_b8g8r8a8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>, alpha_t<8>>>;
 
 using pixel_b8g8r8a8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<blue_t<8>, green_t<8>, red_t<8>, alpha_t<8>>>;
 
 using pixel_a8r8g8b8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<alpha_t<8>, red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_a8r8g8b8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<alpha_t<8>, red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_a8r8g8b8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<alpha_t<8>, red_t<8>, green_t<8>, blue_t<8>>>;
 
 using pixel_a8b8g8r8_unorm =
-  pixel_definition_t<std::uint8_t, color_space_t::unorm,
+  pixel_definition_t<std::uint8_t, pixel_data_type::unorm,
                      core::vector<alpha_t<8>, blue_t<8>, green_t<8>, red_t<8>>>;
 
 using pixel_a8b8g8r8_snorm =
-  pixel_definition_t<std::int8_t, color_space_t::snorm,
+  pixel_definition_t<std::int8_t, pixel_data_type::snorm,
                      core::vector<alpha_t<8>, blue_t<8>, green_t<8>, red_t<8>>>;
 
 using pixel_a8b8g8r8_srgb =
-  pixel_definition_t<std::uint8_t, color_space_t::srgb,
+  pixel_definition_t<std::uint8_t, pixel_data_type::srgb,
                      core::vector<alpha_t<8>, blue_t<8>, green_t<8>, red_t<8>>>;
 
-using pixel_r16_unorm = pixel_definition_t<std::uint16_t, color_space_t::unorm,
+using pixel_r16_unorm =
+  pixel_definition_t<std::uint16_t, pixel_data_type::unorm,
+                     core::vector<red_t<16>>>;
+
+using pixel_r16_snorm = pixel_definition_t<std::int16_t, pixel_data_type::snorm,
                                            core::vector<red_t<16>>>;
 
-using pixel_r16_snorm = pixel_definition_t<std::int16_t, color_space_t::snorm,
-                                           core::vector<red_t<16>>>;
-
-using pixel_r16_srgb = pixel_definition_t<std::uint16_t, color_space_t::srgb,
+using pixel_r16_srgb = pixel_definition_t<std::uint16_t, pixel_data_type::srgb,
                                           core::vector<red_t<16>>>;
 
 using pixel_r16_sfloat =
-  pixel_definition_t<half, color_space_t::sfloat, core::vector<red_t<16>>>;
+  pixel_definition_t<half, pixel_data_type::sfloat, core::vector<red_t<16>>>;
 
 using pixel_r16g16_unorm =
-  pixel_definition_t<std::uint16_t, color_space_t::unorm,
+  pixel_definition_t<std::uint16_t, pixel_data_type::unorm,
                      core::vector<red_t<16>, green_t<16>>>;
 
 using pixel_r16g16_snorm =
-  pixel_definition_t<std::int16_t, color_space_t::snorm,
+  pixel_definition_t<std::int16_t, pixel_data_type::snorm,
                      core::vector<red_t<16>, green_t<16>>>;
 
 using pixel_r16g16_srgb =
-  pixel_definition_t<std::uint16_t, color_space_t::srgb,
+  pixel_definition_t<std::uint16_t, pixel_data_type::srgb,
                      core::vector<red_t<16>, green_t<16>>>;
 
 using pixel_r16g16_sfloat =
-  pixel_definition_t<half, color_space_t::sfloat,
+  pixel_definition_t<half, pixel_data_type::sfloat,
                      core::vector<red_t<16>, green_t<16>>>;
 
 using pixel_r16g16b16_unorm =
-  pixel_definition_t<std::uint16_t, color_space_t::unorm,
+  pixel_definition_t<std::uint16_t, pixel_data_type::unorm,
                      core::vector<red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_r16g16b16_snorm =
-  pixel_definition_t<std::int16_t, color_space_t::snorm,
+  pixel_definition_t<std::int16_t, pixel_data_type::snorm,
                      core::vector<red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_r16g16b16_srgb =
-  pixel_definition_t<std::uint16_t, color_space_t::srgb,
+  pixel_definition_t<std::uint16_t, pixel_data_type::srgb,
                      core::vector<red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_r16g16b16_sfloat =
-  pixel_definition_t<half, color_space_t::sfloat,
+  pixel_definition_t<half, pixel_data_type::sfloat,
                      core::vector<red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_b16g16r16_unorm =
-  pixel_definition_t<std::uint16_t, color_space_t::unorm,
+  pixel_definition_t<std::uint16_t, pixel_data_type::unorm,
                      core::vector<blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_b16g16r16_snorm =
-  pixel_definition_t<std::int16_t, color_space_t::snorm,
+  pixel_definition_t<std::int16_t, pixel_data_type::snorm,
                      core::vector<blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_b16g16r16_srgb =
-  pixel_definition_t<std::uint16_t, color_space_t::srgb,
+  pixel_definition_t<std::uint16_t, pixel_data_type::srgb,
                      core::vector<blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_b16g16r16_sfloat =
-  pixel_definition_t<half, color_space_t::sfloat,
+  pixel_definition_t<half, pixel_data_type::sfloat,
                      core::vector<blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_r16g16b16a16_unorm = pixel_definition_t<
-  std::uint16_t, color_space_t::unorm,
+  std::uint16_t, pixel_data_type::unorm,
   core::vector<red_t<16>, green_t<16>, blue_t<16>, alpha_t<16>>>;
 
 using pixel_r16g16b16a16_snorm = pixel_definition_t<
-  std::int16_t, color_space_t::snorm,
+  std::int16_t, pixel_data_type::snorm,
   core::vector<red_t<16>, green_t<16>, blue_t<16>, alpha_t<16>>>;
 
 using pixel_r16g16b16a16_srgb = pixel_definition_t<
-  std::uint16_t, color_space_t::srgb,
+  std::uint16_t, pixel_data_type::srgb,
   core::vector<red_t<16>, green_t<16>, blue_t<16>, alpha_t<16>>>;
 
 using pixel_r16g16b16a16_sfloat = pixel_definition_t<
-  half, color_space_t::sfloat,
+  half, pixel_data_type::sfloat,
   core::vector<red_t<16>, green_t<16>, blue_t<16>, alpha_t<16>>>;
 
 using pixel_b16g16r16a16_unorm = pixel_definition_t<
-  std::uint16_t, color_space_t::unorm,
+  std::uint16_t, pixel_data_type::unorm,
   core::vector<blue_t<16>, green_t<16>, red_t<16>, alpha_t<16>>>;
 
 using pixel_b16g16r16a16_snorm = pixel_definition_t<
-  std::int16_t, color_space_t::snorm,
+  std::int16_t, pixel_data_type::snorm,
   core::vector<blue_t<16>, green_t<16>, red_t<16>, alpha_t<16>>>;
 
 using pixel_b16g16r16a16_srgb = pixel_definition_t<
-  std::uint16_t, color_space_t::srgb,
+  std::uint16_t, pixel_data_type::srgb,
   core::vector<blue_t<16>, green_t<16>, red_t<16>, alpha_t<16>>>;
 
 using pixel_b16g16r16a16_sfloat = pixel_definition_t<
-  half, color_space_t::sfloat,
+  half, pixel_data_type::sfloat,
   core::vector<blue_t<16>, green_t<16>, red_t<16>, alpha_t<16>>>;
 
 using pixel_a16r16g16b16_unorm = pixel_definition_t<
-  std::uint16_t, color_space_t::unorm,
+  std::uint16_t, pixel_data_type::unorm,
   core::vector<alpha_t<16>, red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_a16r16g16b16_snorm = pixel_definition_t<
-  std::int16_t, color_space_t::snorm,
+  std::int16_t, pixel_data_type::snorm,
   core::vector<alpha_t<16>, red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_a16r16g16b16_srgb = pixel_definition_t<
-  std::uint16_t, color_space_t::srgb,
+  std::uint16_t, pixel_data_type::srgb,
   core::vector<alpha_t<16>, red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_a16r16g16b16_sfloat = pixel_definition_t<
-  half, color_space_t::sfloat,
+  half, pixel_data_type::sfloat,
   core::vector<alpha_t<16>, red_t<16>, green_t<16>, blue_t<16>>>;
 
 using pixel_a16b16g16r16_unorm = pixel_definition_t<
-  std::uint16_t, color_space_t::unorm,
+  std::uint16_t, pixel_data_type::unorm,
   core::vector<alpha_t<16>, blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_a16b16g16r16_snorm = pixel_definition_t<
-  std::int16_t, color_space_t::snorm,
+  std::int16_t, pixel_data_type::snorm,
   core::vector<alpha_t<16>, blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_a16b16g16r16_srgb = pixel_definition_t<
-  std::uint16_t, color_space_t::srgb,
+  std::uint16_t, pixel_data_type::srgb,
   core::vector<alpha_t<16>, blue_t<16>, green_t<16>, red_t<16>>>;
 
 using pixel_a16b16g16r16_sfloat = pixel_definition_t<
-  half, color_space_t::sfloat,
+  half, pixel_data_type::sfloat,
   core::vector<alpha_t<16>, blue_t<16>, green_t<16>, red_t<16>>>;
 
-using pixel_r32_unorm = pixel_definition_t<std::uint32_t, color_space_t::unorm,
+using pixel_r32_unorm =
+  pixel_definition_t<std::uint32_t, pixel_data_type::unorm,
+                     core::vector<red_t<32>>>;
+
+using pixel_r32_snorm = pixel_definition_t<std::int32_t, pixel_data_type::snorm,
                                            core::vector<red_t<32>>>;
 
-using pixel_r32_snorm = pixel_definition_t<std::int32_t, color_space_t::snorm,
-                                           core::vector<red_t<32>>>;
-
-using pixel_r32_srgb = pixel_definition_t<std::uint32_t, color_space_t::srgb,
+using pixel_r32_srgb = pixel_definition_t<std::uint32_t, pixel_data_type::srgb,
                                           core::vector<red_t<32>>>;
 
 using pixel_r32_sfloat =
-  pixel_definition_t<float, color_space_t::sfloat, core::vector<red_t<32>>>;
+  pixel_definition_t<float, pixel_data_type::sfloat, core::vector<red_t<32>>>;
 
 using pixel_r32g32_unorm =
-  pixel_definition_t<std::uint32_t, color_space_t::unorm,
+  pixel_definition_t<std::uint32_t, pixel_data_type::unorm,
                      core::vector<red_t<32>, green_t<32>>>;
 
 using pixel_r32g32_snorm =
-  pixel_definition_t<std::int32_t, color_space_t::snorm,
+  pixel_definition_t<std::int32_t, pixel_data_type::snorm,
                      core::vector<red_t<32>, green_t<32>>>;
 
 using pixel_r32g32_srgb =
-  pixel_definition_t<std::uint32_t, color_space_t::srgb,
+  pixel_definition_t<std::uint32_t, pixel_data_type::srgb,
                      core::vector<red_t<32>, green_t<32>>>;
 
 using pixel_r32g32_sfloat =
-  pixel_definition_t<float, color_space_t::sfloat,
+  pixel_definition_t<float, pixel_data_type::sfloat,
                      core::vector<red_t<32>, green_t<32>>>;
 
 using pixel_r32g32b32_unorm =
-  pixel_definition_t<std::uint32_t, color_space_t::unorm,
+  pixel_definition_t<std::uint32_t, pixel_data_type::unorm,
                      core::vector<red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_r32g32b32_snorm =
-  pixel_definition_t<std::int32_t, color_space_t::snorm,
+  pixel_definition_t<std::int32_t, pixel_data_type::snorm,
                      core::vector<red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_r32g32b32_srgb =
-  pixel_definition_t<std::uint32_t, color_space_t::srgb,
+  pixel_definition_t<std::uint32_t, pixel_data_type::srgb,
                      core::vector<red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_r32g32b32_sfloat =
-  pixel_definition_t<float, color_space_t::sfloat,
+  pixel_definition_t<float, pixel_data_type::sfloat,
                      core::vector<red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_b32g32r32_unorm =
-  pixel_definition_t<std::uint32_t, color_space_t::unorm,
+  pixel_definition_t<std::uint32_t, pixel_data_type::unorm,
                      core::vector<blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_b32g32r32_snorm =
-  pixel_definition_t<std::int32_t, color_space_t::snorm,
+  pixel_definition_t<std::int32_t, pixel_data_type::snorm,
                      core::vector<blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_b32g32r32_srgb =
-  pixel_definition_t<std::uint32_t, color_space_t::srgb,
+  pixel_definition_t<std::uint32_t, pixel_data_type::srgb,
                      core::vector<blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_b32g32r32_sfloat =
-  pixel_definition_t<float, color_space_t::sfloat,
+  pixel_definition_t<float, pixel_data_type::sfloat,
                      core::vector<blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_r32g32b32a32_unorm = pixel_definition_t<
-  std::uint32_t, color_space_t::unorm,
+  std::uint32_t, pixel_data_type::unorm,
   core::vector<red_t<32>, green_t<32>, blue_t<32>, alpha_t<32>>>;
 
 using pixel_r32g32b32a32_snorm = pixel_definition_t<
-  std::int32_t, color_space_t::snorm,
+  std::int32_t, pixel_data_type::snorm,
   core::vector<red_t<32>, green_t<32>, blue_t<32>, alpha_t<32>>>;
 
 using pixel_r32g32b32a32_srgb = pixel_definition_t<
-  std::uint32_t, color_space_t::srgb,
+  std::uint32_t, pixel_data_type::srgb,
   core::vector<red_t<32>, green_t<32>, blue_t<32>, alpha_t<32>>>;
 
 using pixel_r32g32b32a32_sfloat = pixel_definition_t<
-  float, color_space_t::sfloat,
+  float, pixel_data_type::sfloat,
   core::vector<red_t<32>, green_t<32>, blue_t<32>, alpha_t<32>>>;
 
 using pixel_b32g32r32a32_unorm = pixel_definition_t<
-  std::uint32_t, color_space_t::unorm,
+  std::uint32_t, pixel_data_type::unorm,
   core::vector<blue_t<32>, green_t<32>, red_t<32>, alpha_t<32>>>;
 
 using pixel_b32g32r32a32_srgb = pixel_definition_t<
-  std::uint32_t, color_space_t::srgb,
+  std::uint32_t, pixel_data_type::srgb,
   core::vector<blue_t<32>, green_t<32>, red_t<32>, alpha_t<32>>>;
 
 using pixel_b32g32r32a32_snorm = pixel_definition_t<
-  std::int32_t, color_space_t::snorm,
+  std::int32_t, pixel_data_type::snorm,
   core::vector<blue_t<32>, green_t<32>, red_t<32>, alpha_t<32>>>;
 
 using pixel_b32g32r32a32_sfloat = pixel_definition_t<
-  float, color_space_t::sfloat,
+  float, pixel_data_type::sfloat,
   core::vector<blue_t<32>, green_t<32>, red_t<32>, alpha_t<32>>>;
 
 using pixel_a32r32g32b32_unorm = pixel_definition_t<
-  std::uint32_t, color_space_t::unorm,
+  std::uint32_t, pixel_data_type::unorm,
   core::vector<alpha_t<32>, red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_a32r32g32b32_snorm = pixel_definition_t<
-  std::int32_t, color_space_t::snorm,
+  std::int32_t, pixel_data_type::snorm,
   core::vector<alpha_t<32>, red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_a32r32g32b32_srgb = pixel_definition_t<
-  std::uint32_t, color_space_t::srgb,
+  std::uint32_t, pixel_data_type::srgb,
   core::vector<alpha_t<32>, red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_a32r32g32b32_sfloat = pixel_definition_t<
-  float, color_space_t::sfloat,
+  float, pixel_data_type::sfloat,
   core::vector<alpha_t<32>, red_t<32>, green_t<32>, blue_t<32>>>;
 
 using pixel_a32b32g32r32_unorm = pixel_definition_t<
-  std::uint32_t, color_space_t::unorm,
+  std::uint32_t, pixel_data_type::unorm,
   core::vector<alpha_t<32>, blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_a32b32g32r32_snorm = pixel_definition_t<
-  std::int32_t, color_space_t::snorm,
+  std::int32_t, pixel_data_type::snorm,
   core::vector<alpha_t<32>, blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_a32b32g32r32_srgb = pixel_definition_t<
-  std::uint32_t, color_space_t::srgb,
+  std::uint32_t, pixel_data_type::srgb,
   core::vector<alpha_t<32>, blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_a32b32g32r32_sfloat = pixel_definition_t<
-  float, color_space_t::sfloat,
+  float, pixel_data_type::sfloat,
   core::vector<alpha_t<32>, blue_t<32>, green_t<32>, red_t<32>>>;
 
 using pixel_bc1_rgb_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::unorm,
                      core::vector<bc1_rgb_t>>;
 using pixel_bc1_rgb_srgb =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::srgb,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::srgb,
                      core::vector<bc1_rgb_t>>;
 using pixel_bc1_rgba_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::unorm,
                      core::vector<bc1_rgba_t>>;
 using pixel_bc1_rgba_srgb =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::srgb,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::srgb,
                      core::vector<bc1_rgba_t>>;
 using pixel_bc2_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::unorm,
                      core::vector<bc2_t>>;
 using pixel_bc2_srgb =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::srgb,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::srgb,
                      core::vector<bc2_t>>;
 using pixel_bc3_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::unorm,
                      core::vector<bc3_t>>;
 using pixel_bc3_srgb =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::srgb,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::srgb,
                      core::vector<bc3_t>>;
 using pixel_bc4_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::unorm,
                      core::vector<bc4_t>>;
 using pixel_bc4_snorm =
-  pixel_definition_t<std::array<std::uint64_t, 1>, color_space_t::snorm,
+  pixel_definition_t<std::array<std::uint64_t, 1>, pixel_data_type::snorm,
                      core::vector<bc4_t>>;
 using pixel_bc5_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::unorm,
                      core::vector<bc5_t>>;
 using pixel_bc5_snorm =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::snorm,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::snorm,
                      core::vector<bc5_t>>;
 using pixel_bc6h_ufloat =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::ufloat,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::ufloat,
                      core::vector<bc6h_t>>;
 using pixel_bc6h_sfloat =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::sfloat,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::sfloat,
                      core::vector<bc6h_t>>;
 using pixel_bc7_unorm =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::unorm,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::unorm,
                      core::vector<bc7_t>>;
 using pixel_bc7_srgb =
-  pixel_definition_t<std::array<std::uint64_t, 2>, color_space_t::srgb,
+  pixel_definition_t<std::array<std::uint64_t, 2>, pixel_data_type::srgb,
                      core::vector<bc7_t>>;
 
 #if 0
@@ -764,60 +768,114 @@ using pixel_formats = core::set<
 
 /// A type mapping from block compressed pixel format components (64 or 128 bit)
 /// to uncompressed pixel component types (std::uint8_t or float).
-template <typename ChannelVector>
+template <pixel_data_type DataType, typename ChannelVector>
 struct uncompressed_pixel_component;
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc1_rgb_t>>
+struct uncompressed_pixel_component<pixel_data_type::unorm,
+                                    core::vector<bc1_rgb_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc1_rgba_t>>
+struct uncompressed_pixel_component<pixel_data_type::srgb,
+                                    core::vector<bc1_rgb_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc2_t>>
+struct uncompressed_pixel_component<pixel_data_type::unorm,
+                                    core::vector<bc1_rgba_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc3_t>>
+struct uncompressed_pixel_component<pixel_data_type::srgb,
+                                    core::vector<bc1_rgba_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc4_t>>
+struct uncompressed_pixel_component<pixel_data_type::unorm, core::vector<bc2_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc5_t>>
+struct uncompressed_pixel_component<pixel_data_type::srgb, core::vector<bc2_t>>
 {
   using type = std::uint8_t;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc6h_t>>
+struct uncompressed_pixel_component<pixel_data_type::unorm, core::vector<bc3_t>>
+{
+  using type = std::uint8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::srgb, core::vector<bc3_t>>
+{
+  using type = std::uint8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::unorm, core::vector<bc4_t>>
+{
+  using type = std::uint8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::snorm, core::vector<bc4_t>>
+{
+  using type = std::int8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::unorm, core::vector<bc5_t>>
+{
+  using type = std::uint8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::snorm, core::vector<bc5_t>>
+{
+  using type = std::int8_t;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::ufloat,
+                                    core::vector<bc6h_t>>
 {
   using type = float;
 };
 
 template <>
-struct uncompressed_pixel_component<core::vector<bc7_t>>
+struct uncompressed_pixel_component<pixel_data_type::sfloat,
+                                    core::vector<bc6h_t>>
+{
+  using type = float;
+};
+
+template <>
+struct uncompressed_pixel_component<pixel_data_type::unorm, core::vector<bc7_t>>
 {
   using type = std::uint8_t;
 };
 
-template <typename ChannelVector>
+template <>
+struct uncompressed_pixel_component<pixel_data_type::srgb, core::vector<bc7_t>>
+{
+  using type = std::uint8_t;
+};
+
+template <pixel_data_type DataType, typename ChannelVector>
 using uncompressed_pixel_component_t =
-  typename uncompressed_pixel_component<ChannelVector>::type;
+  typename uncompressed_pixel_component<DataType, ChannelVector>::type;
 
 ///
 template <typename ChannelVector>

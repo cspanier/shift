@@ -203,12 +203,8 @@ std::error_code convert_image(
         {
           // Block compression formats only work on a limited set of input
           // formats. Thus, convert the input region to an intermediate buffer.
-          typename destination_view_t::pixel_block_t intermediate_buffer;
-          using intermediate_view_t = linear_image_view<
-            typename destination_view_t::uncompressed_pixel_t>;
-          intermediate_view_t intermediate_view(intermediate_buffer.data(),
-                                                intermediate_buffer.size(),
-                                                block_width, block_height, 0);
+          typename destination_view_t::uncompressed_pixel_block_t
+            intermediate_pixels{};
           pixel_converter<typename destination_view_t::uncompressed_pixel_t,
                           SourcePixel>
             converter;
@@ -226,21 +222,22 @@ std::error_code convert_image(
                 if (absolute_x < source_image.width)
                 {
                   typename source_view_t::pixel_t source_pixel;
-                  typename intermediate_view_t::pixel_t intermediate_pixel;
 
                   source_view.read_pixel(region.source_x + x,
                                          region.source_y + y, source_pixel);
-                  converter(intermediate_pixel, source_pixel);
-                  intermediate_view.write_pixel(x, y, intermediate_pixel);
+                  converter(intermediate_pixels[y * block_width + x],
+                            source_pixel);
 
                   pixel_mask |= 1 << (y * block_width + x);
                 }
               }
             }
           }
+          // We must have at least one pixel.
+          BOOST_ASSERT(pixel_mask != 0);
           // Compress and write the intermediate pixel block.
           destination_view.write_pixel_block(block_x, block_y, pixel_mask,
-                                             intermediate_buffer);
+                                             intermediate_pixels);
         }
       }
     }
@@ -315,8 +312,10 @@ struct convert_image_dispatcher_1
 
 std::error_code convert_image(
   const destination_image_descriptor& destination_image,
-  const source_image_descriptor& source_image, const convert_region& region)
+  const source_image_descriptor& source_image, const convert_region& region,
+  convert_flags /*flags*/)
 {
+  /// ToDo: Make use of flags.
   if (region.width == 0 || region.height == 0)
   {
     // Nothing to do.
@@ -352,5 +351,47 @@ std::error_code convert_image(
   core::for_each<format_map>(convert_image_dispatcher_1{}, destination_image,
                              source_image, region, result);
   return result;
+}
+
+std::error_code resize_image(
+  const destination_image_descriptor& destination_image,
+  const source_image_descriptor& source_image, const resize_region& region,
+  resize_flags /*flags*/)
+{
+  if (region.destination_width == 0 || region.destination_height == 0)
+  {
+    // Nothing to do.
+    return {};
+  }
+
+  if (resource_db::is_block_compressed(destination_image.format) ||
+      !resource_db::is_linear(destination_image.format))
+  {
+    return error_code::destination_format_unsupported;
+  }
+  if (destination_image.format != source_image.format)
+    return error_code::different_image_format;
+  if (destination_image.buffer == nullptr)
+    return error_code::destination_buffer_null;
+  if (source_image.buffer == nullptr)
+    return error_code::source_buffer_null;
+
+  if (region.destination_x + region.destination_width >
+        destination_image.width ||
+      region.destination_y + region.destination_height >
+        destination_image.height)
+  {
+    return error_code::destination_region_bounds;
+  }
+  if (region.source_x + region.source_width > source_image.width ||
+      region.source_y + region.source_height > source_image.height)
+  {
+    return error_code::source_region_bounds;
+  }
+  if (region.source_width == 0 || region.source_height == 0)
+    return error_code::source_region_empty;
+
+  /// ToDo: implement...
+  return error_code::not_implemented;
 }
 }

@@ -39,6 +39,10 @@ struct destination_image_descriptor : image_descriptor
   std::byte* buffer;
 };
 
+/// This function calculates the minimum required amount of memory in number of
+/// bytes that an image of given dimensions and format.
+std::size_t required_image_buffer_size(const image_descriptor& image);
+
 struct convert_region
 {
   std::uint32_t destination_x;
@@ -49,18 +53,60 @@ struct convert_region
   std::uint32_t height;
 };
 
-/// This function calculates the minimum required amount of memory in number of
-/// bytes that an image of given dimensions and format.
-std::size_t required_image_buffer_size(const image_descriptor& image);
+enum class convert_flag
+{
+};
 
-/// Converts the content of am image to a different format.
+using convert_flags = core::bit_field<convert_flag>;
+
+/// Converts the content of an image to a different format. This includes block
+/// compressed formats to pack/unpack images.
 /// @param destination_image
 ///   The descriptor of the image to write to. The destination buffer has to be
 ///   already allocated. Use required_image_buffer_size to create a buffer of
 ///   appropriate size.
 std::error_code convert_image(
   const destination_image_descriptor& destination_image,
-  const source_image_descriptor& source_image, const convert_region& region);
+  const source_image_descriptor& source_image, const convert_region& region,
+  convert_flags flags);
+
+struct resize_region
+{
+  std::uint32_t destination_x;
+  std::uint32_t destination_y;
+  std::uint32_t destination_width;
+  std::uint32_t destination_height;
+  std::uint32_t source_x;
+  std::uint32_t source_y;
+  std::uint32_t source_width;
+  std::uint32_t source_height;
+};
+
+enum class resize_flag
+{
+};
+
+using resize_flags = core::bit_field<resize_flag>;
+
+/// Resize a region of an image and store it in a region of another image.
+/// @param destination_image
+///   Descriptor of the destination to write the resized image to. The format of
+///   destination_image must be in linear color space and must not be a block
+///   compressed format.
+/// @param source_image
+///   Descriptor of the source image to resize. The format of source_image must
+///   match the format of destination_image.
+/// @param region
+///   Source and destination rectangular regions.
+/// @param flags
+///   A set of options that influence the resize algorithm.
+/// @remarks
+///   It is highly recommended to use a high precision format to avoid data
+///   loss.
+std::error_code resize_image(
+  const destination_image_descriptor& destination_image,
+  const source_image_descriptor& source_image, const resize_region& region,
+  resize_flags flags);
 }
 
 #endif

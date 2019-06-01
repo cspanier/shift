@@ -2,6 +2,7 @@
 #define SHIFT_RC_IMAGE_UTIL_BLOCK_IMAGE_VIEW_H
 
 #include <cstdint>
+#include <squish.h>
 #include "shift/rc/image_util/pixel.hpp"
 // #include "shift/rc/image_util/pixel_vector.hpp"
 
@@ -15,15 +16,18 @@ public:
   using pixel_t = std::remove_const_t<PixelDefinition>;
   using storage_t = std::conditional_t<std::is_const_v<PixelDefinition>,
                                        const std::byte, std::byte>;
-  using uncompressed_pixel_t = pixel_definition_t<
-    uncompressed_pixel_component_t<typename pixel_t::channels_t>,
-    pixel_t::color_space,
-    uncompressed_pixel_channels_t<typename pixel_t::channels_t>>;
   static constexpr std::uint32_t block_width = PixelDefinition::block_width;
   static constexpr std::uint32_t block_height = PixelDefinition::block_height;
   static_assert(block_width > 1 || block_height > 1);
-  using pixel_block_t =
-    std::array<std::byte, block_width * block_height * pixel_t::size_in_bytes>;
+  using pixel_block_t = std::array<std::byte, pixel_t::size_in_bytes>;
+
+  using uncompressed_pixel_t = pixel_definition_t<
+    uncompressed_pixel_component_t<pixel_t::data_type,
+                                   typename pixel_t::channels_t>,
+    pixel_t::data_type,
+    uncompressed_pixel_channels_t<typename pixel_t::channels_t>>;
+  using uncompressed_pixel_block_t =
+    std::array<uncompressed_pixel_t, block_width * block_height>;
 
   /// @param buffer
   ///   Pointer to a buffer of pixel data.
@@ -49,24 +53,25 @@ public:
 
   /// @returns
   ///   The address of the pixel block with the given coordinates.
-  /// @param x
-  ///   The block's x coordinate must be a multiple of block_width.
-  /// @param y
-  ///   The block's y coordinate must be a multiple of block_height.
-  std::byte* data(std::uint32_t x, std::uint32_t y) const
+  /// @param block_x
+  ///   The n-th block on the x-axis.
+  /// @param block_y
+  ///   The n-th block on the y-axis.
+  storage_t* data(std::uint32_t block_x, std::uint32_t block_y) const
   {
-    BOOST_ASSERT(x < _width);
-    BOOST_ASSERT(y < _height);
-    BOOST_ASSERT(x % block_width == 0);
-    BOOST_ASSERT(y % block_height == 0);
+    BOOST_ASSERT(block_x < (_width + block_width - 1) / block_width);
+    BOOST_ASSERT(block_y < (_height + block_height - 1) / block_height);
     auto blocks_per_row = ((_width + block_width - 1) / block_width);
-    return _buffer + ((y / block_height) * blocks_per_row + (x / block_width)) *
-                       pixel_t::size_in_bytes;
+    return _buffer +
+           (block_y * blocks_per_row + block_x) * pixel_t::size_in_bytes;
   }
 
-  void read_pixel(std::uint32_t /*x*/, std::uint32_t /*y*/,
-                  pixel_t& /*pixel*/) const
+  void read_pixel(std::uint32_t x, std::uint32_t y, pixel_t& pixel) const
   {
+    pixel_block_t pixel_block;
+    std::memcpy(pixel_block.data(), data(x / block_width, y / block_height),
+                pixel_t::size_in_bytes);
+
     /// ToDo: ...
     //    // Read each pixel channel separately.
     //    core::for_each<typename pixel_t::channels_t>(
@@ -74,17 +79,71 @@ public:
     //      pixel);
   }
 
-  /// @param x
-  ///   The block's x coordinate must be a multiple of block_width.
-  /// @param y
-  ///   The block's y coordinate must be a multiple of block_height.
-  void write_pixel_block(std::uint32_t /*x*/, std::uint32_t /*y*/,
-                         std::uint32_t /*pixel_mask*/,
-                         const pixel_block_t& /*pixel_block*/)
+  /// Writes a compressed pixel block.
+  /// @param block_x
+  ///   The n-th block on the x-axis.
+  /// @param block_y
+  ///   The n-th block on the y-axis.
+  void write_pixel_block(std::uint32_t x, std::uint32_t y,
+                         std::uint32_t pixel_mask,
+                         const uncompressed_pixel_block_t& pixels)
   {
-    /// ToDo: Compress pixel block and copy the result to data(x, y).
-    // std::memcpy(data(x, y), compressed_pixel_block.data(),
-    //             pixel_t::size_in_bytes);
+    BOOST_ASSERT(x % block_width == 0);
+    BOOST_ASSERT(y % block_height == 0);
+
+    squish::flags_t flags{};
+    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_unorm> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_unorm> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb>)
+    {
+      flags = squish::squish_flag::compression_bc1;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc2_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc2_srgb>)
+    {
+      flags = squish::squish_flag::compression_bc2;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc3_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc3_srgb>)
+    {
+      flags = squish::squish_flag::compression_bc3;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc4_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc4_snorm>)
+    {
+      flags = squish::squish_flag::compression_bc4;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc5_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc5_snorm>)
+    {
+      flags = squish::squish_flag::compression_bc5;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc6h_sfloat> ||
+                       std::is_same_v<pixel_t, pixel_bc6h_ufloat>)
+    {
+      flags = squish::squish_flag::compression_bc6;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc7_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc7_srgb>)
+    {
+      flags = squish::squish_flag::compression_bc7;
+    }
+
+    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc2_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc3_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc7_srgb>)
+    {
+      flags |= squish::squish_flag::option_srgbness;
+    }
+
+    pixel_block_t pixel_block;
+    squish::compress_masked(&pixels[0][0], pixel_mask, pixel_block.data(),
+                            flags);
+    std::memcpy(data(x / block_width, y / block_height), pixel_block.data(),
+                pixel_t::size_in_bytes);
   }
 
 private:

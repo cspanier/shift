@@ -43,6 +43,8 @@ std::string error_code_category::message(int code) const
     return "Destination region outside image bounds.";
   case error_code::source_region_bounds:
     return "Source region outside image bounds.";
+  case error_code::source_region_empty:
+    return "Source region cannot be empty.";
   case error_code::destination_row_stride_with_bc:
     return "The field row_stride in destination image must be zero when using "
            "a block compressed format.";
@@ -54,12 +56,18 @@ std::string error_code_category::message(int code) const
   case error_code::destination_region_not_block_aligned:
     return "Destination region is not aligned to block size of destination "
            "pixel format.";
+  case error_code::destination_format_unsupported:
+    return "The destination image format is unsupported.";
+  case error_code::different_image_format:
+    return "Source and destination image formats do not match.";
+
+  case error_code::not_implemented:
+    return "This code path has not been implemented, yet.";
+  case error_code::unsupported_conversion_formats:
+    return "Unsupported conversion from source to destination format.";
 
   case error_code::unexpected_conversion_error:
     return "Unexpected internal error while converting image.";
-
-  case error_code::unsupported_conversion_formats:
-    return "Unsupported conversion from source to destination format.";
   }
 
   BOOST_ASSERT(false);

@@ -16,15 +16,20 @@
 #include <shift/core/boost_restore_warnings.hpp>
 #include <gsl/gsl>
 // #include <image/image.h>
-#include <tiffio.h>
+// #include <tiffio.h>
 
 namespace shift::rc
 {
 namespace fs = std::filesystem;
 namespace gil = boost::gil;
 
-resource_db::image_format to_format(const std::string& format_name,
-                                    resource_db::image_format default_format)
+/// Convert an image format name to image_format.
+/// @param format_name
+///   One of the pre-defined image format names, or any other string.
+/// @return
+///   The image format associated with the value of format_name, or
+///   resource_db::image_format::undefined if no association exists.
+resource_db::image_format to_format(const std::string& format_name)
 {
   if (format_name == "r8_unorm")
     return resource_db::image_format::r8_unorm;
@@ -36,48 +41,106 @@ resource_db::image_format to_format(const std::string& format_name,
     return resource_db::image_format::r16_unorm;
   else if (format_name == "r16_snorm")
     return resource_db::image_format::r16_snorm;
+  else if (format_name == "r16_sfloat")
+    return resource_db::image_format::r16_sfloat;
   else if (format_name == "r32_sfloat")
     return resource_db::image_format::r32_sfloat;
-  else if (format_name == "rgb8_unorm")
+  else if (format_name == "r8g8_unorm")
+    return resource_db::image_format::r8g8_unorm;
+  else if (format_name == "r8g8_snorm")
+    return resource_db::image_format::r8g8_snorm;
+  else if (format_name == "r8g8_srgb")
+    return resource_db::image_format::r8g8_srgb;
+  else if (format_name == "r16g16_unorm")
+    return resource_db::image_format::r16g16_unorm;
+  else if (format_name == "r16g16_snorm")
+    return resource_db::image_format::r16g16_snorm;
+  else if (format_name == "r16g16_sfloat")
+    return resource_db::image_format::r16g16_sfloat;
+  else if (format_name == "r32g32_sfloat")
+    return resource_db::image_format::r32g32_sfloat;
+  else if (format_name == "r8g8b8_unorm")
     return resource_db::image_format::r8g8b8_unorm;
-  else if (format_name == "rgb8_snorm")
+  else if (format_name == "r8g8b8_snorm")
     return resource_db::image_format::r8g8b8_snorm;
-  else if (format_name == "rgb8_srgb")
+  else if (format_name == "r8g8b8_srgb")
     return resource_db::image_format::r8g8b8_srgb;
-  else if (format_name == "rgb16_unorm")
+  else if (format_name == "r16g16b16_unorm")
     return resource_db::image_format::r16g16b16_unorm;
-  else if (format_name == "rgb16_snorm")
+  else if (format_name == "r16g16b16_snorm")
     return resource_db::image_format::r16g16b16_snorm;
-  else if (format_name == "rgb32_sfloat")
+  else if (format_name == "r16g16b16_sfloat")
+    return resource_db::image_format::r16g16b16_sfloat;
+  else if (format_name == "r32g32b32_sfloat")
     return resource_db::image_format::r32g32b32_sfloat;
-  else if (format_name == "bgr8_unorm")
+  else if (format_name == "b8g8r8_unorm")
     return resource_db::image_format::b8g8r8_unorm;
-  else if (format_name == "bgr8_snorm")
+  else if (format_name == "b8g8r8_snorm")
     return resource_db::image_format::b8g8r8_snorm;
-  else if (format_name == "bgr8_srgb")
+  else if (format_name == "b8g8r8_srgb")
     return resource_db::image_format::b8g8r8_srgb;
-  else if (format_name == "rgba8_unorm")
+  else if (format_name == "r8g8b8a8_unorm")
     return resource_db::image_format::r8g8b8a8_unorm;
-  else if (format_name == "rgba8_snorm")
+  else if (format_name == "r8g8b8a8_snorm")
     return resource_db::image_format::r8g8b8a8_snorm;
-  else if (format_name == "rgba8_srgb")
+  else if (format_name == "r8g8b8a8_srgb")
     return resource_db::image_format::r8g8b8a8_srgb;
-  else if (format_name == "rgba16_unorm")
+  else if (format_name == "r16g16b16a16_unorm")
     return resource_db::image_format::r16g16b16a16_unorm;
-  else if (format_name == "rgba16_snorm")
+  else if (format_name == "r16g16b16a16_snorm")
     return resource_db::image_format::r16g16b16a16_snorm;
-  else if (format_name == "rgba32_sfloat")
+  else if (format_name == "r16g16b16a16_sfloat")
+    return resource_db::image_format::r16g16b16a16_sfloat;
+  else if (format_name == "r32g32b32a32_sfloat")
     return resource_db::image_format::r32g32b32a32_sfloat;
-  else if (format_name == "bgra8_unorm")
+  else if (format_name == "b8g8r8a8_unorm")
     return resource_db::image_format::b8g8r8a8_unorm;
-  else if (format_name == "bgra8_snorm")
+  else if (format_name == "b8g8r8a8_snorm")
     return resource_db::image_format::b8g8r8a8_snorm;
-  else if (format_name == "bgra8_srgb")
+  else if (format_name == "b8g8r8a8_srgb")
     return resource_db::image_format::b8g8r8a8_srgb;
+  else if (format_name == "a8b8g8r8_unorm")
+    return resource_db::image_format::a8b8g8r8_unorm;
+  else if (format_name == "a8b8g8r8_snorm")
+    return resource_db::image_format::a8b8g8r8_snorm;
+  else if (format_name == "bc1_rgb_unorm")
+    return resource_db::image_format::bc1_rgb_unorm_block;
+  else if (format_name == "bc1_rgb_srgb")
+    return resource_db::image_format::bc1_rgb_srgb_block;
+  else if (format_name == "bc1_rgba_unorm")
+    return resource_db::image_format::bc1_rgba_unorm_block;
+  else if (format_name == "bc1_rgba_srgb")
+    return resource_db::image_format::bc1_rgba_srgb_block;
+  else if (format_name == "bc2_unorm")
+    return resource_db::image_format::bc2_unorm_block;
+  else if (format_name == "bc2_srgb")
+    return resource_db::image_format::bc2_srgb_block;
+  else if (format_name == "bc3_unorm")
+    return resource_db::image_format::bc3_unorm_block;
+  else if (format_name == "bc3_srgb")
+    return resource_db::image_format::bc3_srgb_block;
+  else if (format_name == "bc4_unorm")
+    return resource_db::image_format::bc4_unorm_block;
+  else if (format_name == "bc4_snorm")
+    return resource_db::image_format::bc4_snorm_block;
+  else if (format_name == "bc5_unorm")
+    return resource_db::image_format::bc5_unorm_block;
+  else if (format_name == "bc5_snorm")
+    return resource_db::image_format::bc5_snorm_block;
+  else if (format_name == "bc6h_ufloat")
+    return resource_db::image_format::bc6h_ufloat_block;
+  else if (format_name == "bc6h_sfloat")
+    return resource_db::image_format::bc6h_sfloat_block;
+  else if (format_name == "bc7_unorm")
+    return resource_db::image_format::bc7_unorm_block;
+  else if (format_name == "bc7_srgb")
+    return resource_db::image_format::bc7_srgb_block;
   else
-    return default_format;
+    return resource_db::image_format::undefined;
 }
 
+/// Returns the image_format corresponding to the format of the passed TIFF
+/// image.
 resource_db::image_format to_format(const image_util::tiff_image& image)
 {
   switch (image.samples_format)
@@ -90,6 +153,8 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
       {
       case 1:
         return resource_db::image_format::r8_unorm;
+      case 2:
+        return resource_db::image_format::r8g8_unorm;
       case 3:
         return resource_db::image_format::r8g8b8_unorm;
       case 4:
@@ -114,6 +179,34 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
     break;
 
   case SAMPLEFORMAT_INT:
+    switch (image.bits_per_sample)
+    {
+    case 8:
+      switch (image.samples_per_pixel)
+      {
+      case 1:
+        return resource_db::image_format::r8_snorm;
+      case 3:
+        return resource_db::image_format::r8g8b8_snorm;
+      case 4:
+        return resource_db::image_format::r8g8b8a8_snorm;
+      }
+      break;
+
+    case 16:
+      switch (image.samples_per_pixel)
+      {
+      case 1:
+        return resource_db::image_format::r16_snorm;
+      case 2:
+        return resource_db::image_format::r16g16_snorm;
+      case 3:
+        return resource_db::image_format::r16g16b16_snorm;
+      case 4:
+        return resource_db::image_format::r16g16b16a16_snorm;
+      }
+      break;
+    }
     break;
 
   case SAMPLEFORMAT_IEEEFP:
@@ -144,349 +237,6 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
   assert(false);
   return resource_db::image_format::undefined;
 }
-
-// std::uint32_t bits_per_pixel(resource_db::image_format format)
-//{
-//  switch (format)
-//  {
-//  case resource_db::image_format::undefined:
-//    break;
-//  case resource_db::image_format::r8_unorm:
-//  case resource_db::image_format::r8_snorm:
-//  case resource_db::image_format::r8_srgb:
-//    return 8;
-//  case resource_db::image_format::r16_unorm:
-//  case resource_db::image_format::r16_snorm:
-//  case resource_db::image_format::r16_sfloat:
-//    return 16;
-//  case resource_db::image_format::r32_sfloat:
-//    return 32;
-//  case resource_db::image_format::r8g8_unorm:
-//  case resource_db::image_format::r8g8_snorm:
-//  case resource_db::image_format::r8g8_srgb:
-//    return 16;
-//  case resource_db::image_format::r16g16_unorm:
-//  case resource_db::image_format::r16g16_snorm:
-//  case resource_db::image_format::r16g16_sfloat:
-//    return 32;
-//  case resource_db::image_format::r32g32_sfloat:
-//    return 64;
-//  case resource_db::image_format::r8g8b8_unorm:
-//  case resource_db::image_format::r8g8b8_snorm:
-//  case resource_db::image_format::r8g8b8_srgb:
-//    return 24;
-//  case resource_db::image_format::r16g16b16_unorm:
-//  case resource_db::image_format::r16g16b16_snorm:
-//  case resource_db::image_format::r16g16b16_sfloat:
-//    return 48;
-//  case resource_db::image_format::r32g32b32_sfloat:
-//    return 96;
-//  case resource_db::image_format::b8g8r8_unorm:
-//  case resource_db::image_format::b8g8r8_snorm:
-//  case resource_db::image_format::b8g8r8_srgb:
-//    return 24;
-//  case resource_db::image_format::r8g8b8a8_unorm:
-//  case resource_db::image_format::r8g8b8a8_snorm:
-//  case resource_db::image_format::r8g8b8a8_srgb:
-//    return 32;
-//  case resource_db::image_format::r16g16b16a16_unorm:
-//  case resource_db::image_format::r16g16b16a16_snorm:
-//  case resource_db::image_format::r16g16b16a16_sfloat:
-//    return 64;
-//  case resource_db::image_format::r32g32b32a32_sfloat:
-//    return 128;
-//  case resource_db::image_format::b8g8r8a8_unorm:
-//  case resource_db::image_format::b8g8r8a8_snorm:
-//  case resource_db::image_format::b8g8r8a8_srgb:
-//  case resource_db::image_format::a8b8g8r8_unorm:
-//  case resource_db::image_format::a8b8g8r8_snorm:
-//    return 32;
-//  case resource_db::image_format::bc1_rgb_unorm_block:
-//  case resource_db::image_format::bc1_rgb_srgb_block:
-//  case resource_db::image_format::bc1_rgba_unorm_block:
-//  case resource_db::image_format::bc1_rgba_srgb_block:
-//  case resource_db::image_format::bc2_unorm_block:
-//  case resource_db::image_format::bc2_srgb_block:
-//  case resource_db::image_format::bc3_unorm_block:
-//  case resource_db::image_format::bc3_srgb_block:
-//  case resource_db::image_format::bc4_unorm_block:
-//  case resource_db::image_format::bc4_snorm_block:
-//  case resource_db::image_format::bc5_unorm_block:
-//  case resource_db::image_format::bc5_snorm_block:
-//  case resource_db::image_format::bc6h_ufloat_block:
-//  case resource_db::image_format::bc6h_sfloat_block:
-//  case resource_db::image_format::bc7_unorm_block:
-//  case resource_db::image_format::bc7_srgb_block:
-//    return 0;
-//  }
-
-//  assert(false);
-//  return 0;
-//}
-
-///// Compresses the source image using AMD image and store the result
-/// as
-///// a new mip map in target.
-// bool compress(const tiff_image& source, resource_db::image& target,
-//              resource_db::image_format target_format)
-//{
-//  using namespace shift::core::literals;
-
-//  CMP_Texture source_texture;
-//  source_texture.width = source.width;
-//  source_texture.height = source.height;
-//  source_texture.pitch =
-//    source.bits_per_sample * source.samples_per_pixel / 8u * source.width;
-//  source_texture.format = to_cmp_format(source);
-//  /// ToDo: Why 32bit only?
-//  source_texture.data_size =
-//    static_cast<std::uint32_t>(source.pixel_data.size());
-//  /// ToDo: Make use of std::byte.
-//  /// ToDo: Get rid of const_cast.
-//  source_texture.data = reinterpret_cast<std::uint8_t*>(
-//    const_cast<std::byte*>(source.pixel_data.data()));
-
-//  CMP_Texture target_texture;
-//  target_texture.width = source.width;
-//  target_texture.height = source.height;
-//  target_texture.pitch = source.width * bits_per_pixel(target_format) / 8u;
-//  target_texture.format = to_cmp_format(target_format);
-
-//  std::vector<std::byte> target_texture_data;
-//  target_texture_data.resize(CMP_CalculateBufferSize(&target_texture));
-//  /// ToDo: Why 32bit only?
-//  target_texture.data_size =
-//    static_cast<std::uint32_t>(target_texture_data.size());
-//  /// ToDo: Make use of std::byte
-//  target_texture.data =
-//    reinterpret_cast<std::uint8_t*>(target_texture_data.data());
-
-//  CMP_CompressOptions options{};
-//  options.fquality = 0.05f;
-//  options.dwnumThreads = 16;
-
-//  CMP_ERROR status = CMP_ConvertTexture(&source_texture, &target_texture,
-//                                        &options, nullptr, 0, 0);
-//  if (status != CMP_OK)
-//    return false;
-
-//  resource_db::mipmap_info mipmap;
-//  mipmap.width = target_texture.width;
-//  mipmap.height = target_texture.height;
-//  mipmap.depth = 1u;
-
-//  // Each layer of at least 64KiB gets its own buffer. This way we can
-//  // later start streaming low quality mipmaps first and then
-//  // incrementally increase texture quality. Smaller mipmap layers get
-//  // grouped together into one buffer because the overhead of loading
-//  // these small textures separately is larger than simply loading all
-//  // of them in one go.
-//  /// ToDo: Make this size constant configurable.
-//  if (target_texture.data_size >= 64_KiB || target.mipmaps.empty())
-//  {
-//    // Create a new buffer for this mipmap level.
-//    mipmap.offset = 0;
-//    mipmap.buffer = std::make_shared<resource_db::buffer>();
-//  }
-//  else
-//  {
-//    auto previous_buffer = target.mipmaps.back().buffer.get_shared();
-//    mipmap.offset =
-//    static_cast<std::uint32_t>(previous_buffer->storage.size()); mipmap.buffer
-//    = previous_buffer;
-//  }
-//  mipmap.buffer->storage.resize(mipmap.offset + target_texture.data_size);
-//  target.mipmaps.push_back(mipmap);
-//  target.format = target_format;
-
-//  return true;
-//}
-
-/////
-// bool scale_down_ex(const tiff_image& source, tiff_image& target)
-//{
-//  tiff_image temp_image;
-//  temp_image.samples_per_pixel = source.samples_per_pixel;
-//  temp_image.bits_per_sample = source.bits_per_sample;
-//  temp_image.samples_format = source.samples_format;
-//  temp_image.compression = source.compression;
-//  temp_image.width = source.width / 2u;
-//  temp_image.height = source.height / 2u;
-//  temp_image.rows_per_strip =
-//    std::min(source.rows_per_strip * 4u, target.height);
-//  temp_image.pixel_data.resize(temp_image.width * temp_image.height *
-//                               temp_image.samples_per_pixel *
-//                               temp_image.bits_per_sample / 8u);
-
-//  target = std::move(temp_image);
-//  return true;
-//}
-
-// template <typename Pixel>
-// bool scale_down_impl(const tiff_image& source, tiff_image& target)
-//{
-//  gil::resize_view(
-//    gil::interleaved_view(
-//      source.width, source.height,
-//      reinterpret_cast<const Pixel*>(source.pixel_data.data()),
-//      source.width * sizeof(Pixel)),
-//    gil::interleaved_view(target.width, target.height,
-//                          reinterpret_cast<Pixel*>(target.pixel_data.data()),
-//                          target.width * sizeof(Pixel)),
-//    gil::bilinear_sampler());
-//  return true;
-//}
-
-/////
-// bool scale_down(const tiff_image& source, tiff_image& target)
-//{
-//  tiff_image temp_image;
-//  temp_image.samples_per_pixel = source.samples_per_pixel;
-//  temp_image.bits_per_sample = source.bits_per_sample;
-//  temp_image.samples_format = source.samples_format;
-//  temp_image.compression = source.compression;
-//  temp_image.width = std::max(source.width / 2u, 1u);
-//  temp_image.height = std::max(source.height / 2u, 1u);
-//  temp_image.rows_per_strip =
-//    std::min(source.rows_per_strip * 4u, temp_image.height);
-//  temp_image.pixel_data.resize(temp_image.width * temp_image.height *
-//                               temp_image.samples_per_pixel *
-//                               temp_image.bits_per_sample / 8u);
-
-//  bool result = false;
-//  switch (source.samples_format)
-//  {
-//  case SAMPLEFORMAT_UINT:
-//    switch (source.bits_per_sample)
-//    {
-//    case 8:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray8_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb8_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba8_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-
-//    case 16:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray16_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb16_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba16_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-
-//    case 32:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray32_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb32_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba32_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-//    }
-//    break;
-
-//  case SAMPLEFORMAT_INT:
-//    switch (source.bits_per_sample)
-//    {
-//    case 8:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray8s_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb8s_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba8s_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-
-//    case 16:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray16s_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb16s_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba16s_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-
-//    case 32:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray32s_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb32s_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba32s_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-//    }
-//    break;
-
-//  case SAMPLEFORMAT_IEEEFP:
-//    switch (source.bits_per_sample)
-//    {
-//    case 16:
-//      /// ToDo: Find solution for missing 16bit float support in Boost GIL.
-//      break;
-
-//    case 32:
-//      switch (source.samples_per_pixel)
-//      {
-//      case 1:
-//        result = scale_down_impl<gil::gray32f_pixel_t>(source, temp_image);
-//        break;
-//      case 3:
-//        result = scale_down_impl<gil::rgb32f_pixel_t>(source, temp_image);
-//        break;
-//      case 4:
-//        result = scale_down_impl<gil::rgba32f_pixel_t>(source, temp_image);
-//        break;
-//      }
-//      break;
-//    }
-//    break;
-//  }
-//  assert(result);
-//  if (!result)
-//    return false;
-
-//  target = std::move(temp_image);
-//  return true;
-//}
 
 action_image_import_tiff::action_image_import_tiff()
 : action_base(action_name, action_version)
@@ -534,35 +284,32 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  //  /// ToDo: Implement multi-image TIFF support. We need to decide what to do
-  //  /// with each image found. It could be
-  //  /// - a pyramidal TIFF file with a certain number of pre-computed mip maps
-  //  ///   (usually not down to 1x1)
-  //  /// - a cube map with 6 images, where we need to know or assume which
-  //  image
-  //  ///   should ge to which side of the cube.
-  //  /// - a volume texture with image slices.
-  //  /// - a set of images belonging to a single material (albedo map, normal
-  //  map,
-  //  ///   metalness map, ...)
-  //  /// We can't automatically decide which case to select based on the
-  //  /// information provided by standard TIFF files. Eventually introduce
-  //  custom
-  //  /// TIFF tags for this, but that would require additional tools to work
-  //  with
-  //  /// such files.
-  //  /// A beeter way would be to use rule options.
-  //  if (source_images.size() != 1)
-  //  {
-  //    log::error() << "We don't support multi-image TIFF files, yet.";
-  //    return false;
-  //  }
+  /// ToDo: Implement multi-image TIFF support. We need to decide what to do
+  /// with each image found. It could be
+  /// - a pyramidal TIFF file with a certain number of pre-computed mip maps
+  ///   (usually not down to 1x1)
+  /// - a cube map with 6 images, where we need to know or assume which image
+  ///   should ge to which side of the cube.
+  /// - a volume texture with image slices.
+  /// - a set of images belonging to a single material (albedo map, normal map,
+  ///   metalness map, ...)
+  /// We can't automatically decide which case to select based on the
+  /// information provided by standard TIFF files. Eventually introduce custom
+  /// TIFF tags for this, but that would require additional tools to work with
+  /// such files.
+  /// A better way would be to use rule options.
+  if (source_images.size() != 1)
+  {
+    log::error() << "We don't support multi-image TIFF files, yet.";
+    return false;
+  }
 
   auto target_format = to_format(
     parser::json::has(job.rule->options, "target-format")
       ? parser::json::get<std::string>(job.rule->options.at("target-format"))
-      : "auto"s,
-    to_format(source_images.front()));
+      : "auto"s);
+  if (target_format == resource_db::image_format::undefined)
+    target_format = to_format(source_images.front());
 
   auto target_image = std::make_shared<resource_db::image>();
   for (auto& source_image : source_images)
@@ -577,12 +324,6 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
     //        log::error() << "Wrong size of mip map image.";
     //        return false;
     //      }
-    //    }
-
-    //    if (!compress(source_image, *target_image, target_format))
-    //    {
-    //      log::error() << "Image compression failed.";
-    //      return false;
     //    }
 
     image_util::tiff_image next_image;
@@ -614,7 +355,8 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
       region.width = source.width;
       region.height = source.height;
 
-      if (auto error = image_util::convert_image(destination, source, region);
+      if (auto error =
+            image_util::convert_image(destination, source, region, {});
           error)
       {
         log::error() << "Image compression failed: " << error;

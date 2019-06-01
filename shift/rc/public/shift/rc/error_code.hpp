@@ -24,6 +24,8 @@ enum class error_code
   destination_region_bounds,
   /// Source region outside image bounds.
   source_region_bounds,
+  /// Source region cannot be empty.
+  source_region_empty,
   /// row_stride in destination image must be zero when using a block compressed
   /// format.
   destination_row_stride_with_bc,
@@ -34,11 +36,17 @@ enum class error_code
   source_region_not_block_aligned,
   /// Region destination not block aligned.
   destination_region_not_block_aligned,
+  /// The destination format is unsupported.
+  destination_format_unsupported,
+  /// Source and destination image formats do not match.
+  different_image_format,
 
   // Unsupported operation errors:
-  /// Unsupported conversion from source to destination format.
-  unsupported_conversion_formats =
+  /// This code path has not been implemented, yet.
+  not_implemented =
     static_cast<int>(core::error_condition::operation_not_supported),
+  /// Unsupported conversion from source to destination format.
+  unsupported_conversion_formats,
 
   // Internal errors:
   /// Unexpected error converting image.

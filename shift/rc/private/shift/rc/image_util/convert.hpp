@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <type_traits>
+#include <boost/assert.hpp>
 #include <shift/core/mpl.hpp>
 #include <shift/math/half.hpp>
 #include <shift/math/vector.hpp>
@@ -13,152 +14,81 @@ namespace shift::rc::image_util
 {
 namespace detail
 {
-  /// This type helps converting pixel channels from sRGB to linear and vice
-  /// versa.
-  template <color_space_t DestinationColorSpace, color_space_t SourceColorSpace>
-  struct color_space_converter;
-
-  template <>
-  struct color_space_converter<color_space_t::unorm, color_space_t::srgb>
+  template <typename T, typename PixelChannel>
+  struct unorm_converter
   {
-    float operator()(float source)
+    static_assert(std::is_integral_v<T> && std::is_unsigned_v<T>);
+    static_assert(!PixelChannel::is_block_format);
+
+    static constexpr float to_float(T value)
     {
-      if (source <= 0.0f)
+      return value / static_cast<float>((1 << PixelChannel::size_in_bits) - 1);
+    }
+
+    static constexpr T from_float(float value)
+    {
+      return static_cast<T>(value * ((1 << PixelChannel::size_in_bits) - 1));
+    }
+  };
+
+  template <typename T, typename PixelChannel>
+  struct snorm_converter
+  {
+    static_assert(std::is_integral_v<T> && std::is_signed_v<T>);
+    static_assert(!PixelChannel::is_block_format);
+
+    static constexpr float to_float(T value)
+    {
+      static_assert(
+        static_cast<T>(std::numeric_limits<std::make_unsigned_t<T>>::max()
+                       << 1) == -2);
+      // The minimum value of a PixelChannel::size_in_bits sized signed integer,
+      // sign extended and stored in a value of type T.
+      constexpr T min_value =
+        static_cast<T>(std::numeric_limits<std::make_unsigned_t<T>>::max()
+                       << (PixelChannel::size_in_bits - 1));
+      if (value == min_value)
+      {
+        return -1.0f;
+      }
+      else
+      {
+        return value /
+               static_cast<float>((1 << (PixelChannel::size_in_bits - 1)) - 1);
+      }
+    }
+
+    static constexpr T from_float(float value)
+    {
+      return static_cast<T>(value *
+                            ((1 << (PixelChannel::size_in_bits - 1)) - 1));
+    }
+  };
+
+  struct srgb_converter
+  {
+    static constexpr float to_linear(float srgb_value)
+    {
+      if (srgb_value <= 0.0f)
         return 0.0f;
-      else if (source < 0.04045f)
-        return source / 12.92f;
-      else if (source < 1.0f)
-        return std::pow((source + 0.055f) / 1.055f, 2.4f);
+      else if (srgb_value < 0.04045f)
+        return srgb_value / 12.92f;
+      else if (srgb_value < 1.0f)
+        return std::pow((srgb_value + 0.055f) / 1.055f, 2.4f);
       else
         return 1.0f;
     }
-  };
 
-  template <>
-  struct color_space_converter<color_space_t::srgb, color_space_t::unorm>
-  {
-    float operator()(float source)
+    static constexpr float from_linear(float linear_value)
     {
-      if (source <= 0.0f)
+      if (linear_value <= 0.0f)
         return 0.0f;
-      else if (source < 0.0031308f)
-        return source * 12.92f;
-      else if (source < 1.0f)
-        return std::pow(source, 1.0f / 2.4f) * 1.055f - 0.055f;
+      else if (linear_value < 0.0031308f)
+        return linear_value * 12.92f;
+      else if (linear_value < 1.0f)
+        return std::pow(linear_value, 1.0f / 2.4f) * 1.055f - 0.055f;
       else
         return 1.0f;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::unorm, color_space_t::snorm>
-  {
-    float operator()(float source)
-    {
-      if (source <= 0.0f)
-        return 0.0f;
-      else if (source < 1.0f)
-        return std::fma(source, 2.0f, -1.0f);
-      else
-        return 1.0f;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::snorm, color_space_t::unorm>
-  {
-    float operator()(float source)
-    {
-      if (source <= -1.0f)
-        return 0.0f;
-      else if (source < 1.0f)
-        return std::fma(source, 0.5f, 0.5f);
-      else
-        return 1.0f;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::unorm, color_space_t::sfloat>
-  {
-    float operator()(float source)
-    {
-      if (source <= 0.0f)
-        return 0.0f;
-      else if (source < 1.0f)
-        return std::fma(source, 2.0f, -1.0f);
-      else
-        return 1.0f;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::sfloat, color_space_t::unorm>
-  {
-    float operator()(float source)
-    {
-      if (source <= -1.0f)
-        return 0.0f;
-      else if (source < 1.0f)
-        return std::fma(source, 0.5f, 0.5f);
-      else
-        return 1.0f;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::unorm, color_space_t::ufloat>
-  {
-    float operator()(float source)
-    {
-      return source;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::ufloat, color_space_t::unorm>
-  {
-    float operator()(float source)
-    {
-      return source;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::snorm, color_space_t::sfloat>
-  {
-    float operator()(float source)
-    {
-      return source;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::sfloat, color_space_t::snorm>
-  {
-    float operator()(float source)
-    {
-      return source;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::snorm, color_space_t::srgb>
-  {
-    float operator()(float source)
-    {
-      /// ToDo: snorm <-> srgb conversion doesn't make any sense.
-      return source;
-    }
-  };
-
-  template <>
-  struct color_space_converter<color_space_t::srgb, color_space_t::snorm>
-  {
-    float operator()(float source)
-    {
-      /// ToDo: snorm <-> srgb conversion doesn't make any sense.
-      return source;
     }
   };
 
@@ -178,9 +108,15 @@ namespace detail
                         DestinationChannel>;
       static_assert(destination_channel_index <
                     DestinationPixel::channel_count);
+      using destination_channel_t =
+        core::get_type_opt_t<destination_channel_index,
+                             typename DestinationPixel::channels_t>;
 
       constexpr auto source_channel_index =
         channel_index_v<typename SourcePixel::channels_t, DestinationChannel>;
+      using source_channel_t =
+        core::get_type_opt_t<source_channel_index,
+                             typename SourcePixel::channels_t>;
 
       if constexpr (source_channel_index >= SourcePixel::channel_count)
       {
@@ -188,41 +124,276 @@ namespace detail
         // with a default value.
         destination_pixel[destination_channel_index] = destination_t{};
       }
-      else if constexpr (DestinationPixel::color_space ==
-                         SourcePixel::color_space)
+      else if constexpr ((SourcePixel::data_type ==
+                          DestinationPixel::data_type) &&
+                         std::is_same_v<source_t, destination_t> &&
+                         std::is_same_v<source_channel_t,
+                                        destination_channel_t>)
       {
-        if constexpr (std::is_same_v<source_t, destination_t>)
+        // Source and destination channels are of the same channel type and
+        // data type, so we can perform a direct copy.
+        destination_pixel[destination_channel_index] =
+          source_pixel[source_channel_index];
+      }
+      else if constexpr (SourcePixel::data_type == pixel_data_type::unorm)
+      {
+        if constexpr (DestinationPixel::data_type == pixel_data_type::unorm)
         {
-          // Source and destination channels are of the same type and color
-          // space, so we can perform a direct copy.
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert float to unorm.
           destination_pixel[destination_channel_index] =
-            source_pixel[source_channel_index];
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
         }
-        else
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::snorm)
         {
-          // Source and destination channels are of different type but in the
-          // same color space.
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert float to snorm.
           destination_pixel[destination_channel_index] =
-            convert_pixel_component<destination_t, source_t>{}(
+            snorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                             pixel_data_type::ufloat ||
+                           DestinationPixel::data_type ==
+                             pixel_data_type::sfloat)
+        {
+          // Convert unorm to float.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<source_t, source_channel_t>::to_float(
               source_pixel[source_channel_index]);
         }
+        else if constexpr (DestinationPixel::data_type == pixel_data_type::srgb)
+        {
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert color space from linear to sRGB.
+          temp = srgb_converter::from_linear(temp);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else
+          BOOST_ASSERT(false);
+      }
+      else if constexpr (SourcePixel::data_type == pixel_data_type::snorm)
+      {
+        if constexpr (DestinationPixel::data_type == pixel_data_type::unorm)
+        {
+          // Convert snorm to float.
+          auto temp = snorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Clamp values < 0.0f.
+          temp = std::max(temp, 0.0f);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::snorm)
+        {
+          // Convert snorm to float.
+          auto temp = snorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert float to snorm.
+          destination_pixel[destination_channel_index] =
+            snorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                             pixel_data_type::ufloat ||
+                           DestinationPixel::data_type ==
+                             pixel_data_type::sfloat)
+        {
+          // Convert snorm -> float.
+          destination_pixel[destination_channel_index] =
+            snorm_converter<source_t, source_channel_t>::to_float(
+              source_pixel[source_channel_index]);
+        }
+        else if constexpr (DestinationPixel::data_type == pixel_data_type::srgb)
+        {
+          // Convert snorm -> float.
+          auto temp = snorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Clamp values < 0.0f.
+          temp = std::max(temp, 0.0f);
+          // Convert color space from linear to sRGB.
+          temp = srgb_converter::from_linear(temp);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else
+          BOOST_ASSERT(false);
+      }
+      else if constexpr (SourcePixel::data_type == pixel_data_type::ufloat)
+      {
+        if constexpr (DestinationPixel::data_type == pixel_data_type::unorm)
+        {
+          // Clamp values above 1.0f.
+          auto temp = std::min(
+            static_cast<float>(source_pixel[source_channel_index]), 1.0f);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::snorm)
+        {
+          // Clamp values above 1.0f.
+          auto temp = std::min(
+            static_cast<float>(source_pixel[source_channel_index]), 1.0f);
+          // Convert float to snorm.
+          destination_pixel[destination_channel_index] =
+            snorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::ufloat)
+        {
+          // Simply copy value.
+          destination_pixel[destination_channel_index] =
+            static_cast<float>(source_pixel[source_channel_index]);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::sfloat)
+        {
+          // Simply copy value.
+          destination_pixel[destination_channel_index] =
+            static_cast<destination_t>(source_pixel[source_channel_index]);
+        }
+        else if constexpr (DestinationPixel::data_type == pixel_data_type::srgb)
+        {
+          // Clamp values above 1.0f.
+          auto temp = std::min(
+            static_cast<float>(source_pixel[source_channel_index]), 1.0f);
+          // Convert color space from linear to sRGB.
+          temp = srgb_converter::from_linear(temp);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else
+          BOOST_ASSERT(false);
+      }
+      else if constexpr (SourcePixel::data_type == pixel_data_type::sfloat)
+      {
+        if constexpr (DestinationPixel::data_type == pixel_data_type::unorm)
+        {
+          // Clamp values between 0.0f and 1.0f.
+          auto temp = std::clamp(
+            static_cast<float>(source_pixel[source_channel_index]), 0.0f, 1.0f);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::snorm)
+        {
+          // Clamp values between -1.0f and 1.0f.
+          auto temp =
+            std::clamp(static_cast<float>(source_pixel[source_channel_index]),
+                       -1.0f, 1.0f);
+          // Convert float to snorm.
+          destination_pixel[destination_channel_index] =
+            snorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::ufloat)
+        {
+          // Clamp values below 0.0f.
+          destination_pixel[destination_channel_index] = std::max(
+            static_cast<float>(source_pixel[source_channel_index]), 0.0f);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::sfloat)
+        {
+          // Simply copy value.
+          destination_pixel[destination_channel_index] =
+            static_cast<destination_t>(source_pixel[source_channel_index]);
+        }
+        else if constexpr (DestinationPixel::data_type == pixel_data_type::srgb)
+        {
+          // Clamp values between 0.0f and 1.0f.
+          auto temp = std::clamp(
+            static_cast<float>(source_pixel[source_channel_index]), 0.0f, 1.0f);
+          // Convert color space from linear to sRGB.
+          temp = srgb_converter::from_linear(temp);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else
+          BOOST_ASSERT(false);
+      }
+      else if constexpr (SourcePixel::data_type == pixel_data_type::srgb)
+      {
+        if constexpr (DestinationPixel::data_type == pixel_data_type::unorm)
+        {
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert color space from sRGB to linear.
+          temp = srgb_converter::to_linear(temp);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                           pixel_data_type::snorm)
+        {
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert color space from sRGB to linear.
+          temp = srgb_converter::to_linear(temp);
+          // Convert float to snorm.
+          destination_pixel[destination_channel_index] =
+            snorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else if constexpr (DestinationPixel::data_type ==
+                             pixel_data_type::ufloat ||
+                           DestinationPixel::data_type ==
+                             pixel_data_type::sfloat)
+        {
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert color space from sRGB to linear.
+          destination_pixel[destination_channel_index] =
+            srgb_converter::to_linear(temp);
+        }
+        else if constexpr (DestinationPixel::data_type == pixel_data_type::srgb)
+        {
+          // Convert unorm to float.
+          auto temp = unorm_converter<source_t, source_channel_t>::to_float(
+            source_pixel[source_channel_index]);
+          // Convert float to unorm.
+          destination_pixel[destination_channel_index] =
+            unorm_converter<destination_t, destination_channel_t>::from_float(
+              temp);
+        }
+        else
+          BOOST_ASSERT(false);
       }
       else
-      {
-        // Source and destination channels are both of different type and in
-        // different color spaces.
-        using temp_t =
-          std::conditional_t<(sizeof(source_t) < sizeof(std::uint32_t)), float,
-                             double>;
-        auto temp_data = convert_pixel_component<temp_t, source_t>{}(
-          source_pixel[source_channel_index]);
-        /// ToDo: Solve color space conversion issues...
-        // temp_data =
-        //   color_space_converter<DestinationPixel::color_space,
-        //                         SourcePixel::color_space>{}(temp_data);
-        destination_pixel[destination_channel_index] =
-          convert_pixel_component<destination_t, float>{}(temp_data);
-      }
+        BOOST_ASSERT(false);
     }
   };
 }

@@ -245,11 +245,9 @@ struct convert_pixel_component
       else if constexpr (std::is_floating_point_v<Source>)
         return static_cast<Destination>(source);
     }
-    else
-    {
-      BOOST_ASSERT(false);
-      return static_cast<Destination>(source);
-    }
+
+    BOOST_ASSERT(false);
+    return static_cast<Destination>(source);
   }
 };
 }
