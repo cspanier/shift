@@ -70,7 +70,38 @@
 namespace shift::math
 {
 class half;
+}
 
+namespace std
+{
+template <>
+struct is_arithmetic<shift::math::half> : true_type
+{
+};
+
+template <>
+struct is_floating_point<shift::math::half> : true_type
+{
+};
+
+template <>
+struct is_integral<shift::math::half> : false_type
+{
+};
+
+template <>
+struct is_signed<shift::math::half> : true_type
+{
+};
+
+template <>
+struct is_unsigned<shift::math::half> : false_type
+{
+};
+}
+
+namespace shift::math
+{
 struct half_config
 {
   /// Rounding mode to use.
