@@ -9,11 +9,6 @@
 #include <shift/core/mpl.hpp>
 #include <shift/core/string_util.hpp>
 #include <filesystem>
-#include <shift/core/boost_disable_warnings.hpp>
-#include <boost/gil/extension/numeric/sampler.hpp>
-#include <boost/gil/extension/numeric/resample.hpp>
-#include <boost/gil.hpp>
-#include <shift/core/boost_restore_warnings.hpp>
 #include <gsl/gsl>
 // #include <image/image.h>
 // #include <tiffio.h>
@@ -21,7 +16,6 @@
 namespace shift::rc
 {
 namespace fs = std::filesystem;
-namespace gil = boost::gil;
 
 /// Convert an image format name to image_format.
 /// @param format_name
