@@ -1,9 +1,9 @@
 {
   "import": {
     "pass": 1,
-    "action": "image-import",
+    "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>(image32_rgb.*)\\.png$"
+      "image": "<input-path/><rule-path/>(image32_rgb.*)\\.tiff$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.image_header",
@@ -25,4 +25,5 @@
       "group": "<output-path/>global.cache"
     },
     "options": {}
-  }}
+  }
+}
