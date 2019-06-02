@@ -70,7 +70,7 @@ void run_rc(const settings_t& settings, std::size_t expect_succeeded,
     compiler.input_path(settings.input_path);
     compiler.build_path(settings.build_path);
     compiler.output_path(settings.output_path);
-    compiler.verbose(1);
+    compiler.verbose(3);
     auto cache_filepath = settings.build_path / settings.cache_filename;
     if (fs::exists(cache_filepath))
       BOOST_CHECK(compiler.load_cache(cache_filepath));
@@ -79,6 +79,8 @@ void run_rc(const settings_t& settings, std::size_t expect_succeeded,
 
     compiler.collect_garbage();
     compiler.save_cache(cache_filepath);
+    compiler.save_cache_graph(
+      fs::path{cache_filepath}.replace_extension(".dot"));
     return 0;
   };
   task::task_system{}.num_workers(1).start(primary_task).join();

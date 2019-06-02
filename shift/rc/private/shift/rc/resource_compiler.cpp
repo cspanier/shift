@@ -153,9 +153,11 @@ void resource_compiler::save_cache(const std::filesystem::path& cache_filename)
 
   _impl->cache.save(cache_filename);
 
+  auto cache_graph_filename =
+    fs::path{cache_filename}.replace_extension(".dot");
   if (verbose() >= 1)
-    log::info() << "Saving cache graph " << cache_filename << "...";
-  _impl->cache.save_graph(fs::path{cache_filename}.replace_extension(".dot"));
+    log::info() << "Saving cache graph " << cache_graph_filename << "...";
+  _impl->cache.save_graph(cache_graph_filename);
 }
 
 void resource_compiler::save_cache_graph(
@@ -292,12 +294,11 @@ resource_compiler::update()
       {
         current_pass = _impl->next_pass(current_pass, read_lock);
         if (current_pass == 0)
-          break;
+          return {succeeded_job_count, failed_job_count};
         jobs = _impl->query_jobs(current_pass, read_lock);
       } while (jobs.empty());
     }
-    if (current_pass == 0)
-      break;
+    BOOST_ASSERT(current_pass != 0);
 
     std::vector<task::future<bool>> task_results;
     // Count the number of modified jobs in the current pass.
@@ -376,7 +377,6 @@ resource_compiler::update()
         _impl->cache.add_job(std::move(job));
     }
   }
-  return {succeeded_job_count, failed_job_count};
 }
 
 void resource_compiler::collect_garbage()

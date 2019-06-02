@@ -3,7 +3,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>(image32_rgb.*)\\.tiff$"
+      "image": "<input-path/><rule-path/>(image32-rgb.*)\\.tif$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.image_header",
