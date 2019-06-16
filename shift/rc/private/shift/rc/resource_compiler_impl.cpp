@@ -127,7 +127,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       continue;
     }
     const auto& pass_value = rule_object.at("pass");
-    if (!get_if<double>(&pass_value))
+    if (!get_if<std::int64_t>(&pass_value))
     {
       log::warning() << rules_file_path << R"(: The rule ")" << rule_id
                      << R"("'s "pass" attribute must be of number type.)";
@@ -198,7 +198,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
     rule_create_info rule_info;
     rule_info.id = rule_id;
     rule_info.pass =
-      boost::lexical_cast<std::uint32_t>(get<double>(pass_value));
+      boost::lexical_cast<std::uint32_t>(get<std::int64_t>(pass_value));
     const auto& action_name = get<std::string>(action_value);
     rule_info.action = cache.find_action(action_name);
     if (rule_info.action == nullptr)
@@ -234,7 +234,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
       }
       for (const auto& group_by_array_value : get<json::array>(group_by_value))
       {
-        if (!get_if<double>(&group_by_array_value))
+        if (!get_if<std::int64_t>(&group_by_array_value))
         {
           log::warning()
             << rules_file_path << R"(: The rule ")" << rule_id
@@ -242,7 +242,7 @@ void resource_compiler_impl::read_rules(const fs::path& rules_file_path,
           continue;
         }
         rule_info.group_by.insert(
-          static_cast<std::size_t>(get<double>(group_by_array_value)));
+          static_cast<std::size_t>(get<std::int64_t>(group_by_array_value)));
       }
     }
 

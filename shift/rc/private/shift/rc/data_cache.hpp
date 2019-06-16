@@ -44,6 +44,9 @@ public:
   /// Saves a GraphViz document of the file cache.
   void save_graph(const fs::path& graph_filename) const;
 
+  /// Clears the whole cache.
+  void clear();
+
   ///
   action_description* find_action(std::string_view name) const;
 

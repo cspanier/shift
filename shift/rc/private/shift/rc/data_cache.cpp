@@ -29,13 +29,13 @@ void data_cache::register_action(std::string name, action_version version,
 
 bool data_cache::load(const std::filesystem::path& cache_filename)
 {
+  using namespace std::chrono;
   using namespace shift::parser;
 
-  BOOST_ASSERT(!_actions.empty());
+  clear();
 
   if (!fs::exists(cache_filename))
     return false;
-
   json::value root;
   if (std::ifstream file{cache_filename.generic_string(),
                          std::ios_base::in | std::ios_base::binary};
@@ -75,7 +75,12 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           if (action.version == *cached_version)
           {
             // The cached action has the same version, so remove the modified
-            // flag.
+            // flag and set the used flag.
+            if (_impl->verbose >= 2)
+            {
+              log::info() << R"(Cached action ")" << cached_action_name
+                          << R"(" matches.)";
+            }
             action.flags.reset(entity_flag::modified);
             action.flags.set(entity_flag::used);
           }
@@ -84,16 +89,26 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
             // The cached action has a different version than the built-in one.
             // Keep the modified flag because we need to re-run all associated
             // jobs. This happens if the action's implementation changed.
+            if (_impl->verbose >= 1)
+            {
+              log::info() << R"(Cached action ")" << cached_action_name
+                          << R"(" has a different version (")" << cached_version
+                          << R"(" != ")" << action.version << R"(").)";
+            }
           }
         }
         else
         {
-          // The cached action does not exist any more. This happens if the
-          // action was removed from code or if we're running an older version
-          // of the resource compiler using a more recent cache file. In this
-          // case we simply ignore the cached action. As a consequence, rules
-          // loaded below still using the non-existing action will also fail to
-          // load.
+          // The cached action does not exist. This happens if the action was
+          // removed from code or if we're running an older version of the
+          // resource compiler using a more recent cache file. In this case we
+          // simply ignore the cached action. As a consequence, rules loaded
+          // below still using the non-existing action will also fail to load.
+          if (_impl->verbose >= 1)
+          {
+            log::info() << R"(Cached action ")" << cached_action_name
+                        << R"(" does not exist in code.)";
+          }
         }
       }
     }
@@ -112,13 +127,17 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
       {
         auto new_rule = std::make_unique<rule_description>();
         new_rule->id = cached_rule.first;
-        if (const auto* pass = json::get_if<double>(*rule_object, "pass");
+        if (const auto* pass = json::get_if<std::int64_t>(*rule_object, "pass");
             pass != nullptr)
         {
           new_rule->pass = static_cast<std::uint32_t>(*pass);
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "pass" attribute.)";
           continue;
+        }
 
         if (const auto* action_name =
               json::get_if<std::string>(*rule_object, "action");
@@ -129,13 +148,22 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           // may happen when the action is removed from code. Any cached jobs
           // associated with this action will also fail to load.
           if (action_iter == _actions.end())
+          {
+            log::warning() << R"(Cached rule ")" << new_rule->id
+                           << R"(" links to non-existent action ")"
+                           << *action_name << R"(".)";
             continue;
+          }
           new_rule->action = action_iter->second.get();
           if (new_rule->action->flags.test(entity_flag::modified))
             new_rule->flags.set(entity_flag::modified);
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "action" attribute.)";
           continue;
+        }
 
         // new_rule->action->flags
 
@@ -145,7 +173,11 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           new_rule->path = *path;
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "path" attribute.)";
           continue;
+        }
 
         if (const auto* inputs =
               json::get_if<json::object>(*rule_object, "inputs");
@@ -166,7 +198,11 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           }
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "inputs" attribute.)";
           continue;
+        }
 
         if (const auto* group_by_array =
               json::get_if<json::array>(*rule_object, "group-by");
@@ -174,7 +210,7 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
         {
           for (const auto& group_by : *group_by_array)
           {
-            if (auto* group_by_value = json::get_if<double>(&group_by))
+            if (auto* group_by_value = json::get_if<std::int64_t>(&group_by))
             {
               new_rule->group_by.insert(
                 static_cast<std::size_t>(*group_by_value));
@@ -182,7 +218,11 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           }
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "group-by" attribute.)";
           continue;
+        }
 
         if (const auto* outputs =
               json::get_if<json::object>(*rule_object, "outputs");
@@ -198,7 +238,11 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           }
         }
         else
+        {
+          log::warning() << R"(Cached rule ")" << new_rule->id
+                         << R"(" does not have a valid "outputs" attribute.)";
           continue;
+        }
 
         new_rule->options =
           *json::get_if<json::object>(*rule_object, "options");
@@ -206,10 +250,10 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
         std::string_view id = new_rule->id;
         if (!_rules.insert_or_assign(id, std::move(new_rule)).second)
         {
-          log::warning()
-            << R"(Found non-unique rule id ")" << id
-            << R"(" in cache. Either one of the rules won't be loaded.)";
-          continue;
+          log::error() << R"(Found non-unique rule id ")" << id
+                       << R"(" in cache.)";
+          clear();
+          return false;
         }
       }
     }
@@ -230,26 +274,30 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           std::make_unique<file_description>(fs::path{cached_file.first});
 
         if (json::has(*cached_file_object, "write-time") &&
-            (json::get_if<double>(&cached_file_object->at("write-time")) !=
-             nullptr))
+            (json::get_if<std::int64_t>(
+               &cached_file_object->at("write-time")) != nullptr))
         {
           new_file->last_write_time =
-            std::chrono::system_clock::from_time_t(static_cast<time_t>(
-              json::get<double>(cached_file_object->at("write-time"))));
+            time_point<system_clock>() +
+            nanoseconds(static_cast<std::uint64_t>(
+              json::get<std::int64_t>(cached_file_object->at("write-time"))));
         }
 
         if (json::has(*cached_file_object, "pass") &&
-            (json::get_if<double>(&cached_file_object->at("pass")) != nullptr))
+            (json::get_if<std::int64_t>(&cached_file_object->at("pass")) !=
+             nullptr))
         {
           new_file->pass = static_cast<std::uint32_t>(
-            json::get<double>(cached_file_object->at("pass")));
+            json::get<std::int64_t>(cached_file_object->at("pass")));
         }
 
         std::string_view file_key = new_file->generic_string;
         if (!_files.try_emplace(file_key, std::move(new_file)).second)
         {
-          /// ToDo: Log warning about non-unique file path.
-          continue;
+          log::error() << R"(Found non-unique file path ")" << file_key
+                       << R"(" in cache.)";
+          clear();
+          return false;
         }
       }
     }
@@ -402,8 +450,10 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
         new_job->id = job_id;
         if (!_jobs.insert_or_assign(job_id, std::move(new_job)).second)
         {
-          /// ToDo: Warn about non-unique job id. This should not be
-          /// possible.
+          log::error() << R"(Found non-unique job id ")" << job_id
+                       << R"(" in cache.)";
+          clear();
+          return false;
         }
       }
     }
@@ -426,7 +476,7 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
           continue;
 
         if (const auto* source_id =
-              json::get_if<double>(*cached_file_object, "source");
+              json::get_if<std::int64_t>(*cached_file_object, "source");
             source_id != nullptr)
         {
           if (auto job_iter = _jobs.find(static_cast<std::size_t>(*source_id));
@@ -443,8 +493,16 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
   auto file_iterator = _files.begin();
   while (file_iterator != _files.end())
   {
-    if (!file_iterator->second->flags.test(entity_flag::used))
+    auto& file = *file_iterator->second;
+    if (!file.flags.test(entity_flag::used))
+    {
+      if (_impl->verbose >= 2)
+      {
+        log::info() << R"(Removing unreferenced file ")" << file.generic_string
+                    << R"(" from cache.)";
+      }
       file_iterator = _files.erase(file_iterator);
+    }
     else
       ++file_iterator;
   }
@@ -454,6 +512,7 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
 
 void data_cache::save(const std::filesystem::path& cache_filename) const
 {
+  using namespace std::chrono;
   using namespace shift::parser;
 
   json::object root;
@@ -474,7 +533,7 @@ void data_cache::save(const std::filesystem::path& cache_filename) const
     auto& rule_object =
       json::get<json::object>(rules_object[rule->id] = json::object{});
 
-    rule_object["pass"] = static_cast<double>(rule->pass);
+    rule_object["pass"] = static_cast<std::int64_t>(rule->pass);
     rule_object["action"] = rule->action->name;
     rule_object["path"] = rule->path.generic_string();
     auto& inputs_object =
@@ -485,7 +544,7 @@ void data_cache::save(const std::filesystem::path& cache_filename) const
     auto& group_by_array =
       json::get<json::array>(rule_object["group-by"] = json::array{});
     for (const auto value : rule->group_by)
-      group_by_array.emplace_back(static_cast<double>(value));
+      group_by_array.emplace_back(static_cast<std::int64_t>(value));
 
     auto& outputs_object =
       json::get<json::object>(rule_object["outputs"] = json::object{});
@@ -535,21 +594,22 @@ void data_cache::save(const std::filesystem::path& cache_filename) const
     /// time-stamp when it is queried right after the files were closed.
 #if defined(_MSC_VER)
     // This ugly hack attempts to convert a std::filesystem::file_time_type to
-    // std::chrono::system_clock::time_point. It likely produces wrong results
+    // system_clock::time_point. It likely produces wrong results
     // because there is no guarantee that both clocks have the same epoch.
     // C++20 will fix this issue and make clocks convertible.
     auto last_write_time = fs::last_write_time(file.first);
-    file.second->last_write_time =
-      std::chrono::system_clock::time_point(std::chrono::system_clock::duration(
-        decltype(last_write_time)::clock::duration::rep{
-          last_write_time.time_since_epoch().count()}));
+    file.second->last_write_time = system_clock::time_point(
+      system_clock::duration(decltype(last_write_time)::clock::duration::rep{
+        last_write_time.time_since_epoch().count()}));
 #else
     file.second->last_write_time = fs::last_write_time(file.first);
 #endif
-    file_object["write-time"] = static_cast<double>(
-      std::chrono::system_clock::to_time_t(file.second->last_write_time));
+    file_object["write-time"] = static_cast<std::int64_t>(
+      duration_cast<nanoseconds>(
+        file.second->last_write_time.time_since_epoch())
+        .count());
     if (file.second->pass > 0)
-      file_object["pass"] = static_cast<double>(file.second->pass);
+      file_object["pass"] = static_cast<std::int64_t>(file.second->pass);
     if ((file.second->alias != nullptr) &&
         (file.second->alias->flags & entity_flag::exists) &&
         (file.second->alias->flags & entity_flag::used))
@@ -557,7 +617,10 @@ void data_cache::save(const std::filesystem::path& cache_filename) const
       file_object["alias"] = file.second->alias->generic_string;
     }
     if (file.second->source != nullptr)
-      file_object["source"] = static_cast<double>(file.second->source->id);
+    {
+      file_object["source"] =
+        static_cast<std::int64_t>(file.second->source->id);
+    }
   }
 
   std::ofstream file{cache_filename.generic_string(), std::ios_base::out |
@@ -608,6 +671,13 @@ void data_cache::save_graph(const fs::path& graph_filename) const
 
   file << R"(})" << br;
   file.close();
+}
+
+void data_cache::clear()
+{
+  _jobs.clear();
+  _files.clear();
+  _rules.clear();
 }
 
 action_description* data_cache::find_action(std::string_view name) const
@@ -667,20 +737,28 @@ bool data_cache::is_modified(const job_description& job) const
 {
   if (job.rule->action->flags.test(entity_flag::modified))
   {
-    // log::debug() << "Action " << job.rule->action->name()
-    //             << " is modified.";
+    if (_impl->verbose >= 2)
+    {
+      log::debug() << R"(Action ")" << job.rule->action->name
+                   << R"(" is modified.)";
+    }
     return true;
   }
   if (job.rule->flags.test(entity_flag::modified))
   {
-    // log::debug() << "Rule " << job.rule->id << " is modified.";
+    if (_impl->verbose >= 2)
+      log::debug() << R"(Rule ")" << job.rule->id << R"(" is modified.)";
     return true;
   }
   for (const auto& [input_slot_index, input] : job.inputs)
   {
     if (is_modified(*input->file))
     {
-      // log::debug() << "Input " << input->file->path << " is modified.";
+      if (_impl->verbose >= 2)
+      {
+        log::debug() << R"(Input ")" << input->file->path
+                     << R"(" is modified.)";
+      }
       return true;
     }
   }
@@ -688,7 +766,11 @@ bool data_cache::is_modified(const job_description& job) const
   {
     if (is_modified(*output_file))
     {
-      // log::debug() << "Output " << output_file->path << " is modified.";
+      if (_impl->verbose >= 2)
+      {
+        log::debug() << R"(Output ")" << output_file->path
+                     << R"(" is modified.)";
+      }
       return true;
     }
   }
@@ -702,16 +784,27 @@ bool data_cache::is_modified(const file_description& file) const
   {
     if (file.last_write_time != cached_file_iter->second->last_write_time)
     {
-      // log::debug() << "File " << file.path << " modified because "
-      //             << file.last_write_time
-      //             << " != " << cached_file_iter->second->last_write_time;
+      if (_impl->verbose >= 2)
+      {
+        log::debug() << R"(File ")" << file.generic_string
+                     << R"(" modified because timestamps do not match ()"
+                     << file.last_write_time.time_since_epoch().count()
+                     << " != "
+                     << cached_file_iter->second->last_write_time
+                          .time_since_epoch()
+                          .count()
+                     << ").";
+      }
       return true;
     }
     else
       return false;
   }
-  // log::debug() << "File " << file.path
-  //             << " modified because it cannot be located in our cache.";
+  if (_impl->verbose >= 2)
+  {
+    log::debug() << R"(File ")" << file.generic_string
+                 << R"(" modified because it cannot be located in our cache.)";
+  }
   return true;
 }
 }
