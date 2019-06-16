@@ -105,7 +105,7 @@ namespace scene
     template <typename TEnum>
     bool changed(TEnum bit) const
     {
-      auto mask = 1 << static_cast<std::underlying_type_t<TEnum>>(bit);
+      auto mask = 1 << core::underlying_type_cast(bit);
       return (_change_flags & mask) != 0;
     }
 
@@ -117,7 +117,7 @@ namespace scene
     template <typename TEnum>
     void change(TEnum bit)
     {
-      auto mask = 1 << static_cast<std::underlying_type_t<TEnum>>(bit);
+      auto mask = 1 << core::underlying_type_cast(bit);
       _change_flags |= mask;
     }
 

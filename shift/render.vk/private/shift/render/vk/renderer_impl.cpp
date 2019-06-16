@@ -1195,8 +1195,7 @@ boost::intrusive_ptr<vk::layer2::mesh> renderer_impl::create_mesh(
   // std::vector<vk::vertex_input_attribute_description> vertex_attributes;
   for (auto& source_attribute : source_mesh->vertex_attributes)
   {
-    auto& attribute = vertex_attributes[static_cast<std::underlying_type_t<
-      vk::layer2::mesh::vertex_attribute_usage>>(source_attribute.usage)];
+    auto& attribute = core::at(vertex_attributes, source_attribute.usage);
     if (attribute.buffer)
     {
       BOOST_THROW_EXCEPTION(

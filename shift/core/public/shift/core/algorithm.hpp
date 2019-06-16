@@ -111,14 +111,14 @@ std::uint32_t hamming_weight(std::uint32_t value);
 template <typename T, std::size_t N, typename Enum>
 constexpr auto& at(std::array<T, N>& array, Enum key)
 {
-  return array[static_cast<std::underlying_type_t<Enum>>(key)];
+  return array[underlying_type_cast(key)];
 }
 
 /// Accesses an std::array using an enumeration key.
 template <typename T, std::size_t N, typename Enum>
 constexpr const auto& at(const std::array<T, N>& array, Enum key)
 {
-  return array[static_cast<std::underlying_type_t<Enum>>(key)];
+  return array[underlying_type_cast(key)];
 }
 }
 

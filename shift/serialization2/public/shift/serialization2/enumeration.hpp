@@ -22,7 +22,7 @@ template <boost::endian::order Order, typename U,
 compact_output_archive<Order>& operator<<(
   compact_output_archive<Order>& archive, U value)
 {
-  archive << static_cast<std::underlying_type_t<U>>(value);
+  archive << core::underlying_type_cast(value);
   return archive;
 }
 }

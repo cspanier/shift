@@ -19,7 +19,7 @@ InputArchive& operator>>(InputArchive& archive, U& value)
 template <class OutputArchive, typename U, ENABLE_IF(std::is_enum<U>::value)>
 OutputArchive& operator<<(OutputArchive& archive, U value)
 {
-  archive << static_cast<std::underlying_type_t<U>>(value);
+  archive << core::underlying_type_cast(value);
   return archive;
 }
 }
