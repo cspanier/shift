@@ -45,11 +45,9 @@ serialization2::compact_output_archive<>& operator<<(
 
 crypto::sha256& operator<<(crypto::sha256& context, const sampler& value)
 {
-  using sampler_address_mode_base =
-    std::underlying_type_t<sampler_address_mode>;
-  context << static_cast<sampler_address_mode_base>(value.address_mode_u)
-          << static_cast<sampler_address_mode_base>(value.address_mode_v)
-          << static_cast<sampler_address_mode_base>(value.address_mode_w)
+  context << core::underlying_type_cast(value.address_mode_u)
+          << core::underlying_type_cast(value.address_mode_v)
+          << core::underlying_type_cast(value.address_mode_w)
           << value.max_anisotropy << value.min_lod << value.max_lod;
   return context;
 }
