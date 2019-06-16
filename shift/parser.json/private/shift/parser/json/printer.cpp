@@ -47,6 +47,9 @@ struct printer
   void operator()(const double& value);
 
   ///
+  void operator()(const std::int64_t& value);
+
+  ///
   void operator()(const std::string& value);
 
   ///
@@ -89,6 +92,11 @@ void printer::operator()(const bool& value)
 void printer::operator()(const double& value)
 {
   stream << std::setprecision(std::numeric_limits<double>::digits10) << value;
+}
+
+void printer::operator()(const std::int64_t& value)
+{
+  stream << value;
 }
 
 void printer::operator()(const std::string& value)

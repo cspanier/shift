@@ -64,6 +64,11 @@ inline std::size_t hash<shift::parser::json::value>::operator()(
   {
     return std::hash<double>{}(*double_value);
   }
+  else if (auto* int_value = shift::parser::json::get_if<std::int64_t>(&value);
+           int_value != nullptr)
+  {
+    return std::hash<std::int64_t>{}(*int_value);
+  }
   else if (auto* string_value =
              shift::parser::json::get_if<std::string>(&value);
            string_value != nullptr)

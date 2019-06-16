@@ -15,7 +15,6 @@ grammar::grammar() : grammar::base_type(_value, "json document root")
 {
   using encoding::char_;
   using qi::bool_;
-  using qi::double_;
   using qi::no_skip;
   using namespace qi::labels;
 
@@ -34,7 +33,16 @@ grammar::grammar() : grammar::base_type(_value, "json document root")
   _string %=
     '"' > no_skip[*(_unescape_map | ("\\u" >> qi::hex) | (qi::char_ - '"'))] >
     '"';
-  _value %= _null | bool_ | double_ | _string | _object | _array;
+
+  // We need this parser to make sure an int value gets preferred. By default, a
+  // double can parse any integer equally well, so we need to use
+  // strict_real_policies instead.
+  static const qi::real_parser<double, qi::strict_real_policies<double>>
+    strict_double;
+  // Use the int64 parser from Boost Spirit X3, because the default int_ parser
+  // uses regular int types.
+  static const qi::int_parser<std::int64_t> int64;
+  _value %= _null | bool_ | strict_double | int64 | _string | _object | _array;
   _array %= '[' > -(_value % ',') > ']';
   _key_value %= _string > ':' > _value;
   _object %= '{' > -(_key_value % ',') > '}';

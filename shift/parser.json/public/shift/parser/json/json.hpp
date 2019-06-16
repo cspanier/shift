@@ -52,6 +52,11 @@ public:
   {
   }
 
+  /// Constructor initializing value to int64.
+  value(std::int64_t new_value) : _value(new_value)
+  {
+  }
+
   /// Constructor initializing value from a string.
   value(const std::string& new_value) : _value(new_value)
   {
@@ -119,7 +124,8 @@ public:
   friend auto visit(T&& callable, const value& instance);
 
 private:
-  std::variant<std::nullptr_t, bool, double, std::string, array_t, object_t>
+  std::variant<std::nullptr_t, bool, double, std::int64_t, std::string, array_t,
+               object_t>
     _value;
 };
 
