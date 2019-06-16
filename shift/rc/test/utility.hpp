@@ -36,4 +36,8 @@ void write_text_file(const std::filesystem::path& filename,
 void write_png_image(const std::filesystem::path& filename, std::uint32_t width,
                      std::uint32_t height, std::uint32_t rgba);
 
+void write_tiff_image(const std::filesystem::path& filename,
+                      std::uint32_t width, std::uint32_t height,
+                      std::uint32_t rgba);
+
 #endif

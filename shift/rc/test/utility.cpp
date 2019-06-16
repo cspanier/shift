@@ -1,5 +1,6 @@
 #include "utility.hpp"
 #include <shift/rc/resource_compiler.hpp>
+#include <shift/rc/image_util/tiff_io.hpp>
 #include <shift/resource_db/repository.hpp>
 #include <shift/task/async.hpp>
 #include <shift/log/log_server.hpp>
@@ -139,4 +140,39 @@ void write_png_image(const std::filesystem::path& filename, std::uint32_t width,
                    gil::rgba8_pixel_t(rgba & 0xFF, rgba >> 8 & 0xFF,
                                       rgba >> 16 & 0xFF, rgba >> 24 & 0xFF));
   gil::write_view(filename.generic_string(), image_view, gil::png_tag{});
+}
+
+void write_tiff_image(const std::filesystem::path& filename,
+                      std::uint32_t width, std::uint32_t height,
+                      std::uint32_t rgba)
+{
+  using namespace shift::rc::image_util;
+
+  std::vector<tiff_image> images;
+  auto& image = images.emplace_back();
+
+  image.samples_per_pixel = 4;
+  image.extra_samples = 0;
+  image.bits_per_sample = 8;
+  image.samples_format = tiff_samples_format::unsigned_int;
+  image.compression = tiff_compression::zstd;
+  image.width = width;
+  image.height = height;
+  image.rows_per_strip = height;
+  image.photometric = tiff_photometric::rgb;
+  image.planar_config = tiff_planar_config::contiguous;
+  image.pixel_data.resize(image.width * image.height * image.samples_per_pixel *
+                          image.bits_per_sample / 8);
+  image.icc_profile_category = tiff_icc_profile_category::srgb;
+
+  // Fill image with passed color.
+  auto* destination = image.pixel_data.data();
+  for (auto i = width * height; i > 0; --i)
+  {
+    std::memcpy(destination, &rgba, sizeof(rgba));
+    destination += sizeof(rgba);
+  }
+
+  tiff_io io;
+  io.save(filename, images, false);
 }
