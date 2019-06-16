@@ -10,6 +10,68 @@
 
 namespace shift::rc::image_util
 {
+static_assert(core::underlying_type_cast(tiff_samples_format::unsigned_int) ==
+              SAMPLEFORMAT_UINT);
+static_assert(core::underlying_type_cast(tiff_samples_format::signed_int) ==
+              SAMPLEFORMAT_INT);
+static_assert(core::underlying_type_cast(tiff_samples_format::floating_point) ==
+              SAMPLEFORMAT_IEEEFP);
+static_assert(core::underlying_type_cast(tiff_samples_format::untyped) ==
+              SAMPLEFORMAT_VOID);
+static_assert(
+  core::underlying_type_cast(tiff_samples_format::complex_signed_int) ==
+  SAMPLEFORMAT_COMPLEXINT);
+static_assert(
+  core::underlying_type_cast(tiff_samples_format::complex_floating_point) ==
+  SAMPLEFORMAT_COMPLEXIEEEFP);
+
+static_assert(core::underlying_type_cast(tiff_compression::none) ==
+              COMPRESSION_NONE);
+static_assert(core::underlying_type_cast(tiff_compression::ccittrle) ==
+              COMPRESSION_CCITTRLE);
+static_assert(core::underlying_type_cast(tiff_compression::ccittfax3) ==
+              COMPRESSION_CCITTFAX3);
+static_assert(core::underlying_type_cast(tiff_compression::ccittfax4) ==
+              COMPRESSION_CCITTFAX4);
+static_assert(core::underlying_type_cast(tiff_compression::lzw) ==
+              COMPRESSION_LZW);
+static_assert(core::underlying_type_cast(tiff_compression::jpeg) ==
+              COMPRESSION_JPEG);
+static_assert(core::underlying_type_cast(tiff_compression::adobe_deflate) ==
+              COMPRESSION_ADOBE_DEFLATE);
+static_assert(core::underlying_type_cast(tiff_compression::packbits) ==
+              COMPRESSION_PACKBITS);
+static_assert(core::underlying_type_cast(tiff_compression::lzma) ==
+              COMPRESSION_LZMA);
+static_assert(core::underlying_type_cast(tiff_compression::zstd) ==
+              COMPRESSION_ZSTD);
+static_assert(core::underlying_type_cast(tiff_compression::webp) ==
+              COMPRESSION_WEBP);
+
+static_assert(core::underlying_type_cast(tiff_photometric::min_is_white) ==
+              PHOTOMETRIC_MINISWHITE);
+static_assert(core::underlying_type_cast(tiff_photometric::min_is_black) ==
+              PHOTOMETRIC_MINISBLACK);
+static_assert(core::underlying_type_cast(tiff_photometric::rgb) ==
+              PHOTOMETRIC_RGB);
+static_assert(core::underlying_type_cast(tiff_photometric::palette) ==
+              PHOTOMETRIC_PALETTE);
+static_assert(core::underlying_type_cast(tiff_photometric::separated) ==
+              PHOTOMETRIC_SEPARATED);
+static_assert(core::underlying_type_cast(tiff_photometric::ycbcr) ==
+              PHOTOMETRIC_YCBCR);
+static_assert(core::underlying_type_cast(tiff_photometric::cie_lab) ==
+              PHOTOMETRIC_CIELAB);
+static_assert(core::underlying_type_cast(tiff_photometric::icc_lab) ==
+              PHOTOMETRIC_ICCLAB);
+static_assert(core::underlying_type_cast(tiff_photometric::log_luv) ==
+              PHOTOMETRIC_LOGLUV);
+
+static_assert(core::underlying_type_cast(tiff_planar_config::contiguous) ==
+              PLANARCONFIG_CONTIG);
+static_assert(core::underlying_type_cast(tiff_planar_config::separate) ==
+              PLANARCONFIG_SEPARATE);
+
 static void tiff_warning(thandle_t, const char* function, const char* message,
                          va_list)
 {
@@ -130,15 +192,19 @@ static std::uint32_t cms_pixel_type_from_sample_count(
 
 static std::uint32_t cms_get_input_pixel_type(const tiff_image& image)
 {
+  using namespace shift::rc::image_util;
+
   std::uint32_t is_planar;
   switch (image.planar_config)
   {
-  case PLANARCONFIG_CONTIG:
+  case tiff_planar_config::contiguous:
     is_planar = 0;
     break;
-  case PLANARCONFIG_SEPARATE:
+
+  case tiff_planar_config::separate:
     is_planar = 1;
     break;
+
   default:
     BOOST_ASSERT(false);
     return 0;
@@ -167,36 +233,36 @@ static std::uint32_t cms_get_input_pixel_type(const tiff_image& image)
   std::uint32_t lab_tiff_special = 0;
   switch (image.photometric)
   {
-  case PHOTOMETRIC_MINISWHITE:
+  case tiff_photometric::min_is_white:
     reverse = 1;
     [[fallthrough]];
 
-  case PHOTOMETRIC_MINISBLACK:
+  case tiff_photometric::min_is_black:
     pixel_type = PT_GRAY;
     break;
 
-  case PHOTOMETRIC_RGB:
+  case tiff_photometric::rgb:
     pixel_type = PT_RGB;
     break;
 
-  case PHOTOMETRIC_SEPARATED:
+  case tiff_photometric::separated:
     pixel_type = cms_pixel_type_from_sample_count(color_samples);
     break;
 
-  case PHOTOMETRIC_YCBCR:
+  case tiff_photometric::ycbcr:
     pixel_type = PT_YCbCr;
     break;
 
-  case PHOTOMETRIC_ICCLAB:
-    pixel_type = PT_LabV2;
-    break;
-
-  case PHOTOMETRIC_CIELAB:
+  case tiff_photometric::cie_lab:
     pixel_type = PT_Lab;
     lab_tiff_special = 1;
     break;
 
-  case PHOTOMETRIC_LOGLUV:
+  case tiff_photometric::icc_lab:
+    pixel_type = PT_LabV2;
+    break;
+
+  case tiff_photometric::log_luv:
     pixel_type = PT_YUV;
     break;
 
@@ -207,7 +273,7 @@ static std::uint32_t cms_get_input_pixel_type(const tiff_image& image)
 
   std::uint32_t bytes_per_sample = image.bits_per_sample >> 3;
   std::uint32_t is_float =
-    (image.samples_format == SAMPLEFORMAT_IEEEFP) ? 1 : 0;
+    (image.samples_format == tiff_samples_format::floating_point) ? 1 : 0;
 
   return FLOAT_SH(is_float) | COLORSPACE_SH(pixel_type) | PLANAR_SH(is_planar) |
          EXTRA_SH(extra_samples) | CHANNELS_SH(color_samples) |
@@ -481,7 +547,7 @@ bool tiff_io::load(const std::filesystem::path& filename,
     if (!TIFFGetField(tiff, TIFFTAG_SAMPLEFORMAT, &image.samples_format))
     {
       // Fallback to default.
-      image.samples_format = SAMPLEFORMAT_UINT;
+      image.samples_format = tiff_samples_format::unsigned_int;
     }
 
     if (!TIFFGetField(tiff, TIFFTAG_COMPRESSION, &image.compression))
@@ -518,11 +584,11 @@ bool tiff_io::load(const std::filesystem::path& filename,
                    << ": Missing required TIFF field 'TIFFTAG_PLANARCONFIG'.";
       return false;
     }
-    if (image.planar_config != PLANARCONFIG_CONTIG &&
-        image.planar_config != PLANARCONFIG_SEPARATE)
+    if (image.planar_config != tiff_planar_config::contiguous &&
+        image.planar_config != tiff_planar_config::separate)
     {
       log::error() << filename << ": Unsupported planar configuration ("
-                   << image.planar_config << ").";
+                   << core::underlying_type_cast(image.planar_config) << ").";
       return 0;
     }
 
@@ -535,16 +601,16 @@ bool tiff_io::load(const std::filesystem::path& filename,
 
     switch (image.photometric)
     {
-    case PHOTOMETRIC_MINISWHITE:
-    case PHOTOMETRIC_MINISBLACK:
-    case PHOTOMETRIC_RGB:
-    case PHOTOMETRIC_SEPARATED:
-    case PHOTOMETRIC_CIELAB:
-    case PHOTOMETRIC_ICCLAB:
+    case tiff_photometric::min_is_white:
+    case tiff_photometric::min_is_black:
+    case tiff_photometric::rgb:
+    case tiff_photometric::separated:
+    case tiff_photometric::cie_lab:
+    case tiff_photometric::icc_lab:
       // NOP.
       break;
 
-    case PHOTOMETRIC_YCBCR:
+    case tiff_photometric::ycbcr:
       if (std::uint16_t subsampling_x = 1, subsampling_y = 1;
           !TIFFGetFieldDefaulted(tiff, TIFFTAG_YCBCRSUBSAMPLING, &subsampling_x,
                                  &subsampling_y) ||
@@ -555,7 +621,7 @@ bool tiff_io::load(const std::filesystem::path& filename,
       }
       break;
 
-    case PHOTOMETRIC_LOGLUV:
+    case tiff_photometric::log_luv:
       if (image.bits_per_sample != 16)
       {
         log::error()
@@ -566,14 +632,14 @@ bool tiff_io::load(const std::filesystem::path& filename,
       }
       break;
 
-    case PHOTOMETRIC_PALETTE:
+    case tiff_photometric::palette:
       log::error() << filename
                    << ": TIFF images with color palettes are note supported.";
       return false;
 
     default:
       log::error() << filename << ": Unsupported TIFF color space (photometric "
-                   << image.photometric << ").";
+                   << core::underlying_type_cast(image.photometric) << ").";
       return false;
     }
 
@@ -694,6 +760,8 @@ bool tiff_io::save(const std::filesystem::path& filename,
                    const std::vector<tiff_image>& images,
                    bool ignore_icc_profile)
 {
+  using namespace shift::rc::image_util;
+
   auto name = filename.generic_string();
   auto tiff = TIFFOpen(name.c_str(), "w");
   if (tiff == nullptr)
@@ -714,7 +782,7 @@ bool tiff_io::save(const std::filesystem::path& filename,
 
     switch (image.photometric)
     {
-    case PHOTOMETRIC_YCBCR:
+    case tiff_photometric::ycbcr:
     {
       std::uint16_t subsampling_x = 1;
       std::uint16_t subsampling_y = 1;
@@ -723,7 +791,7 @@ bool tiff_io::save(const std::filesystem::path& filename,
       break;
     }
 
-    case PHOTOMETRIC_LOGLUV:
+    case tiff_photometric::log_luv:
       TIFFSetField(tiff, TIFFTAG_SGILOGDATAFMT, SGILOGDATAFMT_16BIT);
       break;
 

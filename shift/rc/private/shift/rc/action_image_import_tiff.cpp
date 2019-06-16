@@ -139,7 +139,7 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
 {
   switch (image.samples_format)
   {
-  case SAMPLEFORMAT_UINT:
+  case image_util::tiff_samples_format::unsigned_int:
     switch (image.bits_per_sample)
     {
     case 8:
@@ -172,7 +172,7 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
     }
     break;
 
-  case SAMPLEFORMAT_INT:
+  case image_util::tiff_samples_format::signed_int:
     switch (image.bits_per_sample)
     {
     case 8:
@@ -203,7 +203,7 @@ resource_db::image_format to_format(const image_util::tiff_image& image)
     }
     break;
 
-  case SAMPLEFORMAT_IEEEFP:
+  case image_util::tiff_samples_format::floating_point:
     switch (image.bits_per_sample)
     {
     case 16:
