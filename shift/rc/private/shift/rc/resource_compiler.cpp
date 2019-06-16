@@ -152,12 +152,6 @@ void resource_compiler::save_cache(const std::filesystem::path& cache_filename)
     log::info() << "Saving cache file " << cache_filename << "...";
 
   _impl->cache.save(cache_filename);
-
-  auto cache_graph_filename =
-    fs::path{cache_filename}.replace_extension(".dot");
-  if (verbose() >= 1)
-    log::info() << "Saving cache graph " << cache_graph_filename << "...";
-  _impl->cache.save_graph(cache_graph_filename);
 }
 
 void resource_compiler::save_cache_graph(
