@@ -317,7 +317,7 @@ const T* rvalue_address(const T& value)
 
 /// Casts a value of enum class type to its underlying type.
 template <typename T>
-inline constexpr auto underlying_type_cast(T value)
+constexpr auto underlying_type_cast(T value)
 {
   return static_cast<std::underlying_type_t<T>>(value);
 }
