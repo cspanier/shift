@@ -308,38 +308,33 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
   auto target_image = std::make_shared<resource_db::image>();
   for (auto& source_image : source_images)
   {
-    //    // Check the size of the source image.
-    //    if (!target_image->mipmaps.empty())
-    //    {
-    //      const auto& last_mipmap = target_image->mipmaps.back();
-    //      if (source_image.width != std::max(last_mipmap.width / 2u, 1u) ||
-    //          source_image.height != std::max(last_mipmap.height / 2u, 1u))
-    //      {
-    //        log::error() << "Wrong size of mip map image.";
-    //        return false;
-    //      }
-    //    }
+    image_util::source_image_descriptor source;
+    source.width = source_image.width;
+    source.height = source_image.height;
+    source.row_stride = 0;
+    source.format = to_format(source_image);
+    source.buffer_size = source_image.pixel_data.size();
+    source.buffer = source_image.pixel_data.data();
 
-    image_util::tiff_image next_image;
-    auto* current_image = &source_image;
-    do
+    auto target_buffer = std::make_shared<resource_db::buffer>();
+
+    if (source.format == target_format)
     {
-      image_util::destination_image_descriptor destination;
-      destination.width = current_image->width;
-      destination.height = current_image->height;
-      destination.row_stride = 0;
-      destination.format = target_format;
-      /// ToDo: required_buffer_size and new buffer.
-      destination.buffer_size = current_image->pixel_data.size();
-      destination.buffer = current_image->pixel_data.data();
-
-      image_util::source_image_descriptor source;
-      source.width = current_image->width;
-      source.height = current_image->height;
-      source.row_stride = 0;
-      source.format = to_format(*current_image);
-      source.buffer_size = current_image->pixel_data.size();
-      source.buffer = current_image->pixel_data.data();
+      target_buffer->storage.resize(source.buffer_size);
+      std::copy_n(source.buffer, source.buffer_size,
+                  target_buffer->storage.begin());
+    }
+    else
+    {
+      image_util::destination_image_descriptor converted;
+      converted.width = source_image.width;
+      converted.height = source_image.height;
+      converted.row_stride = 0;
+      converted.format = target_format;
+      target_buffer->storage.resize(
+        image_util::required_image_buffer_size(converted));
+      converted.buffer_size = target_buffer->storage.size();
+      converted.buffer = target_buffer->storage.data();
 
       image_util::convert_region region;
       region.destination_x = 0;
@@ -349,22 +344,37 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
       region.width = source.width;
       region.height = source.height;
 
-      if (auto error =
-            image_util::convert_image(destination, source, region, {});
+      if (auto error = image_util::convert_image(converted, source, region, {});
           error)
       {
         log::error() << "Image compression failed: " << error;
         return false;
       }
+    }
+
+    image_util::source_image_descriptor next_image;
+    auto* current_image = &source;
+    do
+    {
+
+      auto& mipmap = target_image->mipmaps.emplace_back();
+      mipmap.buffer = target_buffer;
+      mipmap.offset = 0;
+      mipmap.width = source.width;
+      mipmap.height = source.height;
+      mipmap.depth = 1;
+
       if (!generate_mip_maps)
         break;
+      /// ToDo: Save image to target_image->mipmaps.
       break;  /// ToDo: remove when scale_down is back.
+
       // if (!scale_down(*last_image, next_image))
       // {
       //   log::error() << "Image resize failed.";
       //   return false;
       // }
-      current_image = &next_image;
+      // current_image = &next_image;
     } while (current_image->width > 1u || current_image->height > 1u);
   }
 

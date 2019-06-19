@@ -173,6 +173,5 @@ void write_tiff_image(const std::filesystem::path& filename,
     destination += sizeof(rgba);
   }
 
-  tiff_io io;
-  io.save(filename, images, false);
+  tiff_io::singleton_instance().save(filename, images, false);
 }

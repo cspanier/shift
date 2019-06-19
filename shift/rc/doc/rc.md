@@ -84,7 +84,7 @@ Each file may contain many rules and each input, output, and options section may
       "buffer": "<output-path>/<rule-path>/<image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "rgba8_srgb",
+      "target-format": "r8g8b8a8_srgb",
       "normalized": false
     }
   }
