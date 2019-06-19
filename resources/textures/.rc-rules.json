@@ -10,7 +10,7 @@
       "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "rgba8_srgb",
+      "target-format": "bc3_srgb",
       "normalized": false
     }
   },
@@ -25,7 +25,7 @@
       "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "r8_snorm",
+      "target-format": "bc4_snorm",
       "normalized": false
     }
   },
@@ -40,7 +40,7 @@
       "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "r8_unorm",
+      "target-format": "bc4_unorm",
       "normalized": false
     }
   },
@@ -55,7 +55,7 @@
       "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "rgb8_snorm",
+      "target-format": "bc5_snorm",
       "normalized": false
     }
   },
@@ -70,7 +70,7 @@
       "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "r8_unorm",
+      "target-format": "bc4_unorm",
       "normalized": false
     }
   }
