@@ -30,7 +30,7 @@ This repository hosts a collection of various libraries and tools that have been
 The code is regularly tested with the following compilers:
 
 * [GCC 9.1.0](https://gcc.gnu.org/)
-* [Clang 8.0.0](https://clang.llvm.org/) (see [#using-clang](Using Clang))
+* [Clang 8.0.0](https://clang.llvm.org/) (see [Using Clang](#using-clang))
 * [MSVC 16.1](https://visualstudio.microsoft.com/)
 
 The following external libraries are required:
