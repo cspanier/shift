@@ -46,6 +46,10 @@ grammar::grammar() : grammar::base_type(_global_scope)
   using qi::hex;
   using qi::no_skip;
 
+  // Use the uint64 parser from Boost Spirit X3, because the default int_ parser
+  // uses regular int types.
+  static const qi::int_parser<std::uint64_t> uint64;
+
   _sint %=
     lexeme[(lit("0x") >> hex) | (lit('\'') >> char_ >> lit('\'')) | long_long];
   _uint %=
@@ -98,8 +102,7 @@ grammar::grammar() : grammar::base_type(_global_scope)
                     _string_type | _template_type;
 
   _attribute %=
-    _identifier > ((lit('=') > (_string | _uint)) |
-                   eps[at_c<1>(_val) = static_cast<std::uint64_t>(1)]);
+    _identifier > ((lit('=') > (_string | uint64)) | eps[at_c<1>(_val) = 1ULL]);
   _attributes %= lit('[') > -(_attribute % lit(',')) > lit(']');
   _type_reference %=
     (_built_in_type | _type_path) >
