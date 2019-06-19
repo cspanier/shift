@@ -155,19 +155,8 @@ void application::initialize()
   _renderer->initialize(*selected_physical_device);
 
   _resource_scene =
-    _repository
-      ->load<resource_db::scene>("resources/pbrt/sanmiguel/sanmiguel.scene")
+    _repository->load<resource_db::scene>("resources/scenes/empty.scene")
       .get_shared();
-  //    _repository
-  //      ->load<resource_db::scene>("resources/pbrt/white-room/whiteroom-night.scene")
-  //      .get_shared();
-  // _repository->load<resource_db::scene>("resources/pbrt/landscape/view-0.scene").get_shared();
-  //  if (!_resource_scene || !_resource_scene->root)
-  //  {
-  //    BOOST_THROW_EXCEPTION(
-  //      shift::core::runtime_error()
-  //      << shift::core::context_info("Missing scene resource"));
-  //  }
   _renderer->create_resources();
   create_resources(*_resource_scene);
 
