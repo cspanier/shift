@@ -9,25 +9,25 @@ if(SHIFT_CLANG_TIDY_ON_MSVC)
   endif()
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # General compiler flags:
-  # -O0                        # Disable optimizations(required for accurate
-                               # debugging).
-  # -O3                        # Enable all optimization flags for maximum
-                               # performance.
-  # -Os                        # Enable all optimization flags of -O2 that don't
-                               # increase the file size.
-  # -g                         # Add debugging information.
-  # -msse4.1/-msse4.2/-msse4a  # Enable SSE support
-  # -fPIC                      # Generate position independent code.
-  # -frounding-math            # Support infinities, NaNs, gradual underflow,
-  # -fsignaling-nans           # signed zeros, exception flags and traps,
-                               # setting rounding modes.
-  # -Wall                      # Enables all the warnings about constructions
-                               # that some users consider questionable, and that
-                               # are easy to avoid.
-  # -Wextra                    # Enables additional warnings not included in
-                               # -Wall.
-  # -Wno-ignored-attributes    # ToDo: add description
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -ftemplate-backtrace-limit=0 -fvisibility=default -fPIC -Wall -msse4.1 -ftemplate-depth=512 -Wno-ignored-attributes") # -stdlib=libc++ -fvisibility=hidden -fvisibility-inlines-hidden
+  # -O0                     # Disable optimizations(required for accurate
+                            # debugging).
+  # -O3                     # Enable all optimization flags for maximum
+                            # performance.
+  # -Os                     # Enable all optimization flags of -O2 that don't
+                            # increase the file size.
+  # -g                      # Add debugging information.
+  # -msse<N>                # Enable SSE support, where N may be 3, 4.1, 4.2, or 4a
+  # -fPIC                   # Generate position independent code.
+  # -frounding-math         # Support infinities, NaNs, gradual underflow,
+  # -fsignaling-nans        # signed zeros, exception flags and traps,
+                            # setting rounding modes.
+  # -Wall                   # Enables all the warnings about constructions
+                            # that some users consider questionable, and that
+                            # are easy to avoid.
+  # -Wextra                 # Enables additional warnings not included in
+                            # -Wall.
+  # -Wno-ignored-attributes # ToDo: add description
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -ftemplate-backtrace-limit=0 -fvisibility=default -fPIC -Wall -msse3 -msse4.1 -ftemplate-depth=512 -Wno-ignored-attributes") # -stdlib=libc++ -fvisibility=hidden -fvisibility-inlines-hidden
   # Temporarily disable redeclared-class-member warning for Boost 1.59
   # set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -Wno-redeclared-class-member")
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
@@ -84,28 +84,28 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # endif()
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND NOT MSVC)
   # General compiler flags:
-  # -O0                        # Disable optimizations(required for accurate
-                               # debugging).
-  # -O3                        # Enable all optimization flags for maximum
-                               # performance.
-  # -Os                        # Enable all optimization flags of -O2 that don't
-                               # increase the file size.
-  # -g                         # Add debugging information.
-  # -msse4.1/-msse4.2/-msse4a  # Enable SSE support
-  # -fPIC                      # Generate position independent code.
-  # -frounding-math            # Support infinities, NaNs, gradual underflow,
-  # -fsignaling-nans           # signed zeros, exception flags and traps,
-                               # setting rounding modes.
-  # -Wall                      # Enables all the warnings about constructions
-                               # that some users consider questionable, and that
-                               # are easy to avoid.
-  # -Wextra                    # Enables additional warnings not included in
-                               # -Wall.
-  # -Wno-psabi                 # Disable "parameter passing for argument of type
-                               # '...' changed in GCC 7.1" warnings
-  # -Wno-unknown-pragmas       # Disable warnings about unknown pragmas,
-                               # like e.g. pragma region/endregion.
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -msse4.1 -Wno-psabi -Wno-unknown-pragmas")
+  # -O0                  # Disable optimizations(required for accurate
+                         # debugging).
+  # -O3                  # Enable all optimization flags for maximum
+                         # performance.
+  # -Os                  # Enable all optimization flags of -O2 that don't
+                         # increase the file size.
+  # -g                   # Add debugging information.
+  # -msse<N>             # Enable SSE support, where N may be 3, 4.1, 4.2, or 4a
+  # -fPIC                # Generate position independent code.
+  # -frounding-math      # Support infinities, NaNs, gradual underflow,
+  # -fsignaling-nans     # signed zeros, exception flags and traps,
+                         # setting rounding modes.
+  # -Wall                # Enables all the warnings about constructions
+                         # that some users consider questionable, and that
+                         # are easy to avoid.
+  # -Wextra              # Enables additional warnings not included in
+                         # -Wall.
+  # -Wno-psabi           # Disable "parameter passing for argument of type
+                         # '...' changed in GCC 7.1" warnings
+  # -Wno-unknown-pragmas # Disable warnings about unknown pragmas,
+                         # like e.g. pragma region/endregion.
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -fvisibility=default -fPIC -frounding-math -fsignaling-nans -Wall -msse3 -msse4.1 -Wno-psabi -Wno-unknown-pragmas")
   # -fvisibility=hidden -fvisibility-inlines-hidden
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
   set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT "-Os -Wextra -fomit-frame-pointer -DBUILD_CONFIG_MINSIZEREL")
