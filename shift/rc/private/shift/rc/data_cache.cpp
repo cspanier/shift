@@ -278,7 +278,7 @@ bool data_cache::load(const std::filesystem::path& cache_filename)
                &cached_file_object->at("write-time")) != nullptr))
         {
           new_file->last_write_time =
-            time_point<system_clock>() +
+            time_point<file_clock_t>() +
             nanoseconds(static_cast<std::uint64_t>(
               json::get<std::int64_t>(cached_file_object->at("write-time"))));
         }

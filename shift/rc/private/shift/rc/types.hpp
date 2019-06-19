@@ -202,6 +202,9 @@ private:
   bool _support_multithreading = true;
 };
 
+using file_time_t = decltype(std::filesystem::last_write_time({}));
+using file_clock_t = file_time_t::clock;
+
 ///
 struct file_description
 {
@@ -224,7 +227,7 @@ struct file_description
   /// match it against rule regexes.
   std::string generic_string;
   std::size_t hash;
-  std::chrono::system_clock::time_point last_write_time;
+  file_time_t last_write_time;
   std::uint32_t pass = 0;
   entity_flags flags = entity_flags{0};
   file_description* alias = nullptr;
