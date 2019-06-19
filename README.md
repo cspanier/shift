@@ -29,11 +29,11 @@ This repository hosts a collection of various libraries and tools that have been
 
 The code is regularly tested with the following compilers:
 
-* [GCC 8.2.1](https://gcc.gnu.org/)
-* [Clang 7.0.0](https://clang.llvm.org/)
-* [MSVC 15.8](https://visualstudio.microsoft.com/)
+* [GCC 9.1.0](https://gcc.gnu.org/)
+* [Clang 8.0.0](https://clang.llvm.org/) (see [#using-clang](Using Clang))
+* [MSVC 16.1](https://visualstudio.microsoft.com/)
 
-Additionally, the following libraries are required:
+The following external libraries are required:
 
 * [Google Breakpad](https://github.com/google/breakpad) tested with revision 1459e5d
     * [GYP](https://gyp.gsrc.io/) is needed to build Breakpad
@@ -57,3 +57,36 @@ Additionally, the following libraries are required:
     * Used to format generated code.
 
 For Windows you can try [3rdparty build scripts](3rdparty/packages/README.md) supplied with this repository.
+
+## Using Clang
+
+When using Clang with GCC's standard library libstdc++ you need the following patch to work around a long standing bug in Clang:
+
+```
+--- /usr/include/c++/9.1.0/variant.orig	2019-06-19 22:08:51.393999303 +0200
++++ /usr/include/c++/9.1.0/variant	2019-06-19 22:12:42.959869467 +0200
+@@ -1217,7 +1217,11 @@
+ 
+   template<typename... _Types>
+     class variant
++#if defined(__clang__)
++    : public __detail::__variant::_Variant_base<_Types...>,
++#else
+     : private __detail::__variant::_Variant_base<_Types...>,
++#endif
+       private _Enable_default_constructor<
+ 	__detail::__variant::_Traits<_Types...>::_S_default_ctor,
+ 	  variant<_Types...>>,
+@@ -1555,8 +1559,10 @@
+     private:
+ #endif
+ 
++#if !defined(__clang__)
+       template<size_t _Np, typename _Vp>
+ 	friend constexpr decltype(auto) __detail::__variant::__get(_Vp&& __v);
++#endif
+ 
+       template<typename _Vp>
+ 	friend void* __detail::__variant::__get_storage(_Vp&& __v);
+```
+
