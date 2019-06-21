@@ -213,18 +213,17 @@ std::error_code convert_image(
           std::uint32_t pixel_mask = 0;
           for (std::uint32_t y = 0; y < block_height; ++y)
           {
-            auto absolute_y = block_y + y;
+            auto absolute_y = region.source_y + block_y + y;
             if (absolute_y < source_image.height)
             {
               for (std::uint32_t x = 0; x < block_width; ++x)
               {
-                auto absolute_x = block_x + x;
+                auto absolute_x = region.source_x + block_x + x;
                 if (absolute_x < source_image.width)
                 {
                   typename source_view_t::pixel_t source_pixel;
 
-                  source_view.read_pixel(region.source_x + x,
-                                         region.source_y + y, source_pixel);
+                  source_view.read_pixel(absolute_x, absolute_y, source_pixel);
                   converter(intermediate_pixels[y * block_width + x],
                             source_pixel);
 
@@ -236,8 +235,9 @@ std::error_code convert_image(
           // We must have at least one pixel.
           BOOST_ASSERT(pixel_mask != 0);
           // Compress and write the intermediate pixel block.
-          destination_view.write_pixel_block(block_x, block_y, pixel_mask,
-                                             intermediate_pixels);
+          destination_view.write_pixel_block(region.destination_x + block_x,
+                                             region.destination_y + block_y,
+                                             pixel_mask, intermediate_pixels);
         }
       }
     }

@@ -1,16 +1,241 @@
 {
-  "import": {
+  "textures-import-bc1-rgb-unorm": {
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>(image32-rgb.*)\\.tif$"
+      "image": "<input-path/><rule-path/>image32-rgb[0-9]*\\.tif(f)?$"
     },
     "output": {
-      "header": "<build-path/><rule-path/><image:1>.image_header",
-      "buffer": "<output-path/><rule-path/><image:1>.lod_<lod-level>.image_buffer"
+      "header": "<build-path/><rule-path/><image:1>.bc1_rgb_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc1_rgb_unorm.lod_<lod-level>.image_buffer"
     },
     "options": {
-      "target-format": "rgba8_srgb",
+      "target-format": "bc1_rgb_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc1-rgb-srgb": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgb[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc1_rgb_srgb.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc1_rgb_srgb.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc1_rgb_srgb",
+      "normalized": false
+    }
+  },
+  "textures-import-bc1-rgba-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc1_rgba_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc1_rgba_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc1_rgba_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc1-rgba-srgb": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc1_rgba_srgb.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc1_rgba_srgb.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc1_rgba_srgb",
+      "normalized": false
+    }
+  },
+  "textures-import-bc2-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc2_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc2_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc2_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc2-srgb": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc2_srgb.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc2_srgb.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc2_srgb",
+      "normalized": false
+    }
+  },
+  "textures-import-bc3-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc3_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc3_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc3_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc3-srgb": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc3_srgb.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc3_srgb.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc3_srgb",
+      "normalized": false
+    }
+  },
+  "textures-import-bc4-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-r[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc4_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc4_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc4_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc4-snorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-r[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc4_snorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc4_snorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc4_snorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc5-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc5_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc5_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc5_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc5-snorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc5_snorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc5_snorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc5_snorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc6h-ufloat": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc6h_ufloat.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc6h_ufloat.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc6h_ufloat",
+      "normalized": false
+    }
+  },
+  "textures-import-bc6h-sfloat": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc6h_sfloat.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc6h_sfloat.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc6h_sfloat",
+      "normalized": false
+    }
+  },
+  "textures-import-bc7-unorm": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc7_unorm.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc7_unorm.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc7_unorm",
+      "normalized": false
+    }
+  },
+  "textures-import-bc7-srgb": {
+    "pass": 1,
+    "action": "image-import-tiff",
+    "input": {
+      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+    },
+    "output": {
+      "header": "<build-path/><rule-path/><image:1>.bc7_srgb.image_header",
+      "buffer": "<output-path/><rule-path/><image:1>.bc7_srgb.lod_<lod-level>.image_buffer"
+    },
+    "options": {
+      "target-format": "bc7_srgb",
       "normalized": false
     }
   },

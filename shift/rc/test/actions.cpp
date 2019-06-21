@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(rc_action_no_rules)
 {
   auto settings = create_working_folders();
 
-  copy_files(settings.source_path, settings.input_path, "image32-rgb.*\\.tif");
+  copy_files(settings.source_path, settings.input_path, "image32-r.*\\.tif");
   // Without a rules file we should not emit any jobs.
   run_rc(settings, 0, 0);
   // Run resource compiler a second time. We still expect no jobs to be
@@ -26,10 +26,10 @@ BOOST_AUTO_TEST_CASE(rc_action_image_import)
 {
   auto settings = create_working_folders();
 
-  copy_files(settings.source_path, settings.input_path, "image32-rgb.*\\.tif");
+  copy_files(settings.source_path, settings.input_path, "image32-r.*\\.tif");
   copy_files(settings.source_path / "action-image-import", settings.input_path,
              ".*");
-  run_rc(settings, 5, 0);
+  run_rc(settings, 33, 0);
   // Run resource compiler a second time. There should be nothing left to do.
   run_rc(settings, 0, 0);
   remove_working_folders(settings);

@@ -884,7 +884,7 @@ struct uncompressed_pixel_channels;
 template <>
 struct uncompressed_pixel_channels<core::vector<bc1_rgb_t>>
 {
-  using type = core::vector<red_t<8>, green_t<8>, blue_t<8>>;
+  using type = core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>;
 };
 
 template <>
@@ -908,19 +908,19 @@ struct uncompressed_pixel_channels<core::vector<bc3_t>>
 template <>
 struct uncompressed_pixel_channels<core::vector<bc4_t>>
 {
-  using type = core::vector<red_t<8>>;
+  using type = core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>;
 };
 
 template <>
 struct uncompressed_pixel_channels<core::vector<bc5_t>>
 {
-  using type = core::vector<red_t<8>, green_t<8>>;
+  using type = core::vector<red_t<8>, green_t<8>, blue_t<8>, alpha_t<8>>;
 };
 
 template <>
 struct uncompressed_pixel_channels<core::vector<bc6h_t>>
 {
-  using type = core::vector<red_t<16>, green_t<16>, blue_t<16>>;
+  using type = core::vector<red_t<16>, green_t<16>, blue_t<16>, alpha_t<16>>;
 };
 
 template <>

@@ -393,8 +393,7 @@ void resource_compiler_impl::match_file(file_description& file,
   if (file.path.filename() == rules_filename)
     return;
 
-  auto match = std::make_unique<input_match>();
-  match->file = &file;
+  std::size_t match_count = 0;
   for (auto& rule : rules)
   {
     // Ignore rules of previous passes to avoid infinite recursion.
@@ -402,14 +401,21 @@ void resource_compiler_impl::match_file(file_description& file,
       continue;
 
     // Try to match the relative file path with each rule input regex.
-    match->slot_index = 0;
+    std::size_t slot_index = 0;
     for (auto input_iter = rule->inputs.begin();
-         input_iter != rule->inputs.end(); ++input_iter, ++match->slot_index)
+         input_iter != rule->inputs.end(); ++input_iter, ++slot_index)
     {
-      if (std::regex_search(match->file->generic_string, match->match_results,
+      std::smatch match_results;
+      if (std::regex_search(file.generic_string, match_results,
                             input_iter->second.pattern))
       {
+        ++match_count;
+
+        auto match = std::make_unique<input_match>();
+        match->slot_index = slot_index;
         match->slot = input_iter;
+        match->file = &file;
+        match->match_results = std::move(match_results);
         std::lock_guard rule_lock(rule->matches_mutex);
         rule->matches.emplace_back(std::move(match));
 
@@ -418,12 +424,13 @@ void resource_compiler_impl::match_file(file_description& file,
           log::info() << "File " << file.path << R"( matched against rule ")"
                       << rule->id << '"';
         }
-        return;
+        // A file can only match one slot per rule.
+        break;
       }
     }
   }
 
-  if (verbose >= 2)
+  if (match_count == 0 && verbose >= 2)
     log::info() << "File " << file.path << " didn't match against any rule.";
 }
 
