@@ -34,17 +34,15 @@
 
 namespace squish
 {
-
-// -----------------------------------------------------------------------------
 /*! @brief Represents a set of block palettes
  */
 class palette_set
 {
 public:
-  static void GetMasks(int flags, int partition, int (&masks)[4]);
+  static void GetMasks(flags_t flags, int partition, int (&masks)[4]);
 
-  int SetMode(int flags);
-  int SetMode(int flags, int part_or_rot);
+  int SetMode(flags_t flags);
+  int SetMode(flags_t flags, int part_or_rot);
 
   // maximum number of different sets, aligned, the real limit is 3
 #define PS_MAX 4
@@ -52,16 +50,16 @@ public:
 public:
   // constructor for regular operation (with and without initial
   // partition/rotation)
-  palette_set(std::uint8_t const* rgba, std::uint32_t mask, int flags);
-  palette_set(std::uint8_t const* rgba, std::uint32_t mask, int flags,
+  palette_set(std::uint8_t const* rgba, std::uint32_t mask, flags_t flags);
+  palette_set(std::uint8_t const* rgba, std::uint32_t mask, flags_t flags,
               int part_or_rot);
 
-  palette_set(std::uint16_t const* rgba, std::uint32_t mask, int flags);
-  palette_set(std::uint16_t const* rgba, std::uint32_t mask, int flags,
+  palette_set(std::uint16_t const* rgba, std::uint32_t mask, flags_t flags);
+  palette_set(std::uint16_t const* rgba, std::uint32_t mask, flags_t flags,
               int part_or_rot);
 
-  palette_set(float const* rgba, std::uint32_t mask, int flags);
-  palette_set(float const* rgba, std::uint32_t mask, int flags,
+  palette_set(float const* rgba, std::uint32_t mask, flags_t flags);
+  palette_set(float const* rgba, std::uint32_t mask, flags_t flags,
               int part_or_rot);
 
   // constructors for managing backups and permutations of palette-sets
@@ -70,15 +68,16 @@ public:
   {
     memcpy(this, &palette, sizeof(*this));
   }
-  palette_set(palette_set const& palette, std::uint32_t mask, int flags,
+  palette_set(palette_set const& palette, std::uint32_t mask, flags_t flags,
               int part_or_rot);
 
 private:
-  void BuildSet(std::uint8_t const* rgba, std::uint32_t mask, int flags);
-  void BuildSet(std::uint16_t const* rgba, std::uint32_t mask, int flags);
-  void BuildSet(float const* rgba, std::uint32_t mask, int flags);
-  void BuildSet(palette_set const& palette, std::uint32_t mask, int flags);
-  void PermuteSet(palette_set const& palette, std::uint32_t mask, int flags);
+  void BuildSet(std::uint8_t const* rgba, std::uint32_t mask, flags_t flags);
+  void BuildSet(std::uint16_t const* rgba, std::uint32_t mask, flags_t flags);
+  void BuildSet(float const* rgba, std::uint32_t mask, flags_t flags);
+  void BuildSet(palette_set const& palette, std::uint32_t mask, flags_t flags);
+  void PermuteSet(palette_set const& palette, std::uint32_t mask,
+                  flags_t flags);
 
 public:
   // active attributes based on the parameters passed on initialization
@@ -113,13 +112,13 @@ public:
   {
     return m_unweighted[idx];
   }
-  Vec4 const* GetPoints(int idx) const
+  const Vec4* GetPoints(int idx) const
   {
-    return m_points[idx];
+    return m_points[idx].data();
   }
-  Scr4 const* GetWeights(int idx) const
+  const Scr4* GetWeights(int idx) const
   {
-    return m_weights[idx];
+    return m_weights[idx].data();
   }
   int GetCount(int idx) const
   {
@@ -165,12 +164,12 @@ private:
   bool m_mergedalpha;
 
   bool m_transparent;
-  bool m_unweighted[4];
-  int m_mask[4];
-  int m_count[4];
-  Vec4 m_points[4][16];
-  Scr4 m_weights[4][16];
-  char m_remap[4][16];
+  std::array<bool, 4> m_unweighted;
+  std::array<int, 4> m_mask;
+  std::array<int, 4> m_count;
+  std::array<std::array<Vec4, 4>, 16> m_points;
+  std::array<std::array<Scr4, 4>, 16> m_weights;
+  std::array<std::array<char, 4>, 16> m_remap;
 
 #ifdef FEATURE_TEST_LINES
   /* ---------------------------------------------------------------------------
@@ -224,8 +223,8 @@ public:
   }
 
 private:
-  int m_cnst[4];
-  int m_grey[4];
+  std::array<int, 4> m_cnst;
+  std::array<int, 4> m_grey;
 #endif
 };
 }  // namespace squish

@@ -31,31 +31,32 @@
 #include "colorfit.h"
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class color_set;
 class color_normal_fit : public color_fit
 {
 public:
-  color_normal_fit(color_set const* colors, int flags);
+  color_normal_fit(color_set const* colors, flags_t flags);
 
 private:
   void kMeans3();
   void kMeans4();
-  
+
   void Permute3();
   void Permute4();
-  
-  virtual void Compress3b(void* block) {}
+
+  virtual void Compress3b(void* block)
+  {
+  }
   virtual void Compress3(void* block);
   virtual void Compress4(void* block);
-  
+
   Vec3 m_start_candidate;
   Vec3 m_end_candidate;
   Vec3 m_start;
   Vec3 m_end;
 };
-} // squish
+}  // squish
 
-#endif // ndef SQUISH_NORMALFIT_H
+#endif  // ndef SQUISH_NORMALFIT_H

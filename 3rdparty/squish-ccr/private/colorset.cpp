@@ -32,18 +32,19 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
-color_set::color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
-: m_count(0), m_unweighted(true), m_transparent(false)
+color_set::color_set(std::uint8_t const* rgba, std::uint32_t mask,
+                     flags_t flags)
+: m_transparent(false), m_unweighted(true), m_count(0)
 {
-  const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
+  const float* rgbLUT =
+    ComputeGammaLUT(flags & squish_flag::option_srgb_external);
 
   // check the compression mode for dxt1
-  bool const isBtc1 = ((flags & kBtcp) == kBtc1);
-  bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const isBtc1 =
+    ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1);
+  bool const clearAlpha =
+    flags & squish_flag::option_exclude_alpha_from_palette;
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   int clra = clearAlpha || !isBtc1 ? 0xFFFF : 0x0000;
@@ -95,7 +96,7 @@ color_set::color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
     }
 
     // calculate point's weights
-    Weight<std::uint8_t> wa(rgba, i, (std::uint8_t)wgta);
+    Weight<std::uint8_t> wa(rgba, i, static_cast<std::uint8_t>(wgta));
 
     // loop over previous matches for a match
     std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
@@ -222,20 +223,23 @@ color_set::color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
   m_transparent = m_transparent & !clearAlpha;
 }
 
-color_set::color_set(std::uint16_t const* rgba, std::uint32_t mask, int flags)
+color_set::color_set(std::uint16_t const* rgba, std::uint32_t mask,
+                     flags_t flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
 }
 
-color_set::color_set(float const* rgba, std::uint32_t mask, int flags)
+color_set::color_set(float const* rgba, std::uint32_t mask, flags_t flags)
 : m_count(0), m_unweighted(true), m_transparent(false)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
 
   // check the compression mode for dxt1
-  bool const isBtc1 = ((flags & kBtcp) == kBtc1);
-  bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const isBtc1 =
+    ((flags & squish_flag::compression_mask) == squish_flag::compression_bc1);
+  bool const clearAlpha =
+    flags & squish_flag::option_exclude_alpha_from_palette;
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Scr4 clra = clearAlpha || !isBtc1 ? Scr4(1.0f) : Scr4(0.0f);

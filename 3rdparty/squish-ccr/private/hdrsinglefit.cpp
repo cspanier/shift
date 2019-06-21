@@ -33,37 +33,37 @@
 
 namespace squish
 {
-hdr_single_fit::hdr_single_fit(hdr_set const* palette, int flags)
+hdr_single_fit::hdr_single_fit(hdr_set const* palette, flags_t flags)
 : hdr_fit(palette, flags)
 {
 }
 
-Scr4 hdr_single_fit::ComputeEndPoints(int set, Vec4 const& metric, int tb, int db,
-                                    int ib, std::uint8_t cmask)
+Scr4 hdr_single_fit::ComputeEndPoints(int set, Vec4 const& metric, int tb,
+                                      int db, int ib, std::uint8_t cmask)
 {
   assert(0);
   return Scr4(0.0f);
 }
 
 Scr4 hdr_single_fit::ComputeEndPoints(int set, Vec4 const& metric,
-                                    HDRSingleLookup2 const* const* lookups,
-                                    std::uint8_t cmask)
+                                      HDRSingleLookup2 const* const* lookups,
+                                      std::uint8_t cmask)
 {
   assert(0);
   return Scr4(0.0f);
 }
 
 Scr4 hdr_single_fit::ComputeEndPoints(int set, Vec4 const& metric,
-                                    HDRSingleLookup4 const* const* lookups,
-                                    std::uint8_t cmask)
+                                      HDRSingleLookup4 const* const* lookups,
+                                      std::uint8_t cmask)
 {
   assert(0);
   return Scr4(0.0f);
 }
 
 Scr4 hdr_single_fit::ComputeEndPoints(int set, Vec4 const& metric,
-                                    HDRSingleLookup8 const* const* lookups,
-                                    std::uint8_t cmask)
+                                      HDRSingleLookup8 const* const* lookups,
+                                      std::uint8_t cmask)
 {
   assert(0);
   return Scr4(0.0f);

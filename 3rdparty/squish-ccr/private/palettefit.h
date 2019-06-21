@@ -61,11 +61,12 @@ public:
 #define SK(s) (!(~s))
 
 public:
-  palette_fit(palette_set const* palette, int flags, int swap = -1,
+  palette_fit(palette_set const* palette, flags_t flags, int swap = -1,
               int shared = -1);
 
   // change parameters while iterating
-  void ChangeFit(palette_set const* palette, int flags, int swap, int shared)
+  void ChangeFit(palette_set const* palette, flags_t flags, int swap,
+                 int shared)
   {
     m_palette = palette;
     m_flags = flags;
@@ -77,7 +78,7 @@ public:
   {
     m_palette = palette;
   }
-  void ChangeFlags(int flags)
+  void ChangeFlags(flags_t flags)
   {
     m_flags = flags;
   }
@@ -144,7 +145,7 @@ public:
 protected:
   palette_set const* m_palette;
   const int* m_sharedmap;
-  int m_flags;
+  flags_t m_flags;
   int m_mode;
   int m_swapindex;
   int m_sharedbits;

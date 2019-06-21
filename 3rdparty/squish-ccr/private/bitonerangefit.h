@@ -32,14 +32,13 @@
 #include "bitonefit.h"
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class bitone_set;
 class bitone_range_fit : public bitone_fit
 {
 public:
-  bitone_range_fit(bitone_set const* bitones, int flags);
+  bitone_range_fit(bitone_set const* bitones, flags_t flags);
 
 private:
   virtual void Compress4(void* block);
@@ -48,6 +47,6 @@ private:
   Vec3 m_end;
   Scr3 m_besterror;
 };
-} // squish
+}  // squish
 
-#endif // ndef SQUISH_BITONERANGEFIT_H
+#endif  // ndef SQUISH_BITONERANGEFIT_H

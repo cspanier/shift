@@ -41,7 +41,7 @@ namespace squish
 class bitone_cluster_fit : public bitone_fit
 {
 public:
-  bitone_cluster_fit(bitone_set const* bitones, int flags);
+  bitone_cluster_fit(bitone_set const* bitones, flags_t flags);
 
 public:
   enum
@@ -50,12 +50,14 @@ public:
     kMaxIterations = 15
   };
 
-  static int sanitize_flags(int flags)
+  static int sanitize_flags(flags_t flags)
   {
-    if (flags > (kcolorClusterFit * kMaxIterations))
-      return (kcolorClusterFit * kMaxIterations);
-    if (flags < (kcolorClusterFit * kMinIterations))
-      return (kcolorClusterFit * kMinIterations);
+    if (static_cast<std::uint32_t>(
+          flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+        16 < kMinIterations)
+    {
+      return flags | squish_flag::compressor_color_iterative_cluster_fit1;
+    }
 
     return flags;
   }

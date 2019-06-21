@@ -40,9 +40,6 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
 template <typename dtyp>
 static void CompressAlphaBtc2u(dtyp const* rgba, std::uint32_t mask,
                                void* block, float scale)
@@ -53,8 +50,8 @@ static void CompressAlphaBtc2u(dtyp const* rgba, std::uint32_t mask,
   for (int i = 0, imask = mask; i < 8; ++i, imask >>= 2)
   {
     // quantize down to 4 bits
-    float alpha1 = (float)rgba[8 * i + 3] * scale;
-    float alpha2 = (float)rgba[8 * i + 7] * scale;
+    float alpha1 = static_cast<float>(rgba[8 * i + 3]) * scale;
+    float alpha2 = static_cast<float>(rgba[8 * i + 7]) * scale;
 
     int quant1 = FloatToInt<true, false>(alpha1, 15);
     int quant2 = FloatToInt<true, false>(alpha2, 15);
@@ -66,7 +63,7 @@ static void CompressAlphaBtc2u(dtyp const* rgba, std::uint32_t mask,
       quant2 = 0;
 
     // pack into the byte
-    bytes[i] = (std::uint8_t)((quant1 << 0) + (quant2 << 4));
+    bytes[i] = static_cast<std::uint8_t>((quant1 << 0) + (quant2 << 4));
   }
 }
 
@@ -108,7 +105,7 @@ static void DecompressAlphaBtc2u(dtyp* rgba, void const* block, dtyp scale)
 
 void DecompressAlphaBtc2u(std::uint8_t* rgba, void const* block)
 {
-  DecompressAlphaBtc2u(rgba, block, (std::uint8_t)(255 / 255));
+  DecompressAlphaBtc2u(rgba, block, static_cast<std::uint8_t>(255 / 255));
 }
 void DecompressAlphaBtc2u(std::uint16_t* rgba, void const* block)
 {
@@ -116,11 +113,9 @@ void DecompressAlphaBtc2u(std::uint16_t* rgba, void const* block)
 }
 void DecompressAlphaBtc2u(float* rgba, void const* block)
 {
-  DecompressAlphaBtc2u(rgba, block, (float)(1.0f / 255.0f));
+  DecompressAlphaBtc2u(rgba, block, 1.0f / 255.0f);
 }
 
-/* *****************************************************************************
- */
 template <const int min, const int max, const int steps>
 static void FixRange(int& minS, int& maxS)
 {
@@ -130,8 +125,6 @@ static void FixRange(int& minS, int& maxS)
     minS = std::max<int>(min, maxS - steps);
 }
 
-/* -----------------------------------------------------------------------------
- */
 template <const int mul, const int div, typename otyp, typename dtyp>
 static Scr4 FitCodesS(dtyp const* rgba, std::uint32_t mask, Col8 const& codes,
                       std::uint8_t* indices)
@@ -169,7 +162,7 @@ static Scr4 FitCodesS(dtyp const* rgba, std::uint32_t mask, Col8 const& codes,
       index += 1, match >>= 2;
 
     // save this index and accumulate the error
-    indices[i] = (std::uint8_t)index;
+    indices[i] = static_cast<std::uint8_t>(index);
     err += least.Get0();
   }
 
@@ -225,7 +218,7 @@ static Scr4 FitCodesL(dtyp const* rgba, std::uint32_t mask, Col8 const& codes,
       index += 1, match >>= 1;
 
     // save this index and accumulate the error
-    indices[i] = (std::uint8_t)index;
+    indices[i] = static_cast<std::uint8_t>(index);
     err += least;
   }
 
@@ -266,8 +259,6 @@ static inline Scr4 FitCodes(float const* rgba, std::uint32_t mask,
   return FitCodesL<mul << prc, 1, otyp>(rgba, mask, codes, indices);
 }
 
-/* -----------------------------------------------------------------------------
- */
 template <const int mul, const int div, typename otyp, typename dtyp>
 static void GetErrorS(dtyp const* rgba, std::uint32_t mask, Col8 const& codes5,
                       Col8 const& codes7, Scr4& error5, Scr4& error7,
@@ -389,8 +380,6 @@ static inline void GetError(float const* rgba, std::uint32_t mask,
                                  aaaa);
 }
 
-/* -----------------------------------------------------------------------------
- */
 #define FIT_THRESHOLD 1e-15f
 
 template <const int min, const int max, const int prc, const int steps>
@@ -701,16 +690,14 @@ static Scr4 FitError(float const* aaaa, int& minS, int& maxS, Scr4& errS)
   return errS;
 }
 
-/* -----------------------------------------------------------------------------
- */
 static void WriteAlphaBlock(int alpha0, int alpha1, std::uint8_t const* indices,
                             void* block)
 {
   std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // write the first two bytes
-  bytes[0] = (std::uint8_t)alpha0;
-  bytes[1] = (std::uint8_t)alpha1;
+  bytes[0] = static_cast<std::uint8_t>(alpha0);
+  bytes[1] = static_cast<std::uint8_t>(alpha1);
 
   // pack the indices with 3 bits each
   std::uint8_t* dest = bytes + 2;
@@ -729,7 +716,7 @@ static void WriteAlphaBlock(int alpha0, int alpha1, std::uint8_t const* indices,
     for (int j = 0; j < 3; ++j)
     {
       int byte = (value >> (8 * j)) & 0xFF;
-      *dest++ = (std::uint8_t)byte;
+      *dest++ = static_cast<std::uint8_t>(byte);
     }
 
     // 77766655.54443332.22111000, FFFEEEDD.DCCCBBBA.AA999888
@@ -797,12 +784,10 @@ static inline void WriteAlphaBlock7(int alpha0, int alpha1,
   WriteAlphaBlock(alpha0, alpha1, indices, block);
 }
 
-/* -----------------------------------------------------------------------------
- */
 template <const int min, const int max, const int prc, const int compress,
           typename otyp, typename dtyp>
 static void CompressAlphaBtc3i(dtyp const* rgba, std::uint32_t mask,
-                               void* block, int flags)
+                               void* block, flags_t flags)
 {
   Col8 codes5, codes7;
 
@@ -810,7 +795,7 @@ static void CompressAlphaBtc3i(dtyp const* rgba, std::uint32_t mask,
   int min5 = max, max5 = min;
   int min7 = max, max7 = min;
 
-  if (!((flags & kAlphaIterativeFit) && prc))
+  if (!((flags & squish_flag::compressor_alpha_iterative_fit) && prc))
   {
     for (int i = 0, imask = mask; i < 16; ++i, imask >>= 1)
     {
@@ -900,7 +885,7 @@ static void CompressAlphaBtc3i(dtyp const* rgba, std::uint32_t mask,
   Codebook8<min, max, prc>(codes7, Col8(max7), Col8(min7));
 
   // do the iterative tangent search
-  if (flags & kAlphaIterativeFit)
+  if (flags & squish_flag::compressor_alpha_iterative_fit)
   {
     Scr4 err5, err7;
     float aaaa[16];
@@ -943,7 +928,7 @@ static void CompressAlphaBtc3i(dtyp const* rgba, std::uint32_t mask,
 template <const int min, const int max, const int prc, const int compress,
           typename otyp, typename dtyp>
 static void CompressAlphaBtc3f(dtyp const* rgba, std::uint32_t mask,
-                               void* block, int flags)
+                               void* block, flags_t flags)
 {
   Col8 codes5, codes7;
 
@@ -951,7 +936,7 @@ static void CompressAlphaBtc3f(dtyp const* rgba, std::uint32_t mask,
   int min5 = max, max5 = min;
   int min7 = max, max7 = min;
 
-  if (!((flags & kAlphaIterativeFit) && prc))
+  if (!((flags & squish_flag::compressor_alpha_iterative_fit) && prc))
   {
     for (int i = 0, imask = mask; i < 16; ++i, imask >>= 1)
     {
@@ -1036,7 +1021,7 @@ static void CompressAlphaBtc3f(dtyp const* rgba, std::uint32_t mask,
   Codebook8<min, max, prc>(codes7, Col8(max7), Col8(min7));
 
   // do the iterative tangent search
-  if (flags & kAlphaIterativeFit)
+  if (flags & squish_flag::compressor_alpha_iterative_fit)
   {
     Scr4 err5, err7;
     float aaaa[16];
@@ -1077,75 +1062,73 @@ static void CompressAlphaBtc3f(dtyp const* rgba, std::uint32_t mask,
 }
 
 void CompressAlphaBtc3u(std::uint8_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
 void CompressAlphaBtc3s(std::int8_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
 void CompressAlphaBtc3u(std::uint16_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 8, unsigned>(rgba, mask, block, flags);
 }
 void CompressAlphaBtc3s(std::int16_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 8, signed>(rgba, mask, block, flags);
 }
 
 void CompressAlphaBtc3u(float const* rgba, std::uint32_t mask, void* block,
-                        int flags)
+                        flags_t flags)
 {
   CompressAlphaBtc3f<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
 void CompressAlphaBtc3s(float const* rgba, std::uint32_t mask, void* block,
-                        int flags)
+                        flags_t flags)
 {
   CompressAlphaBtc3f<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
 void CompressDepthBtc4u(std::uint8_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<0, 255, CBLB, 0, unsigned>(rgba, mask, block, flags);
 }
 void CompressDepthBtc4s(std::int8_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<-127, 127, CBLB, 0, signed>(rgba, mask, block, flags);
 }
 
 void CompressDepthBtc4u(std::uint16_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<0, 255, CBHB, 8, unsigned>(rgba, mask, block, flags);
 }
 void CompressDepthBtc4s(std::int16_t const* rgba, std::uint32_t mask,
-                        void* block, int flags)
+                        void* block, flags_t flags)
 {
   CompressAlphaBtc3i<-127, 127, CBHB, 8, signed>(rgba, mask, block, flags);
 }
 
 void CompressDepthBtc4u(float const* rgba, std::uint32_t mask, void* block,
-                        int flags)
+                        flags_t flags)
 {
   CompressAlphaBtc3f<0, 255, CBHB, 0, unsigned>(rgba, mask, block, flags);
 }
 void CompressDepthBtc4s(float const* rgba, std::uint32_t mask, void* block,
-                        int flags)
+                        flags_t flags)
 {
   CompressAlphaBtc3f<-127, 127, CBHB, 0, signed>(rgba, mask, block, flags);
 }
 
 #undef FIT_THRESHOLD
 
-/* *****************************************************************************
- */
 template <const int prc, typename ctyp, typename etyp>
 static void ReadAlphaBlock(ctyp (&codes)[8], std::uint8_t (&indices)[16],
                            void const* block)
@@ -1179,7 +1162,7 @@ static void ReadAlphaBlock(ctyp (&codes)[8], std::uint8_t (&indices)[16],
     for (int j = 0; j < 8; ++j)
     {
       int index = (value >> 3 * j) & 0x7;
-      *dest++ = (std::uint8_t)index;
+      *dest++ = static_cast<std::uint8_t>(index);
     }
   }
 }
@@ -1212,66 +1195,66 @@ static void DecompressAlphaBtc3f(dtyp* rgba, void const* block)
     rgba[4 * i + 3] = dtyp((codes[indices[i]]) * (1.0f / (scale)));
 }
 
-void DecompressAlphaBtc3u(std::uint8_t* rgba, void const* block, int flags)
+void DecompressAlphaBtc3u(std::uint8_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::uint8_t, std::uint8_t, std::uint8_t,
                        255 / 255, 0>(rgba, block);
 }
-void DecompressAlphaBtc3s(std::int8_t* rgba, void const* block, int flags)
+void DecompressAlphaBtc3s(std::int8_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::int8_t, std::int8_t, std::int8_t, 127 / 127,
                        0>(rgba, block);
 }
 
-void DecompressAlphaBtc3u(std::uint16_t* rgba, void const* block, int flags)
+void DecompressAlphaBtc3u(std::uint16_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::uint16_t, std::uint8_t, std::uint8_t,
                        65535 / 255, 0>(rgba, block);
 }
-void DecompressAlphaBtc3s(std::int16_t* rgba, void const* block, int flags)
+void DecompressAlphaBtc3s(std::int16_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::int16_t, std::int8_t, std::int8_t,
                        0x1FFFFF / 127, 6>(rgba, block);
 }
 
-void DecompressAlphaBtc3u(float* rgba, void const* block, int flags)
+void DecompressAlphaBtc3u(float* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3f<CBLB, float, std::uint8_t, std::uint8_t, 255>(rgba,
                                                                      block);
 }
-void DecompressAlphaBtc3s(float* rgba, void const* block, int flags)
+void DecompressAlphaBtc3s(float* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3f<CBLB, float, std::int8_t, std::int8_t, 127>(rgba, block);
 }
 
-void DecompressDepthBtc4u(std::uint8_t* rgba, void const* block, int flags)
+void DecompressDepthBtc4u(std::uint8_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::uint8_t, std::uint16_t, std::uint8_t,
                        255 / 255, 0>(rgba, block);
 }
-void DecompressDepthBtc4s(std::int8_t* rgba, void const* block, int flags)
+void DecompressDepthBtc4s(std::int8_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBLB, std::int8_t, std::int16_t, std::int8_t, 127 / 127,
                        0>(rgba, block);
 }
 
-void DecompressDepthBtc4u(std::uint16_t* rgba, void const* block, int flags)
+void DecompressDepthBtc4u(std::uint16_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBHB, std::uint16_t, std::uint16_t, std::uint8_t,
                        65535 / 255, CBHB>(rgba, block);
 }
-void DecompressDepthBtc4s(std::int16_t* rgba, void const* block, int flags)
+void DecompressDepthBtc4s(std::int16_t* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3i<CBHB, std::int16_t, std::int16_t, std::int8_t,
                        0x1FFFFF / 127, CBHB + 6>(rgba, block);
 }
 
-void DecompressDepthBtc4u(float* rgba, void const* block, int flags)
+void DecompressDepthBtc4u(float* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3f<CBHB, float, std::uint16_t, std::uint8_t,
                        255 * (1 << CBHB)>(rgba, block);
 }
-void DecompressDepthBtc4s(float* rgba, void const* block, int flags)
+void DecompressDepthBtc4s(float* rgba, void const* block, flags_t flags)
 {
   DecompressAlphaBtc3f<CBHB, float, std::int16_t, std::int8_t,
                        127 * (1 << CBHB)>(rgba, block);

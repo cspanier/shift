@@ -31,27 +31,26 @@
 #include "bitonefit.h"
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class bitone_set;
 class bitone_normal_fit : public bitone_fit
 {
 public:
-  bitone_normal_fit(bitone_set const* bitones, int flags);
+  bitone_normal_fit(bitone_set const* bitones, flags_t flags);
 
 private:
   void kMeans4();
   void Permute4();
 
   virtual void Compress4(void* block);
-  
+
   Vec3 m_start_candidate;
   Vec3 m_end_candidate;
   Vec3 m_start;
   Vec3 m_end;
   Scr3 m_besterror;
 };
-} // squish
+}  // squish
 
-#endif // ndef SQUISH_NORMALFIT_H
+#endif  // ndef SQUISH_NORMALFIT_H

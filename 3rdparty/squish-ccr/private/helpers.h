@@ -72,7 +72,7 @@ public:
 
   bool IsOne() const
   {
-    return !(std::uint8_t)(~w);
+    return !static_cast<std::uint8_t>(~w);
   }
 };
 
@@ -168,7 +168,8 @@ private:
   Scr4 W;
 
 public:
-  Weight(const Scr4 (&weights)[4][16], int pos, const Scr4& wgt)
+  Weight(const std::array<std::array<Scr4, 4>, 16>& weights, int pos,
+         const Scr4& wgt)
   {
     // ensure there is always non-zero weight even for zero alpha
     w = Max(weights[3][pos], wgt);

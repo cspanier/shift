@@ -33,21 +33,19 @@
 
 namespace squish
 {
-
-// -----------------------------------------------------------------------------
-/*! @brief Represents a set of block colors
- */
+/// Represents a set of block colors.
 class color_set
 {
 public:
-  color_set(std::uint8_t const* rgba, std::uint32_t mask, int flags);
-  color_set(std::uint16_t const* rgba, std::uint32_t mask, int flags);
-  color_set(float const* rgba, std::uint32_t mask, int flags);
+  color_set(std::uint8_t const* rgba, std::uint32_t mask, flags_t flags);
+  color_set(std::uint16_t const* rgba, std::uint32_t mask, flags_t flags);
+  color_set(float const* rgba, std::uint32_t mask, flags_t flags);
 
   bool IsTransparent() const
   {
     return m_transparent;
   }
+
   bool IsUnweighted() const
   {
     return m_unweighted;
@@ -57,13 +55,15 @@ public:
   {
     return m_count;
   }
+
   Vec3 const* GetPoints() const
   {
-    return m_points;
+    return m_points.data();
   }
+
   Scr3 const* GetWeights() const
   {
-    return m_weights;
+    return m_weights.data();
   }
 
   bool RemoveBlack(const Vec3& metric, Scr3& error);
@@ -72,9 +72,9 @@ public:
 private:
   bool m_transparent, m_unweighted;
   int m_count;
-  Vec3 m_points[16];
-  Scr3 m_weights[16];
-  char m_remap[16];
+  std::array<Vec3, 16> m_points;
+  std::array<Scr3, 16> m_weights;
+  std::array<char, 16> m_remap;
 };
 }  // namespace sqish
 

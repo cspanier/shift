@@ -169,7 +169,7 @@ int palette_fit::GetPrecisionBits(std::uint32_t mode)
           << 16);
 }
 
-palette_fit::palette_fit(palette_set const* palette, int flags, int swap,
+palette_fit::palette_fit(palette_set const* palette, flags_t flags, int swap,
                          int shared)
 : m_palette(palette), m_swapindex(-1), m_flags(flags), m_sharedbits(-1)
 {
@@ -189,7 +189,9 @@ palette_fit::palette_fit(palette_set const* palette, int flags, int swap,
 #endif
 
   // initialize the metric
-  m_metric[0] = g_metric[(flags & kcolorMetrics) >> 4];
+  m_metric[0] = g_metric[static_cast<std::uint32_t>(
+                           flags & squish_flag::color_metric_mask) >>
+                         4];
 
   // sum is 1.0f
   if (!m_palette->IsTransparent())
@@ -229,7 +231,10 @@ palette_fit::palette_fit(palette_set const* palette, int flags, int swap,
   m_besterror = Scr4(FLT_MAX);
   m_best = false;
 
-  m_mode = ((m_flags & kVariableCodingModes) >> 24) - 1;
+  m_mode = (static_cast<std::uint32_t>(
+              m_flags & squish_flag::variable_coding_mode_mask) >>
+            24) -
+           1;
   m_sharedmap = GetSharedMap(m_mode);
   m_swapindex = swap;
   m_sharedbits = SR(shared);
@@ -445,6 +450,7 @@ void palette_fit::Decompress(std::uint8_t* rgba, vQuantizer& q, int mode)
       ccs = CodebookP<4>(codes, istart, iend);
       break;
     }
+    (void)ccs;
 
     m_palette->UnmapIndices(m_indices[s < isets ? 0 : 1], rgba, s, codes, mk);
   }

@@ -34,13 +34,15 @@ namespace squish
 
 /* *****************************************************************************
  */
-bitone_set::bitone_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
-: m_count(0), m_unweighted(true)
+bitone_set::bitone_set(std::uint8_t const* rgba, std::uint32_t mask,
+                       flags_t flags)
+: m_unweighted(true), m_count(0)
 {
-  const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
+  const float* rgbLUT =
+    ComputeGammaLUT(flags & squish_flag::option_srgb_external);
 
-  bool const preserveThird = ((flags & kcolorMetricUnit) != 0);
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const preserveThird = flags & squish_flag::color_metric_unit;
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Col4 kill = preserveThird ? Col4(0x00FFFFFF) : Col4(0x0000FFFF);
@@ -84,7 +86,7 @@ bitone_set::bitone_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
     }
 
     // calculate point's weights
-    Weight<std::uint8_t> wa(rgba, i, (std::uint8_t)wgta);
+    Weight<std::uint8_t> wa(rgba, i, static_cast<std::uint8_t>(wgta));
 
     // loop over previous matches for a match
     std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
@@ -208,18 +210,19 @@ bitone_set::bitone_set(std::uint8_t const* rgba, std::uint32_t mask, int flags)
 #endif
 }
 
-bitone_set::bitone_set(std::uint16_t const* rgba, std::uint32_t mask, int flags)
+bitone_set::bitone_set(std::uint16_t const* rgba, std::uint32_t mask,
+                       flags_t flags)
 : m_count(0), m_unweighted(true)
 {
 }
 
-bitone_set::bitone_set(float const* rgba, std::uint32_t mask, int flags)
+bitone_set::bitone_set(float const* rgba, std::uint32_t mask, flags_t flags)
 : m_count(0), m_unweighted(true)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
 
-  bool const preserveThird = ((flags & kcolorMetricUnit) != 0);
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const preserveThird = flags & squish_flag::color_metric_unit;
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Vec4 kill = preserveThird ? Vec4(true, true, true, false)

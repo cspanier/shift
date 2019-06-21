@@ -88,14 +88,14 @@ static inline int Unpack565(std::uint8_t const* packed, std::uint8_t* color)
   int value = ((int)packed[0] << 0) + ((int)packed[1] << 8);
 
   // get the components in the stored range
-  std::uint8_t red = (std::uint8_t)((value >> 11) & 0x1F);
-  std::uint8_t green = (std::uint8_t)((value >> 5) & 0x3F);
-  std::uint8_t blue = (std::uint8_t)(value & 0x1F);
+  std::uint8_t red = static_cast<std::uint8_t>((value >> 11) & 0x1F);
+  std::uint8_t green = static_cast<std::uint8_t>((value >> 5) & 0x3F);
+  std::uint8_t blue = static_cast<std::uint8_t>(value & 0x1F);
 
   // scale up to 8 bits
-  color[0] = (red << 3) + (red >> 2);
-  color[1] = (green << 2) + (green >> 4);
-  color[2] = (blue << 3) + (blue >> 2);
+  color[0] = static_cast<std::uint8_t>((red << 3) + (red >> 2));
+  color[1] = static_cast<std::uint8_t>((green << 2) + (green >> 4));
+  color[2] = static_cast<std::uint8_t>((blue << 3) + (blue >> 2));
   color[3] = 255;
 
   // return the value
@@ -125,8 +125,8 @@ static inline int Unpack88(std::uint8_t const* packed, std::uint8_t* color)
   int value = ((int)packed[0] << 0) + ((int)packed[1] << 8);
 
   // get the components in the stored range
-  std::uint8_t red = (std::uint8_t)((value >> 8) & 0xFF);
-  std::uint8_t green = (std::uint8_t)(value & 0xFF);
+  std::uint8_t red = static_cast<std::uint8_t>((value >> 8) & 0xFF);
+  std::uint8_t green = static_cast<std::uint8_t>(value & 0xFF);
 
   // scale up to 8 bits
   color[0] = (red);
@@ -855,13 +855,15 @@ static inline void Codebook3or4(std::uint8_t (&codes)[4 * 4], bool bw)
 
     if (bw)
     {
-      codes[8 + i] = (std::uint8_t)(((1 * c + 1 * d)) >> 1);
+      codes[8 + i] = static_cast<std::uint8_t>(((1 * c + 1 * d)) >> 1);
       codes[12 + i] = 0;
     }
     else
     {
-      codes[8 + i] = (std::uint8_t)(((2 * c + 1 * d) * 0xAAAB) >> 17);
-      codes[12 + i] = (std::uint8_t)(((1 * c + 2 * d) * 0xAAAB) >> 17);
+      codes[8 + i] =
+        static_cast<std::uint8_t>(((2 * c + 1 * d) * 0xAAAB) >> 17);
+      codes[12 + i] =
+        static_cast<std::uint8_t>(((1 * c + 2 * d) * 0xAAAB) >> 17);
     }
   }
 
@@ -883,31 +885,37 @@ static inline void Codebook6or8(std::uint8_t (&codes)[8 * 1], bool bw)
     if (bw)
     {
       cd = (4 * c + 1 * d);
-      codes[2 + i] = (std::uint8_t)((cd * 0xCCCD) >> 18);
+      codes[2 + i] = static_cast<std::uint8_t>((cd * 0xCCCD) >> 18);
       cd = (3 * c + 2 * d);
-      codes[3 + i] = (std::uint8_t)((cd * 0xCCCD) >> 18);
+      codes[3 + i] = static_cast<std::uint8_t>((cd * 0xCCCD) >> 18);
       cd = (2 * c + 3 * d);
-      codes[4 + i] = (std::uint8_t)((cd * 0xCCCD) >> 18);
+      codes[4 + i] = static_cast<std::uint8_t>((cd * 0xCCCD) >> 18);
       cd = (1 * c + 4 * d);
-      codes[5 + i] = (std::uint8_t)((cd * 0xCCCD) >> 18);
+      codes[5 + i] = static_cast<std::uint8_t>((cd * 0xCCCD) >> 18);
 
-      codes[6 + i] = (std::uint8_t)0;
-      codes[7 + i] = (std::uint8_t)255;
+      codes[6 + i] = static_cast<std::uint8_t>(0);
+      codes[7 + i] = static_cast<std::uint8_t>(255);
     }
     else
     {
       cd = (6 * c + 1 * d);
-      codes[2 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[2 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
       cd = (5 * c + 2 * d);
-      codes[3 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[3 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
       cd = (4 * c + 3 * d);
-      codes[4 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[4 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
       cd = (3 * c + 4 * d);
-      codes[5 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[5 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
       cd = (2 * c + 5 * d);
-      codes[6 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[6 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
       cd = (1 * c + 6 * d);
-      codes[7 + i] = (std::uint8_t)((((cd * 0x2493) >> 16) + cd) >> 3);
+      codes[7 + i] =
+        static_cast<std::uint8_t>((((cd * 0x2493) >> 16) + cd) >> 3);
     }
   }
 }
@@ -1142,7 +1150,7 @@ static int CodebookP(std::uint8_t* codes, int bits)
       int s = (weights_u16[bits][j - i]) * c;
       int e = (weights_u16[bits][i + 0]) * d;
 
-      codes[i * 4 + m] = (std::uint8_t)((s + e + 32) >> 6);
+      codes[i * 4 + m] = static_cast<std::uint8_t>((s + e + 32) >> 6);
     }
   }
 

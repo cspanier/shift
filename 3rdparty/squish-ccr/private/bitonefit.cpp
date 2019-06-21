@@ -28,17 +28,15 @@
 #include "bitonefit.h"
 #include "bitoneset.h"
 
-namespace squish {
-
-/* *****************************************************************************
- */
-bitone_fit::bitone_fit( bitone_set const* bitones, int flags )
-  : m_bitones(bitones), m_flags(flags)
+namespace squish
+{
+bitone_fit::bitone_fit(bitone_set const* bitones, flags_t flags)
+: m_bitones(bitones), m_flags(flags)
 {
 }
 
-void bitone_fit::Compress( void* block )
+void bitone_fit::Compress(void* block)
 {
   Compress4(block);
 }
-} // namespace squish
+}  // namespace squish

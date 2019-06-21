@@ -54,7 +54,8 @@ double color_error(std::uint8_t const* a, std::uint8_t const* b)
 
 BOOST_AUTO_TEST_CASE(squish_one_color_random)
 {
-  int flags = kBtc1 | kcolorRangeFit;
+  flags_t flags =
+    squish_flag::compression_bc1 | squish_flag::compressor_color_range_fit;
 
   std::uint8_t input[4 * 16];
   std::uint8_t output[4 * 16];
@@ -69,7 +70,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
     // set a constant random color
     for (int channel = 0; channel < 3; ++channel)
     {
-      auto value = (std::uint8_t)(rand() & 0xff);
+      auto value = static_cast<std::uint8_t>(rand() & 0xff);
       for (int i = 0; i < 16; ++i)
         input[4 * i + channel] = value;
     }
@@ -101,7 +102,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color_random)
 
 BOOST_AUTO_TEST_CASE(squish_one_color)
 {
-  int flags = kBtc1;
+  flags_t flags = squish_flag::compression_bc1;
 
   std::uint8_t input[4 * 16];
   std::uint8_t output[4 * 16];
@@ -119,7 +120,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
     {
       // set the channnel value
       for (int i = 0; i < 16; ++i)
-        input[4 * i + channel] = (std::uint8_t)value;
+        input[4 * i + channel] = static_cast<std::uint8_t>(value);
 
       // compress and decompress
       compress(input, block, flags);
@@ -151,7 +152,7 @@ BOOST_AUTO_TEST_CASE(squish_one_color)
 
 BOOST_AUTO_TEST_CASE(squish_two_colors)
 {
-  int flags = kBtc1;
+  flags_t flags = squish_flag::compression_bc1;
 
   std::uint8_t input[4 * 16];
   std::uint8_t output[4 * 16];
@@ -171,7 +172,10 @@ BOOST_AUTO_TEST_CASE(squish_two_colors)
       {
         // set the channnel value
         for (int i = 0; i < 16; ++i)
-          input[4 * i + channel] = (std::uint8_t)((i < 8) ? value1 : value2);
+        {
+          input[4 * i + channel] =
+            static_cast<std::uint8_t>((i < 8) ? value1 : value2);
+        }
 
         // compress and decompress
         compress(input, block, flags);

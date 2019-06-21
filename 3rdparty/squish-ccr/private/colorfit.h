@@ -31,16 +31,15 @@
 #include <squish.h>
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class color_set;
 class color_fit
 {
 public:
-  color_fit( color_set const* colors, int flags );
+  color_fit(color_set const* colors, flags_t flags);
 
-  void Compress( void* block );
+  void Compress(void* block);
 
 protected:
   virtual void Compress3b(void* block) = 0;
@@ -48,11 +47,11 @@ protected:
   virtual void Compress4(void* block) = 0;
 
   color_set const* m_colors;
-  int m_flags;
+  flags_t m_flags;
 
   Vec3 m_metric;
   Scr3 m_besterror;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_colorFIT_H
+#endif  // ndef SQUISH_colorFIT_H

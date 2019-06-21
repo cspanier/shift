@@ -52,10 +52,10 @@ public:
   static int GetDeltaBits(int mode, int channel);
 
 public:
-  hdr_fit(hdr_set const* palette, int flags);
+  hdr_fit(hdr_set const* palette, flags_t flags);
 
   // change parameters while iterating
-  void ChangeFit(hdr_set const* palette, int flags)
+  void ChangeFit(hdr_set const* palette, flags_t flags)
   {
     m_palette = palette;
     m_flags = flags;
@@ -65,7 +65,7 @@ public:
   {
     m_palette = palette;
   }
-  void ChangeFlags(int flags)
+  void ChangeFlags(flags_t flags)
   {
     m_flags = flags;
   }
@@ -111,7 +111,7 @@ public:
 
 protected:
   hdr_set const* m_palette;
-  int m_flags;
+  flags_t m_flags;
   int m_mode;
 
   Vec3 m_start[2];

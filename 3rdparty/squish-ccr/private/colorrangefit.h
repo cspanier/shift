@@ -32,14 +32,13 @@
 #include "colorfit.h"
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class color_set;
 class color_range_fit : public color_fit
 {
 public:
-  color_range_fit(color_set const* colors, int flags);
+  color_range_fit(color_set const* colors, flags_t flags);
 
 private:
   void ComputeEndPoints();
@@ -51,6 +50,6 @@ private:
   Vec3 m_start;
   Vec3 m_end;
 };
-} // squish
+}  // squish
 
-#endif // ndef SQUISH_colorRANGEFIT_H
+#endif  // ndef SQUISH_colorRANGEFIT_H

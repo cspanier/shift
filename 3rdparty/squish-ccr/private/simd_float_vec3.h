@@ -120,9 +120,9 @@ public:
 
   Vec3(Col3& c)
   {
-    x = (float)c.r;
-    y = (float)c.g;
-    z = (float)c.b;
+    x = static_cast<float>(c.r);
+    y = static_cast<float>(c.g);
+    z = static_cast<float>(c.b);
   }
 
   void StoreX(float* _x) const

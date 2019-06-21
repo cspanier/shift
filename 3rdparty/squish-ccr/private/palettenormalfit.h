@@ -33,22 +33,25 @@
 #include "palettesinglesnap.h"
 #include "maths_all.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class palette_set;
 class palette_normal_fit : public palette_single_match
 {
 public:
-  static bool IsClusterable(int flags) { return false; }
+  static bool IsClusterable(flags_t flags)
+  {
+    return false;
+  }
 
 public:
-  palette_normal_fit(palette_set const* palette, int flags, int swap = -1, int shared = -1);
+  palette_normal_fit(palette_set const* palette, flags_t flags, int swap = -1,
+                     int shared = -1);
 
-  virtual void Compress(void* block, vQuantizer &q, int mode);
+  virtual void Compress(void* block, vQuantizer& q, int mode);
 
 private:
 };
-} // squish
+}  // squish
 
-#endif // ndef SQUISH_PALETTENORMALFIT_H
+#endif  // ndef SQUISH_PALETTENORMALFIT_H

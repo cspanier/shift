@@ -33,7 +33,7 @@
 
 namespace squish
 {
-hdr_range_fit::hdr_range_fit(hdr_set const* palette, int flags)
+hdr_range_fit::hdr_range_fit(hdr_set const* palette, flags_t flags)
 : hdr_single_match(palette, flags),
   hdr_index_fit(palette, flags),
   hdr_fit(palette, flags)
@@ -495,7 +495,7 @@ SwapSet1EndPointsAndRedoCalculation:
         } while (j >= 0);
 
         // save the index
-        closest[s][i] = (std::uint8_t)idx;
+        closest[s][i] = static_cast<std::uint8_t>(idx);
 
         // accumulate the error
         error += dist * freq[i];

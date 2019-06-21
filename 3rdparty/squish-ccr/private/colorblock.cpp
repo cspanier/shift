@@ -29,29 +29,29 @@
 
 #include "inlineables.inl"
 
-namespace squish {
+namespace squish
+{
 
 /* *****************************************************************************
  */
-static void WritecolorBlock(int a, int b, std::uint8_t const* indices, void* block)
+static void WritecolorBlock(int a, int b, std::uint8_t const* indices,
+                            void* block)
 {
   // get the block as bytes
   std::uint8_t* bytes = (std::uint8_t*)block;
 
   // write the endpoints
-  bytes[0] = (std::uint8_t)(a & 0xff);
-  bytes[1] = (std::uint8_t)(a >> 8);
-  bytes[2] = (std::uint8_t)(b & 0xff);
-  bytes[3] = (std::uint8_t)(b >> 8);
+  bytes[0] = static_cast<std::uint8_t>(a & 0xff);
+  bytes[1] = static_cast<std::uint8_t>(a >> 8);
+  bytes[2] = static_cast<std::uint8_t>(b & 0xff);
+  bytes[3] = static_cast<std::uint8_t>(b >> 8);
 
-  for (int i = 0; i < 4; ++i) {
+  for (int i = 0; i < 4; ++i)
+  {
     std::uint8_t const* ind = indices + 4 * i;
 
-    bytes[4 + i] =
-      (ind[0] << 0) +
-      (ind[1] << 2) +
-      (ind[2] << 4) +
-      (ind[3] << 6);
+    bytes[4 + i] = static_cast<std::uint8_t>((ind[0] << 0) + (ind[1] << 2) +
+                                             (ind[2] << 4) + (ind[3] << 6));
   }
 }
 
@@ -61,11 +61,8 @@ static void WritecolorBlock(int a, int b, Col4 const& indices, void* block)
   unsigned int* ints = (unsigned int*)block;
 
   Col4 reindexed =
-    (indices      ) +
-    (indices >>  6) +
-    (indices >> 12) +
-    (indices >> 18);
-  
+    (indices) + (indices >> 6) + (indices >> 12) + (indices >> 18);
+
   // write the endpoints
   ints[0] = (b << 16) + (a);
 
@@ -75,7 +72,8 @@ static void WritecolorBlock(int a, int b, Col4 const& indices, void* block)
   StoreUnaligned(reindexed & Col4(0x000000FF), (std::uint8_t*)&ints[1]);
 }
 
-void WritecolorBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
+void WritecolorBlock3(const Vec3& start, const Vec3& end,
+                      std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
@@ -84,18 +82,21 @@ void WritecolorBlock3(const Vec3& start, const Vec3& end, std::uint8_t const* in
   // remap the indices
   Col4 remapped = Col4(indices);
 
-  if (a > b) {
+  if (a > b)
+  {
     // swap a and b
     std::swap(a, b);
     // swap index 0 and 1
-    remapped ^= Col4(0x01010101) & CompareAllLessThan_M8(remapped, Col4(0x02020202));
+    remapped ^=
+      Col4(0x01010101) & CompareAllLessThan_M8(remapped, Col4(0x02020202));
   }
 
   // write the block
   WritecolorBlock(a, b, remapped, block);
 }
 
-void WritecolorBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* indices, void* block)
+void WritecolorBlock4(const Vec3& start, const Vec3& end,
+                      std::uint8_t const* indices, void* block)
 {
   // get the packed values
   int a = FloatTo565(start);
@@ -104,29 +105,28 @@ void WritecolorBlock4(const Vec3& start, const Vec3& end, std::uint8_t const* in
   // remap the indices
   Col4 remapped = Col4(indices);
 
-  if (a < b) {
+  if (a < b)
+  {
     // swap a and b
     std::swap(a, b);
     // swap index 0 and 1, 2 and 3
     remapped ^= Col4(0x01010101);
   }
-  else if (a == b) {
+  else if (a == b)
+  {
     // use index 0
-    remapped  = Col4(0x00000000);
+    remapped = Col4(0x00000000);
   }
-  
+
   // write the block
   WritecolorBlock(a, b, remapped, block);
 }
 
-void ReadcolorBlock(
-  std::uint8_t (&codes  )[16],
-  std::uint8_t (&indices)[16],
-  void const* block,
-  bool isBtc1)
+void ReadcolorBlock(std::uint8_t (&codes)[16], std::uint8_t (&indices)[16],
+                    void const* block, bool isBtc1)
 {
   // get the block bytes
-  std::uint8_t const* bytes = reinterpret_cast< std::uint8_t const* >(block);
+  std::uint8_t const* bytes = reinterpret_cast<std::uint8_t const*>(block);
 
   // unpack the endpoints
   int a = Unpack565(bytes + 0, codes + 0);
@@ -136,7 +136,8 @@ void ReadcolorBlock(
   Codebook3or4(codes, isBtc1 & (a <= b));
 
   // unpack the indices
-  for (int i = 0; i < 4; ++i) {
+  for (int i = 0; i < 4; ++i)
+  {
     std::uint8_t* ind = indices + 4 * i;
     std::uint8_t packed = bytes[4 + i];
 
@@ -155,7 +156,8 @@ void DecompressColorsBtc1u(std::uint8_t* rgba, void const* block, bool isBtc1)
   ReadcolorBlock(codes, indices, block, isBtc1);
 
   // store out the colors
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < 16; ++i)
+  {
     std::uint8_t offset = 4 * indices[i];
 
     rgba[4 * i + 0] = codes[offset + 0] * (255 / 255);
@@ -173,7 +175,8 @@ void DecompressColorsBtc1u(std::uint16_t* rgba, void const* block, bool isBtc1)
   ReadcolorBlock(codes, indices, block, isBtc1);
 
   // store out the colors
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < 16; ++i)
+  {
     std::uint8_t offset = 4 * indices[i];
 
     rgba[4 * i + 0] = codes[offset + 0] * (65535 / 255);
@@ -191,7 +194,8 @@ void DecompressColorsBtc1u(float* rgba, void const* block, bool isBtc1)
   ReadcolorBlock(codes, indices, block, isBtc1);
 
   // store out the colors
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < 16; ++i)
+  {
     std::uint8_t offset = 4 * indices[i];
 
     rgba[4 * i + 0] = codes[offset + 0] * (1.0f / 255.0f);
@@ -200,4 +204,4 @@ void DecompressColorsBtc1u(float* rgba, void const* block, bool isBtc1)
     rgba[4 * i + 3] = codes[offset + 3] * (1.0f / 255.0f);
   }
 }
-} // namespace squish
+}  // namespace squish

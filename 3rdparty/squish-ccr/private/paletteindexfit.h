@@ -40,8 +40,8 @@ class palette_set;
 class palette_index_fit : public virtual palette_fit
 {
 public:
-  palette_index_fit(palette_set const* colors, int flags, int swap = -1,
-                  int shared = 0);
+  palette_index_fit(palette_set const* colors, flags_t flags, int swap = -1,
+                    int shared = 0);
 
 #ifdef FEATURE_INDEXFIT_INLINED
 private:

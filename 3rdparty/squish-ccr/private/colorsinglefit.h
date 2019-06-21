@@ -32,28 +32,29 @@
 #include <limits.h>
 #include "colorfit.h"
 
-namespace squish {
-
-// -----------------------------------------------------------------------------
+namespace squish
+{
 class color_set;
 struct colorSingleLookup;
 class color_single_fit : public color_fit
 {
 public:
-  color_single_fit(color_set const* colors, int flags);
+  color_single_fit(color_set const* colors, flags_t flags);
 
 private:
-  virtual void Compress3b(void* block) {}
+  virtual void Compress3b(void* block)
+  {
+  }
   virtual void Compress3(void* block);
   virtual void Compress4(void* block);
 
   int ComputeEndPoints(colorSingleLookup const* const* lookups);
 
-  std::uint8_t   m_color[3];
+  std::uint8_t m_color[3];
   Vec3 m_start;
   Vec3 m_end;
-  std::uint8_t   m_index;
+  std::uint8_t m_index;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_colorSINGLEFIT_H
+#endif  // ndef SQUISH_colorSINGLEFIT_H

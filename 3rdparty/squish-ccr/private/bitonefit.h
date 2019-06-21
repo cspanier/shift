@@ -31,23 +31,23 @@
 #include <squish.h>
 #include "maths_all.h"
 
-namespace squish {
+namespace squish
+{
 
-// -----------------------------------------------------------------------------
 class bitone_set;
 class bitone_fit
 {
 public:
-  bitone_fit( bitone_set const* bitones, int flags );
+  bitone_fit(bitone_set const* bitones, flags_t flags);
 
-  void Compress( void* block );
+  void Compress(void* block);
 
 protected:
-  virtual void Compress4( void* block ) = 0;
+  virtual void Compress4(void* block) = 0;
 
   bitone_set const* m_bitones;
-  int m_flags;
+  flags_t m_flags;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_BITONEFIT_H
+#endif  // ndef SQUISH_BITONEFIT_H

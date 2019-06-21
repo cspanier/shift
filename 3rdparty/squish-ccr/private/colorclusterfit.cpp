@@ -39,14 +39,14 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
-color_cluster_fit::color_cluster_fit(color_set const* colors, int flags)
+color_cluster_fit::color_cluster_fit(color_set const* colors, flags_t flags)
 : color_fit(colors, flags)
 {
   // set the iteration count
-  m_iterationCount = (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
+  m_iterationCount =
+    static_cast<std::uint32_t>(
+      m_flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+    16;
 
   // initialize endpoints
   ComputeEndPoints();
@@ -73,7 +73,9 @@ void color_cluster_fit::ComputeEndPoints()
   GetPrincipleComponent(covariance, m_principle);
 
   // we have tables for this
-  m_optimizable = unweighted & ((count == 16) | ((m_flags & kBtcp) == kBtc1));
+  m_optimizable =
+    unweighted & ((count == 16) | ((m_flags & squish_flag::compression_mask) ==
+                                   squish_flag::compression_bc1));
 }
 
 void color_cluster_fit::SumError3(std::uint8_t (&closest)[16], Vec4& beststart,
@@ -138,7 +140,7 @@ bool color_cluster_fit::ConstructOrdering(Vec3 const& axis, int iteration)
   for (int i = 0; i < count; ++i)
   {
     Dot(values[i], axis, dps + i);
-    order[i] = (std::uint8_t)i;
+    order[i] = static_cast<std::uint8_t>(i);
   }
 
   // stable sort using them

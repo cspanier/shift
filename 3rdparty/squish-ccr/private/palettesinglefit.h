@@ -33,7 +33,8 @@
 
 #include "palettefit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 struct PaletteSingleLookup2;
@@ -44,20 +45,31 @@ class palette_set;
 class palette_single_fit : public virtual palette_fit
 {
 public:
-  palette_single_fit(palette_set const* colors, int flags, int swap = -1, int shared = 0);
+  palette_single_fit(palette_set const* colors, flags_t flags, int swap = -1,
+                     int shared = 0);
 
 private:
-  Scr4 ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup2 const* const* lookups, std::uint8_t cmask);
-  Scr4 ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup4 const* const* lookups, std::uint8_t cmask);
-  Scr4 ComputeEndPoints(int set, Vec4 const &metric, PaletteSingleLookup8 const* const* lookups, std::uint8_t cmask);
+  Scr4 ComputeEndPoints(int set, Vec4 const& metric,
+                        PaletteSingleLookup2 const* const* lookups,
+                        std::uint8_t cmask);
+  Scr4 ComputeEndPoints(int set, Vec4 const& metric,
+                        PaletteSingleLookup4 const* const* lookups,
+                        std::uint8_t cmask);
+  Scr4 ComputeEndPoints(int set, Vec4 const& metric,
+                        PaletteSingleLookup8 const* const* lookups,
+                        std::uint8_t cmask);
 
   std::uint8_t m_entry[4][4];
   std::uint8_t m_index;
 
 protected:
-  Scr4 ComputeEndPoints(int set, Vec4 const &metric, int cb, int ab, int sb, int ib, std::uint8_t cmask);
-  std::uint8_t GetIndex() { return m_index; }
+  Scr4 ComputeEndPoints(int set, Vec4 const& metric, int cb, int ab, int sb,
+                        int ib, std::uint8_t cmask);
+  std::uint8_t GetIndex()
+  {
+    return m_index;
+  }
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_PALETTESINGLEFIT_H
+#endif  // ndef SQUISH_PALETTESINGLEFIT_H

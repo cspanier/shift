@@ -37,12 +37,14 @@ namespace squish
 
 /* *****************************************************************************
  */
-bitone_cluster_fit::bitone_cluster_fit(bitone_set const* bitones, int flags)
+bitone_cluster_fit::bitone_cluster_fit(bitone_set const* bitones, flags_t flags)
 : bitone_fit(bitones, flags)
 {
   // set the iteration count
   m_iterationCount =
-    (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
+    static_cast<std::uint32_t>(
+      m_flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+    16;
 
   // initialize the best error
   m_besterror = Scr4(FLT_MAX);
@@ -81,7 +83,7 @@ bool bitone_cluster_fit::ConstructOrdering(Vec3 const& axis, int iteration)
   for (int i = 0; i < count; ++i)
   {
     Dot(values[i], axis, dps + i);
-    order[i] = (std::uint8_t)i;
+    order[i] = static_cast<std::uint8_t>(i);
   }
 
   // stable sort using them
@@ -352,8 +354,7 @@ void bitone_cluster_fit::ClusterFit4Constant(void* block)
           Vec4 const betax_sum =
             /*MultiplyAdd(part1, onethird_onethird2, MultiplyAdd(part2,
                twothirds_twothirds2, part3))*/
-            xsum_wsum -
-            alphax_sum;
+            xsum_wsum - alphax_sum;
 
           Vec4 const alpha2_sum = alphabeta_val.SplatX();
           Vec4 const beta2_sum = alphabeta_val.SplatY();

@@ -41,7 +41,7 @@ class hdr_set;
 class hdr_range_fit : public hdr_single_match, public hdr_index_fit
 {
 public:
-  hdr_range_fit(hdr_set const* palette, int flags);
+  hdr_range_fit(hdr_set const* palette, flags_t flags);
 
   virtual void Compress(void* block, fQuantizer& q, int mode);
 

@@ -28,28 +28,30 @@
 #include "colorfit.h"
 #include "colorset.h"
 
-namespace squish {
-
-/* *****************************************************************************
- */
+namespace squish
+{
 extern Vec4 g_metric[8];
 
-color_fit::color_fit( color_set const* colors, int flags )
-  : m_colors(colors), m_flags(flags)
+color_fit::color_fit(color_set const* colors, flags_t flags)
+: m_colors(colors), m_flags(flags)
 {
   // initialize the metric
-  m_metric = KillW(g_metric[(flags & kcolorMetrics) >> 4]);
+  m_metric = KillW(g_metric[static_cast<std::uint32_t>(
+                              flags & squish_flag::color_metric_mask) >>
+                            4]);
 
   // initialize the best error
-  m_besterror = Scr4(FLT_MAX);
+  m_besterror = Scr3(FLT_MAX);
 }
 
-void color_fit::Compress( void* block )
+void color_fit::Compress(void* block)
 {
-  const bool isBtc1f = ((m_flags & kBtcp) == kBtc1);
-  const bool isBtc1b = ((m_flags & kExcludeAlphaFromPalette) != 0);
+  const bool isBtc1f =
+    ((m_flags & squish_flag::compression_mask) == squish_flag::compression_bc1);
+  const bool isBtc1b = m_flags & squish_flag::option_exclude_alpha_from_palette;
 
-  if (isBtc1f) {
+  if (isBtc1f)
+  {
     Compress3(block);
     if (!m_colors->IsTransparent())
       Compress4(block);
@@ -59,4 +61,4 @@ void color_fit::Compress( void* block )
   else
     Compress4(block);
 }
-} // namespace squish
+}  // namespace squish

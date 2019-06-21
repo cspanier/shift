@@ -30,6 +30,7 @@
 
 #include <type_traits>
 #include <cstdint>
+#include <array>
 #include "config.h"
 
 /// All squish API functions live in this namespace.
@@ -290,15 +291,15 @@ public:
     return *this;
   }
 
-  constexpr operator underlying_type() const noexcept
-  {
-    return _flags;
-  }
-
-  //  constexpr operator bool() const noexcept
+  //  constexpr operator underlying_type() const noexcept
   //  {
-  //    return _flags != 0;
+  //    return _flags;
   //  }
+
+  constexpr operator bool() const noexcept
+  {
+    return _flags != 0;
+  }
 
   constexpr bit_flags operator~() noexcept
   {
@@ -391,112 +392,6 @@ inline constexpr flags_t operator~(squish_flag flag) noexcept
   return ~static_cast<flags_t::underlying_type>(flag);
 }
 
-enum
-{
-  /// Use DXT1/BC1 compression.
-  kBtc1 = (1u << 0),
-  /// Use DXT3/BC2 compression.
-  kBtc2 = (2u << 0),
-  /// Use DXT5/BC3 compression.
-  kBtc3 = (3u << 0),
-  /// Use ATI1/BC4 compression.
-  kBtc4 = (4u << 0),
-  /// Use ATI2/BC5 compression.
-  kBtc5 = (5u << 0),
-  /// Use BC6H compression.
-  kBtc6 = (6u << 0),
-  /// Use BC7 compression.
-  kBtc7 = (7u << 0),
-  /// Use CTX1 compression.
-  kCtx1 = (8u << 0),
-  /// Use some compression (mask)
-  kBtcp = (15u << 0),
-
-  /// Use a perceptual metric for color error (the default).
-  kcolorMetricPerceptual = (1u << 4),
-  /// Use a uniform metric for color error.
-  kcolorMetricUniform = (2u << 4),
-  /// Use a unit metric for color error.
-  kcolorMetricUnit = (3u << 4),
-  /// Use a multi-channel grayscale metric for color error.
-  kcolorMetricGray = (4u << 4),
-  /// Use a custom metric for color error.
-  kcolorMetricCustom = (7u << 4),
-  /// Use some metric (mask)
-  kcolorMetrics = (7u << 4),
-
-  /// Weight the color by alpha during cluster fit (disabled by default).
-  kWeightcolorByAlpha = (1u << 10),
-  /// Don't code alpha, set alpha to 255 after weighting (disabled by default).
-  kExcludeAlphaFromPalette = (1u << 11),
-
-  /// Transform values/points from signed (disabled by default).
-  kSignedExternal = (1u << 12),  // BC4-6
-                                 /// Store/restore values/points as signed
-                                 /// internally (disabled by default).
-  kSignedInternal = (2u << 12),  // BC4-6
-                                 /// Use some datatype transform (mask)
-  kSignedness = (3u << 12),
-
-  /// Transform values/points from sRGB (disabled by default).
-  kSrgbExternal = (1u << 12),  // BC1-3/7
-                               /// Store/restore points/values as sRGB
-                               /// internally (disabled by default).
-  kSrgbInternal = (2u << 12),  // BC1-3/7
-                               /// Use some gamma transform (mask)
-  kSrgbness = (3u << 12),
-
-  /// Use a fast but low quality color compressor.
-  kcolorRangeFit = (1u << 14),
-  kAlphaRangeFit = (1u << 14),
-  kNormalRangeFit = (1u << 14),
-  /// Use a slow but high quality alpha/gray/normal compressor.
-  kAlphaIterativeFit = (1u << 15),
-  kNormalIterativeFit = (1u << 15),
-
-  /// Use a slow but high quality color compressor (the default).
-  kcolorClusterFit = (1u << 16),
-  /// Use a very slow but very high quality color compressor.
-  kcolorIterativeClusterFit = (8u << 16),
-  /// Specify the number of iterations explicitly. You can go until 15.
-  kcolorIterativeClusterFit1 = (1u << 16),
-  kcolorIterativeClusterFit2 = (2u << 16),
-  kcolorIterativeClusterFit4 = (4u << 16),
-  kcolorIterativeClusterFit8 = (8u << 16),
-  kcolorIterativeClusterFits = (15u << 16),
-
-  /// Use to code a specific BC6/7 mode, coded as "1 + mode-number" (not
-  /// specified by default).
-  kVariableCodingMode1 = (1u << 24),
-  kVariableCodingMode2 = (2u << 24),
-  kVariableCodingMode3 = (3u << 24),
-  kVariableCodingMode4 = (4u << 24),
-  kVariableCodingMode5 = (5u << 24),
-  kVariableCodingMode6 = (6u << 24),
-  kVariableCodingMode7 = (7u << 24),
-  kVariableCodingMode8 = (8u << 24),
-  kVariableCodingMode9 = (9u << 24),
-  kVariableCodingMode10 = (10u << 24),
-  kVariableCodingMode11 = (11u << 24),
-  kVariableCodingMode12 = (12u << 24),
-  kVariableCodingMode13 = (13u << 24),
-  kVariableCodingMode14 = (14u << 24),
-  kVariableCodingModes = (15u << 24),
-
-  /// Use to code a specific multi-channel grayscale precision (not specified by
-  /// default).
-  kVariableCodingBits10 = (1u << 28),  // 4-1+4-1+4     = 10, BC1-3,BC7,CTX1
-  kVariableCodingBits13 = (2u << 28),  // 5-1+5-1+5     = 13, BC1-3,BC7,CTX1
-  kVariableCodingBits14 = (3u << 28),  // 5-1+6-1+5     = 14, BC1-3,BC7,CTX1
-  kVariableCodingBits15 = (4u << 28),  // 8-1+8         = 15, BC7,CTX1
-  kVariableCodingBits16 = (5u << 28),  // 6-1+6-1+6     = 16, BC7
-  kVariableCodingBits17 = (6u << 28),  // 5-1+5-1+5-1+5 = 17, BC7
-  kVariableCodingBits19 = (7u << 28),  // 7-1+7-1+7     = 19, BC7
-  kVariableCodingBits22 = (8u << 28),  // 8-1+8-1+8     = 22, BC7
-  kVariableCodingBits25 = (9u << 28),  // 7-1+7-1+7-1+7 = 25, BC7
-  kVariableCodingBits = (15u << 28),
-};
-
 /*! @brief Validates and corrects compressor flags before use.
 
   @param flags  Compression flags.
@@ -528,14 +423,14 @@ flags_t sanitize_flags(flags_t flags);
 
   The flags parameter can also specify a preferred color compressor and
   color error metric to use when fitting the RGB components of the data.
-  Possible color compressors are: kcolorClusterFit (the default),
-  kcolorRangeFit or kcolorIterativeClusterFit. Possible color error metrics
-  are: kcolorMetricPerceptual (the default) or kcolorMetricUniform. If no
-  flags are specified in any particular category then the default will be
-  used. Unknown flags are ignored.
+  Possible color compressors are: compressor_color_cluster_fit (the default),
+  compressor_color_range_fit or compressor_color_iterative_cluster_mask.
+  Possible color error metrics are: color_metric_perceptual (the default) or
+  color_metric_uniform. If no flags are specified in any particular category
+  then the default will be used. Unknown flags are ignored.
 
-  When using kcolorClusterFit, an additional flag can be specified to
-  weight the color of each pixel by its alpha value. For images that are
+  When using compressor_color_cluster_fit, an additional flag can be specified
+  to weight the color of each pixel by its alpha value. For images that are
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
@@ -572,14 +467,14 @@ void compress(float const* rgba, void* block, flags_t flags);
 
   The flags parameter can also specify a preferred color compressor and
   color error metric to use when fitting the RGB components of the data.
-  Possible color compressors are: kcolorClusterFit (the default),
-  kcolorRangeFit or kcolorIterativeClusterFit. Possible color error metrics
-  are: kcolorMetricPerceptual (the default) or kcolorMetricUniform. If no
-  flags are specified in any particular category then the default will be
-  used. Unknown flags are ignored.
+  Possible color compressors are: compressor_color_cluster_fit (the default),
+  compressor_color_range_fit or compressor_color_iterative_cluster_mask.
+  Possible color error metrics are: color_metric_perceptual (the default) or
+  color_metric_uniform. If no flags are specified in any particular category
+  then the default will be used. Unknown flags are ignored.
 
-  When using kcolorClusterFit, an additional flag can be specified to
-  weight the color of each pixel by its alpha value. For images that are
+  When using compressor_color_cluster_fit, an additional flag can be specified
+  to weight the color of each pixel by its alpha value. For images that are
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 */
@@ -686,14 +581,14 @@ std::uint32_t storage_requirements(std::uint32_t width, std::uint32_t height,
 
   The flags parameter can also specify a preferred color compressor and
   color error metric to use when fitting the RGB components of the data.
-  Possible color compressors are: kcolorClusterFit (the default),
-  kcolorRangeFit or kcolorIterativeClusterFit. Possible color error metrics
-  are: kcolorMetricPerceptual (the default) or kcolorMetricUniform. If no
-  flags are specified in any particular category then the default will be
-  used. Unknown flags are ignored.
+  Possible color compressors are: compressor_color_cluster_fit (the default),
+  compressor_color_range_fit or compressor_color_iterative_cluster_mask.
+  Possible color error metrics are: color_metric_perceptual (the default) or
+  color_metric_uniform. If no flags are specified in any particular category
+  then the default will be used. Unknown flags are ignored.
 
-  When using kcolorClusterFit, an additional flag can be specified to
-  weight the color of each pixel by its alpha value. For images that are
+  When using compressor_color_cluster_fit, an additional flag can be specified
+  to weight the color of each pixel by its alpha value. For images that are
   rendered using alpha blending, this can significantly increase the
   perceived quality.
 

@@ -43,7 +43,7 @@ class hdr_set;
 class hdr_single_snap : public virtual hdr_fit
 {
 public:
-  hdr_single_snap(hdr_set const* colors, int flags);
+  hdr_single_snap(hdr_set const* colors, flags_t flags);
 
 private:
   Scr4 ComputeEndPoints(int set, Vec4 const& metric,

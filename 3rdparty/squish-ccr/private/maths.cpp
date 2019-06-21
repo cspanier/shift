@@ -43,10 +43,6 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
-
 #ifdef FEATURE_METRIC_COVARIANCE
 #define CoVar(a, b) (a - b) * metric
 #else
@@ -290,7 +286,7 @@ void ComputeWeightedCovariance2(Sym2x2& covariance, Vec4& centroid, int n,
     Vec4 b = weights[i] * a;
     Vec4 c = a * b;
     Vec4 d = a * RotateLeft<1>(b);
-    Vec4 e = a * RotateLeft<2>(b);
+    // Vec4 e = a * RotateLeft<2>(b);
 
     covariance_02 += c;
     covariance_1 += d;
@@ -549,8 +545,8 @@ void ComputePrincipleComponent(Sym3x3 const& smatrix, Vec3& out)
     float st = std::sin(theta / 3.0f);
 
     float l1 = (1.0f / 3.0f) * c2 + 2.0f * rt * ct;
-    float l2 = (1.0f / 3.0f) * c2 - rt * (ct + (float)sqrt(3.0f) * st);
-    float l3 = (1.0f / 3.0f) * c2 - rt * (ct - (float)sqrt(3.0f) * st);
+    float l2 = (1.0f / 3.0f) * c2 - rt * (ct + std::sqrt(3.0f) * st);
+    float l3 = (1.0f / 3.0f) * c2 - rt * (ct - std::sqrt(3.0f) * st);
 
     // pick the larger
     if (std::fabs(l2) > std::fabs(l1))
@@ -629,8 +625,8 @@ void ComputePrincipleComponent(Sym3x3 const& smatrix, Vec4& out)
     float st = std::sin(theta / 3.0f);
 
     float l1 = (1.0f / 3.0f) * c2 + 2.0f * rt * ct;
-    float l2 = (1.0f / 3.0f) * c2 - rt * (ct + (float)sqrt(3.0f) * st);
-    float l3 = (1.0f / 3.0f) * c2 - rt * (ct - (float)sqrt(3.0f) * st);
+    float l2 = (1.0f / 3.0f) * c2 - rt * (ct + std::sqrt(3.0f) * st);
+    float l3 = (1.0f / 3.0f) * c2 - rt * (ct - std::sqrt(3.0f) * st);
 
     // pick the larger
     if (std::fabs(l2) > std::fabs(l1))
@@ -878,7 +874,9 @@ void EstimatePrincipleComponent(Sym3x3 const& matrix, Vec4& out)
   gstat.num_poweritrs[std::min(i, 63)]++;
 #endif
 
-  assert(v.GetW() == 0.0f);
+  /// ToDo: Fully black blocks cause this assert to fail, because
+  /// Reciprocal(HorizontalMax(Abs(v))) above returns NaN.
+  // assert(v.GetW() == 0.0f);
   out = v;
 }
 

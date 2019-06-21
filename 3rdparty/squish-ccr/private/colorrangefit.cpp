@@ -36,10 +36,7 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
-color_range_fit::color_range_fit(color_set const* colors, int flags)
+color_range_fit::color_range_fit(color_set const* colors, flags_t flags)
 : color_fit(colors, flags)
 {
   // initialize endpoints
@@ -165,7 +162,7 @@ void color_range_fit::Compress3(void* block)
     MinDistance3<true>(dist, idx, value, codes);
 
     // save the index
-    closest[i] = (std::uint8_t)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
 
     // accumulate the error
     error += dist * freq[i];
@@ -215,7 +212,7 @@ void color_range_fit::Compress4(void* block)
     AddDistance(dist, error, freq[i]);
 
     // save the index
-    closest[i] = (std::uint8_t)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
   }
 
   // save this scheme if it wins

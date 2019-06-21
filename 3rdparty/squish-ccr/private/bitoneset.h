@@ -40,9 +40,9 @@ namespace squish
 class bitone_set
 {
 public:
-  bitone_set(std::uint8_t const* rgba, std::uint32_t mask, int flags);
-  bitone_set(std::uint16_t const* rgba, std::uint32_t mask, int flags);
-  bitone_set(float const* rgba, std::uint32_t mask, int flags);
+  bitone_set(std::uint8_t const* rgba, std::uint32_t mask, flags_t flags);
+  bitone_set(std::uint16_t const* rgba, std::uint32_t mask, flags_t flags);
+  bitone_set(float const* rgba, std::uint32_t mask, flags_t flags);
 
   bool IsUnweighted() const
   {

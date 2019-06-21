@@ -66,54 +66,89 @@ extern const unsigned int partitionmasks_3[64] = {
 
 /* *****************************************************************************
  */
-void palette_set::GetMasks(int flags, int partition, int (&masks)[4])
+void palette_set::GetMasks(flags_t flags, int partition, int (&masks)[4])
 {
   unsigned int partmask = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode2) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode4) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode2) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode4) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
     partmask = partitionmasks_2[partition];
-  if (((flags & kVariableCodingModes) == kVariableCodingMode1) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode3))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode1) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode3))
     partmask = partitionmasks_3[partition];
 
   // determine the number of partitions
-  if (((flags & kVariableCodingModes) == kVariableCodingMode5) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode6) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode7))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode5) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode6) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode7))
     masks[0] = (partmask & 0xFFFF) & (0xFFFFFFFF >> 16),    // color-set
       masks[1] = (partmask & 0xFFFF) & (0xFFFFFFFF >> 16),  // alpha-set
       masks[2] = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode1) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode3))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode1) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode3))
     masks[0] = (~partmask & 0xFFFF) & (0xFFFFFFFF >> 16),
     masks[1] = (partmask & 0xFFFF) & (0xFFFFFFFF >> 16), masks[2] = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode2) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode4) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode2) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode4) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
     masks[0] = (~partmask & 0xFFFF) & (~partmask >> 16),
     masks[1] = (partmask & 0xFFFF) & (~partmask >> 16),
     masks[2] = (0xFFFFFFFF & 0xFFFF) & (partmask >> 16);
 }
 
-int palette_set::SetMode(int flags)
+int palette_set::SetMode(flags_t flags)
 {
   /* build a single set only, we permute that later for specific partitions,
    * separate alpha is an exception as that is fixed for each mode
    */
-  if (((flags & kVariableCodingModes) == kVariableCodingMode2) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode4) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
-    m_numsets = 2, m_partmask = 0xFFFFFFFF, m_partid = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode1) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode3))
-    m_numsets = 3, m_partmask = 0xFFFFFFFF, m_partid = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode5) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode6))
-    m_seperatealpha = true, m_rotid = 0;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode7) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode2) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode4) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
+  {
+    m_numsets = 2;
+    m_partmask = 0xFFFFFFFF;
+    m_partid = 0;
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode1) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode3))
+  {
+    m_numsets = 3;
+    m_partmask = 0xFFFFFFFF;
+    m_partid = 0;
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode5) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode6))
+  {
+    m_seperatealpha = true;
+    m_rotid = 0;
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode7) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
+  {
     m_mergedalpha = true;
+  }
 
   // partition_1 mask is: bit cleared -> set 1, bit set -> set 2
   // partition_2 mask is: bit cleared -> set 1, bit set -> set 2, hi bit set ->
@@ -128,24 +163,44 @@ int palette_set::SetMode(int flags)
   return flags;
 }
 
-int palette_set::SetMode(int flags, int part_or_rot)
+int palette_set::SetMode(flags_t flags, int part_or_rot)
 {
   /* determine the number of sets and select the partition
   if ((0))
     m_numsets = 1, m_partmask = partitionmasks_1[m_partid = 0]; */
-  if (((flags & kVariableCodingModes) == kVariableCodingMode2) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode4) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
-    m_numsets = 2, m_partmask = partitionmasks_2[m_partid = part_or_rot];
-  if (((flags & kVariableCodingModes) == kVariableCodingMode1) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode3))
-    m_numsets = 3, m_partmask = partitionmasks_3[m_partid = part_or_rot];
-  if (((flags & kVariableCodingModes) == kVariableCodingMode5) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode6))
-    m_seperatealpha = true, m_rotid = part_or_rot;
-  if (((flags & kVariableCodingModes) == kVariableCodingMode7) ||
-      ((flags & kVariableCodingModes) == kVariableCodingMode8))
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode2) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode4) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
+  {
+    m_numsets = 2;
+    m_partmask = partitionmasks_2[m_partid = part_or_rot];
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode1) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode3))
+  {
+    m_numsets = 3;
+    m_partmask = partitionmasks_3[m_partid = part_or_rot];
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode5) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode6))
+  {
+    m_seperatealpha = true;
+    m_rotid = part_or_rot;
+  }
+  if (((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode7) ||
+      ((flags & squish_flag::variable_coding_mode_mask) ==
+       squish_flag::variable_coding_mode8))
+  {
     m_mergedalpha = true;
+  }
 
   // partition_1 mask is: bit cleared -> set 1, bit set -> set 2
   // partition_2 mask is: bit cleared -> set 1, bit set -> set 2, hi bit set ->
@@ -166,7 +221,7 @@ int palette_set::SetMode(int flags, int part_or_rot)
 }
 
 palette_set::palette_set(std::uint8_t const* rgba, std::uint32_t mask,
-                         int flags)
+                         flags_t flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -180,7 +235,7 @@ palette_set::palette_set(std::uint8_t const* rgba, std::uint32_t mask,
 }
 
 palette_set::palette_set(std::uint16_t const* rgba, std::uint32_t mask,
-                         int flags)
+                         flags_t flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -193,7 +248,7 @@ palette_set::palette_set(std::uint16_t const* rgba, std::uint32_t mask,
   BuildSet(rgba, mask, SetMode(flags));
 }
 
-palette_set::palette_set(float const* rgba, std::uint32_t mask, int flags)
+palette_set::palette_set(float const* rgba, std::uint32_t mask, flags_t flags)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -207,7 +262,7 @@ palette_set::palette_set(float const* rgba, std::uint32_t mask, int flags)
 }
 
 palette_set::palette_set(std::uint8_t const* rgba, std::uint32_t mask,
-                         int flags, int part_or_rot)
+                         flags_t flags, int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -221,7 +276,7 @@ palette_set::palette_set(std::uint8_t const* rgba, std::uint32_t mask,
 }
 
 palette_set::palette_set(std::uint16_t const* rgba, std::uint32_t mask,
-                         int flags, int part_or_rot)
+                         flags_t flags, int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -234,7 +289,7 @@ palette_set::palette_set(std::uint16_t const* rgba, std::uint32_t mask,
   BuildSet(rgba, mask, SetMode(flags, part_or_rot));
 }
 
-palette_set::palette_set(float const* rgba, std::uint32_t mask, int flags,
+palette_set::palette_set(float const* rgba, std::uint32_t mask, flags_t flags,
                          int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
@@ -249,7 +304,7 @@ palette_set::palette_set(float const* rgba, std::uint32_t mask, int flags,
 }
 
 palette_set::palette_set(palette_set const& palette, std::uint32_t mask,
-                         int flags, int part_or_rot)
+                         flags_t flags, int part_or_rot)
 : m_numsets(1),
   m_rotid(0),
   m_partid(0),
@@ -270,18 +325,21 @@ palette_set::palette_set(palette_set const& palette, std::uint32_t mask,
 }
 
 void palette_set::BuildSet(std::uint8_t const* rgba, std::uint32_t mask,
-                           int flags)
+                           flags_t flags)
 {
-  const float* rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
+  const float* rgbLUT =
+    ComputeGammaLUT(flags & squish_flag::option_srgb_external);
   const float* aLUT = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
+  bool const clearAlpha =
+    flags & squish_flag::option_exclude_alpha_from_palette;
   bool const seperateAlpha =
-    ((flags & kExcludeAlphaFromPalette) == 0) & (m_seperatealpha);
+    !(flags & squish_flag::option_exclude_alpha_from_palette) &&
+    m_seperatealpha;
   bool const weightByAlpha =
-    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
-  bool const killByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+    (flags & squish_flag::option_weight_color_by_alpha) && !m_mergedalpha;
+  bool const killByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   std::uint8_t const mska = !seperateAlpha ? 0xFF : 0x00;
@@ -373,7 +431,7 @@ void palette_set::BuildSet(std::uint8_t const* rgba, std::uint32_t mask,
   m_unweighted[0] = m_unweighted[1] = m_unweighted[2] = m_unweighted[3] = true;
 
   // TODO: should not be necessary (VC bug?)
-  memset(m_remap, 0x00, sizeof(m_remap));
+  m_remap.fill({0x00, 0x00, 0x00, 0x00});
 
   // required for being able to reorder the contents of "rgbx"
   assert(m_numsets == 1);
@@ -483,7 +541,7 @@ void palette_set::BuildSet(std::uint8_t const* rgba, std::uint32_t mask,
              */
             if ((imask & 1) == 0)
             {
-              m_remap[s][i] = (std::uint8_t)p;
+              m_remap[s][i] = static_cast<std::uint8_t>(p);
 
               std::uint8_t* rgbvalue = &rgbx[4 * i + 0];
 
@@ -629,7 +687,7 @@ void palette_set::BuildSet(std::uint8_t const* rgba, std::uint32_t mask,
                */
               if ((imask & 1) == 0)
               {
-                m_remap[a][i] = (std::uint8_t)p;
+                m_remap[a][i] = static_cast<std::uint8_t>(p);
 
                 std::uint8_t* avalue = &___a[1 * i + 0];
 
@@ -681,24 +739,27 @@ void palette_set::BuildSet(std::uint8_t const* rgba, std::uint32_t mask,
 }
 
 void palette_set::BuildSet(std::uint16_t const* rgba, std::uint32_t mask,
-                           int flags)
+                           flags_t flags)
 {
   /* TODO */
   /*abort()*/;
 }
 
-void palette_set::BuildSet(float const* rgba, std::uint32_t mask, int flags)
+void palette_set::BuildSet(float const* rgba, std::uint32_t mask, flags_t flags)
 {
-  // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbExternal) != 0);
-  // const float *aLUT   = ComputeGammaLUT(false);
+  // const float *rgbLUT = ComputeGammaLUT(flags &
+  //   squish_flag::option_srgb_external);
+  // const float *aLUT = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const clearAlpha = ((flags & kExcludeAlphaFromPalette) != 0);
+  bool const clearAlpha =
+    flags & squish_flag::option_exclude_alpha_from_palette;
   bool const seperateAlpha =
-    ((flags & kExcludeAlphaFromPalette) == 0) & (m_seperatealpha);
+    !(flags & squish_flag::option_exclude_alpha_from_palette) &&
+    m_seperatealpha;
   bool const weightByAlpha =
-    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
-  bool const killByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+    (flags & squish_flag::option_weight_color_by_alpha) && !m_mergedalpha;
+  bool const killByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Vec4 const mska = !seperateAlpha ? Vec4(1.0f) : Vec4(1.0f, 1.0f, 1.0f, 0.0f);
@@ -790,7 +851,7 @@ void palette_set::BuildSet(float const* rgba, std::uint32_t mask, int flags)
   m_unweighted[0] = m_unweighted[1] = m_unweighted[2] = m_unweighted[3] = true;
 
   // TODO: should not be necessary (VC bug?)
-  memset(m_remap, 0x00, sizeof(m_remap));
+  m_remap.fill({0x00, 0x00, 0x00, 0x00});
 
   // required for being able to reorder the contents of "rgbx"
   assert(m_numsets == 1);
@@ -900,7 +961,7 @@ void palette_set::BuildSet(float const* rgba, std::uint32_t mask, int flags)
              */
             if ((imask & 1) == 0)
             {
-              m_remap[s][i] = (std::uint8_t)p;
+              m_remap[s][i] = static_cast<std::uint8_t>(p);
 
               Vec4* rgbvalue = &rgbx[i];
 
@@ -1046,7 +1107,7 @@ void palette_set::BuildSet(float const* rgba, std::uint32_t mask, int flags)
                */
               if ((mask & 1) == 0)
               {
-                m_remap[a][i] = (std::uint8_t)p;
+                m_remap[a][i] = static_cast<std::uint8_t>(p);
 
                 Scr4* avalue = &___a[i];
 
@@ -1098,13 +1159,13 @@ void palette_set::BuildSet(float const* rgba, std::uint32_t mask, int flags)
 }
 
 void palette_set::BuildSet(palette_set const& palette, std::uint32_t mask,
-                           int flags)
+                           flags_t flags)
 {
   // can't be permuted
   assert(m_seperatealpha == true);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);
@@ -1279,14 +1340,14 @@ void palette_set::BuildSet(palette_set const& palette, std::uint32_t mask,
 }
 
 void palette_set::PermuteSet(palette_set const& palette, std::uint32_t mask,
-                             int flags)
+                             flags_t flags)
 {
   // can't be permuted
   assert(m_seperatealpha == false);
 
   // check the compression mode for btc
   bool const weightByAlpha =
-    ((flags & kWeightcolorByAlpha) != 0) & (!m_mergedalpha);
+    (flags & squish_flag::option_weight_color_by_alpha) && !m_mergedalpha;
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);
@@ -1447,13 +1508,25 @@ void palette_set::UnmapIndices(std::uint8_t const* source,
         continue;
 
       if ((cmask >> 0) & 0xFF)
-        destination[4 * i + 0] = (std::uint8_t)(codes[source[i]] >> 0);
+      {
+        destination[4 * i + 0] =
+          static_cast<std::uint8_t>(codes[source[i]] >> 0);
+      }
       if ((cmask >> 8) & 0xFF)
-        destination[4 * i + 1] = (std::uint8_t)(codes[source[i]] >> 8);
+      {
+        destination[4 * i + 1] =
+          static_cast<std::uint8_t>(codes[source[i]] >> 8);
+      }
       if ((cmask >> 16) & 0xFF)
-        destination[4 * i + 2] = (std::uint8_t)(codes[source[i]] >> 16);
+      {
+        destination[4 * i + 2] =
+          static_cast<std::uint8_t>(codes[source[i]] >> 16);
+      }
       if ((cmask >> 24) & 0xFF)
-        destination[4 * i + 3] = (std::uint8_t)(codes[source[i]] >> 24);
+      {
+        destination[4 * i + 3] =
+          static_cast<std::uint8_t>(codes[source[i]] >> 24);
+      }
     }
   }
 }

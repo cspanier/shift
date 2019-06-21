@@ -40,27 +40,33 @@ extern const std::uint16_t partitionmasks_2[64];
 // Associated to partition 64-127, 16 * 2 bit
 extern const unsigned int partitionmasks_3[64];
 
-void hdr_set::GetMasks(int flags, int partition, int (&masks)[2])
+void hdr_set::GetMasks(flags_t flags, int partition, int (&masks)[2])
 {
   unsigned int partmask = 0;
-  if (((flags & kVariableCodingModes) >= kVariableCodingMode1) &&
-      ((flags & kVariableCodingModes) <= kVariableCodingMode10))
+  if (((flags & squish_flag::variable_coding_mode_mask) >=
+       squish_flag::variable_coding_mode1) &&
+      ((flags & squish_flag::variable_coding_mode_mask) <=
+       squish_flag::variable_coding_mode10))
     partmask = partitionmasks_2[partition];
 
   // determine the number of partitions
-  if (((flags & kVariableCodingModes) >= kVariableCodingMode1) &&
-      ((flags & kVariableCodingModes) <= kVariableCodingMode10))
+  if (((flags & squish_flag::variable_coding_mode_mask) >=
+       squish_flag::variable_coding_mode1) &&
+      ((flags & squish_flag::variable_coding_mode_mask) <=
+       squish_flag::variable_coding_mode10))
     masks[0] = (~partmask & 0xFFFF) & (0xFFFFFFFF >> 16),
     masks[1] = (partmask & 0xFFFF) & (0xFFFFFFFF >> 16);
 }
 
-int hdr_set::SetMode(int flags)
+int hdr_set::SetMode(flags_t flags)
 {
   /* build a single set only, we permute that later for specific partitions,
    * separate alpha is an exception as that is fixed for each mode
    */
-  if (((flags & kVariableCodingModes) >= kVariableCodingMode1) &&
-      ((flags & kVariableCodingModes) <= kVariableCodingMode10))
+  if (((flags & squish_flag::variable_coding_mode_mask) >=
+       squish_flag::variable_coding_mode1) &&
+      ((flags & squish_flag::variable_coding_mode_mask) <=
+       squish_flag::variable_coding_mode10))
     m_numsets = 2, m_partmask = 0xFFFFFFFF, m_partid = 0;
 
   // partition_1 mask is: bit cleared -> set 1, bit set -> set 2
@@ -75,13 +81,15 @@ int hdr_set::SetMode(int flags)
   return flags;
 }
 
-int hdr_set::SetMode(int flags, int partition)
+int hdr_set::SetMode(flags_t flags, int partition)
 {
   /* determine the number of sets and select the partition
   if ((0))
     m_numsets = 1, m_partmask = partitionmasks_1[m_partid = 0]; */
-  if (((flags & kVariableCodingModes) >= kVariableCodingMode1) &&
-      ((flags & kVariableCodingModes) <= kVariableCodingMode10))
+  if (((flags & squish_flag::variable_coding_mode_mask) >=
+       squish_flag::variable_coding_mode1) &&
+      ((flags & squish_flag::variable_coding_mode_mask) <=
+       squish_flag::variable_coding_mode10))
     m_numsets = 2, m_partmask = partitionmasks_2[m_partid = partition];
 
   // partition_1 mask is: bit cleared -> set 1, bit set -> set 2
@@ -97,14 +105,14 @@ int hdr_set::SetMode(int flags, int partition)
   return flags;
 }
 
-hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags)
+hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, flags_t flags)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set (if successive partition permutation)
   BuildSet(rgb, mask, SetMode(flags));
 }
 
-hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags,
+hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, flags_t flags,
                  int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
@@ -112,21 +120,22 @@ hdr_set::hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags,
   BuildSet(rgb, mask, SetMode(flags, partition));
 }
 
-hdr_set::hdr_set(float const* rgb, std::uint32_t mask, int flags)
+hdr_set::hdr_set(float const* rgb, std::uint32_t mask, flags_t flags)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set (if successive partition permutation)
   BuildSet(rgb, mask, SetMode(flags));
 }
 
-hdr_set::hdr_set(float const* rgb, std::uint32_t mask, int flags, int partition)
+hdr_set::hdr_set(float const* rgb, std::uint32_t mask, flags_t flags,
+                 int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
   // make the set
   BuildSet(rgb, mask, SetMode(flags, partition));
 }
 
-hdr_set::hdr_set(hdr_set const& palette, std::uint32_t mask, int flags,
+hdr_set::hdr_set(hdr_set const& palette, std::uint32_t mask, flags_t flags,
                  int partition)
 : m_numsets(1), m_partid(0), m_partmask(0xFFFF)
 {
@@ -139,13 +148,14 @@ hdr_set::hdr_set(hdr_set const& palette, std::uint32_t mask, int flags,
     memcpy(this, &palette, sizeof(*this));  // identical
 }
 
-void hdr_set::BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags)
+void hdr_set::BuildSet(std::uint16_t const* rgb, std::uint32_t mask,
+                       flags_t flags)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
   // const float *aLUT   = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   std::uint16_t const wgta = weightByAlpha ? 0x0000 : 0xFFFF;
@@ -195,7 +205,7 @@ void hdr_set::BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags)
 
       // ensure there is always non-zero weight even for zero alpha
       std::uint16_t w = wgtx[1 * i + 0];
-      float W = math::sqrt((float)(w + 1) / 65536.0f);
+      float W = math::sqrt((w + 1) / 65536.0f);
 
 #ifdef FEATURE_IGNORE_ALPHA0
       /* check for blanked out pixels when weighting
@@ -278,13 +288,13 @@ void hdr_set::BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags)
   }
 }
 
-void hdr_set::BuildSet(float const* rgb, std::uint32_t mask, int flags)
+void hdr_set::BuildSet(float const* rgb, std::uint32_t mask, flags_t flags)
 {
   // const float *rgbLUT = ComputeGammaLUT((flags & kSrgbIn) != 0);
   // const float *aLUT   = ComputeGammaLUT(false);
 
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Scr4 wgta = weightByAlpha ? Scr4(0.0f) : Scr4(1.0f);
@@ -421,10 +431,11 @@ void hdr_set::BuildSet(float const* rgb, std::uint32_t mask, int flags)
   }
 }
 
-void hdr_set::PermuteSet(hdr_set const& palette, std::uint32_t mask, int flags)
+void hdr_set::PermuteSet(hdr_set const& palette, std::uint32_t mask,
+                         flags_t flags)
 {
   // check the compression mode for btc
-  bool const weightByAlpha = ((flags & kWeightcolorByAlpha) != 0);
+  bool const weightByAlpha = flags & squish_flag::option_weight_color_by_alpha;
 
   // build mapped data
   Vec4 const wgta = weightByAlpha ? Vec4(0.0f) : Vec4(1.0f);

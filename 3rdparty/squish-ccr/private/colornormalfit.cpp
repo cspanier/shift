@@ -31,21 +31,19 @@
 
 #include "inlineables.inl"
 
-namespace squish {
-
-/* *****************************************************************************
- */
-color_normal_fit::color_normal_fit(color_set const* colors, int flags)
-  : color_fit(colors, flags)
+namespace squish
 {
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+color_normal_fit::color_normal_fit(color_set const* colors, flags_t flags)
+: color_fit(colors, flags)
+{
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
 
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* weights = m_colors->GetWeights();
 
-#ifdef  FEATURE_NORMALFIT_PROJECT
+#ifdef FEATURE_NORMALFIT_PROJECT
   Sym3x3 covariance;
   Vec3 centroid;
   Vec3 principle;
@@ -54,7 +52,8 @@ color_normal_fit::color_normal_fit(color_set const* colors, int flags)
   if (m_colors->IsUnweighted())
     ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f));
   else
-    ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f), weights);
+    ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f),
+                               weights);
 
   // compute the principle component
   GetPrincipleComponent(covariance, principle);
@@ -63,12 +62,13 @@ color_normal_fit::color_normal_fit(color_set const* colors, int flags)
   Vec3 start(127.5f, 127.5f, 255.0f);
   Vec3 end(127.5f, 127.5f, 255.0f);
 
-  if (count > 0) {
-#undef  FEATURE_NORMALFIT_PROJECT_NEAREST
-#ifdef  FEATURE_NORMALFIT_PROJECT_NEAREST
-    const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  if (count > 0)
+  {
+#undef FEATURE_NORMALFIT_PROJECT_NEAREST
+#ifdef FEATURE_NORMALFIT_PROJECT_NEAREST
+    const Vec3 scale = Vec3(1.0f / 0.5f);
     const Vec3 offset = Vec3(-1.0f * 0.5f);
-    const Vec3 scalei = Vec3( 1.0f * 0.5f);
+    const Vec3 scalei = Vec3(1.0f * 0.5f);
 
     Vec3 centroidn = (scale * (offset + centroid));
     Vec3 rec = Reciprocal(principle);
@@ -77,376 +77,412 @@ color_normal_fit::color_normal_fit(color_set const* colors, int flags)
 
     // http://geomalgorithms.com/a07-_distance.html
     // compute the line parameters of the two closest points
-    min = Scr3( FLT_MAX);
+    min = Scr3(FLT_MAX);
     max = Scr3(-FLT_MAX);
 
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
       Vec3 valuenorm = Normalize(scale * (offset + values[i]));
 
-      Vec3 u = principle;//L1.P1 - L1.P0;
-      Vec3 v = valuenorm;//L2.P1 - L2.P0;
-      Vec3 w = centroidn;//L1.P0 - L2.P0;
-      Scr3 a = Dot(u, u);         // always >= 0
+      Vec3 u = principle;  // L1.P1 - L1.P0;
+      Vec3 v = valuenorm;  // L2.P1 - L2.P0;
+      Vec3 w = centroidn;  // L1.P0 - L2.P0;
+      Scr3 a = Dot(u, u);  // always >= 0
       Scr3 b = Dot(u, v);
-      Scr3 c = Dot(v, v);         // always >= 0
+      Scr3 c = Dot(v, v);  // always >= 0
       Scr3 d = Dot(u, w);
       Scr3 e = Dot(v, w);
-      Scr3 D = a * c - b * b;     // always >= 0
+      Scr3 D = a * c - b * b;  // always >= 0
       Scr3 sc, tc;
 
       // compute the line parameters of the two closest points
-      if (D < Scr3(0.00001f)) {    // the lines are almost parallel
-  sc = Scr3(0.0f);     // use the largest denominator
-  tc = (b > c 
-    ? d * Reciprocal(b) 
-    : e * Reciprocal(c)
-  );    
+      if (D < Scr3(0.00001f))
+      {                   // the lines are almost parallel
+        sc = Scr3(0.0f);  // use the largest denominator
+        tc = (b > c ? d * Reciprocal(b) : e * Reciprocal(c));
       }
-      else {
-  D = Reciprocal(D);
+      else
+      {
+        D = Reciprocal(D);
 
-  sc = (b * e - c * d) * D;
-  tc = (a * e - b * d) * D;
+        sc = (b * e - c * d) * D;
+        tc = (a * e - b * d) * D;
       }
 
       // one dimension of the principle axis is 1
       // the maximum magnitude the principle axis
       // can move in the [-1,+1] cube is 1.41*2
       // without leaving the cube's boundaries
-      sc = Min(sc, Scr3( 2.82842712474619f));
+      sc = Min(sc, Scr3(2.82842712474619f));
       sc = Max(sc, Scr3(-2.82842712474619f));
 
       min = Min(min, sc);
       max = Max(max, sc);
     }
-    
+
     start = centroidn + principle * min;
-    end   = centroidn + principle * max;
+    end = centroidn + principle * max;
 
     start = Normalize(start);
-    end   = Normalize(end  );
-    
+    end = Normalize(end);
+
     start = (start * scalei) - offset;
-    end   = (end   * scalei) - offset;
+    end = (end * scalei) - offset;
 #else
     // compute the projection
     GetPrincipleProjection(start, end, principle, centroid, count, values);
 #endif
 #else
-    Scr3 min, max;
+  Scr3 min, max;
 
-    // compute the normal
-    start = end = values[0];
-    min = max = Dot(values[0], principle);
+  // compute the normal
+  start = end = values[0];
+  min = max = Dot(values[0], principle);
 
-    for (int i = 1; i < count; ++i) {
-      Scr3 val = Dot(values[i], principle);
+  for (int i = 1; i < count; ++i)
+  {
+    Scr3 val = Dot(values[i], principle);
 
-      if (val < min) {
-  start = values[i];
-  min = val;
-      }
-      else if (val > max) {
-  end = values[i];
-  max = val;
-      }
+    if (val < min)
+    {
+      start = values[i];
+      min = val;
     }
+    else if (val > max)
+    {
+      end = values[i];
+      max = val;
+    }
+  }
 #endif
   }
 
   // snap floating-point-values to the integer-lattice and save
   m_start_candidate = q.SnapToLattice(start);
-  m_end_candidate   = q.SnapToLattice(end  );
+  m_end_candidate = q.SnapToLattice(end);
 }
 
 void color_normal_fit::kMeans3()
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
-  const Vec3 scalei = Vec3( 1.0f * 0.5f);
-  
+  const Vec3 scalei = Vec3(1.0f * 0.5f);
+
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
   Vec3 c_start = m_start, c_end = m_end;
   Vec3 l_start = m_start, l_end = m_end;
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
-  
-  int trie = 1 + (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
-  do {
+
+  int trie =
+    1 + (static_cast<std::uint32_t>(
+           m_flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+         16);
+  do
+  {
     Vec3 means[3];
 
     means[0] = Vec3(0.0f);
     means[1] = Vec3(0.0f);
     means[2] = Vec3(0.0f);
-    
+
     // create a codebook
     // resolve "metric * (value - code)" to "metric * value - metric * code"
-    Vec3 codes[3]; Codebook3n(codes, c_start, c_end);
+    Vec3 codes[3];
+    Codebook3n(codes, c_start, c_end);
 
     Scr3 merror = Scr3(DEVIANCE_BASE);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
       int idx = 0;
 
       // find the closest code
       Vec3 value = Normalize(scale * (offset + values[i]));
-      Scr3 dist; MinDeviance3<true>(dist, idx, value, codes);
+      Scr3 dist;
+      MinDeviance3<true>(dist, idx, value, codes);
 
       // accumulate the error
       AddDeviance(dist, merror, freq[i]);
-      
+
       // accumulate the mean
       means[idx] += value * freq[i];
     }
-    
-    if (berror > merror) {
+
+    if (berror > merror)
+    {
       berror = merror;
 
       m_start = c_start;
-      m_end   = c_end;
+      m_end = c_end;
     }
 
     means[0] = (Normalize(means[0]) * scalei) - offset;
     means[1] = (Normalize(means[1]) * scalei) - offset;
-    
-    l_start = c_start;
-    l_end   = c_end;
-    c_start = q.SnapToLattice(means[0]);
-    c_end   = q.SnapToLattice(means[1]);
 
-  } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
+    l_start = c_start;
+    l_end = c_end;
+    c_start = q.SnapToLattice(means[0]);
+    c_end = q.SnapToLattice(means[1]);
+
+  } while (--trie && !(CompareAllEqualTo(c_start, l_start) &&
+                       CompareAllEqualTo(c_end, l_end)));
 }
 
 void color_normal_fit::kMeans4()
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
-  const Vec3 scalei = Vec3( 1.0f * 0.5f);
-  
+  const Vec3 scalei = Vec3(1.0f * 0.5f);
+
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
   Vec3 c_start = m_start, c_end = m_end;
   Vec3 l_start = m_start, l_end = m_end;
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
-  
-  int trie = 1 + (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
-  do {
+
+  int trie =
+    1 + (static_cast<std::uint32_t>(
+           m_flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+         16);
+  do
+  {
     Vec3 means[4];
 
     means[0] = Vec3(0.0f);
     means[1] = Vec3(0.0f);
     means[2] = Vec3(0.0f);
     means[3] = Vec3(0.0f);
-    
+
     // create a codebook
-    Vec3 codes[4]; Codebook4n(codes, c_start, c_end);
+    Vec3 codes[4];
+    Codebook4n(codes, c_start, c_end);
 
     Scr3 merror = Scr3(DEVIANCE_BASE);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
       int idx = 0;
 
       // find the closest code
       Vec3 value = Normalize(scale * (offset + values[i]));
-      Scr3 dist; MinDeviance4<true>(dist, idx, value, codes);
-      
+      Scr3 dist;
+      MinDeviance4<true>(dist, idx, value, codes);
+
       // accumulate the error
       AddDeviance(dist, merror, freq[i]);
-      
+
       // accumulate the mean
       means[idx] += value * freq[i];
     }
-  
-    if (berror > merror) {
+
+    if (berror > merror)
+    {
       berror = merror;
-      
+
       m_start = c_start;
-      m_end   = c_end;
+      m_end = c_end;
     }
 
     means[0] = (Normalize(means[0]) * scalei) - offset;
     means[1] = (Normalize(means[1]) * scalei) - offset;
-    
-    l_start = c_start;
-    l_end   = c_end;
-    c_start = q.SnapToLattice(means[0]);
-    c_end   = q.SnapToLattice(means[1]);
 
-  } while(--trie && !(CompareAllEqualTo(c_start, l_start) && CompareAllEqualTo(c_end, l_end)));
+    l_start = c_start;
+    l_end = c_end;
+    c_start = q.SnapToLattice(means[0]);
+    c_end = q.SnapToLattice(means[1]);
+
+  } while (--trie && !(CompareAllEqualTo(c_start, l_start) &&
+                       CompareAllEqualTo(c_end, l_end)));
 }
 
 void color_normal_fit::Permute3()
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
-  const Vec3 scalei = Vec3( 1.0f * 0.5f);
-  
+  const Vec3 scalei = Vec3(1.0f * 0.5f);
+
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
-  
+
   Vec3 c_start = m_start;
-  Vec3 c_end   = m_end;
+  Vec3 c_end = m_end;
   Scr3 l_start = LengthSquared(Normalize(scale * (offset + m_start)));
-  Scr3 l_end   = LengthSquared(Normalize(scale * (offset + m_end)));
+  Scr3 l_end = LengthSquared(Normalize(scale * (offset + m_end)));
   Vec3 q_start = Reciprocal(q.grid + Vec3(1.0f));
-  Vec3 q_end   = q_start;
+  Vec3 q_end = q_start;
 
   // adjust offset towards sphere-boundary
   if (!(l_start < Scr3(1.0f)))
     q_start = Vec3(0.0f) - q_start;
-  if (!(l_end   < Scr3(1.0f)))
-    q_end   = Vec3(0.0f) - q_end;
-  
+  if (!(l_end < Scr3(1.0f)))
+    q_end = Vec3(0.0f) - q_end;
+
   int trie = 0x3F;
-  do {
+  do
+  {
     // permute end-points +-1 towards sphere-boundary
-    Vec3 p_start = q_start & Vec3(!(trie & 0x01), !(trie & 0x02), !(trie & 0x04));
-    Vec3 p_end   = q_end   & Vec3(!(trie & 0x08), !(trie & 0x10), !(trie & 0x20));
-    
+    Vec3 p_start =
+      q_start & Vec3(!(trie & 0x01), !(trie & 0x02), !(trie & 0x04));
+    Vec3 p_end = q_end & Vec3(!(trie & 0x08), !(trie & 0x10), !(trie & 0x20));
+
     p_start = q.SnapToLattice(c_start + p_start);
-    p_end   = q.SnapToLattice(c_end   + p_end);
+    p_end = q.SnapToLattice(c_end + p_end);
 
     // create a codebook
     // resolve "metric * (value - code)" to "metric * value - metric * code"
-    Vec3 codes[3]; Codebook3n(codes, p_start, p_end);
+    Vec3 codes[3];
+    Codebook3n(codes, p_start, p_end);
 
     Scr3 merror = Scr3(DEVIANCE_BASE);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
       // find the closest code
       Vec3 value = Normalize(scale * (offset + values[i]));
-      Scr3 dist; MinDeviance3<false>(dist, i, value, codes);
-      
+      Scr3 dist;
+      MinDeviance3<false>(dist, i, value, codes);
+
       // accumulate the error
       AddDeviance(dist, merror, freq[i]);
     }
-    
-    if (berror > merror) {
+
+    if (berror > merror)
+    {
       berror = merror;
 
       m_start = p_start;
-      m_end   = p_end;
+      m_end = p_end;
     }
 
-  } while(--trie);
+  } while (--trie);
 }
 
 void color_normal_fit::Permute4()
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
-  const Vec3 scalei = Vec3( 1.0f * 0.5f);
-  
+  const Vec3 scalei = Vec3(1.0f * 0.5f);
+
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
-  cQuantizer3<5,6,5> q = cQuantizer3<5,6,5>();
+
+  cQuantizer3<5, 6, 5> q = cQuantizer3<5, 6, 5>();
   Scr3 berror = Scr3(DEVIANCE_MAXSUM);
-  
+
   Vec3 c_start = m_start;
-  Vec3 c_end   = m_end;
+  Vec3 c_end = m_end;
   Scr3 l_start = LengthSquared(Normalize(scale * (offset + m_start)));
-  Scr3 l_end   = LengthSquared(Normalize(scale * (offset + m_end)));
+  Scr3 l_end = LengthSquared(Normalize(scale * (offset + m_end)));
   Vec3 q_start = Reciprocal(q.grid + Vec3(1.0f));
-  Vec3 q_end   = q_start;
+  Vec3 q_end = q_start;
 
   // adjust offset towards sphere-boundary
   if (!(l_start < Scr3(1.0f)))
     q_start = Vec3(0.0f) - q_start;
-  if (!(l_end   < Scr3(1.0f)))
-    q_end   = Vec3(0.0f) - q_end;
-  
+  if (!(l_end < Scr3(1.0f)))
+    q_end = Vec3(0.0f) - q_end;
+
   int trie = 0x3F;
-  do {
+  do
+  {
     // permute end-points +-1 towards sphere-boundary
-    Vec3 p_start = q_start & Vec3(!(trie & 0x01), !(trie & 0x02), !(trie & 0x04));
-    Vec3 p_end   = q_end   & Vec3(!(trie & 0x08), !(trie & 0x10), !(trie & 0x20));
-    
+    Vec3 p_start =
+      q_start & Vec3(!(trie & 0x01), !(trie & 0x02), !(trie & 0x04));
+    Vec3 p_end = q_end & Vec3(!(trie & 0x08), !(trie & 0x10), !(trie & 0x20));
+
     p_start = q.SnapToLattice(c_start + p_start);
-    p_end   = q.SnapToLattice(c_end   + p_end);
+    p_end = q.SnapToLattice(c_end + p_end);
 
     // create a codebook
-    Vec3 codes[4]; Codebook4n(codes, p_start, p_end);
+    Vec3 codes[4];
+    Codebook4n(codes, p_start, p_end);
 
     Scr3 merror = Scr3(DEVIANCE_BASE);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
       // find the closest code
       Vec3 value = Normalize(scale * (offset + values[i]));
-      Scr3 dist; MinDeviance4<false>(dist, i, value, codes);
-      
+      Scr3 dist;
+      MinDeviance4<false>(dist, i, value, codes);
+
       // accumulate the error
       AddDeviance(dist, merror, freq[i]);
     }
-    
-    if (berror > merror) {
+
+    if (berror > merror)
+    {
       berror = merror;
 
       m_start = p_start;
-      m_end   = p_end;
+      m_end = p_end;
     }
 
-  } while(--trie);
+  } while (--trie);
 }
 
 void color_normal_fit::Compress3(void* block)
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
 
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
+
   // use a fitting algorithm
   m_start = m_start_candidate;
-  m_end   = m_end_candidate;
-  if ((m_flags & kcolorIterativeClusterFits))
+  m_end = m_end_candidate;
+  if ((m_flags & squish_flag::compressor_color_iterative_cluster_mask))
     kMeans3();
-//if ((m_flags & kcolorIterativeClusterFits) >= (kcolorIterativeClusterFit))
-//  Permute3();
-  
+
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
-  Vec3 codes[3]; Codebook3n(codes, m_start, m_end);
+  Vec3 codes[3];
+  Codebook3n(codes, m_start, m_end);
 
   // match each point to the closest code
   std::uint8_t closest[16];
 
   Scr3 error = Scr3(DEVIANCE_BASE);
-  for (int i = 0; i < count; ++i) {
+  for (int i = 0; i < count; ++i)
+  {
     int idx = 0;
 
     // find the closest code
     Vec3 value = Normalize(scale * (offset + values[i]));
-    Scr3 dist; MinDeviance3<true>(dist, idx, value, codes);
+    Scr3 dist;
+    MinDeviance3<true>(dist, idx, value, codes);
 
     // accumulate the error
     AddDeviance(dist, error, freq[i]);
 
     // save the index
-    closest[i] = (std::uint8_t)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
   }
 
   // save this scheme if it wins
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
+    std::uint8_t indices[16];
+    m_colors->RemapIndices(closest, indices);
 
     // save the block
     WritecolorBlock3(m_start, m_end, indices, block);
@@ -455,53 +491,56 @@ void color_normal_fit::Compress3(void* block)
 
 void color_normal_fit::Compress4(void* block)
 {
-  const Vec3 scale  = Vec3( 1.0f / 0.5f);
+  const Vec3 scale = Vec3(1.0f / 0.5f);
   const Vec3 offset = Vec3(-1.0f * 0.5f);
 
   // cache some values
   int const count = m_colors->GetCount();
   Vec3 const* values = m_colors->GetPoints();
   Scr3 const* freq = m_colors->GetWeights();
-  
+
   // use a fitting algorithm
   m_start = m_start_candidate;
-  m_end   = m_end_candidate;
-  if (m_flags & kcolorIterativeClusterFits)
+  m_end = m_end_candidate;
+  if (m_flags & squish_flag::compressor_color_iterative_cluster_mask)
     kMeans4();
-//if ((m_flags & kcolorIterativeClusterFits) >= (kcolorIterativeClusterFit))
-//  Permute4();
-  
+
   // create a codebook
-  Vec3 codes[4]; Codebook4n(codes, m_start, m_end);
+  Vec3 codes[4];
+  Codebook4n(codes, m_start, m_end);
 
   // match each point to the closest code
   std::uint8_t closest[16];
 
   Scr3 error = Scr3(DEVIANCE_BASE);
-  for (int i = 0; i < count; ++i) {
+  for (int i = 0; i < count; ++i)
+  {
     int idx = 0;
 
     // find the closest code
     Vec3 value = Normalize(scale * (offset + values[i]));
-    Scr3 dist; MinDeviance4<true>(dist, idx, value, codes);
+    Scr3 dist;
+    MinDeviance4<true>(dist, idx, value, codes);
 
     // accumulate the error
     AddDeviance(dist, error, freq[i]);
 
     // save the index
-    closest[i] = (std::uint8_t)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
   }
 
   // save this scheme if it wins
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_colors->RemapIndices(closest, indices);
+    std::uint8_t indices[16];
+    m_colors->RemapIndices(closest, indices);
 
     // save the block
     WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
-} // namespace squish
+}  // namespace squish

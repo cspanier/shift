@@ -39,10 +39,10 @@ namespace squish
 class hdr_set
 {
 public:
-  static void GetMasks(int flags, int partition, int (&masks)[2]);
+  static void GetMasks(flags_t flags, int partition, int (&masks)[2]);
 
-  int SetMode(int flags);
-  int SetMode(int flags, int partition);
+  int SetMode(flags_t flags);
+  int SetMode(flags_t flags, int partition);
 
   // maximum number of different sets, aligned, the real limit is 3
 #define PS_MAX 4
@@ -50,27 +50,41 @@ public:
 public:
   // constructor for regular operation (with and without initial
   // partition/rotation)
-  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags);
-  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, int flags,
+  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, flags_t flags);
+  hdr_set(std::uint16_t const* rgb, std::uint32_t mask, flags_t flags,
           int partition);
 
-  hdr_set(float const* rgb, std::uint32_t mask, int flags);
-  hdr_set(float const* rgb, std::uint32_t mask, int flags, int partition);
+  hdr_set(float const* rgb, std::uint32_t mask, flags_t flags);
+  hdr_set(float const* rgb, std::uint32_t mask, flags_t flags, int partition);
 
   // constructors for managing backups and permutations of palette-sets
   hdr_set()
   {
   }
-  hdr_set(hdr_set const& palette)
+  hdr_set(const hdr_set& palette)
+  : m_numsets(palette.m_numsets),
+    m_partid(palette.m_partid),
+    m_partmask(palette.m_partmask),
+    m_unweighted(palette.m_unweighted),
+    m_mask(palette.m_mask),
+    m_count(palette.m_count),
+    m_points(palette.m_points),
+    m_weights(palette.m_weights),
+    m_remap(palette.m_remap)
+#ifdef FEATURE_TEST_LINES
+    ,
+    m_cnst(palette.m_cnst),
+    m_grey(palette.m_grey)
+#endif
   {
-    memcpy(this, &palette, sizeof(*this));
   }
-  hdr_set(hdr_set const& palette, std::uint32_t mask, int flags, int partition);
+  hdr_set(hdr_set const& palette, std::uint32_t mask, flags_t flags,
+          int partition);
 
 private:
-  void BuildSet(std::uint16_t const* rgb, std::uint32_t mask, int flags);
-  void BuildSet(float const* rgb, std::uint32_t mask, int flags);
-  void PermuteSet(hdr_set const& palette, std::uint32_t mask, int flags);
+  void BuildSet(std::uint16_t const* rgb, std::uint32_t mask, flags_t flags);
+  void BuildSet(float const* rgb, std::uint32_t mask, flags_t flags);
+  void PermuteSet(hdr_set const& palette, std::uint32_t mask, flags_t flags);
 
 public:
   // active attributes based the parameters passed on initializaton
@@ -87,13 +101,13 @@ public:
   {
     return m_unweighted[idx];
   }
-  Vec3 const* GetPoints(int idx) const
+  const Vec3* GetPoints(int idx) const
   {
-    return m_points[idx];
+    return m_points[idx].data();
   }
-  Scr3 const* GetWeights(int idx) const
+  const Scr3* GetWeights(int idx) const
   {
-    return m_weights[idx];
+    return m_weights[idx].data();
   }
   int GetCount(int idx) const
   {
@@ -101,9 +115,7 @@ public:
   }
   int GetCount() const
   {
-    return m_count[0] +
-           /*(m_numsets > 0 ? m_count[0] : 0)*/ +(m_numsets > 1 ? m_count[1]
-                                                                : 0);
+    return m_count[0] + (m_numsets > 1 ? m_count[1] : 0);
   }
 
   // map from the set to indices and back to colors
@@ -117,12 +129,12 @@ private:
   int m_partid;
   int m_partmask;
 
-  bool m_unweighted[2];
-  int m_mask[2];
-  int m_count[2];
-  Vec3 m_points[2][16];
-  Scr3 m_weights[2][16];
-  int m_remap[2][16];
+  std::array<bool, 2> m_unweighted;
+  std::array<int, 2> m_mask;
+  std::array<int, 2> m_count;
+  std::array<std::array<Vec3, 2>, 16> m_points;
+  std::array<std::array<Scr3, 2>, 16> m_weights;
+  std::array<std::array<int, 2>, 16> m_remap;
 
 #ifdef FEATURE_TEST_LINES
   /* ---------------------------------------------------------------------------
@@ -143,8 +155,8 @@ public:
   }
 
 private:
-  int m_cnst[2];
-  int m_grey[2];
+  std::array<int, 2> m_cnst;
+  std::array<int, 2> m_grey;
 #endif
 };
 }

@@ -57,9 +57,9 @@ public:
 
   cQuantizer3()
   : grid(1.0f * rm, 1.0f * gm, 1.0f * bm),
-    gridinv(1 << rb, 1 << gb, 1 << bb),
     gridgap((0.5f * rr * rm) / 255.0f, (0.5f * gr * gm) / 255.0f,
-            (0.5f * br * bm) / 255.0f)
+            (0.5f * br * bm) / 255.0f),
+    gridinv(1 << rb, 1 << gb, 1 << bb)
   {
   }
 

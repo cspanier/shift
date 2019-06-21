@@ -121,13 +121,14 @@ int hdr_fit::GetPrecisionBits(int mode)
   return 16 - HBcfg[mode].TB;
 }
 
-hdr_fit::hdr_fit(hdr_set const* palette, int flags)
+hdr_fit::hdr_fit(hdr_set const* palette, flags_t flags)
 : m_palette(palette), m_flags(flags)
 {
   // initialize the metric
-  const bool perceptual =
-    ((m_flags & kcolorMetrics) == kcolorMetricPerceptual);
-  const bool unit = ((m_flags & kcolorMetrics) == kcolorMetricUnit);
+  const bool perceptual = (m_flags & squish_flag::color_metric_mask) ==
+                          squish_flag::color_metric_perceptual;
+  const bool unit = (m_flags & squish_flag::color_metric_mask) ==
+                    squish_flag::color_metric_unit;
 
   // sum is 1.0f
   if (unit)
@@ -141,7 +142,10 @@ hdr_fit::hdr_fit(hdr_set const* palette, int flags)
   m_besterror = Scr3(FLT_MAX);
   m_best = false;
 
-  m_mode = ((m_flags & kVariableCodingModes) >> 24) - 1;
+  m_mode = (static_cast<std::uint32_t>(
+              m_flags & squish_flag::variable_coding_mode_mask) >>
+            24) -
+           1;
 }
 
 void hdr_fit::Compress(void* block, fQuantizer& q)

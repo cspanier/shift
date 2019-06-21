@@ -31,7 +31,8 @@
 
 #include "inlineables.inl"
 
-namespace squish {
+namespace squish
+{
 
 /* *****************************************************************************
  */
@@ -41,11 +42,11 @@ struct colorSingleLookup
   std::uint8_t end;
 };
 
-#undef  SCL_ITERATIVE
+#undef SCL_ITERATIVE
 #include "colorsinglelookup.inl"
 
-color_single_snap::color_single_snap(color_set const* colors, int flags)
-  : color_fit(colors, flags)
+color_single_snap::color_single_snap(color_set const* colors, flags_t flags)
+: color_fit(colors, flags)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
@@ -65,12 +66,16 @@ color_single_snap::color_single_snap(color_set const* colors, int flags)
 
   // values are directly out of the codebook and
   // natural numbers / 255, no need to round
-  PackBytes(FloatToInt<true>((*values) * Vec3(255.0f)), (unsigned int &)(m_color));
+  PackBytes(FloatToInt<true>((*values) * Vec3(255.0f)),
+            (unsigned int&)(m_color));
 
   /*
-  assert(m_color[0] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->X(), 255));
-  assert(m_color[1] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Y(), 255));
-  assert(m_color[2] == (std::uint8_t)FloatToInt<true,false>(255.0f * values->Z(), 255));
+  assert(m_color[0] == static_cast<std::uint8_t>(FloatToInt<true,false>(255.0f *
+  values->X(), 255)));
+  assert(m_color[1] == static_cast<std::uint8_t>(FloatToInt<true,false>(255.0f *
+  values->Y(), 255)));
+  assert(m_color[2] == static_cast<std::uint8_t>(FloatToInt<true,false>(255.0f *
+  values->Z(), 255)));
    */
 }
 
@@ -78,10 +83,11 @@ void color_single_snap::Compress3b(void* block)
 {
   // grab the single color
   Vec3 const* values = m_colors->GetPoints();
-  
+
   // if it's black, make it index 3
-  if (values[0] == Vec3(0.0f)) {
-    *((std::uint64_t *)block) = 0xFFFFFFFF00000000ULL;
+  if (values[0] == Vec3(0.0f))
+  {
+    *((std::uint64_t*)block) = 0xFFFFFFFF00000000ULL;
   }
 }
 
@@ -92,24 +98,22 @@ void color_single_snap::Compress3(void* block)
   Scr3 const* freq = m_colors->GetWeights();
 
   // just assign the end-points of index 2 (interpolant 1)
-  Col3 s = Col3(
-    sc_lookup_5_3[m_color[0]].start,
-    sc_lookup_6_3[m_color[1]].start,
-    sc_lookup_5_3[m_color[2]].start);
-  Col3 e = Col3(
-    sc_lookup_5_3[m_color[0]].end,
-    sc_lookup_6_3[m_color[1]].end,
-    sc_lookup_5_3[m_color[2]].end);
+  Col3 s =
+    Col3(sc_lookup_5_3[m_color[0]].start, sc_lookup_6_3[m_color[1]].start,
+         sc_lookup_5_3[m_color[2]].start);
+  Col3 e = Col3(sc_lookup_5_3[m_color[0]].end, sc_lookup_6_3[m_color[1]].end,
+                sc_lookup_5_3[m_color[2]].end);
 
   m_start = Vec3(s) * (1.0f / 255.0f);
-  m_end   = Vec3(e) * (1.0f / 255.0f);
-  
+  m_end = Vec3(e) * (1.0f / 255.0f);
+
   // created interpolated value and error
   Vec3 code = (m_start + m_end) * 0.5f;
   Scr3 error = LengthSquared(m_metric * (values[0] - code)) * freq[0];
 
   // build the block if we win
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
@@ -129,24 +133,22 @@ void color_single_snap::Compress4(void* block)
   Scr3 const* freq = m_colors->GetWeights();
 
   // just assign the end-points of index 2 (interpolant 1)
-  Col3 s = Col3(
-    sc_lookup_5_4[m_color[0]].start,
-    sc_lookup_6_4[m_color[1]].start,
-    sc_lookup_5_4[m_color[2]].start);
-  Col3 e = Col3(
-    sc_lookup_5_4[m_color[0]].end,
-    sc_lookup_6_4[m_color[1]].end,
-    sc_lookup_5_4[m_color[2]].end);
+  Col3 s =
+    Col3(sc_lookup_5_4[m_color[0]].start, sc_lookup_6_4[m_color[1]].start,
+         sc_lookup_5_4[m_color[2]].start);
+  Col3 e = Col3(sc_lookup_5_4[m_color[0]].end, sc_lookup_6_4[m_color[1]].end,
+                sc_lookup_5_4[m_color[2]].end);
 
   m_start = Vec3(s) * (1.0f / 255.0f);
-  m_end   = Vec3(e) * (1.0f / 255.0f);
-  
+  m_end = Vec3(e) * (1.0f / 255.0f);
+
   // created interpolated value and error
   Vec3 code = (2.0f * m_start + m_end) * (1.0f / 3.0f);
   Scr3 error = LengthSquared(m_metric * (values[0] - code)) * freq[0];
 
   // build the block if we win
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
@@ -158,14 +160,14 @@ void color_single_snap::Compress4(void* block)
     WritecolorBlock4(m_start, m_end, indices, block);
   }
 }
-} // namespace squish
+}  // namespace squish
 
-#if  defined(SBL_FLAT)
+#if defined(SBL_FLAT)
 #include "colorsinglesnap_ccr_flat.inl"
-#elif  defined(SBL_PACKED) && (SBL_PACKED == 1)
+#elif defined(SBL_PACKED) && (SBL_PACKED == 1)
 #include "colorsinglesnap_ccr_packed.inl"
-#elif  defined(SBL_PACKED) && (SBL_PACKED == 2)
+#elif defined(SBL_PACKED) && (SBL_PACKED == 2)
 #include "colorsinglesnap_ccr_packed_copy.inl"
-#elif  defined(SBL_VECTOR)
+#elif defined(SBL_VECTOR)
 #include "colorsinglesnap_ccr_vector.inl"
 #endif

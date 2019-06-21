@@ -36,12 +36,10 @@
 
 namespace squish
 {
-
-// -----------------------------------------------------------------------------
 class color_cluster_fit : public color_fit
 {
 public:
-  color_cluster_fit(color_set const* colors, int flags);
+  color_cluster_fit(color_set const* colors, flags_t flags);
 
 public:
   enum

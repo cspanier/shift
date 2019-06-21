@@ -32,16 +32,16 @@
 
 namespace squish
 {
-hdr_index_fit::hdr_index_fit(hdr_set const* palette, int flags)
+hdr_index_fit::hdr_index_fit(hdr_set const* palette, flags_t flags)
 : hdr_fit(palette, flags)
 {
 }
 
 #ifdef FEATURE_INDEXFIT_INLINED
 void hdr_index_fit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
-                                 std::uint8_t (&closest)[16],
-                                 Vec3 const* values, Scr3 const* freq, int ib,
-                                 int idxs)
+                                   std::uint8_t (&closest)[16],
+                                   Vec3 const* values, Scr3 const* freq, int ib,
+                                   int idxs)
 {
   // snap floating-point-values to the integer-lattice
   Vec3 val[2];
@@ -71,7 +71,7 @@ void hdr_index_fit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
 
     // save the index
     closest[0] = 0;
-    closest[1] = (std::uint8_t)idxs;
+    closest[1] = static_cast<std::uint8_t>(idxs);
 
     // save the end-points
     m_start[set] = values[0];
@@ -80,9 +80,9 @@ void hdr_index_fit::ErrorEndPoints(int set, Vec3 const& metric, fQuantizer& q,
 }
 
 Scr3 hdr_index_fit::ErrorInterpolants(Vec3 const& metric, fQuantizer& q,
-                                    Vec3 const* values, Scr3 const* freq,
-                                    int ib, int idxs, Vec3& value0,
-                                    Vec3& value1, int closest0, int closest1)
+                                      Vec3 const* values, Scr3 const* freq,
+                                      int ib, int idxs, Vec3& value0,
+                                      Vec3& value1, int closest0, int closest1)
 {
   // snap floating-point-values to the integer-lattice
   Vec3 val[2];
@@ -118,9 +118,9 @@ Scr3 hdr_index_fit::ErrorInterpolants(Vec3 const& metric, fQuantizer& q,
 }
 
 Scr3 hdr_index_fit::ErrorInterpolantsS(Vec3 const& metric, fQuantizer& q,
-                                     Vec3 const* values, Scr3 const* freq,
-                                     int ib, int idxs, Vec3& value0,
-                                     int closest0)
+                                       Vec3 const* values, Scr3 const* freq,
+                                       int ib, int idxs, Vec3& value0,
+                                       int closest0)
 {
   // snap floating-point-values to the integer-lattice
   Col3 start = q.QuantizeToLattice(value0, m_qend);
@@ -142,9 +142,9 @@ Scr3 hdr_index_fit::ErrorInterpolantsS(Vec3 const& metric, fQuantizer& q,
 }
 
 Scr3 hdr_index_fit::ErrorInterpolantsE(Vec3 const& metric, fQuantizer& q,
-                                     Vec3 const* values, Scr3 const* freq,
-                                     int ib, int idxs, Vec3& value1,
-                                     int closest1)
+                                       Vec3 const* values, Scr3 const* freq,
+                                       int ib, int idxs, Vec3& value1,
+                                       int closest1)
 {
   // snap floating-point-values to the integer-lattice
   Col3 start = m_qstart;
@@ -165,11 +165,12 @@ Scr3 hdr_index_fit::ErrorInterpolantsE(Vec3 const& metric, fQuantizer& q,
   return (serror + eerror);
 }
 
-void hdr_index_fit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& q,
-                                     std::uint8_t (&closest)[16],
-                                     Vec3 const* values, Scr3 const* freq,
-                                     int ib, int idxs, Vec3& value0,
-                                     Vec3& value1, int closest0, int closest1)
+void hdr_index_fit::BetterInterpolants(int set, Vec3 const& metric,
+                                       fQuantizer& q,
+                                       std::uint8_t (&closest)[16],
+                                       Vec3 const* values, Scr3 const* freq,
+                                       int ib, int idxs, Vec3& value0,
+                                       Vec3& value1, int closest0, int closest1)
 {
   Scr3 nerror = ErrorInterpolants(metric, q, values, freq, ib, idxs, value0,
                                   value1, closest0, closest1);
@@ -181,8 +182,8 @@ void hdr_index_fit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& 
     m_berror = nerror;
 
     // save the index
-    closest[0] = (std::uint8_t)closest0;
-    closest[1] = (std::uint8_t)closest1;
+    closest[0] = static_cast<std::uint8_t>(closest0);
+    closest[1] = static_cast<std::uint8_t>(closest1);
 
     // save the end-points
     m_start[set] = value0;
@@ -191,11 +192,11 @@ void hdr_index_fit::BetterInterpolants(int set, Vec3 const& metric, fQuantizer& 
 }
 
 void hdr_index_fit::BetterInterpolantsS(int set, Vec3 const& metric,
-                                      fQuantizer& q,
-                                      std::uint8_t (&closest)[16],
-                                      Vec3 const* values, Scr3 const* freq,
-                                      int ib, int idxs, Vec3& value0,
-                                      int closest0)
+                                        fQuantizer& q,
+                                        std::uint8_t (&closest)[16],
+                                        Vec3 const* values, Scr3 const* freq,
+                                        int ib, int idxs, Vec3& value0,
+                                        int closest0)
 {
   Scr3 nerror =
     ErrorInterpolantsS(metric, q, values, freq, ib, idxs, value0, closest0);
@@ -207,8 +208,8 @@ void hdr_index_fit::BetterInterpolantsS(int set, Vec3 const& metric,
     m_berror = nerror;
 
     // save the index
-    closest[0] = (std::uint8_t)closest0;
-    closest[1] = (1 << ib) - 1;
+    closest[0] = static_cast<std::uint8_t>(closest0);
+    closest[1] = static_cast<std::uint8_t>((1 << ib) - 1);
 
     // save the end-points
     m_start[set] = value0;
@@ -217,11 +218,11 @@ void hdr_index_fit::BetterInterpolantsS(int set, Vec3 const& metric,
 }
 
 void hdr_index_fit::BetterInterpolantsE(int set, Vec3 const& metric,
-                                      fQuantizer& q,
-                                      std::uint8_t (&closest)[16],
-                                      Vec3 const* values, Scr3 const* freq,
-                                      int ib, int idxs, Vec3& value1,
-                                      int closest1)
+                                        fQuantizer& q,
+                                        std::uint8_t (&closest)[16],
+                                        Vec3 const* values, Scr3 const* freq,
+                                        int ib, int idxs, Vec3& value1,
+                                        int closest1)
 {
   Scr3 nerror =
     ErrorInterpolantsE(metric, q, values, freq, ib, idxs, value1, closest1);
@@ -234,7 +235,7 @@ void hdr_index_fit::BetterInterpolantsE(int set, Vec3 const& metric,
 
     // save the index
     closest[0] = 0;
-    closest[1] = (std::uint8_t)closest1;
+    closest[1] = static_cast<std::uint8_t>(closest1);
 
     // save the end-points
     m_start[set] = values[0];
@@ -279,7 +280,7 @@ void hdr_index_fit::BetterInterpolantsE(int set, Vec3 const& metric,
 #endif
 
 Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
-                                   int ib, std::uint8_t (&closest)[16])
+                                     int ib, std::uint8_t (&closest)[16])
 {
   // cache some values
   Vec3 const* values = m_palette->GetPoints(set);
@@ -314,8 +315,8 @@ Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
     // 7-3 >> 1 -> 2, 2/3
     // 7-5 >> 1 -> 1, 1/5
     // ...
-    // value0 - delta * ((float)exp / gap);
-    // value1 + delta * ((float)exp / gap);
+    // value0 - delta * (static_cast<float>(exp) / gap);
+    // value1 + delta * (static_cast<float>(exp) / gap);
 
     Col3 iexp = (iidxs - igap) >> 1;
     Vec3 fexp = Vec3(iexp);
@@ -362,8 +363,8 @@ Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
       Vec3 factorl = elong * eshort;
       Vec3 stretchl = delta * factorl;
 
-      // expA0 = value0 - delta * ((float)elong / eshort);
-      // expA1 = value1 + delta * ((float)elong / eshort);
+      // expA0 = value0 - delta * (static_cast<float>(elong) / eshort);
+      // expA1 = value1 + delta * (static_cast<float>(elong) / eshort);
       Vec3 expA0 = value0 - stretchl;
       Vec3 expA1 = value1 + stretchl;
 
@@ -386,8 +387,8 @@ Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
       Vec3 factors = Reciprocal(factorl);
       Vec3 stretchs = delta * factors;
 
-      // expA0 = value0 - delta * ((float)eshort / elong);
-      // expA1 = value1 + delta * ((float)eshort / elong);
+      // expA0 = value0 - delta * (static_cast<float>(eshort) / elong);
+      // expA1 = value1 + delta * (static_cast<float>(eshort) / elong);
       expA0 = value0 - stretchs;
       expA1 = value1 + stretchs;
 
@@ -440,16 +441,16 @@ Scr3 hdr_index_fit::StretchEndPoints(int set, Vec3 const& metric, fQuantizer& q,
   // find the best code
   if (merror == eerror)
   {
-    closest0 = (std::uint8_t)0;
-    closest1 = (std::uint8_t)idxs;
+    closest0 = static_cast<std::uint8_t>(0);
+    closest1 = static_cast<std::uint8_t>(idxs);
 
     value0 = values[0];
     value1 = values[1];
   }
 
   // save the index
-  closest[0] = (std::uint8_t)closest0;
-  closest[1] = (std::uint8_t)closest1;
+  closest[0] = static_cast<std::uint8_t>(closest0);
+  closest[1] = static_cast<std::uint8_t>(closest1);
 
   // save the end-points
   m_start[set] = value0;

@@ -241,11 +241,11 @@ public:
   {
   }
   explicit Col4(const unsigned int (&_rgba)[4])
-  : m_v(_mm_load_si128((const __m128i*)&_rgba))
+  : m_v(_mm_load_si128(reinterpret_cast<const __m128i*>(&_rgba)))
   {
   }
   explicit Col4(std::uint8_t const* source)
-  : m_v(_mm_loadu_si128((const __m128i*)source))
+  : m_v(_mm_loadu_si128(reinterpret_cast<const __m128i*>(source)))
   {
   }
 

@@ -42,7 +42,11 @@ public:
   explicit Vec4(float _s) : x(_s), y(_s), z(_s), w(_s)
   {
   }
-  explicit Vec4(int _s) : x((float)_s), y((float)_s), z((float)_s), w((float)_s)
+  explicit Vec4(int _s)
+  : x(static_cast<float>(_s)),
+    y(static_cast<float>(_s)),
+    z(static_cast<float>(_s)),
+    w(static_cast<float>(_s))
   {
   }
 
@@ -85,7 +89,11 @@ public:
   {
   }
 
-  Vec4(Col4 _c) : x((float)_c.r), y((float)_c.g), z((float)_c.b), w((float)_c.a)
+  Vec4(Col4 _c)
+  : x(static_cast<float>(_c.r)),
+    y(static_cast<float>(_c.g)),
+    z(static_cast<float>(_c.b)),
+    w(static_cast<float>(_c.a))
   {
   }
 
@@ -174,19 +182,19 @@ public:
   template <const int inv>
   void SetXYZW(int _x, int _y, int _z, int _w)
   {
-    x = (float)(inv ? inv - _x : _x);
-    y = (float)(inv ? inv - _y : _y);
-    z = (float)(inv ? inv - _z : _z);
-    w = (float)(inv ? inv - _w : _w);
+    x = static_cast<float>(inv ? inv - _x : _x);
+    y = static_cast<float>(inv ? inv - _y : _y);
+    z = static_cast<float>(inv ? inv - _z : _z);
+    w = static_cast<float>(inv ? inv - _w : _w);
   }
 
   template <const int inv>
   void SetXYZWpow2(int _x, int _y, int _z, int _w)
   {
-    x = (float)(1 << (inv ? inv - _x : _x));
-    y = (float)(1 << (inv ? inv - _y : _y));
-    z = (float)(1 << (inv ? inv - _z : _z));
-    w = (float)(1 << (inv ? inv - _w : _w));
+    x = static_cast<float>(1 << (inv ? inv - _x : _x));
+    y = static_cast<float>(1 << (inv ? inv - _y : _y));
+    z = static_cast<float>(1 << (inv ? inv - _z : _z));
+    w = static_cast<float>(1 << (inv ? inv - _w : _w));
   }
 
   template <const int p>

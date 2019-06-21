@@ -34,19 +34,19 @@
 namespace squish
 {
 void CompressNormalsBtc5u(std::uint8_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags);
+                          void* blockx, void* blocky, flags_t flags);
 void CompressNormalsBtc5s(std::int8_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags);
+                          void* blockx, void* blocky, flags_t flags);
 
 void CompressNormalsBtc5u(std::uint16_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags);
+                          void* blockx, void* blocky, flags_t flags);
 void CompressNormalsBtc5s(std::int16_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags);
+                          void* blockx, void* blocky, flags_t flags);
 
 void CompressNormalsBtc5u(float const* xyzd, std::uint32_t mask, void* blockx,
-                          void* blocky, int flags);
+                          void* blocky, flags_t flags);
 void CompressNormalsBtc5s(float const* xyzd, std::uint32_t mask, void* blockx,
-                          void* blocky, int flags);
+                          void* blocky, flags_t flags);
 
 void DecompressNormalsBtc5u(std::uint8_t* xyzd, void const* blockx,
                             void const* blocky);

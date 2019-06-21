@@ -32,7 +32,8 @@
 #include <limits.h>
 #include "colorfit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 class color_set;
@@ -40,22 +41,31 @@ struct colorSingleLookup;
 class color_single_snap : public color_fit
 {
 public:
-  color_single_snap(color_set const* colors, int flags);
-  
+  color_single_snap(color_set const* colors, flags_t flags);
+
   // error management
-  void SetError(Scr4 &error) { m_besterror = error; }
-  void SetError(Scr3 &error) { m_besterror = error; }
-  Scr3 GetError() { return m_besterror; }
+  void SetError(Scr4& error)
+  {
+    m_besterror = error;
+  }
+  void SetError(Scr3& error)
+  {
+    m_besterror = error;
+  }
+  Scr3 GetError()
+  {
+    return m_besterror;
+  }
 
 private:
   virtual void Compress3b(void* block);
   virtual void Compress3(void* block);
   virtual void Compress4(void* block);
 
-  std::uint8_t   m_color[4];
+  std::uint8_t m_color[4];
   Vec3 m_start;
   Vec3 m_end;
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_colorSINGLESNAP_H
+#endif  // ndef SQUISH_colorSINGLESNAP_H

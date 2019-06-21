@@ -37,8 +37,8 @@ namespace squish
 
 /* *****************************************************************************
  */
-palette_cluster_fit::palette_cluster_fit(palette_set const* palette, int flags,
-                                     int swap, int shared)
+palette_cluster_fit::palette_cluster_fit(palette_set const* palette,
+                                         flags_t flags, int swap, int shared)
 : palette_single_match(palette, flags, swap, shared),
   palette_channel_fit(palette, flags, swap, shared),
   palette_fit(palette, flags, swap, shared)
@@ -55,7 +55,9 @@ palette_cluster_fit::palette_cluster_fit(palette_set const* palette, int flags,
 
   // set the iteration count
   m_iterationCount =
-    (m_flags & kcolorIterativeClusterFits) / kcolorClusterFit;
+    static_cast<std::uint32_t>(
+      m_flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+    16;
 
   // loop over all sets
   for (int s = 0; s < (isets + asets); s++)
@@ -114,7 +116,7 @@ palette_cluster_fit::palette_cluster_fit(palette_set const* palette, int flags,
 }
 
 bool palette_cluster_fit::ConstructOrdering(Vec4 const& axis, int iteration,
-                                          int set)
+                                            int set)
 {
   // cache some values
   int const count = m_palette->GetCount(set);
@@ -126,7 +128,7 @@ bool palette_cluster_fit::ConstructOrdering(Vec4 const& axis, int iteration,
   for (int i = 0; i < count; ++i)
   {
     Dot(values[i], axis, dps + i);
-    order[i] = (std::uint8_t)i;
+    order[i] = static_cast<std::uint8_t>(i);
   }
 
   // stable sort using them
@@ -201,8 +203,8 @@ bool palette_cluster_fit::ConstructOrdering(Vec4 const& axis, int iteration,
 }
 
 Scr4 palette_cluster_fit::ClusterSearch4(std::uint8_t (&closest)[4][16],
-                                       int count, int set, Vec4 const& metric,
-                                       vQuantizer& q, int sb)
+                                         int count, int set, Vec4 const& metric,
+                                         vQuantizer& q, int sb)
 {
   /*
   Vec4 const weight1(21.0f / 64.0f, 21.0f / 64.0f, 21.0f / 64.0f,  441.0f /
@@ -413,9 +415,9 @@ Scr4 palette_cluster_fit::ClusterSearch4(std::uint8_t (&closest)[4][16],
 }
 
 Scr4 palette_cluster_fit::ClusterSearch4Alpha(std::uint8_t (&closest)[4][16],
-                                            int count, int set,
-                                            Vec4 const& metric, vQuantizer& q,
-                                            int sb)
+                                              int count, int set,
+                                              Vec4 const& metric, vQuantizer& q,
+                                              int sb)
 {
   /*
   Vec4 const weight1(21.0f / 64.0f, 21.0f / 64.0f, 21.0f / 64.0f,  441.0f /
@@ -588,9 +590,9 @@ Scr4 palette_cluster_fit::ClusterSearch4Alpha(std::uint8_t (&closest)[4][16],
 #include "paletteclusterfit.inl"
 
 Scr4 palette_cluster_fit::ClusterSearch4Constant(std::uint8_t (&closest)[4][16],
-                                               int count, int set,
-                                               Vec4 const& metric,
-                                               vQuantizer& q, int sb)
+                                                 int count, int set,
+                                                 Vec4 const& metric,
+                                                 vQuantizer& q, int sb)
 {
   /*
   Vec4 const weight1(21.0f / 64.0f, 21.0f / 64.0f, 21.0f / 64.0f,  441.0f /
@@ -817,8 +819,8 @@ Scr4 palette_cluster_fit::ClusterSearch4Constant(std::uint8_t (&closest)[4][16],
 }
 
 Scr4 palette_cluster_fit::ClusterSearch8(std::uint8_t (&closest)[4][16],
-                                       int count, int set, Vec4 const& metric,
-                                       vQuantizer& q, int sb)
+                                         int count, int set, Vec4 const& metric,
+                                         vQuantizer& q, int sb)
 {
   /*
   Vec4 const weight1( 9.0f / 64.0f,  9.0f / 64.0f,  9.0f / 64.0f,   81.0f /
@@ -1208,9 +1210,10 @@ Scr4 palette_cluster_fit::ClusterSearch8(std::uint8_t (&closest)[4][16],
                   //   7/7  + p2 *  7/7  + p1 * 7/7  + p0 * 7/7 = alpha.x +
                   //   beta.x = xsum_wsum;
                   //
-                  //  alphax.w =      0/7Â² +      1/7Â² +       2/7Â² +       3.7Â²
+                  //  alphax.w =      0/7Â² +      1/7Â² +       2/7Â²
+                  //  +       3.7Â²
                   //  +       4/7Â² +       5/7Â² +      6/7Â² +      ?/?Â²
-                  //   betax.w =      ?.?Â² +      6/7Â² +       5/7Â² +       4/7Â²
+                  //   betax.w =      ?.?Â² +      6/7Â² +       5/7Â² + 4/7Â²
                   //   +       3/7Â² +       2/7Â² +      1/7Â² +      0/7Â²
                   // alphabeta = p7 * 0/-- + p6 * 6/49 + p5 * 10/49 + p4 * 12/49
                   // + p3 * 12/49 + p2 * 10/49 + p1 * 6/49 + p0 * 0/--
@@ -1350,9 +1353,9 @@ Scr4 palette_cluster_fit::ClusterSearch8(std::uint8_t (&closest)[4][16],
 }
 
 Scr4 palette_cluster_fit::ClusterSearch8Constant(std::uint8_t (&closest)[4][16],
-                                               int count, int set,
-                                               Vec4 const& metric,
-                                               vQuantizer& q, int sb)
+                                                 int count, int set,
+                                                 Vec4 const& metric,
+                                                 vQuantizer& q, int sb)
 {
   /*
   Vec4 const weight1( 9.0f / 64.0f,  9.0f / 64.0f,  9.0f / 64.0f,   81.0f /
@@ -1511,9 +1514,10 @@ Scr4 palette_cluster_fit::ClusterSearch8Constant(std::uint8_t (&closest)[4][16],
                   //   7/7  + p2 *  7/7  + p1 * 7/7  + p0 * 7/7 = alpha.x +
                   //   beta.x = xsum_wsum;
                   //
-                  //  alphax.w =      0/7Â² +      1/7Â² +       2/7Â² +       3.7Â²
+                  //  alphax.w =      0/7Â² +      1/7Â² +       2/7Â²
+                  //  +       3.7Â²
                   //  +       4/7Â² +       5/7Â² +      6/7Â² +      ?/?Â²
-                  //   betax.w =      ?.?Â² +      6/7Â² +       5/7Â² +       4/7Â²
+                  //   betax.w =      ?.?Â² +      6/7Â² +       5/7Â² + 4/7Â²
                   //   +       3/7Â² +       2/7Â² +      1/7Â² +      0/7Â²
                   // alphabeta = p7 * 0/-- + p6 * 6/49 + p5 * 10/49 + p4 * 12/49
                   // + p3 * 12/49 + p2 * 10/49 + p1 * 6/49 + p0 * 0/--

@@ -38,7 +38,7 @@ class hdr_set;
 class hdr_index_fit : public virtual hdr_fit
 {
 public:
-  hdr_index_fit(hdr_set const* colors, int flags);
+  hdr_index_fit(hdr_set const* colors, flags_t flags);
 
 #ifdef FEATURE_INDEXFIT_INLINED
 private:

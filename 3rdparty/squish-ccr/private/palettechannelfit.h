@@ -34,25 +34,31 @@
 
 #include "palettefit.h"
 
-namespace squish {
+namespace squish
+{
 
 // -----------------------------------------------------------------------------
 class palette_set;
 class palette_channel_fit : public virtual palette_fit
 {
 public:
-  palette_channel_fit(palette_set const* colors, int flags, int swap = -1, int shared = 0);
+  palette_channel_fit(palette_set const* colors, flags_t flags, int swap = -1,
+                      int shared = 0);
 
 private:
-  int  m_channel[4];
+  int m_channel[4];
   Vec4 m_start_candidate[4];
-  Vec4 m_end_candidate  [4];
+  Vec4 m_end_candidate[4];
 
 protected:
-  Scr4 ComputeCodebook(int set, Vec4 const &metric, vQuantizer &q, int sb, int ib, std::uint8_t (&closest)[16]);
+  Scr4 ComputeCodebook(int set, Vec4 const& metric, vQuantizer& q, int sb,
+                       int ib, std::uint8_t (&closest)[16]);
 
-  bool IsChannel(int set) { return m_channel[set] >= 0; }
+  bool IsChannel(int set)
+  {
+    return m_channel[set] >= 0;
+  }
 };
-} // namespace squish
+}  // namespace squish
 
-#endif // ndef SQUISH_PALETTECHANNELFIT_H
+#endif  // ndef SQUISH_PALETTECHANNELFIT_H

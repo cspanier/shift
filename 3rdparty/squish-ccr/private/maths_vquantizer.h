@@ -114,10 +114,6 @@ grid   ( 1.0f + rm, 1.0f + gm, 1.0f + bm, ab ? 1.0f + am : 1.0f )*/
     gridgap *= grid;
     gridgap *= Vec4(0.5f / 255.0f);
     gridgap = Max(gridgap, tff);
-
-    // silence the compiler
-    bool hb = !!sb;
-    hb = false;
   }
 
   Vec4 LookUpLattice(int r, int g, int b, int a) const

@@ -31,12 +31,10 @@
 
 #include "inlineables.inl"
 
-namespace squish {
-
-/* *****************************************************************************
- */
-bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
-  : bitone_fit(bitones, flags)
+namespace squish
+{
+bitone_range_fit::bitone_range_fit(bitone_set const* bitones, flags_t flags)
+: bitone_fit(bitones, flags)
 {
   // initialize the best error
   m_besterror = Scr3(FLT_MAX);
@@ -54,7 +52,8 @@ bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
   if (m_bitones->IsUnweighted())
     ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f));
   else
-    ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f), weights);
+    ComputeWeightedCovariance3(covariance, centroid, count, values, Vec3(1.0f),
+                               weights);
 
   // compute the principle component
   GetPrincipleComponent(covariance, principle);
@@ -63,8 +62,9 @@ bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
   Vec3 start(0.0f);
   Vec3 end(0.0f);
 
-  if (count > 0) {
-#ifdef  FEATURE_RANGEFIT_PROJECT
+  if (count > 0)
+  {
+#ifdef FEATURE_RANGEFIT_PROJECT
     // compute the projection
     GetPrincipleProjection(start, end, principle, centroid, count, values);
 #else
@@ -74,16 +74,19 @@ bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
     start = end = values[0];
     min = max = Dot(values[0], principle);
 
-    for (int i = 1; i < count; ++i) {
+    for (int i = 1; i < count; ++i)
+    {
       Scr3 val = Dot(values[i], principle);
 
-      if (val < min) {
-  start = values[i];
-  min = val;
+      if (val < min)
+      {
+        start = values[i];
+        min = val;
       }
-      else if (val > max) {
-  end = values[i];
-  max = val;
+      else if (val > max)
+      {
+        end = values[i];
+        max = val;
       }
     }
 #endif
@@ -91,7 +94,7 @@ bitone_range_fit::bitone_range_fit(bitone_set const* bitones, int flags)
 
   // snap floating-point-values to the integer-lattice and save
   m_start = Truncate(start * 255.0f + Vec3(0.5f)) * (1.0f / 255.0f);
-  m_end   = Truncate(end   * 255.0f + Vec3(0.5f)) * (1.0f / 255.0f);
+  m_end = Truncate(end * 255.0f + Vec3(0.5f)) * (1.0f / 255.0f);
 }
 
 void bitone_range_fit::Compress4(void* block)
@@ -103,36 +106,41 @@ void bitone_range_fit::Compress4(void* block)
 
   // create a codebook
   // resolve "metric * (value - code)" to "metric * value - metric * code"
-  Vec3 codes[4]; Codebook4(codes, m_start, m_end);
+  Vec3 codes[4];
+  Codebook4(codes, m_start, m_end);
 
   // match each point to the closest code
   std::uint8_t closest[16];
 
   Scr3 error = Scr3(DISTANCE_BASE);
-  for (int i = 0; i < count; ++i) {
+  for (int i = 0; i < count; ++i)
+  {
     int idx = 0;
 
     // find the closest code
     Vec3 value = values[i];
-    Scr3 dist; MinDistance4<true>(dist, idx, value, codes);
+    Scr3 dist;
+    MinDistance4<true>(dist, idx, value, codes);
 
     // accumulate the error
     AddDistance(dist, error, freq[i]);
 
     // save the index
-    closest[i] = (std::uint8_t)idx;
+    closest[i] = static_cast<std::uint8_t>(idx);
   }
 
   // save this scheme if it wins
-  if (error < m_besterror) {
+  if (error < m_besterror)
+  {
     // save the error
     m_besterror = error;
 
     // remap the indices
-    std::uint8_t indices[16]; m_bitones->RemapIndices(closest, indices);
+    std::uint8_t indices[16];
+    m_bitones->RemapIndices(closest, indices);
 
     // save the block
     WriteBitoneBlock4(m_start, m_end, indices, block);
   }
 }
-} // namespace squish
+}  // namespace squish

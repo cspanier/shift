@@ -269,7 +269,8 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, std::uint32_t mask, void* block,
   squish_flag::compressor_color_range_fit  // kcolorClusterFit * 15
 
   flags = (flags & (~squish_flag::variable_coding_mode_mask)) | (DEBUG_MODE);
-  flags = (flags & (~kcolorIterativeClusterFit)) | (DEBUG_FIT);
+  flags = (flags & (~squish_flag::compressor_color_iterative_cluster_mask)) |
+          (DEBUG_FIT);
 #endif
 
   /* we start with 1 set so we get some statistics about the color-
@@ -447,7 +448,10 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, std::uint32_t mask, void* block,
     // non-alpha only modes this will affect only successive trials, if an
     // explicit mode is requested it's a NOP
     if (initial.IsTransparent())
-      om = MODEORDER_TRNS, em = MODEORDER_TRNS_MAX;
+    {
+      om = MODEORDER_TRNS;
+      em = MODEORDER_TRNS_MAX;
+    }
 
     // if we see we have no transparent values, don't try non-rotated palettes
     // (alpha is constant for all)
@@ -555,16 +559,18 @@ Scr4 CompressPaletteBtc7uV1(dtyp const* rgba, std::uint32_t mask, void* block,
     // even better
     if (better && cluster)
     {
-      int degree =
-        (flags & squish_flag::compressor_color_iterative_cluster_mask);
+      auto degree =
+        static_cast<std::uint32_t>(
+          flags & squish_flag::compressor_color_iterative_cluster_mask) >>
+        16;
 
       // default to a cluster fit (could be iterative or not)
       palette_cluster_fit fit(&bestpal, flags | mode);
 
       // we want the whole shebang, this takes looong!
-      if (degree < (kcolorClusterFit * 15))
+      if (degree < 15)
         sb = eb = bestbit;
-      if (degree < (kcolorClusterFit * 14))
+      if (degree < 14)
         sx = ex = bestswp;
 
       // search for the best swap
@@ -1634,7 +1640,7 @@ void compress(float const* rgba, void* block, flags_t flags)
 /* *****************************************************************************
  */
 template <typename dtyp>
-void DecompressNormalCtx1u(dtyp* xyzd, void const* block, flags_t flags)
+void DecompressNormalCtx1u(dtyp* xyzd, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* normalBlock = block;
@@ -1644,7 +1650,7 @@ void DecompressNormalCtx1u(dtyp* xyzd, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressBitoneCtx1u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressBitoneCtx1u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* colorBlock = block;
@@ -1654,7 +1660,7 @@ void DecompressBitoneCtx1u(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressColorBtc1u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressColorBtc1u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* colorBlock = block;
@@ -1664,7 +1670,7 @@ void DecompressColorBtc1u(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressColorBtc2u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressColorBtc2u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* colorBlock = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1736,7 +1742,7 @@ void DecompressAlphaBtc5s(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressNormalBtc5u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressNormalBtc5u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1747,7 +1753,7 @@ void DecompressNormalBtc5u(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressNormalBtc5s(dtyp* rgba, void const* block, flags_t flags)
+void DecompressNormalBtc5s(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* plane1Block = reinterpret_cast<std::uint8_t const*>(block) + 8;
@@ -1758,7 +1764,7 @@ void DecompressNormalBtc5s(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressColorBtc6u(dtyp* rgb, void const* block, flags_t flags)
+void DecompressColorBtc6u(dtyp* rgb, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* mixedBlock = block;
@@ -1768,7 +1774,7 @@ void DecompressColorBtc6u(dtyp* rgb, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressColorBtc7u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressColorBtc7u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* mixedBlock = block;
@@ -1778,7 +1784,7 @@ void DecompressColorBtc7u(dtyp* rgba, void const* block, flags_t flags)
 }
 
 template <typename dtyp>
-void DecompressNormalBtc7u(dtyp* rgba, void const* block, flags_t flags)
+void DecompressNormalBtc7u(dtyp* rgba, void const* block, flags_t /*flags*/)
 {
   // get the block locations
   void const* mixedBlock = block;

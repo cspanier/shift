@@ -69,9 +69,6 @@
 
 namespace squish
 {
-
-/* *****************************************************************************
- */
 /*static void FixRange(int& min, int& max, int steps)
 {
   if (max - min < steps)
@@ -88,7 +85,8 @@ static Scr4 FitCodes(Vec4 const* xyz, std::uint32_t mask, Col8 const& codesx,
   // fit each coord value to the codebook
   Scr4 error = Scr4(DEVIANCE_BASE);
 
-  for (int i = 0, imask = mask; i < 16; ++i, imask >>= 1)
+  std::uint32_t imask = mask;
+  for (int i = 0; i < 16; ++i, imask >>= 1)
   {
     // check this pixel is valid
     if ((imask & 1) == 0)
@@ -107,8 +105,8 @@ static Scr4 FitCodes(Vec4 const* xyz, std::uint32_t mask, Col8 const& codesx,
     // find the closest code
     Scr4 dist = Vec4(DEVIANCE_MAX);
 
-    int idxx = 0;
-    int idxy = 0;
+    std::uint8_t idxx = 0;
+    std::uint8_t idxy = 0;
 
     // find the least error and corresponding index
     // prefer lower indices over higher ones
@@ -141,35 +139,25 @@ static Scr4 FitCodes(Vec4 const* xyz, std::uint32_t mask, Col8 const& codesx,
 
         // will cause VS to make them all cmovs
         if (match & 0xF)
-        {
-          idxy = k;
-        }
+          idxy = static_cast<std::uint8_t>(k);
         if (match & 0x8)
-        {
-          idxx = j;
-        }
+          idxx = static_cast<std::uint8_t>(j);
         j--;
         if (match & 0x4)
-        {
-          idxx = j;
-        }
+          idxx = static_cast<std::uint8_t>(j);
         j--;
         if (match & 0x2)
-        {
-          idxx = j;
-        }
+          idxx = static_cast<std::uint8_t>(j);
         j--;
         if (match & 0x1)
-        {
-          idxx = j;
-        }
+          idxx = static_cast<std::uint8_t>(j);
         j--;
       } while (j >= 0);
     } while (--k >= 0);
 
     // save the index
-    indicesx[i] = (std::uint8_t)idxx;
-    indicesy[i] = (std::uint8_t)idxy;
+    indicesx[i] = idxx;
+    indicesy[i] = idxy;
 
     // accumulate the error (sine)
     AddDeviance(dist, error);
@@ -180,9 +168,9 @@ static Scr4 FitCodes(Vec4 const* xyz, std::uint32_t mask, Col8 const& codesx,
 }
 
 template <const int min, const int max, const int prc, typename otyp>
-static Vec4 GetError(Vec4 const* xyz, std::uint32_t mask, Col8 const& codes5x,
-                     Col8 const& codes7x, Col8 const& codes5y,
-                     Col8 const& codes7y)
+static Vec4 GetError(Vec4 const* xyz, std::uint32_t /*mask*/,
+                     Col8 const& codes5x, Col8 const& codes7x,
+                     Col8 const& codes5y, Col8 const& codes7y)
 {
   // initial values
   Vec4 error = Vec4(DEVIANCE_BASE);
@@ -1078,8 +1066,8 @@ static void WriteNormalBlock(int coord0, int coord1,
   std::uint8_t* bytes = reinterpret_cast<std::uint8_t*>(block);
 
   // write the first two bytes
-  bytes[0] = (std::uint8_t)coord0;
-  bytes[1] = (std::uint8_t)coord1;
+  bytes[0] = static_cast<std::uint8_t>(coord0);
+  bytes[1] = static_cast<std::uint8_t>(coord1);
 
   // pack the indices with 3 bits each
   std::uint8_t* dest = bytes + 2;
@@ -1098,7 +1086,7 @@ static void WriteNormalBlock(int coord0, int coord1,
     for (int j = 0; j < 3; ++j)
     {
       int byte = (value >> (8 * j)) & 0xFF;
-      *dest++ = (std::uint8_t)byte;
+      *dest++ = static_cast<std::uint8_t>(byte);
     }
 
     // 77766655.54443332.22111000, FFFEEEDD.DCCCBBBA.AA999888
@@ -1166,7 +1154,7 @@ static inline void WriteNormalBlock7(int coord0, int coord1,
 template <const int min, const int max, const int prc, typename otyp,
           typename dtyp>
 static void CompressNormalBtc5v(Vec4 const* xyz, std::uint32_t mask,
-                                void* blockx, void* blocky, int flags)
+                                void* blockx, void* blocky, flags_t flags)
 {
   Col8 codes55x, codes57x, codes75x, codes77x;
   Col8 codes55y, codes57y, codes75y, codes77y;
@@ -1177,7 +1165,7 @@ static void CompressNormalBtc5v(Vec4 const* xyz, std::uint32_t mask,
   Col4 min77 = Col4(max), min75;
   Col4 max77 = Col4(min), max75;
 
-  if (!((flags & kNormalIterativeFit) && prc))
+  if (!((flags & squish_flag::compressor_normal_iterative_fit) && prc))
   {
     for (int i = 0, imask = mask; i < 16; ++i, imask >>= 1)
     {
@@ -1292,7 +1280,7 @@ static void CompressNormalBtc5v(Vec4 const* xyz, std::uint32_t mask,
   codes75y = codes55y;
 
   // do the iterative tangent search
-  if (flags & kNormalIterativeFit)
+  if (flags & squish_flag::compressor_normal_iterative_fit)
   {
     // get best error for the current min/max
     Vec4 error = GetError<min, max, prc, otyp>(xyz, mask, codes55x, codes77x,
@@ -1447,7 +1435,7 @@ static void CompressNormalBtc5v(Vec4 const* xyz, std::uint32_t mask,
 template <const int min, const int max, const int prc, const int lwr,
           const int upr, typename otyp, typename dtyp>
 static void CompressNormalsBtc5i(dtyp const* xyzd, std::uint32_t mask,
-                                 void* blockx, void* blocky, int flags)
+                                 void* blockx, void* blocky, flags_t flags)
 {
   Vec4 xyz[16];
 
@@ -1468,7 +1456,7 @@ static void CompressNormalsBtc5i(dtyp const* xyzd, std::uint32_t mask,
 template <const int min, const int max, const int prc, typename otyp,
           typename dtyp>
 static void CompressNormalsBtc5f(dtyp const* xyzd, std::uint32_t mask,
-                                 void* blockx, void* blocky, int flags)
+                                 void* blockx, void* blocky, flags_t flags)
 {
   Vec4 xyz[16];
 
@@ -1487,39 +1475,39 @@ static void CompressNormalsBtc5f(dtyp const* xyzd, std::uint32_t mask,
 }
 
 void CompressNormalsBtc5u(std::uint8_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags)
+                          void* blockx, void* blocky, flags_t flags)
 {
   CompressNormalsBtc5i<0, 255, CBLB, 0, 255, unsigned>(xyzd, mask, blockx,
                                                        blocky, flags);
 }
 void CompressNormalsBtc5s(std::int8_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags)
+                          void* blockx, void* blocky, flags_t flags)
 {
   CompressNormalsBtc5i<-127, 127, CBLB, -127, 127, signed>(xyzd, mask, blockx,
                                                            blocky, flags);
 }
 
 void CompressNormalsBtc5u(std::uint16_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags)
+                          void* blockx, void* blocky, flags_t flags)
 {
   CompressNormalsBtc5i<0, 255, CBHB, 0, 65535, unsigned>(xyzd, mask, blockx,
                                                          blocky, flags);
 }
 void CompressNormalsBtc5s(std::int16_t const* xyzd, std::uint32_t mask,
-                          void* blockx, void* blocky, int flags)
+                          void* blockx, void* blocky, flags_t flags)
 {
   CompressNormalsBtc5i<-127, 127, CBHB, -32767, 32767, signed>(
     xyzd, mask, blockx, blocky, flags);
 }
 
 void CompressNormalsBtc5u(float const* xyzd, std::uint32_t mask, void* blockx,
-                          void* blocky, int flags)
+                          void* blocky, flags_t flags)
 {
   CompressNormalsBtc5f<0, 255, CBHB, unsigned>(xyzd, mask, blockx, blocky,
                                                flags);
 }
 void CompressNormalsBtc5s(float const* xyzd, std::uint32_t mask, void* blockx,
-                          void* blocky, int flags)
+                          void* blocky, flags_t flags)
 {
   CompressNormalsBtc5f<-127, 127, CBHB, signed>(xyzd, mask, blockx, blocky,
                                                 flags);
@@ -1574,8 +1562,8 @@ static void ReadNormalBlock(ctyp (&codesx)[8], ctyp (&codesy)[8],
     {
       int indexx = (valuex >> 3 * j) & 0x7;
       int indexy = (valuey >> 3 * j) & 0x7;
-      *destx++ = (std::uint8_t)indexx;
-      *desty++ = (std::uint8_t)indexy;
+      *destx++ = static_cast<std::uint8_t>(indexx);
+      *desty++ = static_cast<std::uint8_t>(indexy);
     }
   }
 }
