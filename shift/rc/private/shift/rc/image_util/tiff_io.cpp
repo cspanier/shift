@@ -72,14 +72,26 @@ static_assert(core::underlying_type_cast(tiff_planar_config::contiguous) ==
 static_assert(core::underlying_type_cast(tiff_planar_config::separate) ==
               PLANARCONFIG_SEPARATE);
 
-static void tiff_warning(thandle_t, const char* function, const char* message,
-                         va_list)
+static void tiff_warning(const char* /*module*/, const char* /*format*/,
+                         va_list /*args*/)
+{
+  /// NOP.
+}
+
+static void tiff_error(const char* /*module*/, const char* /*format*/,
+                       va_list /*args*/)
+{
+  /// NOP.
+}
+
+static void tiff_warning_ex(thandle_t, const char* function,
+                            const char* message, va_list /*args*/)
 {
   log::warning() << "\"" << function << "\": " << message;
 }
 
-static void tiff_error(thandle_t, const char* function, const char* message,
-                       va_list)
+static void tiff_error_ex(thandle_t, const char* function, const char* message,
+                          va_list)
 {
   log::error() << "\"" << function << "\": " << message;
 }
@@ -338,8 +350,10 @@ static std::uint32_t cms_get_input_pixel_type(const tiff_image& image)
 // Rearrange pixel type to build output descriptor
 tiff_io::tiff_io()
 {
-  TIFFSetWarningHandlerExt(tiff_warning);
-  TIFFSetErrorHandlerExt(tiff_error);
+  TIFFSetWarningHandler(tiff_warning);
+  TIFFSetErrorHandler(tiff_error);
+  TIFFSetWarningHandlerExt(tiff_warning_ex);
+  TIFFSetErrorHandlerExt(tiff_error_ex);
 
 #if 0
   log::info() << "List of supported TIFF compression codecs:";
