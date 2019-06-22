@@ -1,6 +1,7 @@
 #include "shift/rc/resource_compiler.hpp"
 #include "shift/rc/resource_compiler_impl.hpp"
 #include "shift/rc/optimizer_mesh/filter.hpp"
+#include <shift/rc/image_util/tiff_io.hpp>
 #include "shift/task/async.hpp"
 #include <shift/log/log.hpp>
 #include <shift/core/stream_util.hpp>
@@ -12,6 +13,7 @@ namespace shift::rc
 resource_compiler::resource_compiler()
 : _impl(std::make_unique<resource_compiler_impl>())
 {
+  static image_util::tiff_io io;
 }
 
 resource_compiler::~resource_compiler() = default;

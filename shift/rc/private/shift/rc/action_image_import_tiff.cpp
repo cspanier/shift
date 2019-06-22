@@ -242,7 +242,7 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
 {
   using namespace std::string_literals;
 
-  static image_util::tiff_io io;
+  auto& io = image_util::tiff_io::singleton_instance();
 
   /// ToDo: Add support for importing multiple 2D images to cube or 3D images.
   if (job.inputs.size() != 1)
