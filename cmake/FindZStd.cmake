@@ -1,56 +1,108 @@
-if(NOT ZSTD_ZSTD_LIBRARY)
-  # find_path(ZSTD_ZSTD_INCLUDE_DIR "zstd.h")
-  find_path(ZSTD_ZSTD_INCLUDE_DIR "common/zstd_errors.h")
-  find_library(ZSTD_ZSTD_LIBRARY_DEBUG
+# Find shared library version of ZStd
+if(NOT ZSTD_SHARED_LIBRARY)
+  find_path(ZSTD_SHARED_INCLUDE_DIR "zstd.h")
+  find_library(ZSTD_SHARED_LIBRARY_DEBUG
     NAMES
-      zstd_static_d.lib  # Windows
-      zstd_static.lib    # Windows fallback
-      zstd_static_d      # Linux
-      zstd_static        # Linux fallback
+      zstd_d
+      zstd
     PATH_SUFFIXES
       lib
   )
-  find_library(ZSTD_ZSTD_LIBRARY_RELEASE
+  find_library(ZSTD_SHARED_LIBRARY_RELEASE
     NAMES
-      zstd_static.lib  # Windows
-      zstd_static      # Linux
+      zstd
     PATH_SUFFIXES
       lib
   )
-  set(ZSTD_ZSTD_LIBRARY
-    debug ${ZSTD_ZSTD_LIBRARY_DEBUG}
-    optimized ${ZSTD_ZSTD_LIBRARY_RELEASE}
+  set(ZSTD_SHARED_LIBRARY
+    debug ${ZSTD_SHARED_LIBRARY_DEBUG}
+    optimized ${ZSTD_SHARED_LIBRARY_RELEASE}
   )
 endif()
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(ZSTD_ZSTD REQUIRED_VARS
-  ZSTD_ZSTD_LIBRARY ZSTD_ZSTD_INCLUDE_DIR)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(ZSTD_SHARED REQUIRED_VARS
+  ZSTD_SHARED_LIBRARY ZSTD_SHARED_INCLUDE_DIR)
 
-mark_as_advanced(ZSTD_ZSTD_INCLUDE_DIRS)
-mark_as_advanced(ZSTD_ZSTD_LIBRARIES)
+mark_as_advanced(ZSTD_SHARED_INCLUDE_DIRS)
+mark_as_advanced(ZSTD_SHARED_LIBRARIES)
 
-if(ZSTD_ZSTD_FOUND)
-  set(ZSTD_ZSTD_INCLUDE_DIRS ${ZSTD_ZSTD_INCLUDE_DIR})
-  set(ZSTD_ZSTD_LIBRARIES ${ZSTD_ZSTD_LIBRARY})
+if(ZSTD_SHARED_FOUND)
+  set(ZSTD_SHARED_INCLUDE_DIRS ${ZSTD_SHARED_INCLUDE_DIR})
+  set(ZSTD_SHARED_LIBRARIES ${ZSTD_SHARED_LIBRARY})
 
-  if(NOT TARGET ZSTD::ZSTD)
-    add_library(ZSTD::ZSTD UNKNOWN IMPORTED)
-    set_target_properties(ZSTD::ZSTD PROPERTIES
-      INTERFACE_INCLUDE_DIRECTORIES "${ZSTD_ZSTD_INCLUDE_DIRS}")
+  if(NOT TARGET ZStd::shared)
+    add_library(ZStd::shared UNKNOWN IMPORTED)
+    set_target_properties(ZStd::shared PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${ZSTD_SHARED_INCLUDE_DIRS}")
 
-    set_property(TARGET ZSTD::ZSTD APPEND PROPERTY
+    set_property(TARGET ZStd::shared APPEND PROPERTY
       IMPORTED_CONFIGURATIONS RELEASE)
-    set_property(TARGET ZSTD::ZSTD APPEND PROPERTY
+    set_property(TARGET ZStd::shared APPEND PROPERTY
       IMPORTED_CONFIGURATIONS DEBUG)
 
-    if(ZSTD_ZSTD_LIBRARY_DEBUG AND ZSTD_ZSTD_LIBRARY_RELEASE)
-      set_target_properties(ZSTD::ZSTD PROPERTIES
-        IMPORTED_LOCATION_DEBUG "${ZSTD_ZSTD_LIBRARY_DEBUG}"
-        IMPORTED_LOCATION_RELEASE "${ZSTD_ZSTD_LIBRARY_RELEASE}"
+    if(ZSTD_SHARED_LIBRARY_DEBUG AND ZSTD_SHARED_LIBRARY_RELEASE)
+      set_target_properties(ZStd::shared PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${ZSTD_SHARED_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${ZSTD_SHARED_LIBRARY_RELEASE}"
       )
     else()
-      set_target_properties(ZSTD::ZSTD PROPERTIES
-        IMPORTED_LOCATION "${ZSTD_ZSTD_LIBRARY_RELEASE}"
+      set_target_properties(ZStd::shared PROPERTIES
+        IMPORTED_LOCATION "${ZSTD_SHARED_LIBRARY_RELEASE}"
+      )
+    endif()
+  endif()
+endif()
+
+# Find static library version of ZStd
+if(NOT ZSTD_STATIC_LIBRARY)
+  find_path(ZSTD_STATIC_INCLUDE_DIR "common/zstd_errors.h")
+  find_library(ZSTD_STATIC_LIBRARY_DEBUG
+    NAMES
+      zstd_static_d
+      zstd_static
+    PATH_SUFFIXES
+      lib
+  )
+  find_library(ZSTD_STATIC_LIBRARY_RELEASE
+    NAMES
+      zstd_static
+    PATH_SUFFIXES
+      lib
+  )
+  set(ZSTD_STATIC_LIBRARY
+    debug ${ZSTD_STATIC_LIBRARY_DEBUG}
+    optimized ${ZSTD_STATIC_LIBRARY_RELEASE}
+  )
+endif()
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(ZSTD_STATIC REQUIRED_VARS
+  ZSTD_STATIC_LIBRARY ZSTD_STATIC_INCLUDE_DIR)
+
+mark_as_advanced(ZSTD_STATIC_INCLUDE_DIRS)
+mark_as_advanced(ZSTD_STATIC_LIBRARIES)
+
+if(ZSTD_STATIC_FOUND)
+  set(ZSTD_STATIC_INCLUDE_DIRS ${ZSTD_STATIC_INCLUDE_DIR})
+  set(ZSTD_STATIC_LIBRARIES ${ZSTD_STATIC_LIBRARY})
+
+  if(NOT TARGET ZStd::static)
+    add_library(ZStd::static UNKNOWN IMPORTED)
+    set_target_properties(ZStd::static PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${ZSTD_STATIC_INCLUDE_DIRS}")
+
+    set_property(TARGET ZStd::static APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS RELEASE)
+    set_property(TARGET ZStd::static APPEND PROPERTY
+      IMPORTED_CONFIGURATIONS DEBUG)
+
+    if(ZSTD_STATIC_LIBRARY_DEBUG AND ZSTD_STATIC_LIBRARY_RELEASE)
+      set_target_properties(ZStd::static PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${ZSTD_STATIC_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${ZSTD_STATIC_LIBRARY_RELEASE}"
+      )
+    else()
+      set_target_properties(ZStd::static PROPERTIES
+        IMPORTED_LOCATION "${ZSTD_STATIC_LIBRARY_RELEASE}"
       )
     endif()
   endif()
