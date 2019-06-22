@@ -58,16 +58,17 @@ Each file may contain many rules and each input, output, and options section may
 
 ## Available Actions
 
-* group_resources
-* image_import
-* mesh_export_obj
-* mesh_import_ply
-* mesh_tootle
-* font_import_ttf
-* shader_compile
-* scene_compile
-* scene_import_gltf
-* scene_import_pbrt
+* group-resources
+* image-import-tiff
+* image-export-tiff
+* mesh-export-obj
+* mesh-import-ply
+* mesh-tootle
+* font-import-ttf
+* shader-compile
+* scene-compile
+* scene-import-gltf
+* scene-import-pbrt
 
 ### Example:
 
@@ -75,7 +76,7 @@ Each file may contain many rules and each input, output, and options section may
 {
   "textures-engine-import": {
     "pass": 1,
-    "action": "image-import",
+    "action": "image-import-tiff",
     "input": {
       "image": "<input-path>/<rule-path>/(.*)\\.tif(f?)$"
     },
