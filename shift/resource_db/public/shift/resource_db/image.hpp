@@ -209,6 +209,8 @@ inline constexpr bool is_block_compressed(image_format format)
     // case image_format::a8b8g8r8_srgb:
     return false;
   }
+
+  return false;
 }
 
 inline constexpr bool is_linear(image_format format)
@@ -303,6 +305,8 @@ inline constexpr bool is_linear(image_format format)
   case image_format::bc7_srgb_block:
     return false;
   }
+
+  return false;
 }
 
 inline constexpr bool is_srgb(image_format format)
@@ -397,6 +401,8 @@ inline constexpr bool is_srgb(image_format format)
   case image_format::bc7_unorm_block:
     return false;
   }
+
+  return false;
 }
 
 ///
