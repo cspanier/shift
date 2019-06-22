@@ -3,7 +3,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgb[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgb[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc1_rgb_unorm.image_header",
@@ -18,7 +18,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgb[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgb[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc1_rgb_srgb.image_header",
@@ -33,7 +33,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc1_rgba_unorm.image_header",
@@ -48,7 +48,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc1_rgba_srgb.image_header",
@@ -63,7 +63,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc2_unorm.image_header",
@@ -78,7 +78,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc2_srgb.image_header",
@@ -93,7 +93,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc3_unorm.image_header",
@@ -108,7 +108,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc3_srgb.image_header",
@@ -123,7 +123,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-r[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-r[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc4_unorm.image_header",
@@ -138,7 +138,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-r[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-r[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc4_snorm.image_header",
@@ -153,7 +153,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc5_unorm.image_header",
@@ -168,7 +168,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc5_snorm.image_header",
@@ -183,7 +183,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc6h_ufloat.image_header",
@@ -198,7 +198,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc6h_sfloat.image_header",
@@ -213,7 +213,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc7_unorm.image_header",
@@ -228,7 +228,7 @@
     "pass": 1,
     "action": "image-import-tiff",
     "input": {
-      "image": "<input-path/><rule-path/>image32-rgba[0-9]*\\.tif(f)?$"
+      "image": "<input-path/><rule-path/>(image32-rgba[0-9]*)\\.tif(f)?$"
     },
     "output": {
       "header": "<build-path/><rule-path/><image:1>.bc7_srgb.image_header",
@@ -239,6 +239,7 @@
       "normalized": false
     }
   },
+
   "global-cache": {
     "pass": 2,
     "action": "group-resources",
@@ -250,5 +251,214 @@
       "group": "<output-path/>global.cache"
     },
     "options": {}
+  },
+
+  "textures-export-bc1-rgb-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc1_rgb_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8_unorm"
+    }
+  },
+  "textures-export-bc1-rgb-srgb": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc1_rgb_srgb)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8_srgb"
+    }
+  },
+  "textures-export-bc1-rgba-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc1_rgba_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_unorm"
+    }
+  },
+  "textures-export-bc1-rgba-srgb": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc1_rgba_srgb)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_srgb"
+    }
+  },
+  "textures-export-bc2-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc2_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_unorm"
+    }
+  },
+  "textures-export-bc2-srgb": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc2_srgb)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_srgb"
+    }
+  },
+  "textures-export-bc3-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc3_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_unorm"
+    }
+  },
+  "textures-export-bc3-srgb": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc3_srgb)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_srgb"
+    }
+  },
+  "textures-export-bc4-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc4_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8_unorm"
+    }
+  },
+  "textures-export-bc4-snorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc4_snorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8_snorm"
+    }
+  },
+  "textures-export-bc5-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc5_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8_unorm"
+    }
+  },
+  "textures-export-bc5-snorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc5_snorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8_snorm"
+    }
+  },
+  "textures-export-bc6h-ufloat": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc6h_ufloat)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r16g16b16a16_ufloat"
+    }
+  },
+  "textures-export-bc6h-sfloat": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc6h_sfloat)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r16g16b16a16_sfloat"
+    }
+  },
+  "textures-export-bc7-unorm": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc7_unorm)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_unorm"
+    }
+  },
+  "textures-export-bc7-srgb": {
+    "pass": 3,
+    "action": "image-export-tiff",
+    "input": {
+      "image": "<build-path/><rule-path/>(.*\.bc7_srgb)\.image_header"
+    },
+    "output": {
+      "image": "<build-path/><rule-path/><image:1>.tif"
+    },
+    "options": {
+      "target-format": "r8g8b8a8_srgb"
+    }
   }
 }
