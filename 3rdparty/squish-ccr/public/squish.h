@@ -482,9 +482,9 @@ void compress_masked(std::int8_t const* rgba, std::uint32_t mask, void* block,
                      flags_t flags);
 void compress_masked(std::uint8_t const* rgba, std::uint32_t mask, void* block,
                      flags_t flags);
-void compress_masked(std::uint16_t const* rgb, std::uint32_t mask, void* block,
-                     flags_t flags);
 void compress_masked(std::int16_t const* rgb, std::uint32_t mask, void* block,
+                     flags_t flags);
+void compress_masked(std::uint16_t const* rgb, std::uint32_t mask, void* block,
                      flags_t flags);
 void compress_masked(float const* rgba, std::uint32_t mask, void* block,
                      flags_t flags);
@@ -506,7 +506,9 @@ void compress_masked(float const* rgba, std::uint32_t mask, void* block,
   however, DXT1/BC1 will be used by default if none is specified. All other
   flags are ignored.
 */
+void decompress(std::int8_t* rgba, void const* block, flags_t flags);
 void decompress(std::uint8_t* rgba, void const* block, flags_t flags);
+void decompress(std::int16_t* rgb, void const* block, flags_t flags);
 void decompress(std::uint16_t* rgb, void const* block, flags_t flags);
 void decompress(float* rgba, void const* block, flags_t flags);
 

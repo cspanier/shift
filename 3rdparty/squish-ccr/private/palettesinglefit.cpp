@@ -146,7 +146,7 @@ Scr4 palette_single_fit::ComputeEndPoints(int set, Vec4 const& metric, int cb,
 
     return ComputeEndPoints(set, metric, lookups, cmask);
   }
-  break;
+
   case 3:
   {
     PaletteSingleLookup4 const* cl;

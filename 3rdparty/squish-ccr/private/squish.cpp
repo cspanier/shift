@@ -1793,6 +1793,11 @@ void DecompressNormalBtc7u(dtyp* rgba, void const* block, flags_t /*flags*/)
   DecompressNormalsBtc7u(rgba, mixedBlock);
 }
 
+void decompress(std::int8_t* rgba, void const* block, flags_t flags)
+{
+  decompress(reinterpret_cast<std::uint8_t*>(rgba), block, flags);
+}
+
 void decompress(std::uint8_t* rgba, void const* block, flags_t flags)
 {
   // DXT-type compression
@@ -1848,6 +1853,11 @@ void decompress(std::uint8_t* rgba, void const* block, flags_t flags)
            (squish_flag::compression_bc6))
   {
   }  // while this is possible (down-cast), should we support it?
+}
+
+void decompress(std::int16_t* rgba, void const* block, flags_t flags)
+{
+  decompress(reinterpret_cast<std::uint8_t*>(rgba), block, flags);
 }
 
 void decompress(std::uint16_t* rgba, void const* block, flags_t flags)

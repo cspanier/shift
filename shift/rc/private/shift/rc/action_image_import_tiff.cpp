@@ -17,125 +17,9 @@ namespace shift::rc
 {
 namespace fs = std::filesystem;
 
-/// Convert an image format name to image_format.
-/// @param format_name
-///   One of the pre-defined image format names, or any other string.
-/// @return
-///   The image format associated with the value of format_name, or
-///   resource_db::image_format::undefined if no association exists.
-resource_db::image_format to_format(const std::string& format_name)
-{
-  if (format_name == "r8_unorm")
-    return resource_db::image_format::r8_unorm;
-  else if (format_name == "r8_snorm")
-    return resource_db::image_format::r8_snorm;
-  else if (format_name == "r8_srgb")
-    return resource_db::image_format::r8_srgb;
-  else if (format_name == "r16_unorm")
-    return resource_db::image_format::r16_unorm;
-  else if (format_name == "r16_snorm")
-    return resource_db::image_format::r16_snorm;
-  else if (format_name == "r16_sfloat")
-    return resource_db::image_format::r16_sfloat;
-  else if (format_name == "r32_sfloat")
-    return resource_db::image_format::r32_sfloat;
-  else if (format_name == "r8g8_unorm")
-    return resource_db::image_format::r8g8_unorm;
-  else if (format_name == "r8g8_snorm")
-    return resource_db::image_format::r8g8_snorm;
-  else if (format_name == "r8g8_srgb")
-    return resource_db::image_format::r8g8_srgb;
-  else if (format_name == "r16g16_unorm")
-    return resource_db::image_format::r16g16_unorm;
-  else if (format_name == "r16g16_snorm")
-    return resource_db::image_format::r16g16_snorm;
-  else if (format_name == "r16g16_sfloat")
-    return resource_db::image_format::r16g16_sfloat;
-  else if (format_name == "r32g32_sfloat")
-    return resource_db::image_format::r32g32_sfloat;
-  else if (format_name == "r8g8b8_unorm")
-    return resource_db::image_format::r8g8b8_unorm;
-  else if (format_name == "r8g8b8_snorm")
-    return resource_db::image_format::r8g8b8_snorm;
-  else if (format_name == "r8g8b8_srgb")
-    return resource_db::image_format::r8g8b8_srgb;
-  else if (format_name == "r16g16b16_unorm")
-    return resource_db::image_format::r16g16b16_unorm;
-  else if (format_name == "r16g16b16_snorm")
-    return resource_db::image_format::r16g16b16_snorm;
-  else if (format_name == "r16g16b16_sfloat")
-    return resource_db::image_format::r16g16b16_sfloat;
-  else if (format_name == "r32g32b32_sfloat")
-    return resource_db::image_format::r32g32b32_sfloat;
-  else if (format_name == "b8g8r8_unorm")
-    return resource_db::image_format::b8g8r8_unorm;
-  else if (format_name == "b8g8r8_snorm")
-    return resource_db::image_format::b8g8r8_snorm;
-  else if (format_name == "b8g8r8_srgb")
-    return resource_db::image_format::b8g8r8_srgb;
-  else if (format_name == "r8g8b8a8_unorm")
-    return resource_db::image_format::r8g8b8a8_unorm;
-  else if (format_name == "r8g8b8a8_snorm")
-    return resource_db::image_format::r8g8b8a8_snorm;
-  else if (format_name == "r8g8b8a8_srgb")
-    return resource_db::image_format::r8g8b8a8_srgb;
-  else if (format_name == "r16g16b16a16_unorm")
-    return resource_db::image_format::r16g16b16a16_unorm;
-  else if (format_name == "r16g16b16a16_snorm")
-    return resource_db::image_format::r16g16b16a16_snorm;
-  else if (format_name == "r16g16b16a16_sfloat")
-    return resource_db::image_format::r16g16b16a16_sfloat;
-  else if (format_name == "r32g32b32a32_sfloat")
-    return resource_db::image_format::r32g32b32a32_sfloat;
-  else if (format_name == "b8g8r8a8_unorm")
-    return resource_db::image_format::b8g8r8a8_unorm;
-  else if (format_name == "b8g8r8a8_snorm")
-    return resource_db::image_format::b8g8r8a8_snorm;
-  else if (format_name == "b8g8r8a8_srgb")
-    return resource_db::image_format::b8g8r8a8_srgb;
-  else if (format_name == "a8b8g8r8_unorm")
-    return resource_db::image_format::a8b8g8r8_unorm;
-  else if (format_name == "a8b8g8r8_snorm")
-    return resource_db::image_format::a8b8g8r8_snorm;
-  else if (format_name == "bc1_rgb_unorm")
-    return resource_db::image_format::bc1_rgb_unorm_block;
-  else if (format_name == "bc1_rgb_srgb")
-    return resource_db::image_format::bc1_rgb_srgb_block;
-  else if (format_name == "bc1_rgba_unorm")
-    return resource_db::image_format::bc1_rgba_unorm_block;
-  else if (format_name == "bc1_rgba_srgb")
-    return resource_db::image_format::bc1_rgba_srgb_block;
-  else if (format_name == "bc2_unorm")
-    return resource_db::image_format::bc2_unorm_block;
-  else if (format_name == "bc2_srgb")
-    return resource_db::image_format::bc2_srgb_block;
-  else if (format_name == "bc3_unorm")
-    return resource_db::image_format::bc3_unorm_block;
-  else if (format_name == "bc3_srgb")
-    return resource_db::image_format::bc3_srgb_block;
-  else if (format_name == "bc4_unorm")
-    return resource_db::image_format::bc4_unorm_block;
-  else if (format_name == "bc4_snorm")
-    return resource_db::image_format::bc4_snorm_block;
-  else if (format_name == "bc5_unorm")
-    return resource_db::image_format::bc5_unorm_block;
-  else if (format_name == "bc5_snorm")
-    return resource_db::image_format::bc5_snorm_block;
-  else if (format_name == "bc6h_ufloat")
-    return resource_db::image_format::bc6h_ufloat_block;
-  else if (format_name == "bc6h_sfloat")
-    return resource_db::image_format::bc6h_sfloat_block;
-  else if (format_name == "bc7_unorm")
-    return resource_db::image_format::bc7_unorm_block;
-  else if (format_name == "bc7_srgb")
-    return resource_db::image_format::bc7_srgb_block;
-  else
-    return resource_db::image_format::undefined;
-}
-
 /// Returns the image_format corresponding to the format of the passed TIFF
 /// image.
-resource_db::image_format to_format(const image_util::tiff_image& image)
+resource_db::image_format to_image_format(const image_util::tiff_image& image)
 {
   switch (image.samples_format)
   {
@@ -274,7 +158,7 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
   if (!io.load(input.file->path, source_images, ignore_icc_profile) ||
       source_images.empty())
   {
-    log::error() << "Failed loading image.";
+    log::error() << "Failed loading image " << input.file->path << ".";
     return false;
   }
 
@@ -298,21 +182,24 @@ bool action_image_import_tiff::process(resource_compiler_impl& compiler,
     return false;
   }
 
-  auto target_format = to_format(
+  auto target_format = resource_db::to_image_format(
     parser::json::has(job.rule->options, "target-format")
       ? parser::json::get<std::string>(job.rule->options.at("target-format"))
       : "auto"s);
   if (target_format == resource_db::image_format::undefined)
-    target_format = to_format(source_images.front());
+    target_format = to_image_format(source_images.front());
 
   auto target_image = std::make_shared<resource_db::image>();
+  target_image->format = target_format;
+  target_image->array_element_count = 1;
+  target_image->face_count = 1;
   for (auto& source_image : source_images)
   {
     image_util::source_image_descriptor source;
     source.width = source_image.width;
     source.height = source_image.height;
     source.row_stride = 0;
-    source.format = to_format(source_image);
+    source.format = to_image_format(source_image);
     source.buffer_size = source_image.pixel_data.size();
     source.buffer = source_image.pixel_data.data();
 

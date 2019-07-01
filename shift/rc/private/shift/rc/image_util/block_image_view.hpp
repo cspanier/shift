@@ -5,6 +5,7 @@
 #include <squish.h>
 #include "shift/rc/image_util/pixel.hpp"
 // #include "shift/rc/image_util/pixel_vector.hpp"
+#include "shift/rc/image_util/convert.hpp"
 
 namespace shift::rc::image_util
 {
@@ -26,6 +27,7 @@ public:
                                    typename pixel_t::channels_t>,
     pixel_t::data_type,
     uncompressed_pixel_channels_t<typename pixel_t::channels_t>>;
+  static_assert(!uncompressed_pixel_t::is_block_format);
   using uncompressed_pixel_block_t =
     std::array<uncompressed_pixel_t, block_width * block_height>;
 
@@ -49,6 +51,55 @@ public:
                  ((_width + block_width - 1) / block_width) *
                    ((_height + block_height - 1) / block_height) *
                    pixel_t::size_in_bytes);
+
+    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_unorm> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_unorm> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb>)
+    {
+      _flags = squish::squish_flag::compression_bc1;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc2_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc2_srgb>)
+    {
+      _flags = squish::squish_flag::compression_bc2;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc3_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc3_srgb>)
+    {
+      _flags = squish::squish_flag::compression_bc3;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc4_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc4_snorm>)
+    {
+      _flags = squish::squish_flag::compression_bc4;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc5_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc5_snorm>)
+    {
+      _flags = squish::squish_flag::compression_bc5;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc6h_sfloat> ||
+                       std::is_same_v<pixel_t, pixel_bc6h_ufloat>)
+    {
+      _flags = squish::squish_flag::compression_bc6;
+    }
+    else if constexpr (std::is_same_v<pixel_t, pixel_bc7_unorm> ||
+                       std::is_same_v<pixel_t, pixel_bc7_srgb>)
+    {
+      _flags = squish::squish_flag::compression_bc7;
+    }
+    else
+      BOOST_ASSERT(false);
+
+    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc2_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc3_srgb> ||
+                  std::is_same_v<pixel_t, pixel_bc7_srgb>)
+    {
+      _flags |= squish::squish_flag::option_srgbness;
+    }
   }
 
   /// @returns
@@ -66,18 +117,51 @@ public:
            (block_y * blocks_per_row + block_x) * pixel_t::size_in_bytes;
   }
 
-  void read_pixel(std::uint32_t x, std::uint32_t y, pixel_t& pixel) const
+  /// Reads and uncompresses a block of pixel.
+  /// @param block_x
+  ///   The n-th block on the x-axis.
+  /// @param block_y
+  ///   The n-th block on the y-axis.
+  void read_pixel_block(std::uint32_t x, std::uint32_t y,
+                        uncompressed_pixel_block_t& pixels) const
   {
+    BOOST_ASSERT(x % block_width == 0);
+    BOOST_ASSERT(y % block_height == 0);
+
     pixel_block_t pixel_block;
     std::memcpy(pixel_block.data(), data(x / block_width, y / block_height),
                 pixel_t::size_in_bytes);
-
-    /// ToDo: ...
-    //    // Read each pixel channel separately.
-    //    core::for_each<typename pixel_t::channels_t>(
-    //      detail::read_pixel_channel<pixel_t>{}, data(x, y),
-    //      pixel);
+    squish::decompress(&pixels[0][0], pixel_block.data(), _flags);
   }
+
+  void read_pixel(std::uint32_t x, std::uint32_t y,
+                  uncompressed_pixel_t& pixel) const
+  {
+    // static pixel_converter<pixel_t, uncompressed_pixel_t> converter;
+
+    uncompressed_pixel_block_t block;
+    read_pixel_block(x / block_width * block_width,
+                     y / block_height * block_height, block);
+    pixel = block[y % block_height * block_width + x % block_width];
+    // converter(pixel, block[y % block_height * block_width + x %
+    // block_width]);
+  }
+
+  //  void read_pixel(std::uint32_t x, std::uint32_t y, pixel_t& pixel)
+  //  {
+  //    static pixel_converter<pixel_t, uncompressed_pixel_t> converter;
+
+  //    auto block_x = x / block_width;
+  //    auto block_y = y / block_height;
+  //    if (block_x != _read_cache_x || block_y != _read_cache_y)
+  //    {
+  //      read_pixel_block(block_x * block_width, block_y * block_height,
+  //                       _read_cache);
+  //      _read_cache_x = block_x;
+  //      _read_cache_y = block_y;
+  //    }
+  //    converter(pixel, _read_cache[x % block_width][y % block_height]);
+  //  }
 
   /// Writes a compressed pixel block.
   /// @param block_x
@@ -91,57 +175,9 @@ public:
     BOOST_ASSERT(x % block_width == 0);
     BOOST_ASSERT(y % block_height == 0);
 
-    squish::flags_t flags{};
-    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_unorm> ||
-                  std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
-                  std::is_same_v<pixel_t, pixel_bc1_rgba_unorm> ||
-                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb>)
-    {
-      flags = squish::squish_flag::compression_bc1;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc2_unorm> ||
-                       std::is_same_v<pixel_t, pixel_bc2_srgb>)
-    {
-      flags = squish::squish_flag::compression_bc2;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc3_unorm> ||
-                       std::is_same_v<pixel_t, pixel_bc3_srgb>)
-    {
-      flags = squish::squish_flag::compression_bc3;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc4_unorm> ||
-                       std::is_same_v<pixel_t, pixel_bc4_snorm>)
-    {
-      flags = squish::squish_flag::compression_bc4;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc5_unorm> ||
-                       std::is_same_v<pixel_t, pixel_bc5_snorm>)
-    {
-      flags = squish::squish_flag::compression_bc5;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc6h_sfloat> ||
-                       std::is_same_v<pixel_t, pixel_bc6h_ufloat>)
-    {
-      flags = squish::squish_flag::compression_bc6;
-    }
-    else if constexpr (std::is_same_v<pixel_t, pixel_bc7_unorm> ||
-                       std::is_same_v<pixel_t, pixel_bc7_srgb>)
-    {
-      flags = squish::squish_flag::compression_bc7;
-    }
-
-    if constexpr (std::is_same_v<pixel_t, pixel_bc1_rgb_srgb> ||
-                  std::is_same_v<pixel_t, pixel_bc1_rgba_srgb> ||
-                  std::is_same_v<pixel_t, pixel_bc2_srgb> ||
-                  std::is_same_v<pixel_t, pixel_bc3_srgb> ||
-                  std::is_same_v<pixel_t, pixel_bc7_srgb>)
-    {
-      flags |= squish::squish_flag::option_srgbness;
-    }
-
     pixel_block_t pixel_block;
     squish::compress_masked(&pixels[0][0], pixel_mask, pixel_block.data(),
-                            flags);
+                            _flags);
     std::memcpy(data(x / block_width, y / block_height), pixel_block.data(),
                 pixel_t::size_in_bytes);
   }
@@ -150,6 +186,10 @@ private:
   storage_t* _buffer;
   std::uint32_t _width;
   std::uint32_t _height;
+  squish::flags_t _flags{};
+  std::uint32_t _read_cache_x = std::numeric_limits<std::uint32_t>::max();
+  std::uint32_t _read_cache_y = std::numeric_limits<std::uint32_t>::max();
+  uncompressed_pixel_block_t _read_cache;
 };
 }
 

@@ -185,6 +185,8 @@ std::error_code convert_image(
     source_view_t source_view(source_image.buffer, source_image.buffer_size,
                               source_image.width, source_image.height,
                               source_image.row_stride);
+    static_assert(
+      !(DestinationPixel::is_block_format && SourcePixel::is_block_format));
     if constexpr (DestinationPixel::is_block_format)
     {
       using destination_view_t = block_image_view<DestinationPixel>;
@@ -241,6 +243,33 @@ std::error_code convert_image(
         }
       }
     }
+    else if constexpr (SourcePixel::is_block_format)
+    {
+      using destination_view_t = linear_image_view<DestinationPixel>;
+      destination_view_t destination_view(
+        destination_image.buffer, destination_image.buffer_size,
+        destination_image.width, destination_image.height,
+        destination_image.row_stride);
+      pixel_converter<DestinationPixel,
+                      typename source_view_t::uncompressed_pixel_t>
+        converter;
+
+      for (std::uint32_t y = 0; y < region.height; ++y)
+      {
+        for (std::uint32_t x = 0; x < region.width; ++x)
+        {
+          typename source_view_t::uncompressed_pixel_t source_pixel;
+          typename destination_view_t::pixel_t destination_pixel;
+
+          source_view.read_pixel(region.source_x + x, region.source_y + y,
+                                 source_pixel);
+          converter(destination_pixel, source_pixel);
+          destination_view.write_pixel(region.destination_x + x,
+                                       region.destination_y + y,
+                                       destination_pixel);
+        }
+      }
+    }
     else
     {
       using destination_view_t = linear_image_view<DestinationPixel>;
@@ -284,8 +313,17 @@ struct convert_image_dispatcher_2
   {
     if (Format == source_image.format)
     {
-      result = convert_image<DestinationPixel, SourcePixel>(
-        destination_image, source_image, region);
+      // We don't support direct conversion from one block format to another.
+      if constexpr (!DestinationPixel::is_block_format ||
+                    !SourcePixel::is_block_format)
+      {
+        result = convert_image<DestinationPixel, SourcePixel>(
+          destination_image, source_image, region);
+      }
+      else
+      {
+        /// ToDo: Report error code.
+      }
     }
   }
 };

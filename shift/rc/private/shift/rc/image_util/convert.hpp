@@ -407,7 +407,7 @@ public:
   using source_pixel_t = SourcePixel;
 
   void operator()(destination_pixel_t& destination,
-                  const source_pixel_t& source)
+                  const source_pixel_t& source) const
   {
     if constexpr (std::is_same_v<destination_pixel_t, source_pixel_t>)
       std::memcpy(&destination, &source, destination_pixel_t::size_in_bytes);

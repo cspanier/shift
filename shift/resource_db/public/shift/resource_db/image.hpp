@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <array>
 #include <vector>
+#include <string>
 #include "shift/resource_db/types.hpp"
 #include "shift/resource_db/resource_ptr.hpp"
 #include "shift/resource_db/buffer.hpp"
@@ -116,6 +117,14 @@ enum class image_format : std::uint8_t
   bc7_unorm_block,
   bc7_srgb_block
 };
+
+/// Convert an image format name to image_format.
+/// @param format_name
+///   One of the pre-defined image format names, or any other string.
+/// @return
+///   The image format associated with the value of format_name, or
+///   image_format::undefined if no association exists.
+image_format to_image_format(const std::string& format_name);
 
 inline constexpr bool is_block_compressed(image_format format)
 {
