@@ -26,7 +26,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 
   # Find symbol tools
   set(BREAKPAD_DUMP_SYMS_PATH "/usr/bin/dump_syms")
-  if(NOT EXISTS ${BREAKPAD_DUMP_SYMS_PATH})
+  if(NOT EXISTS ${BREAKPAD_DUMP_SYMS_PATH} AND Breakpad_REQUIRED)
     message(FATAL_ERROR
       "Cannot find Breakpad tool dump_path in \"${BREAKPAD_DUMP_SYMS_PATH}\".")
   endif()

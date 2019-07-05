@@ -1,11 +1,8 @@
 #ifndef SHIFT_PLATFORM_CRASHHANDLER_HPP
 #define SHIFT_PLATFORM_CRASHHANDLER_HPP
 
-#include <cstdint>
 #include <memory>
-#include <list>
 #include <filesystem>
-#include <shift/core/bit_field.hpp>
 #include <shift/core/singleton.hpp>
 
 namespace shift::platform

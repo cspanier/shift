@@ -1,10 +1,12 @@
 #include "shift/platform/crash_guard.hpp"
-#include <filesystem>
+#if __has_include(<client/linux/handler/exception_handler.h>)
 #include <iostream>
 #include <client/linux/handler/exception_handler.h>
+#endif
 
 namespace shift::platform
 {
+#if __has_include(<client/linux/handler/exception_handler.h>)
 /// The Linux specific GrashGuard implementation.
 class crash_guard::impl
 {
@@ -60,6 +62,15 @@ crash_guard::crash_guard(std::filesystem::path dump_path)
 
   _impl = std::make_unique<impl>(dump_path.generic_string());
 }
+#else
+class crash_guard::impl
+{
+};
+
+crash_guard::crash_guard(std::filesystem::path /*dump_path*/)
+{
+}
+#endif
 
 crash_guard::~crash_guard() = default;
 }

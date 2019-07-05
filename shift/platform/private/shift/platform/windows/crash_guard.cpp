@@ -1,12 +1,14 @@
 #define BOOST_USE_WINDOWS_H
 #include "shift/platform/crash_guard.hpp"
+#if __has_include(<client/windows/handler/exception_handler.h>)
 #include "shift/platform/environment.hpp"
-#include <filesystem>
 #include <string>
 #include <client/windows/handler/exception_handler.h>
+#endif
 
 namespace shift::platform
 {
+#if __has_include(<client/windows/handler/exception_handler.h>)
 /// The Windows specific crash_guard implementation.
 class crash_guard::impl
 {
@@ -116,6 +118,15 @@ crash_guard::crash_guard(std::filesystem::path dump_path)
 
   _impl = std::make_unique<impl>(dump_path.generic_wstring());
 }
+#else
+class crash_guard::impl
+{
+};
+
+crash_guard::crash_guard(std::filesystem::path /*dump_path*/)
+{
+}
+#endif
 
 crash_guard::~crash_guard() = default;
 }
