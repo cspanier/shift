@@ -10,40 +10,6 @@
 
 namespace shift::platform
 {
-struct memory_region
-{
-  std::uint64_t address;
-  std::uint32_t length;
-
-  bool operator==(const struct memory_region& other) const
-  {
-    return address == other.address;
-  }
-
-  bool operator==(const void* other) const
-  {
-    return address == reinterpret_cast<std::uint64_t>(other);
-  }
-};
-using memory_region_list = std::list<memory_region>;
-
-struct minidump
-{
-  struct stream
-  {
-    enum class Type : std::uint32_t
-    {
-      metadata = 0xc0ffee01
-    };
-  };
-};
-
-struct MetaInformation
-{
-  std::uint32_t requesting_thread_id = 0;
-  std::uint32_t dump_thread_id = 0;
-};
-
 /// The crash guard registers a global system exception handler which attempts
 /// to gather as much information as possible in an event of a fatal crash.
 class crash_guard : public core::singleton<crash_guard, core::create::on_stack>
