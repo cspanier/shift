@@ -1,14 +1,10 @@
 #ifndef SHIFT_LIVEDEBUG_LAUNCHER_HPP
 #define SHIFT_LIVEDEBUG_LAUNCHER_HPP
 
-#include <chrono>
-#include <thread>
-#include <filesystem>
+#include <cstdint>
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/program_options.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
-#include <shift/platform/signal_handler.hpp>
-#include <shift/core/exception.hpp>
 #include "shift/livedebug/debug_server.hpp"
 
 namespace shift::livedebug
@@ -21,6 +17,18 @@ public:
 
   launcher(int argc, char* argv[]) : base_t(argc, argv)
   {
+    namespace opt = boost::program_options;
+
+    base_t::_hidden_options.add_options()(
+      "livedebug-address",
+      opt::value(&_bind_address)->default_value("127.0.0.1"),
+      "The IP address the HTTP server shall bind to.");
+    base_t::_hidden_options.add_options()(
+      "livedebug-port", opt::value(&_port)->default_value(8080),
+      "The TCP port the HTTP server shall use.");
+    base_t::_hidden_options.add_options()(
+      "livedebug-threads", opt::value(&_thread_count)->default_value(4),
+      "The number of worker threads for the HTTP server.");
   }
 
   ~launcher() override = default;
@@ -30,12 +38,9 @@ protected:
   {
     base_t::start();
 
-    const auto address = boost::asio::ip::make_address("127.0.0.1");
-    const std::uint16_t port = 8080;
-    const auto threads = 1;
-
-    auto& server = debug_server::singleton_create(threads);
-    server.listen(boost::asio::ip::tcp::endpoint{address, port});
+    auto& server = debug_server::singleton_create(_thread_count);
+    server.listen(boost::asio::ip::tcp::endpoint{
+      boost::asio::ip::address::from_string(_bind_address), _port});
     server.start();
   }
 
@@ -49,6 +54,11 @@ protected:
 
     base_t::stop();
   }
+
+private:
+  std::string _bind_address;
+  std::uint16_t _port;
+  std::uint16_t _thread_count;
 };
 }
 

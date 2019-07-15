@@ -1,8 +1,10 @@
-#include "shift/livedebug/request_handler.hpp"
+#include "shift/livedebug/file_request_handler.hpp"
 #include <shift/core/boost_disable_warnings.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/algorithm/string.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
+
+#include <iostream>
 
 namespace shift::livedebug
 {
@@ -64,19 +66,24 @@ std::string_view mime_type(std::string_view path)
   return "application/text";
 }
 
-file_request_handler::file_request_handler(std::filesystem::path&& path)
-: _path(std::move(path))
+file_request_handler::file_request_handler(std::filesystem::path&& root_path)
+: _root_path(std::move(root_path))
 {
 }
 
 bool file_request_handler::operator()(
   const boost::beast::http::request<boost::beast::http::string_body>& request,
-  livedebug::session& session)
+  const uri_t& uri, livedebug::session& session)
 {
+  if (uri.path.empty())
+    return false;
+
   // Build the path to the requested file
-  auto path = _path / request.target().to_string();
+  auto path = _root_path / uri.path.substr(1);
+  std::cout << path.generic_string() << std::endl;
   if (!path.has_filename())
     path /= "index.html";
+  std::cout << path.generic_string() << std::endl;
 
   // Attempt to open the file
   boost::beast::error_code error;
@@ -86,9 +93,7 @@ bool file_request_handler::operator()(
   // Handle the case where the file doesn't exist.
   if (error == boost::system::errc::no_such_file_or_directory)
   {
-    session.send(livedebug::session::not_found(
-      request.target(), request.version(), request.keep_alive()));
-    return true;
+    return false;
   }
 
   // Handle an unknown error.

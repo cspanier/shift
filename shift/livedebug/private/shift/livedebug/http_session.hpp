@@ -23,7 +23,7 @@ class http_session : public session,
 public:
   /// Takes ownership of the socket
   explicit http_session(debug_server& server,
-                        boost::asio::ip::tcp::socket socket);
+                        boost::asio::ip::tcp::socket&& socket);
 
   /// Starts the asynchronous operation
   void run();
@@ -37,8 +37,8 @@ public:
   /// @param message
   ///   Stores a type-erased version of the message's shared pointer to keep it
   ///   alive.
-  void on_write(boost::system::error_code error, std::size_t bytes_transferred,
-                std::shared_ptr<void> message, bool close);
+  void on_write(bool close, std::shared_ptr<void> message,
+                boost::system::error_code error, std::size_t bytes_transferred);
 
   ///
   void do_close();
@@ -57,14 +57,15 @@ public:
 
 private:
   ///
-  template <class Body, class Allocator>
-  void do_send(std::shared_ptr<boost::beast::http::response<
-                 Body, boost::beast::http::basic_fields<Allocator>>>&& message);
+  template <bool IsRequest, class Body, class Fields>
+  void do_send(
+    std::shared_ptr<boost::beast::http::message<IsRequest, Body, Fields>>&&
+      message);
 
-  boost::asio::ip::tcp::socket _socket;
-  boost::asio::strand<boost::asio::io_context::executor_type> _strand;
+  boost::beast::tcp_stream _stream;
   boost::beast::flat_buffer _buffer;
   boost::beast::http::request<boost::beast::http::string_body> _request;
+  std::shared_ptr<void> _response;
 };
 }
 
