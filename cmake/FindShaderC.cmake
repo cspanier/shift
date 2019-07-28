@@ -54,55 +54,55 @@ endif()
 
 ################################################################################
 
-if(NOT SHADERC_UTIL_LIBRARY)
-  find_path(SHADERC_UTIL_INCLUDE_DIR "shaderc/shaderc.hpp")
-  find_library(SHADERC_UTIL_LIBRARY_DEBUG
+if(NOT SHADERC_COMBINED_LIBRARY)
+  find_path(SHADERC_COMBINED_INCLUDE_DIR "shaderc/shaderc.hpp")
+  find_library(SHADERC_COMBINED_LIBRARY_DEBUG
     NAMES
-      shaderc_utild  # Windows
-      shaderc_util  # Arch Linux
+      shaderc_combinedd  # Windows
+      shaderc_combined  # Arch Linux
     PATH_SUFFIXES
       lib
   )
-  find_library(SHADERC_UTIL_LIBRARY_RELEASE
+  find_library(SHADERC_COMBINED_LIBRARY_RELEASE
     NAMES
-      shaderc_util  # Arch Linux and Windows
+      shaderc_combined  # Arch Linux and Windows
     PATH_SUFFIXES
       lib
   )
-  set(SHADERC_UTIL_LIBRARY
-    debug ${SHADERC_UTIL_LIBRARY_DEBUG}
-    optimized ${SHADERC_UTIL_LIBRARY_RELEASE}
+  set(SHADERC_COMBINED_LIBRARY
+    debug ${SHADERC_COMBINED_LIBRARY_DEBUG}
+    optimized ${SHADERC_COMBINED_LIBRARY_RELEASE}
   )
 endif()
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(SHADERC_UTIL REQUIRED_VARS
-  SHADERC_UTIL_LIBRARY SHADERC_UTIL_INCLUDE_DIR)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(SHADERC_COMBINED REQUIRED_VARS
+  SHADERC_COMBINED_LIBRARY SHADERC_COMBINED_INCLUDE_DIR)
 
-mark_as_advanced(SHADERC_UTIL_INCLUDE_DIRS)
-mark_as_advanced(SHADERC_UTIL_LIBRARIES)
+mark_as_advanced(SHADERC_COMBINED_INCLUDE_DIRS)
+mark_as_advanced(SHADERC_COMBINED_LIBRARIES)
 
-if(SHADERC_UTIL_FOUND)
-  set(SHADERC_UTIL_INCLUDE_DIRS ${SHADERC_UTIL_INCLUDE_DIR})
-  set(SHADERC_UTIL_LIBRARIES ${SHADERC_UTIL_LIBRARY})
+if(SHADERC_COMBINED_FOUND)
+  set(SHADERC_COMBINED_INCLUDE_DIRS ${SHADERC_COMBINED_INCLUDE_DIR})
+  set(SHADERC_COMBINED_LIBRARIES ${SHADERC_COMBINED_LIBRARY})
 
-  if(NOT TARGET ShaderC::util)
-    add_library(ShaderC::util UNKNOWN IMPORTED)
-    set_target_properties(ShaderC::util PROPERTIES
-      INTERFACE_INCLUDE_DIRECTORIES "${SHADERC_UTIL_INCLUDE_DIRS}")
+  if(NOT TARGET ShaderC::combined)
+    add_library(ShaderC::combined UNKNOWN IMPORTED)
+    set_target_properties(ShaderC::combined PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${SHADERC_COMBINED_INCLUDE_DIRS}")
 
-    set_property(TARGET ShaderC::util APPEND PROPERTY
+    set_property(TARGET ShaderC::combined APPEND PROPERTY
       IMPORTED_CONFIGURATIONS RELEASE)
-    set_property(TARGET ShaderC::util APPEND PROPERTY
+    set_property(TARGET ShaderC::combined APPEND PROPERTY
       IMPORTED_CONFIGURATIONS DEBUG)
 
-    if(SHADERC_UTIL_LIBRARY_DEBUG AND SHADERC_UTIL_LIBRARY_RELEASE)
-      set_target_properties(ShaderC::util PROPERTIES
-        IMPORTED_LOCATION_DEBUG "${SHADERC_UTIL_LIBRARY_DEBUG}"
-        IMPORTED_LOCATION_RELEASE "${SHADERC_UTIL_LIBRARY_RELEASE}"
+    if(SHADERC_COMBINED_LIBRARY_DEBUG AND SHADERC_COMBINED_LIBRARY_RELEASE)
+      set_target_properties(ShaderC::combined PROPERTIES
+        IMPORTED_LOCATION_DEBUG "${SHADERC_COMBINED_LIBRARY_DEBUG}"
+        IMPORTED_LOCATION_RELEASE "${SHADERC_COMBINED_LIBRARY_RELEASE}"
       )
     else()
-      set_target_properties(ShaderC::util PROPERTIES
-        IMPORTED_LOCATION "${SHADERC_UTIL_LIBRARY_RELEASE}"
+      set_target_properties(ShaderC::combined PROPERTIES
+        IMPORTED_LOCATION "${SHADERC_COMBINED_LIBRARY_RELEASE}"
       )
     endif()
   endif()

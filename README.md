@@ -44,7 +44,7 @@ The following external libraries are required:
 * [GSL](https://github.com/Microsoft/GSL)
 * [Boost](https://www.boost.org/) 1.70
 * [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross) tested with revision cc7679e
-* [ShaderC](https://github.com/google/shaderc) tested with revision 30af9f9
+* [ShaderC](https://github.com/google/shaderc) tested with revision v2019.0
     * [SPIRV-Tools](https://github.com/KhronosGroup/SPIRV-Tools)
     * [glslang](https://github.com/KhronosGroup/glslang)
 * [Vulkan SDK](https://vulkan.lunarg.com/) 1.1.82.0

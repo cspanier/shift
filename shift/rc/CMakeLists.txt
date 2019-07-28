@@ -17,8 +17,7 @@ if (NOT NO_VULKAN)
       shift.core
       shift.platform
       Boost::boost
-      ShaderC::core
-      ShaderC::util
+      ShaderC::combined
       Glslang::hlsl
       Glslang::ogl
       Glslang::core
