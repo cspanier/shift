@@ -198,7 +198,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     # Enable Valgrind support for Boost Context and Boost Coroutine (version 1).
     # This is required to identify stack regions as such, so they are correctly
     # handled by Valgrind.
-    "BOOST_USE_VALGRIND=1"
+    # This causes a crash in Boost since 1.69.
+    # See https://github.com/boostorg/asio/issues/262
+    # "BOOST_USE_VALGRIND=1"
 
     # Enable custom assert handlers defined in shift/platform/private/assert.cpp
     "BOOST_ENABLE_ASSERT_DEBUG_HANDLER"
