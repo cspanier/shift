@@ -77,7 +77,7 @@ namescope my_ns
 ```
 field-value := "nullptr" | template-identifier | enumerant-reference | uint-constant | sint-constant
 field := meta, "const"?, type-path, identifier, ('=', field-value)?
-structure := meta, "struct", identifier, template-parameters?, (':', type-path)?,
+structure := meta, "struct", identifier, template-parameter-list?, (':', type-path)?,
              '{', *(field, ';'), '}'
 ```
 
@@ -107,7 +107,7 @@ struct rectangle : shape
 enumerant-reference := type-path, '.', identifier;
 enumerant-value := ('=', template-identifier | enumerant-reference | uint-constant | sint-constant)?
 enumerant := meta, identifier, enumerant-value
-enumeration := meta, "enum", identifier, template-parameters?, ':', type-path,
+enumeration := meta, "enum", identifier, template-parameter-list?, ':', type-path,
                '{', (enumerant % ',')?, '}'
 ```
 
@@ -129,7 +129,7 @@ enum direction : var_uint_t
 ### Syntax
 
 ```
-alias := meta, "using", identifier, template-parameters?, '=', type-path, ';'
+alias := meta, "using", identifier, template-parameter-list?, '=', type-path, ';'
 ```
 
 ## 7. Constants
@@ -168,7 +168,7 @@ attributes := '[', -(attribute % ','), ']';
 template-parameter :=
   ("typename", "..." | ' ', template-identifier, ('=', type-path | uint-constant | sint-constant)?) |
   (type-path, "..." | ' ', template-identifier, ('=', type-path | uint-constant | sint-constant)?)
-template-parameters := '<', template-parameter % ',', '>'
+template-parameter-list := '<', (template-parameter % ','), '>'
 ```
 
 ## 11. Meta Information
