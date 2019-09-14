@@ -42,7 +42,7 @@ The following external libraries are required:
 * [libpng](http://www.libpng.org/pub/png/libpng.html) 1.6.35
 * [libjpeg](https://www.ijg.org/) 9c
 * [GSL](https://github.com/Microsoft/GSL)
-* [Boost](https://www.boost.org/) 1.70
+* [Boost](https://www.boost.org/) 1.71
 * [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross) tested with revision cc7679e
 * [ShaderC](https://github.com/google/shaderc) tested with revision v2019.0
     * [SPIRV-Tools](https://github.com/KhronosGroup/SPIRV-Tools)

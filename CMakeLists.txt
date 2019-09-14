@@ -124,7 +124,7 @@ debug_var(CMAKE_INSTALL_PREFIX)
 
 ################################################################################
 # Boost
-set(Boost_VERSION "1.70")
+set(Boost_VERSION "1.71")
 if(NOT BOOST_ROOT)
   # Boost passes NO_MODULE to find_package which makes it ignore
   # CMAKE_FIND_ROOT_PATH.

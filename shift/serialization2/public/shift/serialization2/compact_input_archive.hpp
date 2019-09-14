@@ -2,7 +2,7 @@
 #define SHIFT_SERIALIZATION2_COMPACT_INPUT_ARCHIVE_HPP
 
 #include <shift/core/boost_disable_warnings.hpp>
-#include <boost/endian/arithmetic.hpp>
+#include <boost/endian/conversion.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <shift/core/boost_restore_warnings.hpp>
 #include "shift/serialization2/compressed.hpp"
