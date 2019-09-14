@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_pipeline_executable_properties_features_khr</Title>
+      <Shortcut>VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_executable_info</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR::pipelineExecutableInfo.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_pipeline_executable_properties_features_khr(
+  /* next */ $next$,
+  /* pipeline_executable_info */ $pipeline_executable_info$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

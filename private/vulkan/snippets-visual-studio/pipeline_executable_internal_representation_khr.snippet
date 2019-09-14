@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_executable_internal_representation_khr</Title>
+      <Shortcut>VkPipelineExecutableInternalRepresentationKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineExecutableInternalRepresentationKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::name.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>description</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::description.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>is_text</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::isText.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>data_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::dataSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>data</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableInternalRepresentationKHR::pData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_executable_internal_representation_khr(
+  /* next */ $next$,
+  /* name */ $name$,
+  /* description */ $description$,
+  /* is_text */ $is_text$,
+  /* data_size */ $data_size$,
+  /* data */ $data$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cooperative_matrix_properties_nv</Title>
+      <Shortcut>VkCooperativeMatrixPropertiesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkCooperativeMatrixPropertiesNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>msize</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::MSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>nsize</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::NSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>ksize</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::KSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>atype</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::AType.</ToolTip>
+          <Default>vk::component_type_nv::component_type_float16_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>btype</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::BType.</ToolTip>
+          <Default>vk::component_type_nv::component_type_float16_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>ctype</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::CType.</ToolTip>
+          <Default>vk::component_type_nv::component_type_float16_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>dtype</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::DType.</ToolTip>
+          <Default>vk::component_type_nv::component_type_float16_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>scope</ID>
+          <ToolTip>Equivalent to Vulkan member VkCooperativeMatrixPropertiesNV::scope.</ToolTip>
+          <Default>vk::scope_nv::scope_device_nv</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::cooperative_matrix_properties_nv(
+  /* next */ $next$,
+  /* msize */ $msize$,
+  /* nsize */ $nsize$,
+  /* ksize */ $ksize$,
+  /* atype */ $atype$,
+  /* btype */ $btype$,
+  /* ctype */ $ctype$,
+  /* dtype */ $dtype$,
+  /* scope */ $scope$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

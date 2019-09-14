@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>framebuffer_attachments_create_info_khr</Title>
+      <Shortcut>VkFramebufferAttachmentsCreateInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkFramebufferAttachmentsCreateInfoKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentsCreateInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_image_info_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentsCreateInfoKHR::attachmentImageInfoCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>attachment_image_infos</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentsCreateInfoKHR::pAttachmentImageInfos.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::framebuffer_attachments_create_info_khr(
+  /* next */ $next$,
+  /* attachment_image_info_count */ $attachment_image_info_count$,
+  /* attachment_image_infos */ $attachment_image_infos$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

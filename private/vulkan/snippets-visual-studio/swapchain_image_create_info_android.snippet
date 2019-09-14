@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>swapchain_image_create_info_android</Title>
+      <Shortcut>VkSwapchainImageCreateInfoANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkSwapchainImageCreateInfoANDROID</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSwapchainImageCreateInfoANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkSwapchainImageCreateInfoANDROID::usage.</ToolTip>
+          <Default>vk::swapchain_image_usage_flag_android::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::swapchain_image_create_info_android(
+  /* next */ $next$,
+  /* usage */ $usage$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

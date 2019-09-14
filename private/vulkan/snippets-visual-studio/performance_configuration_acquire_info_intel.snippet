@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>performance_configuration_acquire_info_intel</Title>
+      <Shortcut>VkPerformanceConfigurationAcquireInfoINTEL</Shortcut>
+      <Description>Code snippet for Vulkan type VkPerformanceConfigurationAcquireInfoINTEL</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceConfigurationAcquireInfoINTEL::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceConfigurationAcquireInfoINTEL::type.</ToolTip>
+          <Default>vk::performance_configuration_type_intel::performance_configuration_type_command_queue_metrics_discovery_activated_intel</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::performance_configuration_acquire_info_intel(
+  /* next */ $next$,
+  /* type */ $type$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

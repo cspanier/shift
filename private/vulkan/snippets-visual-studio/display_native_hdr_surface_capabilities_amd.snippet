@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>display_native_hdr_surface_capabilities_amd</Title>
+      <Shortcut>VkDisplayNativeHdrSurfaceCapabilitiesAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkDisplayNativeHdrSurfaceCapabilitiesAMD</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayNativeHdrSurfaceCapabilitiesAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>local_dimming_support</ID>
+          <ToolTip>Equivalent to Vulkan member VkDisplayNativeHdrSurfaceCapabilitiesAMD::localDimmingSupport.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::display_native_hdr_surface_capabilities_amd(
+  /* next */ $next$,
+  /* local_dimming_support */ $local_dimming_support$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

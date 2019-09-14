@@ -11,27 +11,7 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>next</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloat16Int8FeaturesKHR::pNext.</ToolTip>
-          <Default>nullptr</Default>
-        </Literal>
-        <Literal>
-          <ID>shader_float16</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloat16Int8FeaturesKHR::shaderFloat16.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-        <Literal>
-          <ID>shader_int8</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloat16Int8FeaturesKHR::shaderInt8.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-      </Declarations>
-      <Code Language="cpp"><![CDATA[vk::physical_device_float16_int8_features_khr(
-  /* next */ $next$,
-  /* shader_float16 */ $shader_float16$,
-  /* shader_int8 */ $shader_int8$)$end$]]>
+      <Code Language="cpp"><![CDATA[vk::physical_device_float16_int8_features_khr()$end$]]>
       </Code>
     </Snippet>
   </CodeSnippet>

@@ -11,27 +11,7 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>next</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::pNext.</ToolTip>
-          <Default>nullptr</Default>
-        </Literal>
-        <Literal>
-          <ID>variable_pointers_storage_buffer</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::variablePointersStorageBuffer.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-        <Literal>
-          <ID>variable_pointers</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceVariablePointerFeatures::variablePointers.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-      </Declarations>
-      <Code Language="cpp"><![CDATA[vk::physical_device_variable_pointer_features(
-  /* next */ $next$,
-  /* variable_pointers_storage_buffer */ $variable_pointers_storage_buffer$,
-  /* variable_pointers */ $variable_pointers$)$end$]]>
+      <Code Language="cpp"><![CDATA[vk::physical_device_variable_pointer_features()$end$]]>
       </Code>
     </Snippet>
   </CodeSnippet>

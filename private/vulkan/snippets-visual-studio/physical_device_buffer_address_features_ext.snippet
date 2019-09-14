@@ -11,33 +11,7 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>next</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBufferAddressFeaturesEXT::pNext.</ToolTip>
-          <Default>nullptr</Default>
-        </Literal>
-        <Literal>
-          <ID>buffer_device_address</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBufferAddressFeaturesEXT::bufferDeviceAddress.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-        <Literal>
-          <ID>buffer_device_address_capture_replay</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBufferAddressFeaturesEXT::bufferDeviceAddressCaptureReplay.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-        <Literal>
-          <ID>buffer_device_address_multi_device</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceBufferAddressFeaturesEXT::bufferDeviceAddressMultiDevice.</ToolTip>
-          <Default>VK_FALSE</Default>
-        </Literal>
-      </Declarations>
-      <Code Language="cpp"><![CDATA[vk::physical_device_buffer_address_features_ext(
-  /* next */ $next$,
-  /* buffer_device_address */ $buffer_device_address$,
-  /* buffer_device_address_capture_replay */ $buffer_device_address_capture_replay$,
-  /* buffer_device_address_multi_device */ $buffer_device_address_multi_device$)$end$]]>
+      <Code Language="cpp"><![CDATA[vk::physical_device_buffer_address_features_ext()$end$]]>
       </Code>
     </Snippet>
   </CodeSnippet>

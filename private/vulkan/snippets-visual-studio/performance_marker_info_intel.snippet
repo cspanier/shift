@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>performance_marker_info_intel</Title>
+      <Shortcut>VkPerformanceMarkerInfoINTEL</Shortcut>
+      <Description>Code snippet for Vulkan type VkPerformanceMarkerInfoINTEL</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceMarkerInfoINTEL::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>marker</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceMarkerInfoINTEL::marker.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::performance_marker_info_intel(
+  /* next */ $next$,
+  /* marker */ $marker$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

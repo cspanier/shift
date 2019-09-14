@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_executable_properties_khr</Title>
+      <Shortcut>VkPipelineExecutablePropertiesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineExecutablePropertiesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutablePropertiesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>stages</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutablePropertiesKHR::stages.</ToolTip>
+          <Default>vk::shader_stage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutablePropertiesKHR::name.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>description</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutablePropertiesKHR::description.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>subgroup_size</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutablePropertiesKHR::subgroupSize.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_executable_properties_khr(
+  /* next */ $next$,
+  /* stages */ $stages$,
+  /* name */ $name$,
+  /* description */ $description$,
+  /* subgroup_size */ $subgroup_size$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

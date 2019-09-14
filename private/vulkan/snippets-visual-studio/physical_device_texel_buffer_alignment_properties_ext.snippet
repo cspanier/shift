@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_texel_buffer_alignment_properties_ext</Title>
+      <Shortcut>VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>storage_texel_buffer_offset_alignment_bytes</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT::storageTexelBufferOffsetAlignmentBytes.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>storage_texel_buffer_offset_single_texel_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT::storageTexelBufferOffsetSingleTexelAlignment.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>uniform_texel_buffer_offset_alignment_bytes</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT::uniformTexelBufferOffsetAlignmentBytes.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>uniform_texel_buffer_offset_single_texel_alignment</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT::uniformTexelBufferOffsetSingleTexelAlignment.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_texel_buffer_alignment_properties_ext(
+  /* next */ $next$,
+  /* storage_texel_buffer_offset_alignment_bytes */ $storage_texel_buffer_offset_alignment_bytes$,
+  /* storage_texel_buffer_offset_single_texel_alignment */ $storage_texel_buffer_offset_single_texel_alignment$,
+  /* uniform_texel_buffer_offset_alignment_bytes */ $uniform_texel_buffer_offset_alignment_bytes$,
+  /* uniform_texel_buffer_offset_single_texel_alignment */ $uniform_texel_buffer_offset_single_texel_alignment$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

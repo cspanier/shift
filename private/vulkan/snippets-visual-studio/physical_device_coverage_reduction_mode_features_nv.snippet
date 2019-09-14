@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_coverage_reduction_mode_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceCoverageReductionModeFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceCoverageReductionModeFeaturesNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCoverageReductionModeFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_reduction_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCoverageReductionModeFeaturesNV::coverageReductionMode.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_coverage_reduction_mode_features_nv(
+  /* next */ $next$,
+  /* coverage_reduction_mode */ $coverage_reduction_mode$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

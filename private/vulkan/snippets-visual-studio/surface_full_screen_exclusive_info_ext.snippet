@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>surface_full_screen_exclusive_info_ext</Title>
+      <Shortcut>VkSurfaceFullScreenExclusiveInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkSurfaceFullScreenExclusiveInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceFullScreenExclusiveInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>full_screen_exclusive</ID>
+          <ToolTip>Equivalent to Vulkan member VkSurfaceFullScreenExclusiveInfoEXT::fullScreenExclusive.</ToolTip>
+          <Default>vk::full_screen_exclusive_ext::full_screen_exclusive_default_ext</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::surface_full_screen_exclusive_info_ext(
+  /* next */ $next$,
+  /* full_screen_exclusive */ $full_screen_exclusive$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

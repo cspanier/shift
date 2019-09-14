@@ -18,14 +18,14 @@
           <Default>nullptr</Default>
         </Literal>
         <Literal>
-          <ID>separate_denorm_settings</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::separateDenormSettings.</ToolTip>
-          <Default>VK_FALSE</Default>
+          <ID>denorm_behavior_independence</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::denormBehaviorIndependence.</ToolTip>
+          <Default>vk::shader_float_controls_independence_khr::shader_float_controls_independence_32_bit_only_khr</Default>
         </Literal>
         <Literal>
-          <ID>separate_rounding_mode_settings</ID>
-          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::separateRoundingModeSettings.</ToolTip>
-          <Default>VK_FALSE</Default>
+          <ID>rounding_mode_independence</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceFloatControlsPropertiesKHR::roundingModeIndependence.</ToolTip>
+          <Default>vk::shader_float_controls_independence_khr::shader_float_controls_independence_32_bit_only_khr</Default>
         </Literal>
         <Literal>
           <ID>shader_signed_zero_inf_nan_preserve_float16</ID>
@@ -105,8 +105,8 @@
       </Declarations>
       <Code Language="cpp"><![CDATA[vk::physical_device_float_controls_properties_khr(
   /* next */ $next$,
-  /* separate_denorm_settings */ $separate_denorm_settings$,
-  /* separate_rounding_mode_settings */ $separate_rounding_mode_settings$,
+  /* denorm_behavior_independence */ $denorm_behavior_independence$,
+  /* rounding_mode_independence */ $rounding_mode_independence$,
   /* shader_signed_zero_inf_nan_preserve_float16 */ $shader_signed_zero_inf_nan_preserve_float16$,
   /* shader_signed_zero_inf_nan_preserve_float32 */ $shader_signed_zero_inf_nan_preserve_float32$,
   /* shader_signed_zero_inf_nan_preserve_float64 */ $shader_signed_zero_inf_nan_preserve_float64$,

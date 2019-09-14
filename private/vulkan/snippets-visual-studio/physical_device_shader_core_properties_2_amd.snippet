@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_shader_core_properties_2_amd</Title>
+      <Shortcut>VkPhysicalDeviceShaderCoreProperties2AMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceShaderCoreProperties2AMD</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCoreProperties2AMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_core_features</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCoreProperties2AMD::shaderCoreFeatures.</ToolTip>
+          <Default>vk::shader_core_properties_flag_amd::none</Default>
+        </Literal>
+        <Literal>
+          <ID>active_compute_unit_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderCoreProperties2AMD::activeComputeUnitCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_shader_core_properties_2_amd(
+  /* next */ $next$,
+  /* shader_core_features */ $shader_core_features$,
+  /* active_compute_unit_count */ $active_compute_unit_count$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -37,13 +37,19 @@
           <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::usage.</ToolTip>
           <Default>0</Default>
         </Literal>
+        <Literal>
+          <ID>usage_2</ID>
+          <ToolTip>Equivalent to Vulkan member VkNativeBufferANDROID::usage2.</ToolTip>
+          <Default>vk::native_buffer_usage_2_android{}</Default>
+        </Literal>
       </Declarations>
       <Code Language="cpp"><![CDATA[vk::native_buffer_android(
   /* next */ $next$,
   /* handle */ $handle$,
   /* stride */ $stride$,
   /* format */ $format$,
-  /* usage */ $usage$)$end$]]>
+  /* usage */ $usage$,
+  /* usage_2 */ $usage_2$)$end$]]>
       </Code>
     </Snippet>
   </CodeSnippet>

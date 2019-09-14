@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>framebuffer_mixed_samples_combination_nv</Title>
+      <Shortcut>VkFramebufferMixedSamplesCombinationNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkFramebufferMixedSamplesCombinationNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferMixedSamplesCombinationNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_reduction_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferMixedSamplesCombinationNV::coverageReductionMode.</ToolTip>
+          <Default>vk::coverage_reduction_mode_nv::coverage_reduction_mode_merge_nv</Default>
+        </Literal>
+        <Literal>
+          <ID>rasterization_samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferMixedSamplesCombinationNV::rasterizationSamples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_stencil_samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferMixedSamplesCombinationNV::depthStencilSamples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>color_samples</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferMixedSamplesCombinationNV::colorSamples.</ToolTip>
+          <Default>vk::sample_count_flag::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::framebuffer_mixed_samples_combination_nv(
+  /* next */ $next$,
+  /* coverage_reduction_mode */ $coverage_reduction_mode$,
+  /* rasterization_samples */ $rasterization_samples$,
+  /* depth_stencil_samples */ $depth_stencil_samples$,
+  /* color_samples */ $color_samples$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

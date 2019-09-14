@@ -967,6 +967,7 @@ void application::parse_feature(const parser::xml::node& feature_node)
           auto enum_name = require_node->attribute("name");
 
           std::stringstream value;
+          bool is_alias = false;
           if (require_node->has_attribute("dir"))
           {
             BOOST_ASSERT(require_node->attribute("dir") == "-");
@@ -974,12 +975,18 @@ void application::parse_feature(const parser::xml::node& feature_node)
           }
           if (require_node->has_attribute("value"))
             value << require_node->attribute("value");
-          else if (require_node->has_attribute("offset"))
+          else if (require_node->has_attribute("offset") &&
+                   require_node->has_attribute("extnumber"))
           {
             auto offset = std::atoi(require_node->attribute("offset").c_str());
             auto extension_number =
               std::atoi(require_node->attribute("extnumber").c_str());
             value << (1000000000 + (extension_number - 1) * 1000 + offset);
+          }
+          else if (require_node->has_attribute("alias"))
+          {
+            value << require_node->attribute("alias");
+            is_alias = true;
           }
           else if (require_node->has_attribute("bitpos"))
             value << "1 << " << require_node->attribute("bitpos");
@@ -1008,7 +1015,13 @@ void application::parse_feature(const parser::xml::node& feature_node)
                 enumerant.name = enum_name;
                 enumerant.new_name =
                   enumerant_name(enum_name, extends_node.name);
-                enumerant.value = value.str();
+                if (!is_alias)
+                  enumerant.value = value.str();
+                else
+                {
+                  enumerant.value =
+                    enumerant_name(value.str(), extends_node.name);
+                }
                 if (require_node->has_attribute("comment"))
                   enumerant.comment = require_node->attribute("comment");
                 found = true;
@@ -1409,10 +1422,18 @@ void application::print_cpp(const type_descriptor& type)
   if (static_cast<int>(!_printed.emplace(&type).second) != 0)
     return;
 
-  // ToDo: We need to skip this specific type because it is referenced only in a
-  // disabled extension and would otherwise be printed without #ifdef blocks.
-  if (type.name == "VkNativeBufferANDROID")
+  // ToDo: We need to skip these specific types because they are referenced only
+  // in a disabled extension and would otherwise be printed without #ifdef
+  // blocks. Find a better way to do this...
+  if (type.name == "VkNativeBufferANDROID" ||
+      type.name == "VkSwapchainImageCreateInfoANDROID" ||
+      type.name == "VkPhysicalDevicePresentationPropertiesANDROID" ||
+      type.name == "VkNativeBufferUsage2ANDROID" ||
+      type.name == "VkSwapchainImageUsageFlagBitsANDROID" ||
+      type.name == "VkSwapchainImageUsageFlagsANDROID")
+  {
     return;
+  }
 
   auto open_platform_guard = [&]() {
     if (type.platforms.empty())
@@ -1850,6 +1871,14 @@ void application::print_cpp(const type_descriptor& type)
     _file << indent << VS_CONSTEXPR << type.new_name << "() noexcept {}" br;
     for (const auto& member : type.members)
     {
+      /// ToDo: Explicitely skip this member initialization because it overlaps
+      /// with the uint32 value. Find a better way to do this...
+      if (type.name == "VkPerformanceValueDataINTEL" &&
+          member.name == "valueBool")
+      {
+        continue;
+      }
+
       _file << indent << "/// Constructor." br;
       _file << indent << VS_CONSTEXPR << type.new_name << "("
             << type_to_string(member) << " initial_" << member.new_name
@@ -2001,6 +2030,9 @@ void application::print_cpp(const extension_descriptor& extension)
 
   if (extension.platform != nullptr)
     _file << "#if defined(" << extension.platform->macro << ")" br;
+
+  if (extension.name == "VK_ANDROID_native_buffer")
+    log::debug() << "##### VK_ANDROID_native_buffer #####";
 
   // Print dependencies.
   for (const auto& type : extension.types)

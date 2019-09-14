@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_rasterization_line_state_create_info_ext</Title>
+      <Shortcut>VkPipelineRasterizationLineStateCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineRasterizationLineStateCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationLineStateCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>line_rasterization_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationLineStateCreateInfoEXT::lineRasterizationMode.</ToolTip>
+          <Default>vk::line_rasterization_mode_ext::line_rasterization_mode_default_ext</Default>
+        </Literal>
+        <Literal>
+          <ID>stippled_line_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationLineStateCreateInfoEXT::stippledLineEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>line_stipple_factor</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationLineStateCreateInfoEXT::lineStippleFactor.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>line_stipple_pattern</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationLineStateCreateInfoEXT::lineStipplePattern.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_rasterization_line_state_create_info_ext(
+  /* next */ $next$,
+  /* line_rasterization_mode */ $line_rasterization_mode$,
+  /* stippled_line_enable */ $stippled_line_enable$,
+  /* line_stipple_factor */ $line_stipple_factor$,
+  /* line_stipple_pattern */ $line_stipple_pattern$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

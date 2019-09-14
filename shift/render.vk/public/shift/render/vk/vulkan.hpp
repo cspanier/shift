@@ -225,8 +225,11 @@ enum class structure_type
   physical_device_multiview_features = 1000053001,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES
   physical_device_multiview_properties = 1000053002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES
+  physical_device_variable_pointers_features = 1000120000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES
-  physical_device_variable_pointer_features = 1000120000,
+  physical_device_variable_pointer_features =
+    physical_device_variable_pointers_features,
   /// @see VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO
   protected_submit_info = 1000145000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES
@@ -281,8 +284,11 @@ enum class structure_type
   physical_device_maintenance_3_properties = 1000168000,
   /// @see VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT
   descriptor_set_layout_support = 1000168001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES
+  physical_device_shader_draw_parameters_features = 1000063000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES
-  physical_device_shader_draw_parameter_features = 1000063000,
+  physical_device_shader_draw_parameter_features =
+    physical_device_shader_draw_parameters_features,
   /// @see VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR
   swapchain_create_info_khr = 1000001000,
   /// @see VK_STRUCTURE_TYPE_PRESENT_INFO_KHR
@@ -338,8 +344,12 @@ enum class structure_type
   physical_device_transform_feedback_properties_ext = 1000028001,
   /// @see VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT
   pipeline_rasterization_state_stream_create_info_ext = 1000028002,
+  /// @see VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX
+  image_view_handle_info_nvx = 1000030000,
   /// @see VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD
   texture_lod_gather_format_properties_amd = 1000041000,
+  /// @see VK_STRUCTURE_TYPE_STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP
+  stream_descriptor_surface_create_info_ggp = 1000049000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV
   physical_device_corner_sampled_image_features_nv = 1000050000,
   /// @see VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV
@@ -356,6 +366,9 @@ enum class structure_type
   validation_flags_ext = 1000061000,
   /// @see VK_STRUCTURE_TYPE_VI_SURFACE_CREATE_INFO_NN
   vi_surface_create_info_nn = 1000062000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES_EXT
+  physical_device_texture_compression_astc_hdr_features_ext = 1000066000,
   /// @see VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT
   image_view_astc_decode_mode_ext = 1000067000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT
@@ -397,8 +410,8 @@ enum class structure_type
   physical_device_conditional_rendering_features_ext = 1000081001,
   /// @see VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT
   conditional_rendering_begin_info_ext = 1000081002,
-  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR
-  physical_device_float16_int8_features_khr = 1000082000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES_KHR
+  physical_device_shader_float16_int8_features_khr = 1000082000,
   /// @see VK_STRUCTURE_TYPE_PRESENT_REGIONS_KHR
   present_regions_khr = 1000084000,
   /// @see VK_STRUCTURE_TYPE_OBJECT_TABLE_CREATE_INFO_NVX
@@ -442,8 +455,21 @@ enum class structure_type
   /// @see
   /// VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT
   pipeline_rasterization_conservative_state_create_info_ext = 1000101001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT
+  physical_device_depth_clip_enable_features_ext = 1000102000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT
+  pipeline_rasterization_depth_clip_state_create_info_ext = 1000102001,
   /// @see VK_STRUCTURE_TYPE_HDR_METADATA_EXT
   hdr_metadata_ext = 1000105000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR
+  physical_device_imageless_framebuffer_features_khr = 1000108000,
+  /// @see VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO_KHR
+  framebuffer_attachments_create_info_khr = 1000108001,
+  /// @see VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO_KHR
+  framebuffer_attachment_image_info_khr = 1000108002,
+  /// @see VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO_KHR
+  render_pass_attachment_begin_info_khr = 1000108003,
   /// @see VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2_KHR
   attachment_description_2_khr = 1000109000,
   /// @see VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2_KHR
@@ -550,6 +576,10 @@ enum class structure_type
   pipeline_coverage_to_color_state_create_info_nv = 1000149000,
   /// @see VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV
   pipeline_coverage_modulation_state_create_info_nv = 1000152000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV
+  physical_device_shader_sm_builtins_features_nv = 1000154000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV
+  physical_device_shader_sm_builtins_properties_nv = 1000154001,
   /// @see VK_STRUCTURE_TYPE_DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT
   drm_format_modifier_properties_list_ext = 1000158000,
   /// @see VK_STRUCTURE_TYPE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT
@@ -632,6 +662,8 @@ enum class structure_type
   physical_device_external_memory_host_properties_ext = 1000178002,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR
   physical_device_shader_atomic_int64_features_khr = 1000180000,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD
+  pipeline_compiler_control_create_info_amd = 1000183000,
   /// @see VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT
   calibrated_timestamp_info_ext = 1000184000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD
@@ -646,6 +678,10 @@ enum class structure_type
   /// @see
   /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT
   physical_device_vertex_attribute_divisor_features_ext = 1000190002,
+  /// @see VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP
+  present_frame_token_ggp = 1000191000,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO_EXT
+  pipeline_creation_feedback_create_info_ext = 1000192000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR
   physical_device_driver_properties_khr = 1000196000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR
@@ -676,12 +712,33 @@ enum class structure_type
   checkpoint_data_nv = 1000206000,
   /// @see VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV
   queue_family_checkpoint_properties_nv = 1000206001,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL
+  physical_device_shader_integer_functions_2_features_intel = 1000209000,
+  /// @see VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL
+  query_pool_create_info_intel = 1000210000,
+  /// @see VK_STRUCTURE_TYPE_INITIALIZE_PERFORMANCE_API_INFO_INTEL
+  initialize_performance_api_info_intel = 1000210001,
+  /// @see VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL
+  performance_marker_info_intel = 1000210002,
+  /// @see VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL
+  performance_stream_marker_info_intel = 1000210003,
+  /// @see VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL
+  performance_override_info_intel = 1000210004,
+  /// @see VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL
+  performance_configuration_acquire_info_intel = 1000210005,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR
   physical_device_vulkan_memory_model_features_khr = 1000211000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT
   physical_device_pci_bus_info_properties_ext = 1000212000,
+  /// @see VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD
+  display_native_hdr_surface_capabilities_amd = 1000213000,
+  /// @see VK_STRUCTURE_TYPE_SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD
+  swapchain_display_native_hdr_create_info_amd = 1000213001,
   /// @see VK_STRUCTURE_TYPE_IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA
   imagepipe_surface_create_info_fuchsia = 1000214000,
+  /// @see VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT
+  metal_surface_create_info_ext = 1000217000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT
   physical_device_fragment_density_map_features_ext = 1000218000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT
@@ -690,17 +747,31 @@ enum class structure_type
   render_pass_fragment_density_map_create_info_ext = 1000218002,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT
   physical_device_scalar_block_layout_features_ext = 1000221000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES_EXT
+  physical_device_subgroup_size_control_properties_ext = 1000225000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT
+  pipeline_shader_stage_required_subgroup_size_create_info_ext = 1000225001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES_EXT
+  physical_device_subgroup_size_control_features_ext = 1000225002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD
+  physical_device_shader_core_properties_2_amd = 1000227000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD
+  physical_device_coherent_memory_features_amd = 1000229000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT
   physical_device_memory_budget_properties_ext = 1000237000,
   /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT
   physical_device_memory_priority_features_ext = 1000238000,
   /// @see VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT
   memory_priority_allocate_info_ext = 1000238001,
+  /// @see VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR
+  surface_protected_capabilities_khr = 1000239000,
   /// @see
   /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV
   physical_device_dedicated_allocation_image_aliasing_features_nv = 1000240000,
-  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT
-  physical_device_buffer_address_features_ext = 1000244000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT
+  physical_device_buffer_device_address_features_ext = 1000244000,
   /// @see VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO_EXT
   buffer_device_address_info_ext = 1000244001,
   /// @see VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT
@@ -709,6 +780,65 @@ enum class structure_type
   image_stencil_usage_create_info_ext = 1000246000,
   /// @see VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT
   validation_features_ext = 1000247000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV
+  physical_device_cooperative_matrix_features_nv = 1000249000,
+  /// @see VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV
+  cooperative_matrix_properties_nv = 1000249001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV
+  physical_device_cooperative_matrix_properties_nv = 1000249002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV
+  physical_device_coverage_reduction_mode_features_nv = 1000250000,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV
+  pipeline_coverage_reduction_state_create_info_nv = 1000250001,
+  /// @see VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV
+  framebuffer_mixed_samples_combination_nv = 1000250002,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT
+  physical_device_fragment_shader_interlock_features_ext = 1000251000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT
+  physical_device_ycbcr_image_arrays_features_ext = 1000252000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES_KHR
+  physical_device_uniform_buffer_standard_layout_features_khr = 1000253000,
+  /// @see VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT
+  surface_full_screen_exclusive_info_ext = 1000255000,
+  /// @see VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT
+  surface_capabilities_full_screen_exclusive_ext = 1000255002,
+  /// @see VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT
+  surface_full_screen_exclusive_win32_info_ext = 1000255001,
+  /// @see VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT
+  headless_surface_create_info_ext = 1000256000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_EXT
+  physical_device_line_rasterization_features_ext = 1000259000,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT
+  pipeline_rasterization_line_state_create_info_ext = 1000259001,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_EXT
+  physical_device_line_rasterization_properties_ext = 1000259002,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES_EXT
+  physical_device_host_query_reset_features_ext = 1000261000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_EXT
+  physical_device_index_type_uint8_features_ext = 1000265000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR
+  physical_device_pipeline_executable_properties_features_khr = 1000269000,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR
+  pipeline_info_khr = 1000269001,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR
+  pipeline_executable_properties_khr = 1000269002,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_INFO_KHR
+  pipeline_executable_info_khr = 1000269003,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_STATISTIC_KHR
+  pipeline_executable_statistic_khr = 1000269004,
+  /// @see VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR
+  pipeline_executable_internal_representation_khr = 1000269005,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES_EXT
+  physical_device_shader_demote_to_helper_invocation_features_ext = 1000276000,
+  /// @see VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT
+  physical_device_texel_buffer_alignment_features_ext = 1000281000,
+  /// @see
+  /// VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES_EXT
+  physical_device_texel_buffer_alignment_properties_ext = 1000281001,
 };
 enum class access_flag
 {
@@ -2052,6 +2182,8 @@ enum class object_type
   validation_cache_ext = 1000160000,
   /// @see VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV
   acceleration_structure_nv = 1000165000,
+  /// @see VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL
+  performance_configuration_intel = 1000210000,
 };
 enum class vendor_id
 {
@@ -2148,6 +2280,8 @@ enum class result
   error_not_permitted_ext = -1000174001,
   /// @see VK_ERROR_INVALID_DEVICE_ADDRESS_EXT
   error_invalid_device_address_ext = -1000244000,
+  /// @see VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
+  error_full_screen_exclusive_mode_lost_ext = -1000255000,
 };
 enum class instance_create_flag
 {
@@ -4338,6 +4472,34 @@ enum class format
   pvrtc2_2bpp_srgb_block_img = 1000054006,
   /// @see VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG
   pvrtc2_4bpp_srgb_block_img = 1000054007,
+  /// @see VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK_EXT
+  astc_4x4_sfloat_block_ext = 1000066000,
+  /// @see VK_FORMAT_ASTC_5x4_SFLOAT_BLOCK_EXT
+  astc_5x4_sfloat_block_ext = 1000066001,
+  /// @see VK_FORMAT_ASTC_5x5_SFLOAT_BLOCK_EXT
+  astc_5x5_sfloat_block_ext = 1000066002,
+  /// @see VK_FORMAT_ASTC_6x5_SFLOAT_BLOCK_EXT
+  astc_6x5_sfloat_block_ext = 1000066003,
+  /// @see VK_FORMAT_ASTC_6x6_SFLOAT_BLOCK_EXT
+  astc_6x6_sfloat_block_ext = 1000066004,
+  /// @see VK_FORMAT_ASTC_8x5_SFLOAT_BLOCK_EXT
+  astc_8x5_sfloat_block_ext = 1000066005,
+  /// @see VK_FORMAT_ASTC_8x6_SFLOAT_BLOCK_EXT
+  astc_8x6_sfloat_block_ext = 1000066006,
+  /// @see VK_FORMAT_ASTC_8x8_SFLOAT_BLOCK_EXT
+  astc_8x8_sfloat_block_ext = 1000066007,
+  /// @see VK_FORMAT_ASTC_10x5_SFLOAT_BLOCK_EXT
+  astc_10x5_sfloat_block_ext = 1000066008,
+  /// @see VK_FORMAT_ASTC_10x6_SFLOAT_BLOCK_EXT
+  astc_10x6_sfloat_block_ext = 1000066009,
+  /// @see VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK_EXT
+  astc_10x8_sfloat_block_ext = 1000066010,
+  /// @see VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK_EXT
+  astc_10x10_sfloat_block_ext = 1000066011,
+  /// @see VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK_EXT
+  astc_12x10_sfloat_block_ext = 1000066012,
+  /// @see VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK_EXT
+  astc_12x12_sfloat_block_ext = 1000066013,
 };
 enum class format_feature_flag
 {
@@ -4414,9 +4576,9 @@ enum class format_feature_flag
   /// Format can have cosited rather than midpoint chroma samples
   /// @see VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT
   cosited_chroma_samples_bit = 1 << 23,
-  /// Format can be filtered with VK_FILTER_CUBIC_EXT when being sampled
-  /// @see VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT
-  sampled_image_filter_cubic_bit_ext = 1 << 13,
+  /// Format can be filtered with VK_FILTER_CUBIC_IMG when being sampled
+  /// @see VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_IMG
+  sampled_image_filter_cubic_bit_img = 1 << 13,
   /// Format can be used with min/max reduction filtering
   /// @see VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT_EXT
   sampled_image_filter_minmax_bit_ext = 1 << 16,
@@ -7676,6 +7838,10 @@ enum class memory_property_flag
   /// Memory is protected
   /// @see VK_MEMORY_PROPERTY_PROTECTED_BIT
   protected_bit = 1 << 5,
+  /// @see VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD
+  device_coherent_bit_amd = 1 << 6,
+  /// @see VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD
+  device_uncached_bit_amd = 1 << 7,
 };
 using memory_property_flags =
   shift::core::bit_field<memory_property_flag, VkMemoryPropertyFlags>;
@@ -11433,6 +11599,8 @@ enum class query_type
   transform_feedback_stream_ext = 1000028004,
   /// @see VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV
   acceleration_structure_compacted_size_nv = 1000165000,
+  /// @see VK_QUERY_TYPE_PERFORMANCE_QUERY_INTEL
+  performance_query_intel = 1000210000,
 };
 enum class query_pipeline_statistic_flag
 {
@@ -13168,8 +13336,18 @@ inline void destroy_image_view(VkDevice device, VkImageView image_view,
                      static_cast<VkImageView>(image_view),
                      reinterpret_cast<const VkAllocationCallbacks*>(allocator));
 }
-using shader_module_create_flags = VkFlags;
-
+enum class shader_module_create_flag
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using shader_module_create_flags =
+  shift::core::bit_field<shader_module_create_flag, VkShaderModuleCreateFlags>;
+inline constexpr shader_module_create_flags operator|(
+  shader_module_create_flag lhs, shader_module_create_flag rhs)
+{
+  return shader_module_create_flags{lhs} | rhs;
+}
 /// Enhanced replacement type for VkShaderModuleCreateInfo.
 class shader_module_create_info
 {
@@ -13305,7 +13483,7 @@ private:
   const vk::structure_type _structure_type =
     vk::structure_type::shader_module_create_info;
   const void* _next = nullptr;
-  vk::shader_module_create_flags _flags = 0;
+  vk::shader_module_create_flags _flags = vk::shader_module_create_flag::none;
   /// Specified in bytes
   size_t _code_size = 0;
   /// Binary code of size codeSize
@@ -13542,6 +13720,10 @@ enum class pipeline_create_flag
   dispatch_base = 1 << 4,
   /// @see VK_PIPELINE_CREATE_DEFER_COMPILE_BIT_NV
   defer_compile_bit_nv = 1 << 5,
+  /// @see VK_PIPELINE_CREATE_CAPTURE_STATISTICS_BIT_KHR
+  capture_statistics_bit_khr = 1 << 6,
+  /// @see VK_PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR
+  capture_internal_representations_bit_khr = 1 << 7,
 };
 using pipeline_create_flags =
   shift::core::bit_field<pipeline_create_flag, VkPipelineCreateFlags>;
@@ -13554,6 +13736,10 @@ enum class pipeline_shader_stage_create_flag
 {
   /// Custom enumerant not available in Vulkan.
   none = 0,
+  /// @see VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT
+  allow_varying_subgroup_size_bit_ext = 1 << 0,
+  /// @see VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT
+  require_full_subgroups_bit_ext = 1 << 1,
 };
 using pipeline_shader_stage_create_flags =
   shift::core::bit_field<pipeline_shader_stage_create_flag,
@@ -17212,6 +17398,8 @@ enum class dynamic_state
   viewport_coarse_sample_order_nv = 1000164006,
   /// @see VK_DYNAMIC_STATE_EXCLUSIVE_SCISSOR_NV
   exclusive_scissor_nv = 1000205001,
+  /// @see VK_DYNAMIC_STATE_LINE_STIPPLE_EXT
+  line_stipple_ext = 1000259000,
 };
 
 /// Enhanced replacement type for VkPipelineDynamicStateCreateInfo.
@@ -18484,8 +18672,8 @@ enum class filter
   nearest = 0,
   /// @see VK_FILTER_LINEAR
   linear = 1,
-  /// @see VK_FILTER_CUBIC_EXT
-  cubic_ext = 1000015000,
+  /// @see VK_FILTER_CUBIC_IMG
+  cubic_img = 1000015000,
 };
 enum class sampler_mipmap_mode
 {
@@ -20580,6 +20768,8 @@ enum class framebuffer_create_flag
 {
   /// Custom enumerant not available in Vulkan.
   none = 0,
+  /// @see VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT_KHR
+  imageless_bit_khr = 1 << 0,
 };
 using framebuffer_create_flags =
   shift::core::bit_field<framebuffer_create_flag, VkFramebufferCreateFlags>;
@@ -22799,8 +22989,11 @@ enum class stencil_face_flag
   /// @see VK_STENCIL_FACE_BACK_BIT
   back_bit = 1 << 1,
   /// Front and back faces
+  /// @see VK_STENCIL_FACE_FRONT_AND_BACK
+  front_and_back = 0x00000003,
+  /// Alias for backwards compatibility
   /// @see VK_STENCIL_FRONT_AND_BACK
-  stencil_front_and_back = 0x00000003,
+  stencil_front_and_back = front_and_back,
 };
 using stencil_face_flags =
   shift::core::bit_field<stencil_face_flag, VkStencilFaceFlags>;
@@ -22856,6 +23049,8 @@ enum class index_type
   uint32 = 1,
   /// @see VK_INDEX_TYPE_NONE_NV
   none_nv = 1000165000,
+  /// @see VK_INDEX_TYPE_UINT8_EXT
+  uint8_ext = 1000265000,
 };
 inline void cmd_bind_index_buffer(VkCommandBuffer command_buffer,
                                   VkBuffer buffer, VkDeviceSize offset,
@@ -29457,15 +29652,15 @@ static_assert(sizeof(physical_device_multiview_properties) ==
                 sizeof(::VkPhysicalDeviceMultiviewProperties),
               "struct and wrapper have different size!");
 
-/// Enhanced replacement type for VkPhysicalDeviceVariablePointerFeatures.
-class physical_device_variable_pointer_features
+/// Enhanced replacement type for VkPhysicalDeviceVariablePointersFeatures.
+class physical_device_variable_pointers_features
 {
 public:
   /// Default constructor.
-  constexpr physical_device_variable_pointer_features() = default;
+  constexpr physical_device_variable_pointers_features() = default;
 
   /// Constructor.
-  constexpr physical_device_variable_pointer_features(
+  constexpr physical_device_variable_pointers_features(
     void* initial_next, VkBool32 initial_variable_pointers_storage_buffer,
     VkBool32 initial_variable_pointers) noexcept
   : _next(std::move(initial_next)),
@@ -29476,8 +29671,8 @@ public:
   }
 
   /// Copy constructor.
-  constexpr physical_device_variable_pointer_features(
-    const physical_device_variable_pointer_features& other) noexcept
+  constexpr physical_device_variable_pointers_features(
+    const physical_device_variable_pointers_features& other) noexcept
   : _next(other._next),
     _variable_pointers_storage_buffer(other._variable_pointers_storage_buffer),
     _variable_pointers(other._variable_pointers)
@@ -29485,8 +29680,8 @@ public:
   }
 
   /// Move constructor.
-  constexpr physical_device_variable_pointer_features(
-    physical_device_variable_pointer_features&& other) noexcept
+  constexpr physical_device_variable_pointers_features(
+    physical_device_variable_pointers_features&& other) noexcept
   : _next(std::move(other._next)),
     _variable_pointers_storage_buffer(
       std::move(other._variable_pointers_storage_buffer)),
@@ -29495,8 +29690,8 @@ public:
   }
 
   /// Copy assignment operator.
-  constexpr physical_device_variable_pointer_features& operator=(
-    const physical_device_variable_pointer_features& other) noexcept
+  constexpr physical_device_variable_pointers_features& operator=(
+    const physical_device_variable_pointers_features& other) noexcept
   {
     _next = other._next;
     _variable_pointers_storage_buffer = other._variable_pointers_storage_buffer;
@@ -29505,8 +29700,8 @@ public:
   }
 
   /// Move assignment operator.
-  constexpr physical_device_variable_pointer_features& operator=(
-    physical_device_variable_pointer_features&& other) noexcept
+  constexpr physical_device_variable_pointers_features& operator=(
+    physical_device_variable_pointers_features&& other) noexcept
   {
     _next = std::move(other._next);
     _variable_pointers_storage_buffer =
@@ -29516,9 +29711,9 @@ public:
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkPhysicalDeviceVariablePointerFeatures&() const
+  operator const VkPhysicalDeviceVariablePointersFeatures&() const
   {
-    return *reinterpret_cast<const VkPhysicalDeviceVariablePointerFeatures*>(
+    return *reinterpret_cast<const VkPhysicalDeviceVariablePointersFeatures*>(
       this);
   }
 
@@ -29575,14 +29770,17 @@ public:
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::physical_device_variable_pointer_features;
+    vk::structure_type::physical_device_variable_pointers_features;
   void* _next = nullptr;
   VkBool32 _variable_pointers_storage_buffer = VK_FALSE;
   VkBool32 _variable_pointers = VK_FALSE;
 };
-static_assert(sizeof(physical_device_variable_pointer_features) ==
-                sizeof(::VkPhysicalDeviceVariablePointerFeatures),
+static_assert(sizeof(physical_device_variable_pointers_features) ==
+                sizeof(::VkPhysicalDeviceVariablePointersFeatures),
               "struct and wrapper have different size!");
+
+using physical_device_variable_pointer_features =
+  physical_device_variable_pointers_features;
 
 /// Enhanced replacement type for VkPhysicalDeviceProtectedMemoryFeatures.
 class physical_device_protected_memory_features
@@ -33419,15 +33617,15 @@ static_assert(sizeof(descriptor_set_layout_support) ==
                 sizeof(::VkDescriptorSetLayoutSupport),
               "struct and wrapper have different size!");
 
-/// Enhanced replacement type for VkPhysicalDeviceShaderDrawParameterFeatures.
-class physical_device_shader_draw_parameter_features
+/// Enhanced replacement type for VkPhysicalDeviceShaderDrawParametersFeatures.
+class physical_device_shader_draw_parameters_features
 {
 public:
   /// Default constructor.
-  constexpr physical_device_shader_draw_parameter_features() = default;
+  constexpr physical_device_shader_draw_parameters_features() = default;
 
   /// Constructor.
-  constexpr physical_device_shader_draw_parameter_features(
+  constexpr physical_device_shader_draw_parameters_features(
     void* initial_next, VkBool32 initial_shader_draw_parameters) noexcept
   : _next(std::move(initial_next)),
     _shader_draw_parameters(std::move(initial_shader_draw_parameters))
@@ -33435,23 +33633,23 @@ public:
   }
 
   /// Copy constructor.
-  constexpr physical_device_shader_draw_parameter_features(
-    const physical_device_shader_draw_parameter_features& other) noexcept
+  constexpr physical_device_shader_draw_parameters_features(
+    const physical_device_shader_draw_parameters_features& other) noexcept
   : _next(other._next), _shader_draw_parameters(other._shader_draw_parameters)
   {
   }
 
   /// Move constructor.
-  constexpr physical_device_shader_draw_parameter_features(
-    physical_device_shader_draw_parameter_features&& other) noexcept
+  constexpr physical_device_shader_draw_parameters_features(
+    physical_device_shader_draw_parameters_features&& other) noexcept
   : _next(std::move(other._next)),
     _shader_draw_parameters(std::move(other._shader_draw_parameters))
   {
   }
 
   /// Copy assignment operator.
-  constexpr physical_device_shader_draw_parameter_features& operator=(
-    const physical_device_shader_draw_parameter_features& other) noexcept
+  constexpr physical_device_shader_draw_parameters_features& operator=(
+    const physical_device_shader_draw_parameters_features& other) noexcept
   {
     _next = other._next;
     _shader_draw_parameters = other._shader_draw_parameters;
@@ -33459,8 +33657,8 @@ public:
   }
 
   /// Move assignment operator.
-  constexpr physical_device_shader_draw_parameter_features& operator=(
-    physical_device_shader_draw_parameter_features&& other) noexcept
+  constexpr physical_device_shader_draw_parameters_features& operator=(
+    physical_device_shader_draw_parameters_features&& other) noexcept
   {
     _next = std::move(other._next);
     _shader_draw_parameters = std::move(other._shader_draw_parameters);
@@ -33468,10 +33666,10 @@ public:
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkPhysicalDeviceShaderDrawParameterFeatures&() const
+  operator const VkPhysicalDeviceShaderDrawParametersFeatures&() const
   {
     return *reinterpret_cast<
-      const VkPhysicalDeviceShaderDrawParameterFeatures*>(this);
+      const VkPhysicalDeviceShaderDrawParametersFeatures*>(this);
   }
 
   constexpr const vk::structure_type& structure_type() const
@@ -33511,14 +33709,16 @@ public:
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::physical_device_shader_draw_parameter_features;
+    vk::structure_type::physical_device_shader_draw_parameters_features;
   void* _next = nullptr;
   VkBool32 _shader_draw_parameters = VK_FALSE;
 };
-static_assert(sizeof(physical_device_shader_draw_parameter_features) ==
-                sizeof(::VkPhysicalDeviceShaderDrawParameterFeatures),
+static_assert(sizeof(physical_device_shader_draw_parameters_features) ==
+                sizeof(::VkPhysicalDeviceShaderDrawParametersFeatures),
               "struct and wrapper have different size!");
 
+using physical_device_shader_draw_parameter_features =
+  physical_device_shader_draw_parameters_features;
 inline vk::result enumerate_instance_version(uint32_t* api_version)
 {
   return static_cast<vk::result>(
@@ -34104,8 +34304,8 @@ enum class color_space_khr
   color_space_display_p_3_nonlinear_ext = 1000104001,
   /// @see VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT
   color_space_extended_srgb_linear_ext = 1000104002,
-  /// @see VK_COLOR_SPACE_DCI_P3_LINEAR_EXT
-  color_space_dci_p_3_linear_ext = 1000104003,
+  /// @see VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT
+  color_space_display_p_3_linear_ext = 1000104003,
   /// @see VK_COLOR_SPACE_DCI_P3_NONLINEAR_EXT
   color_space_dci_p_3_nonlinear_ext = 1000104004,
   /// @see VK_COLOR_SPACE_BT709_LINEAR_EXT
@@ -34128,6 +34328,8 @@ enum class color_space_khr
   color_space_pass_through_ext = 1000104013,
   /// @see VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT
   color_space_extended_srgb_nonlinear_ext = 1000104014,
+  /// @see VK_COLOR_SPACE_DISPLAY_NATIVE_AMD
+  color_space_display_native_amd = 1000213000,
 };
 
 /// Enhanced replacement type for VkSurfaceFormatKHR.
@@ -39042,29 +39244,157 @@ inline void cmd_draw_indirect_byte_count_ext(VkCommandBuffer command_buffer,
     static_cast<uint32_t>(counter_offset),
     static_cast<uint32_t>(vertex_stride));
 }
-inline void cmd_draw_indirect_count_amd(VkCommandBuffer command_buffer,
-                                        VkBuffer buffer, VkDeviceSize offset,
-                                        VkBuffer count_buffer,
-                                        VkDeviceSize count_buffer_offset,
-                                        uint32_t max_draw_count,
-                                        uint32_t stride)
+
+/// Enhanced replacement type for VkImageViewHandleInfoNVX.
+class image_view_handle_info_nvx
 {
-  vkCmdDrawIndirectCountAMD(
-    static_cast<VkCommandBuffer>(command_buffer), static_cast<VkBuffer>(buffer),
-    static_cast<VkDeviceSize>(offset), static_cast<VkBuffer>(count_buffer),
-    static_cast<VkDeviceSize>(count_buffer_offset),
-    static_cast<uint32_t>(max_draw_count), static_cast<uint32_t>(stride));
-}
-inline void cmd_draw_indexed_indirect_count_amd(
-  VkCommandBuffer command_buffer, VkBuffer buffer, VkDeviceSize offset,
-  VkBuffer count_buffer, VkDeviceSize count_buffer_offset,
-  uint32_t max_draw_count, uint32_t stride)
+public:
+  /// Default constructor.
+  constexpr image_view_handle_info_nvx() = default;
+
+  /// Constructor.
+  constexpr image_view_handle_info_nvx(
+    const void* initial_next, VkImageView initial_image_view,
+    vk::descriptor_type initial_descriptor_type,
+    VkSampler initial_sampler) noexcept
+  : _next(std::move(initial_next)),
+    _image_view(std::move(initial_image_view)),
+    _descriptor_type(std::move(initial_descriptor_type)),
+    _sampler(std::move(initial_sampler))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr image_view_handle_info_nvx(
+    const image_view_handle_info_nvx& other) noexcept
+  : _next(other._next),
+    _image_view(other._image_view),
+    _descriptor_type(other._descriptor_type),
+    _sampler(other._sampler)
+  {
+  }
+
+  /// Move constructor.
+  constexpr image_view_handle_info_nvx(
+    image_view_handle_info_nvx&& other) noexcept
+  : _next(std::move(other._next)),
+    _image_view(std::move(other._image_view)),
+    _descriptor_type(std::move(other._descriptor_type)),
+    _sampler(std::move(other._sampler))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr image_view_handle_info_nvx& operator=(
+    const image_view_handle_info_nvx& other) noexcept
+  {
+    _next = other._next;
+    _image_view = other._image_view;
+    _descriptor_type = other._descriptor_type;
+    _sampler = other._sampler;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr image_view_handle_info_nvx& operator=(
+    image_view_handle_info_nvx&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _image_view = std::move(other._image_view);
+    _descriptor_type = std::move(other._descriptor_type);
+    _sampler = std::move(other._sampler);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkImageViewHandleInfoNVX&() const
+  {
+    return *reinterpret_cast<const VkImageViewHandleInfoNVX*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkImageView& image_view()
+  {
+    return _image_view;
+  }
+
+  constexpr const VkImageView& image_view() const
+  {
+    return _image_view;
+  }
+
+  void image_view(VkImageView new_image_view)
+  {
+    _image_view = new_image_view;
+  }
+
+  vk::descriptor_type& descriptor_type()
+  {
+    return _descriptor_type;
+  }
+
+  constexpr const vk::descriptor_type& descriptor_type() const
+  {
+    return _descriptor_type;
+  }
+
+  void descriptor_type(vk::descriptor_type new_descriptor_type)
+  {
+    _descriptor_type = new_descriptor_type;
+  }
+
+  VkSampler& sampler()
+  {
+    return _sampler;
+  }
+
+  constexpr const VkSampler& sampler() const
+  {
+    return _sampler;
+  }
+
+  void sampler(VkSampler new_sampler)
+  {
+    _sampler = new_sampler;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::image_view_handle_info_nvx;
+  const void* _next = nullptr;
+  VkImageView _image_view = nullptr;
+  vk::descriptor_type _descriptor_type = vk::descriptor_type::sampler;
+  VkSampler _sampler = nullptr;
+};
+static_assert(sizeof(image_view_handle_info_nvx) ==
+                sizeof(::VkImageViewHandleInfoNVX),
+              "struct and wrapper have different size!");
+
+inline uint32_t get_image_view_handle_nvx(
+  VkDevice device, const vk::image_view_handle_info_nvx* info)
 {
-  vkCmdDrawIndexedIndirectCountAMD(
-    static_cast<VkCommandBuffer>(command_buffer), static_cast<VkBuffer>(buffer),
-    static_cast<VkDeviceSize>(offset), static_cast<VkBuffer>(count_buffer),
-    static_cast<VkDeviceSize>(count_buffer_offset),
-    static_cast<uint32_t>(max_draw_count), static_cast<uint32_t>(stride));
+  return static_cast<uint32_t>(vkGetImageViewHandleNVX(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkImageViewHandleInfoNVX*>(info)));
 }
 
 /// Enhanced replacement type for VkTextureLODGatherFormatPropertiesAMD.
@@ -40138,6 +40468,116 @@ private:
   const vk::validation_check_ext* _disabled_validation_checks = nullptr;
 };
 static_assert(sizeof(validation_flags_ext) == sizeof(::VkValidationFlagsEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT.
+class physical_device_texture_compression_astchdrfeatures_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext(
+    const void* initial_next,
+    VkBool32 initial_texture_compression_astc_hdr) noexcept
+  : _next(std::move(initial_next)),
+    _texture_compression_astc_hdr(
+      std::move(initial_texture_compression_astc_hdr))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext(
+    const physical_device_texture_compression_astchdrfeatures_ext&
+      other) noexcept
+  : _next(other._next),
+    _texture_compression_astc_hdr(other._texture_compression_astc_hdr)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext(
+    physical_device_texture_compression_astchdrfeatures_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _texture_compression_astc_hdr(
+      std::move(other._texture_compression_astc_hdr))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext& operator=(
+    const physical_device_texture_compression_astchdrfeatures_ext&
+      other) noexcept
+  {
+    _next = other._next;
+    _texture_compression_astc_hdr = other._texture_compression_astc_hdr;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_texture_compression_astchdrfeatures_ext& operator=(
+    physical_device_texture_compression_astchdrfeatures_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _texture_compression_astc_hdr =
+      std::move(other._texture_compression_astc_hdr);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& texture_compression_astc_hdr()
+  {
+    return _texture_compression_astc_hdr;
+  }
+
+  constexpr const VkBool32& texture_compression_astc_hdr() const
+  {
+    return _texture_compression_astc_hdr;
+  }
+
+  void texture_compression_astc_hdr(VkBool32 new_texture_compression_astc_hdr)
+  {
+    _texture_compression_astc_hdr = new_texture_compression_astc_hdr;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_texture_compression_astc_hdr_features_ext;
+  /// Pointer to next structure
+  const void* _next = nullptr;
+  /// ASTC HDR texture compression formats
+  VkBool32 _texture_compression_astc_hdr = VK_FALSE;
+};
+static_assert(sizeof(physical_device_texture_compression_astchdrfeatures_ext) ==
+                sizeof(::VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT),
               "struct and wrapper have different size!");
 
 /// Enhanced replacement type for VkImageViewASTCDecodeModeEXT.
@@ -41562,15 +42002,15 @@ inline void cmd_end_conditional_rendering_ext(VkCommandBuffer command_buffer)
   vkCmdEndConditionalRenderingEXT(static_cast<VkCommandBuffer>(command_buffer));
 }
 
-/// Enhanced replacement type for VkPhysicalDeviceFloat16Int8FeaturesKHR.
-class physical_device_float16_int8_features_khr
+/// Enhanced replacement type for VkPhysicalDeviceShaderFloat16Int8FeaturesKHR.
+class physical_device_shader_float16_int8_features_khr
 {
 public:
   /// Default constructor.
-  constexpr physical_device_float16_int8_features_khr() = default;
+  constexpr physical_device_shader_float16_int8_features_khr() = default;
 
   /// Constructor.
-  constexpr physical_device_float16_int8_features_khr(
+  constexpr physical_device_shader_float16_int8_features_khr(
     void* initial_next, VkBool32 initial_shader_float16,
     VkBool32 initial_shader_int8) noexcept
   : _next(std::move(initial_next)),
@@ -41580,8 +42020,8 @@ public:
   }
 
   /// Copy constructor.
-  constexpr physical_device_float16_int8_features_khr(
-    const physical_device_float16_int8_features_khr& other) noexcept
+  constexpr physical_device_shader_float16_int8_features_khr(
+    const physical_device_shader_float16_int8_features_khr& other) noexcept
   : _next(other._next),
     _shader_float16(other._shader_float16),
     _shader_int8(other._shader_int8)
@@ -41589,8 +42029,8 @@ public:
   }
 
   /// Move constructor.
-  constexpr physical_device_float16_int8_features_khr(
-    physical_device_float16_int8_features_khr&& other) noexcept
+  constexpr physical_device_shader_float16_int8_features_khr(
+    physical_device_shader_float16_int8_features_khr&& other) noexcept
   : _next(std::move(other._next)),
     _shader_float16(std::move(other._shader_float16)),
     _shader_int8(std::move(other._shader_int8))
@@ -41598,8 +42038,8 @@ public:
   }
 
   /// Copy assignment operator.
-  constexpr physical_device_float16_int8_features_khr& operator=(
-    const physical_device_float16_int8_features_khr& other) noexcept
+  constexpr physical_device_shader_float16_int8_features_khr& operator=(
+    const physical_device_shader_float16_int8_features_khr& other) noexcept
   {
     _next = other._next;
     _shader_float16 = other._shader_float16;
@@ -41608,8 +42048,8 @@ public:
   }
 
   /// Move assignment operator.
-  constexpr physical_device_float16_int8_features_khr& operator=(
-    physical_device_float16_int8_features_khr&& other) noexcept
+  constexpr physical_device_shader_float16_int8_features_khr& operator=(
+    physical_device_shader_float16_int8_features_khr&& other) noexcept
   {
     _next = std::move(other._next);
     _shader_float16 = std::move(other._shader_float16);
@@ -41618,10 +42058,10 @@ public:
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkPhysicalDeviceFloat16Int8FeaturesKHR&() const
+  operator const VkPhysicalDeviceShaderFloat16Int8FeaturesKHR&() const
   {
-    return *reinterpret_cast<const VkPhysicalDeviceFloat16Int8FeaturesKHR*>(
-      this);
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*>(this);
   }
 
   constexpr const vk::structure_type& structure_type() const
@@ -41676,7 +42116,7 @@ public:
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::physical_device_float16_int8_features_khr;
+    vk::structure_type::physical_device_shader_float16_int8_features_khr;
   /// Pointer to next structure
   void* _next = nullptr;
   /// 16-bit floats (halfs) in shaders
@@ -41684,9 +42124,12 @@ private:
   /// 8-bit integers in shaders
   VkBool32 _shader_int8 = VK_FALSE;
 };
-static_assert(sizeof(physical_device_float16_int8_features_khr) ==
-                sizeof(::VkPhysicalDeviceFloat16Int8FeaturesKHR),
+static_assert(sizeof(physical_device_shader_float16_int8_features_khr) ==
+                sizeof(::VkPhysicalDeviceShaderFloat16Int8FeaturesKHR),
               "struct and wrapper have different size!");
+
+using physical_device_float16_int8_features_khr =
+  physical_device_shader_float16_int8_features_khr;
 
 using physical_device_16_bit_storage_features_khr =
   physical_device_16_bit_storage_features;
@@ -47052,6 +47495,240 @@ static_assert(
     sizeof(::VkPipelineRasterizationConservativeStateCreateInfoEXT),
   "struct and wrapper have different size!");
 
+/// Enhanced replacement type for VkPhysicalDeviceDepthClipEnableFeaturesEXT.
+class physical_device_depth_clip_enable_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_depth_clip_enable_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_depth_clip_enable_features_ext(
+    void* initial_next, VkBool32 initial_depth_clip_enable) noexcept
+  : _next(std::move(initial_next)),
+    _depth_clip_enable(std::move(initial_depth_clip_enable))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_depth_clip_enable_features_ext(
+    const physical_device_depth_clip_enable_features_ext& other) noexcept
+  : _next(other._next), _depth_clip_enable(other._depth_clip_enable)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_depth_clip_enable_features_ext(
+    physical_device_depth_clip_enable_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _depth_clip_enable(std::move(other._depth_clip_enable))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_depth_clip_enable_features_ext& operator=(
+    const physical_device_depth_clip_enable_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _depth_clip_enable = other._depth_clip_enable;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_depth_clip_enable_features_ext& operator=(
+    physical_device_depth_clip_enable_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _depth_clip_enable = std::move(other._depth_clip_enable);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceDepthClipEnableFeaturesEXT&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceDepthClipEnableFeaturesEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& depth_clip_enable()
+  {
+    return _depth_clip_enable;
+  }
+
+  constexpr const VkBool32& depth_clip_enable() const
+  {
+    return _depth_clip_enable;
+  }
+
+  void depth_clip_enable(VkBool32 new_depth_clip_enable)
+  {
+    _depth_clip_enable = new_depth_clip_enable;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_depth_clip_enable_features_ext;
+  /// Pointer to next structure
+  void* _next = nullptr;
+  VkBool32 _depth_clip_enable = VK_FALSE;
+};
+static_assert(sizeof(physical_device_depth_clip_enable_features_ext) ==
+                sizeof(::VkPhysicalDeviceDepthClipEnableFeaturesEXT),
+              "struct and wrapper have different size!");
+
+using pipeline_rasterization_depth_clip_state_create_flags_ext = VkFlags;
+
+/// Enhanced replacement type for
+/// VkPipelineRasterizationDepthClipStateCreateInfoEXT.
+class pipeline_rasterization_depth_clip_state_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext(
+    const void* initial_next,
+    vk::pipeline_rasterization_depth_clip_state_create_flags_ext initial_flags,
+    VkBool32 initial_depth_clip_enable) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _depth_clip_enable(std::move(initial_depth_clip_enable))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext(
+    const pipeline_rasterization_depth_clip_state_create_info_ext&
+      other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _depth_clip_enable(other._depth_clip_enable)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext(
+    pipeline_rasterization_depth_clip_state_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _depth_clip_enable(std::move(other._depth_clip_enable))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext& operator=(
+    const pipeline_rasterization_depth_clip_state_create_info_ext&
+      other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _depth_clip_enable = other._depth_clip_enable;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_rasterization_depth_clip_state_create_info_ext& operator=(
+    pipeline_rasterization_depth_clip_state_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _depth_clip_enable = std::move(other._depth_clip_enable);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineRasterizationDepthClipStateCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineRasterizationDepthClipStateCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_rasterization_depth_clip_state_create_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::pipeline_rasterization_depth_clip_state_create_flags_ext&
+  flags() const
+  {
+    return _flags;
+  }
+
+  void flags(
+    vk::pipeline_rasterization_depth_clip_state_create_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  VkBool32& depth_clip_enable()
+  {
+    return _depth_clip_enable;
+  }
+
+  constexpr const VkBool32& depth_clip_enable() const
+  {
+    return _depth_clip_enable;
+  }
+
+  void depth_clip_enable(VkBool32 new_depth_clip_enable)
+  {
+    _depth_clip_enable = new_depth_clip_enable;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_rasterization_depth_clip_state_create_info_ext;
+  /// Pointer to next structure
+  const void* _next = nullptr;
+  /// Reserved
+  vk::pipeline_rasterization_depth_clip_state_create_flags_ext _flags = 0;
+  VkBool32 _depth_clip_enable = VK_FALSE;
+};
+static_assert(sizeof(pipeline_rasterization_depth_clip_state_create_info_ext) ==
+                sizeof(::VkPipelineRasterizationDepthClipStateCreateInfoEXT),
+              "struct and wrapper have different size!");
+
 /// Enhanced replacement type for VkXYColorEXT.
 class xycolor_ext
 {
@@ -47386,6 +48063,636 @@ inline void set_hdr_metadata_ext(VkDevice device, uint32_t swapchain_count,
                       reinterpret_cast<const VkSwapchainKHR*>(swapchains),
                       reinterpret_cast<const VkHdrMetadataEXT*>(metadata));
 }
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceImagelessFramebufferFeaturesKHR.
+class physical_device_imageless_framebuffer_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_imageless_framebuffer_features_khr() = default;
+
+  /// Constructor.
+  constexpr physical_device_imageless_framebuffer_features_khr(
+    void* initial_next, VkBool32 initial_imageless_framebuffer) noexcept
+  : _next(std::move(initial_next)),
+    _imageless_framebuffer(std::move(initial_imageless_framebuffer))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_imageless_framebuffer_features_khr(
+    const physical_device_imageless_framebuffer_features_khr& other) noexcept
+  : _next(other._next), _imageless_framebuffer(other._imageless_framebuffer)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_imageless_framebuffer_features_khr(
+    physical_device_imageless_framebuffer_features_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _imageless_framebuffer(std::move(other._imageless_framebuffer))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_imageless_framebuffer_features_khr& operator=(
+    const physical_device_imageless_framebuffer_features_khr& other) noexcept
+  {
+    _next = other._next;
+    _imageless_framebuffer = other._imageless_framebuffer;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_imageless_framebuffer_features_khr& operator=(
+    physical_device_imageless_framebuffer_features_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _imageless_framebuffer = std::move(other._imageless_framebuffer);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceImagelessFramebufferFeaturesKHR&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceImagelessFramebufferFeaturesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& imageless_framebuffer()
+  {
+    return _imageless_framebuffer;
+  }
+
+  constexpr const VkBool32& imageless_framebuffer() const
+  {
+    return _imageless_framebuffer;
+  }
+
+  void imageless_framebuffer(VkBool32 new_imageless_framebuffer)
+  {
+    _imageless_framebuffer = new_imageless_framebuffer;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_imageless_framebuffer_features_khr;
+  void* _next = nullptr;
+  VkBool32 _imageless_framebuffer = VK_FALSE;
+};
+static_assert(sizeof(physical_device_imageless_framebuffer_features_khr) ==
+                sizeof(::VkPhysicalDeviceImagelessFramebufferFeaturesKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkFramebufferAttachmentImageInfoKHR.
+class framebuffer_attachment_image_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr framebuffer_attachment_image_info_khr() = default;
+
+  /// Constructor.
+  constexpr framebuffer_attachment_image_info_khr(
+    const void* initial_next, vk::image_create_flags initial_flags,
+    vk::image_usage_flags initial_usage, uint32_t initial_width,
+    uint32_t initial_height, uint32_t initial_layer_count,
+    uint32_t initial_view_format_count,
+    const vk::format* initial_view_formats) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _usage(std::move(initial_usage)),
+    _width(std::move(initial_width)),
+    _height(std::move(initial_height)),
+    _layer_count(std::move(initial_layer_count)),
+    _view_format_count(std::move(initial_view_format_count)),
+    _view_formats(std::move(initial_view_formats))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr framebuffer_attachment_image_info_khr(
+    const framebuffer_attachment_image_info_khr& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _usage(other._usage),
+    _width(other._width),
+    _height(other._height),
+    _layer_count(other._layer_count),
+    _view_format_count(other._view_format_count),
+    _view_formats(other._view_formats)
+  {
+  }
+
+  /// Move constructor.
+  constexpr framebuffer_attachment_image_info_khr(
+    framebuffer_attachment_image_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _usage(std::move(other._usage)),
+    _width(std::move(other._width)),
+    _height(std::move(other._height)),
+    _layer_count(std::move(other._layer_count)),
+    _view_format_count(std::move(other._view_format_count)),
+    _view_formats(std::move(other._view_formats))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr framebuffer_attachment_image_info_khr& operator=(
+    const framebuffer_attachment_image_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _usage = other._usage;
+    _width = other._width;
+    _height = other._height;
+    _layer_count = other._layer_count;
+    _view_format_count = other._view_format_count;
+    _view_formats = other._view_formats;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr framebuffer_attachment_image_info_khr& operator=(
+    framebuffer_attachment_image_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _usage = std::move(other._usage);
+    _width = std::move(other._width);
+    _height = std::move(other._height);
+    _layer_count = std::move(other._layer_count);
+    _view_format_count = std::move(other._view_format_count);
+    _view_formats = std::move(other._view_formats);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkFramebufferAttachmentImageInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkFramebufferAttachmentImageInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::image_create_flags& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::image_create_flags& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::image_create_flags new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::image_usage_flags& usage()
+  {
+    return _usage;
+  }
+
+  constexpr const vk::image_usage_flags& usage() const
+  {
+    return _usage;
+  }
+
+  void usage(vk::image_usage_flags new_usage)
+  {
+    _usage = new_usage;
+  }
+
+  uint32_t& width()
+  {
+    return _width;
+  }
+
+  constexpr const uint32_t& width() const
+  {
+    return _width;
+  }
+
+  void width(uint32_t new_width)
+  {
+    _width = new_width;
+  }
+
+  uint32_t& height()
+  {
+    return _height;
+  }
+
+  constexpr const uint32_t& height() const
+  {
+    return _height;
+  }
+
+  void height(uint32_t new_height)
+  {
+    _height = new_height;
+  }
+
+  uint32_t& layer_count()
+  {
+    return _layer_count;
+  }
+
+  constexpr const uint32_t& layer_count() const
+  {
+    return _layer_count;
+  }
+
+  void layer_count(uint32_t new_layer_count)
+  {
+    _layer_count = new_layer_count;
+  }
+
+  uint32_t& view_format_count()
+  {
+    return _view_format_count;
+  }
+
+  constexpr const uint32_t& view_format_count() const
+  {
+    return _view_format_count;
+  }
+
+  void view_format_count(uint32_t new_view_format_count)
+  {
+    _view_format_count = new_view_format_count;
+  }
+
+  const vk::format* view_formats()
+  {
+    return _view_formats;
+  }
+
+  constexpr const vk::format* view_formats() const
+  {
+    return _view_formats;
+  }
+
+  void view_formats(const vk::format* new_view_formats)
+  {
+    _view_formats = new_view_formats;
+  }
+
+  template <std::size_t Count>
+  void view_formats(const std::array<vk::format, Count>& new_view_formats)
+  {
+    _view_format_count = static_cast<uint32_t>(new_view_formats.size());
+    _view_formats = new_view_formats.data();
+  }
+
+  void view_formats(const std::vector<vk::format>& new_view_formats)
+  {
+    _view_format_count = static_cast<uint32_t>(new_view_formats.size());
+    _view_formats = new_view_formats.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::framebuffer_attachment_image_info_khr;
+  const void* _next = nullptr;
+  /// Image creation flags
+  vk::image_create_flags _flags = vk::image_create_flag::none;
+  /// Image usage flags
+  vk::image_usage_flags _usage = vk::image_usage_flag::none;
+  uint32_t _width = 0;
+  uint32_t _height = 0;
+  uint32_t _layer_count = 0;
+  uint32_t _view_format_count = 0;
+  const vk::format* _view_formats = nullptr;
+};
+static_assert(sizeof(framebuffer_attachment_image_info_khr) ==
+                sizeof(::VkFramebufferAttachmentImageInfoKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkFramebufferAttachmentsCreateInfoKHR.
+class framebuffer_attachments_create_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr framebuffer_attachments_create_info_khr() = default;
+
+  /// Constructor.
+  constexpr framebuffer_attachments_create_info_khr(
+    const void* initial_next, uint32_t initial_attachment_image_info_count,
+    const vk::framebuffer_attachment_image_info_khr*
+      initial_attachment_image_infos) noexcept
+  : _next(std::move(initial_next)),
+    _attachment_image_info_count(
+      std::move(initial_attachment_image_info_count)),
+    _attachment_image_infos(std::move(initial_attachment_image_infos))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr framebuffer_attachments_create_info_khr(
+    const framebuffer_attachments_create_info_khr& other) noexcept
+  : _next(other._next),
+    _attachment_image_info_count(other._attachment_image_info_count),
+    _attachment_image_infos(other._attachment_image_infos)
+  {
+  }
+
+  /// Move constructor.
+  constexpr framebuffer_attachments_create_info_khr(
+    framebuffer_attachments_create_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attachment_image_info_count(std::move(other._attachment_image_info_count)),
+    _attachment_image_infos(std::move(other._attachment_image_infos))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr framebuffer_attachments_create_info_khr& operator=(
+    const framebuffer_attachments_create_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _attachment_image_info_count = other._attachment_image_info_count;
+    _attachment_image_infos = other._attachment_image_infos;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr framebuffer_attachments_create_info_khr& operator=(
+    framebuffer_attachments_create_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attachment_image_info_count =
+      std::move(other._attachment_image_info_count);
+    _attachment_image_infos = std::move(other._attachment_image_infos);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkFramebufferAttachmentsCreateInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkFramebufferAttachmentsCreateInfoKHR*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& attachment_image_info_count()
+  {
+    return _attachment_image_info_count;
+  }
+
+  constexpr const uint32_t& attachment_image_info_count() const
+  {
+    return _attachment_image_info_count;
+  }
+
+  void attachment_image_info_count(uint32_t new_attachment_image_info_count)
+  {
+    _attachment_image_info_count = new_attachment_image_info_count;
+  }
+
+  const vk::framebuffer_attachment_image_info_khr* attachment_image_infos()
+  {
+    return _attachment_image_infos;
+  }
+
+  constexpr const vk::framebuffer_attachment_image_info_khr*
+  attachment_image_infos() const
+  {
+    return _attachment_image_infos;
+  }
+
+  void attachment_image_infos(
+    const vk::framebuffer_attachment_image_info_khr* new_attachment_image_infos)
+  {
+    _attachment_image_infos = new_attachment_image_infos;
+  }
+
+  template <std::size_t Count>
+  void attachment_image_infos(
+    const std::array<vk::framebuffer_attachment_image_info_khr, Count>&
+      new_attachment_image_infos)
+  {
+    _attachment_image_info_count =
+      static_cast<uint32_t>(new_attachment_image_infos.size());
+    _attachment_image_infos = new_attachment_image_infos.data();
+  }
+
+  void attachment_image_infos(
+    const std::vector<vk::framebuffer_attachment_image_info_khr>&
+      new_attachment_image_infos)
+  {
+    _attachment_image_info_count =
+      static_cast<uint32_t>(new_attachment_image_infos.size());
+    _attachment_image_infos = new_attachment_image_infos.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::framebuffer_attachments_create_info_khr;
+  const void* _next = nullptr;
+  uint32_t _attachment_image_info_count = 0;
+  const vk::framebuffer_attachment_image_info_khr* _attachment_image_infos =
+    nullptr;
+};
+static_assert(sizeof(framebuffer_attachments_create_info_khr) ==
+                sizeof(::VkFramebufferAttachmentsCreateInfoKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkRenderPassAttachmentBeginInfoKHR.
+class render_pass_attachment_begin_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr render_pass_attachment_begin_info_khr() = default;
+
+  /// Constructor.
+  constexpr render_pass_attachment_begin_info_khr(
+    const void* initial_next, uint32_t initial_attachment_count,
+    const VkImageView* initial_attachments) noexcept
+  : _next(std::move(initial_next)),
+    _attachment_count(std::move(initial_attachment_count)),
+    _attachments(std::move(initial_attachments))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr render_pass_attachment_begin_info_khr(
+    const render_pass_attachment_begin_info_khr& other) noexcept
+  : _next(other._next),
+    _attachment_count(other._attachment_count),
+    _attachments(other._attachments)
+  {
+  }
+
+  /// Move constructor.
+  constexpr render_pass_attachment_begin_info_khr(
+    render_pass_attachment_begin_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _attachment_count(std::move(other._attachment_count)),
+    _attachments(std::move(other._attachments))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr render_pass_attachment_begin_info_khr& operator=(
+    const render_pass_attachment_begin_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _attachment_count = other._attachment_count;
+    _attachments = other._attachments;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr render_pass_attachment_begin_info_khr& operator=(
+    render_pass_attachment_begin_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _attachment_count = std::move(other._attachment_count);
+    _attachments = std::move(other._attachments);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkRenderPassAttachmentBeginInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkRenderPassAttachmentBeginInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& attachment_count()
+  {
+    return _attachment_count;
+  }
+
+  constexpr const uint32_t& attachment_count() const
+  {
+    return _attachment_count;
+  }
+
+  void attachment_count(uint32_t new_attachment_count)
+  {
+    _attachment_count = new_attachment_count;
+  }
+
+  const VkImageView* attachments()
+  {
+    return _attachments;
+  }
+
+  constexpr const VkImageView* attachments() const
+  {
+    return _attachments;
+  }
+
+  void attachments(const VkImageView* new_attachments)
+  {
+    _attachments = new_attachments;
+  }
+
+  template <std::size_t Count>
+  void attachments(const std::array<VkImageView, Count>& new_attachments)
+  {
+    _attachment_count = static_cast<uint32_t>(new_attachments.size());
+    _attachments = new_attachments.data();
+  }
+
+  void attachments(const std::vector<VkImageView>& new_attachments)
+  {
+    _attachment_count = static_cast<uint32_t>(new_attachments.size());
+    _attachments = new_attachments.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::render_pass_attachment_begin_info_khr;
+  /// Pointer to next structure
+  const void* _next = nullptr;
+  uint32_t _attachment_count = 0;
+  const VkImageView* _attachments = nullptr;
+};
+static_assert(sizeof(render_pass_attachment_begin_info_khr) ==
+                sizeof(::VkRenderPassAttachmentBeginInfoKHR),
+              "struct and wrapper have different size!");
 
 /// Enhanced replacement type for VkAttachmentDescription2KHR.
 class attachment_description_2_khr
@@ -49776,7 +51083,10 @@ inline vk::result get_physical_device_surface_formats_2_khr(
 }
 
 using physical_device_variable_pointer_features_khr =
-  physical_device_variable_pointer_features;
+  physical_device_variable_pointers_features;
+
+using physical_device_variable_pointers_features_khr =
+  physical_device_variable_pointers_features;
 
 /// Enhanced replacement type for VkDisplayProperties2KHR.
 class display_properties_2_khr
@@ -54440,6 +55750,229 @@ static_assert(sizeof(pipeline_coverage_modulation_state_create_info_nv) ==
                 sizeof(::VkPipelineCoverageModulationStateCreateInfoNV),
               "struct and wrapper have different size!");
 
+/// Enhanced replacement type for VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.
+class physical_device_shader_smbuiltins_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_smbuiltins_properties_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_shader_smbuiltins_properties_nv(
+    void* initial_next, uint32_t initial_shader_smcount,
+    uint32_t initial_shader_warps_per_sm) noexcept
+  : _next(std::move(initial_next)),
+    _shader_smcount(std::move(initial_shader_smcount)),
+    _shader_warps_per_sm(std::move(initial_shader_warps_per_sm))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_smbuiltins_properties_nv(
+    const physical_device_shader_smbuiltins_properties_nv& other) noexcept
+  : _next(other._next),
+    _shader_smcount(other._shader_smcount),
+    _shader_warps_per_sm(other._shader_warps_per_sm)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_smbuiltins_properties_nv(
+    physical_device_shader_smbuiltins_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_smcount(std::move(other._shader_smcount)),
+    _shader_warps_per_sm(std::move(other._shader_warps_per_sm))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_smbuiltins_properties_nv& operator=(
+    const physical_device_shader_smbuiltins_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _shader_smcount = other._shader_smcount;
+    _shader_warps_per_sm = other._shader_warps_per_sm;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_smbuiltins_properties_nv& operator=(
+    physical_device_shader_smbuiltins_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_smcount = std::move(other._shader_smcount);
+    _shader_warps_per_sm = std::move(other._shader_warps_per_sm);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderSMBuiltinsPropertiesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& shader_smcount()
+  {
+    return _shader_smcount;
+  }
+
+  constexpr const uint32_t& shader_smcount() const
+  {
+    return _shader_smcount;
+  }
+
+  void shader_smcount(uint32_t new_shader_smcount)
+  {
+    _shader_smcount = new_shader_smcount;
+  }
+
+  uint32_t& shader_warps_per_sm()
+  {
+    return _shader_warps_per_sm;
+  }
+
+  constexpr const uint32_t& shader_warps_per_sm() const
+  {
+    return _shader_warps_per_sm;
+  }
+
+  void shader_warps_per_sm(uint32_t new_shader_warps_per_sm)
+  {
+    _shader_warps_per_sm = new_shader_warps_per_sm;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shader_sm_builtins_properties_nv;
+  void* _next = nullptr;
+  uint32_t _shader_smcount = 0;
+  uint32_t _shader_warps_per_sm = 0;
+};
+static_assert(sizeof(physical_device_shader_smbuiltins_properties_nv) ==
+                sizeof(::VkPhysicalDeviceShaderSMBuiltinsPropertiesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.
+class physical_device_shader_smbuiltins_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_smbuiltins_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_shader_smbuiltins_features_nv(
+    void* initial_next, VkBool32 initial_shader_smbuiltins) noexcept
+  : _next(std::move(initial_next)),
+    _shader_smbuiltins(std::move(initial_shader_smbuiltins))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_smbuiltins_features_nv(
+    const physical_device_shader_smbuiltins_features_nv& other) noexcept
+  : _next(other._next), _shader_smbuiltins(other._shader_smbuiltins)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_smbuiltins_features_nv(
+    physical_device_shader_smbuiltins_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_smbuiltins(std::move(other._shader_smbuiltins))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_smbuiltins_features_nv& operator=(
+    const physical_device_shader_smbuiltins_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _shader_smbuiltins = other._shader_smbuiltins;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_smbuiltins_features_nv& operator=(
+    physical_device_shader_smbuiltins_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_smbuiltins = std::move(other._shader_smbuiltins);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderSMBuiltinsFeaturesNV&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shader_smbuiltins()
+  {
+    return _shader_smbuiltins;
+  }
+
+  constexpr const VkBool32& shader_smbuiltins() const
+  {
+    return _shader_smbuiltins;
+  }
+
+  void shader_smbuiltins(VkBool32 new_shader_smbuiltins)
+  {
+    _shader_smbuiltins = new_shader_smbuiltins;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shader_sm_builtins_features_nv;
+  void* _next = nullptr;
+  VkBool32 _shader_smbuiltins = VK_FALSE;
+};
+static_assert(sizeof(physical_device_shader_smbuiltins_features_nv) ==
+                sizeof(::VkPhysicalDeviceShaderSMBuiltinsFeaturesNV),
+              "struct and wrapper have different size!");
+
 /// Enhanced replacement type for VkDrmFormatModifierPropertiesEXT.
 class drm_format_modifier_properties_ext
 {
@@ -58442,6 +59975,13 @@ inline void cmd_set_coarse_sample_order_nv(
     static_cast<uint32_t>(custom_sample_order_count),
     reinterpret_cast<const VkCoarseSampleOrderCustomNV*>(custom_sample_orders));
 }
+enum class acceleration_structure_type_nv
+{
+  /// @see VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NV
+  acceleration_structure_type_top_level_nv = 0,
+  /// @see VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV
+  acceleration_structure_type_bottom_level_nv = 1,
+};
 enum class ray_tracing_shader_group_type_nv
 {
   /// @see VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_NV
@@ -59682,13 +61222,6 @@ inline constexpr geometry_instance_flags_nv operator|(
 {
   return geometry_instance_flags_nv{lhs} | rhs;
 }
-enum class acceleration_structure_type_nv
-{
-  /// @see VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NV
-  acceleration_structure_type_top_level_nv = 0,
-  /// @see VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV
-  acceleration_structure_type_bottom_level_nv = 1,
-};
 enum class build_acceleration_structure_flag_nv
 {
   /// Custom enumerant not available in Vulkan.
@@ -62186,6 +63719,124 @@ static_assert(sizeof(physical_device_shader_atomic_int64_features_khr) ==
                 sizeof(::VkPhysicalDeviceShaderAtomicInt64FeaturesKHR),
               "struct and wrapper have different size!");
 
+enum class pipeline_compiler_control_flag_amd
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using pipeline_compiler_control_flags_amd =
+  shift::core::bit_field<pipeline_compiler_control_flag_amd,
+                         VkPipelineCompilerControlFlagsAMD>;
+inline constexpr pipeline_compiler_control_flags_amd operator|(
+  pipeline_compiler_control_flag_amd lhs,
+  pipeline_compiler_control_flag_amd rhs)
+{
+  return pipeline_compiler_control_flags_amd{lhs} | rhs;
+}
+/// Enhanced replacement type for VkPipelineCompilerControlCreateInfoAMD.
+class pipeline_compiler_control_create_info_amd
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_compiler_control_create_info_amd() = default;
+
+  /// Constructor.
+  constexpr pipeline_compiler_control_create_info_amd(
+    const void* initial_next, vk::pipeline_compiler_control_flags_amd
+                                initial_compiler_control_flags) noexcept
+  : _next(std::move(initial_next)),
+    _compiler_control_flags(std::move(initial_compiler_control_flags))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_compiler_control_create_info_amd(
+    const pipeline_compiler_control_create_info_amd& other) noexcept
+  : _next(other._next), _compiler_control_flags(other._compiler_control_flags)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_compiler_control_create_info_amd(
+    pipeline_compiler_control_create_info_amd&& other) noexcept
+  : _next(std::move(other._next)),
+    _compiler_control_flags(std::move(other._compiler_control_flags))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_compiler_control_create_info_amd& operator=(
+    const pipeline_compiler_control_create_info_amd& other) noexcept
+  {
+    _next = other._next;
+    _compiler_control_flags = other._compiler_control_flags;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_compiler_control_create_info_amd& operator=(
+    pipeline_compiler_control_create_info_amd&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _compiler_control_flags = std::move(other._compiler_control_flags);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineCompilerControlCreateInfoAMD&() const
+  {
+    return *reinterpret_cast<const VkPipelineCompilerControlCreateInfoAMD*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_compiler_control_flags_amd& compiler_control_flags()
+  {
+    return _compiler_control_flags;
+  }
+
+  constexpr const vk::pipeline_compiler_control_flags_amd&
+  compiler_control_flags() const
+  {
+    return _compiler_control_flags;
+  }
+
+  void compiler_control_flags(
+    vk::pipeline_compiler_control_flags_amd new_compiler_control_flags)
+  {
+    _compiler_control_flags = new_compiler_control_flags;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_compiler_control_create_info_amd;
+  const void* _next = nullptr;
+  vk::pipeline_compiler_control_flags_amd _compiler_control_flags =
+    vk::pipeline_compiler_control_flag_amd::none;
+};
+static_assert(sizeof(pipeline_compiler_control_create_info_amd) ==
+                sizeof(::VkPipelineCompilerControlCreateInfoAMD),
+              "struct and wrapper have different size!");
+
 enum class time_domain_ext
 {
   /// @see VK_TIME_DOMAIN_DEVICE_EXT
@@ -62698,13 +64349,13 @@ private:
   uint32_t _shader_engine_count = 0;
   /// number of shader arrays
   uint32_t _shader_arrays_per_engine_count = 0;
-  /// number of CUs per shader array
+  /// number of physical CUs per shader array
   uint32_t _compute_units_per_shader_array = 0;
   /// number of SIMDs per compute unit
   uint32_t _simd_per_compute_unit = 0;
   /// number of wavefront slots in each SIMD
   uint32_t _wavefronts_per_simd = 0;
-  /// number of threads per wavefront
+  /// maximum number of threads per wavefront
   uint32_t _wavefront_size = 0;
   /// number of physical SGPRs per SIMD
   uint32_t _sgprs_per_simd = 0;
@@ -63312,6 +64963,289 @@ static_assert(sizeof(physical_device_vertex_attribute_divisor_features_ext) ==
                 sizeof(::VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT),
               "struct and wrapper have different size!");
 
+enum class pipeline_creation_feedback_flag_ext
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+  /// @see VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT_EXT
+  valid_bit_ext = 1 << 0,
+  /// @see VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT_EXT
+  application_pipeline_cache_hit_bit_ext = 1 << 1,
+  /// @see VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT
+  base_pipeline_acceleration_bit_ext = 1 << 2,
+};
+using pipeline_creation_feedback_flags_ext =
+  shift::core::bit_field<pipeline_creation_feedback_flag_ext,
+                         VkPipelineCreationFeedbackFlagsEXT>;
+inline constexpr pipeline_creation_feedback_flags_ext operator|(
+  pipeline_creation_feedback_flag_ext lhs,
+  pipeline_creation_feedback_flag_ext rhs)
+{
+  return pipeline_creation_feedback_flags_ext{lhs} | rhs;
+}
+/// Enhanced replacement type for VkPipelineCreationFeedbackEXT.
+class pipeline_creation_feedback_ext
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_creation_feedback_ext() = default;
+
+  /// Constructor.
+  constexpr pipeline_creation_feedback_ext(
+    vk::pipeline_creation_feedback_flags_ext initial_flags,
+    uint64_t initial_duration) noexcept
+  : _flags(std::move(initial_flags)), _duration(std::move(initial_duration))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_creation_feedback_ext(
+    const pipeline_creation_feedback_ext& other) = default;
+
+  /// Move constructor.
+  constexpr pipeline_creation_feedback_ext(
+    pipeline_creation_feedback_ext&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr pipeline_creation_feedback_ext& operator=(
+    const pipeline_creation_feedback_ext& other) = default;
+
+  /// Move assignment operator.
+  constexpr pipeline_creation_feedback_ext& operator=(
+    pipeline_creation_feedback_ext&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineCreationFeedbackEXT&() const
+  {
+    return *reinterpret_cast<const VkPipelineCreationFeedbackEXT*>(this);
+  }
+
+  vk::pipeline_creation_feedback_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::pipeline_creation_feedback_flags_ext& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::pipeline_creation_feedback_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  uint64_t& duration()
+  {
+    return _duration;
+  }
+
+  constexpr const uint64_t& duration() const
+  {
+    return _duration;
+  }
+
+  void duration(uint64_t new_duration)
+  {
+    _duration = new_duration;
+  }
+
+private:
+  vk::pipeline_creation_feedback_flags_ext _flags =
+    vk::pipeline_creation_feedback_flag_ext::none;
+  uint64_t _duration = 0;
+};
+static_assert(sizeof(pipeline_creation_feedback_ext) ==
+                sizeof(::VkPipelineCreationFeedbackEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineCreationFeedbackCreateInfoEXT.
+class pipeline_creation_feedback_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_creation_feedback_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr pipeline_creation_feedback_create_info_ext(
+    const void* initial_next,
+    vk::pipeline_creation_feedback_ext* initial_pipeline_creation_feedback,
+    uint32_t initial_pipeline_stage_creation_feedback_count,
+    vk::pipeline_creation_feedback_ext*
+      initial_pipeline_stage_creation_feedbacks) noexcept
+  : _next(std::move(initial_next)),
+    _pipeline_creation_feedback(std::move(initial_pipeline_creation_feedback)),
+    _pipeline_stage_creation_feedback_count(
+      std::move(initial_pipeline_stage_creation_feedback_count)),
+    _pipeline_stage_creation_feedbacks(
+      std::move(initial_pipeline_stage_creation_feedbacks))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_creation_feedback_create_info_ext(
+    const pipeline_creation_feedback_create_info_ext& other) noexcept
+  : _next(other._next),
+    _pipeline_creation_feedback(other._pipeline_creation_feedback),
+    _pipeline_stage_creation_feedback_count(
+      other._pipeline_stage_creation_feedback_count),
+    _pipeline_stage_creation_feedbacks(other._pipeline_stage_creation_feedbacks)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_creation_feedback_create_info_ext(
+    pipeline_creation_feedback_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _pipeline_creation_feedback(std::move(other._pipeline_creation_feedback)),
+    _pipeline_stage_creation_feedback_count(
+      std::move(other._pipeline_stage_creation_feedback_count)),
+    _pipeline_stage_creation_feedbacks(
+      std::move(other._pipeline_stage_creation_feedbacks))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_creation_feedback_create_info_ext& operator=(
+    const pipeline_creation_feedback_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _pipeline_creation_feedback = other._pipeline_creation_feedback;
+    _pipeline_stage_creation_feedback_count =
+      other._pipeline_stage_creation_feedback_count;
+    _pipeline_stage_creation_feedbacks =
+      other._pipeline_stage_creation_feedbacks;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_creation_feedback_create_info_ext& operator=(
+    pipeline_creation_feedback_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _pipeline_creation_feedback = std::move(other._pipeline_creation_feedback);
+    _pipeline_stage_creation_feedback_count =
+      std::move(other._pipeline_stage_creation_feedback_count);
+    _pipeline_stage_creation_feedbacks =
+      std::move(other._pipeline_stage_creation_feedbacks);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineCreationFeedbackCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkPipelineCreationFeedbackCreateInfoEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_creation_feedback_ext* pipeline_creation_feedback()
+  {
+    return _pipeline_creation_feedback;
+  }
+
+  constexpr vk::pipeline_creation_feedback_ext* pipeline_creation_feedback()
+    const
+  {
+    return _pipeline_creation_feedback;
+  }
+
+  void pipeline_creation_feedback(
+    vk::pipeline_creation_feedback_ext* new_pipeline_creation_feedback)
+  {
+    _pipeline_creation_feedback = new_pipeline_creation_feedback;
+  }
+
+  uint32_t& pipeline_stage_creation_feedback_count()
+  {
+    return _pipeline_stage_creation_feedback_count;
+  }
+
+  constexpr const uint32_t& pipeline_stage_creation_feedback_count() const
+  {
+    return _pipeline_stage_creation_feedback_count;
+  }
+
+  void pipeline_stage_creation_feedback_count(
+    uint32_t new_pipeline_stage_creation_feedback_count)
+  {
+    _pipeline_stage_creation_feedback_count =
+      new_pipeline_stage_creation_feedback_count;
+  }
+
+  vk::pipeline_creation_feedback_ext* pipeline_stage_creation_feedbacks()
+  {
+    return _pipeline_stage_creation_feedbacks;
+  }
+
+  constexpr vk::pipeline_creation_feedback_ext*
+  pipeline_stage_creation_feedbacks() const
+  {
+    return _pipeline_stage_creation_feedbacks;
+  }
+
+  void pipeline_stage_creation_feedbacks(
+    vk::pipeline_creation_feedback_ext* new_pipeline_stage_creation_feedbacks)
+  {
+    _pipeline_stage_creation_feedbacks = new_pipeline_stage_creation_feedbacks;
+  }
+
+  template <std::size_t Count>
+  void pipeline_stage_creation_feedbacks(
+    std::array<vk::pipeline_creation_feedback_ext, Count>&
+      new_pipeline_stage_creation_feedbacks)
+  {
+    _pipeline_stage_creation_feedback_count =
+      static_cast<uint32_t>(new_pipeline_stage_creation_feedbacks.size());
+    _pipeline_stage_creation_feedbacks =
+      new_pipeline_stage_creation_feedbacks.data();
+  }
+
+  void pipeline_stage_creation_feedbacks(
+    std::vector<vk::pipeline_creation_feedback_ext>&
+      new_pipeline_stage_creation_feedbacks)
+  {
+    _pipeline_stage_creation_feedback_count =
+      static_cast<uint32_t>(new_pipeline_stage_creation_feedbacks.size());
+    _pipeline_stage_creation_feedbacks =
+      new_pipeline_stage_creation_feedbacks.data();
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_creation_feedback_create_info_ext;
+  const void* _next = nullptr;
+  /// Output pipeline creation feedback.
+  vk::pipeline_creation_feedback_ext* _pipeline_creation_feedback = nullptr;
+  uint32_t _pipeline_stage_creation_feedback_count = 0;
+  /// One entry for each shader stage specified in the parent
+  /// Vk*PipelineCreateInfo struct
+  vk::pipeline_creation_feedback_ext* _pipeline_stage_creation_feedbacks =
+    nullptr;
+};
+static_assert(sizeof(pipeline_creation_feedback_create_info_ext) ==
+                sizeof(::VkPipelineCreationFeedbackCreateInfoEXT),
+              "struct and wrapper have different size!");
+
 enum class driver_id_khr
 {
   /// Advanced Micro Devices, Inc.
@@ -63342,8 +65276,14 @@ enum class driver_id_khr
   /// @see VK_DRIVER_ID_ARM_PROPRIETARY_KHR
   driver_id_arm_proprietary_khr = 9,
   /// Google LLC
-  /// @see VK_DRIVER_ID_GOOGLE_PASTEL_KHR
-  driver_id_google_pastel_khr = 10,
+  /// @see VK_DRIVER_ID_GOOGLE_SWIFTSHADER_KHR
+  driver_id_google_swiftshader_khr = 10,
+  /// Google LLC
+  /// @see VK_DRIVER_ID_GGP_PROPRIETARY_KHR
+  driver_id_ggp_proprietary_khr = 11,
+  /// Broadcom Inc.
+  /// @see VK_DRIVER_ID_BROADCOM_PROPRIETARY_KHR
+  driver_id_broadcom_proprietary_khr = 12,
 };
 
 /// Enhanced replacement type for VkConformanceVersionKHR.
@@ -63628,6 +65568,16 @@ static_assert(sizeof(physical_device_driver_properties_khr) ==
                 sizeof(::VkPhysicalDeviceDriverPropertiesKHR),
               "struct and wrapper have different size!");
 
+enum class shader_float_controls_independence_khr
+{
+  /// @see VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY_KHR
+  shader_float_controls_independence_32_bit_only_khr = 0,
+  /// @see VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL_KHR
+  shader_float_controls_independence_all_khr = 1,
+  /// @see VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE_KHR
+  shader_float_controls_independence_none_khr = 2,
+};
+
 /// Enhanced replacement type for VkPhysicalDeviceFloatControlsPropertiesKHR.
 class physical_device_float_controls_properties_khr
 {
@@ -63637,8 +65587,11 @@ public:
 
   /// Constructor.
   constexpr physical_device_float_controls_properties_khr(
-    void* initial_next, VkBool32 initial_separate_denorm_settings,
-    VkBool32 initial_separate_rounding_mode_settings,
+    void* initial_next,
+    vk::shader_float_controls_independence_khr
+      initial_denorm_behavior_independence,
+    vk::shader_float_controls_independence_khr
+      initial_rounding_mode_independence,
     VkBool32 initial_shader_signed_zero_inf_nan_preserve_float16,
     VkBool32 initial_shader_signed_zero_inf_nan_preserve_float32,
     VkBool32 initial_shader_signed_zero_inf_nan_preserve_float64,
@@ -63655,9 +65608,9 @@ public:
     VkBool32 initial_shader_rounding_mode_rtzfloat32,
     VkBool32 initial_shader_rounding_mode_rtzfloat64) noexcept
   : _next(std::move(initial_next)),
-    _separate_denorm_settings(std::move(initial_separate_denorm_settings)),
-    _separate_rounding_mode_settings(
-      std::move(initial_separate_rounding_mode_settings)),
+    _denorm_behavior_independence(
+      std::move(initial_denorm_behavior_independence)),
+    _rounding_mode_independence(std::move(initial_rounding_mode_independence)),
     _shader_signed_zero_inf_nan_preserve_float16(
       std::move(initial_shader_signed_zero_inf_nan_preserve_float16)),
     _shader_signed_zero_inf_nan_preserve_float32(
@@ -63695,8 +65648,8 @@ public:
   constexpr physical_device_float_controls_properties_khr(
     const physical_device_float_controls_properties_khr& other) noexcept
   : _next(other._next),
-    _separate_denorm_settings(other._separate_denorm_settings),
-    _separate_rounding_mode_settings(other._separate_rounding_mode_settings),
+    _denorm_behavior_independence(other._denorm_behavior_independence),
+    _rounding_mode_independence(other._rounding_mode_independence),
     _shader_signed_zero_inf_nan_preserve_float16(
       other._shader_signed_zero_inf_nan_preserve_float16),
     _shader_signed_zero_inf_nan_preserve_float32(
@@ -63725,9 +65678,9 @@ public:
   constexpr physical_device_float_controls_properties_khr(
     physical_device_float_controls_properties_khr&& other) noexcept
   : _next(std::move(other._next)),
-    _separate_denorm_settings(std::move(other._separate_denorm_settings)),
-    _separate_rounding_mode_settings(
-      std::move(other._separate_rounding_mode_settings)),
+    _denorm_behavior_independence(
+      std::move(other._denorm_behavior_independence)),
+    _rounding_mode_independence(std::move(other._rounding_mode_independence)),
     _shader_signed_zero_inf_nan_preserve_float16(
       std::move(other._shader_signed_zero_inf_nan_preserve_float16)),
     _shader_signed_zero_inf_nan_preserve_float32(
@@ -63766,8 +65719,8 @@ public:
     const physical_device_float_controls_properties_khr& other) noexcept
   {
     _next = other._next;
-    _separate_denorm_settings = other._separate_denorm_settings;
-    _separate_rounding_mode_settings = other._separate_rounding_mode_settings;
+    _denorm_behavior_independence = other._denorm_behavior_independence;
+    _rounding_mode_independence = other._rounding_mode_independence;
     _shader_signed_zero_inf_nan_preserve_float16 =
       other._shader_signed_zero_inf_nan_preserve_float16;
     _shader_signed_zero_inf_nan_preserve_float32 =
@@ -63797,9 +65750,9 @@ public:
     physical_device_float_controls_properties_khr&& other) noexcept
   {
     _next = std::move(other._next);
-    _separate_denorm_settings = std::move(other._separate_denorm_settings);
-    _separate_rounding_mode_settings =
-      std::move(other._separate_rounding_mode_settings);
+    _denorm_behavior_independence =
+      std::move(other._denorm_behavior_independence);
+    _rounding_mode_independence = std::move(other._rounding_mode_independence);
     _shader_signed_zero_inf_nan_preserve_float16 =
       std::move(other._shader_signed_zero_inf_nan_preserve_float16);
     _shader_signed_zero_inf_nan_preserve_float32 =
@@ -63860,35 +65813,38 @@ public:
     _next = new_next;
   }
 
-  VkBool32& separate_denorm_settings()
+  vk::shader_float_controls_independence_khr& denorm_behavior_independence()
   {
-    return _separate_denorm_settings;
+    return _denorm_behavior_independence;
   }
 
-  constexpr const VkBool32& separate_denorm_settings() const
+  constexpr const vk::shader_float_controls_independence_khr&
+  denorm_behavior_independence() const
   {
-    return _separate_denorm_settings;
+    return _denorm_behavior_independence;
   }
 
-  void separate_denorm_settings(VkBool32 new_separate_denorm_settings)
+  void denorm_behavior_independence(
+    vk::shader_float_controls_independence_khr new_denorm_behavior_independence)
   {
-    _separate_denorm_settings = new_separate_denorm_settings;
+    _denorm_behavior_independence = new_denorm_behavior_independence;
   }
 
-  VkBool32& separate_rounding_mode_settings()
+  vk::shader_float_controls_independence_khr& rounding_mode_independence()
   {
-    return _separate_rounding_mode_settings;
+    return _rounding_mode_independence;
   }
 
-  constexpr const VkBool32& separate_rounding_mode_settings() const
+  constexpr const vk::shader_float_controls_independence_khr&
+  rounding_mode_independence() const
   {
-    return _separate_rounding_mode_settings;
+    return _rounding_mode_independence;
   }
 
-  void separate_rounding_mode_settings(
-    VkBool32 new_separate_rounding_mode_settings)
+  void rounding_mode_independence(
+    vk::shader_float_controls_independence_khr new_rounding_mode_independence)
   {
-    _separate_rounding_mode_settings = new_separate_rounding_mode_settings;
+    _rounding_mode_independence = new_rounding_mode_independence;
   }
 
   VkBool32& shader_signed_zero_inf_nan_preserve_float16()
@@ -64141,8 +66097,12 @@ private:
   const vk::structure_type _structure_type =
     vk::structure_type::physical_device_float_controls_properties_khr;
   void* _next = nullptr;
-  VkBool32 _separate_denorm_settings = VK_FALSE;
-  VkBool32 _separate_rounding_mode_settings = VK_FALSE;
+  vk::shader_float_controls_independence_khr _denorm_behavior_independence =
+    vk::shader_float_controls_independence_khr::
+      shader_float_controls_independence_32_bit_only_khr;
+  vk::shader_float_controls_independence_khr _rounding_mode_independence =
+    vk::shader_float_controls_independence_khr::
+      shader_float_controls_independence_32_bit_only_khr;
   /// An implementation can preserve signed zero, nan, inf
   VkBool32 _shader_signed_zero_inf_nan_preserve_float16 = VK_FALSE;
   /// An implementation can preserve signed zero, nan, inf
@@ -66002,6 +67962,984 @@ inline void get_queue_checkpoint_data_nv(
     reinterpret_cast<VkCheckpointDataNV*>(checkpoint_data));
 }
 
+/// Enhanced replacement type for
+/// VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.
+class physical_device_shader_integer_functions_2_features_intel
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_integer_functions_2_features_intel() =
+    default;
+
+  /// Constructor.
+  constexpr physical_device_shader_integer_functions_2_features_intel(
+    void* initial_next, VkBool32 initial_shader_integer_functions_2) noexcept
+  : _next(std::move(initial_next)),
+    _shader_integer_functions_2(std::move(initial_shader_integer_functions_2))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_integer_functions_2_features_intel(
+    const physical_device_shader_integer_functions_2_features_intel&
+      other) noexcept
+  : _next(other._next),
+    _shader_integer_functions_2(other._shader_integer_functions_2)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_integer_functions_2_features_intel(
+    physical_device_shader_integer_functions_2_features_intel&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_integer_functions_2(std::move(other._shader_integer_functions_2))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_integer_functions_2_features_intel&
+  operator=(const physical_device_shader_integer_functions_2_features_intel&
+              other) noexcept
+  {
+    _next = other._next;
+    _shader_integer_functions_2 = other._shader_integer_functions_2;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_integer_functions_2_features_intel&
+  operator=(
+    physical_device_shader_integer_functions_2_features_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_integer_functions_2 = std::move(other._shader_integer_functions_2);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shader_integer_functions_2()
+  {
+    return _shader_integer_functions_2;
+  }
+
+  constexpr const VkBool32& shader_integer_functions_2() const
+  {
+    return _shader_integer_functions_2;
+  }
+
+  void shader_integer_functions_2(VkBool32 new_shader_integer_functions_2)
+  {
+    _shader_integer_functions_2 = new_shader_integer_functions_2;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_shader_integer_functions_2_features_intel;
+  void* _next = nullptr;
+  VkBool32 _shader_integer_functions_2 = VK_FALSE;
+};
+static_assert(
+  sizeof(physical_device_shader_integer_functions_2_features_intel) ==
+    sizeof(::VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL),
+  "struct and wrapper have different size!");
+
+enum class performance_configuration_type_intel
+{
+  /// @see
+  /// VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL
+  performance_configuration_type_command_queue_metrics_discovery_activated_intel =
+    0,
+};
+enum class query_pool_sampling_mode_intel
+{
+  /// @see VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL
+  query_pool_sampling_mode_manual_intel = 0,
+};
+enum class performance_override_type_intel
+{
+  /// @see VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL
+  performance_override_type_null_hardware_intel = 0,
+  /// @see VK_PERFORMANCE_OVERRIDE_TYPE_FLUSH_GPU_CACHES_INTEL
+  performance_override_type_flush_gpu_caches_intel = 1,
+};
+enum class performance_parameter_type_intel
+{
+  /// @see VK_PERFORMANCE_PARAMETER_TYPE_HW_COUNTERS_SUPPORTED_INTEL
+  performance_parameter_type_hw_counters_supported_intel = 0,
+  /// @see VK_PERFORMANCE_PARAMETER_TYPE_STREAM_MARKER_VALID_BITS_INTEL
+  performance_parameter_type_stream_marker_valid_bits_intel = 1,
+};
+enum class performance_value_type_intel
+{
+  /// @see VK_PERFORMANCE_VALUE_TYPE_UINT32_INTEL
+  performance_value_type_uint32_intel = 0,
+  /// @see VK_PERFORMANCE_VALUE_TYPE_UINT64_INTEL
+  performance_value_type_uint64_intel = 1,
+  /// @see VK_PERFORMANCE_VALUE_TYPE_FLOAT_INTEL
+  performance_value_type_float_intel = 2,
+  /// @see VK_PERFORMANCE_VALUE_TYPE_BOOL_INTEL
+  performance_value_type_bool_intel = 3,
+  /// @see VK_PERFORMANCE_VALUE_TYPE_STRING_INTEL
+  performance_value_type_string_intel = 4,
+};
+
+union performance_value_data_intel {
+  /// Default constructor.
+  constexpr performance_value_data_intel() noexcept
+  {
+  }
+  /// Constructor.
+  constexpr performance_value_data_intel(uint32_t initial_value_32)
+  : value_32(initial_value_32)
+  {
+  }
+  /// Constructor.
+  constexpr performance_value_data_intel(uint64_t initial_value_64)
+  : value_64(initial_value_64)
+  {
+  }
+  /// Constructor.
+  constexpr performance_value_data_intel(float initial_value_float)
+  : value_float(initial_value_float)
+  {
+  }
+  /// Constructor.
+  constexpr performance_value_data_intel(const char* initial_value_string)
+  : value_string(initial_value_string)
+  {
+  }
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceValueDataINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceValueDataINTEL*>(this);
+  }
+  uint32_t value_32 = 0;
+  uint64_t value_64;
+  float value_float;
+  VkBool32 value_bool;
+  const char* value_string;
+};
+static_assert(sizeof(performance_value_data_intel) ==
+                sizeof(::VkPerformanceValueDataINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPerformanceValueINTEL.
+class performance_value_intel
+{
+public:
+  /// Default constructor.
+  constexpr performance_value_intel() = default;
+
+  /// Constructor.
+  constexpr performance_value_intel(
+    vk::performance_value_type_intel initial_type,
+    vk::performance_value_data_intel initial_data) noexcept
+  : _type(std::move(initial_type)), _data(std::move(initial_data))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr performance_value_intel(const performance_value_intel& other) =
+    default;
+
+  /// Move constructor.
+  constexpr performance_value_intel(performance_value_intel&& other) = default;
+
+  /// Copy assignment operator.
+  constexpr performance_value_intel& operator=(
+    const performance_value_intel& other) = default;
+
+  /// Move assignment operator.
+  constexpr performance_value_intel& operator=(
+    performance_value_intel&& other) = default;
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceValueINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceValueINTEL*>(this);
+  }
+
+  vk::performance_value_type_intel& type()
+  {
+    return _type;
+  }
+
+  constexpr const vk::performance_value_type_intel& type() const
+  {
+    return _type;
+  }
+
+  void type(vk::performance_value_type_intel new_type)
+  {
+    _type = new_type;
+  }
+
+  vk::performance_value_data_intel& data()
+  {
+    return _data;
+  }
+
+  constexpr const vk::performance_value_data_intel& data() const
+  {
+    return _data;
+  }
+
+  void data(vk::performance_value_data_intel new_data)
+  {
+    _data = new_data;
+  }
+
+private:
+  vk::performance_value_type_intel _type =
+    vk::performance_value_type_intel::performance_value_type_uint32_intel;
+  vk::performance_value_data_intel _data = vk::performance_value_data_intel{};
+};
+static_assert(sizeof(performance_value_intel) ==
+                sizeof(::VkPerformanceValueINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkInitializePerformanceApiInfoINTEL.
+class initialize_performance_api_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr initialize_performance_api_info_intel() = default;
+
+  /// Constructor.
+  constexpr initialize_performance_api_info_intel(
+    const void* initial_next, void* initial_user_data) noexcept
+  : _next(std::move(initial_next)), _user_data(std::move(initial_user_data))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr initialize_performance_api_info_intel(
+    const initialize_performance_api_info_intel& other) noexcept
+  : _next(other._next), _user_data(other._user_data)
+  {
+  }
+
+  /// Move constructor.
+  constexpr initialize_performance_api_info_intel(
+    initialize_performance_api_info_intel&& other) noexcept
+  : _next(std::move(other._next)), _user_data(std::move(other._user_data))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr initialize_performance_api_info_intel& operator=(
+    const initialize_performance_api_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _user_data = other._user_data;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr initialize_performance_api_info_intel& operator=(
+    initialize_performance_api_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _user_data = std::move(other._user_data);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkInitializePerformanceApiInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkInitializePerformanceApiInfoINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  void* user_data()
+  {
+    return _user_data;
+  }
+
+  constexpr void* user_data() const
+  {
+    return _user_data;
+  }
+
+  void user_data(void* new_user_data)
+  {
+    _user_data = new_user_data;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::initialize_performance_api_info_intel;
+  const void* _next = nullptr;
+  void* _user_data = nullptr;
+};
+static_assert(sizeof(initialize_performance_api_info_intel) ==
+                sizeof(::VkInitializePerformanceApiInfoINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkQueryPoolCreateInfoINTEL.
+class query_pool_create_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr query_pool_create_info_intel() = default;
+
+  /// Constructor.
+  constexpr query_pool_create_info_intel(
+    const void* initial_next, vk::query_pool_sampling_mode_intel
+                                initial_performance_counters_sampling) noexcept
+  : _next(std::move(initial_next)),
+    _performance_counters_sampling(
+      std::move(initial_performance_counters_sampling))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr query_pool_create_info_intel(
+    const query_pool_create_info_intel& other) noexcept
+  : _next(other._next),
+    _performance_counters_sampling(other._performance_counters_sampling)
+  {
+  }
+
+  /// Move constructor.
+  constexpr query_pool_create_info_intel(
+    query_pool_create_info_intel&& other) noexcept
+  : _next(std::move(other._next)),
+    _performance_counters_sampling(
+      std::move(other._performance_counters_sampling))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr query_pool_create_info_intel& operator=(
+    const query_pool_create_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _performance_counters_sampling = other._performance_counters_sampling;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr query_pool_create_info_intel& operator=(
+    query_pool_create_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _performance_counters_sampling =
+      std::move(other._performance_counters_sampling);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkQueryPoolCreateInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkQueryPoolCreateInfoINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::query_pool_sampling_mode_intel& performance_counters_sampling()
+  {
+    return _performance_counters_sampling;
+  }
+
+  constexpr const vk::query_pool_sampling_mode_intel&
+  performance_counters_sampling() const
+  {
+    return _performance_counters_sampling;
+  }
+
+  void performance_counters_sampling(
+    vk::query_pool_sampling_mode_intel new_performance_counters_sampling)
+  {
+    _performance_counters_sampling = new_performance_counters_sampling;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::query_pool_create_info_intel;
+  const void* _next = nullptr;
+  vk::query_pool_sampling_mode_intel _performance_counters_sampling =
+    vk::query_pool_sampling_mode_intel::query_pool_sampling_mode_manual_intel;
+};
+static_assert(sizeof(query_pool_create_info_intel) ==
+                sizeof(::VkQueryPoolCreateInfoINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPerformanceMarkerInfoINTEL.
+class performance_marker_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr performance_marker_info_intel() = default;
+
+  /// Constructor.
+  constexpr performance_marker_info_intel(const void* initial_next,
+                                          uint64_t initial_marker) noexcept
+  : _next(std::move(initial_next)), _marker(std::move(initial_marker))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr performance_marker_info_intel(
+    const performance_marker_info_intel& other) noexcept
+  : _next(other._next), _marker(other._marker)
+  {
+  }
+
+  /// Move constructor.
+  constexpr performance_marker_info_intel(
+    performance_marker_info_intel&& other) noexcept
+  : _next(std::move(other._next)), _marker(std::move(other._marker))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr performance_marker_info_intel& operator=(
+    const performance_marker_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _marker = other._marker;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr performance_marker_info_intel& operator=(
+    performance_marker_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _marker = std::move(other._marker);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceMarkerInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceMarkerInfoINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint64_t& marker()
+  {
+    return _marker;
+  }
+
+  constexpr const uint64_t& marker() const
+  {
+    return _marker;
+  }
+
+  void marker(uint64_t new_marker)
+  {
+    _marker = new_marker;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::performance_marker_info_intel;
+  const void* _next = nullptr;
+  uint64_t _marker = 0;
+};
+static_assert(sizeof(performance_marker_info_intel) ==
+                sizeof(::VkPerformanceMarkerInfoINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPerformanceStreamMarkerInfoINTEL.
+class performance_stream_marker_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr performance_stream_marker_info_intel() = default;
+
+  /// Constructor.
+  constexpr performance_stream_marker_info_intel(
+    const void* initial_next, uint32_t initial_marker) noexcept
+  : _next(std::move(initial_next)), _marker(std::move(initial_marker))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr performance_stream_marker_info_intel(
+    const performance_stream_marker_info_intel& other) noexcept
+  : _next(other._next), _marker(other._marker)
+  {
+  }
+
+  /// Move constructor.
+  constexpr performance_stream_marker_info_intel(
+    performance_stream_marker_info_intel&& other) noexcept
+  : _next(std::move(other._next)), _marker(std::move(other._marker))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr performance_stream_marker_info_intel& operator=(
+    const performance_stream_marker_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _marker = other._marker;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr performance_stream_marker_info_intel& operator=(
+    performance_stream_marker_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _marker = std::move(other._marker);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceStreamMarkerInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceStreamMarkerInfoINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& marker()
+  {
+    return _marker;
+  }
+
+  constexpr const uint32_t& marker() const
+  {
+    return _marker;
+  }
+
+  void marker(uint32_t new_marker)
+  {
+    _marker = new_marker;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::performance_stream_marker_info_intel;
+  const void* _next = nullptr;
+  uint32_t _marker = 0;
+};
+static_assert(sizeof(performance_stream_marker_info_intel) ==
+                sizeof(::VkPerformanceStreamMarkerInfoINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPerformanceOverrideInfoINTEL.
+class performance_override_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr performance_override_info_intel() = default;
+
+  /// Constructor.
+  constexpr performance_override_info_intel(
+    const void* initial_next, vk::performance_override_type_intel initial_type,
+    VkBool32 initial_enable, uint64_t initial_parameter) noexcept
+  : _next(std::move(initial_next)),
+    _type(std::move(initial_type)),
+    _enable(std::move(initial_enable)),
+    _parameter(std::move(initial_parameter))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr performance_override_info_intel(
+    const performance_override_info_intel& other) noexcept
+  : _next(other._next),
+    _type(other._type),
+    _enable(other._enable),
+    _parameter(other._parameter)
+  {
+  }
+
+  /// Move constructor.
+  constexpr performance_override_info_intel(
+    performance_override_info_intel&& other) noexcept
+  : _next(std::move(other._next)),
+    _type(std::move(other._type)),
+    _enable(std::move(other._enable)),
+    _parameter(std::move(other._parameter))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr performance_override_info_intel& operator=(
+    const performance_override_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _type = other._type;
+    _enable = other._enable;
+    _parameter = other._parameter;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr performance_override_info_intel& operator=(
+    performance_override_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _type = std::move(other._type);
+    _enable = std::move(other._enable);
+    _parameter = std::move(other._parameter);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceOverrideInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceOverrideInfoINTEL*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::performance_override_type_intel& type()
+  {
+    return _type;
+  }
+
+  constexpr const vk::performance_override_type_intel& type() const
+  {
+    return _type;
+  }
+
+  void type(vk::performance_override_type_intel new_type)
+  {
+    _type = new_type;
+  }
+
+  VkBool32& enable()
+  {
+    return _enable;
+  }
+
+  constexpr const VkBool32& enable() const
+  {
+    return _enable;
+  }
+
+  void enable(VkBool32 new_enable)
+  {
+    _enable = new_enable;
+  }
+
+  uint64_t& parameter()
+  {
+    return _parameter;
+  }
+
+  constexpr const uint64_t& parameter() const
+  {
+    return _parameter;
+  }
+
+  void parameter(uint64_t new_parameter)
+  {
+    _parameter = new_parameter;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::performance_override_info_intel;
+  const void* _next = nullptr;
+  vk::performance_override_type_intel _type =
+    vk::performance_override_type_intel::
+      performance_override_type_null_hardware_intel;
+  VkBool32 _enable = VK_FALSE;
+  uint64_t _parameter = 0;
+};
+static_assert(sizeof(performance_override_info_intel) ==
+                sizeof(::VkPerformanceOverrideInfoINTEL),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPerformanceConfigurationAcquireInfoINTEL.
+class performance_configuration_acquire_info_intel
+{
+public:
+  /// Default constructor.
+  constexpr performance_configuration_acquire_info_intel() = default;
+
+  /// Constructor.
+  constexpr performance_configuration_acquire_info_intel(
+    const void* initial_next,
+    vk::performance_configuration_type_intel initial_type) noexcept
+  : _next(std::move(initial_next)), _type(std::move(initial_type))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr performance_configuration_acquire_info_intel(
+    const performance_configuration_acquire_info_intel& other) noexcept
+  : _next(other._next), _type(other._type)
+  {
+  }
+
+  /// Move constructor.
+  constexpr performance_configuration_acquire_info_intel(
+    performance_configuration_acquire_info_intel&& other) noexcept
+  : _next(std::move(other._next)), _type(std::move(other._type))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr performance_configuration_acquire_info_intel& operator=(
+    const performance_configuration_acquire_info_intel& other) noexcept
+  {
+    _next = other._next;
+    _type = other._type;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr performance_configuration_acquire_info_intel& operator=(
+    performance_configuration_acquire_info_intel&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _type = std::move(other._type);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPerformanceConfigurationAcquireInfoINTEL&() const
+  {
+    return *reinterpret_cast<const VkPerformanceConfigurationAcquireInfoINTEL*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::performance_configuration_type_intel& type()
+  {
+    return _type;
+  }
+
+  constexpr const vk::performance_configuration_type_intel& type() const
+  {
+    return _type;
+  }
+
+  void type(vk::performance_configuration_type_intel new_type)
+  {
+    _type = new_type;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::performance_configuration_acquire_info_intel;
+  const void* _next = nullptr;
+  vk::performance_configuration_type_intel _type =
+    vk::performance_configuration_type_intel::
+      performance_configuration_type_command_queue_metrics_discovery_activated_intel;
+};
+static_assert(sizeof(performance_configuration_acquire_info_intel) ==
+                sizeof(::VkPerformanceConfigurationAcquireInfoINTEL),
+              "struct and wrapper have different size!");
+
+inline vk::result initialize_performance_api_intel(
+  VkDevice device,
+  const vk::initialize_performance_api_info_intel* initialize_info)
+{
+  return static_cast<vk::result>(vkInitializePerformanceApiINTEL(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkInitializePerformanceApiInfoINTEL*>(
+      initialize_info)));
+}
+inline void uninitialize_performance_api_intel(VkDevice device)
+{
+  vkUninitializePerformanceApiINTEL(static_cast<VkDevice>(device));
+}
+inline vk::result cmd_set_performance_marker_intel(
+  VkCommandBuffer command_buffer,
+  const vk::performance_marker_info_intel* marker_info)
+{
+  return static_cast<vk::result>(vkCmdSetPerformanceMarkerINTEL(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkPerformanceMarkerInfoINTEL*>(marker_info)));
+}
+inline vk::result cmd_set_performance_stream_marker_intel(
+  VkCommandBuffer command_buffer,
+  const vk::performance_stream_marker_info_intel* marker_info)
+{
+  return static_cast<vk::result>(vkCmdSetPerformanceStreamMarkerINTEL(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkPerformanceStreamMarkerInfoINTEL*>(marker_info)));
+}
+inline vk::result cmd_set_performance_override_intel(
+  VkCommandBuffer command_buffer,
+  const vk::performance_override_info_intel* override_info)
+{
+  return static_cast<vk::result>(vkCmdSetPerformanceOverrideINTEL(
+    static_cast<VkCommandBuffer>(command_buffer),
+    reinterpret_cast<const VkPerformanceOverrideInfoINTEL*>(override_info)));
+}
+inline vk::result acquire_performance_configuration_intel(
+  VkDevice device,
+  const vk::performance_configuration_acquire_info_intel* acquire_info,
+  VkPerformanceConfigurationINTEL* configuration)
+{
+  return static_cast<vk::result>(vkAcquirePerformanceConfigurationINTEL(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkPerformanceConfigurationAcquireInfoINTEL*>(
+      acquire_info),
+    reinterpret_cast<VkPerformanceConfigurationINTEL*>(configuration)));
+}
+inline vk::result release_performance_configuration_intel(
+  VkDevice device, VkPerformanceConfigurationINTEL configuration)
+{
+  return static_cast<vk::result>(vkReleasePerformanceConfigurationINTEL(
+    static_cast<VkDevice>(device),
+    static_cast<VkPerformanceConfigurationINTEL>(configuration)));
+}
+inline vk::result queue_set_performance_configuration_intel(
+  VkQueue queue, VkPerformanceConfigurationINTEL configuration)
+{
+  return static_cast<vk::result>(vkQueueSetPerformanceConfigurationINTEL(
+    static_cast<VkQueue>(queue),
+    static_cast<VkPerformanceConfigurationINTEL>(configuration)));
+}
+inline vk::result get_performance_parameter_intel(
+  VkDevice device, vk::performance_parameter_type_intel parameter,
+  vk::performance_value_intel* value)
+{
+  return static_cast<vk::result>(vkGetPerformanceParameterINTEL(
+    static_cast<VkDevice>(device),
+    static_cast<VkPerformanceParameterTypeINTEL>(parameter),
+    reinterpret_cast<VkPerformanceValueINTEL*>(value)));
+}
+
 /// Enhanced replacement type for VkPhysicalDeviceVulkanMemoryModelFeaturesKHR.
 class physical_device_vulkan_memory_model_features_khr
 {
@@ -66324,6 +69262,214 @@ private:
 static_assert(sizeof(physical_device_pcibus_info_properties_ext) ==
                 sizeof(::VkPhysicalDevicePCIBusInfoPropertiesEXT),
               "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkDisplayNativeHdrSurfaceCapabilitiesAMD.
+class display_native_hdr_surface_capabilities_amd
+{
+public:
+  /// Default constructor.
+  constexpr display_native_hdr_surface_capabilities_amd() = default;
+
+  /// Constructor.
+  constexpr display_native_hdr_surface_capabilities_amd(
+    void* initial_next, VkBool32 initial_local_dimming_support) noexcept
+  : _next(std::move(initial_next)),
+    _local_dimming_support(std::move(initial_local_dimming_support))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr display_native_hdr_surface_capabilities_amd(
+    const display_native_hdr_surface_capabilities_amd& other) noexcept
+  : _next(other._next), _local_dimming_support(other._local_dimming_support)
+  {
+  }
+
+  /// Move constructor.
+  constexpr display_native_hdr_surface_capabilities_amd(
+    display_native_hdr_surface_capabilities_amd&& other) noexcept
+  : _next(std::move(other._next)),
+    _local_dimming_support(std::move(other._local_dimming_support))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr display_native_hdr_surface_capabilities_amd& operator=(
+    const display_native_hdr_surface_capabilities_amd& other) noexcept
+  {
+    _next = other._next;
+    _local_dimming_support = other._local_dimming_support;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr display_native_hdr_surface_capabilities_amd& operator=(
+    display_native_hdr_surface_capabilities_amd&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _local_dimming_support = std::move(other._local_dimming_support);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkDisplayNativeHdrSurfaceCapabilitiesAMD&() const
+  {
+    return *reinterpret_cast<const VkDisplayNativeHdrSurfaceCapabilitiesAMD*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& local_dimming_support()
+  {
+    return _local_dimming_support;
+  }
+
+  constexpr const VkBool32& local_dimming_support() const
+  {
+    return _local_dimming_support;
+  }
+
+  void local_dimming_support(VkBool32 new_local_dimming_support)
+  {
+    _local_dimming_support = new_local_dimming_support;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::display_native_hdr_surface_capabilities_amd;
+  void* _next = nullptr;
+  VkBool32 _local_dimming_support = VK_FALSE;
+};
+static_assert(sizeof(display_native_hdr_surface_capabilities_amd) ==
+                sizeof(::VkDisplayNativeHdrSurfaceCapabilitiesAMD),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkSwapchainDisplayNativeHdrCreateInfoAMD.
+class swapchain_display_native_hdr_create_info_amd
+{
+public:
+  /// Default constructor.
+  constexpr swapchain_display_native_hdr_create_info_amd() = default;
+
+  /// Constructor.
+  constexpr swapchain_display_native_hdr_create_info_amd(
+    const void* initial_next, VkBool32 initial_local_dimming_enable) noexcept
+  : _next(std::move(initial_next)),
+    _local_dimming_enable(std::move(initial_local_dimming_enable))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr swapchain_display_native_hdr_create_info_amd(
+    const swapchain_display_native_hdr_create_info_amd& other) noexcept
+  : _next(other._next), _local_dimming_enable(other._local_dimming_enable)
+  {
+  }
+
+  /// Move constructor.
+  constexpr swapchain_display_native_hdr_create_info_amd(
+    swapchain_display_native_hdr_create_info_amd&& other) noexcept
+  : _next(std::move(other._next)),
+    _local_dimming_enable(std::move(other._local_dimming_enable))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr swapchain_display_native_hdr_create_info_amd& operator=(
+    const swapchain_display_native_hdr_create_info_amd& other) noexcept
+  {
+    _next = other._next;
+    _local_dimming_enable = other._local_dimming_enable;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr swapchain_display_native_hdr_create_info_amd& operator=(
+    swapchain_display_native_hdr_create_info_amd&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _local_dimming_enable = std::move(other._local_dimming_enable);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSwapchainDisplayNativeHdrCreateInfoAMD&() const
+  {
+    return *reinterpret_cast<const VkSwapchainDisplayNativeHdrCreateInfoAMD*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& local_dimming_enable()
+  {
+    return _local_dimming_enable;
+  }
+
+  constexpr const VkBool32& local_dimming_enable() const
+  {
+    return _local_dimming_enable;
+  }
+
+  void local_dimming_enable(VkBool32 new_local_dimming_enable)
+  {
+    _local_dimming_enable = new_local_dimming_enable;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::swapchain_display_native_hdr_create_info_amd;
+  const void* _next = nullptr;
+  VkBool32 _local_dimming_enable = VK_FALSE;
+};
+static_assert(sizeof(swapchain_display_native_hdr_create_info_amd) ==
+                sizeof(::VkSwapchainDisplayNativeHdrCreateInfoAMD),
+              "struct and wrapper have different size!");
+
+inline void set_local_dimming_amd(VkDevice device, VkSwapchainKHR swap_chain,
+                                  VkBool32 local_dimming_enable)
+{
+  vkSetLocalDimmingAMD(static_cast<VkDevice>(device),
+                       static_cast<VkSwapchainKHR>(swap_chain),
+                       static_cast<VkBool32>(local_dimming_enable));
+}
 
 /// Enhanced replacement type for VkPhysicalDeviceFragmentDensityMapFeaturesEXT.
 class physical_device_fragment_density_map_features_ext
@@ -66845,6 +69991,661 @@ static_assert(sizeof(physical_device_scalar_block_layout_features_ext) ==
                 sizeof(::VkPhysicalDeviceScalarBlockLayoutFeaturesEXT),
               "struct and wrapper have different size!");
 
+/// Enhanced replacement type for
+/// VkPhysicalDeviceSubgroupSizeControlFeaturesEXT.
+class physical_device_subgroup_size_control_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_subgroup_size_control_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_subgroup_size_control_features_ext(
+    void* initial_next, VkBool32 initial_subgroup_size_control,
+    VkBool32 initial_compute_full_subgroups) noexcept
+  : _next(std::move(initial_next)),
+    _subgroup_size_control(std::move(initial_subgroup_size_control)),
+    _compute_full_subgroups(std::move(initial_compute_full_subgroups))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_subgroup_size_control_features_ext(
+    const physical_device_subgroup_size_control_features_ext& other) noexcept
+  : _next(other._next),
+    _subgroup_size_control(other._subgroup_size_control),
+    _compute_full_subgroups(other._compute_full_subgroups)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_subgroup_size_control_features_ext(
+    physical_device_subgroup_size_control_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _subgroup_size_control(std::move(other._subgroup_size_control)),
+    _compute_full_subgroups(std::move(other._compute_full_subgroups))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_subgroup_size_control_features_ext& operator=(
+    const physical_device_subgroup_size_control_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _subgroup_size_control = other._subgroup_size_control;
+    _compute_full_subgroups = other._compute_full_subgroups;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_subgroup_size_control_features_ext& operator=(
+    physical_device_subgroup_size_control_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _subgroup_size_control = std::move(other._subgroup_size_control);
+    _compute_full_subgroups = std::move(other._compute_full_subgroups);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceSubgroupSizeControlFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& subgroup_size_control()
+  {
+    return _subgroup_size_control;
+  }
+
+  constexpr const VkBool32& subgroup_size_control() const
+  {
+    return _subgroup_size_control;
+  }
+
+  void subgroup_size_control(VkBool32 new_subgroup_size_control)
+  {
+    _subgroup_size_control = new_subgroup_size_control;
+  }
+
+  VkBool32& compute_full_subgroups()
+  {
+    return _compute_full_subgroups;
+  }
+
+  constexpr const VkBool32& compute_full_subgroups() const
+  {
+    return _compute_full_subgroups;
+  }
+
+  void compute_full_subgroups(VkBool32 new_compute_full_subgroups)
+  {
+    _compute_full_subgroups = new_compute_full_subgroups;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_subgroup_size_control_features_ext;
+  void* _next = nullptr;
+  VkBool32 _subgroup_size_control = VK_FALSE;
+  VkBool32 _compute_full_subgroups = VK_FALSE;
+};
+static_assert(sizeof(physical_device_subgroup_size_control_features_ext) ==
+                sizeof(::VkPhysicalDeviceSubgroupSizeControlFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceSubgroupSizeControlPropertiesEXT.
+class physical_device_subgroup_size_control_properties_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_subgroup_size_control_properties_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_subgroup_size_control_properties_ext(
+    void* initial_next, uint32_t initial_min_subgroup_size,
+    uint32_t initial_max_subgroup_size,
+    uint32_t initial_max_compute_workgroup_subgroups,
+    vk::shader_stage_flags initial_required_subgroup_size_stages) noexcept
+  : _next(std::move(initial_next)),
+    _min_subgroup_size(std::move(initial_min_subgroup_size)),
+    _max_subgroup_size(std::move(initial_max_subgroup_size)),
+    _max_compute_workgroup_subgroups(
+      std::move(initial_max_compute_workgroup_subgroups)),
+    _required_subgroup_size_stages(
+      std::move(initial_required_subgroup_size_stages))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_subgroup_size_control_properties_ext(
+    const physical_device_subgroup_size_control_properties_ext& other) noexcept
+  : _next(other._next),
+    _min_subgroup_size(other._min_subgroup_size),
+    _max_subgroup_size(other._max_subgroup_size),
+    _max_compute_workgroup_subgroups(other._max_compute_workgroup_subgroups),
+    _required_subgroup_size_stages(other._required_subgroup_size_stages)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_subgroup_size_control_properties_ext(
+    physical_device_subgroup_size_control_properties_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _min_subgroup_size(std::move(other._min_subgroup_size)),
+    _max_subgroup_size(std::move(other._max_subgroup_size)),
+    _max_compute_workgroup_subgroups(
+      std::move(other._max_compute_workgroup_subgroups)),
+    _required_subgroup_size_stages(
+      std::move(other._required_subgroup_size_stages))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_subgroup_size_control_properties_ext& operator=(
+    const physical_device_subgroup_size_control_properties_ext& other) noexcept
+  {
+    _next = other._next;
+    _min_subgroup_size = other._min_subgroup_size;
+    _max_subgroup_size = other._max_subgroup_size;
+    _max_compute_workgroup_subgroups = other._max_compute_workgroup_subgroups;
+    _required_subgroup_size_stages = other._required_subgroup_size_stages;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_subgroup_size_control_properties_ext& operator=(
+    physical_device_subgroup_size_control_properties_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _min_subgroup_size = std::move(other._min_subgroup_size);
+    _max_subgroup_size = std::move(other._max_subgroup_size);
+    _max_compute_workgroup_subgroups =
+      std::move(other._max_compute_workgroup_subgroups);
+    _required_subgroup_size_stages =
+      std::move(other._required_subgroup_size_stages);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceSubgroupSizeControlPropertiesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& min_subgroup_size()
+  {
+    return _min_subgroup_size;
+  }
+
+  constexpr const uint32_t& min_subgroup_size() const
+  {
+    return _min_subgroup_size;
+  }
+
+  void min_subgroup_size(uint32_t new_min_subgroup_size)
+  {
+    _min_subgroup_size = new_min_subgroup_size;
+  }
+
+  uint32_t& max_subgroup_size()
+  {
+    return _max_subgroup_size;
+  }
+
+  constexpr const uint32_t& max_subgroup_size() const
+  {
+    return _max_subgroup_size;
+  }
+
+  void max_subgroup_size(uint32_t new_max_subgroup_size)
+  {
+    _max_subgroup_size = new_max_subgroup_size;
+  }
+
+  uint32_t& max_compute_workgroup_subgroups()
+  {
+    return _max_compute_workgroup_subgroups;
+  }
+
+  constexpr const uint32_t& max_compute_workgroup_subgroups() const
+  {
+    return _max_compute_workgroup_subgroups;
+  }
+
+  void max_compute_workgroup_subgroups(
+    uint32_t new_max_compute_workgroup_subgroups)
+  {
+    _max_compute_workgroup_subgroups = new_max_compute_workgroup_subgroups;
+  }
+
+  vk::shader_stage_flags& required_subgroup_size_stages()
+  {
+    return _required_subgroup_size_stages;
+  }
+
+  constexpr const vk::shader_stage_flags& required_subgroup_size_stages() const
+  {
+    return _required_subgroup_size_stages;
+  }
+
+  void required_subgroup_size_stages(
+    vk::shader_stage_flags new_required_subgroup_size_stages)
+  {
+    _required_subgroup_size_stages = new_required_subgroup_size_stages;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_subgroup_size_control_properties_ext;
+  void* _next = nullptr;
+  /// The minimum subgroup size supported by this device
+  uint32_t _min_subgroup_size = 0;
+  /// The maximum subgroup size supported by this device
+  uint32_t _max_subgroup_size = 0;
+  /// The maximum number of subgroups supported in a workgroup
+  uint32_t _max_compute_workgroup_subgroups = 0;
+  /// The shader stages that support specifying a subgroup size
+  vk::shader_stage_flags _required_subgroup_size_stages =
+    vk::shader_stage_flag::none;
+};
+static_assert(sizeof(physical_device_subgroup_size_control_properties_ext) ==
+                sizeof(::VkPhysicalDeviceSubgroupSizeControlPropertiesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.
+class pipeline_shader_stage_required_subgroup_size_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext() =
+    default;
+
+  /// Constructor.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext(
+    void* initial_next, uint32_t initial_required_subgroup_size) noexcept
+  : _next(std::move(initial_next)),
+    _required_subgroup_size(std::move(initial_required_subgroup_size))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext(
+    const pipeline_shader_stage_required_subgroup_size_create_info_ext&
+      other) noexcept
+  : _next(other._next), _required_subgroup_size(other._required_subgroup_size)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext(
+    pipeline_shader_stage_required_subgroup_size_create_info_ext&&
+      other) noexcept
+  : _next(std::move(other._next)),
+    _required_subgroup_size(std::move(other._required_subgroup_size))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext&
+  operator=(const pipeline_shader_stage_required_subgroup_size_create_info_ext&
+              other) noexcept
+  {
+    _next = other._next;
+    _required_subgroup_size = other._required_subgroup_size;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_shader_stage_required_subgroup_size_create_info_ext&
+  operator=(pipeline_shader_stage_required_subgroup_size_create_info_ext&&
+              other) noexcept
+  {
+    _next = std::move(other._next);
+    _required_subgroup_size = std::move(other._required_subgroup_size);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& required_subgroup_size()
+  {
+    return _required_subgroup_size;
+  }
+
+  constexpr const uint32_t& required_subgroup_size() const
+  {
+    return _required_subgroup_size;
+  }
+
+  void required_subgroup_size(uint32_t new_required_subgroup_size)
+  {
+    _required_subgroup_size = new_required_subgroup_size;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    pipeline_shader_stage_required_subgroup_size_create_info_ext;
+  void* _next = nullptr;
+  uint32_t _required_subgroup_size = 0;
+};
+static_assert(
+  sizeof(pipeline_shader_stage_required_subgroup_size_create_info_ext) ==
+    sizeof(::VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT),
+  "struct and wrapper have different size!");
+
+enum class shader_core_properties_flag_amd
+{
+  /// Custom enumerant not available in Vulkan.
+  none = 0,
+};
+using shader_core_properties_flags_amd =
+  shift::core::bit_field<shader_core_properties_flag_amd,
+                         VkShaderCorePropertiesFlagsAMD>;
+inline constexpr shader_core_properties_flags_amd operator|(
+  shader_core_properties_flag_amd lhs, shader_core_properties_flag_amd rhs)
+{
+  return shader_core_properties_flags_amd{lhs} | rhs;
+}
+/// Enhanced replacement type for VkPhysicalDeviceShaderCoreProperties2AMD.
+class physical_device_shader_core_properties_2_amd
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_core_properties_2_amd() = default;
+
+  /// Constructor.
+  constexpr physical_device_shader_core_properties_2_amd(
+    void* initial_next,
+    vk::shader_core_properties_flags_amd initial_shader_core_features,
+    uint32_t initial_active_compute_unit_count) noexcept
+  : _next(std::move(initial_next)),
+    _shader_core_features(std::move(initial_shader_core_features)),
+    _active_compute_unit_count(std::move(initial_active_compute_unit_count))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_core_properties_2_amd(
+    const physical_device_shader_core_properties_2_amd& other) noexcept
+  : _next(other._next),
+    _shader_core_features(other._shader_core_features),
+    _active_compute_unit_count(other._active_compute_unit_count)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_core_properties_2_amd(
+    physical_device_shader_core_properties_2_amd&& other) noexcept
+  : _next(std::move(other._next)),
+    _shader_core_features(std::move(other._shader_core_features)),
+    _active_compute_unit_count(std::move(other._active_compute_unit_count))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_core_properties_2_amd& operator=(
+    const physical_device_shader_core_properties_2_amd& other) noexcept
+  {
+    _next = other._next;
+    _shader_core_features = other._shader_core_features;
+    _active_compute_unit_count = other._active_compute_unit_count;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_core_properties_2_amd& operator=(
+    physical_device_shader_core_properties_2_amd&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_core_features = std::move(other._shader_core_features);
+    _active_compute_unit_count = std::move(other._active_compute_unit_count);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderCoreProperties2AMD&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceShaderCoreProperties2AMD*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::shader_core_properties_flags_amd& shader_core_features()
+  {
+    return _shader_core_features;
+  }
+
+  constexpr const vk::shader_core_properties_flags_amd& shader_core_features()
+    const
+  {
+    return _shader_core_features;
+  }
+
+  void shader_core_features(
+    vk::shader_core_properties_flags_amd new_shader_core_features)
+  {
+    _shader_core_features = new_shader_core_features;
+  }
+
+  uint32_t& active_compute_unit_count()
+  {
+    return _active_compute_unit_count;
+  }
+
+  constexpr const uint32_t& active_compute_unit_count() const
+  {
+    return _active_compute_unit_count;
+  }
+
+  void active_compute_unit_count(uint32_t new_active_compute_unit_count)
+  {
+    _active_compute_unit_count = new_active_compute_unit_count;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_shader_core_properties_2_amd;
+  /// Pointer to next structure
+  void* _next = nullptr;
+  /// features supported by the shader core
+  vk::shader_core_properties_flags_amd _shader_core_features =
+    vk::shader_core_properties_flag_amd::none;
+  /// number of active compute units across all shader engines/arrays
+  uint32_t _active_compute_unit_count = 0;
+};
+static_assert(sizeof(physical_device_shader_core_properties_2_amd) ==
+                sizeof(::VkPhysicalDeviceShaderCoreProperties2AMD),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceCoherentMemoryFeaturesAMD.
+class physical_device_coherent_memory_features_amd
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_coherent_memory_features_amd() = default;
+
+  /// Constructor.
+  constexpr physical_device_coherent_memory_features_amd(
+    void* initial_next, VkBool32 initial_device_coherent_memory) noexcept
+  : _next(std::move(initial_next)),
+    _device_coherent_memory(std::move(initial_device_coherent_memory))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_coherent_memory_features_amd(
+    const physical_device_coherent_memory_features_amd& other) noexcept
+  : _next(other._next), _device_coherent_memory(other._device_coherent_memory)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_coherent_memory_features_amd(
+    physical_device_coherent_memory_features_amd&& other) noexcept
+  : _next(std::move(other._next)),
+    _device_coherent_memory(std::move(other._device_coherent_memory))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_coherent_memory_features_amd& operator=(
+    const physical_device_coherent_memory_features_amd& other) noexcept
+  {
+    _next = other._next;
+    _device_coherent_memory = other._device_coherent_memory;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_coherent_memory_features_amd& operator=(
+    physical_device_coherent_memory_features_amd&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _device_coherent_memory = std::move(other._device_coherent_memory);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceCoherentMemoryFeaturesAMD&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceCoherentMemoryFeaturesAMD*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& device_coherent_memory()
+  {
+    return _device_coherent_memory;
+  }
+
+  constexpr const VkBool32& device_coherent_memory() const
+  {
+    return _device_coherent_memory;
+  }
+
+  void device_coherent_memory(VkBool32 new_device_coherent_memory)
+  {
+    _device_coherent_memory = new_device_coherent_memory;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_coherent_memory_features_amd;
+  void* _next = nullptr;
+  VkBool32 _device_coherent_memory = VK_FALSE;
+};
+static_assert(sizeof(physical_device_coherent_memory_features_amd) ==
+                sizeof(::VkPhysicalDeviceCoherentMemoryFeaturesAMD),
+              "struct and wrapper have different size!");
+
 /// Enhanced replacement type for VkPhysicalDeviceMemoryBudgetPropertiesEXT.
 class physical_device_memory_budget_properties_ext
 {
@@ -67169,6 +70970,106 @@ static_assert(sizeof(memory_priority_allocate_info_ext) ==
                 sizeof(::VkMemoryPriorityAllocateInfoEXT),
               "struct and wrapper have different size!");
 
+/// Enhanced replacement type for VkSurfaceProtectedCapabilitiesKHR.
+class surface_protected_capabilities_khr
+{
+public:
+  /// Default constructor.
+  constexpr surface_protected_capabilities_khr() = default;
+
+  /// Constructor.
+  constexpr surface_protected_capabilities_khr(
+    const void* initial_next, VkBool32 initial_supports_protected) noexcept
+  : _next(std::move(initial_next)),
+    _supports_protected(std::move(initial_supports_protected))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr surface_protected_capabilities_khr(
+    const surface_protected_capabilities_khr& other) noexcept
+  : _next(other._next), _supports_protected(other._supports_protected)
+  {
+  }
+
+  /// Move constructor.
+  constexpr surface_protected_capabilities_khr(
+    surface_protected_capabilities_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _supports_protected(std::move(other._supports_protected))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr surface_protected_capabilities_khr& operator=(
+    const surface_protected_capabilities_khr& other) noexcept
+  {
+    _next = other._next;
+    _supports_protected = other._supports_protected;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr surface_protected_capabilities_khr& operator=(
+    surface_protected_capabilities_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _supports_protected = std::move(other._supports_protected);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSurfaceProtectedCapabilitiesKHR&() const
+  {
+    return *reinterpret_cast<const VkSurfaceProtectedCapabilitiesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& supports_protected()
+  {
+    return _supports_protected;
+  }
+
+  constexpr const VkBool32& supports_protected() const
+  {
+    return _supports_protected;
+  }
+
+  void supports_protected(VkBool32 new_supports_protected)
+  {
+    _supports_protected = new_supports_protected;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::surface_protected_capabilities_khr;
+  const void* _next = nullptr;
+  /// Represents if surface can be protected
+  VkBool32 _supports_protected = VK_FALSE;
+};
+static_assert(sizeof(surface_protected_capabilities_khr) ==
+                sizeof(::VkSurfaceProtectedCapabilitiesKHR),
+              "struct and wrapper have different size!");
+
 /// Enhanced replacement type for
 /// VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.
 class physical_device_dedicated_allocation_image_aliasing_features_nv
@@ -67287,15 +71188,16 @@ static_assert(
     sizeof(::VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV),
   "struct and wrapper have different size!");
 
-/// Enhanced replacement type for VkPhysicalDeviceBufferAddressFeaturesEXT.
-class physical_device_buffer_address_features_ext
+/// Enhanced replacement type for
+/// VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.
+class physical_device_buffer_device_address_features_ext
 {
 public:
   /// Default constructor.
-  constexpr physical_device_buffer_address_features_ext() = default;
+  constexpr physical_device_buffer_device_address_features_ext() = default;
 
   /// Constructor.
-  constexpr physical_device_buffer_address_features_ext(
+  constexpr physical_device_buffer_device_address_features_ext(
     void* initial_next, VkBool32 initial_buffer_device_address,
     VkBool32 initial_buffer_device_address_capture_replay,
     VkBool32 initial_buffer_device_address_multi_device) noexcept
@@ -67309,8 +71211,8 @@ public:
   }
 
   /// Copy constructor.
-  constexpr physical_device_buffer_address_features_ext(
-    const physical_device_buffer_address_features_ext& other) noexcept
+  constexpr physical_device_buffer_device_address_features_ext(
+    const physical_device_buffer_device_address_features_ext& other) noexcept
   : _next(other._next),
     _buffer_device_address(other._buffer_device_address),
     _buffer_device_address_capture_replay(
@@ -67321,8 +71223,8 @@ public:
   }
 
   /// Move constructor.
-  constexpr physical_device_buffer_address_features_ext(
-    physical_device_buffer_address_features_ext&& other) noexcept
+  constexpr physical_device_buffer_device_address_features_ext(
+    physical_device_buffer_device_address_features_ext&& other) noexcept
   : _next(std::move(other._next)),
     _buffer_device_address(std::move(other._buffer_device_address)),
     _buffer_device_address_capture_replay(
@@ -67333,8 +71235,8 @@ public:
   }
 
   /// Copy assignment operator.
-  constexpr physical_device_buffer_address_features_ext& operator=(
-    const physical_device_buffer_address_features_ext& other) noexcept
+  constexpr physical_device_buffer_device_address_features_ext& operator=(
+    const physical_device_buffer_device_address_features_ext& other) noexcept
   {
     _next = other._next;
     _buffer_device_address = other._buffer_device_address;
@@ -67346,8 +71248,8 @@ public:
   }
 
   /// Move assignment operator.
-  constexpr physical_device_buffer_address_features_ext& operator=(
-    physical_device_buffer_address_features_ext&& other) noexcept
+  constexpr physical_device_buffer_device_address_features_ext& operator=(
+    physical_device_buffer_device_address_features_ext&& other) noexcept
   {
     _next = std::move(other._next);
     _buffer_device_address = std::move(other._buffer_device_address);
@@ -67359,10 +71261,10 @@ public:
   }
 
   /// Conversion operator to original Vulkan type.
-  operator const VkPhysicalDeviceBufferAddressFeaturesEXT&() const
+  operator const VkPhysicalDeviceBufferDeviceAddressFeaturesEXT&() const
   {
-    return *reinterpret_cast<const VkPhysicalDeviceBufferAddressFeaturesEXT*>(
-      this);
+    return *reinterpret_cast<
+      const VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*>(this);
   }
 
   constexpr const vk::structure_type& structure_type() const
@@ -67436,15 +71338,18 @@ public:
 
 private:
   const vk::structure_type _structure_type =
-    vk::structure_type::physical_device_buffer_address_features_ext;
+    vk::structure_type::physical_device_buffer_device_address_features_ext;
   void* _next = nullptr;
   VkBool32 _buffer_device_address = VK_FALSE;
   VkBool32 _buffer_device_address_capture_replay = VK_FALSE;
   VkBool32 _buffer_device_address_multi_device = VK_FALSE;
 };
-static_assert(sizeof(physical_device_buffer_address_features_ext) ==
-                sizeof(::VkPhysicalDeviceBufferAddressFeaturesEXT),
+static_assert(sizeof(physical_device_buffer_device_address_features_ext) ==
+                sizeof(::VkPhysicalDeviceBufferDeviceAddressFeaturesEXT),
               "struct and wrapper have different size!");
+
+using physical_device_buffer_address_features_ext =
+  physical_device_buffer_device_address_features_ext;
 
 /// Enhanced replacement type for VkBufferDeviceAddressInfoEXT.
 class buffer_device_address_info_ext
@@ -67552,7 +71457,7 @@ public:
 
   /// Constructor.
   constexpr buffer_device_address_create_info_ext(
-    const void* initial_next, VkDeviceSize initial_device_address) noexcept
+    const void* initial_next, VkDeviceAddress initial_device_address) noexcept
   : _next(std::move(initial_next)),
     _device_address(std::move(initial_device_address))
   {
@@ -67617,17 +71522,17 @@ public:
     _next = new_next;
   }
 
-  VkDeviceSize& device_address()
+  VkDeviceAddress& device_address()
   {
     return _device_address;
   }
 
-  constexpr const VkDeviceSize& device_address() const
+  constexpr const VkDeviceAddress& device_address() const
   {
     return _device_address;
   }
 
-  void device_address(VkDeviceSize new_device_address)
+  void device_address(VkDeviceAddress new_device_address)
   {
     _device_address = new_device_address;
   }
@@ -67636,7 +71541,7 @@ private:
   const vk::structure_type _structure_type =
     vk::structure_type::buffer_device_address_create_info_ext;
   const void* _next = nullptr;
-  VkDeviceSize _device_address = 0;
+  VkDeviceAddress _device_address = 0;
 };
 static_assert(sizeof(buffer_device_address_create_info_ext) ==
                 sizeof(::VkBufferDeviceAddressCreateInfoEXT),
@@ -67756,6 +71661,8 @@ enum class validation_feature_enable_ext
   validation_feature_enable_gpu_assisted_ext = 0,
   /// @see VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT
   validation_feature_enable_gpu_assisted_reserve_binding_slot_ext = 1,
+  /// @see VK_VALIDATION_FEATURE_ENABLE_BEST_PRACTICES_EXT
+  validation_feature_enable_best_practices_ext = 2,
 };
 enum class validation_feature_disable_ext
 {
@@ -68004,6 +71911,3527 @@ private:
 };
 static_assert(sizeof(validation_features_ext) ==
                 sizeof(::VkValidationFeaturesEXT),
+              "struct and wrapper have different size!");
+
+enum class component_type_nv
+{
+  /// @see VK_COMPONENT_TYPE_FLOAT16_NV
+  component_type_float16_nv = 0,
+  /// @see VK_COMPONENT_TYPE_FLOAT32_NV
+  component_type_float32_nv = 1,
+  /// @see VK_COMPONENT_TYPE_FLOAT64_NV
+  component_type_float64_nv = 2,
+  /// @see VK_COMPONENT_TYPE_SINT8_NV
+  component_type_sint8_nv = 3,
+  /// @see VK_COMPONENT_TYPE_SINT16_NV
+  component_type_sint16_nv = 4,
+  /// @see VK_COMPONENT_TYPE_SINT32_NV
+  component_type_sint32_nv = 5,
+  /// @see VK_COMPONENT_TYPE_SINT64_NV
+  component_type_sint64_nv = 6,
+  /// @see VK_COMPONENT_TYPE_UINT8_NV
+  component_type_uint8_nv = 7,
+  /// @see VK_COMPONENT_TYPE_UINT16_NV
+  component_type_uint16_nv = 8,
+  /// @see VK_COMPONENT_TYPE_UINT32_NV
+  component_type_uint32_nv = 9,
+  /// @see VK_COMPONENT_TYPE_UINT64_NV
+  component_type_uint64_nv = 10,
+};
+enum class scope_nv
+{
+  /// @see VK_SCOPE_DEVICE_NV
+  scope_device_nv = 1,
+  /// @see VK_SCOPE_WORKGROUP_NV
+  scope_workgroup_nv = 2,
+  /// @see VK_SCOPE_SUBGROUP_NV
+  scope_subgroup_nv = 3,
+  /// @see VK_SCOPE_QUEUE_FAMILY_NV
+  scope_queue_family_nv = 5,
+};
+
+/// Enhanced replacement type for VkCooperativeMatrixPropertiesNV.
+class cooperative_matrix_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr cooperative_matrix_properties_nv() = default;
+
+  /// Constructor.
+  constexpr cooperative_matrix_properties_nv(
+    void* initial_next, uint32_t initial_msize, uint32_t initial_nsize,
+    uint32_t initial_ksize, vk::component_type_nv initial_atype,
+    vk::component_type_nv initial_btype, vk::component_type_nv initial_ctype,
+    vk::component_type_nv initial_dtype, vk::scope_nv initial_scope) noexcept
+  : _next(std::move(initial_next)),
+    _msize(std::move(initial_msize)),
+    _nsize(std::move(initial_nsize)),
+    _ksize(std::move(initial_ksize)),
+    _atype(std::move(initial_atype)),
+    _btype(std::move(initial_btype)),
+    _ctype(std::move(initial_ctype)),
+    _dtype(std::move(initial_dtype)),
+    _scope(std::move(initial_scope))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr cooperative_matrix_properties_nv(
+    const cooperative_matrix_properties_nv& other) noexcept
+  : _next(other._next),
+    _msize(other._msize),
+    _nsize(other._nsize),
+    _ksize(other._ksize),
+    _atype(other._atype),
+    _btype(other._btype),
+    _ctype(other._ctype),
+    _dtype(other._dtype),
+    _scope(other._scope)
+  {
+  }
+
+  /// Move constructor.
+  constexpr cooperative_matrix_properties_nv(
+    cooperative_matrix_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _msize(std::move(other._msize)),
+    _nsize(std::move(other._nsize)),
+    _ksize(std::move(other._ksize)),
+    _atype(std::move(other._atype)),
+    _btype(std::move(other._btype)),
+    _ctype(std::move(other._ctype)),
+    _dtype(std::move(other._dtype)),
+    _scope(std::move(other._scope))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr cooperative_matrix_properties_nv& operator=(
+    const cooperative_matrix_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _msize = other._msize;
+    _nsize = other._nsize;
+    _ksize = other._ksize;
+    _atype = other._atype;
+    _btype = other._btype;
+    _ctype = other._ctype;
+    _dtype = other._dtype;
+    _scope = other._scope;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr cooperative_matrix_properties_nv& operator=(
+    cooperative_matrix_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _msize = std::move(other._msize);
+    _nsize = std::move(other._nsize);
+    _ksize = std::move(other._ksize);
+    _atype = std::move(other._atype);
+    _btype = std::move(other._btype);
+    _ctype = std::move(other._ctype);
+    _dtype = std::move(other._dtype);
+    _scope = std::move(other._scope);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkCooperativeMatrixPropertiesNV&() const
+  {
+    return *reinterpret_cast<const VkCooperativeMatrixPropertiesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& msize()
+  {
+    return _msize;
+  }
+
+  constexpr const uint32_t& msize() const
+  {
+    return _msize;
+  }
+
+  void msize(uint32_t new_msize)
+  {
+    _msize = new_msize;
+  }
+
+  uint32_t& nsize()
+  {
+    return _nsize;
+  }
+
+  constexpr const uint32_t& nsize() const
+  {
+    return _nsize;
+  }
+
+  void nsize(uint32_t new_nsize)
+  {
+    _nsize = new_nsize;
+  }
+
+  uint32_t& ksize()
+  {
+    return _ksize;
+  }
+
+  constexpr const uint32_t& ksize() const
+  {
+    return _ksize;
+  }
+
+  void ksize(uint32_t new_ksize)
+  {
+    _ksize = new_ksize;
+  }
+
+  vk::component_type_nv& atype()
+  {
+    return _atype;
+  }
+
+  constexpr const vk::component_type_nv& atype() const
+  {
+    return _atype;
+  }
+
+  void atype(vk::component_type_nv new_atype)
+  {
+    _atype = new_atype;
+  }
+
+  vk::component_type_nv& btype()
+  {
+    return _btype;
+  }
+
+  constexpr const vk::component_type_nv& btype() const
+  {
+    return _btype;
+  }
+
+  void btype(vk::component_type_nv new_btype)
+  {
+    _btype = new_btype;
+  }
+
+  vk::component_type_nv& ctype()
+  {
+    return _ctype;
+  }
+
+  constexpr const vk::component_type_nv& ctype() const
+  {
+    return _ctype;
+  }
+
+  void ctype(vk::component_type_nv new_ctype)
+  {
+    _ctype = new_ctype;
+  }
+
+  vk::component_type_nv& dtype()
+  {
+    return _dtype;
+  }
+
+  constexpr const vk::component_type_nv& dtype() const
+  {
+    return _dtype;
+  }
+
+  void dtype(vk::component_type_nv new_dtype)
+  {
+    _dtype = new_dtype;
+  }
+
+  vk::scope_nv& scope()
+  {
+    return _scope;
+  }
+
+  constexpr const vk::scope_nv& scope() const
+  {
+    return _scope;
+  }
+
+  void scope(vk::scope_nv new_scope)
+  {
+    _scope = new_scope;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::cooperative_matrix_properties_nv;
+  void* _next = nullptr;
+  uint32_t _msize = 0;
+  uint32_t _nsize = 0;
+  uint32_t _ksize = 0;
+  vk::component_type_nv _atype =
+    vk::component_type_nv::component_type_float16_nv;
+  vk::component_type_nv _btype =
+    vk::component_type_nv::component_type_float16_nv;
+  vk::component_type_nv _ctype =
+    vk::component_type_nv::component_type_float16_nv;
+  vk::component_type_nv _dtype =
+    vk::component_type_nv::component_type_float16_nv;
+  vk::scope_nv _scope = vk::scope_nv::scope_device_nv;
+};
+static_assert(sizeof(cooperative_matrix_properties_nv) ==
+                sizeof(::VkCooperativeMatrixPropertiesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceCooperativeMatrixFeaturesNV.
+class physical_device_cooperative_matrix_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_cooperative_matrix_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_cooperative_matrix_features_nv(
+    void* initial_next, VkBool32 initial_cooperative_matrix,
+    VkBool32 initial_cooperative_matrix_robust_buffer_access) noexcept
+  : _next(std::move(initial_next)),
+    _cooperative_matrix(std::move(initial_cooperative_matrix)),
+    _cooperative_matrix_robust_buffer_access(
+      std::move(initial_cooperative_matrix_robust_buffer_access))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_cooperative_matrix_features_nv(
+    const physical_device_cooperative_matrix_features_nv& other) noexcept
+  : _next(other._next),
+    _cooperative_matrix(other._cooperative_matrix),
+    _cooperative_matrix_robust_buffer_access(
+      other._cooperative_matrix_robust_buffer_access)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_cooperative_matrix_features_nv(
+    physical_device_cooperative_matrix_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _cooperative_matrix(std::move(other._cooperative_matrix)),
+    _cooperative_matrix_robust_buffer_access(
+      std::move(other._cooperative_matrix_robust_buffer_access))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_cooperative_matrix_features_nv& operator=(
+    const physical_device_cooperative_matrix_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _cooperative_matrix = other._cooperative_matrix;
+    _cooperative_matrix_robust_buffer_access =
+      other._cooperative_matrix_robust_buffer_access;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_cooperative_matrix_features_nv& operator=(
+    physical_device_cooperative_matrix_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _cooperative_matrix = std::move(other._cooperative_matrix);
+    _cooperative_matrix_robust_buffer_access =
+      std::move(other._cooperative_matrix_robust_buffer_access);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceCooperativeMatrixFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceCooperativeMatrixFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& cooperative_matrix()
+  {
+    return _cooperative_matrix;
+  }
+
+  constexpr const VkBool32& cooperative_matrix() const
+  {
+    return _cooperative_matrix;
+  }
+
+  void cooperative_matrix(VkBool32 new_cooperative_matrix)
+  {
+    _cooperative_matrix = new_cooperative_matrix;
+  }
+
+  VkBool32& cooperative_matrix_robust_buffer_access()
+  {
+    return _cooperative_matrix_robust_buffer_access;
+  }
+
+  constexpr const VkBool32& cooperative_matrix_robust_buffer_access() const
+  {
+    return _cooperative_matrix_robust_buffer_access;
+  }
+
+  void cooperative_matrix_robust_buffer_access(
+    VkBool32 new_cooperative_matrix_robust_buffer_access)
+  {
+    _cooperative_matrix_robust_buffer_access =
+      new_cooperative_matrix_robust_buffer_access;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_cooperative_matrix_features_nv;
+  void* _next = nullptr;
+  VkBool32 _cooperative_matrix = VK_FALSE;
+  VkBool32 _cooperative_matrix_robust_buffer_access = VK_FALSE;
+};
+static_assert(sizeof(physical_device_cooperative_matrix_features_nv) ==
+                sizeof(::VkPhysicalDeviceCooperativeMatrixFeaturesNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceCooperativeMatrixPropertiesNV.
+class physical_device_cooperative_matrix_properties_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_cooperative_matrix_properties_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_cooperative_matrix_properties_nv(
+    void* initial_next,
+    vk::shader_stage_flags initial_cooperative_matrix_supported_stages) noexcept
+  : _next(std::move(initial_next)),
+    _cooperative_matrix_supported_stages(
+      std::move(initial_cooperative_matrix_supported_stages))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_cooperative_matrix_properties_nv(
+    const physical_device_cooperative_matrix_properties_nv& other) noexcept
+  : _next(other._next),
+    _cooperative_matrix_supported_stages(
+      other._cooperative_matrix_supported_stages)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_cooperative_matrix_properties_nv(
+    physical_device_cooperative_matrix_properties_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _cooperative_matrix_supported_stages(
+      std::move(other._cooperative_matrix_supported_stages))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_cooperative_matrix_properties_nv& operator=(
+    const physical_device_cooperative_matrix_properties_nv& other) noexcept
+  {
+    _next = other._next;
+    _cooperative_matrix_supported_stages =
+      other._cooperative_matrix_supported_stages;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_cooperative_matrix_properties_nv& operator=(
+    physical_device_cooperative_matrix_properties_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _cooperative_matrix_supported_stages =
+      std::move(other._cooperative_matrix_supported_stages);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceCooperativeMatrixPropertiesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceCooperativeMatrixPropertiesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::shader_stage_flags& cooperative_matrix_supported_stages()
+  {
+    return _cooperative_matrix_supported_stages;
+  }
+
+  constexpr const vk::shader_stage_flags& cooperative_matrix_supported_stages()
+    const
+  {
+    return _cooperative_matrix_supported_stages;
+  }
+
+  void cooperative_matrix_supported_stages(
+    vk::shader_stage_flags new_cooperative_matrix_supported_stages)
+  {
+    _cooperative_matrix_supported_stages =
+      new_cooperative_matrix_supported_stages;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_cooperative_matrix_properties_nv;
+  void* _next = nullptr;
+  vk::shader_stage_flags _cooperative_matrix_supported_stages =
+    vk::shader_stage_flag::none;
+};
+static_assert(sizeof(physical_device_cooperative_matrix_properties_nv) ==
+                sizeof(::VkPhysicalDeviceCooperativeMatrixPropertiesNV),
+              "struct and wrapper have different size!");
+
+inline vk::result get_physical_device_cooperative_matrix_properties_nv(
+  VkPhysicalDevice physical_device, uint32_t* property_count,
+  vk::cooperative_matrix_properties_nv* properties)
+{
+  return static_cast<vk::result>(
+    vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
+      static_cast<VkPhysicalDevice>(physical_device),
+      reinterpret_cast<uint32_t*>(property_count),
+      reinterpret_cast<VkCooperativeMatrixPropertiesNV*>(properties)));
+}
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceCoverageReductionModeFeaturesNV.
+class physical_device_coverage_reduction_mode_features_nv
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_coverage_reduction_mode_features_nv() = default;
+
+  /// Constructor.
+  constexpr physical_device_coverage_reduction_mode_features_nv(
+    void* initial_next, VkBool32 initial_coverage_reduction_mode) noexcept
+  : _next(std::move(initial_next)),
+    _coverage_reduction_mode(std::move(initial_coverage_reduction_mode))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_coverage_reduction_mode_features_nv(
+    const physical_device_coverage_reduction_mode_features_nv& other) noexcept
+  : _next(other._next), _coverage_reduction_mode(other._coverage_reduction_mode)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_coverage_reduction_mode_features_nv(
+    physical_device_coverage_reduction_mode_features_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _coverage_reduction_mode(std::move(other._coverage_reduction_mode))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_coverage_reduction_mode_features_nv& operator=(
+    const physical_device_coverage_reduction_mode_features_nv& other) noexcept
+  {
+    _next = other._next;
+    _coverage_reduction_mode = other._coverage_reduction_mode;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_coverage_reduction_mode_features_nv& operator=(
+    physical_device_coverage_reduction_mode_features_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _coverage_reduction_mode = std::move(other._coverage_reduction_mode);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceCoverageReductionModeFeaturesNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceCoverageReductionModeFeaturesNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& coverage_reduction_mode()
+  {
+    return _coverage_reduction_mode;
+  }
+
+  constexpr const VkBool32& coverage_reduction_mode() const
+  {
+    return _coverage_reduction_mode;
+  }
+
+  void coverage_reduction_mode(VkBool32 new_coverage_reduction_mode)
+  {
+    _coverage_reduction_mode = new_coverage_reduction_mode;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_coverage_reduction_mode_features_nv;
+  void* _next = nullptr;
+  VkBool32 _coverage_reduction_mode = VK_FALSE;
+};
+static_assert(sizeof(physical_device_coverage_reduction_mode_features_nv) ==
+                sizeof(::VkPhysicalDeviceCoverageReductionModeFeaturesNV),
+              "struct and wrapper have different size!");
+
+using pipeline_coverage_reduction_state_create_flags_nv = VkFlags;
+enum class coverage_reduction_mode_nv
+{
+  /// @see VK_COVERAGE_REDUCTION_MODE_MERGE_NV
+  coverage_reduction_mode_merge_nv = 0,
+  /// @see VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV
+  coverage_reduction_mode_truncate_nv = 1,
+};
+
+/// Enhanced replacement type for VkPipelineCoverageReductionStateCreateInfoNV.
+class pipeline_coverage_reduction_state_create_info_nv
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_coverage_reduction_state_create_info_nv() = default;
+
+  /// Constructor.
+  constexpr pipeline_coverage_reduction_state_create_info_nv(
+    const void* initial_next,
+    vk::pipeline_coverage_reduction_state_create_flags_nv initial_flags,
+    vk::coverage_reduction_mode_nv initial_coverage_reduction_mode) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _coverage_reduction_mode(std::move(initial_coverage_reduction_mode))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_coverage_reduction_state_create_info_nv(
+    const pipeline_coverage_reduction_state_create_info_nv& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _coverage_reduction_mode(other._coverage_reduction_mode)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_coverage_reduction_state_create_info_nv(
+    pipeline_coverage_reduction_state_create_info_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _coverage_reduction_mode(std::move(other._coverage_reduction_mode))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_coverage_reduction_state_create_info_nv& operator=(
+    const pipeline_coverage_reduction_state_create_info_nv& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _coverage_reduction_mode = other._coverage_reduction_mode;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_coverage_reduction_state_create_info_nv& operator=(
+    pipeline_coverage_reduction_state_create_info_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _coverage_reduction_mode = std::move(other._coverage_reduction_mode);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineCoverageReductionStateCreateInfoNV&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineCoverageReductionStateCreateInfoNV*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::pipeline_coverage_reduction_state_create_flags_nv& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::pipeline_coverage_reduction_state_create_flags_nv& flags()
+    const
+  {
+    return _flags;
+  }
+
+  void flags(vk::pipeline_coverage_reduction_state_create_flags_nv new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  vk::coverage_reduction_mode_nv& coverage_reduction_mode()
+  {
+    return _coverage_reduction_mode;
+  }
+
+  constexpr const vk::coverage_reduction_mode_nv& coverage_reduction_mode()
+    const
+  {
+    return _coverage_reduction_mode;
+  }
+
+  void coverage_reduction_mode(
+    vk::coverage_reduction_mode_nv new_coverage_reduction_mode)
+  {
+    _coverage_reduction_mode = new_coverage_reduction_mode;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_coverage_reduction_state_create_info_nv;
+  const void* _next = nullptr;
+  vk::pipeline_coverage_reduction_state_create_flags_nv _flags = 0;
+  vk::coverage_reduction_mode_nv _coverage_reduction_mode =
+    vk::coverage_reduction_mode_nv::coverage_reduction_mode_merge_nv;
+};
+static_assert(sizeof(pipeline_coverage_reduction_state_create_info_nv) ==
+                sizeof(::VkPipelineCoverageReductionStateCreateInfoNV),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkFramebufferMixedSamplesCombinationNV.
+class framebuffer_mixed_samples_combination_nv
+{
+public:
+  /// Default constructor.
+  constexpr framebuffer_mixed_samples_combination_nv() = default;
+
+  /// Constructor.
+  constexpr framebuffer_mixed_samples_combination_nv(
+    void* initial_next,
+    vk::coverage_reduction_mode_nv initial_coverage_reduction_mode,
+    vk::sample_count_flag initial_rasterization_samples,
+    vk::sample_count_flags initial_depth_stencil_samples,
+    vk::sample_count_flags initial_color_samples) noexcept
+  : _next(std::move(initial_next)),
+    _coverage_reduction_mode(std::move(initial_coverage_reduction_mode)),
+    _rasterization_samples(std::move(initial_rasterization_samples)),
+    _depth_stencil_samples(std::move(initial_depth_stencil_samples)),
+    _color_samples(std::move(initial_color_samples))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr framebuffer_mixed_samples_combination_nv(
+    const framebuffer_mixed_samples_combination_nv& other) noexcept
+  : _next(other._next),
+    _coverage_reduction_mode(other._coverage_reduction_mode),
+    _rasterization_samples(other._rasterization_samples),
+    _depth_stencil_samples(other._depth_stencil_samples),
+    _color_samples(other._color_samples)
+  {
+  }
+
+  /// Move constructor.
+  constexpr framebuffer_mixed_samples_combination_nv(
+    framebuffer_mixed_samples_combination_nv&& other) noexcept
+  : _next(std::move(other._next)),
+    _coverage_reduction_mode(std::move(other._coverage_reduction_mode)),
+    _rasterization_samples(std::move(other._rasterization_samples)),
+    _depth_stencil_samples(std::move(other._depth_stencil_samples)),
+    _color_samples(std::move(other._color_samples))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr framebuffer_mixed_samples_combination_nv& operator=(
+    const framebuffer_mixed_samples_combination_nv& other) noexcept
+  {
+    _next = other._next;
+    _coverage_reduction_mode = other._coverage_reduction_mode;
+    _rasterization_samples = other._rasterization_samples;
+    _depth_stencil_samples = other._depth_stencil_samples;
+    _color_samples = other._color_samples;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr framebuffer_mixed_samples_combination_nv& operator=(
+    framebuffer_mixed_samples_combination_nv&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _coverage_reduction_mode = std::move(other._coverage_reduction_mode);
+    _rasterization_samples = std::move(other._rasterization_samples);
+    _depth_stencil_samples = std::move(other._depth_stencil_samples);
+    _color_samples = std::move(other._color_samples);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkFramebufferMixedSamplesCombinationNV&() const
+  {
+    return *reinterpret_cast<const VkFramebufferMixedSamplesCombinationNV*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::coverage_reduction_mode_nv& coverage_reduction_mode()
+  {
+    return _coverage_reduction_mode;
+  }
+
+  constexpr const vk::coverage_reduction_mode_nv& coverage_reduction_mode()
+    const
+  {
+    return _coverage_reduction_mode;
+  }
+
+  void coverage_reduction_mode(
+    vk::coverage_reduction_mode_nv new_coverage_reduction_mode)
+  {
+    _coverage_reduction_mode = new_coverage_reduction_mode;
+  }
+
+  vk::sample_count_flag& rasterization_samples()
+  {
+    return _rasterization_samples;
+  }
+
+  constexpr const vk::sample_count_flag& rasterization_samples() const
+  {
+    return _rasterization_samples;
+  }
+
+  void rasterization_samples(vk::sample_count_flag new_rasterization_samples)
+  {
+    _rasterization_samples = new_rasterization_samples;
+  }
+
+  vk::sample_count_flags& depth_stencil_samples()
+  {
+    return _depth_stencil_samples;
+  }
+
+  constexpr const vk::sample_count_flags& depth_stencil_samples() const
+  {
+    return _depth_stencil_samples;
+  }
+
+  void depth_stencil_samples(vk::sample_count_flags new_depth_stencil_samples)
+  {
+    _depth_stencil_samples = new_depth_stencil_samples;
+  }
+
+  vk::sample_count_flags& color_samples()
+  {
+    return _color_samples;
+  }
+
+  constexpr const vk::sample_count_flags& color_samples() const
+  {
+    return _color_samples;
+  }
+
+  void color_samples(vk::sample_count_flags new_color_samples)
+  {
+    _color_samples = new_color_samples;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::framebuffer_mixed_samples_combination_nv;
+  void* _next = nullptr;
+  vk::coverage_reduction_mode_nv _coverage_reduction_mode =
+    vk::coverage_reduction_mode_nv::coverage_reduction_mode_merge_nv;
+  vk::sample_count_flag _rasterization_samples = vk::sample_count_flag::none;
+  vk::sample_count_flags _depth_stencil_samples = vk::sample_count_flag::none;
+  vk::sample_count_flags _color_samples = vk::sample_count_flag::none;
+};
+static_assert(sizeof(framebuffer_mixed_samples_combination_nv) ==
+                sizeof(::VkFramebufferMixedSamplesCombinationNV),
+              "struct and wrapper have different size!");
+
+inline vk::result
+get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(
+  VkPhysicalDevice physical_device, uint32_t* combination_count,
+  vk::framebuffer_mixed_samples_combination_nv* combinations)
+{
+  return static_cast<vk::result>(
+    vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
+      static_cast<VkPhysicalDevice>(physical_device),
+      reinterpret_cast<uint32_t*>(combination_count),
+      reinterpret_cast<VkFramebufferMixedSamplesCombinationNV*>(combinations)));
+}
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.
+class physical_device_fragment_shader_interlock_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_fragment_shader_interlock_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_fragment_shader_interlock_features_ext(
+    void* initial_next, VkBool32 initial_fragment_shader_sample_interlock,
+    VkBool32 initial_fragment_shader_pixel_interlock,
+    VkBool32 initial_fragment_shader_shading_rate_interlock) noexcept
+  : _next(std::move(initial_next)),
+    _fragment_shader_sample_interlock(
+      std::move(initial_fragment_shader_sample_interlock)),
+    _fragment_shader_pixel_interlock(
+      std::move(initial_fragment_shader_pixel_interlock)),
+    _fragment_shader_shading_rate_interlock(
+      std::move(initial_fragment_shader_shading_rate_interlock))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_fragment_shader_interlock_features_ext(
+    const physical_device_fragment_shader_interlock_features_ext&
+      other) noexcept
+  : _next(other._next),
+    _fragment_shader_sample_interlock(other._fragment_shader_sample_interlock),
+    _fragment_shader_pixel_interlock(other._fragment_shader_pixel_interlock),
+    _fragment_shader_shading_rate_interlock(
+      other._fragment_shader_shading_rate_interlock)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_fragment_shader_interlock_features_ext(
+    physical_device_fragment_shader_interlock_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _fragment_shader_sample_interlock(
+      std::move(other._fragment_shader_sample_interlock)),
+    _fragment_shader_pixel_interlock(
+      std::move(other._fragment_shader_pixel_interlock)),
+    _fragment_shader_shading_rate_interlock(
+      std::move(other._fragment_shader_shading_rate_interlock))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_fragment_shader_interlock_features_ext& operator=(
+    const physical_device_fragment_shader_interlock_features_ext&
+      other) noexcept
+  {
+    _next = other._next;
+    _fragment_shader_sample_interlock = other._fragment_shader_sample_interlock;
+    _fragment_shader_pixel_interlock = other._fragment_shader_pixel_interlock;
+    _fragment_shader_shading_rate_interlock =
+      other._fragment_shader_shading_rate_interlock;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_fragment_shader_interlock_features_ext& operator=(
+    physical_device_fragment_shader_interlock_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _fragment_shader_sample_interlock =
+      std::move(other._fragment_shader_sample_interlock);
+    _fragment_shader_pixel_interlock =
+      std::move(other._fragment_shader_pixel_interlock);
+    _fragment_shader_shading_rate_interlock =
+      std::move(other._fragment_shader_shading_rate_interlock);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& fragment_shader_sample_interlock()
+  {
+    return _fragment_shader_sample_interlock;
+  }
+
+  constexpr const VkBool32& fragment_shader_sample_interlock() const
+  {
+    return _fragment_shader_sample_interlock;
+  }
+
+  void fragment_shader_sample_interlock(
+    VkBool32 new_fragment_shader_sample_interlock)
+  {
+    _fragment_shader_sample_interlock = new_fragment_shader_sample_interlock;
+  }
+
+  VkBool32& fragment_shader_pixel_interlock()
+  {
+    return _fragment_shader_pixel_interlock;
+  }
+
+  constexpr const VkBool32& fragment_shader_pixel_interlock() const
+  {
+    return _fragment_shader_pixel_interlock;
+  }
+
+  void fragment_shader_pixel_interlock(
+    VkBool32 new_fragment_shader_pixel_interlock)
+  {
+    _fragment_shader_pixel_interlock = new_fragment_shader_pixel_interlock;
+  }
+
+  VkBool32& fragment_shader_shading_rate_interlock()
+  {
+    return _fragment_shader_shading_rate_interlock;
+  }
+
+  constexpr const VkBool32& fragment_shader_shading_rate_interlock() const
+  {
+    return _fragment_shader_shading_rate_interlock;
+  }
+
+  void fragment_shader_shading_rate_interlock(
+    VkBool32 new_fragment_shader_shading_rate_interlock)
+  {
+    _fragment_shader_shading_rate_interlock =
+      new_fragment_shader_shading_rate_interlock;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_fragment_shader_interlock_features_ext;
+  /// Pointer to next structure
+  void* _next = nullptr;
+  VkBool32 _fragment_shader_sample_interlock = VK_FALSE;
+  VkBool32 _fragment_shader_pixel_interlock = VK_FALSE;
+  VkBool32 _fragment_shader_shading_rate_interlock = VK_FALSE;
+};
+static_assert(sizeof(physical_device_fragment_shader_interlock_features_ext) ==
+                sizeof(::VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.
+class physical_device_ycbcr_image_arrays_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_ycbcr_image_arrays_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_ycbcr_image_arrays_features_ext(
+    void* initial_next, VkBool32 initial_ycbcr_image_arrays) noexcept
+  : _next(std::move(initial_next)),
+    _ycbcr_image_arrays(std::move(initial_ycbcr_image_arrays))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_ycbcr_image_arrays_features_ext(
+    const physical_device_ycbcr_image_arrays_features_ext& other) noexcept
+  : _next(other._next), _ycbcr_image_arrays(other._ycbcr_image_arrays)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_ycbcr_image_arrays_features_ext(
+    physical_device_ycbcr_image_arrays_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _ycbcr_image_arrays(std::move(other._ycbcr_image_arrays))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_ycbcr_image_arrays_features_ext& operator=(
+    const physical_device_ycbcr_image_arrays_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _ycbcr_image_arrays = other._ycbcr_image_arrays;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_ycbcr_image_arrays_features_ext& operator=(
+    physical_device_ycbcr_image_arrays_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _ycbcr_image_arrays = std::move(other._ycbcr_image_arrays);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceYcbcrImageArraysFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& ycbcr_image_arrays()
+  {
+    return _ycbcr_image_arrays;
+  }
+
+  constexpr const VkBool32& ycbcr_image_arrays() const
+  {
+    return _ycbcr_image_arrays;
+  }
+
+  void ycbcr_image_arrays(VkBool32 new_ycbcr_image_arrays)
+  {
+    _ycbcr_image_arrays = new_ycbcr_image_arrays;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_ycbcr_image_arrays_features_ext;
+  void* _next = nullptr;
+  VkBool32 _ycbcr_image_arrays = VK_FALSE;
+};
+static_assert(sizeof(physical_device_ycbcr_image_arrays_features_ext) ==
+                sizeof(::VkPhysicalDeviceYcbcrImageArraysFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR.
+class physical_device_uniform_buffer_standard_layout_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr() =
+    default;
+
+  /// Constructor.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr(
+    void* initial_next,
+    VkBool32 initial_uniform_buffer_standard_layout) noexcept
+  : _next(std::move(initial_next)),
+    _uniform_buffer_standard_layout(
+      std::move(initial_uniform_buffer_standard_layout))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr(
+    const physical_device_uniform_buffer_standard_layout_features_khr&
+      other) noexcept
+  : _next(other._next),
+    _uniform_buffer_standard_layout(other._uniform_buffer_standard_layout)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr(
+    physical_device_uniform_buffer_standard_layout_features_khr&&
+      other) noexcept
+  : _next(std::move(other._next)),
+    _uniform_buffer_standard_layout(
+      std::move(other._uniform_buffer_standard_layout))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr&
+  operator=(const physical_device_uniform_buffer_standard_layout_features_khr&
+              other) noexcept
+  {
+    _next = other._next;
+    _uniform_buffer_standard_layout = other._uniform_buffer_standard_layout;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_uniform_buffer_standard_layout_features_khr&
+  operator=(physical_device_uniform_buffer_standard_layout_features_khr&&
+              other) noexcept
+  {
+    _next = std::move(other._next);
+    _uniform_buffer_standard_layout =
+      std::move(other._uniform_buffer_standard_layout);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& uniform_buffer_standard_layout()
+  {
+    return _uniform_buffer_standard_layout;
+  }
+
+  constexpr const VkBool32& uniform_buffer_standard_layout() const
+  {
+    return _uniform_buffer_standard_layout;
+  }
+
+  void uniform_buffer_standard_layout(
+    VkBool32 new_uniform_buffer_standard_layout)
+  {
+    _uniform_buffer_standard_layout = new_uniform_buffer_standard_layout;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_uniform_buffer_standard_layout_features_khr;
+  void* _next = nullptr;
+  VkBool32 _uniform_buffer_standard_layout = VK_FALSE;
+};
+static_assert(
+  sizeof(physical_device_uniform_buffer_standard_layout_features_khr) ==
+    sizeof(::VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR),
+  "struct and wrapper have different size!");
+
+using headless_surface_create_flags_ext = VkFlags;
+
+/// Enhanced replacement type for VkHeadlessSurfaceCreateInfoEXT.
+class headless_surface_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr headless_surface_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr headless_surface_create_info_ext(
+    const void* initial_next,
+    vk::headless_surface_create_flags_ext initial_flags) noexcept
+  : _next(std::move(initial_next)), _flags(std::move(initial_flags))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr headless_surface_create_info_ext(
+    const headless_surface_create_info_ext& other) noexcept
+  : _next(other._next), _flags(other._flags)
+  {
+  }
+
+  /// Move constructor.
+  constexpr headless_surface_create_info_ext(
+    headless_surface_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)), _flags(std::move(other._flags))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr headless_surface_create_info_ext& operator=(
+    const headless_surface_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr headless_surface_create_info_ext& operator=(
+    headless_surface_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkHeadlessSurfaceCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkHeadlessSurfaceCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::headless_surface_create_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::headless_surface_create_flags_ext& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::headless_surface_create_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::headless_surface_create_info_ext;
+  const void* _next = nullptr;
+  vk::headless_surface_create_flags_ext _flags = 0;
+};
+static_assert(sizeof(headless_surface_create_info_ext) ==
+                sizeof(::VkHeadlessSurfaceCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+inline vk::result create_headless_surface_ext(
+  VkInstance instance, const vk::headless_surface_create_info_ext* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateHeadlessSurfaceEXT(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkHeadlessSurfaceCreateInfoEXT*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+
+/// Enhanced replacement type for VkPhysicalDeviceLineRasterizationFeaturesEXT.
+class physical_device_line_rasterization_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_line_rasterization_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_line_rasterization_features_ext(
+    void* initial_next, VkBool32 initial_rectangular_lines,
+    VkBool32 initial_bresenham_lines, VkBool32 initial_smooth_lines,
+    VkBool32 initial_stippled_rectangular_lines,
+    VkBool32 initial_stippled_bresenham_lines,
+    VkBool32 initial_stippled_smooth_lines) noexcept
+  : _next(std::move(initial_next)),
+    _rectangular_lines(std::move(initial_rectangular_lines)),
+    _bresenham_lines(std::move(initial_bresenham_lines)),
+    _smooth_lines(std::move(initial_smooth_lines)),
+    _stippled_rectangular_lines(std::move(initial_stippled_rectangular_lines)),
+    _stippled_bresenham_lines(std::move(initial_stippled_bresenham_lines)),
+    _stippled_smooth_lines(std::move(initial_stippled_smooth_lines))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_line_rasterization_features_ext(
+    const physical_device_line_rasterization_features_ext& other) noexcept
+  : _next(other._next),
+    _rectangular_lines(other._rectangular_lines),
+    _bresenham_lines(other._bresenham_lines),
+    _smooth_lines(other._smooth_lines),
+    _stippled_rectangular_lines(other._stippled_rectangular_lines),
+    _stippled_bresenham_lines(other._stippled_bresenham_lines),
+    _stippled_smooth_lines(other._stippled_smooth_lines)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_line_rasterization_features_ext(
+    physical_device_line_rasterization_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _rectangular_lines(std::move(other._rectangular_lines)),
+    _bresenham_lines(std::move(other._bresenham_lines)),
+    _smooth_lines(std::move(other._smooth_lines)),
+    _stippled_rectangular_lines(std::move(other._stippled_rectangular_lines)),
+    _stippled_bresenham_lines(std::move(other._stippled_bresenham_lines)),
+    _stippled_smooth_lines(std::move(other._stippled_smooth_lines))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_line_rasterization_features_ext& operator=(
+    const physical_device_line_rasterization_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _rectangular_lines = other._rectangular_lines;
+    _bresenham_lines = other._bresenham_lines;
+    _smooth_lines = other._smooth_lines;
+    _stippled_rectangular_lines = other._stippled_rectangular_lines;
+    _stippled_bresenham_lines = other._stippled_bresenham_lines;
+    _stippled_smooth_lines = other._stippled_smooth_lines;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_line_rasterization_features_ext& operator=(
+    physical_device_line_rasterization_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _rectangular_lines = std::move(other._rectangular_lines);
+    _bresenham_lines = std::move(other._bresenham_lines);
+    _smooth_lines = std::move(other._smooth_lines);
+    _stippled_rectangular_lines = std::move(other._stippled_rectangular_lines);
+    _stippled_bresenham_lines = std::move(other._stippled_bresenham_lines);
+    _stippled_smooth_lines = std::move(other._stippled_smooth_lines);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceLineRasterizationFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceLineRasterizationFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& rectangular_lines()
+  {
+    return _rectangular_lines;
+  }
+
+  constexpr const VkBool32& rectangular_lines() const
+  {
+    return _rectangular_lines;
+  }
+
+  void rectangular_lines(VkBool32 new_rectangular_lines)
+  {
+    _rectangular_lines = new_rectangular_lines;
+  }
+
+  VkBool32& bresenham_lines()
+  {
+    return _bresenham_lines;
+  }
+
+  constexpr const VkBool32& bresenham_lines() const
+  {
+    return _bresenham_lines;
+  }
+
+  void bresenham_lines(VkBool32 new_bresenham_lines)
+  {
+    _bresenham_lines = new_bresenham_lines;
+  }
+
+  VkBool32& smooth_lines()
+  {
+    return _smooth_lines;
+  }
+
+  constexpr const VkBool32& smooth_lines() const
+  {
+    return _smooth_lines;
+  }
+
+  void smooth_lines(VkBool32 new_smooth_lines)
+  {
+    _smooth_lines = new_smooth_lines;
+  }
+
+  VkBool32& stippled_rectangular_lines()
+  {
+    return _stippled_rectangular_lines;
+  }
+
+  constexpr const VkBool32& stippled_rectangular_lines() const
+  {
+    return _stippled_rectangular_lines;
+  }
+
+  void stippled_rectangular_lines(VkBool32 new_stippled_rectangular_lines)
+  {
+    _stippled_rectangular_lines = new_stippled_rectangular_lines;
+  }
+
+  VkBool32& stippled_bresenham_lines()
+  {
+    return _stippled_bresenham_lines;
+  }
+
+  constexpr const VkBool32& stippled_bresenham_lines() const
+  {
+    return _stippled_bresenham_lines;
+  }
+
+  void stippled_bresenham_lines(VkBool32 new_stippled_bresenham_lines)
+  {
+    _stippled_bresenham_lines = new_stippled_bresenham_lines;
+  }
+
+  VkBool32& stippled_smooth_lines()
+  {
+    return _stippled_smooth_lines;
+  }
+
+  constexpr const VkBool32& stippled_smooth_lines() const
+  {
+    return _stippled_smooth_lines;
+  }
+
+  void stippled_smooth_lines(VkBool32 new_stippled_smooth_lines)
+  {
+    _stippled_smooth_lines = new_stippled_smooth_lines;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_line_rasterization_features_ext;
+  void* _next = nullptr;
+  VkBool32 _rectangular_lines = VK_FALSE;
+  VkBool32 _bresenham_lines = VK_FALSE;
+  VkBool32 _smooth_lines = VK_FALSE;
+  VkBool32 _stippled_rectangular_lines = VK_FALSE;
+  VkBool32 _stippled_bresenham_lines = VK_FALSE;
+  VkBool32 _stippled_smooth_lines = VK_FALSE;
+};
+static_assert(sizeof(physical_device_line_rasterization_features_ext) ==
+                sizeof(::VkPhysicalDeviceLineRasterizationFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceLineRasterizationPropertiesEXT.
+class physical_device_line_rasterization_properties_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_line_rasterization_properties_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_line_rasterization_properties_ext(
+    void* initial_next, uint32_t initial_line_sub_pixel_precision_bits) noexcept
+  : _next(std::move(initial_next)),
+    _line_sub_pixel_precision_bits(
+      std::move(initial_line_sub_pixel_precision_bits))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_line_rasterization_properties_ext(
+    const physical_device_line_rasterization_properties_ext& other) noexcept
+  : _next(other._next),
+    _line_sub_pixel_precision_bits(other._line_sub_pixel_precision_bits)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_line_rasterization_properties_ext(
+    physical_device_line_rasterization_properties_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _line_sub_pixel_precision_bits(
+      std::move(other._line_sub_pixel_precision_bits))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_line_rasterization_properties_ext& operator=(
+    const physical_device_line_rasterization_properties_ext& other) noexcept
+  {
+    _next = other._next;
+    _line_sub_pixel_precision_bits = other._line_sub_pixel_precision_bits;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_line_rasterization_properties_ext& operator=(
+    physical_device_line_rasterization_properties_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _line_sub_pixel_precision_bits =
+      std::move(other._line_sub_pixel_precision_bits);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceLineRasterizationPropertiesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceLineRasterizationPropertiesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  uint32_t& line_sub_pixel_precision_bits()
+  {
+    return _line_sub_pixel_precision_bits;
+  }
+
+  constexpr const uint32_t& line_sub_pixel_precision_bits() const
+  {
+    return _line_sub_pixel_precision_bits;
+  }
+
+  void line_sub_pixel_precision_bits(uint32_t new_line_sub_pixel_precision_bits)
+  {
+    _line_sub_pixel_precision_bits = new_line_sub_pixel_precision_bits;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_line_rasterization_properties_ext;
+  void* _next = nullptr;
+  uint32_t _line_sub_pixel_precision_bits = 0;
+};
+static_assert(sizeof(physical_device_line_rasterization_properties_ext) ==
+                sizeof(::VkPhysicalDeviceLineRasterizationPropertiesEXT),
+              "struct and wrapper have different size!");
+
+enum class line_rasterization_mode_ext
+{
+  /// @see VK_LINE_RASTERIZATION_MODE_DEFAULT_EXT
+  line_rasterization_mode_default_ext = 0,
+  /// @see VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT
+  line_rasterization_mode_rectangular_ext = 1,
+  /// @see VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT
+  line_rasterization_mode_bresenham_ext = 2,
+  /// @see VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT
+  line_rasterization_mode_rectangular_smooth_ext = 3,
+};
+
+/// Enhanced replacement type for VkPipelineRasterizationLineStateCreateInfoEXT.
+class pipeline_rasterization_line_state_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_rasterization_line_state_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr pipeline_rasterization_line_state_create_info_ext(
+    const void* initial_next,
+    vk::line_rasterization_mode_ext initial_line_rasterization_mode,
+    VkBool32 initial_stippled_line_enable, uint32_t initial_line_stipple_factor,
+    uint16_t initial_line_stipple_pattern) noexcept
+  : _next(std::move(initial_next)),
+    _line_rasterization_mode(std::move(initial_line_rasterization_mode)),
+    _stippled_line_enable(std::move(initial_stippled_line_enable)),
+    _line_stipple_factor(std::move(initial_line_stipple_factor)),
+    _line_stipple_pattern(std::move(initial_line_stipple_pattern))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_rasterization_line_state_create_info_ext(
+    const pipeline_rasterization_line_state_create_info_ext& other) noexcept
+  : _next(other._next),
+    _line_rasterization_mode(other._line_rasterization_mode),
+    _stippled_line_enable(other._stippled_line_enable),
+    _line_stipple_factor(other._line_stipple_factor),
+    _line_stipple_pattern(other._line_stipple_pattern)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_rasterization_line_state_create_info_ext(
+    pipeline_rasterization_line_state_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _line_rasterization_mode(std::move(other._line_rasterization_mode)),
+    _stippled_line_enable(std::move(other._stippled_line_enable)),
+    _line_stipple_factor(std::move(other._line_stipple_factor)),
+    _line_stipple_pattern(std::move(other._line_stipple_pattern))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_rasterization_line_state_create_info_ext& operator=(
+    const pipeline_rasterization_line_state_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _line_rasterization_mode = other._line_rasterization_mode;
+    _stippled_line_enable = other._stippled_line_enable;
+    _line_stipple_factor = other._line_stipple_factor;
+    _line_stipple_pattern = other._line_stipple_pattern;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_rasterization_line_state_create_info_ext& operator=(
+    pipeline_rasterization_line_state_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _line_rasterization_mode = std::move(other._line_rasterization_mode);
+    _stippled_line_enable = std::move(other._stippled_line_enable);
+    _line_stipple_factor = std::move(other._line_stipple_factor);
+    _line_stipple_pattern = std::move(other._line_stipple_pattern);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineRasterizationLineStateCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineRasterizationLineStateCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::line_rasterization_mode_ext& line_rasterization_mode()
+  {
+    return _line_rasterization_mode;
+  }
+
+  constexpr const vk::line_rasterization_mode_ext& line_rasterization_mode()
+    const
+  {
+    return _line_rasterization_mode;
+  }
+
+  void line_rasterization_mode(
+    vk::line_rasterization_mode_ext new_line_rasterization_mode)
+  {
+    _line_rasterization_mode = new_line_rasterization_mode;
+  }
+
+  VkBool32& stippled_line_enable()
+  {
+    return _stippled_line_enable;
+  }
+
+  constexpr const VkBool32& stippled_line_enable() const
+  {
+    return _stippled_line_enable;
+  }
+
+  void stippled_line_enable(VkBool32 new_stippled_line_enable)
+  {
+    _stippled_line_enable = new_stippled_line_enable;
+  }
+
+  uint32_t& line_stipple_factor()
+  {
+    return _line_stipple_factor;
+  }
+
+  constexpr const uint32_t& line_stipple_factor() const
+  {
+    return _line_stipple_factor;
+  }
+
+  void line_stipple_factor(uint32_t new_line_stipple_factor)
+  {
+    _line_stipple_factor = new_line_stipple_factor;
+  }
+
+  uint16_t& line_stipple_pattern()
+  {
+    return _line_stipple_pattern;
+  }
+
+  constexpr const uint16_t& line_stipple_pattern() const
+  {
+    return _line_stipple_pattern;
+  }
+
+  void line_stipple_pattern(uint16_t new_line_stipple_pattern)
+  {
+    _line_stipple_pattern = new_line_stipple_pattern;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_rasterization_line_state_create_info_ext;
+  const void* _next = nullptr;
+  vk::line_rasterization_mode_ext _line_rasterization_mode =
+    vk::line_rasterization_mode_ext::line_rasterization_mode_default_ext;
+  VkBool32 _stippled_line_enable = VK_FALSE;
+  uint32_t _line_stipple_factor = 0;
+  uint16_t _line_stipple_pattern = 0;
+};
+static_assert(sizeof(pipeline_rasterization_line_state_create_info_ext) ==
+                sizeof(::VkPipelineRasterizationLineStateCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+inline void cmd_set_line_stipple_ext(VkCommandBuffer command_buffer,
+                                     uint32_t line_stipple_factor,
+                                     uint16_t line_stipple_pattern)
+{
+  vkCmdSetLineStippleEXT(static_cast<VkCommandBuffer>(command_buffer),
+                         static_cast<uint32_t>(line_stipple_factor),
+                         static_cast<uint16_t>(line_stipple_pattern));
+}
+
+/// Enhanced replacement type for VkPhysicalDeviceHostQueryResetFeaturesEXT.
+class physical_device_host_query_reset_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_host_query_reset_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_host_query_reset_features_ext(
+    void* initial_next, VkBool32 initial_host_query_reset) noexcept
+  : _next(std::move(initial_next)),
+    _host_query_reset(std::move(initial_host_query_reset))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_host_query_reset_features_ext(
+    const physical_device_host_query_reset_features_ext& other) noexcept
+  : _next(other._next), _host_query_reset(other._host_query_reset)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_host_query_reset_features_ext(
+    physical_device_host_query_reset_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _host_query_reset(std::move(other._host_query_reset))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_host_query_reset_features_ext& operator=(
+    const physical_device_host_query_reset_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _host_query_reset = other._host_query_reset;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_host_query_reset_features_ext& operator=(
+    physical_device_host_query_reset_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _host_query_reset = std::move(other._host_query_reset);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceHostQueryResetFeaturesEXT&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceHostQueryResetFeaturesEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& host_query_reset()
+  {
+    return _host_query_reset;
+  }
+
+  constexpr const VkBool32& host_query_reset() const
+  {
+    return _host_query_reset;
+  }
+
+  void host_query_reset(VkBool32 new_host_query_reset)
+  {
+    _host_query_reset = new_host_query_reset;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_host_query_reset_features_ext;
+  void* _next = nullptr;
+  VkBool32 _host_query_reset = VK_FALSE;
+};
+static_assert(sizeof(physical_device_host_query_reset_features_ext) ==
+                sizeof(::VkPhysicalDeviceHostQueryResetFeaturesEXT),
+              "struct and wrapper have different size!");
+
+inline void reset_query_pool_ext(VkDevice device, VkQueryPool query_pool,
+                                 uint32_t first_query, uint32_t query_count)
+{
+  vkResetQueryPoolEXT(
+    static_cast<VkDevice>(device), static_cast<VkQueryPool>(query_pool),
+    static_cast<uint32_t>(first_query), static_cast<uint32_t>(query_count));
+}
+
+/// Enhanced replacement type for VkPhysicalDeviceIndexTypeUint8FeaturesEXT.
+class physical_device_index_type_uint8_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_index_type_uint8_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_index_type_uint8_features_ext(
+    void* initial_next, VkBool32 initial_index_type_uint8) noexcept
+  : _next(std::move(initial_next)),
+    _index_type_uint8(std::move(initial_index_type_uint8))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_index_type_uint8_features_ext(
+    const physical_device_index_type_uint8_features_ext& other) noexcept
+  : _next(other._next), _index_type_uint8(other._index_type_uint8)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_index_type_uint8_features_ext(
+    physical_device_index_type_uint8_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _index_type_uint8(std::move(other._index_type_uint8))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_index_type_uint8_features_ext& operator=(
+    const physical_device_index_type_uint8_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _index_type_uint8 = other._index_type_uint8;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_index_type_uint8_features_ext& operator=(
+    physical_device_index_type_uint8_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _index_type_uint8 = std::move(other._index_type_uint8);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceIndexTypeUint8FeaturesEXT&() const
+  {
+    return *reinterpret_cast<const VkPhysicalDeviceIndexTypeUint8FeaturesEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& index_type_uint8()
+  {
+    return _index_type_uint8;
+  }
+
+  constexpr const VkBool32& index_type_uint8() const
+  {
+    return _index_type_uint8;
+  }
+
+  void index_type_uint8(VkBool32 new_index_type_uint8)
+  {
+    _index_type_uint8 = new_index_type_uint8;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_index_type_uint8_features_ext;
+  void* _next = nullptr;
+  VkBool32 _index_type_uint8 = VK_FALSE;
+};
+static_assert(sizeof(physical_device_index_type_uint8_features_ext) ==
+                sizeof(::VkPhysicalDeviceIndexTypeUint8FeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.
+class physical_device_pipeline_executable_properties_features_khr
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_pipeline_executable_properties_features_khr() =
+    default;
+
+  /// Constructor.
+  constexpr physical_device_pipeline_executable_properties_features_khr(
+    void* initial_next, VkBool32 initial_pipeline_executable_info) noexcept
+  : _next(std::move(initial_next)),
+    _pipeline_executable_info(std::move(initial_pipeline_executable_info))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_pipeline_executable_properties_features_khr(
+    const physical_device_pipeline_executable_properties_features_khr&
+      other) noexcept
+  : _next(other._next),
+    _pipeline_executable_info(other._pipeline_executable_info)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_pipeline_executable_properties_features_khr(
+    physical_device_pipeline_executable_properties_features_khr&&
+      other) noexcept
+  : _next(std::move(other._next)),
+    _pipeline_executable_info(std::move(other._pipeline_executable_info))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_pipeline_executable_properties_features_khr&
+  operator=(const physical_device_pipeline_executable_properties_features_khr&
+              other) noexcept
+  {
+    _next = other._next;
+    _pipeline_executable_info = other._pipeline_executable_info;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_pipeline_executable_properties_features_khr&
+  operator=(physical_device_pipeline_executable_properties_features_khr&&
+              other) noexcept
+  {
+    _next = std::move(other._next);
+    _pipeline_executable_info = std::move(other._pipeline_executable_info);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR&()
+    const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& pipeline_executable_info()
+  {
+    return _pipeline_executable_info;
+  }
+
+  constexpr const VkBool32& pipeline_executable_info() const
+  {
+    return _pipeline_executable_info;
+  }
+
+  void pipeline_executable_info(VkBool32 new_pipeline_executable_info)
+  {
+    _pipeline_executable_info = new_pipeline_executable_info;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_pipeline_executable_properties_features_khr;
+  void* _next = nullptr;
+  VkBool32 _pipeline_executable_info = VK_FALSE;
+};
+static_assert(
+  sizeof(physical_device_pipeline_executable_properties_features_khr) ==
+    sizeof(::VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR),
+  "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineInfoKHR.
+class pipeline_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_info_khr() = default;
+
+  /// Constructor.
+  constexpr pipeline_info_khr(const void* initial_next,
+                              VkPipeline initial_pipeline) noexcept
+  : _next(std::move(initial_next)), _pipeline(std::move(initial_pipeline))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_info_khr(const pipeline_info_khr& other) noexcept
+  : _next(other._next), _pipeline(other._pipeline)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_info_khr(pipeline_info_khr&& other) noexcept
+  : _next(std::move(other._next)), _pipeline(std::move(other._pipeline))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_info_khr& operator=(
+    const pipeline_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _pipeline = other._pipeline;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_info_khr& operator=(pipeline_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _pipeline = std::move(other._pipeline);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkPipelineInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkPipeline& pipeline()
+  {
+    return _pipeline;
+  }
+
+  constexpr const VkPipeline& pipeline() const
+  {
+    return _pipeline;
+  }
+
+  void pipeline(VkPipeline new_pipeline)
+  {
+    _pipeline = new_pipeline;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_info_khr;
+  const void* _next = nullptr;
+  VkPipeline _pipeline = nullptr;
+};
+static_assert(sizeof(pipeline_info_khr) == sizeof(::VkPipelineInfoKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineExecutablePropertiesKHR.
+class pipeline_executable_properties_khr
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_executable_properties_khr() = default;
+
+  /// Constructor.
+  constexpr pipeline_executable_properties_khr(
+    void* initial_next, vk::shader_stage_flags initial_stages,
+    std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_name,
+    std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_description,
+    uint32_t initial_subgroup_size) noexcept
+  : _next(std::move(initial_next)),
+    _stages(std::move(initial_stages)),
+    _name(std::move(initial_name)),
+    _description(std::move(initial_description)),
+    _subgroup_size(std::move(initial_subgroup_size))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_executable_properties_khr(
+    const pipeline_executable_properties_khr& other) noexcept
+  : _next(other._next),
+    _stages(other._stages),
+    _name(other._name),
+    _description(other._description),
+    _subgroup_size(other._subgroup_size)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_executable_properties_khr(
+    pipeline_executable_properties_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _stages(std::move(other._stages)),
+    _name(std::move(other._name)),
+    _description(std::move(other._description)),
+    _subgroup_size(std::move(other._subgroup_size))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_executable_properties_khr& operator=(
+    const pipeline_executable_properties_khr& other) noexcept
+  {
+    _next = other._next;
+    _stages = other._stages;
+    _name = other._name;
+    _description = other._description;
+    _subgroup_size = other._subgroup_size;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_executable_properties_khr& operator=(
+    pipeline_executable_properties_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _stages = std::move(other._stages);
+    _name = std::move(other._name);
+    _description = std::move(other._description);
+    _subgroup_size = std::move(other._subgroup_size);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineExecutablePropertiesKHR&() const
+  {
+    return *reinterpret_cast<const VkPipelineExecutablePropertiesKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::shader_stage_flags& stages()
+  {
+    return _stages;
+  }
+
+  constexpr const vk::shader_stage_flags& stages() const
+  {
+    return _stages;
+  }
+
+  void stages(vk::shader_stage_flags new_stages)
+  {
+    _stages = new_stages;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& name()
+  {
+    return _name;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& name() const
+  {
+    return _name;
+  }
+
+  void name(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_name)
+  {
+    _name = new_name;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& description()
+  {
+    return _description;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& description() const
+  {
+    return _description;
+  }
+
+  void description(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_description)
+  {
+    _description = new_description;
+  }
+
+  uint32_t& subgroup_size()
+  {
+    return _subgroup_size;
+  }
+
+  constexpr const uint32_t& subgroup_size() const
+  {
+    return _subgroup_size;
+  }
+
+  void subgroup_size(uint32_t new_subgroup_size)
+  {
+    _subgroup_size = new_subgroup_size;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_executable_properties_khr;
+  void* _next = nullptr;
+  vk::shader_stage_flags _stages = vk::shader_stage_flag::none;
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _name = {};
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _description = {};
+  uint32_t _subgroup_size = 0;
+};
+static_assert(sizeof(pipeline_executable_properties_khr) ==
+                sizeof(::VkPipelineExecutablePropertiesKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineExecutableInfoKHR.
+class pipeline_executable_info_khr
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_executable_info_khr() = default;
+
+  /// Constructor.
+  constexpr pipeline_executable_info_khr(
+    const void* initial_next, VkPipeline initial_pipeline,
+    uint32_t initial_executable_index) noexcept
+  : _next(std::move(initial_next)),
+    _pipeline(std::move(initial_pipeline)),
+    _executable_index(std::move(initial_executable_index))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_executable_info_khr(
+    const pipeline_executable_info_khr& other) noexcept
+  : _next(other._next),
+    _pipeline(other._pipeline),
+    _executable_index(other._executable_index)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_executable_info_khr(
+    pipeline_executable_info_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _pipeline(std::move(other._pipeline)),
+    _executable_index(std::move(other._executable_index))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_executable_info_khr& operator=(
+    const pipeline_executable_info_khr& other) noexcept
+  {
+    _next = other._next;
+    _pipeline = other._pipeline;
+    _executable_index = other._executable_index;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_executable_info_khr& operator=(
+    pipeline_executable_info_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _pipeline = std::move(other._pipeline);
+    _executable_index = std::move(other._executable_index);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineExecutableInfoKHR&() const
+  {
+    return *reinterpret_cast<const VkPipelineExecutableInfoKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkPipeline& pipeline()
+  {
+    return _pipeline;
+  }
+
+  constexpr const VkPipeline& pipeline() const
+  {
+    return _pipeline;
+  }
+
+  void pipeline(VkPipeline new_pipeline)
+  {
+    _pipeline = new_pipeline;
+  }
+
+  uint32_t& executable_index()
+  {
+    return _executable_index;
+  }
+
+  constexpr const uint32_t& executable_index() const
+  {
+    return _executable_index;
+  }
+
+  void executable_index(uint32_t new_executable_index)
+  {
+    _executable_index = new_executable_index;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_executable_info_khr;
+  const void* _next = nullptr;
+  VkPipeline _pipeline = nullptr;
+  uint32_t _executable_index = 0;
+};
+static_assert(sizeof(pipeline_executable_info_khr) ==
+                sizeof(::VkPipelineExecutableInfoKHR),
+              "struct and wrapper have different size!");
+
+enum class pipeline_executable_statistic_format_khr
+{
+  /// @see VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_BOOL32_KHR
+  pipeline_executable_statistic_format_bool_32_khr = 0,
+  /// @see VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_INT64_KHR
+  pipeline_executable_statistic_format_int64_khr = 1,
+  /// @see VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR
+  pipeline_executable_statistic_format_uint64_khr = 2,
+  /// @see VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR
+  pipeline_executable_statistic_format_float64_khr = 3,
+};
+
+union pipeline_executable_statistic_value_khr {
+  /// Default constructor.
+  constexpr pipeline_executable_statistic_value_khr() noexcept
+  {
+  }
+  /// Constructor.
+  constexpr pipeline_executable_statistic_value_khr(VkBool32 initial_b_32)
+  : b_32(initial_b_32)
+  {
+  }
+  /// Constructor.
+  constexpr pipeline_executable_statistic_value_khr(int64_t initial_i_64)
+  : i_64(initial_i_64)
+  {
+  }
+  /// Constructor.
+  constexpr pipeline_executable_statistic_value_khr(uint64_t initial_u_64)
+  : u_64(initial_u_64)
+  {
+  }
+  /// Constructor.
+  constexpr pipeline_executable_statistic_value_khr(double initial_f_64)
+  : f_64(initial_f_64)
+  {
+  }
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineExecutableStatisticValueKHR&() const
+  {
+    return *reinterpret_cast<const VkPipelineExecutableStatisticValueKHR*>(
+      this);
+  }
+  VkBool32 b_32 = VK_FALSE;
+  int64_t i_64;
+  uint64_t u_64;
+  double f_64;
+};
+static_assert(sizeof(pipeline_executable_statistic_value_khr) ==
+                sizeof(::VkPipelineExecutableStatisticValueKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineExecutableStatisticKHR.
+class pipeline_executable_statistic_khr
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_executable_statistic_khr() = default;
+
+  /// Constructor.
+  constexpr pipeline_executable_statistic_khr(
+    void* initial_next, std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_name,
+    std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_description,
+    vk::pipeline_executable_statistic_format_khr initial_format,
+    vk::pipeline_executable_statistic_value_khr initial_value) noexcept
+  : _next(std::move(initial_next)),
+    _name(std::move(initial_name)),
+    _description(std::move(initial_description)),
+    _format(std::move(initial_format)),
+    _value(std::move(initial_value))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_executable_statistic_khr(
+    const pipeline_executable_statistic_khr& other) noexcept
+  : _next(other._next),
+    _name(other._name),
+    _description(other._description),
+    _format(other._format),
+    _value(other._value)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_executable_statistic_khr(
+    pipeline_executable_statistic_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _name(std::move(other._name)),
+    _description(std::move(other._description)),
+    _format(std::move(other._format)),
+    _value(std::move(other._value))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_executable_statistic_khr& operator=(
+    const pipeline_executable_statistic_khr& other) noexcept
+  {
+    _next = other._next;
+    _name = other._name;
+    _description = other._description;
+    _format = other._format;
+    _value = other._value;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_executable_statistic_khr& operator=(
+    pipeline_executable_statistic_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _name = std::move(other._name);
+    _description = std::move(other._description);
+    _format = std::move(other._format);
+    _value = std::move(other._value);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineExecutableStatisticKHR&() const
+  {
+    return *reinterpret_cast<const VkPipelineExecutableStatisticKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& name()
+  {
+    return _name;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& name() const
+  {
+    return _name;
+  }
+
+  void name(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_name)
+  {
+    _name = new_name;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& description()
+  {
+    return _description;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& description() const
+  {
+    return _description;
+  }
+
+  void description(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_description)
+  {
+    _description = new_description;
+  }
+
+  vk::pipeline_executable_statistic_format_khr& format()
+  {
+    return _format;
+  }
+
+  constexpr const vk::pipeline_executable_statistic_format_khr& format() const
+  {
+    return _format;
+  }
+
+  void format(vk::pipeline_executable_statistic_format_khr new_format)
+  {
+    _format = new_format;
+  }
+
+  vk::pipeline_executable_statistic_value_khr& value()
+  {
+    return _value;
+  }
+
+  constexpr const vk::pipeline_executable_statistic_value_khr& value() const
+  {
+    return _value;
+  }
+
+  void value(vk::pipeline_executable_statistic_value_khr new_value)
+  {
+    _value = new_value;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_executable_statistic_khr;
+  void* _next = nullptr;
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _name = {};
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _description = {};
+  vk::pipeline_executable_statistic_format_khr _format =
+    vk::pipeline_executable_statistic_format_khr::
+      pipeline_executable_statistic_format_bool_32_khr;
+  vk::pipeline_executable_statistic_value_khr _value =
+    vk::pipeline_executable_statistic_value_khr{};
+};
+static_assert(sizeof(pipeline_executable_statistic_khr) ==
+                sizeof(::VkPipelineExecutableStatisticKHR),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for VkPipelineExecutableInternalRepresentationKHR.
+class pipeline_executable_internal_representation_khr
+{
+public:
+  /// Default constructor.
+  constexpr pipeline_executable_internal_representation_khr() = default;
+
+  /// Constructor.
+  constexpr pipeline_executable_internal_representation_khr(
+    void* initial_next, std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_name,
+    std::array<char, VK_MAX_DESCRIPTION_SIZE> initial_description,
+    VkBool32 initial_is_text, size_t initial_data_size,
+    void* initial_data) noexcept
+  : _next(std::move(initial_next)),
+    _name(std::move(initial_name)),
+    _description(std::move(initial_description)),
+    _is_text(std::move(initial_is_text)),
+    _data_size(std::move(initial_data_size)),
+    _data(std::move(initial_data))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr pipeline_executable_internal_representation_khr(
+    const pipeline_executable_internal_representation_khr& other) noexcept
+  : _next(other._next),
+    _name(other._name),
+    _description(other._description),
+    _is_text(other._is_text),
+    _data_size(other._data_size),
+    _data(other._data)
+  {
+  }
+
+  /// Move constructor.
+  constexpr pipeline_executable_internal_representation_khr(
+    pipeline_executable_internal_representation_khr&& other) noexcept
+  : _next(std::move(other._next)),
+    _name(std::move(other._name)),
+    _description(std::move(other._description)),
+    _is_text(std::move(other._is_text)),
+    _data_size(std::move(other._data_size)),
+    _data(std::move(other._data))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr pipeline_executable_internal_representation_khr& operator=(
+    const pipeline_executable_internal_representation_khr& other) noexcept
+  {
+    _next = other._next;
+    _name = other._name;
+    _description = other._description;
+    _is_text = other._is_text;
+    _data_size = other._data_size;
+    _data = other._data;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr pipeline_executable_internal_representation_khr& operator=(
+    pipeline_executable_internal_representation_khr&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _name = std::move(other._name);
+    _description = std::move(other._description);
+    _is_text = std::move(other._is_text);
+    _data_size = std::move(other._data_size);
+    _data = std::move(other._data);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPipelineExecutableInternalRepresentationKHR&() const
+  {
+    return *reinterpret_cast<
+      const VkPipelineExecutableInternalRepresentationKHR*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& name()
+  {
+    return _name;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& name() const
+  {
+    return _name;
+  }
+
+  void name(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_name)
+  {
+    _name = new_name;
+  }
+
+  std::array<char, VK_MAX_DESCRIPTION_SIZE>& description()
+  {
+    return _description;
+  }
+
+  constexpr const std::array<char, VK_MAX_DESCRIPTION_SIZE>& description() const
+  {
+    return _description;
+  }
+
+  void description(std::array<char, VK_MAX_DESCRIPTION_SIZE> new_description)
+  {
+    _description = new_description;
+  }
+
+  VkBool32& is_text()
+  {
+    return _is_text;
+  }
+
+  constexpr const VkBool32& is_text() const
+  {
+    return _is_text;
+  }
+
+  void is_text(VkBool32 new_is_text)
+  {
+    _is_text = new_is_text;
+  }
+
+  size_t& data_size()
+  {
+    return _data_size;
+  }
+
+  constexpr const size_t& data_size() const
+  {
+    return _data_size;
+  }
+
+  void data_size(size_t new_data_size)
+  {
+    _data_size = new_data_size;
+  }
+
+  void* data()
+  {
+    return _data;
+  }
+
+  constexpr void* data() const
+  {
+    return _data;
+  }
+
+  void data(void* new_data)
+  {
+    _data = new_data;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::pipeline_executable_internal_representation_khr;
+  void* _next = nullptr;
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _name = {};
+  std::array<char, VK_MAX_DESCRIPTION_SIZE> _description = {};
+  VkBool32 _is_text = VK_FALSE;
+  size_t _data_size = 0;
+  void* _data = nullptr;
+};
+static_assert(sizeof(pipeline_executable_internal_representation_khr) ==
+                sizeof(::VkPipelineExecutableInternalRepresentationKHR),
+              "struct and wrapper have different size!");
+
+inline vk::result get_pipeline_executable_properties_khr(
+  VkDevice device, const vk::pipeline_info_khr* pipeline_info,
+  uint32_t* executable_count,
+  vk::pipeline_executable_properties_khr* properties)
+{
+  return static_cast<vk::result>(vkGetPipelineExecutablePropertiesKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkPipelineInfoKHR*>(pipeline_info),
+    reinterpret_cast<uint32_t*>(executable_count),
+    reinterpret_cast<VkPipelineExecutablePropertiesKHR*>(properties)));
+}
+inline vk::result get_pipeline_executable_statistics_khr(
+  VkDevice device, const vk::pipeline_executable_info_khr* executable_info,
+  uint32_t* statistic_count, vk::pipeline_executable_statistic_khr* statistics)
+{
+  return static_cast<vk::result>(vkGetPipelineExecutableStatisticsKHR(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkPipelineExecutableInfoKHR*>(executable_info),
+    reinterpret_cast<uint32_t*>(statistic_count),
+    reinterpret_cast<VkPipelineExecutableStatisticKHR*>(statistics)));
+}
+inline vk::result get_pipeline_executable_internal_representations_khr(
+  VkDevice device, const vk::pipeline_executable_info_khr* executable_info,
+  uint32_t* internal_representation_count,
+  vk::pipeline_executable_internal_representation_khr* internal_representations)
+{
+  return static_cast<vk::result>(
+    vkGetPipelineExecutableInternalRepresentationsKHR(
+      static_cast<VkDevice>(device),
+      reinterpret_cast<const VkPipelineExecutableInfoKHR*>(executable_info),
+      reinterpret_cast<uint32_t*>(internal_representation_count),
+      reinterpret_cast<VkPipelineExecutableInternalRepresentationKHR*>(
+        internal_representations)));
+}
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT.
+class physical_device_shader_demote_to_helper_invocation_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext() =
+    default;
+
+  /// Constructor.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext(
+    void* initial_next,
+    VkBool32 initial_shader_demote_to_helper_invocation) noexcept
+  : _next(std::move(initial_next)),
+    _shader_demote_to_helper_invocation(
+      std::move(initial_shader_demote_to_helper_invocation))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext(
+    const physical_device_shader_demote_to_helper_invocation_features_ext&
+      other) noexcept
+  : _next(other._next),
+    _shader_demote_to_helper_invocation(
+      other._shader_demote_to_helper_invocation)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext(
+    physical_device_shader_demote_to_helper_invocation_features_ext&&
+      other) noexcept
+  : _next(std::move(other._next)),
+    _shader_demote_to_helper_invocation(
+      std::move(other._shader_demote_to_helper_invocation))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext&
+  operator=(
+    const physical_device_shader_demote_to_helper_invocation_features_ext&
+      other) noexcept
+  {
+    _next = other._next;
+    _shader_demote_to_helper_invocation =
+      other._shader_demote_to_helper_invocation;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_shader_demote_to_helper_invocation_features_ext&
+  operator=(physical_device_shader_demote_to_helper_invocation_features_ext&&
+              other) noexcept
+  {
+    _next = std::move(other._next);
+    _shader_demote_to_helper_invocation =
+      std::move(other._shader_demote_to_helper_invocation);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT&()
+    const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& shader_demote_to_helper_invocation()
+  {
+    return _shader_demote_to_helper_invocation;
+  }
+
+  constexpr const VkBool32& shader_demote_to_helper_invocation() const
+  {
+    return _shader_demote_to_helper_invocation;
+  }
+
+  void shader_demote_to_helper_invocation(
+    VkBool32 new_shader_demote_to_helper_invocation)
+  {
+    _shader_demote_to_helper_invocation =
+      new_shader_demote_to_helper_invocation;
+  }
+
+private:
+  const vk::structure_type _structure_type = vk::structure_type::
+    physical_device_shader_demote_to_helper_invocation_features_ext;
+  void* _next = nullptr;
+  VkBool32 _shader_demote_to_helper_invocation = VK_FALSE;
+};
+static_assert(
+  sizeof(physical_device_shader_demote_to_helper_invocation_features_ext) ==
+    sizeof(::VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT),
+  "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.
+class physical_device_texel_buffer_alignment_features_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_texel_buffer_alignment_features_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_texel_buffer_alignment_features_ext(
+    void* initial_next, VkBool32 initial_texel_buffer_alignment) noexcept
+  : _next(std::move(initial_next)),
+    _texel_buffer_alignment(std::move(initial_texel_buffer_alignment))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_texel_buffer_alignment_features_ext(
+    const physical_device_texel_buffer_alignment_features_ext& other) noexcept
+  : _next(other._next), _texel_buffer_alignment(other._texel_buffer_alignment)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_texel_buffer_alignment_features_ext(
+    physical_device_texel_buffer_alignment_features_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _texel_buffer_alignment(std::move(other._texel_buffer_alignment))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_texel_buffer_alignment_features_ext& operator=(
+    const physical_device_texel_buffer_alignment_features_ext& other) noexcept
+  {
+    _next = other._next;
+    _texel_buffer_alignment = other._texel_buffer_alignment;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_texel_buffer_alignment_features_ext& operator=(
+    physical_device_texel_buffer_alignment_features_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _texel_buffer_alignment = std::move(other._texel_buffer_alignment);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& texel_buffer_alignment()
+  {
+    return _texel_buffer_alignment;
+  }
+
+  constexpr const VkBool32& texel_buffer_alignment() const
+  {
+    return _texel_buffer_alignment;
+  }
+
+  void texel_buffer_alignment(VkBool32 new_texel_buffer_alignment)
+  {
+    _texel_buffer_alignment = new_texel_buffer_alignment;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_texel_buffer_alignment_features_ext;
+  void* _next = nullptr;
+  VkBool32 _texel_buffer_alignment = VK_FALSE;
+};
+static_assert(sizeof(physical_device_texel_buffer_alignment_features_ext) ==
+                sizeof(::VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT),
+              "struct and wrapper have different size!");
+
+/// Enhanced replacement type for
+/// VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT.
+class physical_device_texel_buffer_alignment_properties_ext
+{
+public:
+  /// Default constructor.
+  constexpr physical_device_texel_buffer_alignment_properties_ext() = default;
+
+  /// Constructor.
+  constexpr physical_device_texel_buffer_alignment_properties_ext(
+    void* initial_next,
+    VkDeviceSize initial_storage_texel_buffer_offset_alignment_bytes,
+    VkBool32 initial_storage_texel_buffer_offset_single_texel_alignment,
+    VkDeviceSize initial_uniform_texel_buffer_offset_alignment_bytes,
+    VkBool32
+      initial_uniform_texel_buffer_offset_single_texel_alignment) noexcept
+  : _next(std::move(initial_next)),
+    _storage_texel_buffer_offset_alignment_bytes(
+      std::move(initial_storage_texel_buffer_offset_alignment_bytes)),
+    _storage_texel_buffer_offset_single_texel_alignment(
+      std::move(initial_storage_texel_buffer_offset_single_texel_alignment)),
+    _uniform_texel_buffer_offset_alignment_bytes(
+      std::move(initial_uniform_texel_buffer_offset_alignment_bytes)),
+    _uniform_texel_buffer_offset_single_texel_alignment(
+      std::move(initial_uniform_texel_buffer_offset_single_texel_alignment))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr physical_device_texel_buffer_alignment_properties_ext(
+    const physical_device_texel_buffer_alignment_properties_ext& other) noexcept
+  : _next(other._next),
+    _storage_texel_buffer_offset_alignment_bytes(
+      other._storage_texel_buffer_offset_alignment_bytes),
+    _storage_texel_buffer_offset_single_texel_alignment(
+      other._storage_texel_buffer_offset_single_texel_alignment),
+    _uniform_texel_buffer_offset_alignment_bytes(
+      other._uniform_texel_buffer_offset_alignment_bytes),
+    _uniform_texel_buffer_offset_single_texel_alignment(
+      other._uniform_texel_buffer_offset_single_texel_alignment)
+  {
+  }
+
+  /// Move constructor.
+  constexpr physical_device_texel_buffer_alignment_properties_ext(
+    physical_device_texel_buffer_alignment_properties_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _storage_texel_buffer_offset_alignment_bytes(
+      std::move(other._storage_texel_buffer_offset_alignment_bytes)),
+    _storage_texel_buffer_offset_single_texel_alignment(
+      std::move(other._storage_texel_buffer_offset_single_texel_alignment)),
+    _uniform_texel_buffer_offset_alignment_bytes(
+      std::move(other._uniform_texel_buffer_offset_alignment_bytes)),
+    _uniform_texel_buffer_offset_single_texel_alignment(
+      std::move(other._uniform_texel_buffer_offset_single_texel_alignment))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr physical_device_texel_buffer_alignment_properties_ext& operator=(
+    const physical_device_texel_buffer_alignment_properties_ext& other) noexcept
+  {
+    _next = other._next;
+    _storage_texel_buffer_offset_alignment_bytes =
+      other._storage_texel_buffer_offset_alignment_bytes;
+    _storage_texel_buffer_offset_single_texel_alignment =
+      other._storage_texel_buffer_offset_single_texel_alignment;
+    _uniform_texel_buffer_offset_alignment_bytes =
+      other._uniform_texel_buffer_offset_alignment_bytes;
+    _uniform_texel_buffer_offset_single_texel_alignment =
+      other._uniform_texel_buffer_offset_single_texel_alignment;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr physical_device_texel_buffer_alignment_properties_ext& operator=(
+    physical_device_texel_buffer_alignment_properties_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _storage_texel_buffer_offset_alignment_bytes =
+      std::move(other._storage_texel_buffer_offset_alignment_bytes);
+    _storage_texel_buffer_offset_single_texel_alignment =
+      std::move(other._storage_texel_buffer_offset_single_texel_alignment);
+    _uniform_texel_buffer_offset_alignment_bytes =
+      std::move(other._uniform_texel_buffer_offset_alignment_bytes);
+    _uniform_texel_buffer_offset_single_texel_alignment =
+      std::move(other._uniform_texel_buffer_offset_single_texel_alignment);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkDeviceSize& storage_texel_buffer_offset_alignment_bytes()
+  {
+    return _storage_texel_buffer_offset_alignment_bytes;
+  }
+
+  constexpr const VkDeviceSize& storage_texel_buffer_offset_alignment_bytes()
+    const
+  {
+    return _storage_texel_buffer_offset_alignment_bytes;
+  }
+
+  void storage_texel_buffer_offset_alignment_bytes(
+    VkDeviceSize new_storage_texel_buffer_offset_alignment_bytes)
+  {
+    _storage_texel_buffer_offset_alignment_bytes =
+      new_storage_texel_buffer_offset_alignment_bytes;
+  }
+
+  VkBool32& storage_texel_buffer_offset_single_texel_alignment()
+  {
+    return _storage_texel_buffer_offset_single_texel_alignment;
+  }
+
+  constexpr const VkBool32& storage_texel_buffer_offset_single_texel_alignment()
+    const
+  {
+    return _storage_texel_buffer_offset_single_texel_alignment;
+  }
+
+  void storage_texel_buffer_offset_single_texel_alignment(
+    VkBool32 new_storage_texel_buffer_offset_single_texel_alignment)
+  {
+    _storage_texel_buffer_offset_single_texel_alignment =
+      new_storage_texel_buffer_offset_single_texel_alignment;
+  }
+
+  VkDeviceSize& uniform_texel_buffer_offset_alignment_bytes()
+  {
+    return _uniform_texel_buffer_offset_alignment_bytes;
+  }
+
+  constexpr const VkDeviceSize& uniform_texel_buffer_offset_alignment_bytes()
+    const
+  {
+    return _uniform_texel_buffer_offset_alignment_bytes;
+  }
+
+  void uniform_texel_buffer_offset_alignment_bytes(
+    VkDeviceSize new_uniform_texel_buffer_offset_alignment_bytes)
+  {
+    _uniform_texel_buffer_offset_alignment_bytes =
+      new_uniform_texel_buffer_offset_alignment_bytes;
+  }
+
+  VkBool32& uniform_texel_buffer_offset_single_texel_alignment()
+  {
+    return _uniform_texel_buffer_offset_single_texel_alignment;
+  }
+
+  constexpr const VkBool32& uniform_texel_buffer_offset_single_texel_alignment()
+    const
+  {
+    return _uniform_texel_buffer_offset_single_texel_alignment;
+  }
+
+  void uniform_texel_buffer_offset_single_texel_alignment(
+    VkBool32 new_uniform_texel_buffer_offset_single_texel_alignment)
+  {
+    _uniform_texel_buffer_offset_single_texel_alignment =
+      new_uniform_texel_buffer_offset_single_texel_alignment;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::physical_device_texel_buffer_alignment_properties_ext;
+  void* _next = nullptr;
+  VkDeviceSize _storage_texel_buffer_offset_alignment_bytes = 0;
+  VkBool32 _storage_texel_buffer_offset_single_texel_alignment = VK_FALSE;
+  VkDeviceSize _uniform_texel_buffer_offset_alignment_bytes = 0;
+  VkBool32 _uniform_texel_buffer_offset_single_texel_alignment = VK_FALSE;
+};
+static_assert(sizeof(physical_device_texel_buffer_alignment_properties_ext) ==
+                sizeof(::VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT),
               "struct and wrapper have different size!");
 
 #if defined(VK_USE_PLATFORM_XLIB_KHR)
@@ -68824,6 +76252,150 @@ inline VkBool32 get_physical_device_win32_presentation_support_khr(
   return static_cast<VkBool32>(vkGetPhysicalDeviceWin32PresentationSupportKHR(
     static_cast<VkPhysicalDevice>(physical_device),
     static_cast<uint32_t>(queue_family_index)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_GGP)
+#if defined(VK_USE_PLATFORM_GGP)
+using stream_descriptor_surface_create_flags_ggp = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_GGP)
+
+/// Enhanced replacement type for VkStreamDescriptorSurfaceCreateInfoGGP.
+class stream_descriptor_surface_create_info_ggp
+{
+public:
+  /// Default constructor.
+  constexpr stream_descriptor_surface_create_info_ggp() = default;
+
+  /// Constructor.
+  constexpr stream_descriptor_surface_create_info_ggp(
+    const void* initial_next,
+    vk::stream_descriptor_surface_create_flags_ggp initial_flags,
+    GgpStreamDescriptor initial_stream_descriptor) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _stream_descriptor(std::move(initial_stream_descriptor))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr stream_descriptor_surface_create_info_ggp(
+    const stream_descriptor_surface_create_info_ggp& other) noexcept
+  : _next(other._next),
+    _flags(other._flags),
+    _stream_descriptor(other._stream_descriptor)
+  {
+  }
+
+  /// Move constructor.
+  constexpr stream_descriptor_surface_create_info_ggp(
+    stream_descriptor_surface_create_info_ggp&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _stream_descriptor(std::move(other._stream_descriptor))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr stream_descriptor_surface_create_info_ggp& operator=(
+    const stream_descriptor_surface_create_info_ggp& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _stream_descriptor = other._stream_descriptor;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr stream_descriptor_surface_create_info_ggp& operator=(
+    stream_descriptor_surface_create_info_ggp&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _stream_descriptor = std::move(other._stream_descriptor);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkStreamDescriptorSurfaceCreateInfoGGP&() const
+  {
+    return *reinterpret_cast<const VkStreamDescriptorSurfaceCreateInfoGGP*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::stream_descriptor_surface_create_flags_ggp& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::stream_descriptor_surface_create_flags_ggp& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::stream_descriptor_surface_create_flags_ggp new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  GgpStreamDescriptor& stream_descriptor()
+  {
+    return _stream_descriptor;
+  }
+
+  constexpr const GgpStreamDescriptor& stream_descriptor() const
+  {
+    return _stream_descriptor;
+  }
+
+  void stream_descriptor(GgpStreamDescriptor new_stream_descriptor)
+  {
+    _stream_descriptor = new_stream_descriptor;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::stream_descriptor_surface_create_info_ggp;
+  const void* _next = nullptr;
+  vk::stream_descriptor_surface_create_flags_ggp _flags = 0;
+  GgpStreamDescriptor _stream_descriptor = 0;
+};
+static_assert(sizeof(stream_descriptor_surface_create_info_ggp) ==
+                sizeof(::VkStreamDescriptorSurfaceCreateInfoGGP),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_stream_descriptor_surface_ggp(
+  VkInstance instance,
+  const vk::stream_descriptor_surface_create_info_ggp* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateStreamDescriptorSurfaceGGP(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkStreamDescriptorSurfaceCreateInfoGGP*>(
+      create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
 }
 #endif
 #if defined(VK_USE_PLATFORM_WIN32_KHR)
@@ -72684,6 +80256,107 @@ inline vk::result get_memory_android_hardware_buffer_android(
     reinterpret_cast<AHardwareBuffer**>(buffer)));
 }
 #endif
+#if defined(VK_USE_PLATFORM_GGP)
+#if defined(VK_USE_PLATFORM_GGP)
+
+/// Enhanced replacement type for VkPresentFrameTokenGGP.
+class present_frame_token_ggp
+{
+public:
+  /// Default constructor.
+  constexpr present_frame_token_ggp() = default;
+
+  /// Constructor.
+  constexpr present_frame_token_ggp(const void* initial_next,
+                                    GgpFrameToken initial_frame_token) noexcept
+  : _next(std::move(initial_next)), _frame_token(std::move(initial_frame_token))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr present_frame_token_ggp(
+    const present_frame_token_ggp& other) noexcept
+  : _next(other._next), _frame_token(other._frame_token)
+  {
+  }
+
+  /// Move constructor.
+  constexpr present_frame_token_ggp(present_frame_token_ggp&& other) noexcept
+  : _next(std::move(other._next)), _frame_token(std::move(other._frame_token))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr present_frame_token_ggp& operator=(
+    const present_frame_token_ggp& other) noexcept
+  {
+    _next = other._next;
+    _frame_token = other._frame_token;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr present_frame_token_ggp& operator=(
+    present_frame_token_ggp&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _frame_token = std::move(other._frame_token);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkPresentFrameTokenGGP&() const
+  {
+    return *reinterpret_cast<const VkPresentFrameTokenGGP*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  GgpFrameToken& frame_token()
+  {
+    return _frame_token;
+  }
+
+  constexpr const GgpFrameToken& frame_token() const
+  {
+    return _frame_token;
+  }
+
+  void frame_token(GgpFrameToken new_frame_token)
+  {
+    _frame_token = new_frame_token;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::present_frame_token_ggp;
+  const void* _next = nullptr;
+  GgpFrameToken _frame_token = 0;
+};
+static_assert(sizeof(present_frame_token_ggp) ==
+                sizeof(::VkPresentFrameTokenGGP),
+              "struct and wrapper have different size!");
+
+#endif
+#endif
 #if defined(VK_USE_PLATFORM_FUCHSIA)
 #if defined(VK_USE_PLATFORM_FUCHSIA)
 using image_pipe_surface_create_flags_fuchsia = VkFlags;
@@ -72824,6 +80497,506 @@ inline vk::result create_image_pipe_surface_fuchsia(
     reinterpret_cast<const VkImagePipeSurfaceCreateInfoFUCHSIA*>(create_info),
     reinterpret_cast<const VkAllocationCallbacks*>(allocator),
     reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_METAL_EXT)
+#if defined(VK_USE_PLATFORM_METAL_EXT)
+using metal_surface_create_flags_ext = VkFlags;
+#endif
+#if defined(VK_USE_PLATFORM_METAL_EXT)
+
+/// Enhanced replacement type for VkMetalSurfaceCreateInfoEXT.
+class metal_surface_create_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr metal_surface_create_info_ext() = default;
+
+  /// Constructor.
+  constexpr metal_surface_create_info_ext(
+    const void* initial_next, vk::metal_surface_create_flags_ext initial_flags,
+    const CAMetalLayer* initial_layer) noexcept
+  : _next(std::move(initial_next)),
+    _flags(std::move(initial_flags)),
+    _layer(std::move(initial_layer))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr metal_surface_create_info_ext(
+    const metal_surface_create_info_ext& other) noexcept
+  : _next(other._next), _flags(other._flags), _layer(other._layer)
+  {
+  }
+
+  /// Move constructor.
+  constexpr metal_surface_create_info_ext(
+    metal_surface_create_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _flags(std::move(other._flags)),
+    _layer(std::move(other._layer))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr metal_surface_create_info_ext& operator=(
+    const metal_surface_create_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _flags = other._flags;
+    _layer = other._layer;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr metal_surface_create_info_ext& operator=(
+    metal_surface_create_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _flags = std::move(other._flags);
+    _layer = std::move(other._layer);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkMetalSurfaceCreateInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkMetalSurfaceCreateInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::metal_surface_create_flags_ext& flags()
+  {
+    return _flags;
+  }
+
+  constexpr const vk::metal_surface_create_flags_ext& flags() const
+  {
+    return _flags;
+  }
+
+  void flags(vk::metal_surface_create_flags_ext new_flags)
+  {
+    _flags = new_flags;
+  }
+
+  const CAMetalLayer* layer()
+  {
+    return _layer;
+  }
+
+  constexpr const CAMetalLayer* layer() const
+  {
+    return _layer;
+  }
+
+  void layer(const CAMetalLayer* new_layer)
+  {
+    _layer = new_layer;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::metal_surface_create_info_ext;
+  const void* _next = nullptr;
+  vk::metal_surface_create_flags_ext _flags = 0;
+  const CAMetalLayer* _layer = nullptr;
+};
+static_assert(sizeof(metal_surface_create_info_ext) ==
+                sizeof(::VkMetalSurfaceCreateInfoEXT),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result create_metal_surface_ext(
+  VkInstance instance, const vk::metal_surface_create_info_ext* create_info,
+  const vk::allocation_callbacks* allocator, VkSurfaceKHR* surface)
+{
+  return static_cast<vk::result>(vkCreateMetalSurfaceEXT(
+    static_cast<VkInstance>(instance),
+    reinterpret_cast<const VkMetalSurfaceCreateInfoEXT*>(create_info),
+    reinterpret_cast<const VkAllocationCallbacks*>(allocator),
+    reinterpret_cast<VkSurfaceKHR*>(surface)));
+}
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+enum class full_screen_exclusive_ext
+{
+  /// @see VK_FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT
+  full_screen_exclusive_default_ext = 0,
+  /// @see VK_FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT
+  full_screen_exclusive_allowed_ext = 1,
+  /// @see VK_FULL_SCREEN_EXCLUSIVE_DISALLOWED_EXT
+  full_screen_exclusive_disallowed_ext = 2,
+  /// @see VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT
+  full_screen_exclusive_application_controlled_ext = 3,
+};
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkSurfaceFullScreenExclusiveInfoEXT.
+class surface_full_screen_exclusive_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr surface_full_screen_exclusive_info_ext() = default;
+
+  /// Constructor.
+  constexpr surface_full_screen_exclusive_info_ext(
+    void* initial_next,
+    vk::full_screen_exclusive_ext initial_full_screen_exclusive) noexcept
+  : _next(std::move(initial_next)),
+    _full_screen_exclusive(std::move(initial_full_screen_exclusive))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr surface_full_screen_exclusive_info_ext(
+    const surface_full_screen_exclusive_info_ext& other) noexcept
+  : _next(other._next), _full_screen_exclusive(other._full_screen_exclusive)
+  {
+  }
+
+  /// Move constructor.
+  constexpr surface_full_screen_exclusive_info_ext(
+    surface_full_screen_exclusive_info_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _full_screen_exclusive(std::move(other._full_screen_exclusive))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr surface_full_screen_exclusive_info_ext& operator=(
+    const surface_full_screen_exclusive_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _full_screen_exclusive = other._full_screen_exclusive;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr surface_full_screen_exclusive_info_ext& operator=(
+    surface_full_screen_exclusive_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _full_screen_exclusive = std::move(other._full_screen_exclusive);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSurfaceFullScreenExclusiveInfoEXT&() const
+  {
+    return *reinterpret_cast<const VkSurfaceFullScreenExclusiveInfoEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  vk::full_screen_exclusive_ext& full_screen_exclusive()
+  {
+    return _full_screen_exclusive;
+  }
+
+  constexpr const vk::full_screen_exclusive_ext& full_screen_exclusive() const
+  {
+    return _full_screen_exclusive;
+  }
+
+  void full_screen_exclusive(
+    vk::full_screen_exclusive_ext new_full_screen_exclusive)
+  {
+    _full_screen_exclusive = new_full_screen_exclusive;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::surface_full_screen_exclusive_info_ext;
+  void* _next = nullptr;
+  vk::full_screen_exclusive_ext _full_screen_exclusive =
+    vk::full_screen_exclusive_ext::full_screen_exclusive_default_ext;
+};
+static_assert(sizeof(surface_full_screen_exclusive_info_ext) ==
+                sizeof(::VkSurfaceFullScreenExclusiveInfoEXT),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkSurfaceCapabilitiesFullScreenExclusiveEXT.
+class surface_capabilities_full_screen_exclusive_ext
+{
+public:
+  /// Default constructor.
+  constexpr surface_capabilities_full_screen_exclusive_ext() = default;
+
+  /// Constructor.
+  constexpr surface_capabilities_full_screen_exclusive_ext(
+    void* initial_next,
+    VkBool32 initial_full_screen_exclusive_supported) noexcept
+  : _next(std::move(initial_next)),
+    _full_screen_exclusive_supported(
+      std::move(initial_full_screen_exclusive_supported))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr surface_capabilities_full_screen_exclusive_ext(
+    const surface_capabilities_full_screen_exclusive_ext& other) noexcept
+  : _next(other._next),
+    _full_screen_exclusive_supported(other._full_screen_exclusive_supported)
+  {
+  }
+
+  /// Move constructor.
+  constexpr surface_capabilities_full_screen_exclusive_ext(
+    surface_capabilities_full_screen_exclusive_ext&& other) noexcept
+  : _next(std::move(other._next)),
+    _full_screen_exclusive_supported(
+      std::move(other._full_screen_exclusive_supported))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr surface_capabilities_full_screen_exclusive_ext& operator=(
+    const surface_capabilities_full_screen_exclusive_ext& other) noexcept
+  {
+    _next = other._next;
+    _full_screen_exclusive_supported = other._full_screen_exclusive_supported;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr surface_capabilities_full_screen_exclusive_ext& operator=(
+    surface_capabilities_full_screen_exclusive_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _full_screen_exclusive_supported =
+      std::move(other._full_screen_exclusive_supported);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSurfaceCapabilitiesFullScreenExclusiveEXT&() const
+  {
+    return *reinterpret_cast<
+      const VkSurfaceCapabilitiesFullScreenExclusiveEXT*>(this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  void* next()
+  {
+    return _next;
+  }
+
+  constexpr void* next() const
+  {
+    return _next;
+  }
+
+  void next(void* new_next)
+  {
+    _next = new_next;
+  }
+
+  VkBool32& full_screen_exclusive_supported()
+  {
+    return _full_screen_exclusive_supported;
+  }
+
+  constexpr const VkBool32& full_screen_exclusive_supported() const
+  {
+    return _full_screen_exclusive_supported;
+  }
+
+  void full_screen_exclusive_supported(
+    VkBool32 new_full_screen_exclusive_supported)
+  {
+    _full_screen_exclusive_supported = new_full_screen_exclusive_supported;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::surface_capabilities_full_screen_exclusive_ext;
+  void* _next = nullptr;
+  VkBool32 _full_screen_exclusive_supported = VK_FALSE;
+};
+static_assert(sizeof(surface_capabilities_full_screen_exclusive_ext) ==
+                sizeof(::VkSurfaceCapabilitiesFullScreenExclusiveEXT),
+              "struct and wrapper have different size!");
+
+#endif
+#if defined(VK_USE_PLATFORM_WIN32_KHR)
+
+/// Enhanced replacement type for VkSurfaceFullScreenExclusiveWin32InfoEXT.
+class surface_full_screen_exclusive_win32_info_ext
+{
+public:
+  /// Default constructor.
+  constexpr surface_full_screen_exclusive_win32_info_ext() = default;
+
+  /// Constructor.
+  constexpr surface_full_screen_exclusive_win32_info_ext(
+    const void* initial_next, HMONITOR initial_hmonitor) noexcept
+  : _next(std::move(initial_next)), _hmonitor(std::move(initial_hmonitor))
+  {
+  }
+
+  /// Copy constructor.
+  constexpr surface_full_screen_exclusive_win32_info_ext(
+    const surface_full_screen_exclusive_win32_info_ext& other) noexcept
+  : _next(other._next), _hmonitor(other._hmonitor)
+  {
+  }
+
+  /// Move constructor.
+  constexpr surface_full_screen_exclusive_win32_info_ext(
+    surface_full_screen_exclusive_win32_info_ext&& other) noexcept
+  : _next(std::move(other._next)), _hmonitor(std::move(other._hmonitor))
+  {
+  }
+
+  /// Copy assignment operator.
+  constexpr surface_full_screen_exclusive_win32_info_ext& operator=(
+    const surface_full_screen_exclusive_win32_info_ext& other) noexcept
+  {
+    _next = other._next;
+    _hmonitor = other._hmonitor;
+    return *this;
+  }
+
+  /// Move assignment operator.
+  constexpr surface_full_screen_exclusive_win32_info_ext& operator=(
+    surface_full_screen_exclusive_win32_info_ext&& other) noexcept
+  {
+    _next = std::move(other._next);
+    _hmonitor = std::move(other._hmonitor);
+    return *this;
+  }
+
+  /// Conversion operator to original Vulkan type.
+  operator const VkSurfaceFullScreenExclusiveWin32InfoEXT&() const
+  {
+    return *reinterpret_cast<const VkSurfaceFullScreenExclusiveWin32InfoEXT*>(
+      this);
+  }
+
+  constexpr const vk::structure_type& structure_type() const
+  {
+    return _structure_type;
+  }
+
+  const void* next()
+  {
+    return _next;
+  }
+
+  constexpr const void* next() const
+  {
+    return _next;
+  }
+
+  void next(const void* new_next)
+  {
+    _next = new_next;
+  }
+
+  HMONITOR& hmonitor()
+  {
+    return _hmonitor;
+  }
+
+  constexpr const HMONITOR& hmonitor() const
+  {
+    return _hmonitor;
+  }
+
+  void hmonitor(HMONITOR new_hmonitor)
+  {
+    _hmonitor = new_hmonitor;
+  }
+
+private:
+  const vk::structure_type _structure_type =
+    vk::structure_type::surface_full_screen_exclusive_win32_info_ext;
+  const void* _next = nullptr;
+  HMONITOR _hmonitor = 0;
+};
+static_assert(sizeof(surface_full_screen_exclusive_win32_info_ext) ==
+                sizeof(::VkSurfaceFullScreenExclusiveWin32InfoEXT),
+              "struct and wrapper have different size!");
+
+#endif
+inline vk::result get_physical_device_surface_present_modes_2_ext(
+  VkPhysicalDevice physical_device,
+  const vk::physical_device_surface_info_2_khr* surface_info,
+  uint32_t* present_mode_count, vk::present_mode_khr* present_modes)
+{
+  return static_cast<vk::result>(vkGetPhysicalDeviceSurfacePresentModes2EXT(
+    static_cast<VkPhysicalDevice>(physical_device),
+    reinterpret_cast<const VkPhysicalDeviceSurfaceInfo2KHR*>(surface_info),
+    reinterpret_cast<uint32_t*>(present_mode_count),
+    reinterpret_cast<VkPresentModeKHR*>(present_modes)));
+}
+inline vk::result acquire_full_screen_exclusive_mode_ext(
+  VkDevice device, VkSwapchainKHR swapchain)
+{
+  return static_cast<vk::result>(vkAcquireFullScreenExclusiveModeEXT(
+    static_cast<VkDevice>(device), static_cast<VkSwapchainKHR>(swapchain)));
+}
+inline vk::result release_full_screen_exclusive_mode_ext(
+  VkDevice device, VkSwapchainKHR swapchain)
+{
+  return static_cast<vk::result>(vkReleaseFullScreenExclusiveModeEXT(
+    static_cast<VkDevice>(device), static_cast<VkSwapchainKHR>(swapchain)));
+}
+inline vk::result get_device_group_surface_present_modes_2_ext(
+  VkDevice device, const vk::physical_device_surface_info_2_khr* surface_info,
+  vk::device_group_present_mode_flags_khr* modes)
+{
+  return static_cast<vk::result>(vkGetDeviceGroupSurfacePresentModes2EXT(
+    static_cast<VkDevice>(device),
+    reinterpret_cast<const VkPhysicalDeviceSurfaceInfo2KHR*>(surface_info),
+    reinterpret_cast<VkDeviceGroupPresentModeFlagsKHR*>(modes)));
 }
 #endif
 using descriptor_update_template_create_flags_khr = VkFlags;

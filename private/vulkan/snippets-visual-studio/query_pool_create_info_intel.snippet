@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>query_pool_create_info_intel</Title>
+      <Shortcut>VkQueryPoolCreateInfoINTEL</Shortcut>
+      <Description>Code snippet for Vulkan type VkQueryPoolCreateInfoINTEL</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfoINTEL::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>performance_counters_sampling</ID>
+          <ToolTip>Equivalent to Vulkan member VkQueryPoolCreateInfoINTEL::performanceCountersSampling.</ToolTip>
+          <Default>vk::query_pool_sampling_mode_intel::query_pool_sampling_mode_manual_intel</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::query_pool_create_info_intel(
+  /* next */ $next$,
+  /* performance_counters_sampling */ $performance_counters_sampling$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

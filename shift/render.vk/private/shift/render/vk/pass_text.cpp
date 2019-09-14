@@ -140,35 +140,35 @@ void pass_text::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
     *_device,
     vk::shader_module_create_info(
       /* next */ nullptr,
-      /* flags */ 0,
+      /* flags */ {},
       /* code_size */ solid_vertex_shader_resource->storage.size() * 4,
       /* code */ solid_vertex_shader_resource->storage.data()));
   vk::layer1::shader_module solid_fragment_shader(
     *_device,
     vk::shader_module_create_info(
       /* next */ nullptr,
-      /* flags */ 0,
+      /* flags */ {},
       /* code_size */ solid_fragment_shader_resource->storage.size() * 4,
       /* code */ solid_fragment_shader_resource->storage.data()));
   vk::layer1::shader_module curve_vertex_shader(
     *_device,
     vk::shader_module_create_info(
       /* next */ nullptr,
-      /* flags */ 0,
+      /* flags */ {},
       /* code_size */ curve_vertex_shader_resource->storage.size() * 4,
       /* code */ curve_vertex_shader_resource->storage.data()));
   vk::layer1::shader_module curve_geometry_shader(
     *_device,
     vk::shader_module_create_info(
       /* next */ nullptr,
-      /* flags */ 0,
+      /* flags */ {},
       /* code_size */ curve_geometry_shader_resource->storage.size() * 4,
       /* code */ curve_geometry_shader_resource->storage.data()));
   vk::layer1::shader_module curve_fragment_shader(
     *_device,
     vk::shader_module_create_info(
       /* next */ nullptr,
-      /* flags */ 0,
+      /* flags */ {},
       /* code_size */ curve_fragment_shader_resource->storage.size() * 4,
       /* code */ curve_fragment_shader_resource->storage.data()));
 

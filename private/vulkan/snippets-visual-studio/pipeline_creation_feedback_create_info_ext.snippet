@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_creation_feedback_create_info_ext</Title>
+      <Shortcut>VkPipelineCreationFeedbackCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineCreationFeedbackCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCreationFeedbackCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_creation_feedback</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCreationFeedbackCreateInfoEXT::pPipelineCreationFeedback.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_stage_creation_feedback_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCreationFeedbackCreateInfoEXT::pipelineStageCreationFeedbackCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>pipeline_stage_creation_feedbacks</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCreationFeedbackCreateInfoEXT::pPipelineStageCreationFeedbacks.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_creation_feedback_create_info_ext(
+  /* next */ $next$,
+  /* pipeline_creation_feedback */ $pipeline_creation_feedback$,
+  /* pipeline_stage_creation_feedback_count */ $pipeline_stage_creation_feedback_count$,
+  /* pipeline_stage_creation_feedbacks */ $pipeline_stage_creation_feedbacks$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

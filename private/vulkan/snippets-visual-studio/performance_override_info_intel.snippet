@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>performance_override_info_intel</Title>
+      <Shortcut>VkPerformanceOverrideInfoINTEL</Shortcut>
+      <Description>Code snippet for Vulkan type VkPerformanceOverrideInfoINTEL</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceOverrideInfoINTEL::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceOverrideInfoINTEL::type.</ToolTip>
+          <Default>vk::performance_override_type_intel::performance_override_type_null_hardware_intel</Default>
+        </Literal>
+        <Literal>
+          <ID>enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceOverrideInfoINTEL::enable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>parameter</ID>
+          <ToolTip>Equivalent to Vulkan member VkPerformanceOverrideInfoINTEL::parameter.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::performance_override_info_intel(
+  /* next */ $next$,
+  /* type */ $type$,
+  /* enable */ $enable$,
+  /* parameter */ $parameter$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

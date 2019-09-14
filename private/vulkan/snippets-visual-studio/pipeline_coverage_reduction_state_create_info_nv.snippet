@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_coverage_reduction_state_create_info_nv</Title>
+      <Shortcut>VkPipelineCoverageReductionStateCreateInfoNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineCoverageReductionStateCreateInfoNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageReductionStateCreateInfoNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageReductionStateCreateInfoNV::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>coverage_reduction_mode</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCoverageReductionStateCreateInfoNV::coverageReductionMode.</ToolTip>
+          <Default>vk::coverage_reduction_mode_nv::coverage_reduction_mode_merge_nv</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_coverage_reduction_state_create_info_nv(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* coverage_reduction_mode */ $coverage_reduction_mode$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

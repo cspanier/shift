@@ -128,35 +128,35 @@ void pass_warp::create_pipeline(vk::layer1::pipeline_cache& pipeline_cache)
   vertex_shader.create(
     *_device, vk::shader_module_create_info(
                 /* next */ nullptr,
-                /* flags */ 0,
+                /* flags */ {},
                 /* code_size */ vertex_shader_resource->storage.size() * 4,
                 /* code */ vertex_shader_resource->storage.data()));
   core::stack_ptr<vk::layer1::shader_module> tessellation_control_shader;
   tessellation_control_shader.create(
     *_device, vk::shader_module_create_info(
                 /* next */ nullptr,
-                /* flags */ 0,
+                /* flags */ {},
                 /* code_size */ tess_ctrl_shader_resource->storage.size() * 4,
                 /* code */ tess_ctrl_shader_resource->storage.data()));
   core::stack_ptr<vk::layer1::shader_module> tessellation_evaluation_shader;
   tessellation_evaluation_shader.create(
     *_device, vk::shader_module_create_info(
                 /* next */ nullptr,
-                /* flags */ 0,
+                /* flags */ {},
                 /* code_size */ tess_eval_shader_resource->storage.size() * 4,
                 /* code */ tess_eval_shader_resource->storage.data()));
   core::stack_ptr<vk::layer1::shader_module> geometry_shader;
   geometry_shader.create(
     *_device, vk::shader_module_create_info(
                 /* next */ nullptr,
-                /* flags */ 0,
+                /* flags */ {},
                 /* code_size */ geometry_shader_resource->storage.size() * 4,
                 /* code */ geometry_shader_resource->storage.data()));
   core::stack_ptr<vk::layer1::shader_module> fragment_shader;
   fragment_shader.create(
     *_device, vk::shader_module_create_info(
                 /* next */ nullptr,
-                /* flags */ 0,
+                /* flags */ {},
                 /* code_size */ fragment_shader_resource->storage.size() * 4,
                 /* code */ fragment_shader_resource->storage.data()));
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_uniform_buffer_standard_layout_features_khr</Title>
+      <Shortcut>VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>uniform_buffer_standard_layout</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR::uniformBufferStandardLayout.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_uniform_buffer_standard_layout_features_khr(
+  /* next */ $next$,
+  /* uniform_buffer_standard_layout */ $uniform_buffer_standard_layout$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

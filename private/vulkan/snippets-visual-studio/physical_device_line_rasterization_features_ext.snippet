@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_line_rasterization_features_ext</Title>
+      <Shortcut>VkPhysicalDeviceLineRasterizationFeaturesEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceLineRasterizationFeaturesEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>rectangular_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::rectangularLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>bresenham_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::bresenhamLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>smooth_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::smoothLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>stippled_rectangular_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::stippledRectangularLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>stippled_bresenham_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::stippledBresenhamLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>stippled_smooth_lines</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceLineRasterizationFeaturesEXT::stippledSmoothLines.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_line_rasterization_features_ext(
+  /* next */ $next$,
+  /* rectangular_lines */ $rectangular_lines$,
+  /* bresenham_lines */ $bresenham_lines$,
+  /* smooth_lines */ $smooth_lines$,
+  /* stippled_rectangular_lines */ $stippled_rectangular_lines$,
+  /* stippled_bresenham_lines */ $stippled_bresenham_lines$,
+  /* stippled_smooth_lines */ $stippled_smooth_lines$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_cooperative_matrix_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceCooperativeMatrixFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceCooperativeMatrixFeaturesNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCooperativeMatrixFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>cooperative_matrix</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCooperativeMatrixFeaturesNV::cooperativeMatrix.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+        <Literal>
+          <ID>cooperative_matrix_robust_buffer_access</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCooperativeMatrixFeaturesNV::cooperativeMatrixRobustBufferAccess.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_cooperative_matrix_features_nv(
+  /* next */ $next$,
+  /* cooperative_matrix */ $cooperative_matrix$,
+  /* cooperative_matrix_robust_buffer_access */ $cooperative_matrix_robust_buffer_access$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

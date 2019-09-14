@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_shader_smbuiltins_features_nv</Title>
+      <Shortcut>VkPhysicalDeviceShaderSMBuiltinsFeaturesNV</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceShaderSMBuiltinsFeaturesNV</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderSMBuiltinsFeaturesNV::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shader_smbuiltins</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceShaderSMBuiltinsFeaturesNV::shaderSMBuiltins.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_shader_smbuiltins_features_nv(
+  /* next */ $next$,
+  /* shader_smbuiltins */ $shader_smbuiltins$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

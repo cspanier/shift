@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_compiler_control_create_info_amd</Title>
+      <Shortcut>VkPipelineCompilerControlCreateInfoAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineCompilerControlCreateInfoAMD</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCompilerControlCreateInfoAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>compiler_control_flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineCompilerControlCreateInfoAMD::compilerControlFlags.</ToolTip>
+          <Default>vk::pipeline_compiler_control_flag_amd::none</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_compiler_control_create_info_amd(
+  /* next */ $next$,
+  /* compiler_control_flags */ $compiler_control_flags$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

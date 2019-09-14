@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>image_view_handle_info_nvx</Title>
+      <Shortcut>VkImageViewHandleInfoNVX</Shortcut>
+      <Description>Code snippet for Vulkan type VkImageViewHandleInfoNVX</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewHandleInfoNVX::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>image_view</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewHandleInfoNVX::imageView.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>descriptor_type</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewHandleInfoNVX::descriptorType.</ToolTip>
+          <Default>vk::descriptor_type::sampler</Default>
+        </Literal>
+        <Literal>
+          <ID>sampler</ID>
+          <ToolTip>Equivalent to Vulkan member VkImageViewHandleInfoNVX::sampler.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::image_view_handle_info_nvx(
+  /* next */ $next$,
+  /* image_view */ $image_view$,
+  /* descriptor_type */ $descriptor_type$,
+  /* sampler */ $sampler$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

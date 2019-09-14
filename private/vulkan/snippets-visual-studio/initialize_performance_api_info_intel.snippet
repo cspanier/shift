@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>initialize_performance_api_info_intel</Title>
+      <Shortcut>VkInitializePerformanceApiInfoINTEL</Shortcut>
+      <Description>Code snippet for Vulkan type VkInitializePerformanceApiInfoINTEL</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkInitializePerformanceApiInfoINTEL::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>user_data</ID>
+          <ToolTip>Equivalent to Vulkan member VkInitializePerformanceApiInfoINTEL::pUserData.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::initialize_performance_api_info_intel(
+  /* next */ $next$,
+  /* user_data */ $user_data$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

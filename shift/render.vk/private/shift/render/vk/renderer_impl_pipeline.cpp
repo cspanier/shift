@@ -94,7 +94,7 @@ void renderer_impl::create_pipeline()
     vk::layer1::shader_module compute_shader(
       *_device, vk::shader_module_create_info(
                   /* next */ nullptr,
-                  /* flags */ 0,
+                  /* flags */ {},
                   /* code_size */ compute_shader_resource->storage.size() * 4,
                   /* code */ compute_shader_resource->storage.data()));
 
@@ -291,42 +291,42 @@ void renderer_impl::create_pipeline()
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ vertex_shader_textured_resource->storage.size() * 4,
         /* code */ vertex_shader_textured_resource->storage.data()));
     vk::layer1::shader_module fragment_shader_textured(
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ fragment_shader_textured_resource->storage.size() * 4,
         /* code */ fragment_shader_textured_resource->storage.data()));
     vk::layer1::shader_module vertex_shader_untextured(
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ vertex_shader_untextured_resource->storage.size() * 4,
         /* code */ vertex_shader_untextured_resource->storage.data()));
     vk::layer1::shader_module fragment_shader_untextured(
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ fragment_shader_untextured_resource->storage.size() * 4,
         /* code */ fragment_shader_untextured_resource->storage.data()));
     vk::layer1::shader_module vertex_shader_wireframe(
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ vertex_shader_wireframe_resource->storage.size() * 4,
         /* code */ vertex_shader_wireframe_resource->storage.data()));
     vk::layer1::shader_module fragment_shader_wireframe(
       *_device,
       vk::shader_module_create_info(
         /* next */ nullptr,
-        /* flags */ 0,
+        /* flags */ {},
         /* code_size */ fragment_shader_wireframe_resource->storage.size() * 4,
         /* code */ fragment_shader_wireframe_resource->storage.data()));
 

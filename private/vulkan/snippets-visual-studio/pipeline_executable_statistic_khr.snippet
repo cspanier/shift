@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_executable_statistic_khr</Title>
+      <Shortcut>VkPipelineExecutableStatisticKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineExecutableStatisticKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableStatisticKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableStatisticKHR::name.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>description</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableStatisticKHR::description.</ToolTip>
+          <Default>{}</Default>
+        </Literal>
+        <Literal>
+          <ID>format</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableStatisticKHR::format.</ToolTip>
+          <Default>vk::pipeline_executable_statistic_format_khr::pipeline_executable_statistic_format_bool_32_khr</Default>
+        </Literal>
+        <Literal>
+          <ID>value</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineExecutableStatisticKHR::value.</ToolTip>
+          <Default>vk::pipeline_executable_statistic_value_khr{}</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_executable_statistic_khr(
+  /* next */ $next$,
+  /* name */ $name$,
+  /* description */ $description$,
+  /* format */ $format$,
+  /* value */ $value$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

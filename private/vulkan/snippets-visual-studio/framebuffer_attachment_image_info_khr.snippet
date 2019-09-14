@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>framebuffer_attachment_image_info_khr</Title>
+      <Shortcut>VkFramebufferAttachmentImageInfoKHR</Shortcut>
+      <Description>Code snippet for Vulkan type VkFramebufferAttachmentImageInfoKHR</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::flags.</ToolTip>
+          <Default>vk::image_create_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>usage</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::usage.</ToolTip>
+          <Default>vk::image_usage_flag::none</Default>
+        </Literal>
+        <Literal>
+          <ID>width</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::width.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>height</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::height.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>layer_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::layerCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>view_format_count</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::viewFormatCount.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>view_formats</ID>
+          <ToolTip>Equivalent to Vulkan member VkFramebufferAttachmentImageInfoKHR::pViewFormats.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::framebuffer_attachment_image_info_khr(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* usage */ $usage$,
+  /* width */ $width$,
+  /* height */ $height$,
+  /* layer_count */ $layer_count$,
+  /* view_format_count */ $view_format_count$,
+  /* view_formats */ $view_formats$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

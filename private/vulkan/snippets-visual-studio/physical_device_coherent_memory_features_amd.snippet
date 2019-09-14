@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_coherent_memory_features_amd</Title>
+      <Shortcut>VkPhysicalDeviceCoherentMemoryFeaturesAMD</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDeviceCoherentMemoryFeaturesAMD</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCoherentMemoryFeaturesAMD::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>device_coherent_memory</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDeviceCoherentMemoryFeaturesAMD::deviceCoherentMemory.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_coherent_memory_features_amd(
+  /* next */ $next$,
+  /* device_coherent_memory */ $device_coherent_memory$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

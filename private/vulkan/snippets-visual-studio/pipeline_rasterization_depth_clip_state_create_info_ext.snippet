@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pipeline_rasterization_depth_clip_state_create_info_ext</Title>
+      <Shortcut>VkPipelineRasterizationDepthClipStateCreateInfoEXT</Shortcut>
+      <Description>Code snippet for Vulkan type VkPipelineRasterizationDepthClipStateCreateInfoEXT</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationDepthClipStateCreateInfoEXT::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>flags</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationDepthClipStateCreateInfoEXT::flags.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+        <Literal>
+          <ID>depth_clip_enable</ID>
+          <ToolTip>Equivalent to Vulkan member VkPipelineRasterizationDepthClipStateCreateInfoEXT::depthClipEnable.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::pipeline_rasterization_depth_clip_state_create_info_ext(
+  /* next */ $next$,
+  /* flags */ $flags$,
+  /* depth_clip_enable */ $depth_clip_enable$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

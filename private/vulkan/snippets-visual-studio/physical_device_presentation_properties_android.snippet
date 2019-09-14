@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>physical_device_presentation_properties_android</Title>
+      <Shortcut>VkPhysicalDevicePresentationPropertiesANDROID</Shortcut>
+      <Description>Code snippet for Vulkan type VkPhysicalDevicePresentationPropertiesANDROID</Description>
+      <Author>Christian Spanier</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>next</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevicePresentationPropertiesANDROID::pNext.</ToolTip>
+          <Default>nullptr</Default>
+        </Literal>
+        <Literal>
+          <ID>shared_image</ID>
+          <ToolTip>Equivalent to Vulkan member VkPhysicalDevicePresentationPropertiesANDROID::sharedImage.</ToolTip>
+          <Default>VK_FALSE</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp"><![CDATA[vk::physical_device_presentation_properties_android(
+  /* next */ $next$,
+  /* shared_image */ $shared_image$)$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
