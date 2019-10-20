@@ -191,7 +191,7 @@ class Builder:
         subprocess.check_call(configure_args, env=environment)
 
     #
-    def make(self, env_vars={}):
+    def make(self, env_vars={}, install=False):
         environment = self.setup_env(env_vars)
         make_args = ['make',
                      'CC={}'.format(environment['CC']),
@@ -200,9 +200,10 @@ class Builder:
             make_args.append("CFLAGS={}".format(environment['CFLAGS']))
         if 'CXXFLAGS' in environment:
             make_args.append("CXXFLAGS={}".format(environment['CXXFLAGS']))
-        make_args.extend(['-j{}'.format(multiprocessing.cpu_count()),
-                         'install',
-                          "PREFIX='{}'".format(self.install_prefix)])
+        make_args.append('-j{}'.format(multiprocessing.cpu_count()))
+        if install:
+            make_args.extend(['install',
+                              "PREFIX='{}'".format(self.install_prefix)])
         subprocess.check_call(make_args, env=environment)
 
     #
@@ -268,8 +269,27 @@ class Builder:
     #
     def setup_env(self, env_vars={}):
         environment = os.environ.copy()
+
+        env_var_separator = ';' if self.host_system == 'windows' else ':'
+
+        include = ''
+        if 'INCLUDE' in environment:
+            include = environment['INCLUDE']
+        environment['INCLUDE'] = include + env_var_separator +\
+                                 (self.install_prefix / 'include').as_posix()
+
+        lib = ''
+        if 'LIB' in environment:
+            lib = environment['LIB']
+        environment['LIB'] = lib + env_var_separator +\
+                             (self.install_prefix / 'lib').as_posix()
+
         for key, value in env_vars.items():
-            environment[key] = value
+            if key[0] == '+':
+                key = key[1:]
+                environment[key] = environment[key] + env_var_separator + value
+            else:
+                environment[key] = value
         if self.toolset == 'gcc':
             environment['CC'] = 'gcc'
             environment['CXX'] = 'g++'

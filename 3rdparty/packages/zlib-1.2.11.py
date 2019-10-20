@@ -32,24 +32,6 @@ def build(builder, package_name):
     builder.cmake(build_type='Release')
     builder.cmake_install()
 
-    # builder.make(build_type='Debug', msvs_proj='zlib.vcxproj')
-    # # builder.make(build_type='Debug', msvs_proj='zlibstatic.vcxproj')
-    # builder.install(Path('.'), ['*.so'], Path('bin'))
-    # builder.install(Path('Debug'), ['*.dll'], Path('bin'))
-    # builder.install(Path('.'), ['*.a'], Path('lib'))
-    # builder.install(Path('Debug'), ['*.lib', '*.pdb'], Path('lib'))
-    # builder.install(Path('..'), ['zlib.h'], Path('include'))
-    # builder.install(Path('.'), ['zconf.h'], Path('include'))
-
-    # builder.make(build_type='Release', msvs_proj='zlib.vcxproj')
-    # # builder.make(build_type='Release', msvs_proj='zlibstatic.vcxproj')
-    # builder.install(Path('.'), ['*.so'], Path('bin'))
-    # builder.install(Path('Release'), ['*.dll'], Path('bin'))
-    # builder.install(Path('.'), ['*.a'], Path('lib'))
-    # builder.install(Path('Release'), ['*.lib', '*.pdb'], Path('lib'))
-    # builder.install(Path('..'), ['zlib.h'], Path('include'))
-    # builder.install(Path('.'), ['zconf.h'], Path('include'))
-
 
 def cleanup(builder, package_name):
     builder.remove_folder(package_name)

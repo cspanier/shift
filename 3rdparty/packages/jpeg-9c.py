@@ -5,9 +5,6 @@ import os
 from pathlib import Path
 from build import Builder
 
-import fileinput
-import re
-
 archive_name = ''
 
 
@@ -44,12 +41,11 @@ def build(builder, package_name):
                         destination=Path('include'))
     else:
         builder.configure(args=['--enable-shared', '--enable-static'])
-        builder.make()
+        builder.make(install=True)
 
 
 def cleanup(builder, package_name):
-    #builder.remove_folder(package_name)
-    x = 1
+    builder.remove_folder(package_name)
 
 
 if __name__ == "__main__":

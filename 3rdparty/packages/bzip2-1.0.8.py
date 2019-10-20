@@ -36,7 +36,8 @@ def build(builder, package_name):
         os.link((builder.install_prefix / 'lib' / 'libbz2.lib').as_posix(),
                 (builder.install_prefix / 'lib' / 'bz2.lib').as_posix())
     elif builder.toolset in ('gcc', 'clang'):
-        builder.make(env_vars={'CFLAGS': '-Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -fPIC'})
+        builder.make(env_vars={'CFLAGS': '-Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -fPIC'},
+                     install=True)
 
 
 def cleanup(builder, package_name):
