@@ -5,23 +5,26 @@ import os
 from pathlib import Path
 from build import Builder
 
-archive_name = ''
+package_name = Builder.package_name_from_filename(__file__)
+dependencies = (
+    'zlib-1.2.11',
+    'bzip2-1.0.8',
+    'jpeg-9c',
+    'zstd-be3bd70')
 
 
-def prepare(builder, package_name):
-    global archive_name
+def prepare(builder):
     archive_name = package_name + '.tar.gz'
     builder.download_file(archive_name)
     builder.extract(archive_name)
-    # ToDo: builder.check_file_exists zlib, lzma, jpeg and zstd libraries.
     return True
 
 
-def build(builder, package_name):
+def build(builder):
     os.chdir(package_name)
 
     if builder.toolset.startswith('msvc'):
-        builder.apply_patch(['-p1'], '../{}-nmake.patch'.format(archive_name))
+        builder.apply_patch(['-p1'], '../{}-nmake.patch'.format(package_name))
         builder.nmake(makefile='makefile.vc')
 
         # Manually install files
@@ -48,7 +51,7 @@ def build(builder, package_name):
         builder.make(install=True)
 
 
-def cleanup(builder, package_name):
+def cleanup(builder):
     builder.remove_folder(package_name)
 
 

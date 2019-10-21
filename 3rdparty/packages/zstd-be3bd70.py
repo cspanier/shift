@@ -3,19 +3,20 @@
 import sys
 import os
 from pathlib import Path
+from build import Builder
 
-archive_name = ''
+package_name = Builder.package_name_from_filename(__file__)
+dependencies = ()
 
 
-def prepare(builder, package_name):
-    global archive_name
+def prepare(builder):
     archive_name = package_name + '.zip'
     builder.download_file(archive_name)
     builder.extract(archive_name)
     return True
 
 
-def build(builder, package_name):
+def build(builder):
     os.chdir((Path(package_name) / 'build' / 'cmake').as_posix())
 
     os.mkdir('build', 0o750)
@@ -24,8 +25,8 @@ def build(builder, package_name):
         '-DZSTD_BUILD_CONTRIB=OFF',
         '-DZSTD_BUILD_TESTS=OFF',
         '-DZSTD_BUILD_SHARED=OFF',
-        '-DZSTD_BUILD_STATIC=ON'])
-    builder.cmake_install()
+        '-DZSTD_BUILD_STATIC=ON'],
+                  install=True)
     # Install additional files required to access advanced APIs.
     builder.install(source=Path('../../../lib'),
                     patterns=['deprecated/zbuff.h',
@@ -35,7 +36,7 @@ def build(builder, package_name):
                     destination=Path('include'))
 
 
-def cleanup(builder, package_name):
+def cleanup(builder):
     builder.remove_folder(package_name)
 
 

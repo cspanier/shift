@@ -5,11 +5,12 @@ import os
 from pathlib import Path
 from build import Builder
 
-archive_name = ''
+package_name = Builder.package_name_from_filename(__file__)
+dependencies = ()
 
 
-def prepare(builder, package_name):
-    global archive_name
+def prepare(builder):
+    # There is a special Windows package available with precompiled assembler files and header files in Windows format.
     if builder.host_system == "windows":
         archive_name = 'jpegsr9c.zip'
     else:
@@ -19,13 +20,13 @@ def prepare(builder, package_name):
     return True
 
 
-def build(builder, package_name):
+def build(builder):
     os.chdir(package_name)
 
     if builder.toolset.startswith('msvc'):
         builder.apply_patch(['-p1'], '../jpeg-9c-makefile.patch')
         builder.nmake(makefile='makefile.vc', args=['setup-v15'])
-        builder.apply_patch(['-p1'], '../jpeg-9c-{}}.patch'.format(builder.toolset))
+        builder.apply_patch(['-p1'], '../jpeg-9c-{}.patch'.format(builder.toolset))
         builder.msbuild('jpeg.sln', 'Release')
 
         build_folder = '.'
@@ -44,7 +45,7 @@ def build(builder, package_name):
         builder.make(install=True)
 
 
-def cleanup(builder, package_name):
+def cleanup(builder):
     builder.remove_folder(package_name)
 
 
