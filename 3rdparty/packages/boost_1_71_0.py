@@ -8,10 +8,9 @@ from build import Builder
 import subprocess
 
 package_name = Builder.package_name_from_filename(__file__)
-# ToDo: Add ICU4C to this list
-dependencies = (
-    'zlib-1.2.11',
-    'bzip2-1.0.8')
+dependencies = ('zlib-1.2.11',
+                'bzip2-1.0.8',
+                'icu4c-65_1')
 
 
 def prepare(builder):

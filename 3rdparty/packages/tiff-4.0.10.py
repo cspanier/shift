@@ -6,11 +6,10 @@ from pathlib import Path
 from build import Builder
 
 package_name = Builder.package_name_from_filename(__file__)
-dependencies = (
-    'zlib-1.2.11',
-    'bzip2-1.0.8',
-    'jpeg-9c',
-    'zstd-be3bd70')
+dependencies = ('zlib-1.2.11',
+                'bzip2-1.0.8',
+                'jpeg-9c',
+                'zstd-be3bd70')
 
 
 def prepare(builder):
