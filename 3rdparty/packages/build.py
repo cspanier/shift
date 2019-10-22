@@ -50,10 +50,9 @@ class Builder:
                             default='libstdc++',
                             help='When using Clang this argument selects ' +
                                  'which standard library to use.')
-        parser.add_argument('-i', '--include-dependencies', type=_str2bool,
-                            choices=[True, False],
-                            nargs='?', const=True, default=True,
-                            help="Automatically build package dependencies.")
+        parser.add_argument('-n', '--no-dependencies',
+                            action='store_const', const=True, default=False,
+                            help="Don't automatically build package dependencies.")
         parser.add_argument('packages',
                             choices=self.available_packages,
                             nargs='*',
@@ -80,7 +79,7 @@ class Builder:
                     self.target_platform))
         self.target_system = args.target_system
         self.stdlib = args.stdlib
-        self.include_dependencies = args.include_dependencies
+        self.no_dependencies = args.no_dependencies
         if args.packages:
             self.packages = args.packages
         else:
@@ -145,7 +144,7 @@ class Builder:
                 return True
 
         # Dynamically import source file package.
-        print('Loading package ' + package_name)
+        print('* Loading package ' + package_name)
         spec = importlib.util.spec_from_file_location(package_name,
                                                       package_name + '.py')
         module = importlib.util.module_from_spec(spec)
@@ -155,7 +154,7 @@ class Builder:
         # If dependencies contains only a string pack it into a list.
         if isinstance(module.dependencies, str):
             module.dependencies = [module.dependencies]
-        if self.include_dependencies:
+        if not self.no_dependencies:
             # Recursively load all dependencies.
             for dependency in module.dependencies:
                 self._load_package(package_modules, dependency)
@@ -190,7 +189,7 @@ class Builder:
                                 change_package_order = True
                                 break
                         j += 1
-                    if not dependency_found and self.include_dependencies:
+                    if not dependency_found and not self.no_dependencies:
                         raise RuntimeError('Cannot find dependency "{}" of package "{}"'.format(dependency,
                                                                                                 source_package_name))
                 if change_package_order:
@@ -215,7 +214,8 @@ class Builder:
     def download_file(filename):
         if not os.path.exists(filename):
             try:
-                print('* Downloading archive "{}" ...'.format(filename), end=' ')
+                print('* Downloading archive "{}" ...'.format(filename),
+                      end=' ', flush=True)
                 urllib.request.urlretrieve(
                     'https://boxie.eu/3rdparty/{}'.format(filename),
                     filename,
@@ -229,7 +229,8 @@ class Builder:
     def extract(filename):
         Builder.check_file_exists(filename)
         try:
-            print('* Extracting archive "{}" ...'.format(filename), end=' ')
+            print('* Extracting archive "{}" ...'.format(filename),
+                  end=' ', flush=True)
             file_name, file_extension = os.path.splitext(filename)
             if file_extension.lower() == '.zip':
                 with zipfile.ZipFile(filename, 'r') as zip_ref:
@@ -343,7 +344,8 @@ class Builder:
     def remove_folder(path):
         if os.path.exists(path) and os.path.isdir(path):
             try:
-                print('* Removing folder "' + path + '" ...', end=' ')
+                print('* Removing folder "' + path + '" ...',
+                      end=' ', flush=True)
                 shutil.rmtree(path)
                 print('OK')
             except Exception:
@@ -353,6 +355,10 @@ class Builder:
     #
     def setup_env(self, env_vars={}):
         environment = os.environ.copy()
+
+        # Eventually fix PWD variable
+        if 'PWD' in environment:
+            environment['PWD'] = Path.cwd().as_posix()
 
         env_var_separator = ';' if self.host_system == 'windows' else ':'
 
@@ -459,23 +465,12 @@ class Builder:
     target_platform_bits = 64
     target_system = ''
     stdlib = 'libstdc++'
-    include_dependencies = True
+    no_dependencies = False
     packages = []
     cmake_generator = 'Ninja'
     cmake_generator_platform = ''
     install_prefix = Path('.')
     _patch = 'patch'
-
-
-def _str2bool(v):
-    if isinstance(v, bool):
-       return v
-    if v.lower() in ('yes', 'true'):
-        return True
-    elif v.lower() in ('no', 'false'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
 if __name__ == "__main__":
