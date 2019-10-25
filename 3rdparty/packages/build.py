@@ -203,7 +203,6 @@ class Builder:
                         if dependency == other_package_name:
                             dependency_found = True
                             if source_index < j:
-                                print('# Building {} after {}'.format(source_package_name, other_package_name))
                                 target_index = max(target_index, j)
                                 change_package_order = True
                                 break
@@ -217,9 +216,13 @@ class Builder:
                     break
                 source_index += 1
 
+        print('* Build order:', end=' ')
+        for package_name, module in package_modules:
+            print(package_name, end=' ')
+
+        pwd = os.getcwd()
         for package_name, module in package_modules:
             print('* Building package ' + package_name)
-            pwd = os.getcwd()
             try:
                 module.cleanup(self)
                 if module.prepare(self):
