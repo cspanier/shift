@@ -219,6 +219,7 @@ class Builder:
         print('* Build order:', end=' ')
         for package_name, module in package_modules:
             print(package_name, end=' ')
+        print()
 
         pwd = os.getcwd()
         for package_name, module in package_modules:

@@ -39,7 +39,7 @@ def build(builder):
         os.link(source.as_posix(), target.as_posix())
     elif builder.toolset in ('gcc', 'clang'):
         builder.make(env_vars={'CFLAGS': '-Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -fPIC'},
-                     install=True)
+                     env_as_args=True, install=True)
 
 
 def cleanup(builder):
