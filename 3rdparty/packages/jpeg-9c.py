@@ -15,7 +15,6 @@ def prepare(builder):
         archive_name = 'jpegsr9c.zip'
     else:
         archive_name = 'jpegsrc.v9c.tar.gz'
-    builder.download_file(archive_name)
     builder.extract(archive_name)
     return True
 

@@ -14,7 +14,6 @@ dependencies = ('zlib-1.2.11',
 
 def prepare(builder):
     archive_name = package_name + '.tar.bz2'
-    builder.download_file(archive_name)
     builder.extract(archive_name)
     return True
 

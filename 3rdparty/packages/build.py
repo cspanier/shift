@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
-
 import errno
 import os
 import platform
 import multiprocessing
 import re
-import io
-from contextlib import contextmanager
 import glob
 from pathlib import Path
 import subprocess
@@ -53,6 +50,14 @@ class Builder:
         parser.add_argument('-n', '--no-dependencies',
                             action='store_const', const=True, default=False,
                             help="Don't automatically build package dependencies.")
+        parser.add_argument('-k', '--keep-temporary-files',
+                            action='store_const', const=True, default=False,
+                            help="Don't delete temporary build folders after use. This may be useful for debugging.")
+        parser.add_argument('-m', '--mirror', default=self.mirror,
+                            help='URL of Server where to download missing files from.')
+        if self.host_system == 'windows':
+            parser.add_argument('--cygwin', default=self._detect_cygwin(),
+                                help='The installation folder of Cygwin, which is required to build certain packages.')
         parser.add_argument('packages',
                             choices=self.available_packages,
                             nargs='*',
@@ -79,6 +84,12 @@ class Builder:
                     self.target_platform))
         self.target_system = args.target_system
         self.stdlib = args.stdlib
+        self.keep_temporary_files = args.keep_temporary_files
+
+        self.mirror = args.mirror[0]
+        if not self.mirror.endswith('/'):
+            self.mirror = self.mirror + '/'
+
         self.no_dependencies = args.no_dependencies
         if args.packages:
             self.packages = args.packages
@@ -88,6 +99,14 @@ class Builder:
             self.target_platform,
             self.target_system,
             toolset_prefix))
+        if self.host_system == 'windows':
+            self.cygwin = Path(args.cygwin)
+            if not self.cygwin.exists():
+                raise RuntimeError('Cygwin must be installed.')
+            if not (self.cygwin / 'bin' / 'make.exe').exists():
+                raise RuntimeError('The GNU make Cygwin package must be installed.')
+            if not (self.cygwin / 'bin' / 'link.exe').exists():
+                raise RuntimeError('The binutils Cygwin package must be installed.')
 
         if self.toolset == 'gcc':
             self.cmake_generator = 'Ninja'
@@ -205,28 +224,17 @@ class Builder:
                 module.cleanup(self)
                 if module.prepare(self):
                     module.build(self)
+            except Exception:
+                input('Press ENTER to resume. You may use this pause to further investigate the error.')
+                raise
             finally:
                 os.chdir(pwd)
-                module.cleanup(self)
+                if not self.keep_temporary_files:
+                    module.cleanup(self)
 
     #
-    @staticmethod
-    def download_file(filename):
-        if not os.path.exists(filename):
-            try:
-                print('* Downloading archive "{}" ...'.format(filename),
-                      end=' ', flush=True)
-                urllib.request.urlretrieve(
-                    'https://boxie.eu/3rdparty/{}'.format(filename),
-                    filename,
-                    Builder._show_download_progress)
-            except Exception:
-                print('FAILED')
-                raise
-
-    #
-    @staticmethod
-    def extract(filename):
+    def extract(self, filename: Path):
+        self._download_file(filename)
         Builder.check_file_exists(filename)
         try:
             print('* Extracting archive "{}" ...'.format(filename),
@@ -245,6 +253,7 @@ class Builder:
 
     #
     def apply_patch(self, args, filename: Path):
+        self._download_file(filename)
         patch_args = [self._patch]
         patch_args.extend(args)
         subprocess.run(patch_args, input=str.encode(Path(filename).resolve().read_text()))
@@ -278,17 +287,24 @@ class Builder:
         subprocess.check_call(configure_args, env=environment)
 
     #
-    def make(self, env_vars={}, install=False):
+    def make(self, env_vars={}, args=[], env_as_args=False, parallel=True, install=False, verbose=False):
         environment = self.setup_env(env_vars)
-        make_args = ['make',
-                     'CC={}'.format(environment['CC']),
-                     'CXX={}'.format(environment['CXX']),
-                     'CFLAGS={}'.format(environment.get('CFLAGS', '')),
-                     'CXXFLAGS={}'.format(environment.get('CXXFLAGS', '')),
-                     '-j{}'.format(multiprocessing.cpu_count())]
+        if self.host_system == 'windows':
+            make_path = (builder.cygwin / 'bin' / 'make.exe').as_posix()
+        else:
+            make_path = 'make'
+        make_args = [make_path, '-j{}'.format(multiprocessing.cpu_count() if parallel else 1)]
+        if env_as_args:
+            make_args.extend(['CC={}'.format(environment.get('CC', '')),
+                              'CXX={}'.format(environment.get('CXX', '')),
+                              'CFLAGS={}'.format(environment.get('CFLAGS', '')),
+                              'CXXFLAGS={}'.format(environment.get('CXXFLAGS', ''))])
         if install:
             make_args.extend(['install',
                               "PREFIX='{}'".format(self.install_prefix)])
+        if verbose:
+            make_args.append('VERBOSE=1')
+        make_args.extend(args)
         subprocess.check_call(make_args, env=environment)
 
     #
@@ -328,7 +344,7 @@ class Builder:
                 os.makedirs(destination_folder, mode=0o755, exist_ok=True)
                 destination_path = destination_folder / source_file.name
                 print('* Installing {} -> {}'.format(source_path.as_posix(),
-                                                  destination_path.as_posix()))
+                                                     destination_path.as_posix()))
                 shutil.copyfile(source_path.as_posix(),
                                 destination_path.as_posix())
 
@@ -365,14 +381,32 @@ class Builder:
         include = ''
         if 'INCLUDE' in environment:
             include = environment['INCLUDE']
-        environment['INCLUDE'] = include + env_var_separator +\
+        environment['INCLUDE'] = include + env_var_separator + \
                                  (self.install_prefix / 'include').as_posix()
 
         lib = ''
         if 'LIB' in environment:
             lib = environment['LIB']
-        environment['LIB'] = lib + env_var_separator +\
+        environment['LIB'] = lib + env_var_separator + \
                              (self.install_prefix / 'lib').as_posix()
+
+        if self.cygwin:
+            path = ''
+            if 'PATH' in environment:
+                path = environment['PATH']
+            environment['PATH'] = path + env_var_separator + \
+                                  (self.cygwin / 'bin').as_posix()
+
+        if self.toolset == 'gcc':
+            environment['CC'] = 'gcc'
+            environment['CXX'] = 'g++'
+        elif self.toolset == 'clang':
+            environment['CC'] = 'clang'
+            environment['CXX'] = 'clang++'
+            environment['CXXFLAGS'] = '{} -stdlib={}'.format(environment.get('CXXFLAGS', ''), self.stdlib)
+        elif self.toolset.startswith('msvc'):
+            environment['CC'] = 'cl'
+            environment['CXX'] = 'cl'
 
         for key, value in env_vars.items():
             if key[0] == '+':
@@ -380,13 +414,7 @@ class Builder:
                 environment[key] = environment[key] + env_var_separator + value
             else:
                 environment[key] = value
-        if self.toolset == 'gcc':
-            environment['CC'] = 'gcc'
-            environment['CXX'] = 'g++'
-        elif self.toolset == 'clang':
-            environment['CC'] = 'clang'
-            environment['CXX'] = 'clang++'
-            cxx_flags = '{} -stdlib={}'.format(environment.get('CXXFLAGS', ''), self.stdlib)
+
         environment['BUILD_PREFIX'] = self.install_prefix.as_posix()
         return environment
 
@@ -396,7 +424,8 @@ class Builder:
         except Exception:
             return False
 
-        pattern = re.compile('Microsoft \\(R\\) C/C\\+\\+ Optimizing Compiler Version (19).(2[0-9]).([0-9]+).([0-9]) for (x86|x64)')
+        pattern = re.compile(
+            'Microsoft \\(R\\) C/C\\+\\+ Optimizing Compiler Version (19).(2[0-9]).([0-9]+).([0-9]) for (x86|x64)')
         match = pattern.match(output)
         if not match:
             return False
@@ -447,6 +476,29 @@ class Builder:
 
     #
     @staticmethod
+    def _detect_cygwin():
+        folder = Path('/c/Cygwin64')
+        if folder.exists():
+            return folder.as_posix()
+        folder = Path('/c/Cygwin')
+        if folder.exists():
+            return folder.as_posix()
+        return ''
+
+    #
+    def _download_file(self, filename: Path):
+        if not os.path.exists(filename):
+            try:
+                url = '{}{}'.format(self.mirror, filename.name())
+                print('* Downloading archive "{}" ...'.format(url),
+                      end=' ', flush=True)
+                urllib.request.urlretrieve(url, filename, Builder._show_download_progress)
+            except Exception:
+                print('FAILED')
+                raise
+
+    #
+    @staticmethod
     def _show_download_progress(block_num, block_size, total_size):
         downloaded = block_num * block_size
         if block_num != 0:
@@ -469,7 +521,10 @@ class Builder:
     packages = []
     cmake_generator = 'Ninja'
     cmake_generator_platform = ''
-    install_prefix = Path('.')
+    install_prefix = Path('.').resolve()
+    mirror = 'https://boxie.eu/3rdparty/',
+    keep_temporary_files = False
+    cygwin = None
     _patch = 'patch'
 
 

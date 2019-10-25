@@ -11,7 +11,6 @@ dependencies = ()
 
 def prepare(builder):
     archive_name = package_name + '.zip'
-    builder.download_file(archive_name)
     builder.extract(archive_name)
     return True
 
