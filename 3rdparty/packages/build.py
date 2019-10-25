@@ -5,7 +5,6 @@ import os
 import platform
 import multiprocessing
 import re
-import glob
 from pathlib import Path
 import subprocess
 import argparse
@@ -21,12 +20,8 @@ class Builder:
     def __init__(self):
         self.host_system = platform.system().lower()
 
-        if self.host_system == 'windows':
-            # Find external dependencies from GNUWin32
-            self._patch = Path('../gnuwin32/patch.exe').resolve().as_posix()
-
         # Find available packages.
-        for filename in glob.glob("*.py"):
+        for filename in Path.cwd().glob("*.py"):
             if filename != 'build.py':
                 self.available_packages.append(self.package_name_from_filename(filename))
 
@@ -56,7 +51,7 @@ class Builder:
         parser.add_argument('-m', '--mirror', default=self.mirror,
                             help='URL of Server where to download missing files from.')
         if self.host_system == 'windows':
-            parser.add_argument('--cygwin', default=self._detect_cygwin(),
+            parser.add_argument('--cygwin', default=self._detect_cygwin().as_posix(),
                                 help='The installation folder of Cygwin, which is required to build certain packages.')
         parser.add_argument('packages',
                             choices=self.available_packages,
@@ -107,6 +102,9 @@ class Builder:
                 raise RuntimeError('The GNU make Cygwin package must be installed.')
             if not (self.cygwin / 'bin' / 'link.exe').exists():
                 raise RuntimeError('The binutils Cygwin package must be installed.')
+            if not (self.cygwin / 'bin' / 'patch.exe').exists():
+                raise RuntimeError('The patch Cygwin package must be installed.')
+            self._patch = self.cygwin / 'bin' / 'patch.exe'
 
         if self.toolset == 'gcc':
             self.cmake_generator = 'Ninja'
@@ -228,7 +226,8 @@ class Builder:
                 module.cleanup(self)
                 if module.prepare(self):
                     module.build(self)
-            except Exception:
+            except Exception as ex:
+                print(ex)
                 input('Press ENTER to resume. You may use this pause to further investigate the error.')
                 raise
             finally:
@@ -238,6 +237,7 @@ class Builder:
 
     #
     def extract(self, filename: Path):
+        filename = Path(filename)
         self._download_file(filename)
         Builder.check_file_exists(filename)
         try:
@@ -257,7 +257,9 @@ class Builder:
 
     #
     def apply_patch(self, args, filename: Path):
+        filename = Path(filename)
         self._download_file(filename)
+
         patch_args = [self._patch]
         patch_args.extend(args)
         subprocess.run(patch_args, input=str.encode(Path(filename).resolve().read_text()))
@@ -294,7 +296,7 @@ class Builder:
     def make(self, env_vars={}, args=[], env_as_args=False, parallel=True, install=False, verbose=False):
         environment = self.setup_env(env_vars)
         if self.host_system == 'windows':
-            make_path = (builder.cygwin / 'bin' / 'make.exe').as_posix()
+            make_path = builder.cygwin / 'bin' / 'make.exe'
         else:
             make_path = 'make'
         make_args = [make_path, '-j{}'.format(multiprocessing.cpu_count() if parallel else 1)]
@@ -354,23 +356,38 @@ class Builder:
 
     #
     @staticmethod
-    def check_file_exists(filename):
-        if not os.path.exists(filename):
+    def dos2unix(patterns=[]):
+        for pattern in patterns:
+            for filename in Path.cwd().glob(pattern):
+                with open(filename.as_posix(), 'rb') as file:
+                    file_data = file.read()
+                file_data = file_data.replace(b'\r\n', b'\n')
+                with open(filename.as_posix(), 'wb') as file:
+                    file.write(file_data)
+
+    #
+    @staticmethod
+    def check_file_exists(filename: Path):
+        filename = Path(filename)
+        if not filename.exists():
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT),
                                     filename)
 
     #
     @staticmethod
-    def remove_folder(path):
-        if os.path.exists(path) and os.path.isdir(path):
+    def remove_folder(path: Path, exit_on_error=False):
+        path = Path(path)
+        if path.exists() and path.is_dir():
             try:
-                print('* Removing folder "' + path + '" ...',
+                print('* Removing folder {} ...'.format(path),
                       end=' ', flush=True)
-                shutil.rmtree(path)
+                shutil.rmtree(path.as_posix())
                 print('OK')
-            except Exception:
+            except Exception as ex:
                 print('FAILED')
-                raise
+                print(ex)
+                if exit_on_error:
+                    raise
 
     #
     def setup_env(self, env_vars={}):
@@ -481,19 +498,20 @@ class Builder:
     #
     @staticmethod
     def _detect_cygwin():
-        folder = Path('/c/Cygwin64')
+        folder = Path('c:/cygwin64')
         if folder.exists():
-            return folder.as_posix()
-        folder = Path('/c/Cygwin')
+            return folder
+        folder = Path('c:/cygwin')
         if folder.exists():
-            return folder.as_posix()
-        return ''
+            return folder
+        return Path()
 
     #
     def _download_file(self, filename: Path):
-        if not os.path.exists(filename):
+        filename = Path(filename)
+        if not filename.exists():
             try:
-                url = '{}{}'.format(self.mirror, filename.name())
+                url = '{}{}'.format(self.mirror, filename.name)
                 print('* Downloading archive "{}" ...'.format(url),
                       end=' ', flush=True)
                 urllib.request.urlretrieve(url, filename, Builder._show_download_progress)

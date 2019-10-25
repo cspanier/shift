@@ -54,14 +54,15 @@ def build(builder):
 
         # Convert Windows path to Cygwin path.
         install_prefix = re.sub(r'(.):/(.*)', r'/cygdrive/\1/\2', builder.install_prefix.as_posix())
-        subprocess.check_call([(builder.cygwin / 'bin' / 'bash').as_posix(), 'runConfigureICU', 'Cygwin/MSVC',
-                               common_configure_args,
-                               '--prefix={}'.format(install_prefix)],
-                              env=environment)
+
+        configure_args = [(builder.cygwin / 'bin' / 'bash.exe').as_posix(), 'runConfigureICU', 'Cygwin/MSVC',
+                          '--prefix={}'.format(install_prefix)]
+        configure_args.extend(common_configure_args)
+        subprocess.check_call(configure_args, env=environment)
 
         # Replace linker parameter '-o' to '/out' in all Makefiles.
         for filename in Path('.').glob('**/Makefile'):
-            print(filename)
+            print('* Patching compiler flags in file {}'.format(filename))
             with open(filename.as_posix(), 'r') as file:
                 file_data = file.read()
             file_data = re.sub(r'(\$\(LINK\.cc\).*) -o (.*)', r'\1 /OUT:\2', file_data)

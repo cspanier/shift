@@ -23,8 +23,10 @@ def build(builder):
     os.chdir(package_name)
 
     if builder.toolset.startswith('msvc'):
+        builder.dos2unix(['**/makefile*'])
         builder.apply_patch(['-p1'], '../jpeg-9c-makefile.patch')
         builder.nmake(makefile='makefile.vc', args=['setup-v15'])
+        builder.dos2unix(['**/*.vcxproj', '**/*.sln'])
         builder.apply_patch(['-p1'], '../jpeg-9c-{}.patch'.format(builder.toolset))
         builder.msbuild('jpeg.sln', 'Release')
 
