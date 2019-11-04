@@ -10,6 +10,11 @@ option(CLANG_SANITIZER_ADDRESS
 option(CLANG_SANITIZER_UNDEFINED
   "Enables use of LLVM's undefined behavior sanitizer.")
 
+if (NOT CMAKE_TOOLCHAIN_FILE OR NOT EXISTS "${CMAKE_TOOLCHAIN_FILE}")
+  message(FATAL_ERROR "You must set CMAKE_TOOLCHAIN_FILE to one of the "
+                      "Toolchain* files available in the cmake folder.")
+endif()
+
 # Specifies a CMake file that overrides platform information. It is loaded after
 # CMake’s builtin compiler and platform information modules have been loaded but
 # before the information is used. The file may set platform information
@@ -131,32 +136,14 @@ if(NOT BOOST_ROOT)
   set(BOOST_ROOT "${CMAKE_FIND_ROOT_PATH}")
 endif()
 set(Boost_DEBUG OFF)
+set(Boost_NO_BOOST_CMAKE ON)
+set(Boost_NO_SYSTEM_PATHS ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+set(Boost_LIBRARY_DIR "${CMAKE_PREFIX_PATH}/lib")
 set(Boost_ADDITIONAL_VERSIONS "${Boost_VERSION}" "${Boost_VERSION}.0")
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-  # # ToDo: Is this still needed with the latest version of cmake?
-  # if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.10)
-  #   set(Boost_COMPILER "-vc141")
-  #   message(STATUS "Fixing Boost_COMPILER=${Boost_COMPILER}")
-  # elseif (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19)
-  #   set(Boost_COMPILER "-vc140")
-  #   message(STATUS "Fixing Boost_COMPILER=${Boost_COMPILER}")
-  # elseif(NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 18)
-  #   set(Boost_COMPILER "-vc120")
-  #   message(STATUS "Fixing Boost_COMPILER=${Boost_COMPILER}")
-  # endif()
-elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-  # if (MSVC)
-  #   set(Boost_COMPILER "-vc141")
-  #   message(STATUS "Fixing Boost_COMPILER=${Boost_COMPILER}")
-  # else()
-  #   # ToDo: Why isn't clang automatically detected?
-  #   set(Boost_COMPILER "-clang${CLANG_VERSION_MAJOR}${CLANG_VERSION_MINOR}")
-  # endif()
-endif()
 if("${SHIFT_SYSTEM_PROCESSOR}" MATCHES "^ARM.*")
   set(BOOST_THREAD "thread")
 endif()

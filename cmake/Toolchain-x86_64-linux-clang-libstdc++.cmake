@@ -15,3 +15,6 @@ set(CMAKE_SYSTEM_PROCESSOR x86_64)
 # set(CMAKE_SYSTEM_NAME Linux)
 
 set(SHIFT_PLATFORM_LINUX TRUE)
+
+# Select standard library to use. This may be either Clang's libc++ or GCC's libstdc++.
+set(SHIFT_CLANG_STDLIB libstdc++)

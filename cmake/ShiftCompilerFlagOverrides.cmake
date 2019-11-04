@@ -27,7 +27,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT MSVC)
   # -Wextra                 # Enables additional warnings not included in
                             # -Wall.
   # -Wno-ignored-attributes # ToDo: add description
-  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -ftemplate-backtrace-limit=0 -fvisibility=default -fPIC -Wall -msse3 -msse4.1 -ftemplate-depth=512 -Wno-ignored-attributes") # -stdlib=libc++ -fvisibility=hidden -fvisibility-inlines-hidden
+  set(CMAKE_CXX_FLAGS_INIT "-std=c++17 -stdlib=${SHIFT_CLANG_STDLIB} -ftemplate-backtrace-limit=0 -fvisibility=default -fPIC -Wall -msse3 -msse4.1 -ftemplate-depth=512 -Wno-ignored-attributes") # -fvisibility=hidden -fvisibility-inlines-hidden
   # Temporarily disable redeclared-class-member warning for Boost 1.59
   # set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -Wno-redeclared-class-member")
   set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g -fno-omit-frame-pointer -DBUILD_CONFIG_DEBUG")
